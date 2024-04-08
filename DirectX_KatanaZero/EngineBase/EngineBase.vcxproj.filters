@@ -7,6 +7,9 @@
     <Filter Include="IO">
       <UniqueIdentifier>{191eadaa-6316-42fb-a806-3ccbbbc1a38d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{172fa6b0-5b09-4dbb-b87d-24b9cc88f9ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h">
@@ -24,6 +27,15 @@
     <ClInclude Include="EngineSerializer.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="EngineMath.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineRandom.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -40,6 +52,15 @@
     </ClCompile>
     <ClCompile Include="EngineSerializer.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMath.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineRandom.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -153,11 +153,23 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineMath.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EnginePath.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineRandom.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineSerializer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -175,11 +187,23 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineMath.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EnginePath.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineRandom.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineSerializer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
       <SubType>
       </SubType>
     </ClCompile>
