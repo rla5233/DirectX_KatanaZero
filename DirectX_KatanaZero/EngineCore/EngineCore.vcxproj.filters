@@ -7,6 +7,15 @@
     <Filter Include="Device">
       <UniqueIdentifier>{3bf931fe-ea11-4bd0-bfb7-ac911c2d6e89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{a2163336-94fd-4df9-8352-28675666676a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Actor">
+      <UniqueIdentifier>{279a0e39-b39a-4d92-b34d-f47d5cfa1271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Actor\GameMode">
+      <UniqueIdentifier>{36e0852e-17d0-412a-a0bc-9b5678b0c7db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -24,6 +33,12 @@
     <ClInclude Include="EngineGraphicDevice.h">
       <Filter>Device</Filter>
     </ClInclude>
+    <ClInclude Include="GameMode.h">
+      <Filter>Object\Actor\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -40,6 +55,12 @@
     </ClCompile>
     <ClCompile Include="EngineGraphicDevice_Resources.cpp">
       <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode.cpp">
+      <Filter>Object\Actor\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Object\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

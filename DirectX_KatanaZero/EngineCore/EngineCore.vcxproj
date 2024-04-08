@@ -155,6 +155,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="DirectXHelper.h">
       <SubType>
       </SubType>
@@ -172,8 +176,16 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="DirectXHelper.cpp">
       <SubType>
       </SubType>
@@ -188,6 +200,10 @@
     </ClCompile>
     <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
     <ClCompile Include="EngineOption.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
