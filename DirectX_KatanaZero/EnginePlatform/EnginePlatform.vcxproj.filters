@@ -4,15 +4,24 @@
     <Filter Include="Input">
       <UniqueIdentifier>{fd4701e5-cdf7-4a2a-9bba-6867295b3879}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PreCompile">
+      <UniqueIdentifier>{9b6b31fa-3486-494a-bf00-a9c3a3c594c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInput.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="PreCompile.h">
+      <Filter>PreCompile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineInput.cpp">
       <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="PreCompile.cpp">
+      <Filter>PreCompile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
