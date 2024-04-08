@@ -22,6 +22,12 @@
     <Filter Include="Object\EngineContent">
       <UniqueIdentifier>{ef19d0b9-5306-43c5-98ff-a0b7c99229db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Rendering">
+      <UniqueIdentifier>{d6666a79-b5b7-43c5-8db2-439fe837d0f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering\Component">
+      <UniqueIdentifier>{0f1d2e62-18b8-4d6a-8b24-4724c8c22a90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -54,6 +60,15 @@
     <ClInclude Include="DefaultSceneComponent.h">
       <Filter>Object\EngineContent</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Object\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -85,6 +100,15 @@
     </ClCompile>
     <ClCompile Include="DefaultSceneComponent.cpp">
       <Filter>Object\EngineContent</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Object\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
