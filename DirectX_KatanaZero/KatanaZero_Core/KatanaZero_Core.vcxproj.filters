@@ -1,2 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="PreCompile">
+      <UniqueIdentifier>{c258b258-c36b-4ff4-84a7-7c8fb19eef35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{12885f26-eccb-4a8b-8c24-b2fe5bb59317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{c8c12355-391b-47b0-bbe6-747105546d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.TitleLevel">
+      <UniqueIdentifier>{9aba6e4e-866e-4051-8402-38560234960d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.TitleLevel\Object">
+      <UniqueIdentifier>{512f81c4-0ac1-4b5f-87e0-6d9bcf772353}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="KatanaZero_Core.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PreCompile.h">
+      <Filter>PreCompile</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <Filter>Level\000.TitleLevel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="KatanaZero_Core.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PreCompile.cpp">
+      <Filter>PreCompile</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <Filter>Level\000.TitleLevel</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
