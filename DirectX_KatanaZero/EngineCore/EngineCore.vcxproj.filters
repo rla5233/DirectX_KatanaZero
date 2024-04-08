@@ -28,6 +28,9 @@
     <Filter Include="Object\Rendering\Component">
       <UniqueIdentifier>{0f1d2e62-18b8-4d6a-8b24-4724c8c22a90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PreCompile">
+      <UniqueIdentifier>{74ce7c63-fe04-432c-a800-997ad7905a3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -78,6 +81,9 @@
     <ClInclude Include="WorldObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="PreCompile.h">
+      <Filter>PreCompile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -127,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="WorldObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PreCompile.cpp">
+      <Filter>PreCompile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
