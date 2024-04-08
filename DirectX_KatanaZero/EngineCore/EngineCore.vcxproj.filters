@@ -16,6 +16,9 @@
     <Filter Include="Object\Actor\GameMode">
       <UniqueIdentifier>{36e0852e-17d0-412a-a0bc-9b5678b0c7db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component">
+      <UniqueIdentifier>{0407769b-176a-460d-8811-c5afa0f3f0c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -39,6 +42,12 @@
     <ClInclude Include="Actor.h">
       <Filter>Object\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="ActorComponent.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneComponent.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -61,6 +70,12 @@
     </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorComponent.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneComponent.cpp">
+      <Filter>Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
