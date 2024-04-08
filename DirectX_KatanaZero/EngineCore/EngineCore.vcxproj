@@ -155,21 +155,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DirectXHelper.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineCore.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="EngineEnums.h" />
+    <ClInclude Include="EngineGraphicDevice.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineOption.h">
       <SubType>
       </SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DirectXHelper.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineCore.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineGraphicDevice.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
     <ClCompile Include="EngineOption.cpp">
       <SubType>
       </SubType>
