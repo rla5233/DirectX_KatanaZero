@@ -13,6 +13,9 @@
     <Filter Include="Object">
       <UniqueIdentifier>{82de1cd4-161e-462d-87b9-93d7204535e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PreCompile">
+      <UniqueIdentifier>{942f758c-c665-46e5-8be8-48218c492fda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h">
@@ -48,6 +51,9 @@
     <ClInclude Include="TransformObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="PreCompile.h">
+      <Filter>PreCompile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -82,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="TransformObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PreCompile.cpp">
+      <Filter>PreCompile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
