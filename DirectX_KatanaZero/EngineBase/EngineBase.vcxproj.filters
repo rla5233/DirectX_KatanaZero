@@ -19,6 +19,9 @@
     <Filter Include="String">
       <UniqueIdentifier>{a8808e2e-5567-4227-a401-3dfe0ccc0516}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{c5550f75-08e0-4619-bf53-c05a95a8fe16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h">
@@ -60,6 +63,9 @@
     <ClInclude Include="EngineString.h">
       <Filter>String</Filter>
     </ClInclude>
+    <ClInclude Include="EngineTime.h">
+      <Filter>Time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -100,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="EngineString.cpp">
       <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTime.cpp">
+      <Filter>Time</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
