@@ -49,6 +49,21 @@
     <Filter Include="Resources\Texture">
       <UniqueIdentifier>{8c116204-2f1c-4d5c-997e-87e888b0d4ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{690b18f4-bb46-4c85-a076-5a6971ddab05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex">
+      <UniqueIdentifier>{63e91109-165f-48a3-97e6-2e3585544152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\Debug">
+      <UniqueIdentifier>{5d6f05f8-ba22-4c6e-876d-d2e069eeb0b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\inc">
+      <UniqueIdentifier>{415d5b89-b7cf-4416-95e0-ba5a2548b6ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\Release">
+      <UniqueIdentifier>{2b7aff07-bd37-4416-a29e-1a01c7224f26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -155,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="EngineTexture.h">
       <Filter>Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h">
+      <Filter>ThirdParty\DirectXTex\inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,5 +281,24 @@
     <ClCompile Include="EngineTexture.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ThirdParty\DirectxTex\inc\DirectXTex.inl">
+      <Filter>ThirdParty\DirectXTex\inc</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Release\DirectXTex.pdb">
+      <Filter>ThirdParty\DirectXTex\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Release\DirectXTex.lib">
+      <Filter>ThirdParty\DirectXTex\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.pdb">
+      <Filter>ThirdParty\DirectXTex\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib">
+      <Filter>ThirdParty\DirectXTex\Debug</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
