@@ -240,11 +240,27 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineRenderTarget.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineSampler.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineShader.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="EngineShaderResources.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineSprite.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineTexture.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -363,11 +379,27 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineRenderTarget.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineSampler.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineShader.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineShaderResources.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineSprite.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineTexture.cpp">
       <SubType>
       </SubType>
     </ClCompile>
