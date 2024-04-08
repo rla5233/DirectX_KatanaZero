@@ -43,6 +43,9 @@
     <Filter Include="Resources\Shader">
       <UniqueIdentifier>{d294c469-662c-4065-8677-c5166581a5ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\ShaderResources">
+      <UniqueIdentifier>{20d7e6f4-e9d8-403f-a3df-8c486a7f9e7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -132,6 +135,12 @@
     <ClInclude Include="EngineVertexShader.h">
       <Filter>Resources\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="EngineConstantBuffer.h">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineShaderResources.h">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -220,6 +229,12 @@
     </ClCompile>
     <ClCompile Include="EngineVertexShader.cpp">
       <Filter>Resources\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineConstantBuffer.cpp">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineShaderResources.cpp">
+      <Filter>Resources\ShaderResources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
