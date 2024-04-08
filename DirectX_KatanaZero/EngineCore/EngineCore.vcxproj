@@ -228,7 +228,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EnginePixelShader.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineRasterizer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineShader.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -237,6 +245,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="EngineVertexBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineVertexShader.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -331,7 +343,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EnginePixelShader.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineRasterizer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineShader.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -340,6 +360,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineVertexBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineVertexShader.cpp">
       <SubType>
       </SubType>
     </ClCompile>
