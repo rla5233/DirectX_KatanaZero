@@ -6,3 +6,10 @@ enum class ETitleState
 	Intro,
 	Select
 };
+
+enum class ERenderOrder
+{
+	None,
+	BackGround,
+	Player
+};

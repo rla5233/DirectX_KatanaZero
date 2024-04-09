@@ -16,6 +16,16 @@ public:
 	APlayerBase& operator=(const APlayerBase& _Other) = delete;
 	APlayerBase& operator=(APlayerBase&& _Other) noexcept = delete;
 
+	inline void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
+
+	inline USpriteRenderer* GetRenderer() const
+	{
+		return Renderer;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -27,5 +37,8 @@ private:
 private:
 	UStateManager State;
 	void StateInit();
+
+	void IdleStart();
+	void Idle(float _DeltaTime);
 };
 

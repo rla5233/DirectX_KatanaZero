@@ -20,6 +20,7 @@ void AFactory_004::BeginPlay()
 	std::shared_ptr<ABackGroundObject> BackGround = GetWorld()->SpawnActor<ABackGroundObject>("BackGround");
 	BackGround->SetSprite(ImgRes::factory_background4);
 	BackGround->SetSpriteScale({ 1950.0f, 1400.0f, 1.0f });
+	BackGround->SetSpriteOrder(ERenderOrder::BackGround);
 }
 
 void AFactory_004::Tick(float _DeltaTime)

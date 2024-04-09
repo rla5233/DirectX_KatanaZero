@@ -1,5 +1,7 @@
 #pragma once
 
+class ADefaultPlayer;
+
 // 설명 : Factory 1번째 스테이지
 class AFactory_001 : public AGameMode
 {
@@ -20,6 +22,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<ADefaultPlayer>Player = nullptr;
 
 };
 

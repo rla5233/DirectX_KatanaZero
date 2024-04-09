@@ -20,6 +20,7 @@ void AHeadHunter_Phase1::BeginPlay()
 	std::shared_ptr<ABackGroundObject> BackGround = GetWorld()->SpawnActor<ABackGroundObject>("BackGround");
 	BackGround->SetSprite(ImgRes::headhunter_background1);
 	BackGround->SetSpriteScale({ 1280.0f, 720.0f, 1.0f });
+	BackGround->SetSpriteOrder(ERenderOrder::BackGround);
 }
 
 void AHeadHunter_Phase1::Tick(float _DeltaTime)

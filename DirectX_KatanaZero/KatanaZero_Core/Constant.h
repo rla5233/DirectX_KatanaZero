@@ -22,3 +22,7 @@ namespace ImgRes
 	const std::string_view headhunter_background2	= "spr_background_headhunter2.png";
 }
 
+namespace Anim
+{
+	const std::string_view player_idle_anim			= "player_idle";
+}

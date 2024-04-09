@@ -17,6 +17,8 @@ void APlayerBase::BeginPlay()
 	Super::BeginPlay();
 
 	StateInit();
+
+	Renderer->SetOrder(ERenderOrder::Player);
 }
 
 void APlayerBase::Tick(float _DeltaTime)

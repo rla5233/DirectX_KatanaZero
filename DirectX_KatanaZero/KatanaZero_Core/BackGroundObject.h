@@ -30,6 +30,11 @@ public:
 		BackGround->SetPlusColor(_Color);
 	}
 
+	void SetSpriteOrder(ERenderOrder _Order)
+	{
+		BackGround->SetOrder(_Order);
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
