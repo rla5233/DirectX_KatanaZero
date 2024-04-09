@@ -23,7 +23,7 @@ void APlayerBase::StateInit()
 void APlayerBase::IdleStart()
 {
 	Renderer->SetAutoSize(2.0f, true);
-	Renderer->ChangeAnimation(Anim::player_idle_anim);
+	Renderer->ChangeAnimation(Anim::player_idle);
 }
 
 void APlayerBase::Idle(float _DeltaTime)

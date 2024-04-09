@@ -4,9 +4,10 @@ namespace ImgRes
 {
 	// Player
 	const std::string_view player_idle				= "player_idle";
-	const std::string_view player_idle_to_run_anim  = "player_idle_to_run";
-	const std::string_view player_run_to_idle_anim  = "player_run_to_idle";
+	const std::string_view player_idle_to_run		= "player_idle_to_run";
+	const std::string_view player_run_to_idle		= "player_run_to_idle";
 	const std::string_view player_jump				= "player_jump";
+	const std::string_view player_run				= "player_run";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -27,8 +28,10 @@ namespace ImgRes
 
 namespace Anim
 {
-	const std::string_view player_idle_anim			= "player_idle";
-	const std::string_view player_idle_to_run_anim	= "player_idle_to_run";
-	const std::string_view player_run_to_idle_anim	= "player_run_to_idle";
+	// Default Player Anim
+	const std::string_view player_idle				= "player_idle";
+	const std::string_view player_idle_to_run		= "player_idle_to_run";
+	const std::string_view player_run_to_idle		= "player_run_to_idle";
 	const std::string_view player_jump				= "player_jump";
+	const std::string_view player_run				= "player_run";
 }
