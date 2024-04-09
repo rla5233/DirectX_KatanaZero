@@ -51,7 +51,6 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		return;
 	}
 
-	
 	if (true == Renderer->IsCurAnimationEnd() && true == IsRunInputPress())
 	{
 		State.ChangeState("Run");
@@ -69,6 +68,12 @@ void APlayerBase::Run(float _DeltaTime)
 	if (true == IsAnykeyFree())
 	{
 		State.ChangeState("RunToIdle");
+		return;
+	}
+
+	if (true == IsRunDirChange())
+	{
+		State.ChangeState("IdleToRun");
 		return;
 	}
 }

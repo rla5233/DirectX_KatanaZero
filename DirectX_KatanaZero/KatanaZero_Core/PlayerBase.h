@@ -33,6 +33,7 @@ protected:
 private:
 	bool IsRunInputStart();
 	bool IsRunInputPress();
+	bool IsRunDirChange();
 
 private:
 	USpriteRenderer* Renderer = nullptr;
