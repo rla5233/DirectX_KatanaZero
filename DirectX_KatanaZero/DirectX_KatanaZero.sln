@@ -16,9 +16,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineBase", "EngineBase\EngineBase.vcxproj", "{8B236F62-C380-427D-8ED8-555472DB80D1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnginePlatform", "EnginePlatform\EnginePlatform.vcxproj", "{D2C7C94D-0988-4EA6-ADD9-AD88E065FF1E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8B236F62-C380-427D-8ED8-555472DB80D1} = {8B236F62-C380-427D-8ED8-555472DB80D1}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineCore", "EngineCore\EngineCore.vcxproj", "{0080A108-D95D-464A-B72E-7C95F5C20025}"
 	ProjectSection(ProjectDependencies) = postProject
