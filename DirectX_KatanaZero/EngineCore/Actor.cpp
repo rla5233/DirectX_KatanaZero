@@ -108,6 +108,11 @@ FVector AActor::GetActorUpVector()
 	return RootComponent->Transform.GetUp();
 }
 
+FVector AActor::GetActorScale3D()
+{
+	return RootComponent->Transform.GetScale();
+}
+
 FVector AActor::GetActorLocation()
 {
 	return RootComponent->Transform.GetPosition();

@@ -52,6 +52,8 @@ public:
 	FVector GetActorRightVector();
 	FVector GetActorUpVector();
 
+	FVector GetActorScale3D();
+
 	void SetActorScale3D(FVector _Value);
 	void SetActorRotation(FVector _Value);
 	void SetActorLocation(FVector _Value);
