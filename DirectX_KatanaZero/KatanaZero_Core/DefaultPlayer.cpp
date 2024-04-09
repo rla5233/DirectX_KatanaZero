@@ -27,6 +27,7 @@ void ADefaultPlayer::Tick(float _DeltaTime)
 void ADefaultPlayer::CreateAnimation()
 {
 	GetRenderer()->CreateAnimation(Anim::player_idle_anim, ImgRes::player_idle, 0.1f, true, 0, 10);
+	GetRenderer()->CreateAnimation(Anim::player_idle_anim, ImgRes::player_idle, 0.1f, true, 0, 10);
 
 	
 }

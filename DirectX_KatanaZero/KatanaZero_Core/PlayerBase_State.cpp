@@ -18,6 +18,8 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Idle", std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
 }
 
+
+
 void APlayerBase::IdleStart()
 {
 	Renderer->SetAutoSize(2.0f, true);
@@ -26,5 +28,5 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
-	int a = 0;
+	void 
 }
