@@ -30,6 +30,18 @@ public:
 	URenderer& operator=(const URenderer& _Other) = delete;
 	URenderer& operator=(URenderer&& _Other) noexcept = delete;
 
+
+	std::shared_ptr<UEngineMesh> GetMesh()
+	{
+		return Mesh;
+	}
+
+	std::shared_ptr<UEngineMaterial> GetMaterial()
+	{
+		return Material;
+	}
+
+
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);
 
