@@ -9,6 +9,9 @@
 #include "Factory_004.h"
 #include "Factory_005.h"
 
+#include "HeadHunter_Phase1.h"
+//#include "HeadHunter_Phase2.h"
+
 UKatanaZero_Core::UKatanaZero_Core()
 {
 }
@@ -32,10 +35,14 @@ void UKatanaZero_Core::Initialize()
 
 	GEngine->CreateLevel<AFactory_005>("Factory_005");
 	GEngine->ChangeLevel("Factory_005");
+
+	GEngine->CreateLevel<AHeadHunter_Phase1>("HeadHunter_Phase1");
+	GEngine->ChangeLevel("HeadHunter_Phase1");
 }
 
 void UKatanaZero_Core::ResLoad()
 {
+	// TitleLevel 리소스 로드
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("KatanaZeroResources");
@@ -53,10 +60,29 @@ void UKatanaZero_Core::ResLoad()
 		}
 	}
 
+	// FactoryLevel 리소스 로드
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("KatanaZeroResources");
 		Dir.Move("FactoryLevel");
+		std::vector<UEngineFile> AllFiles = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : AllFiles)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> AllDirectorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < AllDirectorys.size(); i++)
+		{
+			UEngineSprite::LoadFolder(AllDirectorys[i].GetFullPath());
+		}
+	}
+
+	// HeadHunterLevel 리소스 로드
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("KatanaZeroResources");
+		Dir.Move("HeadHunterLevel");
 		std::vector<UEngineFile> AllFiles = Dir.GetAllFile({ ".png" }, true);
 		for (UEngineFile& File : AllFiles)
 		{

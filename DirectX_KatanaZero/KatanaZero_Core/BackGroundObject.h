@@ -25,12 +25,16 @@ public:
 		BackGround->Transform.SetScale(_Scale);
 	}
 
+	void SetSpritePlusColor(const float4& _Color)
+	{
+		BackGround->SetPlusColor(_Color);
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private:
 	USpriteRenderer* BackGround = nullptr;
-
 };
 

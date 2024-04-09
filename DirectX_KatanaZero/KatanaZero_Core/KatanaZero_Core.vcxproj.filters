@@ -37,6 +37,9 @@
     <Filter Include="Level\000.TitleLevel\GameMode">
       <UniqueIdentifier>{40788696-c32d-4a7d-9f2d-540635ac9e07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\098.HeadHunterLevel\GameMode">
+      <UniqueIdentifier>{e6378640-d467-47bc-84ea-2165fe8f8052}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -57,9 +60,6 @@
     <ClInclude Include="LerpObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="HeadHunterGameMode.h">
-      <Filter>Level\098.HeadHunterLevel</Filter>
-    </ClInclude>
     <ClInclude Include="Factory_001.h">
       <Filter>Level\001.FactoryLevel\GameMode</Filter>
     </ClInclude>
@@ -78,6 +78,12 @@
     <ClInclude Include="Factory_005.h">
       <Filter>Level\001.FactoryLevel\GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="HeadHunter_Phase1.h">
+      <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunter_Phase2.h">
+      <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -94,9 +100,6 @@
     </ClCompile>
     <ClCompile Include="LerpObject.cpp">
       <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="HeadHunterGameMode.cpp">
-      <Filter>Level\098.HeadHunterLevel</Filter>
     </ClCompile>
     <ClCompile Include="Factory_001.cpp">
       <Filter>Level\001.FactoryLevel\GameMode</Filter>
@@ -115,6 +118,12 @@
     </ClCompile>
     <ClCompile Include="Factory_005.cpp">
       <Filter>Level\001.FactoryLevel\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunter_Phase1.cpp">
+      <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunter_Phase2.cpp">
+      <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
