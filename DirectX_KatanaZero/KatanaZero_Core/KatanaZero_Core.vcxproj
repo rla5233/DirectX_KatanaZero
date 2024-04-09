@@ -171,6 +171,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Constant.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="KatanaZero_Core.h">
       <SubType>
       </SubType>
@@ -183,8 +187,16 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TitleScreen.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Constant.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="KatanaZero_Core.cpp">
       <SubType>
       </SubType>
@@ -202,6 +214,10 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PreCompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleScreen.cpp">
       <SubType>
       </SubType>
     </ClCompile>

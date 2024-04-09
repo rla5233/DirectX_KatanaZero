@@ -16,6 +16,9 @@
     <Filter Include="Level\000.TitleLevel\Object">
       <UniqueIdentifier>{512f81c4-0ac1-4b5f-87e0-6d9bcf772353}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Helper">
+      <UniqueIdentifier>{09fbbe3c-b29e-4316-90fa-aedc483257fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -27,6 +30,12 @@
     <ClInclude Include="TitleGameMode.h">
       <Filter>Level\000.TitleLevel</Filter>
     </ClInclude>
+    <ClInclude Include="TitleScreen.h">
+      <Filter>Level\000.TitleLevel\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant.h">
+      <Filter>Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -37,6 +46,12 @@
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>Level\000.TitleLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScreen.cpp">
+      <Filter>Level\000.TitleLevel\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Constant.cpp">
+      <Filter>Helper</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
