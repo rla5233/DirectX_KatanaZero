@@ -1,9 +1,28 @@
+#include "PreCompile.h"
 #include "Factory_005.h"
 
-Factory_005::Factory_005()
+#include "BackGroundObject.h"
+
+AFactory_005::AFactory_005()
 {
 }
 
-Factory_005::~Factory_005()
+AFactory_005::~AFactory_005()
 {
+}
+
+void AFactory_005::BeginPlay()
+{
+	Super::BeginPlay();
+
+	GetWorld()->GetMainCamera()->SetActorLocation({ -450.0f, -150.0f, -100.0f });
+	
+	std::shared_ptr<ABackGroundObject> BackGround = GetWorld()->SpawnActor<ABackGroundObject>("BackGround");
+	BackGround->SetSprite(ImgRes::factory_background5);
+	BackGround->SetSpriteScale({ 2240.0f, 1088.0f, 1.0f });
+}
+
+void AFactory_005::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
 }
