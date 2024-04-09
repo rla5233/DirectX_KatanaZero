@@ -5,6 +5,8 @@
 
 // ¼öÁ¤
 #include "Factory_001.h"
+#include "Factory_002.h"
+#include "Factory_004.h"
 
 UKatanaZero_Core::UKatanaZero_Core()
 {
@@ -23,6 +25,10 @@ void UKatanaZero_Core::Initialize()
 
 	GEngine->CreateLevel<AFactory_001>("Factory_001");
 	GEngine->ChangeLevel("Factory_001");
+
+	GEngine->CreateLevel<AFactory_004>("AFactory_004");
+	GEngine->ChangeLevel("AFactory_004");
+
 }
 
 void UKatanaZero_Core::ResLoad()

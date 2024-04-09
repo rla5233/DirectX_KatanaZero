@@ -1,6 +1,6 @@
 #pragma once
 
-// 설명 :
+// 설명 : Factory 1번째 스테이지
 class AFactory_001 : public AGameMode
 {
 	GENERATED_BODY(AGameMode)

@@ -184,6 +184,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Factory_002.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Factory_004.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Factory_005.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="HeadHunterGameMode.h">
       <SubType>
       </SubType>
@@ -219,6 +231,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Factory_001.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Factory_002.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Factory_004.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Factory_005.cpp">
       <SubType>
       </SubType>
     </ClCompile>

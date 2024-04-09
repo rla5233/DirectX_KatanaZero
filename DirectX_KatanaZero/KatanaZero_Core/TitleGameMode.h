@@ -1,6 +1,6 @@
 #pragma once
 
-// 설명 :
+// 설명 : Title 메뉴
 class ATitleGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode);

@@ -1,6 +1,5 @@
 #pragma once
 
-// Ό³Έν :
 class UKatanaZero_Core : public UserCore
 {
 public:

@@ -1,6 +1,6 @@
 #pragma once
 
-// 설명 :
+// 설명 : 선형보간(Lerp) 기능
 class LerpObject
 {
 public:

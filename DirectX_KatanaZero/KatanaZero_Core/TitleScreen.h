@@ -2,7 +2,7 @@
 #include "ContentsEnum.h"
 #include "LerpObject.h"
 
-// 설명 :
+// 설명 : Title 화면
 class ATitleScreen : public AActor, public LerpObject
 {
 	GENERATED_BODY(AActor)

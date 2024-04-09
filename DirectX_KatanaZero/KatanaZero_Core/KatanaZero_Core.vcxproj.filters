@@ -31,6 +31,12 @@
     <Filter Include="Level\001.FactoryLevel\Object">
       <UniqueIdentifier>{0f176465-d2e4-4eec-b616-812fa81f143a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\001.FactoryLevel\GameMode">
+      <UniqueIdentifier>{ad4e801d-ec3f-49ba-b9e7-7e71500eaae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.TitleLevel\GameMode">
+      <UniqueIdentifier>{40788696-c32d-4a7d-9f2d-540635ac9e07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -38,9 +44,6 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleGameMode.h">
-      <Filter>Level\000.TitleLevel</Filter>
     </ClInclude>
     <ClInclude Include="TitleScreen.h">
       <Filter>Level\000.TitleLevel\Object</Filter>
@@ -54,14 +57,26 @@
     <ClInclude Include="LerpObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Factory_001.h">
-      <Filter>Level\001.FactoryLevel</Filter>
-    </ClInclude>
     <ClInclude Include="HeadHunterGameMode.h">
       <Filter>Level\098.HeadHunterLevel</Filter>
     </ClInclude>
+    <ClInclude Include="Factory_001.h">
+      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory_002.h">
+      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory_004.h">
+      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <Filter>Level\000.TitleLevel\GameMode</Filter>
+    </ClInclude>
     <ClInclude Include="BackGroundObject.h">
-      <Filter>Level\001.FactoryLevel\Object</Filter>
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory_005.h">
+      <Filter>Level\001.FactoryLevel\GameMode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +85,6 @@
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleGameMode.cpp">
-      <Filter>Level\000.TitleLevel</Filter>
     </ClCompile>
     <ClCompile Include="TitleScreen.cpp">
       <Filter>Level\000.TitleLevel\Object</Filter>
@@ -83,14 +95,26 @@
     <ClCompile Include="LerpObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Factory_001.cpp">
-      <Filter>Level\001.FactoryLevel</Filter>
-    </ClCompile>
     <ClCompile Include="HeadHunterGameMode.cpp">
       <Filter>Level\098.HeadHunterLevel</Filter>
     </ClCompile>
+    <ClCompile Include="Factory_001.cpp">
+      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory_002.cpp">
+      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory_004.cpp">
+      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <Filter>Level\000.TitleLevel\GameMode</Filter>
+    </ClCompile>
     <ClCompile Include="BackGroundObject.cpp">
-      <Filter>Level\001.FactoryLevel\Object</Filter>
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory_005.cpp">
+      <Filter>Level\001.FactoryLevel\GameMode</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
