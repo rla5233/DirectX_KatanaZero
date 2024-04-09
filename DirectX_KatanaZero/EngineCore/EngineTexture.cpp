@@ -135,3 +135,65 @@ void UEngineTexture::Setting(EShaderType _Type, UINT _Slot)
 	}
 }
 
+Color8Bit UEngineTexture::GetColor(unsigned int _X, unsigned int _Y, Color8Bit _DefaultColor)
+{
+	if (_X > GetScale().uiX())
+	{
+		return _DefaultColor;
+	}
+
+	if (_Y > GetScale().uiY())
+	{
+		return _DefaultColor;
+	}
+
+	// 이미지의 포맷이 굉장히 다양하다.
+	// RGBA
+
+	// 4바이트 컬러?
+	DXGI_FORMAT Fmt = Image.GetMetadata().format;
+
+	// 로드한 이미지만 픽셀충돌이 될것이다.
+	// 1바이트 짜리 자료형
+	unsigned char* Ptr = Image.GetPixels();
+
+	// 22
+	// 
+	// [4][4]
+	// [4][4]
+
+	// Ptr
+	// Ptr
+	// Ptr += 12;
+	// _X, _Y
+
+	//  1        2              1
+	// ((_Y * GetScale().ix()) + _X) * 4 ;
+	// 3 * 4
+
+	// |
+	// [][][][] [][][][]
+	// [][][][] [][][][]
+
+	// DXGI_FORMAT_B8G8R8A8_UNORM 색상1픽셀이 4바이트
+
+	switch (Fmt)
+	{
+	case DXGI_FORMAT_B8G8R8A8_UNORM:
+	{
+		Color8Bit Result;
+		Ptr += ((_Y * GetScale().iX()) + _X) * 4;
+		Result.B = Ptr[0];
+		Result.G = Ptr[1];
+		Result.R = Ptr[2];
+		Result.A = Ptr[3];
+		return Result;
+	}
+	default:
+		MsgBoxAssert("아직 처리할수 없는 GetPixel 포맷입니다");
+		break;
+	}
+
+
+	return Color8Bit();
+}

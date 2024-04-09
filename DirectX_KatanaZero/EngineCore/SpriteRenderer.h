@@ -63,10 +63,17 @@ public:
 
 	void ChangeAnimation(std::string_view _AnimationName);
 
+	void SetAutoSize(float _ScaleRatio, bool _AutoSize);
+	void SetSpriteInfo(const FSpriteInfo& _Info);
+
 protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	bool AutoSize = false;
+	float ScaleRatio = 1.0f;
+	FSpriteInfo CurInfo;
+
 	FCuttingData CuttingDataValue;
 	float4 PlusColor = float4::Zero;
 	std::shared_ptr<UEngineTexture> CurTexture = nullptr;

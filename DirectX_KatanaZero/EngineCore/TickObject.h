@@ -31,7 +31,14 @@ public:
 		return Order;
 	}
 
-	void SetOrder(int _Order)
+	template<typename EnumType>
+	void SetOrder(EnumType _Order)
+	{
+		SetOrder(static_cast<int>(_Order));
+	}
+
+
+	virtual void SetOrder(int _Order)
 	{
 		Order = _Order;
 	}

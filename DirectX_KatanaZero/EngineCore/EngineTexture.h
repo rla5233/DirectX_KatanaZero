@@ -56,6 +56,25 @@ public:
 		return RTV;
 	}
 
+	float4 GetScale()
+	{
+		return float4(Desc.Width, Desc.Height);
+	}
+
+	// float 자체가 오차의 자료형
+	// 대략적인 값 실수오차는 무조건 발생한다.
+
+	// float4 GetColor(unsigned)
+
+	// Color8Bit _DefaultColor => 화면 바깥에 있는 컬러를 가져와 달라고 하면  _DefaultColor가 리턴된다.
+
+	Color8Bit GetColor(float4 _Pos, Color8Bit _DefaultColor)
+	{
+		return GetColor(_Pos.iX(), _Pos.iY(), _DefaultColor);
+	}
+
+	Color8Bit GetColor(unsigned int _X, unsigned int _Y, Color8Bit _DefaultColor);
+
 protected:
 
 

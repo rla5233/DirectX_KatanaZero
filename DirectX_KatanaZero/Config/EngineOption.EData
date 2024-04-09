@@ -1,5 +1,5 @@
 WindowTitle : [Katana ZERO]
 WindowScale : [1280], [720]
 IsDebug : [false]
-ClearColor : R[0],G[0],B[0]
+ClearColor : R[0],G[0],B[1]
 FreeCameraKey : [0]

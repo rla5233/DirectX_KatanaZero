@@ -175,7 +175,12 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="KatanaZero_Core.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="LerpObject.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -198,6 +203,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="KatanaZero_Core.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LerpObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>

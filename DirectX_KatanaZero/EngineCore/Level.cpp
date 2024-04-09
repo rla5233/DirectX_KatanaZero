@@ -83,6 +83,14 @@ void ULevel::PushRenderer(std::shared_ptr<URenderer> _Renderer)
 	Renderers[_Renderer->GetOrder()].push_front(_Renderer);
 }
 
+void ULevel::ChangeOrderRenderer(std::shared_ptr<URenderer> _Renderer, int _PrevOrder, int _ChangeOrder)
+{
+	// 안지워지고 
+	Renderers[_PrevOrder].remove(_Renderer);
+
+	Renderers[_ChangeOrder].push_front(_Renderer);
+}
+
 void ULevel::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelStart(_NextLevel);

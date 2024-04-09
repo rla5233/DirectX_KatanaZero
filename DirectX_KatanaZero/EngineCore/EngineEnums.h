@@ -21,3 +21,9 @@ enum class ETextureSampling
 	LINEAR,
 	POINT,
 };
+
+enum class EPivot
+{
+	BOT,
+	MAX,
+};

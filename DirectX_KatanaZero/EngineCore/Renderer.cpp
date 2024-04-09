@@ -24,7 +24,6 @@ void URenderer::BeginPlay()
 void URenderer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-	int a = 0;
 }
 
 void URenderer::Render(float _DeltaTime)
@@ -60,6 +59,14 @@ void URenderer::Render(float _DeltaTime)
 	Mesh->IndexedDraw();
 }
 
+void URenderer::SetOrder(int _Order)
+{
+	int PrevOrder = GetOrder();
+
+	Super::SetOrder(_Order);
+
+	GetWorld()->ChangeOrderRenderer(shared_from_this(), PrevOrder, _Order);
+}
 
 void URenderer::SetMesh(std::string_view _Name)
 {
