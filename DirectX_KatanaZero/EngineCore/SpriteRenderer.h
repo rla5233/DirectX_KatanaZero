@@ -57,7 +57,7 @@ public:
 	void SetPlusColor(float4 _Color);
 	void SetSamplering(ETextureSampling _Value);
 
-	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, float _Inter, bool _Loop = true, int _Start = -1, int _End = -1);
+	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, float _Inter = 0.1f, bool _Loop = true, int _Start = -1, int _End = -1);
 
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop = true);
 

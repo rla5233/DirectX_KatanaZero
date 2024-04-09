@@ -24,4 +24,6 @@ FVector LerpObject::LerpMoveUpdate(float _DeltaTime, float _WeightTime)
 
 		return NextPos;
 	}
+
+	return TargetPos;
 }

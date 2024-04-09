@@ -13,3 +13,6 @@
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/EngineSprite.h>
+
+#include "ContentsEnum.h"
+#include "Constant.h"

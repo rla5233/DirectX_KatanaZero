@@ -19,6 +19,7 @@ public:
 	{
 		StartPos = _StartPos;
 		TargetPos = _TargetPos;
+		IsMoveValue = true;
 	}
 
 	bool IsMove() const

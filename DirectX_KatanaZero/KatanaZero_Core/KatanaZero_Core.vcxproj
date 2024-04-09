@@ -171,11 +171,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BackGroundObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Constant.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="Factory_001.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HeadHunterGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="KatanaZero_Core.h">
       <SubType>
       </SubType>
@@ -198,7 +210,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackGroundObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Constant.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Factory_001.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HeadHunterGameMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
