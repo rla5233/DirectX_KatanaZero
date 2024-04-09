@@ -180,6 +180,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="DefaultPlayer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Factory_001.h">
       <SubType>
       </SubType>
@@ -212,6 +216,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerBase.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>
@@ -231,6 +239,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Constant.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="DefaultPlayer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -266,6 +278,11 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerBase.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerBase_State.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <SubType>
       </SubType>

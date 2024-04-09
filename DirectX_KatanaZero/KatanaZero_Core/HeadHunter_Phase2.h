@@ -1,20 +1,23 @@
 #pragma once
 
 // Ό³Έν :
-class HeadHunter_Phase2
+class AHeadHunter_Phase2 : public AGameMode
 {
+	GENERATED_BODY(AGameMode)
 public:
 	// constrcuter destructer
-	HeadHunter_Phase2();
-	~HeadHunter_Phase2();
+	AHeadHunter_Phase2();
+	~AHeadHunter_Phase2();
 
 	// delete Function
-	HeadHunter_Phase2(const HeadHunter_Phase2& _Other) = delete;
-	HeadHunter_Phase2(HeadHunter_Phase2&& _Other) noexcept = delete;
-	HeadHunter_Phase2& operator=(const HeadHunter_Phase2& _Other) = delete;
-	HeadHunter_Phase2& operator=(HeadHunter_Phase2&& _Other) noexcept = delete;
+	AHeadHunter_Phase2(const AHeadHunter_Phase2& _Other) = delete;
+	AHeadHunter_Phase2(AHeadHunter_Phase2&& _Other) noexcept = delete;
+	AHeadHunter_Phase2& operator=(const AHeadHunter_Phase2& _Other) = delete;
+	AHeadHunter_Phase2& operator=(AHeadHunter_Phase2&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
 

@@ -10,7 +10,9 @@
 #include "Factory_005.h"
 
 #include "HeadHunter_Phase1.h"
-//#include "HeadHunter_Phase2.h"
+#include "HeadHunter_Phase2.h"
+
+//#define DEBUG
 
 UKatanaZero_Core::UKatanaZero_Core()
 {
@@ -24,12 +26,14 @@ void UKatanaZero_Core::Initialize()
 {
 	ResLoad();
 
-	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
-	GEngine->ChangeLevel("TitleLevel");
+	//GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
+	//GEngine->ChangeLevel("TitleLevel");
+
 
 	GEngine->CreateLevel<AFactory_001>("Factory_001");
 	GEngine->ChangeLevel("Factory_001");
 
+#ifdef DEBUG
 	GEngine->CreateLevel<AFactory_004>("Factory_004");
 	GEngine->ChangeLevel("Factory_004");
 
@@ -38,10 +42,27 @@ void UKatanaZero_Core::Initialize()
 
 	GEngine->CreateLevel<AHeadHunter_Phase1>("HeadHunter_Phase1");
 	GEngine->ChangeLevel("HeadHunter_Phase1");
+
+	GEngine->CreateLevel<AHeadHunter_Phase2>("HeadHunter_Phase2");
+	GEngine->ChangeLevel("HeadHunter_Phase2");
+#endif // DEBUG
 }
 
 void UKatanaZero_Core::ResLoad()
 {
+	// Player 리소스 로드
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("KatanaZeroResources");
+		Dir.Move("Player");
+
+		std::vector<UEngineDirectory> AllDirectorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < AllDirectorys.size(); i++)
+		{
+			UEngineSprite::LoadFolder(AllDirectorys[i].GetFullPath());
+		}
+	}
+
 	// TitleLevel 리소스 로드
 	{
 		UEngineDirectory Dir;
@@ -95,4 +116,5 @@ void UKatanaZero_Core::ResLoad()
 			UEngineSprite::LoadFolder(AllDirectorys[i].GetFullPath());
 		}
 	}
+
 }

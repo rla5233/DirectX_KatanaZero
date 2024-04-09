@@ -10,35 +10,38 @@
     <Filter Include="Core">
       <UniqueIdentifier>{c8c12355-391b-47b0-bbe6-747105546d29}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\000.TitleLevel">
-      <UniqueIdentifier>{9aba6e4e-866e-4051-8402-38560234960d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\000.TitleLevel\Object">
-      <UniqueIdentifier>{512f81c4-0ac1-4b5f-87e0-6d9bcf772353}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Helper">
       <UniqueIdentifier>{09fbbe3c-b29e-4316-90fa-aedc483257fa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{9598be85-ff47-456d-a21a-3d908a551096}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\001.FactoryLevel">
-      <UniqueIdentifier>{6fba441a-3bec-4f1c-869d-92480aed22c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\098.HeadHunterLevel">
       <UniqueIdentifier>{54fcdd53-2bd8-410e-af77-90fe40b38d46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\001.FactoryLevel\Object">
-      <UniqueIdentifier>{0f176465-d2e4-4eec-b616-812fa81f143a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\001.FactoryLevel\GameMode">
-      <UniqueIdentifier>{ad4e801d-ec3f-49ba-b9e7-7e71500eaae8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\000.TitleLevel\GameMode">
-      <UniqueIdentifier>{40788696-c32d-4a7d-9f2d-540635ac9e07}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\098.HeadHunterLevel\GameMode">
       <UniqueIdentifier>{e6378640-d467-47bc-84ea-2165fe8f8052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player">
+      <UniqueIdentifier>{a1f8616d-1a53-46e9-a2e8-5486cf03ae40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.Object">
+      <UniqueIdentifier>{1cc1d72d-2c21-425e-a0ab-e33ae4fa47c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\001.TitleLevel">
+      <UniqueIdentifier>{9aba6e4e-866e-4051-8402-38560234960d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\001.TitleLevel\Object">
+      <UniqueIdentifier>{512f81c4-0ac1-4b5f-87e0-6d9bcf772353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\001.TitleLevel\GameMode">
+      <UniqueIdentifier>{40788696-c32d-4a7d-9f2d-540635ac9e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\002.FactoryLevel">
+      <UniqueIdentifier>{6fba441a-3bec-4f1c-869d-92480aed22c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\002.FactoryLevel\GameMode">
+      <UniqueIdentifier>{ad4e801d-ec3f-49ba-b9e7-7e71500eaae8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +52,7 @@
       <Filter>PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="TitleScreen.h">
-      <Filter>Level\000.TitleLevel\Object</Filter>
+      <Filter>Level\001.TitleLevel\Object</Filter>
     </ClInclude>
     <ClInclude Include="Constant.h">
       <Filter>Helper</Filter>
@@ -61,28 +64,34 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Factory_001.h">
-      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+      <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="Factory_002.h">
-      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+      <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="Factory_004.h">
-      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+      <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="TitleGameMode.h">
-      <Filter>Level\000.TitleLevel\GameMode</Filter>
+      <Filter>Level\001.TitleLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="BackGroundObject.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Factory_005.h">
-      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+      <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="HeadHunter_Phase1.h">
       <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="HeadHunter_Phase2.h">
       <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBase.h">
+      <Filter>Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultPlayer.h">
+      <Filter>Level\000.Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -93,7 +102,7 @@
       <Filter>PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="TitleScreen.cpp">
-      <Filter>Level\000.TitleLevel\Object</Filter>
+      <Filter>Level\001.TitleLevel\Object</Filter>
     </ClCompile>
     <ClCompile Include="Constant.cpp">
       <Filter>Helper</Filter>
@@ -102,28 +111,37 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Factory_001.cpp">
-      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+      <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="Factory_002.cpp">
-      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+      <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="Factory_004.cpp">
-      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+      <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
-      <Filter>Level\000.TitleLevel\GameMode</Filter>
+      <Filter>Level\001.TitleLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="BackGroundObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Factory_005.cpp">
-      <Filter>Level\001.FactoryLevel\GameMode</Filter>
+      <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="HeadHunter_Phase1.cpp">
       <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="HeadHunter_Phase2.cpp">
       <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBase.cpp">
+      <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBase_State.cpp">
+      <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultPlayer.cpp">
+      <Filter>Level\000.Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

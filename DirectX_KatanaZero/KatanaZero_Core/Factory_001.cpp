@@ -2,6 +2,7 @@
 #include "Factory_001.h"
 
 #include "BackGroundObject.h"
+#include "DefaultPlayer.h"
 
 AFactory_001::AFactory_001()
 {
@@ -20,6 +21,8 @@ void AFactory_001::BeginPlay()
 	std::shared_ptr<ABackGroundObject> BackGround = GetWorld()->SpawnActor<ABackGroundObject>("BackGround");
 	BackGround->SetSprite(ImgRes::factory_background2);
 	BackGround->SetSpriteScale({ 1800.0f, 784.0f, 1.0f });
+
+	GetWorld()->SpawnActor<>
 }
 
 void AFactory_001::Tick(float _DeltaTime)
