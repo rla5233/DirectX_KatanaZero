@@ -28,5 +28,5 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
-	void 
+	
 }

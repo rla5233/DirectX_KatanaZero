@@ -3,23 +3,52 @@
 #include "EngineShaderResources.h"
 #include "EngineSprite.h"
 
+void USpriteRenderer::SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (false == Animations.contains(UpperName))
+	{
+		MsgBoxAssert("존재하지 않는 애니메이션에 콜백을 지정할수 없습니다." + std::string(_AnimationName));
+		return;
+	}
+
+	Animations[UpperName]->FrameCallback[_Index] = _Function;
+
+}
+
+void USpriteAnimation::FrameCallBackCheck()
+{
+	if (false == FrameCallback.contains(CurFrame))
+	{
+		return;
+	}
+
+	FrameCallback[CurFrame]();
+}
+
 void USpriteAnimation::Update(float _DeltaTime)
 {
+	IsEnd = false;
+
 	CurTime += _DeltaTime;
 
 	if (CurTime > Inter[CurFrame])
 	{
 		CurTime -= Inter[CurFrame];
 		++CurFrame;
+		FrameCallBackCheck();
 
 		if (Frame.size() <= CurFrame)
 		{
 			if (true == Loop)
 			{
+				IsEnd = true;
 				CurFrame = 0;
 			}
 			else
 			{
+				IsEnd = true;
 				--CurFrame;
 			}
 		}
@@ -235,6 +264,8 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName)
 	}
 
 	CurAnimation = Animations[UpperName];
+	CurAnimation->Reset();
+	CurAnimation->FrameCallBackCheck();
 }
 
 void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop /*= true*/)
@@ -264,4 +295,9 @@ void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::stri
 	NewAnimation->Reset();
 
 	Animations[UpperName] = NewAnimation;
+}
+
+bool USpriteRenderer::IsCurAnimationEnd()
+{
+	return CurAnimation->IsEnd;
 }
