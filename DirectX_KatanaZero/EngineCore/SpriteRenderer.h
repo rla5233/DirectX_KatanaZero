@@ -76,6 +76,10 @@ public:
 	void SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function);
 
 	void SetDir(EEngineDir _Dir);
+	EEngineDir GetDir() const
+	{
+		return Dir;
+	}
 
 	bool IsCurAnimationEnd();
 

@@ -31,7 +31,13 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	bool IsRunInputStart();
+	bool IsRunInputPress();
+
+private:
 	USpriteRenderer* Renderer = nullptr;
+
+	FVector Speed = FVector::Zero;
 
 // FSM
 private:
@@ -40,5 +46,15 @@ private:
 
 	void IdleStart();
 	void Idle(float _DeltaTime);
+
+	void IdleToRunStart();
+	void IdleToRun(float _DeltaTime);
+
+	void RunStart();
+	void Run(float _DeltaTime);
+
+	void RunToIdleStart();
+	void RunToIdle(float _DeltaTime);
+
 };
 
