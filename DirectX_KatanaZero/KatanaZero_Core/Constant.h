@@ -10,6 +10,7 @@ namespace ImgRes
 	const std::string_view player_run				= "player_run";
 	const std::string_view player_postcrouch		= "player_postcrouch";
 	const std::string_view player_precrouch			= "player_precrouch";
+	const std::string_view player_roll				= "player_roll";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -38,4 +39,5 @@ namespace Anim
 	const std::string_view player_run				= "player_run";
 	const std::string_view player_postcrouch		= "player_postcrouch";
 	const std::string_view player_precrouch			= "player_precrouch";
+	const std::string_view player_roll				= "player_roll";
 }

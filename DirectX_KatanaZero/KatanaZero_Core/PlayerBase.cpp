@@ -104,6 +104,15 @@ bool APlayerBase::IsCrouchInputPressEnd()
 
 	return Result;
 }
+bool APlayerBase::IsRollInputStart()
+{
+	bool Result = false;
+
+
+
+
+	return Result;
+}
 // FSM Input Check End
 
 

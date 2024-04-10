@@ -136,3 +136,13 @@ void APlayerBase::PreCrouch(float _DeltaTime)
 		return;
 	}
 }
+
+void APlayerBase::RollStart()
+{
+
+}
+
+void APlayerBase::Roll(float _DeltaTime)
+{
+
+}

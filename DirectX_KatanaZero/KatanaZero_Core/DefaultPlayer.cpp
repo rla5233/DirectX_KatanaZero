@@ -33,6 +33,6 @@ void ADefaultPlayer::CreateAnimation()
 	GetRenderer()->CreateAnimation(Anim::player_run, ImgRes::player_run, 0.08f, true);
 	GetRenderer()->CreateAnimation(Anim::player_postcrouch, ImgRes::player_postcrouch, 0.06f, false);
 	GetRenderer()->CreateAnimation(Anim::player_precrouch, ImgRes::player_precrouch, 0.06f, false);
-
+	GetRenderer()->CreateAnimation(Anim::player_roll, ImgRes::player_roll, 0.06f, false);
 	
 }

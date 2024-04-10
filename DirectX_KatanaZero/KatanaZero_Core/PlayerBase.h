@@ -58,6 +58,9 @@ private:
 	void PreCrouchStart();
 	void PreCrouch(float _DeltaTime);
 
+	void RollStart();
+	void Roll(float _DeltaTime);
+
 // FSM Input Check
 private:
 	bool IsRunInputStart();
@@ -67,5 +70,6 @@ private:
 	bool IsCrouchInputStart();
 	bool IsCrouchInputPressEnd();
 
+	bool IsRollInputStart();
 };
 
