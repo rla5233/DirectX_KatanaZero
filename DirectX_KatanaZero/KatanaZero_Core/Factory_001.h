@@ -22,7 +22,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<ADefaultPlayer>Player = nullptr;
+	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 
 };
 
