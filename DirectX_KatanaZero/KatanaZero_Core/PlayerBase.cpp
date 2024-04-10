@@ -118,29 +118,53 @@ bool APlayerBase::IsRollInputStart()
 
 ////////////////////
 // FSM Setting Start
-void APlayerBase::SetRunSpeed()
+void APlayerBase::SetRunAcc()
 {
 	EEngineDir Dir = Renderer->GetDir();
 
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Speed.X = -450.0f;
+		Acc.X = -500.0f;
 		break;
 	case EEngineDir::Right:
-		Speed.X = 450.0f;
+		Acc.X = 500.0f;
+		break;
+	}
+}
+
+void APlayerBase::SetRunVel()
+{
+	EEngineDir Dir = Renderer->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X = -MaxSpeed_X;
+		break;
+	case EEngineDir::Right:
+		Velocity.X = MaxSpeed_X;
 		break;
 	}
 }
 // FSM Setting End
 //////////////////
 
-
 ////////////////////
 // FSM Update Start
+void APlayerBase::RunVelUpdate(float _DeltaTime)
+{
+	Velocity += Acc * _DeltaTime;
+
+	if (MaxSpeed_X < std::abs(Velocity.X))
+	{
+		SetRunVel();
+	}
+}
+
 void APlayerBase::RunPosUpdate(float _DeltaTime)
 {
-	AddActorLocation(Speed * _DeltaTime);
+	AddActorLocation(Velocity * _DeltaTime);
 }
 // FSM Update End
 //////////////////

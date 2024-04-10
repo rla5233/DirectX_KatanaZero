@@ -33,7 +33,10 @@ protected:
 private:
 	USpriteRenderer* Renderer = nullptr;
 
-	FVector Speed = FVector::Zero;
+	float MaxSpeed_X = 450.0f;
+	FVector Velocity = FVector::Zero;
+	FVector Acc = FVector::Zero;
+	
 
 // FSM
 private:
@@ -74,10 +77,12 @@ private:
 
 // FSM Setting
 private:
-	void SetRunSpeed();
+	void SetRunAcc();
+	void SetRunVel();
 
 // FSM Update
 private:
+	void RunVelUpdate(float _DeltaTime);
 	void RunPosUpdate(float _DeltaTime);
 
 };

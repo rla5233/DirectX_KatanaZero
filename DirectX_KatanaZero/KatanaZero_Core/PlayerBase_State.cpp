@@ -31,6 +31,8 @@ void APlayerBase::StateInit()
 
 void APlayerBase::IdleStart()
 {
+	Velocity = FVector::Zero;
+
 	Renderer->ChangeAnimation(Anim::player_idle);
 }
 
@@ -51,15 +53,26 @@ void APlayerBase::Idle(float _DeltaTime)
 
 void APlayerBase::IdleToRunStart()
 {
+	SetRunAcc();
+	Velocity = FVector::Zero;
+
 	Renderer->ChangeAnimation(Anim::player_idle_to_run);
 }
 
 void APlayerBase::IdleToRun(float _DeltaTime)
 {
+	RunVelUpdate(_DeltaTime);
+	RunPosUpdate(_DeltaTime);
+
 	if (true == IsAnykeyFree())
 	{
 		State.ChangeState("RunToIdle");
 		return;
+	}
+
+	if (true == IsRunDirChange())
+	{
+		Velocity = FVector::Zero;
 	}
 
 	if (true == Renderer->IsCurAnimationEnd() && true == IsRunInputPress())
@@ -71,8 +84,9 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 
 void APlayerBase::RunStart()
 {
+	SetRunVel();
+
 	Renderer->ChangeAnimation(Anim::player_run);
-	SetRunSpeed();
 }
 
 void APlayerBase::Run(float _DeltaTime)
