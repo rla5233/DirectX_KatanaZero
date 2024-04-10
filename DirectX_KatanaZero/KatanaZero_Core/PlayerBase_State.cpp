@@ -107,19 +107,17 @@ void APlayerBase::RunToIdleStart()
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
+	if (true == IsDirChange())
+	{
+		Velocity = FVector::Zero;
+	}
+
 	// StateChange Check
-	if (true == IsRunInputStart())
+	if (true == IsRunInputPress())
 	{
 		State.ChangeState("IdleToRun");
 		return;
 	}
-
-	if (true == IsRunInputPress())
-	{
-		State.ChangeState("Run");
-		return;
-	}
-
 
 	if (true == IsCrouchInputStart())
 	{

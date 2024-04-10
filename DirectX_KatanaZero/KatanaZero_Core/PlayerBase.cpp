@@ -53,10 +53,10 @@ void APlayerBase::SetRunAcc()
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Acc = FVector::Left * 500.0f;
+		Acc = FVector::Left * 5000.0f;
 		break;
 	case EEngineDir::Right:
-		Acc = FVector::Right * 500.0f;
+		Acc = FVector::Right * 5000.0f;
 		break;
 	}
 }
