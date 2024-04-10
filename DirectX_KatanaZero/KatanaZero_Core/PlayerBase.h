@@ -37,6 +37,8 @@ private:
 	FVector Velocity = FVector::Zero;
 	FVector Acc = FVector::Zero;
 
+	bool IsGround = true;
+
 // FSM
 private:
 	UStateManager State;
@@ -63,6 +65,9 @@ private:
 	void RollStart();
 	void Roll(float _DeltaTime);
 
+	void JumpStart();
+	void Jump(float _DeltaTime);
+
 // FSM Input Check
 private:
 	bool IsRunInputStart();
@@ -73,6 +78,9 @@ private:
 	bool IsCrouchInputPressEnd();
 
 	bool IsRollInputStart();
+
+	bool IsJumpInputStart();
+	bool IsJumpInputPress();
 
 // FSM Setting
 private:

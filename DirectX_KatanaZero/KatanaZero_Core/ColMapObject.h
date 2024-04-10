@@ -52,7 +52,6 @@ public:
 	void SetBGSprite(std::string_view _Name)
 	{
 		BackGround->SetSprite(_Name);
-		MapTex = UEngineTexture::FindRes(_Name);
 
 		// Auto Location
 		FVector SpriteScale = UEngineTexture::FindRes(_Name)->GetScale();

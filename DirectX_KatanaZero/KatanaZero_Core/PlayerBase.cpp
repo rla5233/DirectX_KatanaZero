@@ -106,6 +106,7 @@ bool APlayerBase::IsCrouchInputPressEnd()
 
 	return Result;
 }
+
 bool APlayerBase::IsRollInputStart()
 {
 	bool Result = false;
@@ -114,6 +115,22 @@ bool APlayerBase::IsRollInputStart()
 
 
 	return Result;
+}
+
+bool APlayerBase::IsJumpInputStart()
+{
+	bool Result = false;
+
+	if (true == IsPress('W') || true == IsPress(VK_UP))
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+bool APlayerBase::IsJumpInputPress()
+{
+	return false;
 }
 // FSM Input Check End
 //////////////////////
@@ -176,12 +193,15 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 	FVector CurPos = GetActorLocation();
 	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
 
-	if (true)
+	if (ColMap::YELLOW != PixelColor)
 	{
-
+		float Speed = 100.0f;
+		AddActorLocation(FVector::Down * Speed * _DeltaTime);
+		IsGround = false;
+		return;
 	}
 
-
+	IsGround = true;
 }
 // FSM Update End
 //////////////////

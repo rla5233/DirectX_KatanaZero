@@ -180,6 +180,7 @@ Color8Bit UEngineTexture::GetColor(unsigned int _X, unsigned int _Y, Color8Bit _
 	switch (Fmt)
 	{
 	case DXGI_FORMAT_B8G8R8A8_UNORM:
+	case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB:
 	{
 		Color8Bit Result;
 		Ptr += ((_Y * GetScale().iX()) + _X) * 4;
