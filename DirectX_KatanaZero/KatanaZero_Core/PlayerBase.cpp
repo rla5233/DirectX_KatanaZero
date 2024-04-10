@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "PlayerBase.h"
 
+#include "ColMapObject.h"
+
 APlayerBase::APlayerBase()
 {
 	InputOn();
@@ -165,6 +167,21 @@ void APlayerBase::RunVelUpdate(float _DeltaTime)
 void APlayerBase::RunPosUpdate(float _DeltaTime)
 {
 	AddActorLocation(Velocity * _DeltaTime);
+}
+
+void APlayerBase::GravityUpdate(float _DeltaTime)
+{
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+
+	FVector CurPos = GetActorLocation();
+	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
+
+	if (true)
+	{
+
+	}
+
+
 }
 // FSM Update End
 //////////////////

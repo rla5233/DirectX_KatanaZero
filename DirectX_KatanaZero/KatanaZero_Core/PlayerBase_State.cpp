@@ -38,6 +38,8 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
+	GravityUpdate(_DeltaTime);
+
 	if (true == IsRunInputStart())
 	{
 		State.ChangeState("IdleToRun");

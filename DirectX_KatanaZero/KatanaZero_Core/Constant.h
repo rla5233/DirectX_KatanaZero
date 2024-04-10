@@ -2,7 +2,8 @@
 
 namespace ColMap
 {
-	const float4 YELLOW = { 1.0f, 1.0f, 0.0f, 1.0f };
+	const Color8Bit YELLOW	= Color8Bit(255, 255, 0, 255);
+	const Color8Bit GREEN	= Color8Bit(0, 255, 0, 255);
 }
 
 namespace ImgRes

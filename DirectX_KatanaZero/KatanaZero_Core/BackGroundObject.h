@@ -15,9 +15,19 @@ public:
 	ABackGroundObject& operator=(const ABackGroundObject& _Other) = delete;
 	ABackGroundObject& operator=(ABackGroundObject&& _Other) noexcept = delete;
 
+	void SetSprite(std::string_view _Name, float _ScaleRatio, bool _AutoSize)
+	{
+		BackGround->SetAutoSize(_ScaleRatio, _AutoSize);
+		SetSprite(_Name);
+	}
+
 	void SetSprite(std::string_view _Name)
 	{
 		BackGround->SetSprite(_Name);
+		
+		// Auto Location
+		FVector SpriteScale = UEngineTexture::FindRes(_Name)->GetScale();
+		SetActorLocation({ SpriteScale.hX(), SpriteScale.hY(), 0.0f });
 	}
 
 	void SetSpriteScale(const FVector& _Scale)
@@ -38,9 +48,6 @@ public:
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-
-private:
-	void ActiveSwitchCheck();
 
 private:
 	USpriteRenderer* BackGround = nullptr;

@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "Factory_001.h"
 
-#include "BackGroundObject.h"
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 
@@ -19,13 +18,9 @@ void AFactory_001::BeginPlay()
 
 	GetWorld()->GetMainCamera()->SetActorLocation({ -235.0f, 0.0f, -100.0f });
 
-	std::shared_ptr<ABackGroundObject> BackGround = GetWorld()->SpawnActor<ABackGroundObject>("BackGround");
-	BackGround->SetSprite(ImgRes::factory_background2);
-	BackGround->SetSpriteScale({ 1800.0f, 784.0f, 1.0f });
-
 	std::shared_ptr<AColMapObject> ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
-	ColMap->SetSprite(ImgRes::factory_colmap2);
-	ColMap->SetSpriteScale({ 1800.0f, 784.0f, 1.0f });
+	ColMap->SetColMapSprite(ImgRes::factory_colmap2, 1.0f, true);
+	ColMap->SetBGSprite(ImgRes::factory_background2, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player");
 	Player->SetActorLocation({ -725.0f, -245.0f, 0.0f });

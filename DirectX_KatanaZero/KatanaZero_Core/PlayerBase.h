@@ -36,7 +36,6 @@ private:
 	float MaxSpeed_X = 450.0f;
 	FVector Velocity = FVector::Zero;
 	FVector Acc = FVector::Zero;
-	
 
 // FSM
 private:
@@ -85,5 +84,6 @@ private:
 	void RunVelUpdate(float _DeltaTime);
 	void RunPosUpdate(float _DeltaTime);
 
+	void GravityUpdate(float _DeltaTime);
 };
 
