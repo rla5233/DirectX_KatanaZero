@@ -224,10 +224,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="PlayerBase_Input.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>

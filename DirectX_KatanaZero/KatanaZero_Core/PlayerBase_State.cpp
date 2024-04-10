@@ -150,7 +150,14 @@ void APlayerBase::JumpStart()
 
 void APlayerBase::Jump(float _DeltaTime)
 {
-	GravityUpdate(_DeltaTime);
+	if (true == IsJumpInputPress())
+	{
+		JumpPosUpdate(_DeltaTime);
+	}
+	else
+	{
+		GravityUpdate(_DeltaTime);
+	}
 
 	if (true == IsGround)
 	{

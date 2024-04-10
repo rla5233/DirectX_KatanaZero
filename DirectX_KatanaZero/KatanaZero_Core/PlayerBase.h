@@ -93,5 +93,6 @@ private:
 	void RunPosUpdate(float _DeltaTime);
 
 	void GravityUpdate(float _DeltaTime);
+	void JumpPosUpdate(float _DeltaTime);
 };
 

@@ -96,9 +96,6 @@
     <ClInclude Include="BackGroundObject.h">
       <Filter>Level\000.Object</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBase_Input.h">
-      <Filter>Object\Player</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
