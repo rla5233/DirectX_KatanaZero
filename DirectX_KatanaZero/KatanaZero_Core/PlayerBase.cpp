@@ -24,6 +24,26 @@ void APlayerBase::BeginPlay()
 	Renderer->SetAutoSize(2.0f, true);
 }
 
+bool APlayerBase::IsDirChange()
+{
+	bool Result = false;
+	EEngineDir Dir = Renderer->GetDir();
+
+	if ((EEngineDir::Left == Dir) && (true == IsPress('D') || true == IsPress(VK_RIGHT)))
+	{
+		Renderer->SetDir(EEngineDir::Right);
+		Result = true;
+	}
+
+	if ((EEngineDir::Right == Dir) && (true == IsPress('A') || true == IsPress(VK_LEFT)))
+	{
+		Renderer->SetDir(EEngineDir::Left);
+		Result = true;
+	}
+
+	return Result;
+}
+
 ////////////////////
 // FSM Setting Start
 void APlayerBase::SetRunAcc()
@@ -60,6 +80,11 @@ void APlayerBase::SetRunVel()
 
 ////////////////////
 // FSM Update Start
+void APlayerBase::PosUpdate(float _DeltaTime)
+{
+	AddActorLocation(Velocity * _DeltaTime);
+}
+
 void APlayerBase::RunVelUpdate(float _DeltaTime)
 {
 	Velocity += Acc * _DeltaTime;
@@ -68,11 +93,6 @@ void APlayerBase::RunVelUpdate(float _DeltaTime)
 	{
 		SetRunVel();
 	}
-}
-
-void APlayerBase::RunPosUpdate(float _DeltaTime)
-{
-	AddActorLocation(Velocity * _DeltaTime);
 }
 
 void APlayerBase::GravityUpdate(float _DeltaTime)
@@ -86,8 +106,7 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 
 	if (ColMap::YELLOW != PixelColor)
 	{
-		float Speed = 400.0f;
-		AddActorLocation(FVector::Down * Speed * _DeltaTime);
+		Velocity.Y = -400.0f;
 		IsGround = false;
 		return;
 	}
@@ -95,11 +114,18 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 	IsGround = true;
 }
 
-void APlayerBase::JumpPosUpdate(float _DeltaTime)
+void APlayerBase::JumpVelUpdate(float _DeltaTime)
 {
-	float Speed = 400.0f;
-	AddActorLocation(FVector::Up * Speed * _DeltaTime);
-	IsGround = false;
+	EEngineDir Dir = Renderer->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X = -MaxSpeed_X;
+		break;
+	case EEngineDir::Right:
+		Velocity.X = MaxSpeed_X;
+		break;
+	}
 }
 // FSM Update End
 //////////////////

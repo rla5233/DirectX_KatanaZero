@@ -31,6 +31,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	bool IsDirChange();
+
+private:
 	USpriteRenderer* Renderer = nullptr;
 
 	float MaxSpeed_X = 450.0f;
@@ -75,7 +78,6 @@ private:
 private:
 	bool IsRunInputStart();
 	bool IsRunInputPress();
-	bool IsRunDirChange();
 
 	bool IsCrouchInputStart();
 	bool IsCrouchInputPress();
@@ -92,10 +94,12 @@ private:
 
 // FSM Update
 private:
-	void RunVelUpdate(float _DeltaTime);
-	void RunPosUpdate(float _DeltaTime);
+	void PosUpdate(float _DeltaTime);
 
-	void GravityUpdate(float _DeltaTime);
-	void JumpPosUpdate(float _DeltaTime);
+	void RunVelUpdate(float _DeltaTime);
+
+	void JumpVelUpdate(float _DeltaTime);
+
+	void GravityUpdate(float _DeltaTime);	
 };
 

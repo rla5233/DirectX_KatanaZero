@@ -42,9 +42,9 @@ void APlayerBase::IdleToRunStart()
 void APlayerBase::IdleToRun(float _DeltaTime)
 {
 	RunVelUpdate(_DeltaTime);
-	RunPosUpdate(_DeltaTime);
+	PosUpdate(_DeltaTime);
 
-	if (true == IsRunDirChange())
+	if (true == IsDirChange())
 	{
 		Velocity = FVector::Zero;
 	}
@@ -56,7 +56,7 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsJumpInputStart())
+	if (true == IsJumpInputPress())
 	{
 		State.ChangeState("Jump");
 		return;
@@ -78,7 +78,7 @@ void APlayerBase::RunStart()
 
 void APlayerBase::Run(float _DeltaTime)
 {
-	RunPosUpdate(_DeltaTime);
+	PosUpdate(_DeltaTime);
 
 	// StateChange Check
 	if (true == IsAnykeyFree())
@@ -93,7 +93,7 @@ void APlayerBase::Run(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsRunDirChange())
+	if (true == IsDirChange())
 	{
 		State.ChangeState("IdleToRun");
 		return;
@@ -182,12 +182,21 @@ void APlayerBase::Roll(float _DeltaTime)
 
 void APlayerBase::JumpStart()
 {
+	IsGround = false;
+	Velocity = { 0.0f, 400.0f, 0.0f };
+
 	Renderer->ChangeAnimation(Anim::player_jump);
 }
 
 void APlayerBase::Jump(float _DeltaTime)
 {
-	JumpPosUpdate(_DeltaTime);
+	IsDirChange();
+	if (true == IsRunInputPress())
+	{
+		JumpVelUpdate(_DeltaTime);
+	}
+
+	PosUpdate(_DeltaTime);
 
 	// StateChange Check
 	if (false == IsJumpInputPress())
@@ -205,6 +214,7 @@ void APlayerBase::FallStart()
 void APlayerBase::Fall(float _DeltaTime)
 {
 	GravityUpdate(_DeltaTime);
+	PosUpdate(_DeltaTime);
 
 	// StateChange Check
 	if (true == IsGround)

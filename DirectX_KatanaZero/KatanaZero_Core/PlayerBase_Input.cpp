@@ -39,26 +39,6 @@ bool APlayerBase::IsRunInputPress()
 	return Result;
 }
 
-bool APlayerBase::IsRunDirChange()
-{
-	bool Result = false;
-	EEngineDir Dir = Renderer->GetDir();
-
-	if ((EEngineDir::Left == Dir) && (true == IsPress('D') || true == IsPress(VK_RIGHT)))
-	{
-		Renderer->SetDir(EEngineDir::Right);
-		Result = true;
-	}
-
-	if ((EEngineDir::Right == Dir) && (true == IsPress('A') || true == IsPress(VK_LEFT)))
-	{
-		Renderer->SetDir(EEngineDir::Left);
-		Result = true;
-	}
-
-	return Result;
-}
-
 bool APlayerBase::IsCrouchInputStart()
 {
 	bool Result = false;
