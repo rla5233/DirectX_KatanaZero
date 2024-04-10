@@ -98,6 +98,12 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsCrouchInputStart())
+	{
+		State.ChangeState("PostCrouch");
+		return;
+	}
+
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
@@ -112,7 +118,7 @@ void APlayerBase::PostCrouchStart()
 
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
-	if (true == IsCrouchInputPressEnd())
+	if (false == IsCrouchInputPress())
 	{
 		State.ChangeState("PreCrouch");
 		return;
@@ -126,6 +132,7 @@ void APlayerBase::PreCrouchStart()
 
 void APlayerBase::PreCrouch(float _DeltaTime)
 {
+
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
@@ -150,20 +157,29 @@ void APlayerBase::JumpStart()
 
 void APlayerBase::Jump(float _DeltaTime)
 {
-	if (true == IsJumpInputPress())
+	JumpPosUpdate(_DeltaTime);
+
+	if (false == IsJumpInputPress())
 	{
-		JumpPosUpdate(_DeltaTime);
+		State.ChangeState("Fall");
+		return;
 	}
-	else
-	{
-		GravityUpdate(_DeltaTime);
-	}
+}
+
+void APlayerBase::FallStart()
+{
+	Renderer->ChangeAnimation(Anim::player_fall);
+}
+
+void APlayerBase::Fall(float _DeltaTime)
+{
+	GravityUpdate(_DeltaTime);
 
 	if (true == IsGround)
 	{
 		State.ChangeState("Idle");
 		return;
-    }
+	}
 }
 
 
@@ -178,6 +194,7 @@ void APlayerBase::StateInit()
 	State.CreateState("PostCrouch");
 	State.CreateState("PreCrouch");
 	State.CreateState("Jump");
+	State.CreateState("Fall");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle", std::bind(&APlayerBase::IdleStart, this));
@@ -187,6 +204,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("PostCrouch", std::bind(&APlayerBase::PostCrouchStart, this));
 	State.SetStartFunction("PreCrouch", std::bind(&APlayerBase::PreCrouchStart, this));
 	State.SetStartFunction("Jump", std::bind(&APlayerBase::JumpStart, this));
+	State.SetStartFunction("Fall", std::bind(&APlayerBase::FallStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
@@ -196,4 +214,5 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("PostCrouch", std::bind(&APlayerBase::PostCrouch, this, std::placeholders::_1));
 	State.SetUpdateFunction("PreCrouch", std::bind(&APlayerBase::PreCrouch, this, std::placeholders::_1));
 	State.SetUpdateFunction("Jump", std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
+	State.SetUpdateFunction("Fall", std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
 }

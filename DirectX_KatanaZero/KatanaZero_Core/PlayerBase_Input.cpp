@@ -63,7 +63,7 @@ bool APlayerBase::IsCrouchInputStart()
 {
 	bool Result = false;
 
-	if (true == IsPress('S') || true == IsPress(VK_DOWN))
+	if (true == IsDown('S') || true == IsDown(VK_DOWN))
 	{
 		Result = true;
 	}
@@ -71,11 +71,11 @@ bool APlayerBase::IsCrouchInputStart()
 	return Result;
 }
 
-bool APlayerBase::IsCrouchInputPressEnd()
+bool APlayerBase::IsCrouchInputPress()
 {
 	bool Result = false;
 
-	if (false == IsPress('S') && false == IsPress(VK_DOWN))
+	if (true == IsPress('S') || true == IsPress(VK_DOWN))
 	{
 		Result = true;
 	}

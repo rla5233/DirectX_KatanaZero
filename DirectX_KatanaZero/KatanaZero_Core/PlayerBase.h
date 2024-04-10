@@ -68,6 +68,9 @@ private:
 	void JumpStart();
 	void Jump(float _DeltaTime);
 
+	void FallStart();
+	void Fall(float _DeltaTime);
+
 // FSM Input Check
 private:
 	bool IsRunInputStart();
@@ -75,7 +78,7 @@ private:
 	bool IsRunDirChange();
 
 	bool IsCrouchInputStart();
-	bool IsCrouchInputPressEnd();
+	bool IsCrouchInputPress();
 
 	bool IsRollInputStart();
 
