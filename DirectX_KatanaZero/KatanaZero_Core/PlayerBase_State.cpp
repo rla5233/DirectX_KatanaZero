@@ -114,6 +114,13 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsRunInputPress())
+	{
+		State.ChangeState("Run");
+		return;
+	}
+
+
 	if (true == IsCrouchInputStart())
 	{
 		State.ChangeState("PostCrouch");
