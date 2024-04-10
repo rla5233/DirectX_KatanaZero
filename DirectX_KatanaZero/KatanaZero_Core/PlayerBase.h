@@ -31,11 +31,6 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	bool IsRunInputStart();
-	bool IsRunInputPress();
-	bool IsRunDirChange();
-
-private:
 	USpriteRenderer* Renderer = nullptr;
 
 	FVector Speed = FVector::Zero;
@@ -62,6 +57,15 @@ private:
 
 	void PreCrouchStart();
 	void PreCrouch(float _DeltaTime);
+
+// FSM Input Check
+private:
+	bool IsRunInputStart();
+	bool IsRunInputPress();
+	bool IsRunDirChange();
+
+	bool IsCrouchInputStart();
+	bool IsCrouchInputPressEnd();
 
 };
 

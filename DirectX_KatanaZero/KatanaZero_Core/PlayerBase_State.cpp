@@ -41,6 +41,12 @@ void APlayerBase::Idle(float _DeltaTime)
 		State.ChangeState("IdleToRun");
 		return;
 	}
+
+	if (true == IsCrouchInputStart())
+	{
+		State.ChangeState("PostCrouch");
+		return;
+	}
 }
 
 void APlayerBase::IdleToRunStart()
@@ -105,20 +111,28 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 
 void APlayerBase::PostCrouchStart()
 {
-
+	Renderer->ChangeAnimation(Anim::player_postcrouch);
 }
 
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
-
+	if (true == IsCrouchInputPressEnd())
+	{
+		State.ChangeState("PreCrouch");
+		return;
+	}
 }
 
 void APlayerBase::PreCrouchStart()
 {
-
+	Renderer->ChangeAnimation(Anim::player_precrouch);
 }
 
 void APlayerBase::PreCrouch(float _DeltaTime)
 {
-
+	if (true == Renderer->IsCurAnimationEnd())
+	{
+		State.ChangeState("Idle");
+		return;
+	}
 }

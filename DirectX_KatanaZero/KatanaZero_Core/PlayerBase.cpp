@@ -22,6 +22,8 @@ void APlayerBase::BeginPlay()
 	Renderer->SetAutoSize(2.0f, true);
 }
 
+
+// FSM Input Check Start
 bool APlayerBase::IsRunInputStart()
 {
 	bool Result = false;
@@ -78,6 +80,32 @@ bool APlayerBase::IsRunDirChange()
 
 	return Result;
 }
+
+bool APlayerBase::IsCrouchInputStart()
+{
+	bool Result = false;
+
+	if (true == IsPress('S') || true == IsPress(VK_DOWN))
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
+bool APlayerBase::IsCrouchInputPressEnd()
+{
+	bool Result = false;
+
+	if (false == IsPress('S') && false == IsPress(VK_DOWN))
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+// FSM Input Check End
+
 
 void APlayerBase::Tick(float _DeltaTime)
 {
