@@ -8,6 +8,8 @@ namespace ImgRes
 	const std::string_view player_run_to_idle		= "player_run_to_idle";
 	const std::string_view player_jump				= "player_jump";
 	const std::string_view player_run				= "player_run";
+	const std::string_view player_postcrouch		= "player_postcrouch";
+	const std::string_view player_precrouch			= "player_precrouch";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -34,4 +36,6 @@ namespace Anim
 	const std::string_view player_run_to_idle		= "player_run_to_idle";
 	const std::string_view player_jump				= "player_jump";
 	const std::string_view player_run				= "player_run";
+	const std::string_view player_postcrouch		= "player_postcrouch";
+	const std::string_view player_precrouch			= "player_precrouch";
 }

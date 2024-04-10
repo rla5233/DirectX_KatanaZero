@@ -57,5 +57,11 @@ private:
 	void RunToIdleStart();
 	void RunToIdle(float _DeltaTime);
 
+	void PostCrouchStart();
+	void PostCrouch(float _DeltaTime);
+
+	void PreCrouchStart();
+	void PreCrouch(float _DeltaTime);
+
 };
 
