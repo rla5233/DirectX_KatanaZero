@@ -22,7 +22,7 @@ void APlayerBase::BeginPlay()
 	Renderer->SetAutoSize(2.0f, true);
 }
 
-
+////////////////////////
 // FSM Input Check Start
 bool APlayerBase::IsRunInputStart()
 {
@@ -114,7 +114,36 @@ bool APlayerBase::IsRollInputStart()
 	return Result;
 }
 // FSM Input Check End
+//////////////////////
 
+////////////////////
+// FSM Setting Start
+void APlayerBase::SetRunSpeed()
+{
+	EEngineDir Dir = Renderer->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Speed.X = -450.0f;
+		break;
+	case EEngineDir::Right:
+		Speed.X = 450.0f;
+		break;
+	}
+}
+// FSM Setting End
+//////////////////
+
+
+////////////////////
+// FSM Update Start
+void APlayerBase::RunPosUpdate(float _DeltaTime)
+{
+	AddActorLocation(Speed * _DeltaTime);
+}
+// FSM Update End
+//////////////////
 
 void APlayerBase::Tick(float _DeltaTime)
 {

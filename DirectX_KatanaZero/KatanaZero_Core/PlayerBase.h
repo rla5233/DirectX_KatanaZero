@@ -71,5 +71,14 @@ private:
 	bool IsCrouchInputPressEnd();
 
 	bool IsRollInputStart();
+
+// FSM Setting
+private:
+	void SetRunSpeed();
+
+// FSM Update
+private:
+	void RunPosUpdate(float _DeltaTime);
+
 };
 

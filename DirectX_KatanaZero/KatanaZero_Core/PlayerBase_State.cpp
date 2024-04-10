@@ -72,10 +72,13 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 void APlayerBase::RunStart()
 {
 	Renderer->ChangeAnimation(Anim::player_run);
+	SetRunSpeed();
 }
 
 void APlayerBase::Run(float _DeltaTime)
 {
+	RunPosUpdate(_DeltaTime);
+
 	if (true == IsAnykeyFree())
 	{
 		State.ChangeState("RunToIdle");
