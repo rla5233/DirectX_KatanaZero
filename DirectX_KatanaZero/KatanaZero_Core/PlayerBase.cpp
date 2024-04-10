@@ -78,13 +78,15 @@ void APlayerBase::RunPosUpdate(float _DeltaTime)
 void APlayerBase::GravityUpdate(float _DeltaTime)
 {
 	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
 
 	FVector CurPos = GetActorLocation();
+	CurPos.Y = MapTexScale.Y - CurPos.Y;
 	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
 
 	if (ColMap::YELLOW != PixelColor)
 	{
-		float Speed = 200.0f;
+		float Speed = 400.0f;
 		AddActorLocation(FVector::Down * Speed * _DeltaTime);
 		IsGround = false;
 		return;
@@ -95,7 +97,7 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 
 void APlayerBase::JumpPosUpdate(float _DeltaTime)
 {
-	float Speed = 200.0f;
+	float Speed = 400.0f;
 	AddActorLocation(FVector::Up * Speed * _DeltaTime);
 	IsGround = false;
 }

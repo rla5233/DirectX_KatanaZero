@@ -11,6 +11,7 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
+	// StateChange Check
 	if (true == IsRunInputStart())
 	{
 		State.ChangeState("IdleToRun");
@@ -43,15 +44,22 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 	RunVelUpdate(_DeltaTime);
 	RunPosUpdate(_DeltaTime);
 
+	if (true == IsRunDirChange())
+	{
+		Velocity = FVector::Zero;
+	}
+
+	// StateChange Check
 	if (true == IsAnykeyFree())
 	{
 		State.ChangeState("RunToIdle");
 		return;
 	}
 
-	if (true == IsRunDirChange())
+	if (true == IsJumpInputStart())
 	{
-		Velocity = FVector::Zero;
+		State.ChangeState("Jump");
+		return;
 	}
 
 	if (true == Renderer->IsCurAnimationEnd() && true == IsRunInputPress())
@@ -72,6 +80,7 @@ void APlayerBase::Run(float _DeltaTime)
 {
 	RunPosUpdate(_DeltaTime);
 
+	// StateChange Check
 	if (true == IsAnykeyFree())
 	{
 		State.ChangeState("RunToIdle");
@@ -92,6 +101,7 @@ void APlayerBase::RunToIdleStart()
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
+	// StateChange Check
 	if (true == IsRunInputStart())
 	{
 		State.ChangeState("IdleToRun");
@@ -118,6 +128,7 @@ void APlayerBase::PostCrouchStart()
 
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
+	// StateChange Check
 	if (false == IsCrouchInputPress())
 	{
 		State.ChangeState("PreCrouch");
@@ -132,7 +143,7 @@ void APlayerBase::PreCrouchStart()
 
 void APlayerBase::PreCrouch(float _DeltaTime)
 {
-
+	// StateChange Check
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
@@ -159,6 +170,7 @@ void APlayerBase::Jump(float _DeltaTime)
 {
 	JumpPosUpdate(_DeltaTime);
 
+	// StateChange Check
 	if (false == IsJumpInputPress())
 	{
 		State.ChangeState("Fall");
@@ -175,9 +187,10 @@ void APlayerBase::Fall(float _DeltaTime)
 {
 	GravityUpdate(_DeltaTime);
 
+	// StateChange Check
 	if (true == IsGround)
 	{
-		State.ChangeState("Idle");
+		State.ChangeState("RunToIdle");
 		return;
 	}
 }
