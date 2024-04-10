@@ -106,7 +106,13 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 
 	if (ColMap::YELLOW != PixelColor)
 	{
-		Velocity.Y = -400.0f;
+		Velocity.Y += -2000.0f * _DeltaTime;
+
+		if (-400.0f > Velocity.Y)
+		{
+			Velocity.Y = -400.0f;
+		}
+
 		IsGround = false;
 		return;
 	}

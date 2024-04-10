@@ -36,7 +36,7 @@ private:
 private:
 	USpriteRenderer* Renderer = nullptr;
 
-	float MaxSpeed_X = 450.0f;
+	float MaxSpeed_X = 425.0f;
 	FVector Velocity = FVector::Zero;
 	FVector Acc = FVector::Zero;
 
