@@ -75,9 +75,6 @@
     <ClInclude Include="TitleGameMode.h">
       <Filter>Level\001.TitleLevel\GameMode</Filter>
     </ClInclude>
-    <ClInclude Include="BackGroundObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="Factory_005.h">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClInclude>
@@ -94,7 +91,10 @@
       <Filter>Level\000.Object</Filter>
     </ClInclude>
     <ClInclude Include="ColMapObject.h">
-      <Filter>Object</Filter>
+      <Filter>Level\000.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGroundObject.h">
+      <Filter>Level\000.Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -125,9 +125,6 @@
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>Level\001.TitleLevel\GameMode</Filter>
     </ClCompile>
-    <ClCompile Include="BackGroundObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="Factory_005.cpp">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClCompile>
@@ -146,8 +143,11 @@
     <ClCompile Include="DefaultPlayer.cpp">
       <Filter>Level\000.Object</Filter>
     </ClCompile>
+    <ClCompile Include="BackGroundObject.cpp">
+      <Filter>Level\000.Object</Filter>
+    </ClCompile>
     <ClCompile Include="ColMapObject.cpp">
-      <Filter>Object</Filter>
+      <Filter>Level\000.Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

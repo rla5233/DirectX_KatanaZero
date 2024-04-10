@@ -40,6 +40,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void ActiveSwitchCheck();
+
+private:
 	USpriteRenderer* BackGround = nullptr;
 
 };

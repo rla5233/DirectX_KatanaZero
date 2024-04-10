@@ -1,5 +1,10 @@
 #pragma once
 
+namespace ColMap
+{
+	const float4 YELLOW = { 1.0f, 1.0f, 0.0f, 1.0f };
+}
+
 namespace ImgRes
 {
 	// Player
@@ -23,6 +28,8 @@ namespace ImgRes
 	const std::string_view factory_background3		= "spr_background_factory_3.png";
 	const std::string_view factory_background4	 	= "spr_background_factory_4.png";
 	const std::string_view factory_background5		= "spr_background_factory_5.png";
+
+	const std::string_view factory_colmap2			= "spr_colmap_factory_2.png";
 
 	// HeadHunterLevel
 	const std::string_view headhunter_background1	= "spr_background_headhunter1.png";

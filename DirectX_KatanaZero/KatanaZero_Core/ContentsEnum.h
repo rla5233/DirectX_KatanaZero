@@ -10,6 +10,7 @@ enum class ETitleState
 enum class ERenderOrder
 {
 	None,
+	ColMap,
 	BackGround,
 	Player
 };

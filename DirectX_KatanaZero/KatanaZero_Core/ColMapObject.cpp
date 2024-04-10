@@ -13,6 +13,8 @@ AColMapObject::~AColMapObject()
 void AColMapObject::BeginPlay()
 {
 	Super::BeginPlay();
+
+	ColMap->SetOrder(ERenderOrder::ColMap);
 }
 
 void AColMapObject::Tick(float _DeltaTime)
