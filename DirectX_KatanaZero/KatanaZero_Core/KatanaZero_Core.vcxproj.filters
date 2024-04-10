@@ -93,6 +93,9 @@
     <ClInclude Include="DefaultPlayer.h">
       <Filter>Level\000.Object</Filter>
     </ClInclude>
+    <ClInclude Include="ColMapObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -142,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="DefaultPlayer.cpp">
       <Filter>Level\000.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ColMapObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

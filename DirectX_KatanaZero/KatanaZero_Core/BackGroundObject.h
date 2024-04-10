@@ -41,5 +41,6 @@ protected:
 
 private:
 	USpriteRenderer* BackGround = nullptr;
+
 };
 

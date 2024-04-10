@@ -125,10 +125,10 @@ void APlayerBase::SetRunAcc()
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Acc.X = -500.0f;
+		Acc = FVector::Left * 500.0f;
 		break;
 	case EEngineDir::Right:
-		Acc.X = 500.0f;
+		Acc = FVector::Right * 500.0f;
 		break;
 	}
 }
@@ -140,10 +140,10 @@ void APlayerBase::SetRunVel()
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Velocity.X = -MaxSpeed_X;
+		Velocity = FVector::Left * MaxSpeed_X;
 		break;
 	case EEngineDir::Right:
-		Velocity.X = MaxSpeed_X;
+		Velocity = FVector::Right * MaxSpeed_X;
 		break;
 	}
 }
