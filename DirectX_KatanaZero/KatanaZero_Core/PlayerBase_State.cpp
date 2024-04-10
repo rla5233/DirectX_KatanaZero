@@ -87,6 +87,12 @@ void APlayerBase::Run(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsJumpInputStart())
+	{
+		State.ChangeState("Jump");
+		return;
+	}
+
 	if (true == IsRunDirChange())
 	{
 		State.ChangeState("IdleToRun");
@@ -111,6 +117,12 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 	if (true == IsCrouchInputStart())
 	{
 		State.ChangeState("PostCrouch");
+		return;
+	}
+
+	if (true == IsJumpInputStart())
+	{
+		State.ChangeState("Jump");
 		return;
 	}
 
