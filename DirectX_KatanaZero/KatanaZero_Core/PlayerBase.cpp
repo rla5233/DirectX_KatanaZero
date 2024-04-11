@@ -216,6 +216,22 @@ void APlayerBase::FallVelXUpdate(float _DeltaTime)
 	}
 }
 
+void APlayerBase::FallGravityUpate(float _DeltaTime)
+{
+	if (true == IsOnGround() || true == IsOnPlatForm())
+	{
+		Velocity.Y = 0.0f;
+		return;
+	}
+
+	Velocity.Y += Const::gravity * _DeltaTime;
+
+	if (Const::player_fall_max_speedy < abs(Velocity.Y))
+	{
+		Velocity.Y = -Const::player_fall_max_speedy;
+	}
+}
+
 void APlayerBase::JumpVelXUpdate(float _DeltaTime)
 {
 	EEngineDir Dir = Renderer->GetDir();

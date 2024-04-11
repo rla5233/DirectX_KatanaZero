@@ -113,5 +113,6 @@ private:
 	void OnGroundPosUpdate();
 
 	void FallVelXUpdate(float _DeltaTime);
+	void FallGravityUpate(float _DeltaTime);
 };
 

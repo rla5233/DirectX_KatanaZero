@@ -73,4 +73,5 @@ namespace Const
 	const float player_roll_speedx = 800.0f;
 
 	const float player_fall_accx = 1000.0f;
+	const float player_fall_max_speedy = 2.0f * player_max_speedy;
 }

@@ -285,8 +285,8 @@ void APlayerBase::FallStart()
 
 void APlayerBase::Fall(float _DeltaTime)
 {
-	GravityUpdate(_DeltaTime);
-
+	FallGravityUpate(_DeltaTime);
+	
 	if (true == IsDirChangeKeyDown())
 	{
 		Velocity.X = 0.0f;
@@ -299,12 +299,17 @@ void APlayerBase::Fall(float _DeltaTime)
 
 	if (true == IsFallInputPress())
 	{
-		Velocity.Y = (-1.5f) * Const::player_max_speedy;
+		Velocity.Y = -Const::player_fall_max_speedy;
 	}
 
 	PosUpdate(_DeltaTime);
 
 	// StateChange Check
+	if (false == IsOnGround() && true == IsFallInputPress())
+	{
+		return;
+	}
+
 	if (true == IsOnGround() && true == IsRunToRollInputPress() && true == IsCrouchToRollInputPress())
 	{
 		State.ChangeState("Roll");
