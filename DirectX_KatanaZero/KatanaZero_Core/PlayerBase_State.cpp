@@ -11,7 +11,6 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
-	GravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
 
 	IsDirChangeKeyDown();
@@ -52,9 +51,9 @@ void APlayerBase::IdleToRunStart()
 
 void APlayerBase::IdleToRun(float _DeltaTime)
 {
-	GravityUpdate(_DeltaTime);
 	RunVelUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
+	OnGroundPosUpdate();
 
 	if (true == IsDirChangeKeyDown())
 	{
@@ -99,8 +98,8 @@ void APlayerBase::RunStart()
 
 void APlayerBase::Run(float _DeltaTime)
 {
-	GravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
+	OnGroundPosUpdate();
 
 	// StateChange Check
 	if (true == IsJumpInputStart())

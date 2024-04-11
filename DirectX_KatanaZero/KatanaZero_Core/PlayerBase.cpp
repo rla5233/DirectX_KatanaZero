@@ -130,7 +130,8 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 	CurPos.Y = MapTexScale.Y - CurPos.Y;
 	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
 
-	if (ColMap::YELLOW != PixelColor)
+	if (ColMap::YELLOW != PixelColor 
+	&&  ColMap::GREEN != PixelColor)
 	{
 		Velocity.Y += -2000.0f * _DeltaTime;
 
@@ -145,6 +146,27 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 
 	Velocity.Y = 0.0f;
 	IsGround = true;
+}
+
+void APlayerBase::OnGroundPosUpdate()
+{
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector CurPos = GetActorLocation();
+	CurPos.Y = MapTexScale.Y - CurPos.Y;
+	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
+
+	if (ColMap::YELLOW == PixelColor || ColMap::GREEN == PixelColor)
+	{
+		AddActorLocation({ 0.0f, 1.0f, 0.0f });
+		return;
+	}
+	else
+	{
+		AddActorLocation({ 0.0f, -1.0f, 0.0f });
+		return;
+	}
 }
 
 void APlayerBase::JumpVelUpdate(float _DeltaTime)

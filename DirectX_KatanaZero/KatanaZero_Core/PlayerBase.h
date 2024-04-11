@@ -104,5 +104,6 @@ private:
 	void JumpVelUpdate(float _DeltaTime);
 
 	void GravityUpdate(float _DeltaTime);	
+	void OnGroundPosUpdate();
 };
 
