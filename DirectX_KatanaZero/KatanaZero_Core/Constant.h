@@ -52,7 +52,16 @@ namespace Anim
 	const std::string_view player_roll				= "player_roll";
 }
 
-namespace Time
+namespace Const
 {
-	const float player_jump = 0.2f;
+	const float gravity = -2000.0f;
+	const float jump_gravity = gravity * 0.55f;
+
+	const FVector player_jump_vel = { 0.0f, 500.0f, 0.0f };
+
+	const float player_max_speedx = 425.0f;
+	const float player_max_speedy = 425.0f;
+
+	const float player_roll_accx = -1000.0f;
+	const float player_roll_speedx = 800.0f;
 }

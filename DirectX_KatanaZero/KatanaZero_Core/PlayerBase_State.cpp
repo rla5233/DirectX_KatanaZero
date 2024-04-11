@@ -134,7 +134,7 @@ void APlayerBase::RunToIdleStart()
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
-	if (true == IsDirChangeKeyDown())
+	if (true == IsDirChangeKeyPress())
 	{
 		Velocity = FVector::Zero;
 	}
@@ -167,6 +167,8 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 
 void APlayerBase::PostCrouchStart()
 {
+	Velocity = FVector::Zero;
+
 	Renderer->ChangeAnimation(Anim::player_postcrouch);
 }
 
@@ -204,15 +206,19 @@ void APlayerBase::PreCrouch(float _DeltaTime)
 
 void APlayerBase::RollStart()
 {
+	float SignSpeedX = Velocity.X / abs(Velocity.X);
+	Velocity.X = SignSpeedX * Const::player_roll_speedx;
+
 	Renderer->ChangeAnimation(Anim::player_roll);
 }
 
 void APlayerBase::Roll(float _DeltaTime)
 {
+	RollVelXUpdate(_DeltaTime);
+	PosUpdate(_DeltaTime);
+	OnGroundPosUpdate();
 
 	// StateChange Check
-
-
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		if (true == IsRunInputPress())
@@ -229,31 +235,32 @@ void APlayerBase::Roll(float _DeltaTime)
 void APlayerBase::JumpStart()
 {
 	IsGround = false;
-	Velocity = { 0.0f, 400.0f, 0.0f };
-	TimeCount = Time::player_jump;
+	AddActorLocation(FVector::Up);
+	Velocity = Const::player_jump_vel;
 
 	Renderer->ChangeAnimation(Anim::player_jump);
 }
 
 void APlayerBase::Jump(float _DeltaTime)
 {
+	JumpVelYUpdate(_DeltaTime);
 	IsDirChangeKeyDown();
+
 	if (true == IsRunInputPress())
 	{
-		JumpVelUpdate(_DeltaTime);
+		JumpVelXUpdate(_DeltaTime);
 	}
 
 	PosUpdate(_DeltaTime);
 
 	// StateChange Check
-	if (false == IsJumpInputPress() || 0.0f > TimeCount)
+	if (true == IsFallInputPress() 
+	||  false == IsJumpInputPress()
+	||  0.0f > Velocity.Y)
 	{
-		TimeCount = 0.0f;
 		State.ChangeState("Fall");
 		return;
 	}
-
-	TimeCount -= _DeltaTime;
 }
 
 void APlayerBase::FallStart()

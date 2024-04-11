@@ -37,14 +37,10 @@ private:
 private:
 	USpriteRenderer* Renderer = nullptr;
 
-	float MaxSpeed_X = 425.0f;
-	float MaxSpeed_Y = 425.0f;
 	FVector Velocity = FVector::Zero;
 	FVector Acc = FVector::Zero;
 
 	bool IsGround = true;
-
-	float TimeCount = 0.0f;
 
 // FSM
 private:
@@ -92,6 +88,8 @@ private:
 	bool IsJumpInputDown();
 	bool IsJumpInputPress();
 
+	bool IsFallInputPress();
+
 // FSM Setting
 private:
 	void SetRunAcc();
@@ -103,7 +101,10 @@ private:
 
 	void RunVelUpdate(float _DeltaTime);
 
-	void JumpVelUpdate(float _DeltaTime);
+	void JumpVelXUpdate(float _DeltaTime);
+	void JumpVelYUpdate(float _DeltaTime);
+
+	void RollVelXUpdate(float _DeltaTime);
 
 	void GravityUpdate(float _DeltaTime);	
 	void OnGroundPosUpdate();

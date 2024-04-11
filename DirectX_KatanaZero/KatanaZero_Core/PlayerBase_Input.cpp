@@ -125,3 +125,15 @@ bool APlayerBase::IsJumpInputPress()
 
 	return Result;
 }
+
+bool APlayerBase::IsFallInputPress()
+{
+	bool Result = false;
+
+	if (true == IsPress('S') || true == IsPress(VK_DOWN))
+	{
+		Result = true;
+	}
+
+	return Result;
+}

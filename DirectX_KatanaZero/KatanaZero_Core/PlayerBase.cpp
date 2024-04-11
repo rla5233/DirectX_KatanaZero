@@ -94,10 +94,10 @@ void APlayerBase::SetRunVel()
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Velocity = FVector::Left * MaxSpeed_X;
+		Velocity = FVector::Left * Const::player_max_speedx;
 		break;
 	case EEngineDir::Right:
-		Velocity = FVector::Right * MaxSpeed_X;
+		Velocity = FVector::Right * Const::player_max_speedx;
 		break;
 	}
 }
@@ -115,7 +115,7 @@ void APlayerBase::RunVelUpdate(float _DeltaTime)
 {
 	Velocity += Acc * _DeltaTime;
 
-	if (MaxSpeed_X < std::abs(Velocity.X))
+	if (Const::player_max_speedx < std::abs(Velocity.X))
 	{
 		SetRunVel();
 	}
@@ -130,14 +130,14 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 	CurPos.Y = MapTexScale.Y - CurPos.Y;
 	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
 
-	if (ColMap::YELLOW != PixelColor 
-	&&  ColMap::GREEN != PixelColor)
+	if (ColMap::YELLOW != PixelColor
+		&& ColMap::GREEN != PixelColor)
 	{
-		Velocity.Y += -2000.0f * _DeltaTime;
+		Velocity.Y += Const::gravity * _DeltaTime;
 
-		if (-MaxSpeed_Y > Velocity.Y)
+		if (-Const::player_max_speedy > Velocity.Y)
 		{
-			Velocity.Y = -MaxSpeed_Y;
+			Velocity.Y = -Const::player_max_speedy;
 		}
 
 		IsGround = false;
@@ -169,17 +169,66 @@ void APlayerBase::OnGroundPosUpdate()
 	}
 }
 
-void APlayerBase::JumpVelUpdate(float _DeltaTime)
+void APlayerBase::JumpVelXUpdate(float _DeltaTime)
 {
 	EEngineDir Dir = Renderer->GetDir();
+
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Velocity.X = -MaxSpeed_X;
+		Velocity.X = -Const::player_max_speedx;
 		break;
 	case EEngineDir::Right:
-		Velocity.X = MaxSpeed_X;
+		Velocity.X = Const::player_max_speedx;
 		break;
+	}
+}
+
+void APlayerBase::JumpVelYUpdate(float _DeltaTime)
+{
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector CurPos = GetActorLocation();
+	CurPos.Y = MapTexScale.Y - CurPos.Y;
+	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
+
+	if (ColMap::YELLOW != PixelColor
+		&& ColMap::GREEN != PixelColor)
+	{
+		Velocity.Y += Const::jump_gravity * _DeltaTime;
+
+		if (-Const::player_max_speedy > Velocity.Y)
+		{
+			Velocity.Y = -Const::player_max_speedy;
+		}
+
+		IsGround = false;
+		return;
+	}
+
+	Velocity.Y = 0.0f;
+	IsGround = true;
+}
+
+void APlayerBase::RollVelXUpdate(float _DeltaTime)
+{
+	EEngineDir Dir = Renderer->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity += FVector::Left * Const::player_roll_accx * _DeltaTime;
+		break;
+	case EEngineDir::Right:
+		Velocity += FVector::Right * Const::player_roll_accx * _DeltaTime;
+		break;
+	}
+
+	if (Const::player_max_speedx > abs(Velocity.X))
+	{
+		float Sign = Velocity.X / abs(Velocity.X);
+		Velocity.X = Sign * Const::player_max_speedx;
 	}
 }
 // FSM Update End
