@@ -147,20 +147,6 @@ void APlayerBase::SetRunVel()
 void APlayerBase::PosUpdate(float _DeltaTime)
 {
 	AddActorLocation(Velocity * _DeltaTime);
-
-	if (true == IsOnGround() || true == IsOnPlatForm())
-	{
-		while (true)
-		{
-			AddActorLocation({ 0.0f, 1.0f, 0.0f });
-
-			if (false == IsOnGround() && false == IsOnPlatForm())
-			{
-				AddActorLocation({ 0.0f, -1.0f, 0.0f });
-				break;
-			}
-		}		
-	}
 }
 
 void APlayerBase::RunVelUpdate(float _DeltaTime)
@@ -247,27 +233,12 @@ void APlayerBase::JumpVelXUpdate(float _DeltaTime)
 
 void APlayerBase::JumpVelYUpdate(float _DeltaTime)
 {
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
+	Velocity.Y += Const::jump_gravity * _DeltaTime;
 
-	FVector CurPos = GetActorLocation();
-	CurPos.Y = MapTexScale.Y - CurPos.Y;
-	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
-
-	if (ColMap::YELLOW != PixelColor
-		&& ColMap::GREEN != PixelColor)
+	if (-Const::player_max_speedy > Velocity.Y)
 	{
-		Velocity.Y += Const::jump_gravity * _DeltaTime;
-
-		if (-Const::player_max_speedy > Velocity.Y)
-		{
-			Velocity.Y = -Const::player_max_speedy;
-		}
-
-		return;
+		Velocity.Y = -Const::player_max_speedy;
 	}
-
-	Velocity.Y = 0.0f;
 }
 
 void APlayerBase::RollVelXUpdate(float _DeltaTime)

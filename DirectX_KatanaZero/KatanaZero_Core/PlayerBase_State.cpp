@@ -176,13 +176,6 @@ void APlayerBase::PostCrouchStart()
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
 	// StateChange Check
-	if (true == IsFallInputPress() && true == IsOnPlatForm())
-	{
-		AddActorLocation(FVector::Down + FVector::Down);
-		State.ChangeState("Fall");
-		return;
-	}
-
 	if (true == IsCrouchToRollInputPress())
 	{
 		IsDirChangeKeyPress();
@@ -241,6 +234,12 @@ void APlayerBase::Roll(float _DeltaTime)
 		if (true == IsRunInputPress())
 		{
 			State.ChangeState("Run");
+			return;
+		}
+
+		if (true == IsCrouchInputPress())
+		{
+			State.ChangeState("PostCrouch");
 			return;
 		}
 
