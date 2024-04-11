@@ -2,7 +2,7 @@
 #include "PlayerBase.h"
 
 // PlayerBase Input
-bool APlayerBase::IsRunInputStart()
+bool APlayerBase::IsRunInputDown()
 {
 	bool Result = false;
 
@@ -49,7 +49,7 @@ bool APlayerBase::IsRunInputPress()
 	return Result;
 }
 
-bool APlayerBase::IsCrouchInputStart()
+bool APlayerBase::IsCrouchInputDown()
 {
 	bool Result = false;
 
@@ -73,7 +73,7 @@ bool APlayerBase::IsCrouchInputPress()
 	return Result;
 }
 
-bool APlayerBase::IsRunToRollInputStart()
+bool APlayerBase::IsRunToRollInputDown()
 {
 	bool Result = false;
 
@@ -85,7 +85,7 @@ bool APlayerBase::IsRunToRollInputStart()
 	return Result;
 }
 
-bool APlayerBase::IsCrouchToRollInputStart()
+bool APlayerBase::IsCrouchToRollInputDown()
 {
 	bool Result = false;
 
@@ -102,7 +102,7 @@ bool APlayerBase::IsCrouchToRollInputStart()
 	return Result;
 }
 
-bool APlayerBase::IsJumpInputStart()
+bool APlayerBase::IsJumpInputDown()
 {
 	bool Result = false;
 

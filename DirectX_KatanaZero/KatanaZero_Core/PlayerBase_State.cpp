@@ -16,7 +16,7 @@ void APlayerBase::Idle(float _DeltaTime)
 	IsDirChangeKeyDown();
 	
 	// StateChange Check
-	if (true == IsRunInputStart())
+	if (true == IsRunInputDown())
 	{
 		State.ChangeState("IdleToRun");
 		return;
@@ -28,13 +28,13 @@ void APlayerBase::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsCrouchInputStart())
+	if (true == IsCrouchInputDown())
 	{
 		State.ChangeState("PostCrouch");
 		return;
 	}
 
-	if (true == IsJumpInputStart())
+	if (true == IsJumpInputDown())
 	{
 		State.ChangeState("Jump");
 		return;
@@ -70,13 +70,13 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		}
 	}
 
-	if (true == IsJumpInputPress())
+	if (true == IsJumpInputDown())
 	{
 		State.ChangeState("Jump");
 		return;
 	}
 
-	if (true == IsRunToRollInputStart())
+	if (true == IsRunToRollInputDown())
 	{
 		State.ChangeState("Roll");
 		return;
@@ -102,13 +102,13 @@ void APlayerBase::Run(float _DeltaTime)
 	OnGroundPosUpdate();
 
 	// StateChange Check
-	if (true == IsJumpInputStart())
+	if (true == IsJumpInputDown())
 	{
 		State.ChangeState("Jump");
 		return;
 	}
 
-	if (true == IsRunToRollInputStart())
+	if (true == IsRunToRollInputDown())
 	{
 		State.ChangeState("Roll");
 		return;
@@ -146,13 +146,13 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsCrouchInputStart())
+	if (true == IsCrouchInputDown())
 	{
 		State.ChangeState("PostCrouch");
 		return;
 	}
 
-	if (true == IsJumpInputStart())
+	if (true == IsJumpInputDown())
 	{
 		State.ChangeState("Jump");
 		return;
@@ -173,7 +173,7 @@ void APlayerBase::PostCrouchStart()
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
 	// StateChange Check
-	if (true == IsCrouchToRollInputStart())
+	if (true == IsCrouchToRollInputDown())
 	{
 		IsDirChangeKeyPress();
 		State.ChangeState("Roll");

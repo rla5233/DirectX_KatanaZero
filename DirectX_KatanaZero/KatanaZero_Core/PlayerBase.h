@@ -80,16 +80,16 @@ private:
 
 // FSM Input Check
 private:
-	bool IsRunInputStart();
+	bool IsRunInputDown();
 	bool IsRunInputPress();
 
-	bool IsCrouchInputStart();
+	bool IsCrouchInputDown();
 	bool IsCrouchInputPress();
 
-	bool IsRunToRollInputStart();
-	bool IsCrouchToRollInputStart();
+	bool IsRunToRollInputDown();
+	bool IsCrouchToRollInputDown();
 
-	bool IsJumpInputStart();
+	bool IsJumpInputDown();
 	bool IsJumpInputPress();
 
 // FSM Setting
