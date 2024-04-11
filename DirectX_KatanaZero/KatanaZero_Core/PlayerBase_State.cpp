@@ -206,8 +206,17 @@ void APlayerBase::PreCrouch(float _DeltaTime)
 
 void APlayerBase::RollStart()
 {
-	float SignSpeedX = Velocity.X / abs(Velocity.X);
-	Velocity.X = SignSpeedX * Const::player_roll_speedx;
+	EEngineDir Dir = Renderer->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X = -1.0f * Const::player_roll_speedx;
+		break;
+	case EEngineDir::Right:
+		Velocity.X = Const::player_roll_speedx;
+		break;
+	}	
 
 	Renderer->ChangeAnimation(Anim::player_roll);
 }
