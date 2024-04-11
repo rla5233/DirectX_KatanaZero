@@ -1,6 +1,8 @@
 #pragma once
 #include "TickObject.h"
 #include <EngineBase/NameObject.h>
+#include <set>
+#include <map>
 
 
 
@@ -76,6 +78,6 @@ private:
 	void PushActor(std::shared_ptr<AActor> _Actor);
 	void PushRenderer(std::shared_ptr<URenderer> _Renderer);
 	void ChangeOrderRenderer(std::shared_ptr<URenderer> _Renderer, int _PrevOrder, int _ChangeOrder);
-	
+
 };
 
