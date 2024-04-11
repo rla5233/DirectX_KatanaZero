@@ -31,12 +31,14 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	bool IsDirChange();
+	bool IsDirChangeKeyDown();
+	bool IsDirChangeKeyPress();
 
 private:
 	USpriteRenderer* Renderer = nullptr;
 
 	float MaxSpeed_X = 425.0f;
+	float MaxSpeed_Y = 425.0f;
 	FVector Velocity = FVector::Zero;
 	FVector Acc = FVector::Zero;
 
@@ -82,7 +84,8 @@ private:
 	bool IsCrouchInputStart();
 	bool IsCrouchInputPress();
 
-	bool IsRollInputStart();
+	bool IsRunToRollInputStart();
+	bool IsCrouchToRollInputStart();
 
 	bool IsJumpInputStart();
 	bool IsJumpInputPress();

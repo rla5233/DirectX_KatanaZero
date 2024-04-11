@@ -29,11 +29,21 @@ bool APlayerBase::IsRunInputPress()
 	if ((EEngineDir::Left == Dir) && (true == IsPress('A') || true == IsPress(VK_LEFT)))
 	{
 		Result = true;
+
+		if (true == IsPress('D') || true == IsPress(VK_RIGHT))
+		{
+			Result = false;
+		}
 	}
 
 	if ((EEngineDir::Right == Dir) && (true == IsPress('D') || true == IsPress(VK_RIGHT)))
 	{
 		Result = true;
+
+		if (true == IsPress('A') || true == IsPress(VK_LEFT))
+		{
+			Result = false;
+		}
 	}
 
 	return Result;
@@ -63,12 +73,31 @@ bool APlayerBase::IsCrouchInputPress()
 	return Result;
 }
 
-bool APlayerBase::IsRollInputStart()
+bool APlayerBase::IsRunToRollInputStart()
 {
 	bool Result = false;
 
+	if (true == IsDown('S') || true == IsDown(VK_DOWN))
+	{
+		Result = true;
+	}
 
+	return Result;
+}
 
+bool APlayerBase::IsCrouchToRollInputStart()
+{
+	bool Result = false;
+
+	if (true == IsDown('D') || true == IsDown(VK_RIGHT))
+	{
+		Result = true;
+	}
+
+	if (true == IsDown('A') || true == IsDown(VK_LEFT))
+	{
+		Result = true;
+	}
 
 	return Result;
 }

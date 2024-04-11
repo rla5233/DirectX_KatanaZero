@@ -11,8 +11,19 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
+	GravityUpdate(_DeltaTime);
+	PosUpdate(_DeltaTime);
+
+	IsDirChangeKeyDown();
+	
 	// StateChange Check
 	if (true == IsRunInputStart())
+	{
+		State.ChangeState("IdleToRun");
+		return;
+	}
+
+	if (true == IsRunInputPress())
 	{
 		State.ChangeState("IdleToRun");
 		return;
@@ -41,10 +52,11 @@ void APlayerBase::IdleToRunStart()
 
 void APlayerBase::IdleToRun(float _DeltaTime)
 {
+	GravityUpdate(_DeltaTime);
 	RunVelUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
 
-	if (true == IsDirChange())
+	if (true == IsDirChangeKeyDown())
 	{
 		Velocity = FVector::Zero;
 	}
@@ -52,13 +64,22 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAnykeyFree())
 	{
-		State.ChangeState("RunToIdle");
-		return;
+		if (false == IsDirChangeKeyPress())
+		{
+			State.ChangeState("RunToIdle");
+			return;
+		}
 	}
 
 	if (true == IsJumpInputPress())
 	{
 		State.ChangeState("Jump");
+		return;
+	}
+
+	if (true == IsRunToRollInputStart())
+	{
+		State.ChangeState("Roll");
 		return;
 	}
 
@@ -78,22 +99,29 @@ void APlayerBase::RunStart()
 
 void APlayerBase::Run(float _DeltaTime)
 {
+	GravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
 
 	// StateChange Check
-	if (true == IsAnykeyFree())
-	{
-		State.ChangeState("RunToIdle");
-		return;
-	}
-
 	if (true == IsJumpInputStart())
 	{
 		State.ChangeState("Jump");
 		return;
 	}
 
-	if (true == IsDirChange())
+	if (true == IsRunToRollInputStart())
+	{
+		State.ChangeState("Roll");
+		return;
+	}
+
+	if (false == IsRunInputPress())
+	{
+		State.ChangeState("RunToIdle");
+		return;
+	}
+
+	if (true == IsDirChangeKeyDown())
 	{
 		State.ChangeState("IdleToRun");
 		return;
@@ -107,7 +135,7 @@ void APlayerBase::RunToIdleStart()
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
-	if (true == IsDirChange())
+	if (true == IsDirChangeKeyDown())
 	{
 		Velocity = FVector::Zero;
 	}
@@ -146,6 +174,13 @@ void APlayerBase::PostCrouchStart()
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
 	// StateChange Check
+	if (true == IsCrouchToRollInputStart())
+	{
+		IsDirChangeKeyPress();
+		State.ChangeState("Roll");
+		return;
+	}
+
 	if (false == IsCrouchInputPress())
 	{
 		State.ChangeState("PreCrouch");
@@ -170,12 +205,26 @@ void APlayerBase::PreCrouch(float _DeltaTime)
 
 void APlayerBase::RollStart()
 {
-
+	Renderer->ChangeAnimation(Anim::player_roll);
 }
 
 void APlayerBase::Roll(float _DeltaTime)
 {
 
+	// StateChange Check
+
+
+	if (true == Renderer->IsCurAnimationEnd())
+	{
+		if (true == IsRunInputPress())
+		{
+			State.ChangeState("Run");
+			return;
+		}
+
+		State.ChangeState("Idle");
+		return;
+	}
 }
 
 void APlayerBase::JumpStart()
@@ -188,7 +237,7 @@ void APlayerBase::JumpStart()
 
 void APlayerBase::Jump(float _DeltaTime)
 {
-	IsDirChange();
+	IsDirChangeKeyDown();
 	if (true == IsRunInputPress())
 	{
 		JumpVelUpdate(_DeltaTime);
@@ -211,6 +260,7 @@ void APlayerBase::FallStart()
 
 void APlayerBase::Fall(float _DeltaTime)
 {
+	IsDirChangeKeyDown();
 	GravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
 
@@ -235,6 +285,7 @@ void APlayerBase::StateInit()
 	State.CreateState("PreCrouch");
 	State.CreateState("Jump");
 	State.CreateState("Fall");
+	State.CreateState("Roll");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle", std::bind(&APlayerBase::IdleStart, this));
@@ -245,6 +296,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("PreCrouch", std::bind(&APlayerBase::PreCrouchStart, this));
 	State.SetStartFunction("Jump", std::bind(&APlayerBase::JumpStart, this));
 	State.SetStartFunction("Fall", std::bind(&APlayerBase::FallStart, this));
+	State.SetStartFunction("Roll", std::bind(&APlayerBase::RollStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
@@ -255,4 +307,5 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("PreCrouch", std::bind(&APlayerBase::PreCrouch, this, std::placeholders::_1));
 	State.SetUpdateFunction("Jump", std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
 	State.SetUpdateFunction("Fall", std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
+	State.SetUpdateFunction("Roll", std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
 }

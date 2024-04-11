@@ -83,6 +83,15 @@ void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
 	}
 }
 
+void USpriteRenderer::MaterialSettingEnd()
+{
+	Super::MaterialSettingEnd();
+	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
+	CurTexture = nullptr;
+	Resources->SettingConstantBuffer("ResultColorValue", PlusColor);
+	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
+}
+
 
 void USpriteRenderer::Tick(float _DeltaTime)
 {

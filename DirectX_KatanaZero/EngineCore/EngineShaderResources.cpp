@@ -278,3 +278,10 @@ void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::shar
 		SmpSetter.Res = FindSampler;
 	}
 }
+
+void UEngineShaderResources::Reset()
+{
+	ConstantBuffers.clear();
+	Textures.clear();
+	Samplers.clear();
+}

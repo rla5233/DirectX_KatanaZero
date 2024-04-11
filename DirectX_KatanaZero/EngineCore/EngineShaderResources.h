@@ -62,6 +62,8 @@ public:
 
 	void SettingAllShaderResources();
 
+	void Reset();
+
 protected:
 
 private:
