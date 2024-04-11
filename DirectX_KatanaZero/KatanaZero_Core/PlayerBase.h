@@ -42,6 +42,7 @@ private:
 	bool IsOnPlatForm();
 	bool IsOnStairs();
 
+	void OnGroundPosAdjust();
 	void OnStairPosAdjust();
 
 private:
@@ -116,6 +117,7 @@ private:
 	void JumpVelYUpdate(float _DeltaTime);
 
 	void RollVelXUpdate(float _DeltaTime);
+	void RollVelYUpdate();
 
 	void FallVelXUpdate(float _DeltaTime);
 	void FallGravityUpdate(float _DeltaTime);

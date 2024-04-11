@@ -132,12 +132,32 @@ bool APlayerBase::IsOnStairs()
 	return Result;
 }
 
-void APlayerBase::OnStairPosAdjust()
+void APlayerBase::OnGroundPosAdjust()
 {
-	if (true == IsOnStairs())
+	while (true == IsOnGround())
 	{
 		AddActorLocation({ 0.0f, 1.0f, 0.0f });
+
+		if (false == IsOnGround())
+		{
+			AddActorLocation({ 0.0f, -1.0f, 0.0f });
+			break;
+		}
 	}
+}
+
+void APlayerBase::OnStairPosAdjust()
+{
+	while (true == IsOnStairs())
+	{
+		AddActorLocation({ 0.0f, 1.0f, 0.0f });
+
+		if (false == IsOnStairs())
+		{
+			AddActorLocation({ 0.0f, -1.0f, 0.0f });
+			break;
+		}
+	}	
 }
 
 ////////////////////
@@ -280,6 +300,14 @@ void APlayerBase::RollVelXUpdate(float _DeltaTime)
 	{
 		float Sign = Velocity.X / abs(Velocity.X);
 		Velocity.X = Sign * Const::player_max_speedx;
+	}
+}
+
+void APlayerBase::RollVelYUpdate()
+{
+	if (true == IsOnGround() || true == IsOnStairs())
+	{
+		Velocity.Y = 0.0f;
 	}
 }
 // FSM Update End

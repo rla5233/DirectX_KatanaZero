@@ -250,7 +250,11 @@ void APlayerBase::RollStart()
 void APlayerBase::Roll(float _DeltaTime)
 {
 	RollVelXUpdate(_DeltaTime);
+	RollVelYUpdate();
+
 	PosUpdate(_DeltaTime);
+	OnGroundPosAdjust();
+	OnStairPosAdjust();
 
 	// StateChange Check
 	if (true == Renderer->IsCurAnimationEnd())
@@ -329,14 +333,15 @@ void APlayerBase::Fall(float _DeltaTime)
 	PosUpdate(_DeltaTime);
 
 	// StateChange Check
-	if (false == IsOnGround() && true == IsFallInputPress())
+	if ((false == IsOnStairs() && false == IsOnGround()) 
+	&&   true == IsFallInputPress())
 	{
 		return;
 	}
 
-	if ((true == IsOnGround() || true == IsOnStairs())
-	&& true == IsRunToRollInputPress() 
-	&& true == IsCrouchToRollInputPress())
+	if ((true == IsOnGround() || true == IsOnStairs() || true == IsOnStairs())
+	&&   true == IsRunToRollInputPress() 
+	&&   true == IsCrouchToRollInputPress())
 	{
 		State.ChangeState("Roll");
 		return;
