@@ -70,6 +70,25 @@ bool APlayerBase::IsDirChangeKeyPress()
 	return Result;
 }
 
+bool APlayerBase::IsOnPlatForm()
+{
+	bool Result = false;
+
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector CurPos = GetActorLocation();
+	CurPos.Y = MapTexScale.Y - CurPos.Y;
+	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
+
+	if (ColMap::GREEN == PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 ////////////////////
 // FSM Setting Start
 void APlayerBase::SetRunAcc()

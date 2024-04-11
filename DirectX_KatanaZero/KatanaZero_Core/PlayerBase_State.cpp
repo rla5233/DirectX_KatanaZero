@@ -187,6 +187,12 @@ void APlayerBase::PostCrouch(float _DeltaTime)
 		State.ChangeState("PreCrouch");
 		return;
 	}
+
+	if (true == IsFallInputPress() && true == IsOnPlatForm())
+	{
+		AddActorLocation(FVector::Down + FVector::Down);
+		State.ChangeState("Fall");
+	}
 }
 
 void APlayerBase::PreCrouchStart()
@@ -280,14 +286,13 @@ void APlayerBase::FallStart()
 void APlayerBase::Fall(float _DeltaTime)
 {
 	IsDirChangeKeyDown();
+	GravityUpdate(_DeltaTime);
 
 	if (true == IsFallInputPress())
 	{
-
-
+		Velocity.Y = (-1.5f) * Const::player_max_speedy;
 	}
 
-	GravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
 
 	// StateChange Check

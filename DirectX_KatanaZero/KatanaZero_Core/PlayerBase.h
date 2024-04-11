@@ -33,6 +33,7 @@ protected:
 private:
 	bool IsDirChangeKeyDown();
 	bool IsDirChangeKeyPress();
+	bool IsOnPlatForm();
 
 private:
 	USpriteRenderer* Renderer = nullptr;
