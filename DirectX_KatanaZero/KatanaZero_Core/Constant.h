@@ -51,3 +51,8 @@ namespace Anim
 	const std::string_view player_precrouch			= "player_precrouch";
 	const std::string_view player_roll				= "player_roll";
 }
+
+namespace Time
+{
+	const float player_jump = 0.2f;
+}

@@ -44,6 +44,8 @@ private:
 
 	bool IsGround = true;
 
+	float TimeCount = 0.0f;
+
 // FSM
 private:
 	UStateManager State;

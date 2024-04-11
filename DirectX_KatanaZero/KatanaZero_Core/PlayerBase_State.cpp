@@ -230,6 +230,7 @@ void APlayerBase::JumpStart()
 {
 	IsGround = false;
 	Velocity = { 0.0f, 400.0f, 0.0f };
+	TimeCount = Time::player_jump;
 
 	Renderer->ChangeAnimation(Anim::player_jump);
 }
@@ -245,11 +246,14 @@ void APlayerBase::Jump(float _DeltaTime)
 	PosUpdate(_DeltaTime);
 
 	// StateChange Check
-	if (false == IsJumpInputPress())
+	if (false == IsJumpInputPress() || 0.0f > TimeCount)
 	{
+		TimeCount = 0.0f;
 		State.ChangeState("Fall");
 		return;
 	}
+
+	TimeCount -= _DeltaTime;
 }
 
 void APlayerBase::FallStart()
