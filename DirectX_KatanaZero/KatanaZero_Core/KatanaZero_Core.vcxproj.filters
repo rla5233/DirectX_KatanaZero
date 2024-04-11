@@ -43,6 +43,12 @@
     <Filter Include="Level\002.FactoryLevel\GameMode">
       <UniqueIdentifier>{ad4e801d-ec3f-49ba-b9e7-7e71500eaae8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\000.Object\Map">
+      <UniqueIdentifier>{72629c3f-54d4-45c1-b23c-bbed9d0149bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.Object\UI">
+      <UniqueIdentifier>{4b7aab0b-80b5-4cac-8554-f3a0702746a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -91,10 +97,13 @@
       <Filter>Level\000.Object</Filter>
     </ClInclude>
     <ClInclude Include="ColMapObject.h">
-      <Filter>Level\000.Object</Filter>
+      <Filter>Level\000.Object\Map</Filter>
     </ClInclude>
     <ClInclude Include="BackGroundObject.h">
-      <Filter>Level\000.Object</Filter>
+      <Filter>Level\000.Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseAim.h">
+      <Filter>Level\000.Object\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -143,14 +152,17 @@
     <ClCompile Include="DefaultPlayer.cpp">
       <Filter>Level\000.Object</Filter>
     </ClCompile>
-    <ClCompile Include="BackGroundObject.cpp">
-      <Filter>Level\000.Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ColMapObject.cpp">
-      <Filter>Level\000.Object</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerBase_Input.cpp">
       <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGroundObject.cpp">
+      <Filter>Level\000.Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ColMapObject.cpp">
+      <Filter>Level\000.Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseAim.cpp">
+      <Filter>Level\000.Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

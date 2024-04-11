@@ -1,6 +1,6 @@
 #pragma once
 
-// 설명 :
+// 설명 : 충돌 맵 담당 클래스
 class AColMapObject : public AActor
 {
 	GENERATED_BODY(AActor)

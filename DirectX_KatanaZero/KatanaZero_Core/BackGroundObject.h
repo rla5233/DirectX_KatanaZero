@@ -1,6 +1,6 @@
 #pragma once
 
-// 설명 : 배경(맵) 담당 오브젝트
+// 설명 : 배경 담당 오브젝트
 class ABackGroundObject : public AActor
 {
 	GENERATED_BODY(AActor)

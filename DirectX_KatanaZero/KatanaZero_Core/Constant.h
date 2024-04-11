@@ -19,6 +19,9 @@ namespace ImgRes
 	const std::string_view player_precrouch			= "player_precrouch";
 	const std::string_view player_roll				= "player_roll";
 
+	// UI
+	const std::string_view ui_cursor				= "spr_cursor_0.png";
+
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
 	const std::string_view title_fence				= "spr_title_fence_0.png";
