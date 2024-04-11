@@ -1,312 +1,106 @@
-#include "PreCompile.h"
-#include "SpriteRenderer.h"
-#include "EngineShaderResources.h"
+#pragma once
+#include "Renderer.h"
+#include "EngineEnums.h"
 #include "EngineSprite.h"
 
-void USpriteRenderer::SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function)
+struct FCuttingData
 {
-	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+	//       0, 0
+	float4 CuttingPosition;
+	//      0.5 0.5
+	float4 CuttingSize;
+};
 
-	if (false == Animations.contains(UpperName))
-	{
-		MsgBoxAssert("존재하지 않는 애니메이션에 콜백을 지정할수 없습니다." + std::string(_AnimationName));
-		return;
-	}
-
-	Animations[UpperName]->FrameCallback[_Index] = _Function;
-
-}
-
-void USpriteAnimation::FrameCallBackCheck()
+class UEngineSprite;
+class USpriteAnimation : public UNameObject
 {
-	if (false == FrameCallback.contains(CurFrame))
-	{
-		return;
-	}
 
-	FrameCallback[CurFrame]();
-}
-
-void USpriteAnimation::Update(float _DeltaTime)
-{
-	IsEnd = false;
-
-	CurTime += _DeltaTime;
-
-	if (CurTime > Inter[CurFrame])
-	{
-		CurTime -= Inter[CurFrame];
-		++CurFrame;
-		FrameCallBackCheck();
-
-		if (Frame.size() <= CurFrame)
-		{
-			if (true == Loop)
-			{
-				IsEnd = true;
-				CurFrame = 0;
-			}
-			else
-			{
-				IsEnd = true;
-				--CurFrame;
-			}
-		}
-	}
-}
-
-USpriteRenderer::USpriteRenderer()
-{
-	SetMesh("Rect");
-	SetMaterial("2DImage");
-	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
-	CurTexture = nullptr;
-	Resources->SettingConstantBuffer("ResultColorValue", PlusColor);
-	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
-
-}
-
-
-USpriteRenderer::~USpriteRenderer()
-{
-}
-
-
-void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
-{
-	AutoSize = _AutoSize;
-	ScaleRatio = _ScaleRatio;
-
-	if (true == AutoSize && nullptr != CurInfo.Texture)
-	{
-		SetSpriteInfo(CurInfo);
-	}
-}
-
-void USpriteRenderer::MaterialSettingEnd()
-{
-	Super::MaterialSettingEnd();
-	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
-	CurTexture = nullptr;
-	Resources->SettingConstantBuffer("ResultColorValue", PlusColor);
-	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
-}
-
-
-void USpriteRenderer::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-
-
-	if (nullptr != CurAnimation)
-	{
-		CurAnimation->Update(_DeltaTime);
-
-		FSpriteInfo Info = CurAnimation->GetCurSpriteInfo();
-		SetSpriteInfo(Info);
-	}
-}
-
-void USpriteRenderer::SetDir(EEngineDir _Dir)
-{
-	Dir = _Dir;
-
-	if (nullptr != CurInfo.Texture)
-	{
-		SetSpriteInfo(CurInfo);
-	}
-}
-
-void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
-{
-	CuttingDataValue.CuttingPosition = _Info.CuttingPosition;
-	CuttingDataValue.CuttingSize = _Info.CuttingSize;
-	CurTexture = _Info.Texture;
-
-	if (true == AutoSize)
-	{
-		// 문제 UV기반
-		// 0~1상이의 비율 값이다.
-		float4 TexScale = _Info.Texture->GetScale();
-		Transform.SetScale(TexScale * CuttingDataValue.CuttingSize * ScaleRatio);
-	}
-
-	if (Dir != EEngineDir::MAX)
-	{
-		float4 Scale = Transform.GetScale();
-
-		switch (Dir)
-		{
-		case EEngineDir::Left:
-		{
-			if (0 < Scale.X)
-			{
-				Scale.X = -Scale.X;
-			}
-			break;
-		}
-		case EEngineDir::Right:
-		{
-			if (0 > Scale.X)
-			{
-				Scale.X = -Scale.X;
-			}
-			break;
-		}
-		case EEngineDir::MAX:
-		default:
-			break;
-		}
-
-		Transform.SetScale(Scale);
-	}
-
-	CurInfo = _Info;
-
-	Resources->SettingTexture("Image", _Info.Texture, "POINT");
-	SetSamplering(SamplingValue);
-}
-
-void USpriteRenderer::SetSprite(std::string_view _Name, UINT _Index/* = 0*/)
-{
-	std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes(_Name);
-
-	if (nullptr == Sprite)
-	{
-		MsgBoxAssert("존재하지 않는 스프라이트를 세팅해주려고 했습니다.");
-		return;
-	}
-
-	FSpriteInfo Info = Sprite->GetSpriteInfo(_Index);
-	SetSpriteInfo(Info);
-}
-
-void USpriteRenderer::SetSamplering(ETextureSampling _Value)
-{
-	if (nullptr == CurTexture)
-	{
-		MsgBoxAssert("텍스처를 세팅하지 않은 상태에서 샘플링부터 바꿀수는 없습니다.");
-		return;
-	}
-
-	switch (_Value)
-	{
-	case ETextureSampling::NONE:
-		break;
-	case ETextureSampling::LINEAR:
-	{
-		Resources->SettingTexture("Image", CurTexture, "LINEAR");
-		break;
-	}
-	case ETextureSampling::POINT:
-	{
-		Resources->SettingTexture("Image", CurTexture, "POINT");
-		break;
-	}
-	default:
-		break;
-	}
-}
-
-void USpriteRenderer::SetPlusColor(float4 _Color)
-{
-	PlusColor = _Color;
-}
-
-void USpriteRenderer::CreateAnimation(
-	std::string_view _AnimationName,
-	std::string_view _SpriteName,
-	float _Inter,
-	bool _Loop /*= true*/,
-	int _Start /*= -1*/,
-	int _End /*= -1*/)
-{
-	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
-
-	if (nullptr == FindSprite)
-	{
-		MsgBoxAssert("존재하지 않는 스프라이트로 애니메이션을 만들수는 없습니다.");
-		return;
-	}
-
-	std::vector<int> Frame;
+public:
+	std::shared_ptr<UEngineSprite> Sprite;
 	std::vector<float> Inter;
+	std::vector<int> Frame;
 
-	int Start = _Start;
-	int End = _End;
+	std::map<int, std::function<void()>> FrameCallback;
 
-	if (0 > _Start)
+	int CurFrame = 0;
+	float CurTime = 0.0f;
+	bool Loop = true;
+	bool IsEnd = false;
+
+	void Update(float _DeltaTime);
+
+	void FrameCallBackCheck();
+
+	FSpriteInfo GetCurSpriteInfo()
 	{
-		Start = 0;
+		return Sprite->GetSpriteInfo(Frame[CurFrame]);
 	}
 
-	if (0 > End)
+	void Reset()
 	{
-		End = static_cast<int>(FindSprite->GetInfoSize()) - 1;
+		CurTime = 0.0f;
+		CurFrame = 0;
 	}
+};
 
-	if (End < Start)
-	{
-		MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
-		return;
-	}
-
-
-
-	for (int i = Start; i < End + 1; i++)
-	{
-		Inter.push_back(_Inter);
-		Frame.push_back(i);
-	}
-
-	CreateAnimation(_AnimationName, _SpriteName, Inter, Frame, _Loop);
-}
-
-void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName)
+// 설명 :
+class UEngineTexture;
+class USpriteRenderer : public URenderer
 {
-	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+	GENERATED_BODY(URenderer);
 
-	if (false == Animations.contains(UpperName))
+public:
+	// constrcuter destructer
+	USpriteRenderer();
+	~USpriteRenderer();
+
+	// delete Function
+	USpriteRenderer(const USpriteRenderer& _Other) = delete;
+	USpriteRenderer(USpriteRenderer&& _Other) noexcept = delete;
+	USpriteRenderer& operator=(const USpriteRenderer& _Other) = delete;
+	USpriteRenderer& operator=(USpriteRenderer&& _Other) noexcept = delete;
+
+	void SetSprite(std::string_view _Name, UINT _Index = 0);
+	void SetPlusColor(float4 _Color);
+	void SetSamplering(ETextureSampling _Value);
+
+	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, float _Inter = 0.1f, bool _Loop = true, int _Start = -1, int _End = -1);
+
+	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop = true);
+
+	void ChangeAnimation(std::string_view _AnimationName);
+
+	void SetAutoSize(float _ScaleRatio, bool _AutoSize);
+	void SetSpriteInfo(const FSpriteInfo& _Info);
+
+	void SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function);
+
+	void SetDir(EEngineDir _Dir);
+	
+	inline EEngineDir GetDir() const
 	{
-		MsgBoxAssert("존재하지 않는 애니메이션으로 체인지 할수 없습니다." + std::string(_AnimationName));
-		return;
+		return Dir;
 	}
 
-	CurAnimation = Animations[UpperName];
-	CurAnimation->Reset();
-	CurAnimation->FrameCallBackCheck();
-}
+	bool IsCurAnimationEnd();
 
-void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop /*= true*/)
-{
-	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+protected:
+	void Tick(float _DeltaTime) override;
+	void MaterialSettingEnd() override;
 
-	if (true == Animations.contains(UpperName))
-	{
-		MsgBoxAssert("이미 존재하는 이름의 애니메이션은 만들수 없습니다.");
-		return;
-	}
+private:
+	bool AutoSize = false;
+	float ScaleRatio = 1.0f;
+	FSpriteInfo CurInfo;
 
-	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
+	EEngineDir Dir = EEngineDir::MAX;
 
-	if (nullptr == FindSprite)
-	{
-		MsgBoxAssert("존재하지 않는 스프라이트로 애니메이션을 만들수는 없습니다.");
-		return;
-	}
+	FCuttingData CuttingDataValue;
+	float4 PlusColor = float4::Zero;
+	std::shared_ptr<UEngineTexture> CurTexture = nullptr;
+	std::map<std::string, std::shared_ptr<USpriteAnimation>> Animations;
+	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
+	ETextureSampling SamplingValue = ETextureSampling::POINT;
 
-	std::shared_ptr<USpriteAnimation> NewAnimation = std::make_shared<USpriteAnimation>();
+};
 
-	NewAnimation->Sprite = FindSprite;
-	NewAnimation->Inter = _Inter;
-	NewAnimation->Frame = _Frame;
-	NewAnimation->Loop = _Loop;
-	NewAnimation->Reset();
-
-	Animations[UpperName] = NewAnimation;
-}
-
-bool USpriteRenderer::IsCurAnimationEnd()
-{
-	return CurAnimation->IsEnd;
-}
