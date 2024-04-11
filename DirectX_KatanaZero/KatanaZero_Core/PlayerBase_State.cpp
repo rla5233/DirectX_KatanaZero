@@ -11,6 +11,7 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
+	GravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
 
 	IsDirChangeKeyDown();
@@ -110,7 +111,7 @@ void APlayerBase::Run(float _DeltaTime)
 
 	if (true == IsRunToRollInputDown())
 	{
-		State.ChangeState("Roll");
+		State.ChangeState("PostCrouch");
 		return;
 	}
 
@@ -175,7 +176,14 @@ void APlayerBase::PostCrouchStart()
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
 	// StateChange Check
-	if (true == IsCrouchToRollInputDown())
+	if (true == IsFallInputPress() && true == IsOnPlatForm())
+	{
+		AddActorLocation(FVector::Down + FVector::Down);
+		State.ChangeState("Fall");
+		return;
+	}
+
+	if (true == IsCrouchToRollInputPress())
 	{
 		IsDirChangeKeyPress();
 		State.ChangeState("Roll");
@@ -186,12 +194,6 @@ void APlayerBase::PostCrouch(float _DeltaTime)
 	{
 		State.ChangeState("PreCrouch");
 		return;
-	}
-
-	if (true == IsFallInputPress() && true == IsOnPlatForm())
-	{
-		AddActorLocation(FVector::Down + FVector::Down);
-		State.ChangeState("Fall");
 	}
 }
 
@@ -249,7 +251,6 @@ void APlayerBase::Roll(float _DeltaTime)
 
 void APlayerBase::JumpStart()
 {
-	IsGround = false;
 	AddActorLocation(FVector::Up);
 	Velocity = Const::player_jump_vel;
 
@@ -285,8 +286,17 @@ void APlayerBase::FallStart()
 
 void APlayerBase::Fall(float _DeltaTime)
 {
-	IsDirChangeKeyDown();
 	GravityUpdate(_DeltaTime);
+
+	if (true == IsDirChangeKeyDown())
+	{
+		Velocity.X = 0.0f;
+	}
+
+	if (true == IsRunInputPress())
+	{
+		FallVelXUpdate(_DeltaTime);
+	}
 
 	if (true == IsFallInputPress())
 	{
@@ -296,14 +306,14 @@ void APlayerBase::Fall(float _DeltaTime)
 	PosUpdate(_DeltaTime);
 
 	// StateChange Check
-	if (true == IsGround)
+	if (true == IsOnGround() && true == IsRunToRollInputPress() && true == IsCrouchToRollInputPress())
 	{
-		if (true == IsFallInputPress() && true == IsCrouchToRollInputPress())
-		{
-			State.ChangeState("Roll");
-			return;
-		}
+		State.ChangeState("Roll");
+		return;
+	}
 
+	if (true == IsOnGround() || true == IsOnPlatForm())
+	{
 		State.ChangeState("RunToIdle");
 		return;
 	}

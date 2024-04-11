@@ -85,6 +85,18 @@ bool APlayerBase::IsRunToRollInputDown()
 	return Result;
 }
 
+bool APlayerBase::IsRunToRollInputPress()
+{
+	bool Result = false;
+
+	if (true == IsPress('S') || true == IsPress(VK_DOWN))
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 bool APlayerBase::IsCrouchToRollInputDown()
 {
 	bool Result = false;

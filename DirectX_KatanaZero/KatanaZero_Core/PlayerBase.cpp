@@ -70,6 +70,25 @@ bool APlayerBase::IsDirChangeKeyPress()
 	return Result;
 }
 
+bool APlayerBase::IsOnGround()
+{
+	bool Result = false;
+
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector CurPos = GetActorLocation();
+	CurPos.Y = MapTexScale.Y - CurPos.Y;
+	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
+
+	if (ColMap::YELLOW == PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 bool APlayerBase::IsOnPlatForm()
 {
 	bool Result = false;
@@ -128,6 +147,20 @@ void APlayerBase::SetRunVel()
 void APlayerBase::PosUpdate(float _DeltaTime)
 {
 	AddActorLocation(Velocity * _DeltaTime);
+
+	if (true == IsOnGround() || true == IsOnPlatForm())
+	{
+		while (true)
+		{
+			AddActorLocation({ 0.0f, 1.0f, 0.0f });
+
+			if (false == IsOnGround() && false == IsOnPlatForm())
+			{
+				AddActorLocation({ 0.0f, -1.0f, 0.0f });
+				break;
+			}
+		}		
+	}
 }
 
 void APlayerBase::RunVelUpdate(float _DeltaTime)
@@ -142,29 +175,18 @@ void APlayerBase::RunVelUpdate(float _DeltaTime)
 
 void APlayerBase::GravityUpdate(float _DeltaTime)
 {
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
-
-	FVector CurPos = GetActorLocation();
-	CurPos.Y = MapTexScale.Y - CurPos.Y;
-	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
-
-	if (ColMap::YELLOW != PixelColor
-		&& ColMap::GREEN != PixelColor)
+	if (true == IsOnGround() || true == IsOnPlatForm())
 	{
-		Velocity.Y += Const::gravity * _DeltaTime;
-
-		if (-Const::player_max_speedy > Velocity.Y)
-		{
-			Velocity.Y = -Const::player_max_speedy;
-		}
-
-		IsGround = false;
+		Velocity.Y = 0.0f;
 		return;
 	}
 
-	Velocity.Y = 0.0f;
-	IsGround = true;
+	Velocity.Y += Const::gravity * _DeltaTime;
+
+	if (Const::player_max_speedy < abs(Velocity.Y))
+	{
+		Velocity.Y = -Const::player_max_speedy;
+	}
 }
 
 void APlayerBase::OnGroundPosUpdate()
@@ -185,6 +207,26 @@ void APlayerBase::OnGroundPosUpdate()
 	{
 		AddActorLocation({ 0.0f, -1.0f, 0.0f });
 		return;
+	}
+}
+
+void APlayerBase::FallVelXUpdate(float _DeltaTime)
+{
+	EEngineDir Dir = Renderer->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X += (-1.0f) * Const::player_fall_accx * _DeltaTime;
+		break;
+	case EEngineDir::Right:
+		Velocity.X += Const::player_fall_accx * _DeltaTime;
+		break;
+	}
+
+	if (Const::player_max_speedx < abs(Velocity.X))
+	{
+		JumpVelXUpdate(_DeltaTime);
 	}
 }
 
@@ -222,12 +264,10 @@ void APlayerBase::JumpVelYUpdate(float _DeltaTime)
 			Velocity.Y = -Const::player_max_speedy;
 		}
 
-		IsGround = false;
 		return;
 	}
 
 	Velocity.Y = 0.0f;
-	IsGround = true;
 }
 
 void APlayerBase::RollVelXUpdate(float _DeltaTime)

@@ -33,6 +33,7 @@ protected:
 private:
 	bool IsDirChangeKeyDown();
 	bool IsDirChangeKeyPress();
+	bool IsOnGround();
 	bool IsOnPlatForm();
 
 private:
@@ -40,8 +41,6 @@ private:
 
 	FVector Velocity = FVector::Zero;
 	FVector Acc = FVector::Zero;
-
-	bool IsGround = true;
 
 // FSM
 private:
@@ -84,6 +83,8 @@ private:
 	bool IsCrouchInputPress();
 
 	bool IsRunToRollInputDown();
+	bool IsRunToRollInputPress();
+
 	bool IsCrouchToRollInputDown();
 	bool IsCrouchToRollInputPress();
 
@@ -99,6 +100,7 @@ private:
 
 // FSM Update
 private:
+	void GravityUpdate(float _DeltaTime);	
 	void PosUpdate(float _DeltaTime);
 
 	void RunVelUpdate(float _DeltaTime);
@@ -108,7 +110,8 @@ private:
 
 	void RollVelXUpdate(float _DeltaTime);
 
-	void GravityUpdate(float _DeltaTime);	
 	void OnGroundPosUpdate();
+
+	void FallVelXUpdate(float _DeltaTime);
 };
 
