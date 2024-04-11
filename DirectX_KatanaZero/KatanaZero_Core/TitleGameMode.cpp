@@ -20,7 +20,15 @@ void ATitleGameMode::BeginPlay()
 	GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
 }
 
+void ATitleGameMode::Intro(float _DeltaTime)
+{
+}
+
 void ATitleGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+
 }
+
+

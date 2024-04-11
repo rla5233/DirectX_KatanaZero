@@ -3,7 +3,7 @@
 #include "LerpObject.h"
 
 // 설명 : Title 화면
-class ATitleScreen : public AActor, public LerpObject
+class ATitleScreen : public AActor
 {
 	GENERATED_BODY(AActor)
 public:
@@ -17,25 +17,13 @@ public:
 	ATitleScreen& operator=(const ATitleScreen& _Other) = delete;
 	ATitleScreen& operator=(ATitleScreen&& _Other) noexcept = delete;
 
-	void StateChange(ETitleState _State);
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	
-private:
-	void StateUpdate(float _DeltaTime);
-
-private:
-	void IntroStart();
-	void Intro(float _DeltaTime);
-	void IntroAnimation(float _DeltaTime);
 
 private:
 	USpriteRenderer* BackGround = nullptr;
 	USpriteRenderer* Fence = nullptr;
 	USpriteRenderer* Plants = nullptr;
-
-	ETitleState State = ETitleState::None;
 };
 

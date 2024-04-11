@@ -1,15 +1,15 @@
 #include "PreCompile.h"
 #include "LerpObject.h"
 
-LerpObject::LerpObject()
+ULerpObject::ULerpObject()
 {
 }
 
-LerpObject::~LerpObject()
+ULerpObject::~ULerpObject()
 {
 }
 
-FVector LerpObject::LerpMoveUpdate(float _DeltaTime, float _WeightTime)
+FVector ULerpObject::LerpMoveUpdate(float _DeltaTime, float _WeightTime)
 {
 	if (true == IsMoveValue)
 	{

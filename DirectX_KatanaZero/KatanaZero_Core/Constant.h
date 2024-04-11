@@ -50,6 +50,9 @@ namespace Anim
 	const std::string_view player_postcrouch		= "player_postcrouch";
 	const std::string_view player_precrouch			= "player_precrouch";
 	const std::string_view player_roll				= "player_roll";
+
+	// TitleLevel
+	const std::string_view plants					= "plants";
 }
 
 namespace Const

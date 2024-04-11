@@ -26,12 +26,12 @@ void UKatanaZero_Core::Initialize()
 {
 	ResLoad();
 
-	//GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
-	//GEngine->ChangeLevel("TitleLevel");
+	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
+	GEngine->ChangeLevel("TitleLevel");
 
 
-	GEngine->CreateLevel<AFactory_001>("Factory_001");
-	GEngine->ChangeLevel("Factory_001");
+	//GEngine->CreateLevel<AFactory_001>("Factory_001");
+	//GEngine->ChangeLevel("Factory_001");
 
 #ifdef DEBUG
 	GEngine->CreateLevel<AFactory_004>("Factory_004");

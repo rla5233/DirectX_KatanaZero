@@ -1,18 +1,18 @@
 #pragma once
 
 // 설명 : 선형보간(Lerp) 기능
-class LerpObject
+class ULerpObject
 {
 public:
 	// constrcuter destructer
-	LerpObject();
-	~LerpObject();
+	ULerpObject();
+	~ULerpObject();
 
 	// delete Function
-	LerpObject(const LerpObject& _Other) = delete;
-	LerpObject(LerpObject&& _Other) noexcept = delete;
-	LerpObject& operator=(const LerpObject& _Other) = delete;
-	LerpObject& operator=(LerpObject&& _Other) noexcept = delete;
+	ULerpObject(const ULerpObject& _Other) = delete;
+	ULerpObject(ULerpObject&& _Other) noexcept = delete;
+	ULerpObject& operator=(const ULerpObject& _Other) = delete;
+	ULerpObject& operator=(ULerpObject&& _Other) noexcept = delete;
 
 	FVector LerpMoveUpdate(float _DeltaTime, float _WeightTime = 1.0f);
 	inline void SetLerpMovePos(const FVector& _StartPos, const FVector& _TargetPos)
