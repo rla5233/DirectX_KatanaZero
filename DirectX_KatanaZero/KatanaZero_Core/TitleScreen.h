@@ -22,9 +22,16 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void SettingSprite();
+	void SettingRenderOrder();
+	void SettingTransform();
+
+private:
 	USpriteRenderer* BackGround = nullptr;
 	USpriteRenderer* Fence = nullptr;
 	USpriteRenderer* Plants = nullptr;
 	USpriteRenderer* Grass = nullptr;
+
+	USpriteRenderer* Neon_Katana = nullptr;
 };
 
