@@ -41,7 +41,6 @@ private:
 	USpriteRenderer* Center = nullptr;
 
 	FVector Velocity = FVector::Zero;
-	FVector Acc = FVector::Zero;
 
 // FSM
 private:
@@ -96,7 +95,6 @@ private:
 
 // FSM Setting
 private:
-	void SetRunAcc();
 	void SetRunVel();
 
 // FSM Update
@@ -114,6 +112,6 @@ private:
 	void OnGroundPosUpdate();
 
 	void FallVelXUpdate(float _DeltaTime);
-	void FallGravityUpate(float _DeltaTime);
+	void FallGravityUpdate(float _DeltaTime);
 };
 

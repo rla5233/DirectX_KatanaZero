@@ -69,6 +69,8 @@ namespace Const
 	const float player_max_speedx = 425.0f;
 	const float player_max_speedy = 425.0f;
 
+	const float player_run_accx = 1000.0f;
+
 	const float player_roll_accx = -1000.0f;
 	const float player_roll_speedx = 800.0f;
 

@@ -11,9 +11,6 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
-	GravityUpdate(_DeltaTime);
-	PosUpdate(_DeltaTime);
-
 	IsDirChangeKeyDown();
 	
 	// StateChange Check
@@ -40,11 +37,16 @@ void APlayerBase::Idle(float _DeltaTime)
 		State.ChangeState("Jump");
 		return;
 	}
+
+	if (false == IsOnGround() && false == IsOnPlatForm())
+	{
+		State.ChangeState("Fall");
+		return;
+	}
 }
 
 void APlayerBase::IdleToRunStart()
 {
-	SetRunAcc();
 	Velocity = FVector::Zero;
 
 	Renderer->ChangeAnimation(Anim::player_idle_to_run);
@@ -111,6 +113,12 @@ void APlayerBase::Run(float _DeltaTime)
 
 	if (true == IsRunToRollInputDown())
 	{
+		if (true == IsOnPlatForm())
+		{
+			State.ChangeState("Fall");
+			return;
+		}
+
 		State.ChangeState("PostCrouch");
 		return;
 	}
@@ -175,6 +183,9 @@ void APlayerBase::PostCrouchStart()
 
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
+	GravityUpdate(_DeltaTime);
+	PosUpdate(_DeltaTime);
+
 	// StateChange Check
 	if (true == IsCrouchToRollInputPress())
 	{
@@ -294,7 +305,7 @@ void APlayerBase::FallStart()
 
 void APlayerBase::Fall(float _DeltaTime)
 {
-	FallGravityUpate(_DeltaTime);
+	FallGravityUpdate(_DeltaTime);
 	
 	if (true == IsDirChangeKeyDown())
 	{

@@ -115,21 +115,6 @@ bool APlayerBase::IsOnPlatForm()
 
 ////////////////////
 // FSM Setting Start
-void APlayerBase::SetRunAcc()
-{
-	EEngineDir Dir = Renderer->GetDir();
-
-	switch (Dir)
-	{
-	case EEngineDir::Left:
-		Acc = FVector::Left * 5000.0f;
-		break;
-	case EEngineDir::Right:
-		Acc = FVector::Right * 5000.0f;
-		break;
-	}
-}
-
 void APlayerBase::SetRunVel()
 {
 	EEngineDir Dir = Renderer->GetDir();
@@ -156,7 +141,16 @@ void APlayerBase::PosUpdate(float _DeltaTime)
 
 void APlayerBase::RunVelUpdate(float _DeltaTime)
 {
-	Velocity += Acc * _DeltaTime;
+	EEngineDir Dir = Renderer->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X += -Const::player_run_accx * _DeltaTime;
+		break;
+	case EEngineDir::Right:
+		Velocity.X += Const::player_run_accx * _DeltaTime;
+		break;
+	}
 
 	if (Const::player_max_speedx < std::abs(Velocity.X))
 	{
@@ -221,7 +215,7 @@ void APlayerBase::FallVelXUpdate(float _DeltaTime)
 	}
 }
 
-void APlayerBase::FallGravityUpate(float _DeltaTime)
+void APlayerBase::FallGravityUpdate(float _DeltaTime)
 {
 	if (true == IsOnGround() || true == IsOnPlatForm())
 	{
