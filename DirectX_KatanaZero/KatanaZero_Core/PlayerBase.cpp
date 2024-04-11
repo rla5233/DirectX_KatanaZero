@@ -113,6 +113,33 @@ bool APlayerBase::IsOnPlatForm()
 	return Result;
 }
 
+bool APlayerBase::IsOnStairs()
+{
+	bool Result = false;
+
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector CurPos = GetActorLocation();
+	CurPos.Y = MapTexScale.Y - CurPos.Y;
+	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
+
+	if (ColMap::BLUE == PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
+void APlayerBase::OnStairPosAdjust()
+{
+	if (true == IsOnStairs())
+	{
+		AddActorLocation({ 0.0f, 1.0f, 0.0f });
+	}
+}
+
 ////////////////////
 // FSM Setting Start
 void APlayerBase::SetRunVel()
@@ -171,27 +198,6 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 	if (Const::player_max_speedy < abs(Velocity.Y))
 	{
 		Velocity.Y = -Const::player_max_speedy;
-	}
-}
-
-void APlayerBase::OnGroundPosUpdate()
-{
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
-
-	FVector CurPos = GetActorLocation();
-	CurPos.Y = MapTexScale.Y - CurPos.Y;
-	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
-
-	if (ColMap::YELLOW == PixelColor || ColMap::GREEN == PixelColor)
-	{
-		AddActorLocation({ 0.0f, 1.0f, 0.0f });
-		return;
-	}
-	else
-	{
-		AddActorLocation({ 0.0f, -1.0f, 0.0f });
-		return;
 	}
 }
 

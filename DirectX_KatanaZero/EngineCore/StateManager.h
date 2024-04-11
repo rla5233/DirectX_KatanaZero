@@ -38,6 +38,11 @@ public:
 
 	void ChangeState(std::string_view _Name);
 
+	inline std::string GetCurStateName() const
+	{
+		return StateName;
+	}
+
 	void Update(float _Time);
 
 protected:
@@ -46,5 +51,6 @@ protected:
 private:
 	std::map<std::string, std::shared_ptr<UState>> States;
 	std::shared_ptr<UState> CurState = nullptr;
+	std::string StateName;
 };
 

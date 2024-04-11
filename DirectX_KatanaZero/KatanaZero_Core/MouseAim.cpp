@@ -19,7 +19,7 @@ void AMouseAim::BeginPlay()
 	StateInit();
 
 	Aim->SetSprite(ImgRes::ui_cursor);
-	Aim->SetAutoSize(10.0f, true);
+	Aim->SetAutoSize(2.0f, true);
 	Aim->SetOrder(ERenderOrder::UI);
 	State.ChangeState("Play");
 }

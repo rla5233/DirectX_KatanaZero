@@ -52,4 +52,9 @@ void AFactory_001::DebugMessageFunction()
 		std::string Msg = std::format("AimPos : {}\n", Aim->GetActorLocation().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+
+	{
+		std::string Msg = std::format("Player_State : {}\n", Player->GetCurState());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }

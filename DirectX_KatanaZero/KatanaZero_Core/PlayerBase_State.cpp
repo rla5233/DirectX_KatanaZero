@@ -38,7 +38,7 @@ void APlayerBase::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (false == IsOnGround() && false == IsOnPlatForm())
+	if (false == IsOnGround() && false == IsOnPlatForm() && false == IsOnStairs())
 	{
 		State.ChangeState("Fall");
 		return;
@@ -56,7 +56,7 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 {
 	RunVelUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
-	OnGroundPosUpdate();
+	OnStairPosAdjust();
 
 	if (true == IsDirChangeKeyDown())
 	{
@@ -102,7 +102,7 @@ void APlayerBase::RunStart()
 void APlayerBase::Run(float _DeltaTime)
 {
 	PosUpdate(_DeltaTime);
-	OnGroundPosUpdate();
+	OnStairPosAdjust();
 
 	// StateChange Check
 	if (true == IsJumpInputDown())
@@ -138,11 +138,16 @@ void APlayerBase::Run(float _DeltaTime)
 
 void APlayerBase::RunToIdleStart()
 {
+	Velocity.Y = 0.0f;
+
 	Renderer->ChangeAnimation(Anim::player_run_to_idle);	
 }
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
+	PosUpdate(_DeltaTime);
+	OnStairPosAdjust();
+
 	if (true == IsDirChangeKeyPress())
 	{
 		Velocity = FVector::Zero;
@@ -246,7 +251,6 @@ void APlayerBase::Roll(float _DeltaTime)
 {
 	RollVelXUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
-	OnGroundPosUpdate();
 
 	// StateChange Check
 	if (true == Renderer->IsCurAnimationEnd())
@@ -330,13 +334,15 @@ void APlayerBase::Fall(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsOnGround() && true == IsRunToRollInputPress() && true == IsCrouchToRollInputPress())
+	if ((true == IsOnGround() || true == IsOnStairs())
+	&& true == IsRunToRollInputPress() 
+	&& true == IsCrouchToRollInputPress())
 	{
 		State.ChangeState("Roll");
 		return;
 	}
 
-	if (true == IsOnGround() || true == IsOnPlatForm())
+	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs())
 	{
 		State.ChangeState("RunToIdle");
 		return;

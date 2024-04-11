@@ -26,6 +26,11 @@ public:
 		return Renderer;
 	}
 
+	inline std::string GetCurState() const
+	{
+		return State.GetCurStateName();
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -35,6 +40,9 @@ private:
 	bool IsDirChangeKeyPress();
 	bool IsOnGround();
 	bool IsOnPlatForm();
+	bool IsOnStairs();
+
+	void OnStairPosAdjust();
 
 private:
 	USpriteRenderer* Renderer = nullptr;
@@ -108,8 +116,6 @@ private:
 	void JumpVelYUpdate(float _DeltaTime);
 
 	void RollVelXUpdate(float _DeltaTime);
-
-	void OnGroundPosUpdate();
 
 	void FallVelXUpdate(float _DeltaTime);
 	void FallGravityUpdate(float _DeltaTime);
