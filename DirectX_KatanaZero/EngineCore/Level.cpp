@@ -8,7 +8,7 @@
 
 bool ULevel::IsActorConstructer = true;
 
-ULevel::ULevel()
+ULevel::ULevel() 
 {
 	// MainCamera = std::make_shared<UCamera>();
 
@@ -17,7 +17,7 @@ ULevel::ULevel()
 	UICamera->InputOff();
 }
 
-ULevel::~ULevel()
+ULevel::~ULevel() 
 {
 }
 
@@ -39,7 +39,7 @@ void ULevel::Render(float _DeltaTime)
 {
 	MainCamera->ViewPortSetting();
 	GEngine->GetEngineDevice().BackBufferRenderTarget->Setting();
-
+	
 	MainCamera->CameraTransformUpdate();
 
 	for (std::pair<const int, std::list<std::shared_ptr<URenderer>>>& RenderGroup : Renderers)
@@ -66,7 +66,7 @@ void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
 		MsgBoxAssert("만들지 않은 액터를 추가하려고 했습니다.");
 		return;
 	}
-
+	
 	_Actor->SetWorld(this);
 	_Actor->BeginPlay();
 

@@ -2,11 +2,11 @@
 #include "EngineRasterizer.h"
 #include "EngineCore.h"
 
-UEngineRasterizer::UEngineRasterizer()
+UEngineRasterizer::UEngineRasterizer() 
 {
 }
 
-UEngineRasterizer::~UEngineRasterizer()
+UEngineRasterizer::~UEngineRasterizer() 
 {
 	if (nullptr != State)
 	{
@@ -16,13 +16,13 @@ UEngineRasterizer::~UEngineRasterizer()
 
 void UEngineRasterizer::ResCreate(const D3D11_RASTERIZER_DESC& _Info)
 {
-	HRESULT Result = GEngine->GetDirectXDevice()->CreateRasterizerState(&_Info, &State);
+	HRESULT Result =  GEngine->GetDirectXDevice()->CreateRasterizerState(&_Info, &State);
 #ifdef _DEBUG
 	if (S_OK != Result)
 	{
 		MsgBoxAssert("레스터라이저 생성에 실패했습니다.");
 		return;
-	}
+	} 
 #endif
 }
 

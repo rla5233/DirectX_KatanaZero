@@ -22,7 +22,7 @@ public:
 	static std::shared_ptr<UEnginePixelShader> Load(std::string_view _Path, std::string_view _EntryPoint, UINT _High = 5, UINT _Low = 0)
 	{
 		std::shared_ptr<UEnginePixelShader> Res = CreateResName(_Path);
-		Res->ResLoad(_EntryPoint, _High, _Low);
+		Res->ResLoad(_EntryPoint,_High, _Low);
 		return Res;
 	}
 

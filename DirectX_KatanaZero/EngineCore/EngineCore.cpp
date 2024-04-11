@@ -4,16 +4,19 @@
 #include <EngineBase/EngineDirectory.h>
 #include <EnginePlatform/EngineSound.h>
 #include <EngineCore/EngineTexture.h>
+#include <EngineCore/EngineDebugMsgWindow.h>
+#include "EngineEditorGUI.h"
+
 #include "Level.h"
 #include "GameMode.h"
 
 #include "EngineVertexBuffer.h"
 
-UEngineCore::UEngineCore()
+UEngineCore::UEngineCore() 
 {
 }
 
-UEngineCore::~UEngineCore()
+UEngineCore::~UEngineCore() 
 {
 	// 엔진이 종료할때 기존 엔진 옵션을 세이브 하고 한다.
 	UEngineDirectory Dir;
@@ -42,16 +45,22 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	EngineWindow.SetWindowScale(EngineOption.WindowScale);
 	EngineDevice.Initialize(EngineWindow, EngineOption.ClearColor);
 
+	UEngineEditorGUI::GUIInit();
+
+	UEngineEditorGUI::CreateEditorWindow<UEngineDebugMsgWindow>("DebugMsgWindow");
 
 	{
 		UserCorePtr->Initialize();
 		MainTimer.TimeCheckStart();
 	}
 
+
 	UEngineWindow::WindowMessageLoop(
 		std::bind(&UEngineCore::EngineFrameUpdate, this),
 		std::bind(&UEngineCore::EngineEnd, this)
 	);
+
+	UEngineEditorGUI::GUIRelease();
 }
 
 void UEngineCore::EngineOptionInit()
@@ -116,6 +125,8 @@ void UEngineCore::EngineFrameUpdate()
 
 	CurLevel->Render(DeltaTime);
 
+	UEngineEditorGUI::GUIRender(DeltaTime);
+	
 	// 억지로 그냥 그려본다.
 
 	// 출력한다

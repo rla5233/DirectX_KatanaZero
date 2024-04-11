@@ -5,11 +5,11 @@
 #include "EngineVertexBuffer.h"
 #include "EngineVertexShader.h"
 
-UEngineInputLayOut::UEngineInputLayOut()
+UEngineInputLayOut::UEngineInputLayOut() 
 {
 }
 
-UEngineInputLayOut::~UEngineInputLayOut()
+UEngineInputLayOut::~UEngineInputLayOut() 
 {
 	if (nullptr != LayOut)
 	{
@@ -44,9 +44,9 @@ void UEngineInputLayOut::ResCreate(std::shared_ptr<UEngineVertexBuffer> _Buffer,
 	ID3DBlob* VertexShaderCodeBlob = _Shader->ShaderCodeBlob;
 
 	HRESULT Result = GEngine->GetDirectXDevice()->CreateInputLayout(
-		&Desc[0],
-		static_cast<UINT>(Desc.size()),
-		VertexShaderCodeBlob->GetBufferPointer(),
+		&Desc[0], 
+		static_cast<UINT>(Desc.size()), 
+		VertexShaderCodeBlob->GetBufferPointer(), 
 		VertexShaderCodeBlob->GetBufferSize(),
 		&LayOut
 	);

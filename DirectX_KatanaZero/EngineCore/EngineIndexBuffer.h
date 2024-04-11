@@ -34,7 +34,7 @@ private:
 	UINT Size = 0;
 	UINT Count = 0;
 	UINT Offset = 0;
-
+	
 	void ResCreate(const void* _Data, UINT _Size, UINT _Count);
 
 	void Setting();

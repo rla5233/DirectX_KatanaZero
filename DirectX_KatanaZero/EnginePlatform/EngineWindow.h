@@ -70,28 +70,29 @@ public:
 	void ScreenUpdate();
 
 	void SetWindowSmallIcon();
-
-
+	
+	
 	void CursorOff();
 
 	inline float4 GetScreenMousePrevPos()
-	{
-		return ScreenMousePrevPos;
+	{ 
+		return ScreenMousePrevPos; 
 	}
 	inline float4 GetScreenMousePos()
-	{
-		return ScreenMousePos;
+	{ 
+		return ScreenMousePos; 
 	}
 	inline float4 GetScreenMouseDir()
-	{
-		return ScreenMouseDir;
+	{ 
+		return ScreenMouseDir; 
 	}
-	inline float4 GetScreenMouseDirNormal()
-	{
-		return ScreenMouseDirNormal;
+	inline float4 GetScreenMouseDirNormal() 
+	{ 
+		return ScreenMouseDirNormal; 
 	}
 
 	void CalculateMouseUpdate(float _DeltaTime);
+	static void SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction);
 
 protected:
 
@@ -99,6 +100,7 @@ private:
 	static bool WindowLive;
 	static HINSTANCE hInstance;
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+	static std::function<bool(HWND, UINT, WPARAM, LPARAM)> UserWndProcFunction;
 
 	Color8Bit ClearColor = Color8Bit::WhiteA;
 

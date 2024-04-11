@@ -2,11 +2,11 @@
 #include "EngineMesh.h"
 #include "EngineCore.h"
 
-UEngineMesh::UEngineMesh()
+UEngineMesh::UEngineMesh() 
 {
 }
 
-UEngineMesh::~UEngineMesh()
+UEngineMesh::~UEngineMesh() 
 {
 }
 

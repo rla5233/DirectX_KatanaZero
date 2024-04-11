@@ -160,7 +160,7 @@ void UEngineShaderResources::SettingConstantBuffer(std::string_view _Name, const
 	{
 		std::map<std::string, UEngineConstantBufferSetter>& ResMap = Pair.second;
 
-		if (false == ResMap.contains(UpperName))
+		if (false ==  ResMap.contains(UpperName))
 		{
 			continue;
 		}

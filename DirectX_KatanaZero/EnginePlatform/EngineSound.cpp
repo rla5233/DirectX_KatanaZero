@@ -31,7 +31,7 @@ FMOD::System* SoundSystem = nullptr;
 class ResControl
 {
 public:
-	ResControl()
+	ResControl() 
 	{
 		if (FMOD_RESULT::FMOD_OK != FMOD::System_Create(&SoundSystem))
 		{
@@ -45,7 +45,7 @@ public:
 			return;
 		}
 	}
-	~ResControl()
+	~ResControl() 
 	{
 		if (nullptr != SoundSystem)
 		{
@@ -58,11 +58,11 @@ public:
 ResControl Inst;
 
 
-UEngineSound::UEngineSound()
+UEngineSound::UEngineSound() 
 {
 }
 
-UEngineSound::~UEngineSound()
+UEngineSound::~UEngineSound() 
 {
 }
 

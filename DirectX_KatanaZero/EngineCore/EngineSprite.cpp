@@ -1,11 +1,11 @@
 #include "PreCompile.h"
 #include "EngineSprite.h"
 
-UEngineSprite::UEngineSprite()
+UEngineSprite::UEngineSprite() 
 {
 }
 
-UEngineSprite::~UEngineSprite()
+UEngineSprite::~UEngineSprite() 
 {
 }
 
@@ -30,7 +30,7 @@ void UEngineSprite::ResLoadFolder()
 {
 	UEngineDirectory Dir = GetEnginePath();
 
-	std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png", ".jpg", ".jpeg", ".gif", ".bmp" });
+	std::vector<UEngineFile> Files = Dir.GetAllFile({".png", ".jpg", ".jpeg", ".gif", ".bmp" });
 
 	for (size_t i = 0; i < Files.size(); i++)
 	{

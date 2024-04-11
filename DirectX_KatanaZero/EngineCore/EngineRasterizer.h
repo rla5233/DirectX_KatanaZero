@@ -26,7 +26,7 @@ public:
 	}
 
 protected:
-
+	
 
 private:
 	ID3D11RasterizerState* State = nullptr;

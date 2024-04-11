@@ -5,10 +5,26 @@
 
 bool UEngineWindow::WindowLive = true;
 HINSTANCE UEngineWindow::hInstance;
+std::function<bool(HWND, UINT, WPARAM, LPARAM)> UEngineWindow::UserWndProcFunction;
 
+void UEngineWindow::SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction)
+{
+	UserWndProcFunction = _UserWndProcFunction;
+}
 
 LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	if (nullptr != UserWndProcFunction)
+	{
+		if (true == UserWndProcFunction(hWnd, message, wParam, lParam))
+		{
+			return true;
+		}
+	}
+
+	//if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+	//	return true;
+
 	switch (message)
 	{
 	case WM_PAINT:
@@ -35,11 +51,11 @@ void UEngineWindow::Init(HINSTANCE _hInst)
 
 
 
-UEngineWindow::UEngineWindow()
+UEngineWindow::UEngineWindow() 
 {
 }
 
-UEngineWindow::~UEngineWindow()
+UEngineWindow::~UEngineWindow() 
 {
 	BackBufferImage = nullptr;
 	WindowImage = nullptr;
@@ -199,7 +215,7 @@ void UEngineWindow::SetWindowPosition(const FVector& _Pos)
 void UEngineWindow::SetWindowScale(const FVector& _Scale)
 {
 	Scale = _Scale;
-
+	
 	BackBufferImage = std::make_shared<UWindowImage>();
 	BackBufferImage->Create(WindowImage, Scale);
 
@@ -234,7 +250,7 @@ void UEngineWindow::ScreenClear()
 void UEngineWindow::ScreenUpdate()
 {
 	FTransform CopyTrans;
-	CopyTrans.SetPosition({ Scale.ihX(), Scale.ihY() });
+	CopyTrans.SetPosition({Scale.ihX(), Scale.ihY()});
 	CopyTrans.SetScale({ Scale.iX(), Scale.iY() });
 
 	WindowImage->BitCopy(BackBufferImage, CopyTrans);
@@ -247,7 +263,7 @@ void UEngineWindow::ScreenUpdate()
 
 void UEngineWindow::SetWindowSmallIcon()
 {
-
+	
 }
 
 void UEngineWindow::CursorOff()

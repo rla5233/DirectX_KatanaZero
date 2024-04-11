@@ -2,11 +2,11 @@
 #include "EngineBlend.h"
 #include "EngineCore.h"
 
-UEngineBlend::UEngineBlend()
+UEngineBlend::UEngineBlend() 
 {
 }
 
-UEngineBlend::~UEngineBlend()
+UEngineBlend::~UEngineBlend() 
 {
 	if (nullptr != State)
 	{

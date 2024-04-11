@@ -60,6 +60,6 @@ private:
 	std::shared_ptr<UEnginePixelShader> PixelShader = nullptr;
 	std::shared_ptr<UEngineRasterizer> Rasterizer = nullptr;
 	std::shared_ptr<UEngineBlend> Blend = nullptr;
-
+	
 };
 

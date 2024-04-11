@@ -36,7 +36,7 @@ public:
 		{
 			MsgBoxAssert("언리얼에서는 생성자에서밖에 컴포넌트를 생성할수 없습니다.");
 		}
-
+		
 		std::shared_ptr<UActorComponent> NewComponent = std::make_shared<ComponentType>();
 
 		PushComponent(NewComponent, _Name);

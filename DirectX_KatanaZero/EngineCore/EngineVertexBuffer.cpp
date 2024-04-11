@@ -3,11 +3,11 @@
 #include "EngineCore.h"
 #include "EngineGraphicDevice.h"
 
-UEngineVertexBuffer::UEngineVertexBuffer()
+UEngineVertexBuffer::UEngineVertexBuffer() 
 {
 }
 
-UEngineVertexBuffer::~UEngineVertexBuffer()
+UEngineVertexBuffer::~UEngineVertexBuffer() 
 {
 }
 

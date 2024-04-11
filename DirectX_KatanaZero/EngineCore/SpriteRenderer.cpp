@@ -46,7 +46,7 @@ void USpriteAnimation::Update(float _DeltaTime)
 				IsEnd = true;
 				CurFrame = 0;
 			}
-			else
+			else 
 			{
 				IsEnd = true;
 				--CurFrame;
@@ -55,17 +55,16 @@ void USpriteAnimation::Update(float _DeltaTime)
 	}
 }
 
-USpriteRenderer::USpriteRenderer()
+USpriteRenderer::USpriteRenderer() 
 {
 	SetMesh("Rect");
 	SetMaterial("2DImage");
 }
 
 
-USpriteRenderer::~USpriteRenderer()
+USpriteRenderer::~USpriteRenderer() 
 {
 }
-
 
 void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
 {
@@ -88,7 +87,7 @@ void USpriteRenderer::MaterialSettingEnd()
 }
 
 
-void USpriteRenderer::Tick(float _DeltaTime)
+void USpriteRenderer::Tick(float _DeltaTime) 
 {
 	Super::Tick(_DeltaTime);
 
@@ -209,11 +208,11 @@ void USpriteRenderer::SetPlusColor(float4 _Color)
 }
 
 void USpriteRenderer::CreateAnimation(
-	std::string_view _AnimationName,
-	std::string_view _SpriteName,
-	float _Inter,
-	bool _Loop /*= true*/,
-	int _Start /*= -1*/,
+	std::string_view _AnimationName, 
+	std::string_view _SpriteName, 
+	float _Inter, 
+	bool _Loop /*= true*/, 
+	int _Start /*= -1*/, 
 	int _End /*= -1*/)
 {
 	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
@@ -225,7 +224,7 @@ void USpriteRenderer::CreateAnimation(
 	}
 
 	std::vector<int> Frame;
-	std::vector<float> Inter;
+	std::vector<float> Inter; 
 
 	int Start = _Start;
 	int End = _End;
@@ -282,7 +281,7 @@ void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::stri
 		return;
 	}
 
-	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
+	 std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
 
 	if (nullptr == FindSprite)
 	{

@@ -2,12 +2,12 @@
 #include "EngineShader.h"
 #include "EngineShaderResources.h"
 
-UEngineShader::UEngineShader()
+UEngineShader::UEngineShader() 
 {
 	Resources = std::make_shared<UEngineShaderResources>();
 }
 
-UEngineShader::~UEngineShader()
+UEngineShader::~UEngineShader() 
 {
 	if (nullptr != ErrorCodeBlob)
 	{

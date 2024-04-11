@@ -1,7 +1,5 @@
 #pragma once
-
-#define GENERATED_BODY(Parent) \
-	typedef Parent Super;
+#include "EngineDefines.h"
 
 class UEngineTickCallBack
 {
@@ -59,7 +57,7 @@ public:
 			}
 		}
 
-		CallBacks.push_back(std::make_shared<UEngineTickCallBack>(_Time, _CallBack));
+		CallBacks.push_back(std::make_shared<UEngineTickCallBack>( _Time ,_CallBack ));
 	}
 
 protected:

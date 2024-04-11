@@ -15,7 +15,7 @@ struct FEngineOption : public UEngineSerializeObject
 {
 public:
 	std::string WindowTitle = "Title";
-	FVector WindowScale = { 1280.0f, 720.0f };
+	FVector WindowScale = {1280.0f, 720.0f};
 	bool IsDebug = false;
 	FVector ClearColor = { 0.0f, 0.0f, 1.0f };
 	char FreeCameraKey = '0';
@@ -61,7 +61,7 @@ public:
 		{
 			IsDebug = true;
 		}
-		else
+		else 
 		{
 			MsgBoxAssert("IsDebug 옵션이 이상한 글자로 채워져 있습니다.");
 		}
@@ -72,6 +72,6 @@ public:
 
 		FreeCameraKey = Values[OPTIONINDEX][0];
 	}
-
+	
 };
 

@@ -2,11 +2,11 @@
 #include "EngineIndexBuffer.h"
 #include "EngineCore.h"
 
-UEngineIndexBuffer::UEngineIndexBuffer()
+UEngineIndexBuffer::UEngineIndexBuffer() 
 {
 }
 
-UEngineIndexBuffer::~UEngineIndexBuffer()
+UEngineIndexBuffer::~UEngineIndexBuffer() 
 {
 }
 

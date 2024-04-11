@@ -3,12 +3,12 @@
 #include <EngineBase/EngineString.h>
 #include "EngineCore.h"
 
-UEnginePixelShader::UEnginePixelShader()
+UEnginePixelShader::UEnginePixelShader() 
 {
 	Type = EShaderType::Pixel;
 }
 
-UEnginePixelShader::~UEnginePixelShader()
+UEnginePixelShader::~UEnginePixelShader() 
 {
 	if (nullptr != ShaderPtr)
 	{
@@ -18,7 +18,7 @@ UEnginePixelShader::~UEnginePixelShader()
 
 void UEnginePixelShader::ResLoad(std::string_view _EntryPoint, UINT _High /*= 5*/, UINT _Low /*= 0*/)
 {
-
+	
 	// 마소의 typedef 스탠다드
 	// LPCWSTR => const wchar_t* _Path
 	// LP  => 포인터넣어주세요
@@ -31,7 +31,7 @@ void UEnginePixelShader::ResLoad(std::string_view _EntryPoint, UINT _High /*= 5*
 	// C => const
 	// W 없음 => char
 	// STR => 문자열
-
+	
    //LPCWSTR pFileName, <= 쉐이더 파일 경로
    //CONST D3D_SHADER_MACRO* pDefines,
    //ID3DInclude* pInclude,
@@ -96,11 +96,11 @@ void UEnginePixelShader::ResLoad(std::string_view _EntryPoint, UINT _High /*= 5*
 	}
 
 	Result = GEngine->GetDirectXDevice()->CreatePixelShader(
-		ShaderCodeBlob->GetBufferPointer(),
+		ShaderCodeBlob->GetBufferPointer(), 
 		ShaderCodeBlob->GetBufferSize(),
 		nullptr,
 		&ShaderPtr
-	);
+		);
 
 	if (S_OK != Result)
 	{

@@ -11,7 +11,7 @@
 
 // 이녀석은 선생님 본래 관리 방식을 보여드리겠습니다.
 
-class UEngineSoundPlayer
+class UEngineSoundPlayer 
 {
 	friend class UEngineSound;
 

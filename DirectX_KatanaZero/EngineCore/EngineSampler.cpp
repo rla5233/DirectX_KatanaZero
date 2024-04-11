@@ -3,11 +3,11 @@
 #include "EngineCore.h"
 
 
-UEngineSampler::UEngineSampler()
+UEngineSampler::UEngineSampler() 
 {
 }
 
-UEngineSampler::~UEngineSampler()
+UEngineSampler::~UEngineSampler() 
 {
 	if (nullptr != State)
 	{

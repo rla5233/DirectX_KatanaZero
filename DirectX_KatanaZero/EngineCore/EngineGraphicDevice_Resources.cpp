@@ -85,7 +85,7 @@ void ShaderInit()
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("EngineShader");
 
-	std::vector<UEngineFile> Files = Dir.GetAllFile({ ".fx", "hlsl" });
+	std::vector<UEngineFile> Files = Dir.GetAllFile({".fx", "hlsl"});
 
 	for (size_t i = 0; i < Files.size(); i++)
 	{
@@ -131,16 +131,16 @@ void ShaderInit()
 
 void SettingInit()
 {
-	//D3D11_FILL_MODE FillMode;
-	//D3D11_CULL_MODE CullMode;
-	//BOOL FrontCounterClockwise;
-	//INT DepthBias;
-	//FLOAT DepthBiasClamp;
-	//FLOAT SlopeScaledDepthBias;
-	//BOOL DepthClipEnable;
-	//BOOL ScissorEnable;
-	//BOOL MultisampleEnable;
-	//BOOL AntialiasedLineEnable;
+		//D3D11_FILL_MODE FillMode;
+		//D3D11_CULL_MODE CullMode;
+		//BOOL FrontCounterClockwise;
+		//INT DepthBias;
+		//FLOAT DepthBiasClamp;
+		//FLOAT SlopeScaledDepthBias;
+		//BOOL DepthClipEnable;
+		//BOOL ScissorEnable;
+		//BOOL MultisampleEnable;
+		//BOOL AntialiasedLineEnable;
 
 	{
 		D3D11_RASTERIZER_DESC Desc = {};
@@ -227,7 +227,7 @@ void SettingInit()
 
 		// float4 DestColor = 0011;
 		// float4 SrcColor = 0000;
-
+		
 		// float4 DestFilter = 0011;
 		// float4 SrcFilter = 0000;
 		// Result = DestColor * DestFilter (+) SrcColor * SrcFilter;
@@ -253,7 +253,7 @@ void SettingInit()
 		// SRCColor = 000(1)
 		// DestFilter =  1 - 1
 		// DestColor *DestFilter ; 
-
+		
 		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 
 		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;

@@ -166,7 +166,7 @@ Color8Bit UEngineTexture::GetColor(unsigned int _X, unsigned int _Y, Color8Bit _
 	// Ptr
 	// Ptr += 12;
 	// _X, _Y
-
+	
 	//  1        2              1
 	// ((_Y * GetScale().ix()) + _X) * 4 ;
 	// 3 * 4

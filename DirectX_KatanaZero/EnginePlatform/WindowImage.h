@@ -28,7 +28,7 @@ enum class EWIndowImageType
 	IMG_PNG
 };
 
-class UImageInfo
+class UImageInfo 
 {
 public:
 	HBITMAP hBitMap;

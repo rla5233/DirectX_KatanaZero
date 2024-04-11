@@ -24,7 +24,7 @@ public:
 	UStateManager& operator=(UStateManager&& _Other) noexcept = delete;
 
 	void CreateState(std::string_view _Name);
-	void SetFunction(std::string_view _Name,
+	void SetFunction(std::string_view _Name, 
 		std::function<void()> _Start = nullptr,
 		std::function<void(float)> _Update = nullptr,
 		std::function<void()> _End = nullptr

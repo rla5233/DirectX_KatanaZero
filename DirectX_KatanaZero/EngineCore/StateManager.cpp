@@ -1,11 +1,11 @@
 #include "PreCompile.h"
 #include "StateManager.h"
 
-UStateManager::UStateManager()
+UStateManager::UStateManager() 
 {
 }
 
-UStateManager::~UStateManager()
+UStateManager::~UStateManager() 
 {
 }
 

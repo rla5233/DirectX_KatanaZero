@@ -5,13 +5,13 @@
 #include "EngineRasterizer.h"
 #include <EngineBase/EngineDebug.h>
 
-UEngineMaterial::UEngineMaterial()
+UEngineMaterial::UEngineMaterial() 
 {
 	SetRasterizer("EngineBase");
 	SetBlend("EngineBase");
 }
 
-UEngineMaterial::~UEngineMaterial()
+UEngineMaterial::~UEngineMaterial() 
 {
 }
 

@@ -28,7 +28,7 @@ public:
 		{
 			return nullptr;
 		}
-
+		
 		return NameResources[UpperName];
 	}
 

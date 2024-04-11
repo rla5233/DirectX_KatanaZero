@@ -4,11 +4,11 @@
 
 std::map<EShaderType, std::map<std::string, std::map<int, std::shared_ptr<UEngineConstantBuffer>>>> UEngineConstantBuffer::ConstantBuffers;
 
-UEngineConstantBuffer::UEngineConstantBuffer()
+UEngineConstantBuffer::UEngineConstantBuffer() 
 {
 }
 
-UEngineConstantBuffer::~UEngineConstantBuffer()
+UEngineConstantBuffer::~UEngineConstantBuffer() 
 {
 }
 
@@ -77,7 +77,7 @@ void UEngineConstantBuffer::ChangeData(const void* _Data, UINT _Size)
 
 	// Data.pData 그래픽카드에 넣어주는 주소
 	memcpy_s(Data.pData, BufferInfo.ByteWidth, _Data, BufferInfo.ByteWidth);
-
+	
 	// 다썼어 다시 잠궈
 	GEngine->GetDirectXContext()->Unmap(Buffer, 0);
 

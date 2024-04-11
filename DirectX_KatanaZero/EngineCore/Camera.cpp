@@ -2,7 +2,7 @@
 #include "Camera.h"
 #include "EngineCore.h"
 
-UCamera::UCamera()
+UCamera::UCamera() 
 {
 	InputOn();
 
@@ -16,7 +16,7 @@ UCamera::UCamera()
 	ViewPort.MaxDepth = 1;
 }
 
-UCamera::~UCamera()
+UCamera::~UCamera() 
 {
 }
 
@@ -97,7 +97,7 @@ void UCamera::Tick(float _DeltaTime)
 		default:
 			break;
 		}
-
+		
 	}
 
 	float Speed = FreeCameraMoveSpeed;
