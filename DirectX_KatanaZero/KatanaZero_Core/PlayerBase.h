@@ -84,6 +84,7 @@ private:
 
 	bool IsRunToRollInputDown();
 	bool IsCrouchToRollInputDown();
+	bool IsCrouchToRollInputPress();
 
 	bool IsJumpInputDown();
 	bool IsJumpInputPress();

@@ -280,12 +280,25 @@ void APlayerBase::FallStart()
 void APlayerBase::Fall(float _DeltaTime)
 {
 	IsDirChangeKeyDown();
+
+	if (true == IsFallInputPress())
+	{
+
+
+	}
+
 	GravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
 
 	// StateChange Check
 	if (true == IsGround)
 	{
+		if (true == IsFallInputPress() && true == IsCrouchToRollInputPress())
+		{
+			State.ChangeState("Roll");
+			return;
+		}
+
 		State.ChangeState("RunToIdle");
 		return;
 	}

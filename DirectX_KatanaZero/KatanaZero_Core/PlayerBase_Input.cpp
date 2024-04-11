@@ -102,6 +102,23 @@ bool APlayerBase::IsCrouchToRollInputDown()
 	return Result;
 }
 
+bool APlayerBase::IsCrouchToRollInputPress()
+{
+	bool Result = false;
+
+	if (true == IsPress('D') || true == IsPress(VK_RIGHT))
+	{
+		Result = true;
+	}
+
+	if (true == IsPress('A') || true == IsPress(VK_LEFT))
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 bool APlayerBase::IsJumpInputDown()
 {
 	bool Result = false;
