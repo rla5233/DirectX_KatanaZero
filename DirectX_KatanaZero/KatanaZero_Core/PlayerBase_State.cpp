@@ -188,6 +188,15 @@ void APlayerBase::PostCrouch(float _DeltaTime)
 		State.ChangeState("PreCrouch");
 		return;
 	}
+	else
+	{
+		if (true == IsOnPlatForm())
+		{
+			AddActorLocation({ 0.0f, 2.0f, 0.0f });
+			State.ChangeState("Fall");
+			return;
+		}
+	}
 }
 
 void APlayerBase::PreCrouchStart()

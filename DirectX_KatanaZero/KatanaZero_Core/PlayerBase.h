@@ -38,6 +38,7 @@ private:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
+	USpriteRenderer* Center = nullptr;
 
 	FVector Velocity = FVector::Zero;
 	FVector Acc = FVector::Zero;

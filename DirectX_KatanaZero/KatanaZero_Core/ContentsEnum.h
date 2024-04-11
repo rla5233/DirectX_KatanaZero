@@ -21,5 +21,6 @@ enum class ERenderOrder
 	None,
 	ColMap,
 	BackGround,
-	Player
+	Player,
+	Player2
 };
