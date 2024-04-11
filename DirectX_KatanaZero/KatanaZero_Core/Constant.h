@@ -23,9 +23,9 @@ namespace ImgRes
 	const std::string_view title_background			= "spr_title_background.png";
 	const std::string_view title_fence				= "spr_title_fence_0.png";
 	const std::string_view title_grass				= "spr_title_grass_0.png";
-	const std::string_view title_neon_zer			= "spr_titlegraphic_big_1.png";
-	const std::string_view title_neon_o				= "spr_titlegraphic_big_2.png";
-	const std::string_view title_neon_katana		= "spr_titlegraphic_big_3.png";
+	const std::string_view title_neon_zer			= "spr_titlegraphic_1.png";
+	const std::string_view title_neon_o				= "spr_titlegraphic_2.png";
+	const std::string_view title_neon_katana		= "spr_titlegraphic_3.png";
 	const std::string_view title_plant				= "spr_plants";
 
 	// FactoryLevel

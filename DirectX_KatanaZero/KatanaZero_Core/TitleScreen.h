@@ -33,5 +33,7 @@ private:
 	USpriteRenderer* Grass = nullptr;
 
 	USpriteRenderer* Neon_Katana = nullptr;
+	USpriteRenderer* Neon_ZER = nullptr;
+	USpriteRenderer* Neon_O = nullptr;
 };
 
