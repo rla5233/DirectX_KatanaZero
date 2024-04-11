@@ -25,5 +25,6 @@ private:
 	USpriteRenderer* BackGround = nullptr;
 	USpriteRenderer* Fence = nullptr;
 	USpriteRenderer* Plants = nullptr;
+	USpriteRenderer* Grass = nullptr;
 };
 

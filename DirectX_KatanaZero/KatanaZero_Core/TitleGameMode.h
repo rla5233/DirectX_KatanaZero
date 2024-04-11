@@ -25,6 +25,6 @@ private:
 
 private:
 	bool IsIntroEnd = false;
-
+	float IntroTimeWeight = 2.0f;
 };
 

@@ -19,12 +19,12 @@ public:
 	{
 		StartPos = _StartPos;
 		TargetPos = _TargetPos;
-		IsMoveValue = true;
+		IsLerpMoveValue = true;
 	}
 
-	bool IsMove() const
+	bool IsLerpMove() const
 	{
-		return IsMoveValue;
+		return IsLerpMoveValue;
 	}
 
 protected:
@@ -33,6 +33,6 @@ private:
 	FVector StartPos = FVector::Zero;
 	FVector TargetPos = FVector::Zero;
 	float MoveTime = 0.0f;
-	bool IsMoveValue = false;
+	bool IsLerpMoveValue = false;
 };
 

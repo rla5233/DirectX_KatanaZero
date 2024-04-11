@@ -7,6 +7,15 @@ enum class ETitleState
 	Select
 };
 
+enum class ETitleRenderOrder
+{
+	None,
+	BackGround,
+	Bottom,
+	Mid,
+	Top
+};
+
 enum class ERenderOrder
 {
 	None,
