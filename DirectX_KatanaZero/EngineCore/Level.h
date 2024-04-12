@@ -81,6 +81,8 @@ protected:
 	void LevelEnd(ULevel* _NextLevel) override;
 	void LevelStart(ULevel* _PrevLevel) override;
 
+	void Destroy();
+
 private:
 	std::shared_ptr<UCamera> MainCamera = nullptr;
 	std::shared_ptr<UCamera> UICamera = nullptr;

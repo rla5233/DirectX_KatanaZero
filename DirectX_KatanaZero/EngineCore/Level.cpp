@@ -69,6 +69,55 @@ void ULevel::Render(float _DeltaTime)
 	}
 }
 
+void ULevel::Destroy()
+{
+
+	for (std::pair<const int, std::list<std::shared_ptr<URenderer>>>& RenderGroup : Renderers)
+	{
+		std::list<std::shared_ptr<URenderer>>& GroupRenderers = RenderGroup.second;
+
+		std::list<std::shared_ptr<URenderer>>::iterator StartIter = GroupRenderers.begin();
+		std::list<std::shared_ptr<URenderer>>::iterator EndIter = GroupRenderers.end();
+
+
+		for (; StartIter != EndIter; )
+		{
+			std::shared_ptr<URenderer> CurRenderer = *StartIter;
+
+			if (false == CurRenderer->GetActor()->IsDestroy())
+			{
+				++StartIter;
+				continue;
+			}
+
+			StartIter = GroupRenderers.erase(StartIter);
+		}
+	}
+
+	for (std::pair<const int, std::list<std::shared_ptr<AActor>>>& TickGroup : Actors)
+	{
+		std::list<std::shared_ptr<AActor>>& GroupActors = TickGroup.second;
+
+		std::list<std::shared_ptr<AActor>>::iterator StartIter = GroupActors.begin();
+		std::list<std::shared_ptr<AActor>>::iterator EndIter = GroupActors.end();
+
+		for (; StartIter != EndIter; )
+		{
+			std::shared_ptr<AActor> CurActor = *StartIter;
+
+			if (false == CurActor->IsDestroy())
+			{
+				++StartIter;
+				continue;
+			}
+
+			CurActor->End();
+			StartIter = GroupActors.erase(StartIter);
+		}
+	}
+
+}
+
 void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
 {
 	if (nullptr == _Actor)

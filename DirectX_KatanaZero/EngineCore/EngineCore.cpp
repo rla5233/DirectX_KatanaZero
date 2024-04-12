@@ -12,11 +12,11 @@
 
 #include "EngineVertexBuffer.h"
 
-UEngineCore::UEngineCore() 
+UEngineCore::UEngineCore()
 {
 }
 
-UEngineCore::~UEngineCore() 
+UEngineCore::~UEngineCore()
 {
 	// 엔진이 종료할때 기존 엔진 옵션을 세이브 하고 한다.
 	UEngineDirectory Dir;
@@ -124,13 +124,10 @@ void UEngineCore::EngineFrameUpdate()
 	// 게임에 요소들을 그리고
 
 	CurLevel->Render(DeltaTime);
-
 	UEngineEditorGUI::GUIRender(DeltaTime);
-	
-	// 억지로 그냥 그려본다.
-
-	// 출력한다
 	EngineDevice.RenderEnd();
+
+	CurLevel->Destroy();
 }
 
 std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string& _Name, std::shared_ptr<AActor> _GameMode)

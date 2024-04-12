@@ -72,6 +72,18 @@ public:
 		RootComponent = _Root;
 	}
 
+	bool IsDestroy()
+	{
+		return IsDestroyValue;
+	}
+
+	void Destroy()
+	{
+		IsDestroyValue = true;
+	}
+
+	virtual void End() {};
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -88,6 +100,7 @@ private:
 
 	void PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name);
 	/////////////////////// 인풋
+
 
 
 
@@ -115,6 +128,7 @@ public:
 	static void OnlyInputStop();
 
 private:
+	bool IsDestroyValue = false;
 	// set은 굉장히 간단한 자료구조로서
 	// Value 없는 맵입니다.
 	static std::set<AActor*> InputActors;
