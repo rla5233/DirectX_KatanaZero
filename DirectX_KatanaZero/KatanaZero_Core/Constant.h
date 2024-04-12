@@ -28,8 +28,8 @@ namespace ImgRes
 	const std::string_view ui_up_hud_weapon			= "spr_hud_weapon_0.png";
 	const std::string_view ui_up_hud_katana			= "spr_katanaicons_0.png";
 	const std::string_view ui_up_hud_item			= "spr_itemicons_0.png";
-	const std::string_view ui_up_shift_up			= "spr_keyboard_shift_0.png";
-	const std::string_view ui_up_shift_down			= "spr_keyboard_shift_1.png";
+	const std::string_view ui_shift_up				= "spr_keyboard_shift_0.png";
+	const std::string_view ui_shift_down			= "spr_keyboard_shift_1.png";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";

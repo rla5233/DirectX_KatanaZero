@@ -28,6 +28,7 @@ private:
 	USpriteRenderer* Bar = nullptr;
 	USpriteRenderer* Timer = nullptr;
 	USpriteRenderer* Battery = nullptr;
-
+	USpriteRenderer* Shift = nullptr;
+	USpriteRenderer* Weapon = nullptr;
 };
 
