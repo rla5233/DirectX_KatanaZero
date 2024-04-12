@@ -102,11 +102,11 @@
     <ClInclude Include="BackGroundObject.h">
       <Filter>Level\000.Object\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MouseAim.h">
-      <Filter>Level\000.Object\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Up_HUD.h">
       <Filter>Level\000.Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseAim.h">
+      <Filter>Level\000.Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,11 +164,11 @@
     <ClCompile Include="ColMapObject.cpp">
       <Filter>Level\000.Object\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MouseAim.cpp">
-      <Filter>Level\000.Object\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Up_HUD.cpp">
       <Filter>Level\000.Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseAim.cpp">
+      <Filter>Level\000.Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
