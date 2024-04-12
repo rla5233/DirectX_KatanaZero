@@ -58,6 +58,7 @@ cbuffer FCuttingData : register(b2)
     float4 CuttingPosition;
     //      0.5 0.5
     float4 CuttingSize;
+    float4x4 PivotMat;
 };
 
 struct ImagePSOutPut
@@ -69,7 +70,17 @@ struct ImagePSOutPut
 ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 {
     ImageVSOutPut Out = (ImageVSOutPut) 0;
-    Out.POSITION = mul(_Input.POSITION, WVP);
+    
+    // World.
+    
+    float4x4 PivotWorld = mul(World, PivotMat);
+    // float4x4 PivotWorld = World;
+    
+    Out.POSITION = mul(_Input.POSITION, PivotWorld);
+    Out.POSITION = mul(Out.POSITION, View);
+    Out.POSITION = mul(Out.POSITION, Projection);
+    
+    // Out.POSITION = mul(_Input.POSITION, WVP);
     // Out.TEXCOORD = _Input.TEXCOORD;
 
     
@@ -119,6 +130,8 @@ TextureSet(Image, 0)
 cbuffer ResultColorValue : register(b10)
 {
     float4 PlusColor;
+    float4 MulColor;
+    float4 AlphaColor;
 };
 
 
@@ -137,6 +150,8 @@ ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
     // 01,    11
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
     Out.COLOR.xyz += PlusColor.xyz;
+    //Out.COLOR.xyz *= MulColor.xyz;
+    //Out.COLOR.a = AlphaColor.a;
     // #define Sampling(Name, TEXCOORD) Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
     // Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
     

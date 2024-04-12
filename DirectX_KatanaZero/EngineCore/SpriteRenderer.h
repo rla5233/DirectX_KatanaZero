@@ -9,7 +9,16 @@ struct FCuttingData
 	float4 CuttingPosition;
 	//      0.5 0.5
 	float4 CuttingSize;
+	float4x4 PivotMat;
 };
+
+struct ResultColorValue
+{
+	float4 PlusColor = float4::Zero;
+	float4 MulColor = float4::One;
+	float4 AlphaColor = float4::One;
+};
+
 
 class UEngineSprite;
 class USpriteAnimation : public UNameObject
@@ -61,13 +70,12 @@ public:
 	USpriteRenderer& operator=(USpriteRenderer&& _Other) noexcept = delete;
 
 	void SetSprite(std::string_view _Name, UINT _Index = 0);
-	void SetPlusColor(float4 _Color);
 	void SetSamplering(ETextureSampling _Value);
 
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, float _Inter = 0.1f, bool _Loop = true, int _Start = -1, int _End = -1);
 
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop = true);
-	
+
 	void ChangeAnimation(std::string_view _AnimationName);
 
 	void SetAutoSize(float _ScaleRatio, bool _AutoSize);
@@ -83,7 +91,28 @@ public:
 	}
 
 	bool IsCurAnimationEnd();
-	
+
+	void SetPlusColor(float4 _Color)
+	{
+		ColorData.PlusColor = _Color;
+	}
+
+	void SetMulColor(float4 _Color)
+	{
+		ColorData.MulColor = _Color;
+	}
+
+	void SetAlpha(float _Alpha)
+	{
+		ColorData.AlphaColor.A = _Alpha;
+	}
+
+	void SetPivot(EPivot _Pivot)
+	{
+		Pivot = _Pivot;
+	}
+
+
 protected:
 	void Tick(float _DeltaTime) override;
 	void MaterialSettingEnd() override;
@@ -92,11 +121,10 @@ private:
 	bool AutoSize = false;
 	float ScaleRatio = 1.0f;
 	FSpriteInfo CurInfo;
-
+	EPivot Pivot = EPivot::MAX;
 	EEngineDir Dir = EEngineDir::MAX;
-
+	ResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
-	float4 PlusColor = float4::Zero;
 	std::shared_ptr<UEngineTexture> CurTexture = nullptr;
 	std::map<std::string, std::shared_ptr<USpriteAnimation>> Animations;
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
