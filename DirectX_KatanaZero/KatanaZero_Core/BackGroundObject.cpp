@@ -4,6 +4,8 @@
 ABackGroundObject::ABackGroundObject()
 {
 	BackGround = CreateDefaultSubObject<USpriteRenderer>("BackGround");
+	
+	SetRoot(BackGround);
 }
 
 ABackGroundObject::~ABackGroundObject()

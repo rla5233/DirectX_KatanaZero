@@ -13,6 +13,8 @@ ATitleScreen::ATitleScreen()
 	Neon_ZER	= CreateDefaultSubObject<USpriteRenderer>("Neon_ZER");
 	Neon_O		= CreateDefaultSubObject<USpriteRenderer>("Neon_O");
 	Neon_Katana = CreateDefaultSubObject<USpriteRenderer>("Neon_Katana");
+
+	SetRoot(BackGround);
 }
 
 ATitleScreen::~ATitleScreen()

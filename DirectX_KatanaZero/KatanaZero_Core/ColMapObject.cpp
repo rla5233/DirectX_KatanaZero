@@ -7,6 +7,8 @@ AColMapObject::AColMapObject()
 {
 	ColMap = CreateDefaultSubObject<USpriteRenderer>("ColMap");
 	BackGround = CreateDefaultSubObject<USpriteRenderer>("BackGround");
+
+	SetRoot(ColMap);
 }
 
 AColMapObject::~AColMapObject()

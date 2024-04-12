@@ -26,6 +26,8 @@ AUp_HUD::AUp_HUD()
 
 	// BackGround
 	Bar			= CreateDefaultSubObject<USpriteRenderer>("HUD_Bar");
+
+	SetRoot(Bar);
 }
 
 AUp_HUD::~AUp_HUD()

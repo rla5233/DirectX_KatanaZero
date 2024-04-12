@@ -6,6 +6,8 @@
 AMouseAim::AMouseAim()
 {
 	Aim = CreateDefaultSubObject<USpriteRenderer>("MouseAim");
+
+	SetRoot(Aim);
 }
 
 AMouseAim::~AMouseAim()

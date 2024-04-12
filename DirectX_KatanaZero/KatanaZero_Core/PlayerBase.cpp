@@ -9,6 +9,8 @@ APlayerBase::APlayerBase()
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Player_Renderer");
 	Center   = CreateDefaultSubObject<USpriteRenderer>("Center");
+
+	SetRoot(Renderer);
 }
 
 APlayerBase::~APlayerBase()
