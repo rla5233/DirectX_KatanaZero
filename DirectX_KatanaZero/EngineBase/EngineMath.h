@@ -234,6 +234,46 @@ public:
 		return (p1 * (1.0f - d1)) + (p2 * d1);
 	}
 
+	float4 QuaternionToDeg() const
+	{
+		return QuaternionToRad() * UEngineMath::RToD;
+	}
+
+	// 그냥 언리얼에 있는 변환함수 배낌.
+	// 무슨 이론과 논리에 의해서 이게 되는지 난 모름
+	float4 QuaternionToRad() const
+	{
+		float4 result;
+
+		double sinrCosp = 2.0f * (W * Z + X * Y);
+		double cosrCosp = 1.0f - 2.0f * (Z * Z + X * X);
+		result.Z = static_cast<float>(atan2(sinrCosp, cosrCosp));
+
+		double pitchTest = W * X - Y * Z;
+		double asinThreshold = 0.4999995f;
+		double sinp = 2.0f * pitchTest;
+
+		if (pitchTest < -asinThreshold)
+		{
+			result.X = -(0.5f * UEngineMath::PI);
+		}
+		else if (pitchTest > asinThreshold)
+		{
+			result.X = (0.5f * UEngineMath::PI);
+		}
+		else
+		{
+			result.X = static_cast<float>(asin(sinp));
+		}
+
+		double sinyCosp = 2.0f * (W * Y + X * Z);
+		double cosyCosp = 1.0f - 2.0f * (X * X + Y * Y);
+		result.Y = static_cast<float>(atan2(sinyCosp, cosyCosp));
+
+		return result;
+	}
+
+
 	float4 DegToQuaternion() const
 	{
 		// 디그리 각도

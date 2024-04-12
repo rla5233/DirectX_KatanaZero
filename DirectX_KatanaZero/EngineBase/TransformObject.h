@@ -21,25 +21,32 @@ public:
 	void SetParent(UTransformObject* _Parent)
 	{
 		Parent = _Parent;
+		Parent->Transform.TransformUpdate();
 		Parent->Childs.push_back(this);
+		ChildUpdate();
 	}
 
 	void ChildUpdate();
 
 	void SetScale(FVector _Value)
 	{
+		// 나는 트랜스폼 업데이트를 끝내고
 		Transform.SetScale(_Value);
+		// 자식들에게 내 행렬을 적용시키는 것입니다.
+		ChildUpdate();
 	}
 
 	void SetRotationDeg(FVector _Value)
 	{
 		Transform.SetRotationDeg(_Value);
+		ChildUpdate();
 	}
 
 
 	void AddPosition(FVector _Value)
 	{
-		Transform.SetPosition(_Value);
+		Transform.AddPosition(_Value);
+		ChildUpdate();
 	}
 
 	FVector GetLocalPosition() const
@@ -55,11 +62,13 @@ public:
 	void SetPosition(FVector _Value)
 	{
 		Transform.SetPosition(_Value);
+		ChildUpdate();
 	}
 
 	void AddScale(FVector _Value)
 	{
 		Transform.AddScale(_Value);
+		ChildUpdate();
 	}
 
 	FVector GetLocalScale() const
@@ -74,7 +83,8 @@ public:
 
 	void AddRotationDeg(FVector _Value)
 	{
-		Transform.SetRotationDeg(_Value);
+		Transform.AddRotationDeg(_Value);
+		ChildUpdate();
 	}
 
 	FVector GetLocalRotation() const

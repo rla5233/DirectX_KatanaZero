@@ -25,7 +25,7 @@ void AFactory_001::BeginPlay()
 	ColMap->SetBGSprite(ImgRes::factory_background2, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player");
-	Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
+	Player->SetRootPosition({ 175.0f, 147.0f, 0.0f });
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 
@@ -63,6 +63,11 @@ void AFactory_001::DebugMessageFunction()
 
 	{
 		std::string Msg = std::format("AimPos : {}\n", Aim->GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player_Pos : {}\n", Player->GetActorLocation().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 

@@ -26,6 +26,11 @@ public:
 		return Renderer;
 	}
 
+	void SetRootPosition(const FVector& _Pos)
+	{
+		Renderer->Transform.SetPosition(_Pos);
+	}
+
 	inline std::string GetCurState() const
 	{
 		return State.GetCurStateName();

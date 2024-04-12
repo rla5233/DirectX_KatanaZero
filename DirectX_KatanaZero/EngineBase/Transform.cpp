@@ -137,7 +137,7 @@ void FTransform::TransformUpdate()
 	World.Decompose(WorldScale, WorldRotation, WorldPosition);
 
 	// 쿼터니온 상태
-	WorldRotation = WorldRotation;
+	WorldRotation = WorldRotation.QuaternionToDeg();
 
 	// 크 * 자 * 이 => 월드
 	// 월드 => 크 자 이
