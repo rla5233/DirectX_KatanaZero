@@ -49,6 +49,9 @@
     <Filter Include="Level\000.Object\UI">
       <UniqueIdentifier>{4b7aab0b-80b5-4cac-8554-f3a0702746a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Enemy">
+      <UniqueIdentifier>{32979922-5513-49f0-9191-0ee6956ef4b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="MouseAim.h">
       <Filter>Level\000.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBase.h">
+      <Filter>Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="MouseAim.cpp">
       <Filter>Level\000.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBase.cpp">
+      <Filter>Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

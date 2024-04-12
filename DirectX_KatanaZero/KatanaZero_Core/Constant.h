@@ -21,6 +21,15 @@ namespace ImgRes
 	const std::string_view player_roll				= "player_roll";
 	const std::string_view player_attack			= "player_attack";
 
+	// Enemy
+	const std::string_view enemy_grunt_idle			= "grunt_idle";
+	const std::string_view enemy_grunt_attack		= "grunt_attack";
+	const std::string_view enemy_grunt_run			= "grunt_run";
+	const std::string_view enemy_grunt_turn			= "grunt_grunt_turn";
+	const std::string_view enemy_grunt_walk			= "grunt_walk";
+	const std::string_view enemy_grunt_hitfall		= "grunt_hitfall";
+	const std::string_view enemy_grunt_dead			= "grunt_dead";
+
 	// UI
 	const std::string_view ui_cursor				= "spr_cursor_0.png";
 	const std::string_view ui_up_hud_bar			= "spr_hud_0.png";
