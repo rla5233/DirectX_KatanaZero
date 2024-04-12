@@ -54,8 +54,11 @@ void APlayerBase::IdleToRunStart()
 
 void APlayerBase::IdleToRun(float _DeltaTime)
 {
+	RunGravityUpdate(_DeltaTime);
 	RunVelUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
+	
+
 	OnStairPosAdjust();
 
 	if (true == IsDirChangeKeyDown())
@@ -254,6 +257,7 @@ void APlayerBase::Roll(float _DeltaTime)
 	RollVelYUpdate();
 
 	PosUpdate(_DeltaTime);
+	RollFallPosAdjust();
 	OnGroundPosAdjust();
 	OnStairPosAdjust();
 

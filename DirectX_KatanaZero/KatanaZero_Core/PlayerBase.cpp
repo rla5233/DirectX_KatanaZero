@@ -92,7 +92,7 @@ bool APlayerBase::IsOnGround()
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector CurPos = GetActorLocation();
-	CurPos.Y = MapTexScale.Y - CurPos.Y;
+	CurPos.Y = MapTexScale.Y - CurPos.Y - 1.0f;
 	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
 
 	if (ColMap::YELLOW == PixelColor)
@@ -111,7 +111,7 @@ bool APlayerBase::IsOnPlatForm()
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector CurPos = GetActorLocation();
-	CurPos.Y = MapTexScale.Y - CurPos.Y;
+	CurPos.Y = MapTexScale.Y - CurPos.Y - 1.0f;
 	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
 
 	if (ColMap::GREEN == PixelColor)
@@ -130,7 +130,7 @@ bool APlayerBase::IsOnStairs()
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector CurPos = GetActorLocation();
-	CurPos.Y = MapTexScale.Y - CurPos.Y;
+	CurPos.Y = MapTexScale.Y - CurPos.Y - 1.0f;
 	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
 
 	if (ColMap::BLUE == PixelColor)
@@ -169,6 +169,22 @@ void APlayerBase::OnStairPosAdjust()
 	}	
 }
 
+void APlayerBase::RollFallPosAdjust()
+{
+	if (true == IsOnPlatForm() && true == IsFallInputPress())
+	{
+		while (true)
+		{
+			AddActorLocation({ 0.0f, -1.0f, 0.0f });
+			if (true == IsOnGround() || true == IsOnStairs())
+			{
+				AddActorLocation({ 0.0f, 1.0f, 0.0f });
+				break;
+			}
+		}
+	}
+}
+
 ////////////////////
 // FSM Setting Start
 void APlayerBase::SetRunVel()
@@ -178,10 +194,10 @@ void APlayerBase::SetRunVel()
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Velocity = FVector::Left * Const::player_max_speedx;
+		Velocity.X = FVector::Left.X * Const::player_max_speedx;
 		break;
 	case EEngineDir::Right:
-		Velocity = FVector::Right * Const::player_max_speedx;
+		Velocity.X = FVector::Right.X * Const::player_max_speedx;
 		break;
 	}
 }
@@ -223,11 +239,6 @@ void APlayerBase::RunGravityUpdate(float _DeltaTime)
 	}
 
 	Velocity.Y += Const::run_gravity * _DeltaTime;
-
-	if (Const::player_max_speedy < abs(Velocity.Y))
-	{
-		Velocity.Y = -Const::player_max_speedy;
-	}
 }
 
 void APlayerBase::GravityUpdate(float _DeltaTime)

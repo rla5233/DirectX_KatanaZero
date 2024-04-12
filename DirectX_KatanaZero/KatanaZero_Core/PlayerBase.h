@@ -31,6 +31,9 @@ public:
 		return State.GetCurStateName();
 	}
 
+	bool IsOnGround();
+	bool IsOnPlatForm();
+	bool IsOnStairs();
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -38,12 +41,11 @@ protected:
 private:
 	bool IsDirChangeKeyDown();
 	bool IsDirChangeKeyPress();
-	bool IsOnGround();
-	bool IsOnPlatForm();
-	bool IsOnStairs();
 
 	void OnGroundPosAdjust();
 	void OnStairPosAdjust();
+
+	void RollFallPosAdjust();
 
 private:
 	USpriteRenderer* Renderer = nullptr;
