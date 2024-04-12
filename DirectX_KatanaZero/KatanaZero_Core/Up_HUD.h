@@ -26,12 +26,21 @@ private:
 	void SettingTransform();
 
 private:
+	// BackGround
 	USpriteRenderer* Bar = nullptr;
+
+	// Mid
 	USpriteRenderer* Timer = nullptr;
+	
+	// Left
 	USpriteRenderer* Battery = nullptr;
 	USpriteRenderer* Shift = nullptr;
+	
+	// Right
 	USpriteRenderer* Weapon = nullptr;
 	USpriteRenderer* KatanaIcon = nullptr;
 	USpriteRenderer* ItemIcon = nullptr;
+	USpriteRenderer* L_ClickIcon = nullptr;
+	USpriteRenderer* R_ClickIcon = nullptr;
 };
 

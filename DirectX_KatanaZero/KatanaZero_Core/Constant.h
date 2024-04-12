@@ -30,6 +30,8 @@ namespace ImgRes
 	const std::string_view ui_item_icon				= "spr_itemicons_0.png";
 	const std::string_view ui_shift_up				= "spr_keyboard_shift_0.png";
 	const std::string_view ui_shift_down			= "spr_keyboard_shift_1.png";
+	const std::string_view ui_left_click			= "spr_left_click_0.png";
+	const std::string_view ui_right_click			= "spr_right_click_0.png";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
