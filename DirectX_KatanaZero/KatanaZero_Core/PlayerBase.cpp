@@ -5,12 +5,17 @@
 
 APlayerBase::APlayerBase()
 {
-	InputOn();
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Player_Renderer");
 	Center   = CreateDefaultSubObject<USpriteRenderer>("Center");
+	
+	Renderer->SetupAttachment(Root);
+	Center->SetupAttachment(Root);
 
-	SetRoot(Center);
+	SetRoot(Root);
+	
+	InputOn();
 }
 
 APlayerBase::~APlayerBase()
