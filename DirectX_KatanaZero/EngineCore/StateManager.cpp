@@ -1,11 +1,11 @@
 #include "PreCompile.h"
 #include "StateManager.h"
 
-UStateManager::UStateManager() 
+UStateManager::UStateManager()
 {
 }
 
-UStateManager::~UStateManager() 
+UStateManager::~UStateManager()
 {
 }
 
@@ -27,8 +27,6 @@ void UStateManager::ChangeState(std::string_view _Name)
 	{
 		MsgBoxAssert("존재하지 않는 스테이트로 체인지 하려고 했습니다." + std::string(_Name));
 	}
-
-	StateName = _Name;
 }
 
 void UStateManager::Update(float _Time)
@@ -45,6 +43,7 @@ void UStateManager::CreateState(std::string_view _Name)
 {
 	std::string UpperName = UEngineString::ToUpper(_Name);
 	States[UpperName] = std::make_shared<UState>();
+	States[UpperName]->SetName(_Name);
 }
 
 void UStateManager::SetFunction(std::string_view _Name,
