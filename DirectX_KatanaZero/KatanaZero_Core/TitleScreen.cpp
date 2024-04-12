@@ -5,6 +5,8 @@
 
 ATitleScreen::ATitleScreen()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+
 	BackGround	= CreateDefaultSubObject<USpriteRenderer>("BackGround");
 	Fence		= CreateDefaultSubObject<USpriteRenderer>("Fence");
 	Plants		= CreateDefaultSubObject<USpriteRenderer>("Plants");
@@ -14,7 +16,16 @@ ATitleScreen::ATitleScreen()
 	Neon_O		= CreateDefaultSubObject<USpriteRenderer>("Neon_O");
 	Neon_Katana = CreateDefaultSubObject<USpriteRenderer>("Neon_Katana");
 
-	SetRoot(BackGround);
+	BackGround->SetupAttachment(Root);
+	Fence->SetupAttachment(Root);
+	Plants->SetupAttachment(Root);
+	Grass->SetupAttachment(Root);
+
+	Neon_ZER->SetupAttachment(Root);
+	Neon_O->SetupAttachment(Root);
+	Neon_Katana->SetupAttachment(Root);
+
+	SetRoot(Root);
 }
 
 ATitleScreen::~ATitleScreen()
