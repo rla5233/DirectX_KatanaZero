@@ -6,6 +6,7 @@
 #include <EngineCore/EngineTexture.h>
 #include <EngineCore/EngineSampler.h>
 #include <EngineCore/EngineShaderResources.h>
+#include <EngineCore/DefaultSceneComponent.h>
 #include <EngineCore/Actor.h>
 #include <EngineCore/Level.h>
 #include <EngineCore/GameMode.h>
