@@ -31,6 +31,7 @@ private:
 
 	// Mid
 	USpriteRenderer* Timer = nullptr;
+	USpriteRenderer* Timer_Bar = nullptr;
 	
 	// Left
 	USpriteRenderer* Battery = nullptr;

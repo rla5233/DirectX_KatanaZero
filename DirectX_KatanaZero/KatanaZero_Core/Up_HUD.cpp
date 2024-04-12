@@ -8,6 +8,7 @@ AUp_HUD::AUp_HUD()
 	Shift		= CreateDefaultSubObject<USpriteRenderer>("HUD_Shift");
 		
 	// Mid
+	Timer_Bar	= CreateDefaultSubObject<USpriteRenderer>("HUD_Timer_Bar");
 	Timer		= CreateDefaultSubObject<USpriteRenderer>("HUD_Timer");
 
 	// Right
@@ -41,6 +42,7 @@ void AUp_HUD::SettingSprite()
 	Shift->SetSprite(ImgRes::ui_shift_up);
 
 	// Mid
+	Timer_Bar->SetSprite(ImgRes::ui_up_hud_timer_bar);
 	Timer->SetSprite(ImgRes::ui_up_hud_timer);
 	
 	// Right
@@ -61,6 +63,7 @@ void AUp_HUD::SettingRenderOrder()
 	Shift->SetOrder(ERenderOrder::UI);
 
 	// Mid
+	Timer_Bar->SetOrder(ERenderOrder::UI);
 	Timer->SetOrder(ERenderOrder::UI);
 	
 	// Right
@@ -81,6 +84,7 @@ void AUp_HUD::SettingTransform()
 	Shift->SetAutoSize(2.0f, true);
 
 	// Mid
+	Timer_Bar->SetAutoSize(2.0f, true);
 	Timer->SetAutoSize(2.0f, true);
 	
 	// Right
@@ -101,6 +105,7 @@ void AUp_HUD::SettingTransform()
 	Shift->Transform.SetPosition({ CameraPos.X - 455.0f, CameraPos.Y + 338.0f, 0.0f });
 	
 	// Mid
+	Timer_Bar->Transform.SetPosition({ CameraPos.X + 6.0f, CameraPos.Y + 343.0f, 0.0f });
 	Timer->Transform.SetPosition({ CameraPos.X - 10.0f, CameraPos.Y + 339.0f, 0.0f });
 	
 	// Right
