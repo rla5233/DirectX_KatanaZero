@@ -3,6 +3,7 @@
 
 ADefaultPlayer::ADefaultPlayer()
 {
+	
 }
 
 ADefaultPlayer::~ADefaultPlayer()
@@ -35,5 +36,5 @@ void ADefaultPlayer::CreateAnimation()
 	GetRenderer()->CreateAnimation(Anim::player_postcrouch, ImgRes::player_postcrouch, 0.06f, false);
 	GetRenderer()->CreateAnimation(Anim::player_precrouch, ImgRes::player_precrouch, 0.06f, false);
 	GetRenderer()->CreateAnimation(Anim::player_roll, ImgRes::player_roll, 0.06f, false);
-	GetRenderer()->CreateAnimation(Anim::player_attack, ImgRes::player_attack, 0.06f, false);
+	GetRenderer()->CreateAnimation(Anim::player_attack, ImgRes::player_attack, 0.04f, false);
 }

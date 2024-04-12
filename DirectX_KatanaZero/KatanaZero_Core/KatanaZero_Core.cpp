@@ -80,6 +80,24 @@ void UKatanaZero_Core::ResLoad()
 		}
 	}
 
+	// Effect 리소스 로드
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("KatanaZeroResources");
+		Dir.Move("Effect");
+		std::vector<UEngineFile> AllFiles = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : AllFiles)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> AllDirectorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < AllDirectorys.size(); i++)
+		{
+			UEngineSprite::LoadFolder(AllDirectorys[i].GetFullPath());
+		}
+	}
+
 	// TitleLevel 리소스 로드
 	{
 		UEngineDirectory Dir;

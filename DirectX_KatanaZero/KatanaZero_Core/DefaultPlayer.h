@@ -23,5 +23,8 @@ protected:
 private:
 	void CreateAnimation();
 
+private:
+	USpriteRenderer* Effect = nullptr;
+
 };
 

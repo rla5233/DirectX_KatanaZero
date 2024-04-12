@@ -36,6 +36,9 @@ namespace ImgRes
 	const std::string_view ui_left_click			= "spr_left_click_0.png";
 	const std::string_view ui_right_click			= "spr_right_click_0.png";
 
+	// Effect
+	const std::string_view effect_player_slash		= "player_slash";
+
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
 	const std::string_view title_fence				= "spr_title_fence_0.png";
@@ -72,6 +75,9 @@ namespace Anim
 	const std::string_view player_precrouch			= "player_precrouch";
 	const std::string_view player_roll				= "player_roll";
 	const std::string_view player_attack			= "player_attack";
+
+	// Effect Anim
+	const std::string_view effect_player_slash		= "player_slash";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";
