@@ -4,6 +4,7 @@
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "MouseAim.h"
+#include "Up_HUD.h"
 
 AFactory_001::AFactory_001()
 {
@@ -27,12 +28,19 @@ void AFactory_001::BeginPlay()
 	Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
+
+	HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
 }
 
 void AFactory_001::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	Debug();	
+}
+
+void AFactory_001::Debug()
+{
 	DebugMessageFunction();
 
 	if (UEngineInput::IsDown('R'))

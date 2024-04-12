@@ -212,6 +212,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Up_HUD.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="KatanaZero_Core.h">
       <SubType>
       </SubType>
@@ -279,6 +283,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="HeadHunter_Phase2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Up_HUD.cpp">
       <SubType>
       </SubType>
     </ClCompile>

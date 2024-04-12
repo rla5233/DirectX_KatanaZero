@@ -22,6 +22,12 @@ namespace ImgRes
 
 	// UI
 	const std::string_view ui_cursor				= "spr_cursor_0.png";
+	const std::string_view ui_up_hud_bar			= "spr_hud_0.png";
+	const std::string_view ui_up_hud_battery		= "spr_hud_battery_0.png";
+	const std::string_view ui_up_hud_timer			= "spr_hud_timer_0.png";
+	const std::string_view ui_up_hud_weapon			= "spr_hud_weapon_0.png";
+	const std::string_view ui_up_hud_katana			= "spr_katanaicons_0.png";
+	const std::string_view ui_up_hud_item			= "spr_itemicons_0.png";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";

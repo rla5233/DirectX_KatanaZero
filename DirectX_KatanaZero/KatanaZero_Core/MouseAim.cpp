@@ -39,12 +39,14 @@ void AMouseAim::StateInit()
 	// Update
 	State.SetUpdateFunction("Play", [=](float _DeltaTime)
 		{
-			std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
-			FVector MapTexScale = MapTex->GetScale();
+			FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
+			FVector MousePos = GEngine->EngineWindow.GetScreenMousePos();
 
-			FVector CurPos = GEngine->EngineWindow.GetScreenMousePos();
-			CurPos.Y = MapTexScale.Y - CurPos.Y;
-			SetActorLocation(CurPos);
+			FVector WindowScale = GEngine->EngineWindow.GetWindowScale();
+			FVector TargetPos =
+			FVector(CameraPos.X, CameraPos.Y, 0.f) +
+			FVector(MousePos.X - WindowScale.hX(), -(MousePos.Y - WindowScale.hY()), 200.f);
+			SetActorLocation(TargetPos);
 		}
 	);
 

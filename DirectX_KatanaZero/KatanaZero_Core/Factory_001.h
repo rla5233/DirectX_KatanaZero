@@ -2,6 +2,7 @@
 
 class ADefaultPlayer;
 class AMouseAim;
+class AUp_HUD;
 
 // 설명 : Factory 1번째 스테이지
 class AFactory_001 : public AGameMode
@@ -25,7 +26,9 @@ protected:
 private:
 	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 	std::shared_ptr<AMouseAim> Aim = nullptr;
+	std::shared_ptr<AUp_HUD> HUD = nullptr;
 
+	void Debug();
 	void DebugMessageFunction();
 };
 
