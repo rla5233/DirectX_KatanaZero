@@ -14,6 +14,12 @@ void APlayerBase::Idle(float _DeltaTime)
 	IsDirChangeKeyDown();
 	
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == IsRunInputDown())
 	{
 		State.ChangeState("IdleToRun");
@@ -286,8 +292,6 @@ void APlayerBase::JumpStart()
 	AddActorLocation(FVector::Up);
 	Velocity = Const::player_jump_vel;
 
-	//Renderer->SetPosition({ 0.0f, 30.0f, 0.0f });
-	//Renderer->SetPivot(EPivot::MAX);
 	Renderer->ChangeAnimation(Anim::player_jump);
 }
 
@@ -315,8 +319,6 @@ void APlayerBase::Jump(float _DeltaTime)
 
 void APlayerBase::FallStart()
 {
-	//Renderer->SetPosition({ 0.0f, 30.0f, 0.0f });
-	//Renderer->SetPivot(EPivot::MAX);
 	Renderer->ChangeAnimation(Anim::player_fall);
 }
 
@@ -363,6 +365,20 @@ void APlayerBase::Fall(float _DeltaTime)
 	}
 }
 
+void APlayerBase::AttackStart()
+{
+	Renderer->ChangeAnimation(Anim::player_attack);
+}
+
+void APlayerBase::Attack(float _DeltaTime)
+{
+	if (true == Renderer->IsCurAnimationEnd())
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+}
+
 
 // State 초기화
 void APlayerBase::StateInit()
@@ -377,6 +393,7 @@ void APlayerBase::StateInit()
 	State.CreateState("Jump");
 	State.CreateState("Fall");
 	State.CreateState("Roll");
+	State.CreateState("Attack");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle", std::bind(&APlayerBase::IdleStart, this));
@@ -388,6 +405,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("Jump", std::bind(&APlayerBase::JumpStart, this));
 	State.SetStartFunction("Fall", std::bind(&APlayerBase::FallStart, this));
 	State.SetStartFunction("Roll", std::bind(&APlayerBase::RollStart, this));
+	State.SetStartFunction("Attack", std::bind(&APlayerBase::AttackStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
@@ -399,20 +417,5 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Jump", std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
 	State.SetUpdateFunction("Fall", std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
 	State.SetUpdateFunction("Roll", std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
-
-	// State End 함수 세팅
-	State.SetEndFunction("Jump", [=]
-		{
-			//Renderer->SetPosition({ 0.0f, 0.0f, 0.0f });
-			//Renderer->SetPivot(EPivot::BOT);
-		}
-	);
-
-	State.SetEndFunction("Fall", [=]
-		{
-			//Renderer->SetPosition({ 0.0f, 0.0f, 0.0f });
-			//Renderer->SetPivot(EPivot::BOT);
-		}
-	);
-
+	State.SetUpdateFunction("Attack", std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
 }

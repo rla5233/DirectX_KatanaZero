@@ -166,3 +166,15 @@ bool APlayerBase::IsFallInputPress()
 
 	return Result;
 }
+
+bool APlayerBase::IsAttackInputDown()
+{
+	bool Result = false;
+
+	if (true == IsDown(VK_LBUTTON))
+	{
+		Result = true;
+	}
+
+	return Result;
+}

@@ -85,6 +85,9 @@ private:
 	void FallStart();
 	void Fall(float _DeltaTime);
 
+	void AttackStart();
+	void Attack(float _DeltaTime);
+
 // FSM Input Check
 private:
 	bool IsRunInputDown();
@@ -103,6 +106,8 @@ private:
 	bool IsJumpInputPress();
 
 	bool IsFallInputPress();
+
+	bool IsAttackInputDown();
 
 // FSM Setting
 private:
