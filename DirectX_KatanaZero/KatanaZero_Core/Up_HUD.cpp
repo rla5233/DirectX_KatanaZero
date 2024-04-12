@@ -4,6 +4,12 @@
 AUp_HUD::AUp_HUD()
 {
 	// Left
+	Battery_Part.reserve(11);
+	for (size_t i = 0; i < Battery_Part.size(); i++)
+	{
+		Battery_Part.push_back(CreateDefaultSubObject<USpriteRenderer>("HUD_Battery_Part"));
+	}
+
 	Battery		= CreateDefaultSubObject<USpriteRenderer>("HUD_Battery");
 	Shift		= CreateDefaultSubObject<USpriteRenderer>("HUD_Shift");
 		
@@ -38,6 +44,11 @@ void AUp_HUD::BeginPlay()
 void AUp_HUD::SettingSprite()
 {
 	// Left
+	for (size_t i = 0; i < Battery_Part.size(); i++)
+	{
+		Battery_Part[i]->SetSprite(ImgRes::ui_up_hud_battery_part);
+	}
+
 	Battery->SetSprite(ImgRes::ui_up_hud_battery);
 	Shift->SetSprite(ImgRes::ui_shift_up);
 
@@ -59,6 +70,11 @@ void AUp_HUD::SettingSprite()
 void AUp_HUD::SettingRenderOrder()
 {
 	// Left
+	for (size_t i = 0; i < Battery_Part.size(); i++)
+	{
+		Battery_Part[i]->SetOrder(ERenderOrder::UI);
+	}
+
 	Battery->SetOrder(ERenderOrder::UI);
 	Shift->SetOrder(ERenderOrder::UI);
 
@@ -80,6 +96,11 @@ void AUp_HUD::SettingRenderOrder()
 void AUp_HUD::SettingTransform()
 {
 	// Left
+	for (size_t i = 0; i < Battery_Part.size(); i++)
+	{
+		Battery_Part[i]->SetAutoSize(2.0f, true);
+	}
+
 	Battery->SetAutoSize(2.0f, true);
 	Shift->SetAutoSize(2.0f, true);
 
@@ -101,6 +122,12 @@ void AUp_HUD::SettingTransform()
 	FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
 	
 	// Left
+	const float interval = 5.0f;
+	for (size_t i = 0; i < Battery_Part.size(); i++)
+	{
+		Battery_Part[i]->Transform.SetPosition({ CameraPos.X - 561.0f, CameraPos.Y + 337.0f, 0.0f });
+	}
+
 	Battery->Transform.SetPosition({ CameraPos.X - 561.0f, CameraPos.Y + 337.0f, 0.0f });
 	Shift->Transform.SetPosition({ CameraPos.X - 455.0f, CameraPos.Y + 338.0f, 0.0f });
 	

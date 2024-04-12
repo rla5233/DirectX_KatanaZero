@@ -35,6 +35,7 @@ private:
 	
 	// Left
 	USpriteRenderer* Battery = nullptr;
+	std::vector<USpriteRenderer*> Battery_Part;
 	USpriteRenderer* Shift = nullptr;
 	
 	// Right

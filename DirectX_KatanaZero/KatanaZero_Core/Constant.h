@@ -24,6 +24,7 @@ namespace ImgRes
 	const std::string_view ui_cursor				= "spr_cursor_0.png";
 	const std::string_view ui_up_hud_bar			= "spr_hud_0.png";
 	const std::string_view ui_up_hud_battery		= "spr_hud_battery_0.png";
+	const std::string_view ui_up_hud_battery_part	= "spr_hud_battery_part_0.png";
 	const std::string_view ui_up_hud_timer			= "spr_hud_timer_0.png";
 	const std::string_view ui_up_hud_timer_bar		= "spr_hud_timer_1.png";
 	const std::string_view ui_up_hud_weapon			= "spr_hud_weapon_0.png";
