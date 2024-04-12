@@ -19,6 +19,7 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+// 초기 Setting 함수
 private:
 	void SettingSprite();
 	void SettingRenderOrder();
@@ -30,5 +31,7 @@ private:
 	USpriteRenderer* Battery = nullptr;
 	USpriteRenderer* Shift = nullptr;
 	USpriteRenderer* Weapon = nullptr;
+	USpriteRenderer* KatanaIcon = nullptr;
+	USpriteRenderer* ItemIcon = nullptr;
 };
 

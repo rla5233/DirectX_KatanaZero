@@ -3,14 +3,16 @@
 
 AUp_HUD::AUp_HUD()
 {
-	Battery = CreateDefaultSubObject<USpriteRenderer>("HUD_Battery");
-	Shift	= CreateDefaultSubObject<USpriteRenderer>("HUD_Shift");
-	
-	Timer	= CreateDefaultSubObject<USpriteRenderer>("HUD_Timer");
+	Battery		= CreateDefaultSubObject<USpriteRenderer>("HUD_Battery");
+	Shift		= CreateDefaultSubObject<USpriteRenderer>("HUD_Shift");
+		
+	Timer		= CreateDefaultSubObject<USpriteRenderer>("HUD_Timer");
 
-	Weapon  = CreateDefaultSubObject<USpriteRenderer>("HUD_Weapon");
+	ItemIcon	= CreateDefaultSubObject<USpriteRenderer>("Item_Icon");
+	KatanaIcon	= CreateDefaultSubObject<USpriteRenderer>("Katana_Icon");
+	Weapon		= CreateDefaultSubObject<USpriteRenderer>("HUD_Weapon");
 
-	Bar		= CreateDefaultSubObject<USpriteRenderer>("HUD_Bar");
+	Bar			= CreateDefaultSubObject<USpriteRenderer>("HUD_Bar");
 }
 
 AUp_HUD::~AUp_HUD()
@@ -33,6 +35,8 @@ void AUp_HUD::SettingSprite()
 
 	Timer->SetSprite(ImgRes::ui_up_hud_timer);
 	
+	ItemIcon->SetSprite(ImgRes::ui_item_icon);
+	KatanaIcon->SetSprite(ImgRes::ui_katana_icon);
 	Weapon->SetSprite(ImgRes::ui_up_hud_weapon);
 
 	Bar->SetSprite(ImgRes::ui_up_hud_bar);
@@ -45,6 +49,8 @@ void AUp_HUD::SettingRenderOrder()
 
 	Timer->SetOrder(ERenderOrder::UI);
 	
+	ItemIcon->SetOrder(ERenderOrder::UI);
+	KatanaIcon->SetOrder(ERenderOrder::UI);
 	Weapon->SetOrder(ERenderOrder::UI);
 
 	Bar->SetOrder(ERenderOrder::UI);
@@ -55,6 +61,8 @@ void AUp_HUD::SettingTransform()
 	Battery->SetAutoSize(2.0f, true);
 	Shift->SetAutoSize(2.0f, true);
 	Timer->SetAutoSize(2.0f, true);
+	ItemIcon->SetAutoSize(2.0f, true);
+	KatanaIcon->SetAutoSize(2.0f, true);
 	Weapon->SetAutoSize(2.0f, true);
 	Bar->SetAutoSize(2.0f, true);
 
@@ -62,6 +70,8 @@ void AUp_HUD::SettingTransform()
 	Battery->Transform.SetPosition({ CameraPos.X - 561.0f, CameraPos.Y + 337.0f, 0.0f });
 	Shift->Transform.SetPosition({ CameraPos.X - 455.0f, CameraPos.Y + 338.0f, 0.0f });
 	Timer->Transform.SetPosition({ CameraPos.X - 10.0f, CameraPos.Y + 339.0f, 0.0f });
+	ItemIcon->Transform.SetPosition({ CameraPos.X + 597.0f, CameraPos.Y + 335.0f, 0.0f });
+	KatanaIcon->Transform.SetPosition({ CameraPos.X + 533.0f, CameraPos.Y + 335.0f, 0.0f });
 	Weapon->Transform.SetPosition({ CameraPos.X + 565.0f, CameraPos.Y + 336.0f, 0.0f });
 	Bar->Transform.SetPosition({ CameraPos.X, CameraPos.Y + 337.0f, 0.0f });
 }
