@@ -29,7 +29,7 @@ public:
 
 		// Auto Location
 		FVector SpriteScale = UEngineTexture::FindRes(_Name)->GetScale();
-		ColMap->Transform.SetPosition({ SpriteScale.hX(), SpriteScale.hY(), 0.0f });
+		ColMap->SetPosition({ SpriteScale.hX(), SpriteScale.hY(), 0.0f });
 	}
 
 	void SetColMapSpriteScale(const FVector& _Scale)
@@ -55,7 +55,7 @@ public:
 
 		// Auto Location
 		FVector SpriteScale = UEngineTexture::FindRes(_Name)->GetScale();
-		BackGround->Transform.SetPosition({ SpriteScale.hX(), SpriteScale.hY(), 0.0f });
+		BackGround->SetPosition({ SpriteScale.hX(), SpriteScale.hY(), 0.0f });
 	}
 
 	void SetBGSpriteScale(const FVector& _Scale)

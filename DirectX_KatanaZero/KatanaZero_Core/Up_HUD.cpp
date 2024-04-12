@@ -144,7 +144,8 @@ void AUp_HUD::SettingTransform()
 	const float interval = 10.0f;
 	for (size_t i = 0; i < Battery_Part.size(); i++)
 	{
-		Battery_Part[i]->SetPosition({ -612.0f + (interval * i), 1.0f, 0.0f });
+		float inter = interval * static_cast<float>(i);
+		Battery_Part[i]->SetPosition({ -612.0f + inter, 1.0f, 0.0f });
 	}
 
 	Battery->SetPosition({ -561.0f, 0.0f, 0.0f });

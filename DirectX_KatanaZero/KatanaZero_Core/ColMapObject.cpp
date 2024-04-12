@@ -5,10 +5,15 @@ std::shared_ptr<UEngineTexture> AColMapObject::MapTex = nullptr;
 
 AColMapObject::AColMapObject()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+
 	ColMap = CreateDefaultSubObject<USpriteRenderer>("ColMap");
 	BackGround = CreateDefaultSubObject<USpriteRenderer>("BackGround");
 
-	SetRoot(ColMap);
+	ColMap->SetupAttachment(Root);
+	BackGround->SetupAttachment(Root);
+
+	SetRoot(Root);
 }
 
 AColMapObject::~AColMapObject()
