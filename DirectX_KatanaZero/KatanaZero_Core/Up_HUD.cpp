@@ -7,7 +7,7 @@ AUp_HUD::AUp_HUD()
 
 	// Left
 	Battery_Part.reserve(11);
-	for (size_t i = 0; i < Battery_Part.size(); i++)
+	for (size_t i = 0; i < Battery_Part.capacity(); i++)
 	{
 		Battery_Part.push_back(CreateDefaultSubObject<USpriteRenderer>("HUD_Battery_Part"));
 		Battery_Part[i]->SetupAttachment(Root);
@@ -15,12 +15,14 @@ AUp_HUD::AUp_HUD()
 
 	Battery		= CreateDefaultSubObject<USpriteRenderer>("HUD_Battery");
 	Shift		= CreateDefaultSubObject<USpriteRenderer>("HUD_Shift");
+	
 	Battery->SetupAttachment(Root);
 	Shift->SetupAttachment(Root);
 
 	// Mid
 	Timer_Bar	= CreateDefaultSubObject<USpriteRenderer>("HUD_Timer_Bar");
 	Timer		= CreateDefaultSubObject<USpriteRenderer>("HUD_Timer");
+	
 	Timer_Bar->SetupAttachment(Root);
 	Timer->SetupAttachment(Root);
 
@@ -30,6 +32,7 @@ AUp_HUD::AUp_HUD()
 	ItemIcon	= CreateDefaultSubObject<USpriteRenderer>("Item_Icon");
 	KatanaIcon	= CreateDefaultSubObject<USpriteRenderer>("Katana_Icon");
 	Weapon		= CreateDefaultSubObject<USpriteRenderer>("HUD_Weapon");
+	
 	R_ClickIcon->SetupAttachment(Root);
 	L_ClickIcon->SetupAttachment(Root);
 	ItemIcon->SetupAttachment(Root);
@@ -138,11 +141,11 @@ void AUp_HUD::SettingTransform()
 	
 
 	// Left
-	//const float interval = 5.0f;
-	//for (size_t i = 0; i < Battery_Part.size(); i++)
-	//{
-	//	Battery_Part[i]->SetPosition({ CameraPos.X - 561.0f, CameraPos.Y + 337.0f, 0.0f });
-	//}
+	const float interval = 10.0f;
+	for (size_t i = 0; i < Battery_Part.size(); i++)
+	{
+		Battery_Part[i]->SetPosition({ -612.0f + (interval * i), 1.0f, 0.0f });
+	}
 
 	Battery->SetPosition({ -561.0f, 0.0f, 0.0f });
 	Shift->SetPosition({ -455.0f, 1.0f, 0.0f });
