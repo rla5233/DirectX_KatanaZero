@@ -13,6 +13,8 @@ APlayerBase::APlayerBase()
 	Renderer->SetupAttachment(Root);
 	Center->SetupAttachment(Root);
 
+	Renderer->SetPivot(EPivot::BOT);
+	
 	SetRoot(Root);
 	
 	InputOn();

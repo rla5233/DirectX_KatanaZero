@@ -281,6 +281,8 @@ void APlayerBase::JumpStart()
 	AddActorLocation(FVector::Up);
 	Velocity = Const::player_jump_vel;
 
+	//Renderer->SetPosition({ 0.0f, 30.0f, 0.0f });
+	//Renderer->SetPivot(EPivot::MAX);
 	Renderer->ChangeAnimation(Anim::player_jump);
 }
 
@@ -308,6 +310,8 @@ void APlayerBase::Jump(float _DeltaTime)
 
 void APlayerBase::FallStart()
 {
+	//Renderer->SetPosition({ 0.0f, 30.0f, 0.0f });
+	//Renderer->SetPivot(EPivot::MAX);
 	Renderer->ChangeAnimation(Anim::player_fall);
 }
 
@@ -390,4 +394,20 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Jump", std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
 	State.SetUpdateFunction("Fall", std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
 	State.SetUpdateFunction("Roll", std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
+
+	// State End 함수 세팅
+	State.SetEndFunction("Jump", [=]
+		{
+			//Renderer->SetPosition({ 0.0f, 0.0f, 0.0f });
+			//Renderer->SetPivot(EPivot::BOT);
+		}
+	);
+
+	State.SetEndFunction("Fall", [=]
+		{
+			//Renderer->SetPosition({ 0.0f, 0.0f, 0.0f });
+			//Renderer->SetPivot(EPivot::BOT);
+		}
+	);
+
 }
