@@ -112,6 +112,7 @@ private:
 	void PosUpdate(float _DeltaTime);
 
 	void RunVelUpdate(float _DeltaTime);
+	void RunGravityUpdate(float _DeltaTime);
 
 	void JumpVelXUpdate(float _DeltaTime);
 	void JumpVelYUpdate(float _DeltaTime);

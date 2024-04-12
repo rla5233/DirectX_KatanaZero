@@ -101,6 +101,7 @@ void APlayerBase::RunStart()
 
 void APlayerBase::Run(float _DeltaTime)
 {
+	RunGravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
 	OnStairPosAdjust();
 

@@ -78,7 +78,8 @@ namespace Anim
 namespace Const
 {
 	const float gravity = -2000.0f;
-	const float jump_gravity = gravity * 0.55f;
+	const float jump_gravity = -1100.0f;
+	const float run_gravity = -10000.0f;
 
 	const FVector player_jump_vel = { 0.0f, 500.0f, 0.0f };
 

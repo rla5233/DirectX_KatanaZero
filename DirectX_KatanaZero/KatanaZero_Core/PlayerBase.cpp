@@ -214,9 +214,25 @@ void APlayerBase::RunVelUpdate(float _DeltaTime)
 	}
 }
 
+void APlayerBase::RunGravityUpdate(float _DeltaTime)
+{
+	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs())
+	{
+		Velocity.Y = 0.0f;
+		return;
+	}
+
+	Velocity.Y += Const::run_gravity * _DeltaTime;
+
+	if (Const::player_max_speedy < abs(Velocity.Y))
+	{
+		Velocity.Y = -Const::player_max_speedy;
+	}
+}
+
 void APlayerBase::GravityUpdate(float _DeltaTime)
 {
-	if (true == IsOnGround() || true == IsOnPlatForm())
+	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs())
 	{
 		Velocity.Y = 0.0f;
 		return;
