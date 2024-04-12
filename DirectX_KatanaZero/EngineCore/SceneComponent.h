@@ -16,6 +16,8 @@ public:
 	USceneComponent& operator=(const USceneComponent& _Other) = delete;
 	USceneComponent& operator=(USceneComponent&& _Other) noexcept = delete;
 
+	void SetupAttachment(USceneComponent* _Parent);
+
 protected:
 
 private:

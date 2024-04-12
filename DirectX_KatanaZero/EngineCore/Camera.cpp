@@ -1,10 +1,15 @@
 #include "PreCompile.h"
 #include "Camera.h"
 #include "EngineCore.h"
+#include "DefaultSceneComponent.h"
 
-UCamera::UCamera() 
+UCamera::UCamera()
 {
 	InputOn();
+
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultSceneComponent");
+	SetRoot(Root);
+
 
 	float4 Scale = GEngine->EngineWindow.GetWindowScale();
 
@@ -16,7 +21,7 @@ UCamera::UCamera()
 	ViewPort.MaxDepth = 1;
 }
 
-UCamera::~UCamera() 
+UCamera::~UCamera()
 {
 }
 
@@ -97,7 +102,7 @@ void UCamera::Tick(float _DeltaTime)
 		default:
 			break;
 		}
-		
+
 	}
 
 	float Speed = FreeCameraMoveSpeed;

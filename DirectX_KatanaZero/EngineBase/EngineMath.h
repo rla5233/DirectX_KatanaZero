@@ -75,6 +75,8 @@ public:
 
 		float Arr1D[4];
 		float Arr2D[1][4];
+		DirectX::XMFLOAT3 DirectFloat3;
+		DirectX::XMFLOAT4 DirectFloat4;
 		DirectX::XMVECTOR DirectVector;
 	};
 
@@ -138,6 +140,7 @@ public:
 
 
 public:
+
 	static float4 VectorRotationZToDeg(float4 _OriginVector, float _Angle)
 	{
 		return VectorRotationZToRad(_OriginVector, _Angle * UEngineMath::DToR);
@@ -231,6 +234,16 @@ public:
 		return (p1 * (1.0f - d1)) + (p2 * d1);
 	}
 
+	float4 DegToQuaternion() const
+	{
+		// 디그리 각도
+		float4 Result = *this;
+		// 라디안 각도
+		Result *= UEngineMath::DToR;
+		// 쿼터니온 으로 변환.
+		Result.DirectVector = DirectX::XMQuaternionRotationRollPitchYawFromVector(Result.DirectVector);
+		return Result;
+	}
 
 	float Size2D()
 	{
@@ -621,6 +634,13 @@ public:
 	float4 BackVector()
 	{
 		return -ArrVector[2].Normalize3DReturn();
+	}
+
+	void Decompose(float4& _Scale, float4& _Rotation, float4& _Position)
+	{
+		// _Rotation => 이게 쿼터니온으로 나온다.
+
+		DirectX::XMMatrixDecompose(&_Scale.DirectVector, &_Rotation.DirectVector, &_Position.DirectVector, DirectMatrix);
 	}
 
 	void RotationDeg(const float4 _Value)

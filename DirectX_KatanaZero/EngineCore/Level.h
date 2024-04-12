@@ -34,18 +34,21 @@ public:
 	ULevel& operator=(const ULevel& _Other) = delete;
 	ULevel& operator=(ULevel&& _Other) noexcept = delete;
 
+	template<typename ActorType, typename EnumType>
+	std::shared_ptr<ActorType> SpawnActor(std::string_view _Name, EnumType _Order)
+	{
+		return SpawnActor<ActorType>(_Name, static_cast<int>(_Order));
+	}
+
 	template<typename ActorType>
-	std::shared_ptr<ActorType> SpawnActor(std::string _Name, int _Order = 0)
+	std::shared_ptr<ActorType> SpawnActor(std::string_view _Name, int _Order = 0)
 	{
 		// 이 사이에서만 컴포넌트를 생성할수 있어야 한다.
 		IsActorConstructer = true;
 		std::shared_ptr<AActor> NewActor = std::make_shared<ActorType>();
-		ConstructorActor(NewActor);
+		ConstructorActor(NewActor, _Name, _Order);
 		IsActorConstructer = false;
 
-		// 이
-		//NewActor->SetWorld(this);
-		//NewActor->BeginPlay();
 		PushActor(NewActor);
 
 
@@ -57,6 +60,19 @@ public:
 	{
 		return MainCamera;
 	}
+
+	template<typename EnumType>
+	std::list<std::shared_ptr<AActor>> GetTickGroup(EnumType _Type)
+	{
+		return GetTickGroup(static_cast<int>(_Type));
+	}
+
+	// 복사. <= 부담이 만된다.
+	std::list<std::shared_ptr<AActor>> GetTickGroup(int _Order)
+	{
+		return Actors[_Order];
+	}
+
 
 protected:
 	void Tick(float _DeltaTime) override;
@@ -74,7 +90,7 @@ private:
 
 	std::map<int, std::list<std::shared_ptr<URenderer>>> Renderers;
 
-	void ConstructorActor(std::shared_ptr<AActor> _Actor);
+	void ConstructorActor(std::shared_ptr<AActor> _Actor, std::string_view _Name, int Order);
 	void PushActor(std::shared_ptr<AActor> _Actor);
 	void PushRenderer(std::shared_ptr<URenderer> _Renderer);
 	void ChangeOrderRenderer(std::shared_ptr<URenderer> _Renderer, int _PrevOrder, int _ChangeOrder);

@@ -25,68 +25,23 @@ CollisionFunctionInit Inst;
 
 bool FTransform::CircleToCircle(const FTransform& _Left, const FTransform& _Right)
 {
-	FVector Dir = _Left.Position - _Right.Position;
-	float Len = _Left.Scale.hX() + _Right.Scale.hX();
-
-	return Dir.Size2D() <= Len;
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.Sphere.Intersects(Right.Sphere);
 }
 
 bool FTransform::CircleToRect(const FTransform& _Left, const FTransform& _Right)
 {
-	FTransform CirCleTransform = _Left;
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.Sphere.Intersects(Right.AABB);
+}
 
-	FTransform WRect = _Right; // 가로가 커진 Rect
-	WRect.Scale.X += CirCleTransform.GetRadius() * 2.0f;
-	FTransform HRect = _Right; // 세로가 커진 Rect
-	HRect.Scale.Y += CirCleTransform.GetRadius() * 2.0f; // 세로가 커진 Rect
-
-	if (true == PointToRect(_Left, WRect))
-	{
-		return true;
-	}
-
-	if (true == PointToRect(_Left, HRect))
-	{
-		return true;
-	}
-
-	FTransform LeftTopCirCleTransform;
-	LeftTopCirCleTransform.SetPosition(_Right.LeftTop());
-	LeftTopCirCleTransform.SetRadius(_Left.GetRadius());
-
-	if (true == PointToCircle(_Left, LeftTopCirCleTransform))
-	{
-		return true;
-	}
-
-	FTransform RightTopCirCleTransform;
-	RightTopCirCleTransform.SetPosition(_Right.RightTop());
-	RightTopCirCleTransform.SetRadius(_Left.GetRadius());
-
-	if (true == PointToCircle(_Left, RightTopCirCleTransform))
-	{
-		return true;
-	}
-
-	FTransform LeftBottomCirCleTransform;
-	LeftBottomCirCleTransform.SetPosition(_Right.LeftBottom());
-	LeftBottomCirCleTransform.SetRadius(_Left.GetRadius());
-
-	if (true == PointToCircle(_Left, LeftBottomCirCleTransform))
-	{
-		return true;
-	}
-
-	FTransform RightBottomCirCleTransform;
-	RightBottomCirCleTransform.SetPosition(_Right.RightBottom());
-	RightBottomCirCleTransform.SetRadius(_Left.GetRadius());
-
-	if (true == PointToCircle(_Left, RightBottomCirCleTransform))
-	{
-		return true;
-	}
-
-	return false;
+bool FTransform::CircleToRotRect(const FTransform& _Left, const FTransform& _Right)
+{
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.Sphere.Intersects(Right.OBB);
 }
 
 bool FTransform::RectToCircle(const FTransform& _Left, const FTransform& _Right)
@@ -96,37 +51,24 @@ bool FTransform::RectToCircle(const FTransform& _Left, const FTransform& _Right)
 
 bool FTransform::RectToRect(const FTransform& _Left, const FTransform& _Right)
 {
-	if (_Left.Bottom() < _Right.Top())
-	{
-		return false;
-	}
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.AABB.Intersects(Right.AABB);
+}
 
-	if (_Left.Right() < _Right.Left())
-	{
-		return false;
-	}
-
-	if (_Right.Bottom() < _Left.Top())
-	{
-		return false;
-	}
-
-	if (_Right.Right() < _Left.Left())
-	{
-		return false;
-	}
-
-
-	return true;
+bool FTransform::RotRectToRotRect(const FTransform& _Left, const FTransform& _Right)
+{
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.OBB.Intersects(Right.OBB);
 }
 
 bool FTransform::CircleToPoint(const FTransform& _Left, const FTransform& _Right)
 {
-	FVector Dir = _Left.Position - _Right.Position;
-	float Len = _Left.Scale.hX();
-	float Size = Dir.Size2D();
-
-	return Size <= Len;
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	Right.Sphere.Radius = 0.0f;
+	return Left.Sphere.Intersects(Right.Sphere);
 }
 
 bool FTransform::PointToCircle(const FTransform& _Left, const FTransform& _Right)
@@ -140,35 +82,18 @@ bool FTransform::PointToRect(const FTransform& _Left, const FTransform& _Right)
 
 bool FTransform::RectToPoint(const FTransform& _Left, const FTransform& _Right)
 {
-	if (_Left.Bottom() < _Right.GetPosition().Y)
-	{
-		return false;
-	}
-
-	if (_Left.Right() < _Right.GetPosition().X)
-	{
-		return false;
-	}
-
-	if (_Right.GetPosition().Y < _Left.Top())
-	{
-		return false;
-	}
-
-	if (_Right.GetPosition().X < _Left.Left())
-	{
-		return false;
-	}
-
-	return  true;
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	Right.Sphere.Radius = 0.0f;
+	return Left.AABB.Intersects(Right.Sphere);
 }
 
 
 
 FTransform::FTransform()
-	: Scale(FVector::One)
-	, Rotation(FVector::Zero)
-	, Position(FVector::Zero)
+	: LocalScale(FVector::One)
+	, LocalRotation(FVector::Zero)
+	, LocalPosition(FVector::Zero)
 {
 }
 
@@ -200,14 +125,25 @@ void FTransform::TransformUpdate()
 	//float4x4 Projection;
 	//float4x4 WVP;
 
-	ScaleMat.Scale(Scale);
+	ScaleMat.Scale(LocalScale);
 
-	RotationMat.RotationDeg(Rotation);
+	RotationMat.RotationDeg(LocalRotation);
 
-	PositionMat.Position(Position);
+	PositionMat.Position(LocalPosition);
 
-	World = ScaleMat * RotationMat * PositionMat;
+	LocalWorld = ScaleMat * RotationMat * PositionMat;
+	World = LocalWorld * ParentMat;
 
+	World.Decompose(WorldScale, WorldRotation, WorldPosition);
+
+	// 쿼터니온 상태
+	WorldRotation = WorldRotation;
+
+	// 크 * 자 * 이 => 월드
+	// 월드 => 크 자 이
+	// World
+
+	// 최종월드 입니다.
 }
 
 void FTransform::CalculateViewAndProjection(FMatrix _View, FMatrix _Projection)

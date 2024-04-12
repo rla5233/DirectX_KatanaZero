@@ -9,3 +9,7 @@ UTransformObject::~UTransformObject()
 {
 }
 
+void UTransformObject::ChildUpdate()
+{
+
+}
