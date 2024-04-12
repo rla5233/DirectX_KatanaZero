@@ -10,7 +10,7 @@ APlayerBase::APlayerBase()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Player_Renderer");
 	Center   = CreateDefaultSubObject<USpriteRenderer>("Center");
 
-	SetRoot(Renderer);
+	SetRoot(Center);
 }
 
 APlayerBase::~APlayerBase()
@@ -28,7 +28,7 @@ void APlayerBase::BeginPlay()
 
 	Center->SetSprite("RedPoint.png");
 	Center->SetOrder(ERenderOrder::Player2);
-	Center->SetAutoSize(1.0f, true);
+	Center->SetAutoSize(5.0f, true);
 }
 
 bool APlayerBase::IsDirChangeKeyDown()
@@ -322,11 +322,7 @@ void APlayerBase::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 
-
 	// ¼öÁ¤
-	FVector Pos = GetActorLocation();
-	Center->Transform.SetPosition(Pos);
-
 	if (UEngineInput::IsDown('F'))
 	{
 		bool IsActiveValue = Renderer->IsActive();

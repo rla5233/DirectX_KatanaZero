@@ -127,25 +127,25 @@ void AUp_HUD::SettingTransform()
 	const float interval = 5.0f;
 	for (size_t i = 0; i < Battery_Part.size(); i++)
 	{
-		Battery_Part[i]->Transform.SetPosition({ CameraPos.X - 561.0f, CameraPos.Y + 337.0f, 0.0f });
+		Battery_Part[i]->SetPosition({ CameraPos.X - 561.0f, CameraPos.Y + 337.0f, 0.0f });
 	}
 
-	Battery->Transform.SetPosition({ CameraPos.X - 561.0f, CameraPos.Y + 337.0f, 0.0f });
-	Shift->Transform.SetPosition({ CameraPos.X - 455.0f, CameraPos.Y + 338.0f, 0.0f });
+	Battery->SetPosition({ CameraPos.X - 561.0f, CameraPos.Y + 337.0f, 0.0f });
+	Shift->SetPosition({ CameraPos.X - 455.0f, CameraPos.Y + 338.0f, 0.0f });
 	
 	// Mid
-	Timer_Bar->Transform.SetPosition({ CameraPos.X + 6.0f, CameraPos.Y + 343.0f, 0.0f });
-	Timer->Transform.SetPosition({ CameraPos.X - 10.0f, CameraPos.Y + 339.0f, 0.0f });
+	Timer_Bar->SetPosition({ CameraPos.X + 6.0f, CameraPos.Y + 343.0f, 0.0f });
+	Timer->SetPosition({ CameraPos.X - 10.0f, CameraPos.Y + 339.0f, 0.0f });
 	
 	// Right
-	R_ClickIcon->Transform.SetPosition({ CameraPos.X + 616.0f, CameraPos.Y + 313.0f, 0.0f });
-	L_ClickIcon->Transform.SetPosition({ CameraPos.X + 553.0f, CameraPos.Y + 313.0f, 0.0f });
-	ItemIcon->Transform.SetPosition({ CameraPos.X + 597.0f, CameraPos.Y + 335.0f, 0.0f });
-	KatanaIcon->Transform.SetPosition({ CameraPos.X + 533.0f, CameraPos.Y + 335.0f, 0.0f });
-	Weapon->Transform.SetPosition({ CameraPos.X + 565.0f, CameraPos.Y + 336.0f, 0.0f });
+	R_ClickIcon->SetPosition({ CameraPos.X + 616.0f, CameraPos.Y + 313.0f, 0.0f });
+	L_ClickIcon->SetPosition({ CameraPos.X + 553.0f, CameraPos.Y + 313.0f, 0.0f });
+	ItemIcon->SetPosition({ CameraPos.X + 597.0f, CameraPos.Y + 335.0f, 0.0f });
+	KatanaIcon->SetPosition({ CameraPos.X + 533.0f, CameraPos.Y + 335.0f, 0.0f });
+	Weapon->SetPosition({ CameraPos.X + 565.0f, CameraPos.Y + 336.0f, 0.0f });
 	
 	// BackGround
-	Bar->Transform.SetPosition({ CameraPos.X, CameraPos.Y + 337.0f, 0.0f });
+	Bar->SetPosition({ CameraPos.X, CameraPos.Y + 337.0f, 0.0f });
 }
 
 void AUp_HUD::Tick(float _DeltaTime)

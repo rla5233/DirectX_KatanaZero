@@ -34,7 +34,7 @@ public:
 
 	void SetColMapSpriteScale(const FVector& _Scale)
 	{
-		ColMap->Transform.SetScale(_Scale);
+		ColMap->SetScale(_Scale);
 	}
 
 	static std::shared_ptr<UEngineTexture> GetMapTex()
@@ -60,7 +60,7 @@ public:
 
 	void SetBGSpriteScale(const FVector& _Scale)
 	{
-		BackGround->Transform.SetScale(_Scale);
+		BackGround->SetScale(_Scale);
 	}
 
 protected:

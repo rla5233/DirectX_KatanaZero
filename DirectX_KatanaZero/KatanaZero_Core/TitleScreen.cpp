@@ -68,11 +68,11 @@ void ATitleScreen::SettingTransform()
 	Neon_O->SetAutoSize(1.25f, true);
 	Neon_Katana->SetAutoSize(1.5f, true);
 
-	Plants->Transform.SetPosition({ 0.0f, -465.0f, 0.0f });
-	Grass->Transform.SetPosition({ 0.0f, -650.0f, 0.0f });
-	Neon_ZER->Transform.SetPosition({ 0.0f, -300.0f, 0.0f });
-	Neon_O->Transform.SetPosition({ 0.0f, -300.0f, 0.0f });
-	Neon_Katana->Transform.SetPosition({ 0.0f, -240.0f, 0.0f });
+	Plants->SetPosition({ 0.0f, -465.0f, 0.0f });
+	Grass->SetPosition({ 0.0f, -650.0f, 0.0f });
+	Neon_ZER->SetPosition({ 0.0f, -300.0f, 0.0f });
+	Neon_O->SetPosition({ 0.0f, -300.0f, 0.0f });
+	Neon_Katana->SetPosition({ 0.0f, -240.0f, 0.0f });
 }
 
 void ATitleScreen::Tick(float _DeltaTime)

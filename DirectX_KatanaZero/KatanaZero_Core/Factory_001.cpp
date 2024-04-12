@@ -25,7 +25,7 @@ void AFactory_001::BeginPlay()
 	ColMap->SetBGSprite(ImgRes::factory_background2, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player");
-	Player->SetRootPosition({ 175.0f, 147.0f, 0.0f });
+	Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 

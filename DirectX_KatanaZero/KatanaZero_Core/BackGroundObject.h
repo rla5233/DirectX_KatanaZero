@@ -32,12 +32,7 @@ public:
 
 	void SetSpriteScale(const FVector& _Scale)
 	{
-		BackGround->Transform.SetScale(_Scale);
-	}
-
-	void SetSpritePlusColor(const float4& _Color)
-	{
-		BackGround->SetPlusColor(_Color);
+		BackGround->SetScale(_Scale);
 	}
 
 	void SetSpriteOrder(ERenderOrder _Order)
