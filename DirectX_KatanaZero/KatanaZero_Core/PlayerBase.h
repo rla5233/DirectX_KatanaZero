@@ -53,6 +53,8 @@ private:
 
 	FVector Velocity = FVector::Zero;
 
+	FVector AttackPos = FVector::Zero;
+
 // FSM
 private:
 	UStateManager State;
@@ -112,6 +114,8 @@ private:
 // FSM Setting
 private:
 	void SetRunVel();
+
+	void SetAttackDir();
 
 // FSM Update
 private:

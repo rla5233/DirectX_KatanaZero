@@ -3,6 +3,8 @@
 
 #include "ColMapObject.h"
 
+FVector AMouseAim::Location = FVector::Zero;
+
 AMouseAim::AMouseAim()
 {
 	Aim = CreateDefaultSubObject<USpriteRenderer>("MouseAim");
@@ -48,6 +50,7 @@ void AMouseAim::StateInit()
 			FVector WindowScale = GEngine->EngineWindow.GetWindowScale();
 			FVector TargetPos =	FVector(CameraPos.X, CameraPos.Y, 0.f) + FVector(MousePos.X - WindowScale.hX(), -(MousePos.Y - WindowScale.hY()), 200.f);
 			SetActorLocation(TargetPos);
+			Location = TargetPos;
 		}
 	);
 }

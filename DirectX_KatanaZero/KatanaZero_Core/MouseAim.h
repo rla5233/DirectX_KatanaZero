@@ -16,11 +16,14 @@ public:
 	AMouseAim& operator=(const AMouseAim& _Other) = delete;
 	AMouseAim& operator=(AMouseAim&& _Other) noexcept = delete;
 
+	static FVector GetMouseAimLocation()
+	{
+		return Location;
+	}
 
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-
 
 private:
 	USpriteRenderer* Aim = nullptr;
@@ -28,6 +31,7 @@ private:
 private:
 	void StateInit();
 
+	static FVector Location;
 	UStateManager State;
 };
 

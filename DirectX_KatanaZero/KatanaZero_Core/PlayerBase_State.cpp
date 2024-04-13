@@ -367,6 +367,8 @@ void APlayerBase::Fall(float _DeltaTime)
 
 void APlayerBase::AttackStart()
 {
+	SetAttackDir();
+
 	Renderer->ChangeAnimation(Anim::player_attack);
 }
 

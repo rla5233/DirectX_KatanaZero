@@ -2,6 +2,7 @@
 #include "PlayerBase.h"
 
 #include "ColMapObject.h"
+#include "MouseAim.h"
 
 APlayerBase::APlayerBase()
 {
@@ -200,6 +201,11 @@ void APlayerBase::SetRunVel()
 		Velocity.X = FVector::Right.X * Const::player_max_speedx;
 		break;
 	}
+}
+
+void APlayerBase::SetAttackDir()
+{
+	FVector AimPos = AMouseAim::GetMouseAimLocation();
 }
 // FSM Setting End
 //////////////////

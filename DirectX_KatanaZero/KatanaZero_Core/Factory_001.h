@@ -25,7 +25,6 @@ protected:
 
 private:
 	std::shared_ptr<ADefaultPlayer> Player = nullptr;
-	std::shared_ptr<AMouseAim> Aim = nullptr;
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
 
 	void Debug();

@@ -14,6 +14,8 @@ AFactory_001::~AFactory_001()
 {
 }
 
+
+
 void AFactory_001::BeginPlay()
 {
 	Super::BeginPlay();
@@ -24,10 +26,10 @@ void AFactory_001::BeginPlay()
 	ColMap->SetColMapSprite(ImgRes::factory_colmap2, 1.0f, true);
 	ColMap->SetBGSprite(ImgRes::factory_background2, 1.0f, true);
 
+	std::shared_ptr<AMouseAim> Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
+	
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player");
 	Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
-
-	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 
 	HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
 }
@@ -62,7 +64,7 @@ void AFactory_001::DebugMessageFunction()
 	}
 
 	{
-		std::string Msg = std::format("AimPos : {}\n", Aim->GetActorLocation().ToString());
+		std::string Msg = std::format("AimPos : {}\n", AMouseAim::GetMouseAimLocation().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
