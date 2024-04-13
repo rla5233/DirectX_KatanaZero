@@ -53,7 +53,7 @@ private:
 
 	FVector Velocity = FVector::Zero;
 
-	FVector AttackPos = FVector::Zero;
+	FVector AttackDir = FVector::Zero;
 
 // FSM
 private:

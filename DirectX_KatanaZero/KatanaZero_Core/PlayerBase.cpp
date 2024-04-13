@@ -206,6 +206,19 @@ void APlayerBase::SetRunVel()
 void APlayerBase::SetAttackDir()
 {
 	FVector AimPos = AMouseAim::GetMouseAimLocation();
+	FVector CurPos = GetActorLocation();
+	AttackDir = AimPos - CurPos;
+
+	if (0.0f > AttackDir.X)
+	{
+		Renderer->SetDir(EEngineDir::Left);
+	}
+	else
+	{
+		Renderer->SetDir(EEngineDir::Right);
+	}
+
+	AttackDir.Normalize2D();
 }
 // FSM Setting End
 //////////////////
@@ -249,15 +262,9 @@ void APlayerBase::RunGravityUpdate(float _DeltaTime)
 
 void APlayerBase::GravityUpdate(float _DeltaTime)
 {
-	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs())
-	{
-		Velocity.Y = 0.0f;
-		return;
-	}
-
 	Velocity.Y += Const::gravity * _DeltaTime;
 
-	if (Const::player_max_speedy < abs(Velocity.Y))
+	if (-Const::player_max_speedy > Velocity.Y)
 	{
 		Velocity.Y = -Const::player_max_speedy;
 	}

@@ -368,12 +368,16 @@ void APlayerBase::Fall(float _DeltaTime)
 void APlayerBase::AttackStart()
 {
 	SetAttackDir();
+	AddActorLocation({ 0.0f, 10.0f, 0.0f });
+	Velocity = AttackDir * 500.0f;
 
 	Renderer->ChangeAnimation(Anim::player_attack);
 }
 
 void APlayerBase::Attack(float _DeltaTime)
 {
+	PosUpdate(_DeltaTime);
+
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
