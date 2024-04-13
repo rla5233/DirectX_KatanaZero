@@ -39,11 +39,17 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void DefaultUpdate(float _DeltaTime);
+
+	void AttackDelayTimeUpdate(float _DeltaTime);
+
+private:
 	bool IsDirChangeKeyDown();
 	bool IsDirChangeKeyPress();
 
 	void OnGroundPosAdjust();
 	void OnStairPosAdjust();
+	void OnPlatFormAdjust();
 
 	void RollFallPosAdjust();
 
@@ -54,6 +60,8 @@ private:
 	FVector Velocity = FVector::Zero;
 
 	FVector AttackDir = FVector::Zero;
+	float AttackDelayTimeCount = 0.0f;
+	bool CanAttack = true;
 
 // FSM
 private:

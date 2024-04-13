@@ -14,7 +14,7 @@ void APlayerBase::Idle(float _DeltaTime)
 	IsDirChangeKeyDown();
 	
 	// StateChange Check
-	if (true == IsAttackInputDown())
+	if (true == IsAttackInputDown() && true == CanAttack)
 	{
 		State.ChangeState("Attack");
 		return;
@@ -350,6 +350,12 @@ void APlayerBase::Fall(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsAttackInputDown() && true == CanAttack)
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if ((true == IsOnGround() || true == IsOnStairs() || true == IsOnStairs())
 	&&   true == IsRunToRollInputPress() 
 	&&   true == IsCrouchToRollInputPress())
@@ -369,7 +375,10 @@ void APlayerBase::AttackStart()
 {
 	SetAttackDir();
 	AddActorLocation({ 0.0f, 10.0f, 0.0f });
-	Velocity = AttackDir * 500.0f;
+	Velocity += AttackDir * 250.0f;
+
+	AttackDelayTimeCount = Const::player_attack_delay;
+	CanAttack = false;
 
 	Renderer->ChangeAnimation(Anim::player_attack);
 }
@@ -380,7 +389,7 @@ void APlayerBase::Attack(float _DeltaTime)
 
 	if (true == Renderer->IsCurAnimationEnd())
 	{
-		State.ChangeState("Idle");
+		State.ChangeState("Fall");
 		return;
 	}
 }

@@ -39,6 +39,22 @@ void APlayerBase::BeginPlay()
 	Center->SetAutoSize(5.0f, true);
 }
 
+void APlayerBase::DefaultUpdate(float _DeltaTime)
+{
+	AttackDelayTimeUpdate(_DeltaTime);
+}
+
+void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
+{
+	if (0.0f >= AttackDelayTimeCount)
+	{
+		CanAttack = true;
+		return;
+	}
+
+	AttackDelayTimeCount -= _DeltaTime;
+}
+
 bool APlayerBase::IsDirChangeKeyDown()
 {
 	bool Result = false;
@@ -168,6 +184,20 @@ void APlayerBase::OnStairPosAdjust()
 			break;
 		}
 	}	
+}
+
+void APlayerBase::OnPlatFormAdjust()
+{
+	while (true == IsOnPlatForm())
+	{
+		AddActorLocation({ 0.0f, 1.0f, 0.0f });
+
+		if (false == IsOnPlatForm())
+		{
+			AddActorLocation({ 0.0f, -1.0f, 0.0f });
+			break;
+		}
+	}
 }
 
 void APlayerBase::RollFallPosAdjust()
@@ -368,6 +398,7 @@ void APlayerBase::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 
+	DefaultUpdate(_DeltaTime);
 
 	// ¼öÁ¤
 	if (UEngineInput::IsDown('F'))
