@@ -1,8 +1,10 @@
 #pragma once
+#include "PlayLevelBase.h"
 
 // 설명 : Factory 3번째 스테이지
-class AFactory_003 
+class AFactory_003 : public APlayLevelBase
 {
+	GENERATED_BODY(APlayLevelBase)
 public:
 	// constrcuter destructer
 	AFactory_003();
@@ -15,8 +17,11 @@ public:
 	AFactory_003& operator=(AFactory_003&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
+	void ResetPlayer() override;
 
 };
 
