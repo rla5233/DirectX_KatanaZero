@@ -22,7 +22,6 @@ void ADefaultPlayer::BeginPlay()
 void ADefaultPlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
 }
 
 void ADefaultPlayer::CreateAnimation()

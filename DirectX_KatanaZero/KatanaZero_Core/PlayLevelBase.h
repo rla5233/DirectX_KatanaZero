@@ -1,5 +1,9 @@
 #pragma once
 
+class AColMapObject;
+class ADefaultPlayer;
+class AUp_HUD;
+
 // 설명 : PlayLevel 기본 클래스
 class APlayLevelBase : public AGameMode
 {
@@ -20,7 +24,14 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+protected:
+	std::shared_ptr<AColMapObject> ColMap = nullptr;
+	std::shared_ptr<ADefaultPlayer> Player = nullptr;
+	std::shared_ptr<AUp_HUD> HUD = nullptr;
+
 private:
+	void Debug();
+	void DebugMessageFunction();
 
 };
 

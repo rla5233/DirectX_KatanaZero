@@ -57,9 +57,6 @@ void AUp_HUD::BeginPlay()
 	SettingSprite();
 	SettingRenderOrder();
 	SettingTransform();
-
-	FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
-	SetActorLocation({ CameraPos.X, CameraPos.Y + 337.0f, 0.0f });
 }
 
 void AUp_HUD::SettingSprite()
@@ -161,6 +158,12 @@ void AUp_HUD::SettingTransform()
 	ItemIcon->SetPosition({ 597.0f, -2.0f, 0.0f });
 	KatanaIcon->SetPosition({ 533.0f, -2.0f, 0.0f });
 	Weapon->SetPosition({ 565.0f, -1.0f, 0.0f });
+}
+
+void AUp_HUD::CameraEffectOff()
+{
+	FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
+	SetActorLocation({ CameraPos.X, CameraPos.Y + 337.0f, 0.0f });
 }
 
 void AUp_HUD::Tick(float _DeltaTime)

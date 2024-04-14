@@ -15,6 +15,8 @@ public:
 	AUp_HUD& operator=(const AUp_HUD& _Other) = delete;
 	AUp_HUD& operator=(AUp_HUD&& _Other) noexcept = delete;
 
+	void CameraEffectOff();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

@@ -1,13 +1,10 @@
 #pragma once
-
-class ADefaultPlayer;
-class AMouseAim;
-class AUp_HUD;
+#include "PlayLevelBase.h"
 
 // 설명 : Factory 1번째 스테이지
-class AFactory_001 : public AGameMode
+class AFactory_001 : public APlayLevelBase
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(APlayLevelBase)
 public:
 	// constrcuter destructer
 	AFactory_001();
@@ -24,10 +21,6 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<ADefaultPlayer> Player = nullptr;
-	std::shared_ptr<AUp_HUD> HUD = nullptr;
 
-	void Debug();
-	void DebugMessageFunction();
 };
 
