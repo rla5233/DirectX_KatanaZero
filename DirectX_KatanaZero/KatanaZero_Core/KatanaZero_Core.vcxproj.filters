@@ -52,6 +52,9 @@
     <Filter Include="Object\Enemy">
       <UniqueIdentifier>{32979922-5513-49f0-9191-0ee6956ef4b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Level">
+      <UniqueIdentifier>{1a46c717-e772-463c-8775-7a9f88c3c591}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="EnemyBase.h">
       <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevelBase.h">
+      <Filter>Object\Level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp">
       <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevelBase.cpp">
+      <Filter>Object\Level</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
