@@ -1,22 +1,27 @@
 #pragma once
+#include "PlayLevelBase.h"
 
 // 설명 : Factory 2번째 스테이지
-class Factory_002
+class AFactory_002 : public APlayLevelBase
 {
+	GENERATED_BODY(APlayLevelBase)
 public:
 	// constrcuter destructer
-	Factory_002();
-	~Factory_002();
+	AFactory_002();
+	~AFactory_002();
 
 	// delete Function
-	Factory_002(const Factory_002& _Other) = delete;
-	Factory_002(Factory_002&& _Other) noexcept = delete;
-	Factory_002& operator=(const Factory_002& _Other) = delete;
-	Factory_002& operator=(Factory_002&& _Other) noexcept = delete;
+	AFactory_002(const AFactory_002& _Other) = delete;
+	AFactory_002(AFactory_002&& _Other) noexcept = delete;
+	AFactory_002& operator=(const AFactory_002& _Other) = delete;
+	AFactory_002& operator=(AFactory_002&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
+	void ResetPlayer() override;
 
 };
 

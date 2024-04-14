@@ -36,7 +36,7 @@ void AMouseAim::StateInit()
 	// Start
 	State.SetStartFunction("Play", [=]
 		{
-			GEngine->EngineWindow.CursorOff();
+			//GEngine->EngineWindow.CursorOff();
 			Aim->SetActive(true);
 		}
 	);

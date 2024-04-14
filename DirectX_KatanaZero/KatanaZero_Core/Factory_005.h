@@ -1,9 +1,11 @@
 #pragma once
+#include "PlayLevelBase.h"
+
 
 // 설명 : Factory 5번째 스테이지
-class AFactory_005 : public AGameMode
+class AFactory_005 : public APlayLevelBase
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(APlayLevelBase)
 public:
 	// constrcuter destructer
 	AFactory_005();
@@ -20,6 +22,7 @@ protected:
 	void Tick(float _DeltaTime);
 
 private:
+	void ResetPlayer() override;
 
 };
 

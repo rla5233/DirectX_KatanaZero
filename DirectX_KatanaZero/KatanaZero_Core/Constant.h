@@ -65,6 +65,8 @@ namespace ImgRes
 	const std::string_view factory_background5		= "spr_background_factory_5.png";
 
 	const std::string_view factory_colmap2			= "spr_colmap_factory_2.png";
+	const std::string_view factory_colmap4			= "spr_colmap_factory_4.png";
+	const std::string_view factory_colmap5			= "spr_colmap_factory_5.png";
 
 	// HeadHunterLevel
 	const std::string_view headhunter_background1	= "spr_background_headhunter1.png";

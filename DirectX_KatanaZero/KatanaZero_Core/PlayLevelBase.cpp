@@ -34,11 +34,7 @@ void APlayLevelBase::Tick(float _DeltaTime)
 void APlayLevelBase::Debug()
 {
 	DebugMessageFunction();
-
-	if (UEngineInput::IsDown('R'))
-	{
-		Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
-	}
+	ResetPlayer();
 }
 
 void APlayLevelBase::DebugMessageFunction()

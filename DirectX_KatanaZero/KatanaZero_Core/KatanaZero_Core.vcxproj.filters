@@ -75,10 +75,10 @@
     <ClInclude Include="LerpObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Factory_001.h">
+    <ClInclude Include="Factory_002.h">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClInclude>
-    <ClInclude Include="Factory_002.h">
+    <ClInclude Include="Factory_003.h">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="Factory_004.h">
@@ -137,10 +137,10 @@
     <ClCompile Include="LerpObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Factory_001.cpp">
+    <ClCompile Include="Factory_002.cpp">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClCompile>
-    <ClCompile Include="Factory_002.cpp">
+    <ClCompile Include="Factory_003.cpp">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="Factory_004.cpp">
