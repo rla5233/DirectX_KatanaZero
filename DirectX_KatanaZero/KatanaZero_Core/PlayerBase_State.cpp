@@ -3,7 +3,7 @@
 
 // PlayerBase FSM
 
-// 일반
+// 기본
 void APlayerBase::IdleStart()
 {
 	Velocity = FVector::Zero;
@@ -55,7 +55,7 @@ void APlayerBase::Idle(float _DeltaTime)
 	}
 }
 
-// 일반에서 달리기
+// 기본에서 달리기
 void APlayerBase::IdleToRunStart()
 {
 	Velocity = FVector::Zero;
@@ -99,6 +99,23 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsJumpInputDown() && true == IsRunInputPress())
+	{
+		EEngineDir Dir = Renderer->GetDir();
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+			Velocity.X = -Const::player_jump_start_speedx;
+			break;
+		case EEngineDir::Right:
+			Velocity.X = Const::player_jump_start_speedx;
+			break;
+		}
+
+		State.ChangeState("Jump");
+		return;
+	}
+
 	if (true == Renderer->IsCurAnimationEnd() && true == IsRunInputPress())
 	{
 		State.ChangeState("Run");
@@ -132,6 +149,12 @@ void APlayerBase::Run(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsJumpInputDown())
+	{
+		State.ChangeState("Jump");
+		return;
+	}
+
 	if (false == IsRunInputPress() || true == IsColWall())
 	{
 		if (true == true == IsColWall())
@@ -144,7 +167,7 @@ void APlayerBase::Run(float _DeltaTime)
 	}
 }
 
-// 달리기에서 일반으로
+// 달리기에서 기본으로
 void APlayerBase::RunToIdleStart()
 {
 	Velocity.Y = 0.0f;
@@ -288,7 +311,6 @@ void APlayerBase::Roll(float _DeltaTime)
 // 점프
 void APlayerBase::JumpStart()
 {
-	Velocity = FVector::Zero;
 	Velocity.Y = Const::player_jump_speedy;
 
 	Renderer->ChangeAnimation(Anim::player_jump);
@@ -388,6 +410,12 @@ void APlayerBase::Fall(float _DeltaTime)
 	if (true == IsOnGround() || true == IsOnPlatForm() 
 	||  true == IsOnStairs() || true == IsOnGP_Boundary())
 	{
+		if (true == IsRunInputPress())
+		{
+			State.ChangeState("Run");
+			return;
+		}
+
 		State.ChangeState("RunToIdle");
 		return;
 	}
