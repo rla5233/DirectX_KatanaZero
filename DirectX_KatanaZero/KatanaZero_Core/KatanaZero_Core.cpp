@@ -28,15 +28,15 @@ void UKatanaZero_Core::Initialize()
 
 	//GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	//GEngine->ChangeLevel("TitleLevel");
-
+	
 	GEngine->CreateLevel<AFactory_002>("Factory_002");
 	GEngine->ChangeLevel("Factory_002");
 
-	GEngine->CreateLevel<AFactory_003>("Factory_003");
-	GEngine->ChangeLevel("Factory_003");
+	//GEngine->CreateLevel<AFactory_003>("Factory_003");
+	//GEngine->ChangeLevel("Factory_003");
 	
-	GEngine->CreateLevel<AFactory_004>("Factory_004");
-	GEngine->ChangeLevel("Factory_004");
+	//GEngine->CreateLevel<AFactory_004>("Factory_004");
+	//GEngine->ChangeLevel("Factory_004");
 
 #ifdef DEBUG
 	GEngine->CreateLevel<AFactory_005>("Factory_005");

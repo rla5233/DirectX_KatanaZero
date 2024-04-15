@@ -29,21 +29,11 @@ bool APlayerBase::IsRunInputPress()
 	if ((EEngineDir::Left == Dir) && (true == IsPress('A') || true == IsPress(VK_LEFT)))
 	{
 		Result = true;
-
-		if (true == IsPress('D') || true == IsPress(VK_RIGHT))
-		{
-			Result = false;
-		}
 	}
 
 	if ((EEngineDir::Right == Dir) && (true == IsPress('D') || true == IsPress(VK_RIGHT)))
 	{
 		Result = true;
-
-		if (true == IsPress('A') || true == IsPress(VK_LEFT))
-		{
-			Result = false;
-		}
 	}
 
 	return Result;

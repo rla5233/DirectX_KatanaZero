@@ -11,44 +11,39 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
+	// Check
+	IsColWall();
+	IsOnGround();
+
 	IsDirChangeKeyDown();
 	
 	// StateChange Check
-	if (true == IsAttackInputDown() && true == CanAttack)
-	{
-		State.ChangeState("Attack");
-		return;
-	}
+	//if (true == IsAttackInputDown() && true == CanAttack)
+	//{
+	//	State.ChangeState("Attack");
+	//	return;
+	//}
 
 	if (true == IsRunInputDown())
 	{
-		State.ChangeState("IdleToRun");
-		return;
+		if (false == IsColWall())
+		{
+			State.ChangeState("IdleToRun");
+			return;
+		}
 	}
 
-	if (true == IsRunInputPress())
-	{
-		State.ChangeState("IdleToRun");
-		return;
-	}
+	//if (true == IsCrouchInputDown())
+	//{
+	//	State.ChangeState("PostCrouch");
+	//	return;
+	//}
 
-	if (true == IsCrouchInputDown())
-	{
-		State.ChangeState("PostCrouch");
-		return;
-	}
-
-	if (true == IsJumpInputDown())
-	{
-		State.ChangeState("Jump");
-		return;
-	}
-
-	if (false == IsOnGround() && false == IsOnPlatForm() && false == IsOnStairs())
-	{
-		State.ChangeState("Fall");
-		return;
-	}
+	//if (true == IsJumpInputDown())
+	//{
+	//	State.ChangeState("Jump");
+	//	return;
+	//}
 }
 
 void APlayerBase::IdleToRunStart()
@@ -59,40 +54,49 @@ void APlayerBase::IdleToRunStart()
 }
 
 void APlayerBase::IdleToRun(float _DeltaTime)
-{
-	RunGravityUpdate(_DeltaTime);
+{	
+
+	// 기본 속도 업데이트
 	RunVelUpdate(_DeltaTime);
-	PosUpdate(_DeltaTime);
-	
 
-	OnStairPosAdjust();
-
+	// 방향 체크
 	if (true == IsDirChangeKeyDown())
 	{
 		Velocity = FVector::Zero;
 	}
 
+	// 벽 충돌 체크
+	if (true == IsColWall())
+	{
+		Velocity.X = 0.0f;	
+	}	
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+	
+	IsOnGround();
+
+	//OnStairPosAdjust();
+
+
 	// StateChange Check
 	if (true == IsAnykeyFree())
 	{
-		if (false == IsDirChangeKeyPress())
-		{
-			State.ChangeState("RunToIdle");
-			return;
-		}
-	}
-
-	if (true == IsJumpInputDown())
-	{
-		State.ChangeState("Jump");
+		State.ChangeState("RunToIdle");
 		return;
 	}
 
-	if (true == IsRunToRollInputDown())
-	{
-		State.ChangeState("Roll");
-		return;
-	}
+	//if (true == IsJumpInputDown())
+	//{
+	//	State.ChangeState("Jump");
+	//	return;
+	//}
+
+	//if (true == IsRunToRollInputDown())
+	//{
+	//	State.ChangeState("Roll");
+	//	return;
+	//}
 
 	if (true == Renderer->IsCurAnimationEnd() && true == IsRunInputPress())
 	{
@@ -110,40 +114,51 @@ void APlayerBase::RunStart()
 
 void APlayerBase::Run(float _DeltaTime)
 {
-	RunGravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
-	OnStairPosAdjust();
+	//OnStairPosAdjust();
 
-	// StateChange Check
-	if (true == IsJumpInputDown())
-	{
-		State.ChangeState("Jump");
-		return;
-	}
+	//// StateChange Check
+	//if (true == IsJumpInputDown())
+	//{
+	//	State.ChangeState("Jump");
+	//	return;
+	//}
 
-	if (true == IsRunToRollInputDown())
+	// RunToIdle 체크
+	if (false == IsRunInputPress() || true == IsColWall())
 	{
-		if (true == IsOnPlatForm())
-		{
-			State.ChangeState("Fall");
-			return;
+		if (true == true == IsColWall())
+		{ 
+			Velocity.X = 0.0f;
 		}
 
-		State.ChangeState("PostCrouch");
-		return;
-	}
-
-	if (false == IsRunInputPress())
-	{
 		State.ChangeState("RunToIdle");
 		return;
 	}
 
-	if (true == IsDirChangeKeyDown())
-	{
-		State.ChangeState("IdleToRun");
-		return;
-	}
+	//if (true == IsRunToRollInputDown())
+	//{
+	//	if (true == IsOnPlatForm())
+	//	{
+	//		State.ChangeState("Fall");
+	//		return;
+	//	}
+
+	//	State.ChangeState("PostCrouch");
+	//	return;
+	//}
+
+	//if ())
+	//{
+	//	State.ChangeState("RunToIdle");
+	//	return;
+	//}
+
+	//if (true == IsDirChangeKeyDown())
+	//{
+	//	State.ChangeState("IdleToRun");
+	//	return;
+	//}
 }
 
 void APlayerBase::RunToIdleStart()
@@ -155,38 +170,41 @@ void APlayerBase::RunToIdleStart()
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
-	PosUpdate(_DeltaTime);
-	OnStairPosAdjust();
 
-	if (true == IsDirChangeKeyPress())
+
+	if (true == IsDirChangeKeyPress() || true == IsColWall())
 	{
-		Velocity = FVector::Zero;
+		Velocity.X = 0.0f;
 	}
+
+	PosUpdate(_DeltaTime);
+
+
 
 	// StateChange Check
-	if (true == IsRunInputPress())
-	{
-		State.ChangeState("IdleToRun");
-		return;
-	}
+	//if (true == IsRunInputPress())
+	//{
+	//	State.ChangeState("IdleToRun");
+	//	return;
+	//}
 
-	if (true == IsCrouchInputDown())
-	{
-		State.ChangeState("PostCrouch");
-		return;
-	}
+	//if (true == IsCrouchInputDown())
+	//{
+	//	State.ChangeState("PostCrouch");
+	//	return;
+	//}
 
-	if (true == IsJumpInputDown())
-	{
-		State.ChangeState("Jump");
-		return;
-	}
+	//if (true == IsJumpInputDown())
+	//{
+	//	State.ChangeState("Jump");
+	//	return;
+	//}
 
-	if (true == Renderer->IsCurAnimationEnd())
-	{
-		State.ChangeState("Idle");
-		return;
-	}
+	//if (true == Renderer->IsCurAnimationEnd())
+	//{
+	//	State.ChangeState("Idle");
+	//	return;
+	//}
 }
 
 void APlayerBase::PostCrouchStart()
@@ -199,6 +217,9 @@ void APlayerBase::PostCrouchStart()
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
 	GravityUpdate(_DeltaTime);
+
+
+
 	PosUpdate(_DeltaTime);
 
 	// StateChange Check

@@ -39,6 +39,7 @@ void APlayerBase::BeginPlay()
 
 	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetAutoSize(2.0f, true);
+	Renderer->SetDir(EEngineDir::Right);
 
 	Front_Top->SetSprite("RedPoint.png");
 	Front_Top->SetOrder(ERenderOrder::Player2);
@@ -59,7 +60,6 @@ void APlayerBase::BeginPlay()
 	Back_Bot->SetOrder(ERenderOrder::Player2);
 	Back_Bot->SetAutoSize(3.0f, true);
 	Back_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
-
 }
 
 void APlayerBase::DefaultUpdate(float _DeltaTime)
@@ -152,13 +152,25 @@ bool APlayerBase::IsOnGround()
 	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
-	FVector CurPos = GetActorLocation();
-	CurPos.Y = MapTexScale.Y - CurPos.Y - 1.0f;
-	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
+	FVector FB_Pos = Front_Bot->GetWorldPosition();
+	FVector BB_Pos = Back_Bot->GetWorldPosition();
 
-	if (ColMap::YELLOW == PixelColor)
+	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
+	BB_Pos.Y = MapTexScale.Y - BB_Pos.Y - 1.0f;
+
+	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BB_Pos, Color8Bit::Black);
+
+	if (ColMap::YELLOW == FB_PixelColor && ColMap::YELLOW == BB_PixelColor)
 	{
+		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Result = true;
+	}
+	else
+	{
+		Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+		Back_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 	}
 
 	return Result;
@@ -197,6 +209,37 @@ bool APlayerBase::IsOnStairs()
 	if (ColMap::BLUE == PixelColor)
 	{
 		Result = true;
+	}
+
+	return Result;
+}
+
+bool APlayerBase::IsColWall()
+{
+	bool Result = false;
+
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector FT_Pos = Front_Top->GetWorldPosition();
+	FVector FB_Pos = Front_Bot->GetWorldPosition();
+
+	FT_Pos.Y = MapTexScale.Y - FT_Pos.Y - 1.0f;
+	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
+
+	Color8Bit FT_PixelColor = MapTex->GetColor(FT_Pos, Color8Bit::Black);
+	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
+
+	if (ColMap::YELLOW == FT_PixelColor && ColMap::YELLOW == FB_PixelColor)
+	{
+		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		Result = true;
+	}
+	else
+	{
+		Front_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+		Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 	}
 
 	return Result;
@@ -269,10 +312,10 @@ void APlayerBase::SetRunVel()
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Velocity.X = FVector::Left.X * Const::player_max_speedx;
+		Velocity.X = -Const::player_max_speedx;
 		break;
 	case EEngineDir::Right:
-		Velocity.X = FVector::Right.X * Const::player_max_speedx;
+		Velocity.X = Const::player_max_speedx;
 		break;
 	}
 }
@@ -317,6 +360,7 @@ void APlayerBase::RunVelUpdate(float _DeltaTime)
 		break;
 	}
 
+	// max speedx üũ
 	if (Const::player_max_speedx < std::abs(Velocity.X))
 	{
 		SetRunVel();

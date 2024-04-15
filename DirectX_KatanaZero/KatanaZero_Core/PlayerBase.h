@@ -34,6 +34,7 @@ public:
 	bool IsOnGround();
 	bool IsOnPlatForm();
 	bool IsOnStairs();
+	bool IsColWall();
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -134,7 +135,8 @@ private:
 
 // FSM Update
 private:
-	void GravityUpdate(float _DeltaTime);	
+	void GravityUpdate(float _DeltaTime);
+
 	void PosUpdate(float _DeltaTime);
 
 	void RunVelUpdate(float _DeltaTime);
