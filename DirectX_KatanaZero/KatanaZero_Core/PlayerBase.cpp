@@ -441,6 +441,17 @@ void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
 	Velocity.Y += Const::down_stair_gravity * _DeltaTime;
 }
 
+void APlayerBase::RollDownStairGravityUpdate(float _DeltaTime)
+{
+	if (true == IsOnGround() || true == IsOnStairs() || true == IsOnGP_Boundary())
+	{
+		Velocity.Y = 0.0f;
+		return;
+	}
+
+	Velocity.Y += 5.0f * Const::down_stair_gravity * _DeltaTime;
+}
+
 void APlayerBase::JumpGravityUpdate(float _DeltaTime)
 {
 	Velocity.Y += Const::jump_gravity * _DeltaTime;

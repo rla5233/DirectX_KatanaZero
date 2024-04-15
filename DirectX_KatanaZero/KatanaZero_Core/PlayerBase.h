@@ -153,6 +153,7 @@ private:
 private:
 	void GravityUpdate(float _DeltaTime);
 	void DownStairGravityUpdate(float _DeltaTime);
+	void RollDownStairGravityUpdate(float _DeltaTime);
 	void JumpGravityUpdate(float _DeltaTime);
 	void FallGravityUpdate(float _DeltaTime);
 

@@ -35,8 +35,8 @@ void UKatanaZero_Core::Initialize()
 	//GEngine->CreateLevel<AFactory_003>("Factory_003");
 	//GEngine->ChangeLevel("Factory_003");
 	
-	GEngine->CreateLevel<AFactory_004>("Factory_004");
-	GEngine->ChangeLevel("Factory_004");
+	//GEngine->CreateLevel<AFactory_004>("Factory_004");
+	//GEngine->ChangeLevel("Factory_004");
 
 #ifdef DEBUG
 	GEngine->CreateLevel<AFactory_005>("Factory_005");

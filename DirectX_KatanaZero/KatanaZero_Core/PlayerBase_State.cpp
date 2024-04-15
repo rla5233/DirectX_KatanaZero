@@ -318,6 +318,11 @@ void APlayerBase::Roll(float _DeltaTime)
 
 	DownStairGravityUpdate(_DeltaTime);
 
+	if (true == IsFallInputPress())
+	{
+		RollDownStairGravityUpdate(_DeltaTime);
+	}
+
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
@@ -334,6 +339,8 @@ void APlayerBase::Roll(float _DeltaTime)
 
 	if (true == Renderer->IsCurAnimationEnd())
 	{
+		IsDirChangeKeyPress();
+
 		if (true == IsRunInputPress())
 		{
 			State.ChangeState("Run");
