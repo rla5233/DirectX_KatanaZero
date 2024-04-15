@@ -10,7 +10,7 @@ void APlayerBase::IdleStart()
 
 	Renderer->ChangeAnimation(Anim::player_idle);
 }
-
+	
 void APlayerBase::Idle(float _DeltaTime)
 {
 	// 방향 전환 체크
@@ -20,6 +20,12 @@ void APlayerBase::Idle(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == IsRunInputDown())
 	{
 		if (false == IsColWall())
@@ -87,6 +93,12 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == IsAnykeyFree())
 	{
 		State.ChangeState("RunToIdle");
@@ -143,6 +155,12 @@ void APlayerBase::Run(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == IsRunToRollInputDown())
 	{
 		State.ChangeState("Roll");
@@ -194,6 +212,12 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == IsRunInputPress() && false == IsColWall())
 	{
 		State.ChangeState("IdleToRun");
@@ -218,6 +242,12 @@ void APlayerBase::PostCrouchStart()
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (false == IsCrouchInputPress())
 	{
 		State.ChangeState("PreCrouch");
@@ -247,6 +277,12 @@ void APlayerBase::PreCrouchStart()
 void APlayerBase::PreCrouch(float _DeltaTime)
 {
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
@@ -289,6 +325,13 @@ void APlayerBase::Roll(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		Velocity = FVector::Zero;
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		if (true == IsRunInputPress())
@@ -421,10 +464,12 @@ void APlayerBase::Fall(float _DeltaTime)
 
 void APlayerBase::AttackStart()
 {
+	// 방향 및 속도 설정
 	SetAttackDir();
 	AddActorLocation({ 0.0f, 10.0f, 0.0f });
-	Velocity += AttackDir * 250.0f;
+	Velocity += AttackDir * 450.0f;
 
+	// 지연 시간 설정
 	AttackDelayTimeCount = Const::player_attack_delay;
 	CanAttack = false;
 
@@ -433,8 +478,13 @@ void APlayerBase::AttackStart()
 
 void APlayerBase::Attack(float _DeltaTime)
 {
+	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
+	// 충돌 체크
+	ColCheckUpdate();
+
+	// StateChange Check
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Fall");

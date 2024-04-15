@@ -49,6 +49,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	// 기본 업데이트 함수
 	void DefaultUpdate(float _DeltaTime);
 
 	void AttackDelayTimeUpdate(float _DeltaTime);
@@ -65,7 +66,7 @@ private:
 
 
 
-	//
+	// 미사용
 	void OnPlatFormAdjust();
 	void RollFallPosAdjust();
 
@@ -153,19 +154,15 @@ private:
 	void GravityUpdate(float _DeltaTime);
 	void DownStairGravityUpdate(float _DeltaTime);
 	void JumpGravityUpdate(float _DeltaTime);
+	void FallGravityUpdate(float _DeltaTime);
 
 	void JumpVelXUpdate(float _DeltaTime);
+	void FallVelXUpdate(float _DeltaTime);
 	void IdleToRunVelUpdate(float _DeltaTime);
 	void RunToIdleVelUpdate(float _DeltaTime);
 
 	void PosUpdate(float _DeltaTime);
 
-	void ColCheckUpdate();
-
-
-	// 미 사용
-
-	void FallVelXUpdate(float _DeltaTime);
-	void FallGravityUpdate(float _DeltaTime);
+	void ColCheckUpdate();	
 };
 

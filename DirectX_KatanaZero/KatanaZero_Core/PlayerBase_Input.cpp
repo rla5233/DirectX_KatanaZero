@@ -173,7 +173,7 @@ bool APlayerBase::IsAttackInputDown()
 {
 	bool Result = false;
 
-	if (true == IsDown(VK_LBUTTON))
+	if (true == IsDown(VK_LBUTTON) && true == CanAttack)
 	{
 		Result = true;
 	}
