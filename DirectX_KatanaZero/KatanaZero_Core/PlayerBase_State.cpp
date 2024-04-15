@@ -439,7 +439,15 @@ void APlayerBase::Fall(float _DeltaTime)
 	if (true == IsAttackInputDown())
 	{
 		Velocity.X = 0.0f;
-		Velocity.Y -= 350.0f;
+		if (0.0f < Velocity.Y)
+		{
+			Velocity.Y -= 350.0f;
+		}
+		else
+		{
+			Velocity.Y = 0.0f;
+		}
+
 		State.ChangeState("Attack");
 		return;
 	}
@@ -476,6 +484,11 @@ void APlayerBase::AttackStart()
 	SetAttackDir();
 	AddActorLocation({ 0.0f, 10.0f, 0.0f });
 	Velocity += AttackDir * 450.0f;
+	
+	if (true)
+	{
+
+	}
 
 	// 지연 시간 설정
 	AttackDelayTimeCount = Const::player_attack_delay;
@@ -495,6 +508,11 @@ void APlayerBase::Attack(float _DeltaTime)
 	if (true == IsColHeadToWall())
 	{
 		Velocity.X = 0.0f;
+	}
+
+	if (true == IsOnGP_Boundary())
+	{
+		Velocity.Y = 0.0f;
 	}
 
 	if (true == IsOnStairs())
