@@ -46,6 +46,7 @@ private:
 private:
 	bool IsDirChangeKeyDown();
 	bool IsDirChangeKeyPress();
+	void RendererDirChange(EEngineDir _Dir);
 
 	void OnGroundPosAdjust();
 	void OnStairPosAdjust();
@@ -55,7 +56,13 @@ private:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
-	USpriteRenderer* Center = nullptr;
+	USpriteRenderer* Back_Top = nullptr;
+	USpriteRenderer* Back_Bot = nullptr;
+	USpriteRenderer* Front_Top = nullptr;
+	USpriteRenderer* Front_Bot = nullptr;
+
+	FVector Top = { 30.0f, 65.0f, 0.0f };
+	FVector Bot = { 30.0f, 0.0f, 0.0f };
 
 	FVector Velocity = FVector::Zero;
 

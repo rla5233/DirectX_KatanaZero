@@ -9,10 +9,16 @@ APlayerBase::APlayerBase()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Player_Renderer");
-	Center   = CreateDefaultSubObject<USpriteRenderer>("Center");
+	Front_Top = CreateDefaultSubObject<USpriteRenderer>("Front_Top");
+	Front_Bot = CreateDefaultSubObject<USpriteRenderer>("Front_Bot");
+	Back_Top = CreateDefaultSubObject<USpriteRenderer>("Back_Top");
+	Back_Bot = CreateDefaultSubObject<USpriteRenderer>("Back_Bot");
 	
 	Renderer->SetupAttachment(Root);
-	Center->SetupAttachment(Root);
+	Back_Top->SetupAttachment(Root);
+	Back_Bot->SetupAttachment(Root);
+	Front_Top->SetupAttachment(Root);
+	Front_Bot->SetupAttachment(Root);
 
 	Renderer->SetPivot(EPivot::BOT);
 	
@@ -34,9 +40,26 @@ void APlayerBase::BeginPlay()
 	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetAutoSize(2.0f, true);
 
-	Center->SetSprite("RedPoint.png");
-	Center->SetOrder(ERenderOrder::Player2);
-	Center->SetAutoSize(5.0f, true);
+	Front_Top->SetSprite("RedPoint.png");
+	Front_Top->SetOrder(ERenderOrder::Player2);
+	Front_Top->SetAutoSize(5.0f, true);
+	Front_Top->SetPosition(Top);
+
+	Front_Bot->SetSprite("RedPoint.png");
+	Front_Bot->SetOrder(ERenderOrder::Player2);
+	Front_Bot->SetAutoSize(5.0f, true);
+	Front_Bot->SetPosition(Bot);
+
+	Back_Top->SetSprite("RedPoint.png");
+	Back_Top->SetOrder(ERenderOrder::Player2);
+	Back_Top->SetAutoSize(3.0f, true);
+	Back_Top->SetPosition({ -Top.X, Top.Y, Top.Z });
+
+	Back_Bot->SetSprite("RedPoint.png");
+	Back_Bot->SetOrder(ERenderOrder::Player2);
+	Back_Bot->SetAutoSize(3.0f, true);
+	Back_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
+
 }
 
 void APlayerBase::DefaultUpdate(float _DeltaTime)
@@ -62,13 +85,13 @@ bool APlayerBase::IsDirChangeKeyDown()
 
 	if ((EEngineDir::Left == Dir) && (true == IsDown('D') || true == IsDown(VK_RIGHT)))
 	{
-		Renderer->SetDir(EEngineDir::Right);
+		RendererDirChange(EEngineDir::Right);
 		Result = true;
 	}
 
 	if ((EEngineDir::Right == Dir) && (true == IsDown('A') || true == IsDown(VK_LEFT)))
 	{
-		Renderer->SetDir(EEngineDir::Left);
+		RendererDirChange(EEngineDir::Left);
 		Result = true;
 	}
 
@@ -82,13 +105,13 @@ bool APlayerBase::IsDirChangeKeyPress()
 
 	if ((EEngineDir::Left == Dir) && (true == IsPress('D') || true == IsPress(VK_RIGHT)))
 	{
-		Renderer->SetDir(EEngineDir::Right);
+		RendererDirChange(EEngineDir::Right);
 		Result = true;
 	}
 
 	if ((EEngineDir::Right == Dir) && (true == IsPress('A') || true == IsPress(VK_LEFT)))
 	{
-		Renderer->SetDir(EEngineDir::Left);
+		RendererDirChange(EEngineDir::Left);
 		Result = true;
 	}
 
@@ -99,6 +122,27 @@ bool APlayerBase::IsDirChangeKeyPress()
 	}
 
 	return Result;
+}
+
+void APlayerBase::RendererDirChange(EEngineDir _Dir)
+{
+	switch (_Dir)
+	{
+	case EEngineDir::Left:
+		Renderer->SetDir(EEngineDir::Left);
+		Front_Top->SetPosition({ -Top.X, Top.Y, Top.Z });
+		Front_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
+		Back_Top->SetPosition(Top);
+		Back_Bot->SetPosition(Bot);
+		break;
+	case EEngineDir::Right:
+		Renderer->SetDir(EEngineDir::Right);
+		Front_Top->SetPosition(Top);
+		Front_Bot->SetPosition(Bot);
+		Back_Top->SetPosition({ -Top.X, Top.Y, Top.Z });
+		Back_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
+		break;
+	}
 }
 
 bool APlayerBase::IsOnGround()
