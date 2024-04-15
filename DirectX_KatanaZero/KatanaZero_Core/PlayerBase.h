@@ -36,11 +36,14 @@ public:
 		return IsStairsUpValue;
 	}
 
+	// 체크 함수
 	bool IsOnGround();
 	bool IsOnPlatForm();
 	bool IsOnGP_Boundary();
 	bool IsOnStairs();
 	bool IsColWall();
+	bool IsColHeadToWall();
+	bool IsColHeadToCeil();
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -51,16 +54,19 @@ private:
 	void AttackDelayTimeUpdate(float _DeltaTime);
 
 private:
+	// 방향 관련
 	bool IsDirChangeKeyDown();
 	bool IsDirChangeKeyPress();
 	void RendererDirChange(EEngineDir _Dir);
 
+	// 위치 조정
 	void OnGroundPosAdjust();
 	void UpStairPosAdjust();
 
+
+
 	//
 	void OnPlatFormAdjust();
-
 	void RollFallPosAdjust();
 
 private:
@@ -70,7 +76,7 @@ private:
 	USpriteRenderer* Front_Top = nullptr;
 	USpriteRenderer* Front_Bot = nullptr;
 
-	FVector Top = { 25.0f, 65.0f, 0.0f };
+	FVector Top = { 25.0f, 80.0f, 0.0f };
 	FVector Bot = { 25.0f, 0.0f, 0.0f };
 	bool IsStairsUpValue = false;
 
@@ -145,21 +151,19 @@ private:
 // FSM Update
 private:
 	void GravityUpdate(float _DeltaTime);
-
-	void PosUpdate(float _DeltaTime);
-	void ColCheckUpdate();
-
-	void IdleToRunVelUpdate(float _DeltaTime);
-
 	void DownStairGravityUpdate(float _DeltaTime);
+	void JumpGravityUpdate(float _DeltaTime);
+
+	void JumpVelXUpdate(float _DeltaTime);
+	void IdleToRunVelUpdate(float _DeltaTime);
 	void RunToIdleVelUpdate(float _DeltaTime);
 
+	void PosUpdate(float _DeltaTime);
 
+	void ColCheckUpdate();
 
 
 	// 미 사용
-	void JumpVelXUpdate(float _DeltaTime);
-	void JumpVelYUpdate(float _DeltaTime);
 
 	void FallVelXUpdate(float _DeltaTime);
 	void FallGravityUpdate(float _DeltaTime);

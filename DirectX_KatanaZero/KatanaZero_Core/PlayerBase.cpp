@@ -264,13 +264,58 @@ bool APlayerBase::IsColWall()
 	FVector FT_Pos = Front_Top->GetWorldPosition();
 	FVector FB_Pos = Front_Bot->GetWorldPosition();
 
-	FT_Pos.Y = MapTexScale.Y - FT_Pos.Y - 1.0f;
-	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
+	FT_Pos.Y = MapTexScale.Y - FT_Pos.Y;
+	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y;
 
 	Color8Bit FT_PixelColor = MapTex->GetColor(FT_Pos, Color8Bit::Black);
 	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
 
 	if (ColMap::YELLOW == FT_PixelColor && ColMap::YELLOW == FB_PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
+bool APlayerBase::IsColHeadToWall()
+{
+	bool Result = false;
+
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector FT_Pos = Front_Top->GetWorldPosition();
+
+	FT_Pos.Y = MapTexScale.Y - FT_Pos.Y;
+
+	Color8Bit FT_PixelColor = MapTex->GetColor(FT_Pos, Color8Bit::Black);
+
+	if (ColMap::YELLOW == FT_PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
+bool APlayerBase::IsColHeadToCeil()
+{
+	bool Result = false;
+
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector FT_Pos = Front_Top->GetWorldPosition();
+	FVector BT_Pos = Back_Top->GetWorldPosition();
+
+	FT_Pos.Y = MapTexScale.Y - FT_Pos.Y;
+	BT_Pos.Y = MapTexScale.Y - BT_Pos.Y;
+
+	Color8Bit FT_PixelColor = MapTex->GetColor(FT_Pos, Color8Bit::Black);
+	Color8Bit BT_PixelColor = MapTex->GetColor(BT_Pos, Color8Bit::Black);
+
+	if (ColMap::YELLOW == FT_PixelColor && ColMap::YELLOW == BT_PixelColor)
 	{
 		Result = true;
 	}
@@ -385,6 +430,131 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 	}
 }
 
+void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
+{
+	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs() || true == IsOnGP_Boundary())
+	{
+		Velocity.Y = 0.0f;
+		return;
+	}
+
+	Velocity.Y += Const::down_stair_gravity * _DeltaTime;
+}
+
+void APlayerBase::JumpGravityUpdate(float _DeltaTime)
+{
+	Velocity.Y += Const::jump_gravity * _DeltaTime;
+
+	if (-Const::player_max_speedy > Velocity.Y)
+	{
+		Velocity.Y = -Const::player_max_speedy;
+	}
+}
+
+void APlayerBase::FallGravityUpdate(float _DeltaTime)
+{
+	Velocity.Y += Const::default_gravity * _DeltaTime;
+
+	if (-Const::player_fall_max_speedy > Velocity.Y)
+	{
+		Velocity.Y = -Const::player_fall_max_speedy;
+	}
+}
+
+void APlayerBase::JumpVelXUpdate(float _DeltaTime)
+{
+	EEngineDir Dir = Renderer->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X += -Const::player_jump_accx * _DeltaTime;
+		break;
+	case EEngineDir::Right:
+		Velocity.X += Const::player_jump_accx * _DeltaTime;
+		break;
+	}
+
+	if (Const::player_max_speedx < Velocity.X)
+	{
+		Velocity.X = Const::player_max_speedx;
+	}
+
+	if (-Const::player_max_speedx > Velocity.X)
+	{
+		Velocity.X = -Const::player_max_speedx;
+	}
+}
+
+void APlayerBase::FallVelXUpdate(float _DeltaTime)
+{
+	EEngineDir Dir = Renderer->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X += -Const::player_fall_accx * _DeltaTime;
+		break;
+	case EEngineDir::Right:
+		Velocity.X += Const::player_fall_accx * _DeltaTime;
+		break;
+	}
+
+	if (Const::player_max_speedx < Velocity.X)
+	{
+		Velocity.X = Const::player_max_speedx;
+	}
+
+	if (-Const::player_max_speedx > Velocity.X)
+	{
+		Velocity.X = -Const::player_max_speedx;
+	}
+}
+
+void APlayerBase::IdleToRunVelUpdate(float _DeltaTime)
+{
+	EEngineDir Dir = Renderer->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X += -Const::player_run_accx * _DeltaTime;
+		break;
+	case EEngineDir::Right:
+		Velocity.X += Const::player_run_accx * _DeltaTime;
+		break;
+	}
+
+	// max speedx üũ
+	if (Const::player_max_speedx < std::abs(Velocity.X))
+	{
+		SetMaxRunVel();
+	}
+}
+
+void APlayerBase::RunToIdleVelUpdate(float _DeltaTime)
+{
+	EEngineDir Dir = Renderer->GetDir();
+	float FrictionAcc = 3000.0f;
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X += FrictionAcc * _DeltaTime;
+		if (0.0f < Velocity.X)
+		{
+			Velocity.X = 0.0f;
+		}
+		break;
+	case EEngineDir::Right:
+		Velocity.X += -FrictionAcc * _DeltaTime;
+		if (0.0f > Velocity.X)
+		{
+			Velocity.X = 0.0f;
+		}
+		break;
+	}
+}
+
 void APlayerBase::PosUpdate(float _DeltaTime)
 {
 	AddActorLocation(Velocity * _DeltaTime);
@@ -394,6 +564,8 @@ void APlayerBase::ColCheckUpdate()
 {
 	Front_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 	Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+	Back_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+	Back_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 
 	// ColWall
 	if (true == IsColWall())
@@ -432,129 +604,25 @@ void APlayerBase::ColCheckUpdate()
 		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
-	
+
 	// GP_Boundary
 	if (true == IsOnGP_Boundary())
 	{
 		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
-}
 
-void APlayerBase::IdleToRunVelUpdate(float _DeltaTime)
-{
-	EEngineDir Dir = Renderer->GetDir();
-	switch (Dir)
+	// ColHeadToWall
+	if (true == IsColHeadToWall())
 	{
-	case EEngineDir::Left:
-		Velocity.X += -Const::player_run_accx * _DeltaTime;
-		break;
-	case EEngineDir::Right:
-		Velocity.X += Const::player_run_accx * _DeltaTime;
-		break;
+		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
 
-	// max speedx üũ
-	if (Const::player_max_speedx < std::abs(Velocity.X))
+	// ColHeadToCeil
+	if (true == IsColHeadToCeil())
 	{
-		SetMaxRunVel();
-	}
-}
-
-void APlayerBase::RunToIdleVelUpdate(float _DeltaTime)
-{
-	EEngineDir Dir = Renderer->GetDir();
-	float FrictionAcc = 3000.0f;
-
-	switch (Dir)
-	{
-	case EEngineDir::Left:
-		Velocity.X += FrictionAcc *_DeltaTime;
-		if (0.0f < Velocity.X)
-		{
-			Velocity.X = 0.0f;
-		}
-		break;
-	case EEngineDir::Right:
-		Velocity.X += -FrictionAcc * _DeltaTime;
-		if (0.0f > Velocity.X)
-		{
-			Velocity.X = 0.0f;
-		}
-		break;
-	}
-
-}
-
-void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
-{
-	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs() || true == IsOnGP_Boundary())
-	{
-		Velocity.Y = 0.0f;
-		return;
-	}
-
-	Velocity.Y += Const::down_stair_gravity * _DeltaTime;
-}
-
-void APlayerBase::FallVelXUpdate(float _DeltaTime)
-{
-	EEngineDir Dir = Renderer->GetDir();
-
-	switch (Dir)
-	{
-	case EEngineDir::Left:
-		Velocity.X += (-1.0f) * Const::player_fall_accx * _DeltaTime;
-		break;
-	case EEngineDir::Right:
-		Velocity.X += Const::player_fall_accx * _DeltaTime;
-		break;
-	}
-
-	if (Const::player_max_speedx < abs(Velocity.X))
-	{
-		JumpVelXUpdate(_DeltaTime);
-	}
-}
-
-void APlayerBase::FallGravityUpdate(float _DeltaTime)
-{
-	if (true == IsOnGround() || true == IsOnPlatForm())
-	{
-		Velocity.Y = 0.0f;
-		return;
-	}
-
-	Velocity.Y += Const::default_gravity * _DeltaTime;
-
-	if (Const::player_fall_max_speedy < abs(Velocity.Y))
-	{
-		Velocity.Y = -Const::player_fall_max_speedy;
-	}
-}
-
-void APlayerBase::JumpVelXUpdate(float _DeltaTime)
-{
-	EEngineDir Dir = Renderer->GetDir();
-
-	switch (Dir)
-	{
-	case EEngineDir::Left:
-		Velocity.X = -Const::player_max_speedx;
-		break;
-	case EEngineDir::Right:
-		Velocity.X = Const::player_max_speedx;
-		break;
-	}
-}
-
-void APlayerBase::JumpVelYUpdate(float _DeltaTime)
-{
-	Velocity.Y += Const::jump_gravity * _DeltaTime;
-
-	if (-Const::player_max_speedy > Velocity.Y)
-	{
-		Velocity.Y = -Const::player_max_speedy;
+		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		Back_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
 }
 // FSM Update End

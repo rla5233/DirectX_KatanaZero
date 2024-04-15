@@ -101,8 +101,6 @@ namespace Const
 	const float jump_gravity = -1100.0f;
 	const float down_stair_gravity = -15000.0f;
 
-	const FVector player_jump_vel = { 0.0f, 500.0f, 0.0f };
-
 	const float player_max_speedx = 425.0f;
 	const float player_max_speedy = 425.0f;
 
@@ -110,8 +108,11 @@ namespace Const
 
 	const float player_roll_speedx = 700.0f;
 
+	const float player_jump_accx = 1000.0f;
+	const float player_jump_speedy = 500.0f;
+
 	const float player_fall_accx = 1000.0f;
-	const float player_fall_max_speedy = 1000.0f;
+	const float player_fall_max_speedy = 800.0f;
 
 	const float player_attack_delay = 0.25f;
 }

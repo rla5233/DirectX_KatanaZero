@@ -48,7 +48,7 @@ void AMouseAim::StateInit()
 			FVector MousePos = GEngine->EngineWindow.GetScreenMousePos();
 
 			FVector WindowScale = GEngine->EngineWindow.GetWindowScale();
-			FVector TargetPos =	FVector(CameraPos.X, CameraPos.Y, 0.f) + FVector(MousePos.X - WindowScale.hX(), -(MousePos.Y - WindowScale.hY()), 200.f);
+			FVector TargetPos =	FVector(CameraPos.X, CameraPos.Y, 0.0f) + FVector(MousePos.X - WindowScale.hX(), -(MousePos.Y - WindowScale.hY()), 0.0f);
 			SetActorLocation(TargetPos);
 			Location = TargetPos;
 		}
