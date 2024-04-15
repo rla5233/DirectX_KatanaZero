@@ -18,6 +18,12 @@ bool APlayerBase::IsRunInputDown()
 		Result = true;
 	}
 
+	if ((true == IsDown('A') || true == IsDown(VK_LEFT))
+	&&  (true == IsDown('D') || true == IsDown(VK_RIGHT)))
+	{
+		Result = false;
+	}
+
 	return Result;
 }
 
@@ -34,6 +40,12 @@ bool APlayerBase::IsRunInputPress()
 	if ((EEngineDir::Right == Dir) && (true == IsPress('D') || true == IsPress(VK_RIGHT)))
 	{
 		Result = true;
+	}
+
+	if ((true == IsPress('A') || true == IsPress(VK_LEFT))
+	&&  (true == IsPress('D') || true == IsPress(VK_RIGHT)))
+	{
+		Result = false;
 	}
 
 	return Result;

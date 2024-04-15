@@ -158,12 +158,8 @@ private:
 
 
 	// ¹Ì »ç¿ë
-
 	void JumpVelXUpdate(float _DeltaTime);
 	void JumpVelYUpdate(float _DeltaTime);
-
-	void RollVelXUpdate(float _DeltaTime);
-	void RollVelYUpdate();
 
 	void FallVelXUpdate(float _DeltaTime);
 	void FallGravityUpdate(float _DeltaTime);

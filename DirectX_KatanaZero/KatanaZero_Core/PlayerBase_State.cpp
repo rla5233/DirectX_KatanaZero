@@ -2,6 +2,8 @@
 #include "PlayerBase.h"
 
 // PlayerBase FSM
+
+// 일반
 void APlayerBase::IdleStart()
 {
 	Velocity = FVector::Zero;
@@ -11,19 +13,18 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
+	// 방향 전환 체크
 	IsDirChangeKeyDown();
 
-	// ColCheck
+	// 충돌 보정
 	ColCheckUpdate();
 
-
-	
 	// StateChange Check
-	//if (true == IsAttackInputDown() && true == CanAttack)
-	//{
-	//	State.ChangeState("Attack");
-	//	return;
-	//}
+	if (true == IsCrouchInputPress())
+	{
+		State.ChangeState("PostCrouch");
+		return;
+	}
 
 	if (true == IsRunInputDown())
 	{
@@ -34,28 +35,15 @@ void APlayerBase::Idle(float _DeltaTime)
 		}
 	}
 
-	if (false == IsOnGround() 
-	&&  false == IsOnPlatForm() 
-	&&  false == IsOnStairs()
-	&&  false == IsOnGP_Boundary())
+	if (false == IsOnGround() &&  false == IsOnPlatForm() 
+	&&  false == IsOnStairs() &&  false == IsOnGP_Boundary())
 	{
 		State.ChangeState("Fall");
 		return;
 	}
-
-	//if (true == IsCrouchInputDown())
-	//{
-	//	State.ChangeState("PostCrouch");
-	//	return;
-	//}
-
-	//if (true == IsJumpInputDown())
-	//{
-	//	State.ChangeState("Jump");
-	//	return;
-	//}
 }
 
+// 일반에서 달리기
 void APlayerBase::IdleToRunStart()
 {
 	Velocity = FVector::Zero;
@@ -65,16 +53,14 @@ void APlayerBase::IdleToRunStart()
 
 void APlayerBase::IdleToRun(float _DeltaTime)
 {	
-	// 기본 속도 업데이트
+	// 속도 업데이트
 	IdleToRunVelUpdate(_DeltaTime);
 
-	// 방향 체크
 	if (true == IsDirChangeKeyDown())
 	{
 		Velocity = FVector::Zero;
 	}
 
-	// 벽 충돌 체크
 	if (true == IsColWall())
 	{
 		Velocity.X = 0.0f;	
@@ -85,10 +71,8 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 	
-	// ColCheck
+	// 충돌 보정
 	ColCheckUpdate();
-
-
 
 	// StateChange Check
 	if (true == IsAnykeyFree())
@@ -97,18 +81,6 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		return;
 	}
 
-	//if (true == IsJumpInputDown())
-	//{
-	//	State.ChangeState("Jump");
-	//	return;
-	//}
-
-	//if (true == IsRunToRollInputDown())
-	//{
-	//	State.ChangeState("Roll");
-	//	return;
-	//}
-
 	if (true == Renderer->IsCurAnimationEnd() && true == IsRunInputPress())
 	{
 		State.ChangeState("Run");
@@ -116,6 +88,7 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 	}
 }
 
+// 달리기
 void APlayerBase::RunStart()
 {
 	SetMaxRunVel();
@@ -125,18 +98,14 @@ void APlayerBase::RunStart()
 
 void APlayerBase::Run(float _DeltaTime)
 {
+	// 속도 업데이트
 	DownStairGravityUpdate(_DeltaTime);
+
+	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
-	// ColCheck
+	// 충돌 보정
 	ColCheckUpdate();
-
-	//// StateChange Check
-	//if (true == IsJumpInputDown())
-	//{
-	//	State.ChangeState("Jump");
-	//	return;
-	//}
 
 	// RunToIdle 체크
 	if (false == IsRunInputPress() || true == IsColWall())
@@ -149,32 +118,9 @@ void APlayerBase::Run(float _DeltaTime)
 		State.ChangeState("RunToIdle");
 		return;
 	}
-
-	//if (true == IsRunToRollInputDown())
-	//{
-	//	if (true == IsOnPlatForm())
-	//	{
-	//		State.ChangeState("Fall");
-	//		return;
-	//	}
-
-	//	State.ChangeState("PostCrouch");
-	//	return;
-	//}
-
-	//if ())
-	//{
-	//	State.ChangeState("RunToIdle");
-	//	return;
-	//}
-
-	//if (true == IsDirChangeKeyDown())
-	//{
-	//	State.ChangeState("IdleToRun");
-	//	return;
-	//}
 }
 
+// 달리기에서 일반으로
 void APlayerBase::RunToIdleStart()
 {
 	Velocity.Y = 0.0f;
@@ -184,6 +130,7 @@ void APlayerBase::RunToIdleStart()
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
+	// 속도 업데이트
 	RunToIdleVelUpdate(_DeltaTime);
 
 	if (true == IsDirChangeKeyPress() || true == IsColWall())
@@ -193,6 +140,7 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 
 	DownStairGravityUpdate(_DeltaTime);
 
+	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
 	// ColCheck
@@ -205,18 +153,6 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 		return;
 	}
 
-	//if (true == IsCrouchInputDown())
-	//{
-	//	State.ChangeState("PostCrouch");
-	//	return;
-	//}
-
-	//if (true == IsJumpInputDown())
-	//{
-	//	State.ChangeState("Jump");
-	//	return;
-	//}
-
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
@@ -224,6 +160,7 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 	}
 }
 
+// 웅크리기
 void APlayerBase::PostCrouchStart()
 {
 	Velocity = FVector::Zero;
@@ -233,36 +170,28 @@ void APlayerBase::PostCrouchStart()
 
 void APlayerBase::PostCrouch(float _DeltaTime)
 {
-	GravityUpdate(_DeltaTime);
-
-
-
-	PosUpdate(_DeltaTime);
-
 	// StateChange Check
+	if (false == IsCrouchInputPress())
+	{
+		State.ChangeState("PreCrouch");
+		return;
+	}
+
+	if (true == IsCrouchInputPress() && true == IsOnPlatForm())
+	{
+		State.ChangeState("Fall");
+		return;
+	}
+	 
 	if (true == IsCrouchToRollInputPress())
 	{
 		IsDirChangeKeyPress();
 		State.ChangeState("Roll");
 		return;
 	}
-
-	if (false == IsCrouchInputPress())
-	{
-		State.ChangeState("PreCrouch");
-		return;
-	}
-	else
-	{
-		if (true == IsOnPlatForm())
-		{
-			AddActorLocation({ 0.0f, 2.0f, 0.0f });
-			State.ChangeState("Fall");
-			return;
-		}
-	}
 }
 
+// 웅크리기 해제
 void APlayerBase::PreCrouchStart()
 {
 	Renderer->ChangeAnimation(Anim::player_precrouch);
@@ -278,6 +207,7 @@ void APlayerBase::PreCrouch(float _DeltaTime)
 	}
 }
 
+// 구르기
 void APlayerBase::RollStart()
 {
 	EEngineDir Dir = Renderer->GetDir();
@@ -297,28 +227,35 @@ void APlayerBase::RollStart()
 
 void APlayerBase::Roll(float _DeltaTime)
 {
-	RollVelXUpdate(_DeltaTime);
-	RollVelYUpdate();
+	// 속도 업데이트
+	if (true == IsColWall())
+	{
+		Velocity.X = 0.0f;
+	}
 
+	DownStairGravityUpdate(_DeltaTime);
+
+	// 위치 업데이트
 	PosUpdate(_DeltaTime);
-	RollFallPosAdjust();
-	OnGroundPosAdjust();
+
+	// ColCheck
+	ColCheckUpdate();
 
 	// StateChange Check
 	if (true == Renderer->IsCurAnimationEnd())
 	{
-		if (true == IsRunInputPress())
-		{
-			State.ChangeState("Run");
-			return;
-		}
-
-		if (true == IsCrouchInputPress())
-		{
-			State.ChangeState("PostCrouch");
-			return;
-		}
-
+		//if (true == IsRunInputPress())
+		//{
+		//	State.ChangeState("Run");
+		//	return;
+		//}
+		//
+		//if (true == IsCrouchInputPress())
+		//{
+		//	State.ChangeState("PostCrouch");
+		//	return;
+		//}
+	
 		State.ChangeState("Idle");
 		return;
 	}

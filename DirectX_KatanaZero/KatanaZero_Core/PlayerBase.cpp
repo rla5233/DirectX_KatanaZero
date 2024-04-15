@@ -557,35 +557,6 @@ void APlayerBase::JumpVelYUpdate(float _DeltaTime)
 		Velocity.Y = -Const::player_max_speedy;
 	}
 }
-
-void APlayerBase::RollVelXUpdate(float _DeltaTime)
-{
-	EEngineDir Dir = Renderer->GetDir();
-
-	switch (Dir)
-	{
-	case EEngineDir::Left:
-		Velocity += FVector::Left * Const::player_roll_accx * _DeltaTime;
-		break;
-	case EEngineDir::Right:
-		Velocity += FVector::Right * Const::player_roll_accx * _DeltaTime;
-		break;
-	}
-
-	if (Const::player_max_speedx > abs(Velocity.X))
-	{
-		float Sign = Velocity.X / abs(Velocity.X);
-		Velocity.X = Sign * Const::player_max_speedx;
-	}
-}
-
-void APlayerBase::RollVelYUpdate()
-{
-	if (true == IsOnGround() || true == IsOnStairs())
-	{
-		Velocity.Y = 0.0f;
-	}
-}
 // FSM Update End
 //////////////////
 
