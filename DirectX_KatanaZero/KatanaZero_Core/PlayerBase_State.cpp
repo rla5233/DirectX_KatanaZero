@@ -363,12 +363,12 @@ void APlayerBase::Fall(float _DeltaTime)
 		Velocity.Y = 0.0f;
 	}
 
-	FallGravityUpdate(_DeltaTime);
-
 	if (true == IsFallInputPress())
 	{
-		Velocity.Y = -Const::player_fall_max_speedy;
+		Velocity.Y += Const::player_fall_input_accy * _DeltaTime;
 	}
+
+	FallGravityUpdate(_DeltaTime);
 	
 	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall())
 	{
@@ -386,12 +386,11 @@ void APlayerBase::Fall(float _DeltaTime)
 	// 충돌 체크
 	ColCheckUpdate();
 
-	//// StateChange Check
-	//if ((false == IsOnStairs() && false == IsOnGround()) 
-	//&&   true == IsFallInputPress())
-	//{
-	//	return;
-	//}
+	// StateChange Check
+	if (true == IsOnPlatForm() && true == IsFallInputPress())
+	{
+		return;
+	}
 
 	//if (true == IsAttackInputDown() && true == CanAttack)
 	//{
@@ -399,13 +398,12 @@ void APlayerBase::Fall(float _DeltaTime)
 	//	return;
 	//}
 
-	//if ((true == IsOnGround() || true == IsOnStairs() || true == IsOnStairs())
-	//&&   true == IsRunToRollInputPress() 
-	//&&   true == IsCrouchToRollInputPress())
-	//{
-	//	State.ChangeState("Roll");
-	//	return;
-	//}
+	if ((true == IsOnGround() || true == IsOnStairs() || true == IsOnGP_Boundary())
+	&&  (true == IsRunToRollInputPress() && true == IsCrouchToRollInputPress()))
+	{
+		State.ChangeState("Roll");
+		return;
+	}
 
 	if (true == IsOnGround() || true == IsOnPlatForm() 
 	||  true == IsOnStairs() || true == IsOnGP_Boundary())

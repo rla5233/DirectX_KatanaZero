@@ -113,7 +113,8 @@ namespace Const
 	const float player_jump_speedy = 500.0f;
 
 	const float player_fall_accx = 1000.0f;
-	const float player_fall_max_speedy = 800.0f;
+	const float player_fall_input_accy = -6000.0f;
+	const float player_fall_max_speedy = 1200.0f;
 
 	const float player_attack_delay = 0.25f;
 }

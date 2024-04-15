@@ -291,7 +291,7 @@ bool APlayerBase::IsColHeadToWall()
 
 	Color8Bit FT_PixelColor = MapTex->GetColor(FT_Pos, Color8Bit::Black);
 
-	if (ColMap::YELLOW == FT_PixelColor)
+	if (ColMap::YELLOW == FT_PixelColor || ColMap::BLUE == FT_PixelColor)
 	{
 		Result = true;
 	}
