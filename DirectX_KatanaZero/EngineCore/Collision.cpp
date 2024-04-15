@@ -100,3 +100,17 @@ bool UCollision::Collision(int _TargetGroup,
 
 	return false;
 }
+
+void UCollision::SetOrder(int _Order)
+{
+	// UTickObject::SetOrder(_Order);
+
+	int PrevOrder = GetOrder();
+
+	Super::SetOrder(_Order);
+
+	if (nullptr != GetWorld())
+	{
+		GetWorld()->ChangeOrderCollision(shared_from_this(), PrevOrder, _Order);
+	}
+}

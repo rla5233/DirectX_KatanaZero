@@ -26,8 +26,8 @@ void UKatanaZero_Core::Initialize()
 {
 	ResLoad();
 
-	//GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
-	//GEngine->ChangeLevel("TitleLevel");
+	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
+	GEngine->ChangeLevel("TitleLevel");
 	
 	GEngine->CreateLevel<AFactory_002>("Factory_002");
 	GEngine->ChangeLevel("Factory_002");
