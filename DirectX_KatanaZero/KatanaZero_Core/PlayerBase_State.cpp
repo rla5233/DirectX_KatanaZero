@@ -470,7 +470,7 @@ void APlayerBase::Fall(float _DeltaTime)
 			State.ChangeState("Run");
 			return;
 		}
-
+		
 		State.ChangeState("RunToIdle");
 		return;
 	}
@@ -482,8 +482,18 @@ void APlayerBase::AttackStart()
 	SetAttackDir();
 	AddActorLocation({ 0.0f, 10.0f, 0.0f });
 
-	Velocity.X = AttackDir.X * 450.0f;
+	Velocity.X += AttackDir.X * 1000.0f;
 	Velocity.Y += AttackDir.Y * 500.0f;
+
+	if (2.0f * Const::player_max_speedx < Velocity.X)
+	{
+		Velocity.X = Const::player_max_speedx;
+	}
+
+	if ((-2.0f) *Const::player_max_speedx > Velocity.X)
+	{
+		Velocity.X = -Const::player_max_speedx;
+	}
 
 	// 지연 시간 설정
 	AttackDelayTimeCount = Const::player_attack_delay;
@@ -503,8 +513,7 @@ void APlayerBase::Attack(float _DeltaTime)
 		Velocity.Y = 0.0f;
 		AddActorLocation({ 0.0f, -10.0f, 0.0f });
 	}
-
-	if (true == IsColHeadToWall())
+	else if (true == IsColHeadToWall())
 	{
 		Velocity.X = 0.0f;
 	}
