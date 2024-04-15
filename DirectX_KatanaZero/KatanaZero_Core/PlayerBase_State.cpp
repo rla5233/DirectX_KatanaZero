@@ -481,15 +481,9 @@ void APlayerBase::AttackStart()
 	// 방향 및 속도 설정
 	SetAttackDir();
 	AddActorLocation({ 0.0f, 10.0f, 0.0f });
-	if (0.0f > AttackDir.Y)
-	{
-		if (-100.0f > Velocity.Y)
-		{
-			Velocity.Y = 0.0f;
-		}
-	}
 
-	Velocity += AttackDir * 450.0f;
+	Velocity.X = AttackDir.X * 450.0f;
+	Velocity.Y += AttackDir.Y * 500.0f;
 
 	// 지연 시간 설정
 	AttackDelayTimeCount = Const::player_attack_delay;
@@ -500,6 +494,8 @@ void APlayerBase::AttackStart()
 
 void APlayerBase::Attack(float _DeltaTime)
 {
+	FallGravityUpdate(_DeltaTime);
+
 	if (true == IsColHeadToCeil())
 	{
 		Velocity.Y = 0.0f;
