@@ -129,7 +129,7 @@ private:
 
 // FSM Setting
 private:
-	void SetRunVel();
+	void SetMaxRunVel();
 
 	void SetAttackDir();
 
@@ -139,7 +139,14 @@ private:
 
 	void PosUpdate(float _DeltaTime);
 
-	void RunVelUpdate(float _DeltaTime);
+	void IdleToRunVelUpdate(float _DeltaTime);
+
+	void RunToIdleVelUpdate(float _DeltaTime);
+
+
+
+
+	// ¹Ì »ç¿ë
 	void RunGravityUpdate(float _DeltaTime);
 
 	void JumpVelXUpdate(float _DeltaTime);

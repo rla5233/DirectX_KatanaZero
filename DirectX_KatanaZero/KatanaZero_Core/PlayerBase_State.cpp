@@ -55,9 +55,8 @@ void APlayerBase::IdleToRunStart()
 
 void APlayerBase::IdleToRun(float _DeltaTime)
 {	
-
 	// 기본 속도 업데이트
-	RunVelUpdate(_DeltaTime);
+	IdleToRunVelUpdate(_DeltaTime);
 
 	// 방향 체크
 	if (true == IsDirChangeKeyDown())
@@ -107,7 +106,7 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 
 void APlayerBase::RunStart()
 {
-	SetRunVel();
+	SetMaxRunVel();
 
 	Renderer->ChangeAnimation(Anim::player_run);
 }
@@ -170,7 +169,7 @@ void APlayerBase::RunToIdleStart()
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
-
+	RunToIdleVelUpdate(_DeltaTime);
 
 	if (true == IsDirChangeKeyPress() || true == IsColWall())
 	{
@@ -180,13 +179,12 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 	PosUpdate(_DeltaTime);
 
 
-
 	// StateChange Check
-	//if (true == IsRunInputPress())
-	//{
-	//	State.ChangeState("IdleToRun");
-	//	return;
-	//}
+	if (true == IsRunInputPress())
+	{
+		State.ChangeState("IdleToRun");
+		return;
+	}
 
 	//if (true == IsCrouchInputDown())
 	//{
@@ -200,11 +198,11 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 	//	return;
 	//}
 
-	//if (true == Renderer->IsCurAnimationEnd())
-	//{
-	//	State.ChangeState("Idle");
-	//	return;
-	//}
+	if (true == Renderer->IsCurAnimationEnd())
+	{
+		State.ChangeState("Idle");
+		return;
+	}
 }
 
 void APlayerBase::PostCrouchStart()

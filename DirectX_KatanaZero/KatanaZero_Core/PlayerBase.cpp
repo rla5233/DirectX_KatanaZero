@@ -305,7 +305,7 @@ void APlayerBase::RollFallPosAdjust()
 
 ////////////////////
 // FSM Setting Start
-void APlayerBase::SetRunVel()
+void APlayerBase::SetMaxRunVel()
 {
 	EEngineDir Dir = Renderer->GetDir();
 
@@ -347,7 +347,7 @@ void APlayerBase::PosUpdate(float _DeltaTime)
 	AddActorLocation(Velocity * _DeltaTime);
 }
 
-void APlayerBase::RunVelUpdate(float _DeltaTime)
+void APlayerBase::IdleToRunVelUpdate(float _DeltaTime)
 {
 	EEngineDir Dir = Renderer->GetDir();
 	switch (Dir)
@@ -363,8 +363,33 @@ void APlayerBase::RunVelUpdate(float _DeltaTime)
 	// max speedx üũ
 	if (Const::player_max_speedx < std::abs(Velocity.X))
 	{
-		SetRunVel();
+		SetMaxRunVel();
 	}
+}
+
+void APlayerBase::RunToIdleVelUpdate(float _DeltaTime)
+{
+	EEngineDir Dir = Renderer->GetDir();
+	float FrictionAcc = 3000.0f;
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity.X += FrictionAcc *_DeltaTime;
+		if (0.0f < Velocity.X)
+		{
+			Velocity.X = 0.0f;
+		}
+		break;
+	case EEngineDir::Right:
+		Velocity.X += -FrictionAcc * _DeltaTime;
+		if (0.0f > Velocity.X)
+		{
+			Velocity.X = 0.0f;
+		}
+		break;
+	}
+
 }
 
 void APlayerBase::RunGravityUpdate(float _DeltaTime)
