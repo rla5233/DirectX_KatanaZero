@@ -351,36 +351,6 @@ void APlayerBase::UpStairPosAdjust()
 	}	
 }
 
-void APlayerBase::OnPlatFormAdjust()
-{
-	while (true == IsOnPlatForm())
-	{
-		AddActorLocation({ 0.0f, 1.0f, 0.0f });
-
-		if (false == IsOnPlatForm())
-		{
-			AddActorLocation({ 0.0f, -1.0f, 0.0f });
-			break;
-		}
-	}
-}
-
-void APlayerBase::RollFallPosAdjust()
-{
-	if (true == IsOnPlatForm() && true == IsFallInputPress())
-	{
-		while (true)
-		{
-			AddActorLocation({ 0.0f, -1.0f, 0.0f });
-			if (true == IsOnGround() || true == IsOnStairs())
-			{
-				AddActorLocation({ 0.0f, 1.0f, 0.0f });
-				break;
-			}
-		}
-	}
-}
-
 ////////////////////
 // FSM Setting Start
 void APlayerBase::SetMaxRunVel()

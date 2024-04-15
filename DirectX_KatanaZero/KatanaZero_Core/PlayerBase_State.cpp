@@ -489,6 +489,8 @@ void APlayerBase::AttackStart()
 	AttackDelayTimeCount = Const::player_attack_delay;
 	CanAttack = false;
 
+	// ÀÌÆåÆ® ¼³Á¤
+	SetAttackEffect();
 	Renderer->ChangeAnimation(Anim::player_attack);
 }
 

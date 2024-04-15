@@ -64,12 +64,6 @@ private:
 	void OnGroundPosAdjust();
 	void UpStairPosAdjust();
 
-
-
-	// ¹Ì»ç¿ë
-	void OnPlatFormAdjust();
-	void RollFallPosAdjust();
-
 private:
 	USpriteRenderer* Renderer = nullptr;
 	USpriteRenderer* Back_Top = nullptr;
@@ -165,5 +159,15 @@ private:
 	void PosUpdate(float _DeltaTime);
 
 	void ColCheckUpdate();	
+
+// Effect Set (virtual)
+protected:
+	virtual void SetAttackEffect() {};
+
+
+// Effect Update (virtual)
+protected:
+
+
 };
 

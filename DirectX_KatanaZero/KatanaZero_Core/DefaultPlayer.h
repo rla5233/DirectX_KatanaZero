@@ -21,6 +21,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void SetAttackEffect() override;
+
+private:
 	void CreateAnimation();
 
 private:

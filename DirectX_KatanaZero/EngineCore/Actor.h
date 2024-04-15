@@ -62,6 +62,16 @@ public:
 	void AddActorRotation(FVector _Value);
 	void AddActorLocation(FVector _Value);
 
+	inline USceneComponent* GetRoot() const
+	{
+		if (nullptr == RootComponent)
+		{
+			MsgBoxAssert("아직 루트를 지정하지 않았습니다.");
+		}
+
+		return RootComponent;
+	}
+
 	void SetRoot(USceneComponent* _Root)
 	{
 		if (nullptr != RootComponent)

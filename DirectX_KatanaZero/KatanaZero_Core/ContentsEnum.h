@@ -23,5 +23,6 @@ enum class ERenderOrder
 	BackGround,
 	Player,
 	Player2,
+	Effect,
 	UI
 };
