@@ -34,7 +34,10 @@ void APlayerBase::Idle(float _DeltaTime)
 		}
 	}
 
-	if (false == IsOnGround() && false == IsOnPlatForm() && false == IsOnStairs())
+	if (false == IsOnGround() 
+	&&  false == IsOnPlatForm() 
+	&&  false == IsOnStairs()
+	&&  false == IsOnGP_Boundary())
 	{
 		State.ChangeState("Fall");
 		return;

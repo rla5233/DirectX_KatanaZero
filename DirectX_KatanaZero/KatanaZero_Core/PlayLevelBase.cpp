@@ -80,6 +80,11 @@ void APlayLevelBase::DebugMessageFunction()
 	}
 
 	{
+		std::string Msg = std::format("IsOnGP_Boundary : {}\n", Player->IsOnGP_Boundary());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
 		std::string Msg = std::format("IsStairsUp : {}\n", Player->IsStairUp());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}

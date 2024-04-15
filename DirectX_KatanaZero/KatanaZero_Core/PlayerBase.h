@@ -38,6 +38,7 @@ public:
 
 	bool IsOnGround();
 	bool IsOnPlatForm();
+	bool IsOnGP_Boundary();
 	bool IsOnStairs();
 	bool IsColWall();
 protected:
@@ -56,7 +57,6 @@ private:
 
 	void OnGroundPosAdjust();
 	void UpStairPosAdjust();
-	void DownStairPosAdjust();
 
 	//
 	void OnPlatFormAdjust();

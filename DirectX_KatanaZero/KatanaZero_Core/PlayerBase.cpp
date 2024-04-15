@@ -193,6 +193,35 @@ bool APlayerBase::IsOnPlatForm()
 	return Result;
 }
 
+bool APlayerBase::IsOnGP_Boundary()
+{
+	bool Result = false;
+
+	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector FB_Pos = Front_Bot->GetWorldPosition();
+	FVector BB_Pos = Back_Bot->GetWorldPosition();
+
+	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
+	BB_Pos.Y = MapTexScale.Y - BB_Pos.Y - 1.0f;
+
+	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BB_Pos, Color8Bit::Black);
+
+	if (ColMap::GREEN == FB_PixelColor && ColMap::YELLOW == BB_PixelColor)
+	{
+		Result = true;
+	}
+
+	if (ColMap::YELLOW== FB_PixelColor && ColMap::GREEN == BB_PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 bool APlayerBase::IsOnStairs()
 {
 	bool Result = false;
@@ -381,6 +410,7 @@ void APlayerBase::ColCheckUpdate()
 		OnGroundPosAdjust();
 	}
 
+	// OnStairs
 	if (true == IsOnStairs())
 	{
 		if (true == IsStairsUpValue)
@@ -394,6 +424,20 @@ void APlayerBase::ColCheckUpdate()
 			Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 			Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		}
+	}
+
+	// Platform
+	if (true == IsOnPlatForm())
+	{
+		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+	}
+	
+	// GP_Boundary
+	if (true == IsOnGP_Boundary())
+	{
+		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
 }
 
@@ -444,7 +488,7 @@ void APlayerBase::RunToIdleVelUpdate(float _DeltaTime)
 
 void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
 {
-	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs())
+	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs() || true == IsOnGP_Boundary())
 	{
 		Velocity.Y = 0.0f;
 		return;
