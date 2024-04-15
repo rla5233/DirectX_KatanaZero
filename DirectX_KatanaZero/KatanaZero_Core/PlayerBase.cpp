@@ -406,11 +406,11 @@ void APlayerBase::SetAttackDir()
 
 	if (0.0f > AttackDir.X)
 	{
-		Renderer->SetDir(EEngineDir::Left);
+		RendererDirChange(EEngineDir::Left);
 	}
 	else
 	{
-		Renderer->SetDir(EEngineDir::Right);
+		RendererDirChange(EEngineDir::Right);
 	}
 
 	AttackDir.Normalize2D();

@@ -386,6 +386,12 @@ void APlayerBase::Jump(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == IsFallInputPress() ||  false == IsJumpInputPress() ||  0.0f > Velocity.Y)
 	{
 		State.ChangeState("Fall");
@@ -430,16 +436,18 @@ void APlayerBase::Fall(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		Velocity.X = 0.0f;
+		Velocity.Y -= 350.0f;
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == IsOnPlatForm() && true == IsFallInputPress())
 	{
 		return;
 	}
-
-	//if (true == IsAttackInputDown() && true == CanAttack)
-	//{
-	//	State.ChangeState("Attack");
-	//	return;
-	//}
 
 	if ((true == IsOnGround() || true == IsOnStairs() || true == IsOnGP_Boundary())
 	&&  (true == IsRunToRollInputPress() && true == IsCrouchToRollInputPress()))
@@ -478,6 +486,22 @@ void APlayerBase::AttackStart()
 
 void APlayerBase::Attack(float _DeltaTime)
 {
+	if (true == IsColHeadToCeil())
+	{
+		Velocity.Y = 0.0f;
+		AddActorLocation({ 0.0f, -10.0f, 0.0f });
+	}
+
+	if (true == IsColHeadToWall())
+	{
+		Velocity.X = 0.0f;
+	}
+
+	if (true == IsOnStairs())
+	{
+		Velocity = FVector::Zero;
+	}
+
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
