@@ -19,7 +19,7 @@ public:
 	UWorldObject& operator=(const UWorldObject& _Other) = delete;
 	UWorldObject& operator=(UWorldObject&& _Other) noexcept = delete;
 
-	ULevel* GetWorld()
+	virtual ULevel* GetWorld()
 	{
 		return World;
 	}

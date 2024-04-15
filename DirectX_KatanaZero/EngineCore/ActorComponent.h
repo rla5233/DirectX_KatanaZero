@@ -35,6 +35,10 @@ public:
 		return Actor;
 	}
 
+	virtual ULevel* GetWorld() override
+	{
+		return Actor->GetWorld();
+	}
 
 protected:
 

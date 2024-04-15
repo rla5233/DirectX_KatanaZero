@@ -61,11 +61,13 @@ void URenderer::Render(float _DeltaTime)
 
 void URenderer::SetOrder(int _Order)
 {
-	int PrevOrder = GetOrder();
+	UTickObject::SetOrder(_Order);
 
-	Super::SetOrder(_Order);
+	//int PrevOrder = GetOrder();
 
-	GetWorld()->ChangeOrderRenderer(shared_from_this(), PrevOrder, _Order);
+	//Super::SetOrder(_Order);
+
+	//GetWorld()->ChangeOrderRenderer(shared_from_this(), PrevOrder, _Order);
 }
 
 void URenderer::SetMesh(std::string_view _Name)

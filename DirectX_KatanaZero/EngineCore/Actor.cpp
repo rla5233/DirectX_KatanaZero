@@ -168,7 +168,7 @@ void AActor::SetActorScale3D(FVector _Value)
 #ifdef _DEBUG
 	if (nullptr == RootComponent)
 	{
-		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다." + GetName());
 	}
 #endif
 
