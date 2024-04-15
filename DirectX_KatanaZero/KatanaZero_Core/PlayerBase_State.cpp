@@ -11,11 +11,12 @@ void APlayerBase::IdleStart()
 
 void APlayerBase::Idle(float _DeltaTime)
 {
-	// Check
-	IsColWall();
-	IsOnGround();
-
 	IsDirChangeKeyDown();
+
+	// ColCheck
+	ColCheckUpdate();
+
+
 	
 	// StateChange Check
 	//if (true == IsAttackInputDown() && true == CanAttack)
@@ -31,6 +32,12 @@ void APlayerBase::Idle(float _DeltaTime)
 			State.ChangeState("IdleToRun");
 			return;
 		}
+	}
+
+	if (false == IsOnGround() && false == IsOnPlatForm() && false == IsOnStairs())
+	{
+		State.ChangeState("Fall");
+		return;
 	}
 
 	//if (true == IsCrouchInputDown())
@@ -70,12 +77,14 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		Velocity.X = 0.0f;	
 	}	
 
+	DownStairGravityUpdate(_DeltaTime);
+
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 	
-	IsOnGround();
+	// ColCheck
+	ColCheckUpdate();
 
-	//OnStairPosAdjust();
 
 
 	// StateChange Check
@@ -113,8 +122,11 @@ void APlayerBase::RunStart()
 
 void APlayerBase::Run(float _DeltaTime)
 {
+	DownStairGravityUpdate(_DeltaTime);
 	PosUpdate(_DeltaTime);
-	//OnStairPosAdjust();
+
+	// ColCheck
+	ColCheckUpdate();
 
 	//// StateChange Check
 	//if (true == IsJumpInputDown())
@@ -176,11 +188,15 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 		Velocity.X = 0.0f;
 	}
 
+	DownStairGravityUpdate(_DeltaTime);
+
 	PosUpdate(_DeltaTime);
 
+	// ColCheck
+	ColCheckUpdate();
 
 	// StateChange Check
-	if (true == IsRunInputPress())
+	if (true == IsRunInputPress() && false == IsColWall())
 	{
 		State.ChangeState("IdleToRun");
 		return;
@@ -284,7 +300,6 @@ void APlayerBase::Roll(float _DeltaTime)
 	PosUpdate(_DeltaTime);
 	RollFallPosAdjust();
 	OnGroundPosAdjust();
-	OnStairPosAdjust();
 
 	// StateChange Check
 	if (true == Renderer->IsCurAnimationEnd())

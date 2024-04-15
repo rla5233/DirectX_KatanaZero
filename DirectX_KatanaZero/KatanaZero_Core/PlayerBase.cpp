@@ -163,14 +163,7 @@ bool APlayerBase::IsOnGround()
 
 	if (ColMap::YELLOW == FB_PixelColor && ColMap::YELLOW == BB_PixelColor)
 	{
-		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Result = true;
-	}
-	else
-	{
-		Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
-		Back_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 	}
 
 	return Result;
@@ -183,11 +176,16 @@ bool APlayerBase::IsOnPlatForm()
 	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
-	FVector CurPos = GetActorLocation();
-	CurPos.Y = MapTexScale.Y - CurPos.Y - 1.0f;
-	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
+	FVector FB_Pos = Front_Bot->GetWorldPosition();
+	FVector BB_Pos = Back_Bot->GetWorldPosition();
 
-	if (ColMap::GREEN == PixelColor)
+	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
+	BB_Pos.Y = MapTexScale.Y - BB_Pos.Y - 1.0f;
+
+	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BB_Pos, Color8Bit::Black);
+
+	if (ColMap::GREEN == FB_PixelColor && ColMap::GREEN == BB_PixelColor)
 	{
 		Result = true;
 	}
@@ -202,11 +200,24 @@ bool APlayerBase::IsOnStairs()
 	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
-	FVector CurPos = GetActorLocation();
-	CurPos.Y = MapTexScale.Y - CurPos.Y - 1.0f;
-	Color8Bit PixelColor = MapTex->GetColor(CurPos, Color8Bit::Black);
+	FVector FB_Pos = Front_Bot->GetWorldPosition();
+	FVector BB_Pos = Back_Bot->GetWorldPosition();
 
-	if (ColMap::BLUE == PixelColor)
+	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
+	BB_Pos.Y = MapTexScale.Y - BB_Pos.Y - 1.0f;
+
+	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BB_Pos, Color8Bit::Black);
+
+	IsStairsUpValue = false;
+
+	if (ColMap::BLUE == FB_PixelColor && ColMap::BLUE != BB_PixelColor)
+	{
+		IsStairsUpValue = true;
+		Result = true;
+	}
+
+	if (ColMap::BLUE != FB_PixelColor && ColMap::BLUE == BB_PixelColor)
 	{
 		Result = true;
 	}
@@ -232,14 +243,7 @@ bool APlayerBase::IsColWall()
 
 	if (ColMap::YELLOW == FT_PixelColor && ColMap::YELLOW == FB_PixelColor)
 	{
-		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Result = true;
-	}
-	else
-	{
-		Front_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
-		Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 	}
 
 	return Result;
@@ -259,7 +263,7 @@ void APlayerBase::OnGroundPosAdjust()
 	}
 }
 
-void APlayerBase::OnStairPosAdjust()
+void APlayerBase::UpStairPosAdjust()
 {
 	while (true == IsOnStairs())
 	{
@@ -342,9 +346,55 @@ void APlayerBase::SetAttackDir()
 
 ////////////////////
 // FSM Update Start
+void APlayerBase::GravityUpdate(float _DeltaTime)
+{
+	Velocity.Y += Const::default_gravity * _DeltaTime;
+
+	if (-Const::player_max_speedy > Velocity.Y)
+	{
+		Velocity.Y = -Const::player_max_speedy;
+	}
+}
+
 void APlayerBase::PosUpdate(float _DeltaTime)
 {
 	AddActorLocation(Velocity * _DeltaTime);
+}
+
+void APlayerBase::ColCheckUpdate()
+{
+	Front_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+	Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+
+	// ColWall
+	if (true == IsColWall())
+	{
+		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+	}
+
+	// OnGround
+	if (true == IsOnGround())
+	{
+		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		OnGroundPosAdjust();
+	}
+
+	if (true == IsOnStairs())
+	{
+		if (true == IsStairsUpValue)
+		{
+			Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+			Back_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+			UpStairPosAdjust();
+		}
+		else
+		{
+			Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+			Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		}
+	}
 }
 
 void APlayerBase::IdleToRunVelUpdate(float _DeltaTime)
@@ -392,7 +442,7 @@ void APlayerBase::RunToIdleVelUpdate(float _DeltaTime)
 
 }
 
-void APlayerBase::RunGravityUpdate(float _DeltaTime)
+void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
 {
 	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs())
 	{
@@ -400,17 +450,7 @@ void APlayerBase::RunGravityUpdate(float _DeltaTime)
 		return;
 	}
 
-	Velocity.Y += Const::run_gravity * _DeltaTime;
-}
-
-void APlayerBase::GravityUpdate(float _DeltaTime)
-{
-	Velocity.Y += Const::gravity * _DeltaTime;
-
-	if (-Const::player_max_speedy > Velocity.Y)
-	{
-		Velocity.Y = -Const::player_max_speedy;
-	}
+	Velocity.Y += Const::down_stair_gravity * _DeltaTime;
 }
 
 void APlayerBase::FallVelXUpdate(float _DeltaTime)
@@ -441,7 +481,7 @@ void APlayerBase::FallGravityUpdate(float _DeltaTime)
 		return;
 	}
 
-	Velocity.Y += Const::gravity * _DeltaTime;
+	Velocity.Y += Const::default_gravity * _DeltaTime;
 
 	if (Const::player_fall_max_speedy < abs(Velocity.Y))
 	{

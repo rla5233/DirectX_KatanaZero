@@ -31,6 +31,11 @@ public:
 		return State.GetCurStateName();
 	}
 
+	inline bool IsStairUp() const
+	{
+		return IsStairsUpValue;
+	}
+
 	bool IsOnGround();
 	bool IsOnPlatForm();
 	bool IsOnStairs();
@@ -50,7 +55,10 @@ private:
 	void RendererDirChange(EEngineDir _Dir);
 
 	void OnGroundPosAdjust();
-	void OnStairPosAdjust();
+	void UpStairPosAdjust();
+	void DownStairPosAdjust();
+
+	//
 	void OnPlatFormAdjust();
 
 	void RollFallPosAdjust();
@@ -62,8 +70,9 @@ private:
 	USpriteRenderer* Front_Top = nullptr;
 	USpriteRenderer* Front_Bot = nullptr;
 
-	FVector Top = { 30.0f, 65.0f, 0.0f };
-	FVector Bot = { 30.0f, 0.0f, 0.0f };
+	FVector Top = { 25.0f, 65.0f, 0.0f };
+	FVector Bot = { 25.0f, 0.0f, 0.0f };
+	bool IsStairsUpValue = false;
 
 	FVector Velocity = FVector::Zero;
 
@@ -138,16 +147,17 @@ private:
 	void GravityUpdate(float _DeltaTime);
 
 	void PosUpdate(float _DeltaTime);
+	void ColCheckUpdate();
 
 	void IdleToRunVelUpdate(float _DeltaTime);
 
+	void DownStairGravityUpdate(float _DeltaTime);
 	void RunToIdleVelUpdate(float _DeltaTime);
 
 
 
 
 	// ¹Ì »ç¿ë
-	void RunGravityUpdate(float _DeltaTime);
 
 	void JumpVelXUpdate(float _DeltaTime);
 	void JumpVelYUpdate(float _DeltaTime);

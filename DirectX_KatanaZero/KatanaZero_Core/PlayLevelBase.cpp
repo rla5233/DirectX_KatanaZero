@@ -78,4 +78,9 @@ void APlayLevelBase::DebugMessageFunction()
 		std::string Msg = std::format("IsOnStairs : {}\n", Player->IsOnStairs());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+
+	{
+		std::string Msg = std::format("IsStairsUp : {}\n", Player->IsStairUp());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
