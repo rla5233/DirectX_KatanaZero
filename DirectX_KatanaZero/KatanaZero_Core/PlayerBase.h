@@ -116,6 +116,9 @@ private:
 	void AttackStart();
 	void Attack(float _DeltaTime);
 
+	void WallSlideStart();
+	void WallSlide(float _DeltaTime);
+
 // FSM Input Check
 private:
 	bool IsRunInputDown();

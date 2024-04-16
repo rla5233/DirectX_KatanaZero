@@ -399,6 +399,12 @@ void APlayerBase::Jump(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsRunInputPress() && true == IsColWall())
+	{
+		State.ChangeState("WallSlide");
+		return;
+	}
+
 	if (true == IsFallInputPress() ||  false == IsJumpInputPress() ||  0.0f > Velocity.Y)
 	{
 		State.ChangeState("Fall");
@@ -452,6 +458,12 @@ void APlayerBase::Fall(float _DeltaTime)
 
 	if (true == IsOnPlatForm() && true == IsFallInputPress())
 	{
+		return;
+	}
+
+	if (true == IsRunInputPress() && true == IsColWall())
+	{
+		State.ChangeState("WallSlide");
 		return;
 	}
 
@@ -542,6 +554,44 @@ void APlayerBase::Attack(float _DeltaTime)
 	}
 }
 
+void APlayerBase::WallSlideStart()
+{
+	Velocity.X = 0.0f;
+
+	EEngineDir Dir = Renderer->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Renderer->SetPosition({ -9.0f, 0.0f, 0.0f });
+		break;
+	case EEngineDir::Right:
+		Renderer->SetPosition({ 9.0f, 0.0f, 0.0f });
+		break;
+	}
+
+	Renderer->ChangeAnimation(ImgRes::player_wall_slide);
+}
+
+void APlayerBase::WallSlide(float _DeltaTime)
+{
+	// 속도 업데이트
+	GravityUpdate(_DeltaTime);
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// 충돌 체크
+	ColCheckUpdate();
+
+	// StateChange Check
+	if (true == IsOnGround() || true == IsOnPlatForm())
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+
+}
+
 
 // State 초기화
 void APlayerBase::StateInit()
@@ -557,6 +607,7 @@ void APlayerBase::StateInit()
 	State.CreateState("Fall");
 	State.CreateState("Roll");
 	State.CreateState("Attack");
+	State.CreateState("WallSlide");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle", std::bind(&APlayerBase::IdleStart, this));
@@ -569,6 +620,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("Fall", std::bind(&APlayerBase::FallStart, this));
 	State.SetStartFunction("Roll", std::bind(&APlayerBase::RollStart, this));
 	State.SetStartFunction("Attack", std::bind(&APlayerBase::AttackStart, this));
+	State.SetStartFunction("WallSlide", std::bind(&APlayerBase::WallSlideStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
@@ -581,4 +633,13 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Fall", std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
 	State.SetUpdateFunction("Roll", std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
 	State.SetUpdateFunction("Attack", std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
+	State.SetUpdateFunction("WallSlide", std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
+
+	// State End 함수 세팅
+	State.SetEndFunction("WallSlide", [=] 
+		{ 
+			Renderer->SetPosition({ 0.0f, 0.0f ,0.0f });
+		}
+	);
+	
 }

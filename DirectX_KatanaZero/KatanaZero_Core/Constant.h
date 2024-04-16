@@ -20,6 +20,7 @@ namespace ImgRes
 	const std::string_view player_precrouch			= "player_precrouch";
 	const std::string_view player_roll				= "player_roll";
 	const std::string_view player_attack			= "player_attack";
+	const std::string_view player_wall_slide		= "player_wallslide";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -87,6 +88,7 @@ namespace Anim
 	const std::string_view player_precrouch			= "player_precrouch";
 	const std::string_view player_roll				= "player_roll";
 	const std::string_view player_attack			= "player_attack";
+	const std::string_view player_wall_slide		= "player_wallslide";
 
 	// Effect Anim
 	const std::string_view effect_player_slash		= "player_slash";
