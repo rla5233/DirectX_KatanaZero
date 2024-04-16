@@ -49,7 +49,7 @@ void ADefaultPlayer::CreateAnimation()
 	GetRenderer()->CreateAnimation(Anim::player_roll, ImgRes::player_roll, 0.06f, false);
 	GetRenderer()->CreateAnimation(Anim::player_attack, ImgRes::player_attack, 0.02f, false);
 	GetRenderer()->CreateAnimation(Anim::player_wall_slide, ImgRes::player_wall_slide, 0.02f, false);
-	GetRenderer()->CreateAnimation(Anim::player_flip, ImgRes::player_flip, 0.01f, false);
+	GetRenderer()->CreateAnimation(Anim::player_flip, ImgRes::player_flip, 0.02f, false);
 
 	// Effect
 	Effect->CreateAnimation(Anim::effect_player_slash, ImgRes::effect_player_slash, 0.04f, false);

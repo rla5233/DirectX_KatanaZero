@@ -444,7 +444,7 @@ void APlayerBase::FallGravityUpdate(float _DeltaTime)
 
 void APlayerBase::WallGravityUpdate(float _DeltaTime)
 {
-	Velocity.Y += 0.5f * Const::default_gravity * _DeltaTime;
+	Velocity.Y += 0.75f * Const::default_gravity * _DeltaTime;
 
 	if (-Const::player_fall_max_speedy > Velocity.Y)
 	{

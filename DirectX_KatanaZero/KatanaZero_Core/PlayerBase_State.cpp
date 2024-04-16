@@ -557,7 +557,7 @@ void APlayerBase::Attack(float _DeltaTime)
 void APlayerBase::WallSlideStart()
 {
 	Velocity.X = 0.0f;
-	Velocity.Y += 200.0f;
+	Velocity.Y += 180.0f;
 
 	EEngineDir Dir = Renderer->GetDir();
 	switch (Dir)
@@ -585,6 +585,12 @@ void APlayerBase::WallSlide(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
 	if (true == IsOnGround() || true == IsOnPlatForm())
 	{
 		State.ChangeState("Idle");
@@ -600,18 +606,20 @@ void APlayerBase::WallSlide(float _DeltaTime)
 
 void APlayerBase::FlipStart()
 {
-	Velocity = FVector::Zero;
-
 	EEngineDir CurDir = Renderer->GetDir();
 	switch (CurDir)
 	{
 	case EEngineDir::Left:
 		RendererDirChange(EEngineDir::Right);
+		Velocity.X = 1.5f * Const::player_max_speedx;
 		break;
 	case EEngineDir::Right:
 		RendererDirChange(EEngineDir::Left);
+		Velocity.X = (-1.5f) * Const::player_max_speedx;
 		break;
 	}
+
+	Velocity.Y = 500.0f;
 
 	Renderer->ChangeAnimation(Anim::player_flip);
 }
@@ -625,12 +633,23 @@ void APlayerBase::Flip(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
+	if (true == IsAttackInputDown())
+	{
+		State.ChangeState("Attack");
+		return;
+	}
+
+	if (true == IsColWall() || true == IsColHeadToWall())
+	{
+		State.ChangeState("WallSlide");
+		return;
+	}
+
 	if (true == Renderer->IsCurAnimationEnd())
 	{
 		State.ChangeState("Fall");
 		return;
 	}
-
 }
 
 
@@ -686,4 +705,9 @@ void APlayerBase::StateInit()
 		}
 	);
 	
+	State.SetEndFunction("Flip", [=]
+		{
+			Velocity.Y = 0.0f;
+		}
+	);
 }
