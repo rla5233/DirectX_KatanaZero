@@ -55,6 +55,9 @@
     <Filter Include="Object\Level">
       <UniqueIdentifier>{1a46c717-e772-463c-8775-7a9f88c3c591}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\000.Object\Enemy">
+      <UniqueIdentifier>{45ff3278-ad39-47cf-8b3c-8b3e2d8dceb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Grunt.h">
+      <Filter>Level\000.Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
       <Filter>Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Grunt.cpp">
+      <Filter>Level\000.Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
