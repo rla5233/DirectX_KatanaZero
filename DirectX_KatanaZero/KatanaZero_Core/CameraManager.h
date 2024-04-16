@@ -14,7 +14,9 @@ public:
 	UCameraManager& operator=(const UCameraManager& _Other) = delete;
 	UCameraManager& operator=(UCameraManager&& _Other) noexcept = delete;
 
-	static void ChaseActor(std::shared_ptr<UCamera> _MainCamera, const FVector& _ActorPos);
+	static void PlayLevelChaseActor(
+		std::shared_ptr<UCamera> _MainCamera,
+		const FVector& _ActorPos);
 
 protected:
 

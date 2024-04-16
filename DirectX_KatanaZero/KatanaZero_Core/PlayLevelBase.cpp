@@ -29,7 +29,7 @@ void APlayLevelBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	UCameraManager::ChaseActor(GetWorld()->GetMainCamera(), Player->GetActorLocation());
+	UCameraManager::PlayLevelChaseActor(GetWorld()->GetMainCamera(), Player->GetActorLocation());
 	Debug();
 }
 
