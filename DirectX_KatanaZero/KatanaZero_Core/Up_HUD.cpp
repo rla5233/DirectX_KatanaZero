@@ -169,5 +169,7 @@ void AUp_HUD::CameraEffectOff()
 void AUp_HUD::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	CameraEffectOff();
 }
 

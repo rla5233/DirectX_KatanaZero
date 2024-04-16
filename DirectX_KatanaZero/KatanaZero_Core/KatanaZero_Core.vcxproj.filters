@@ -123,6 +123,9 @@
     <ClInclude Include="ContentsMath.h">
       <Filter>Helper</Filter>
     </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -192,6 +195,9 @@
       <Filter>Object\Level</Filter>
     </ClCompile>
     <ClCompile Include="ContentsMath.cpp">
+      <Filter>Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
   </ItemGroup>

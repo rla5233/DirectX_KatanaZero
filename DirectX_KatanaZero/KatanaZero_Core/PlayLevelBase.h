@@ -19,7 +19,6 @@ public:
 	APlayLevelBase& operator=(const APlayLevelBase& _Other) = delete;
 	APlayLevelBase& operator=(APlayLevelBase&& _Other) noexcept = delete;
 
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

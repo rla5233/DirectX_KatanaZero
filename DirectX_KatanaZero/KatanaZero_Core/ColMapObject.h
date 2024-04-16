@@ -39,6 +39,13 @@ public:
 
 	static std::shared_ptr<UEngineTexture> GetMapTex()
 	{
+#ifdef _DEBUG
+		if (nullptr == MapTex)
+		{
+			MsgBoxAssert("맵 택스처가 설정되지 않았습니다.")
+		}
+#endif // _DEBUG
+
 		return MapTex;
 	}
 

@@ -35,8 +35,9 @@ void UKatanaZero_Core::Initialize()
 	//GEngine->CreateLevel<AFactory_003>("Factory_003");
 	//GEngine->ChangeLevel("Factory_003");
 	
-	GEngine->CreateLevel<AFactory_004>("Factory_004");
-	GEngine->ChangeLevel("Factory_004");
+	//GEngine->CreateLevel<AFactory_004>("Factory_004");
+	//GEngine->ChangeLevel("Factory_004");
+
 
 #ifdef DEBUG
 	GEngine->CreateLevel<AFactory_005>("Factory_005");
@@ -47,6 +48,8 @@ void UKatanaZero_Core::Initialize()
 
 	GEngine->CreateLevel<AHeadHunter_Phase2>("HeadHunter_Phase2");
 	GEngine->ChangeLevel("HeadHunter_Phase2");
+
+
 #endif // DEBUG
 }
 

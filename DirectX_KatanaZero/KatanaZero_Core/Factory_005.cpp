@@ -18,7 +18,6 @@ void AFactory_005::BeginPlay()
 	Super::BeginPlay();
 
 	GetWorld()->GetMainCamera()->SetActorLocation({ 665.0f, 392.0f, -100.0f });
-	HUD->CameraEffectOff();
 
 	ColMap->SetColMapSprite(ImgRes::factory_colmap5, 1.0f, true);
 	ColMap->SetBGSprite(ImgRes::factory_background5, 1.0f, true);
