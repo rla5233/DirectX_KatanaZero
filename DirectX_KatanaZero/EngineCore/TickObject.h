@@ -18,7 +18,7 @@ class UTickObject
 public:
 	// constrcuter destructer
 	UTickObject();
-	~UTickObject();
+	virtual ~UTickObject();
 
 	// delete Function
 	UTickObject(const UTickObject& _Other) = delete;
@@ -60,7 +60,7 @@ public:
 			}
 		}
 
-		CallBacks.push_back(std::make_shared<UEngineTickCallBack>(_Time, _CallBack));
+		CallBacks.push_back(std::make_shared<UEngineTickCallBack>( _Time ,_CallBack ));
 	}
 
 protected:

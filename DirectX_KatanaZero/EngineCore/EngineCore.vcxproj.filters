@@ -79,6 +79,12 @@
     <Filter Include="Object\Component\Rendering">
       <UniqueIdentifier>{dc9dd73e-7c0f-49b9-8455-7cb879c11910}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component\Rendering\Contents">
+      <UniqueIdentifier>{2f33c9c8-fe8a-45fb-93db-65ad202bcc00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{30ffe626-96da-4899-8bb6-a744fba7b8a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -222,11 +228,17 @@
     <ClInclude Include="Renderer.h">
       <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Object\Component\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Object\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="TileRenderer.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebug3D.h">
+      <Filter>Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -365,11 +377,17 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Object\Component\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Object\Component\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Object\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="TileRenderer.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDebug3D.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

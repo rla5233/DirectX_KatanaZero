@@ -6,17 +6,18 @@
 #include <EngineCore/EngineTexture.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include "EngineEditorGUI.h"
+#include "EngineDebug3D.h"
 
 #include "Level.h"
 #include "GameMode.h"
 
 #include "EngineVertexBuffer.h"
 
-UEngineCore::UEngineCore()
+UEngineCore::UEngineCore() 
 {
 }
 
-UEngineCore::~UEngineCore()
+UEngineCore::~UEngineCore() 
 {
 	// 엔진이 종료할때 기존 엔진 옵션을 세이브 하고 한다.
 	UEngineDirectory Dir;
@@ -124,14 +125,17 @@ void UEngineCore::EngineFrameUpdate()
 	// 게임에 요소들을 그리고
 
 	CurLevel->Render(DeltaTime);
-	UEngineEditorGUI::GUIRender(DeltaTime);
+	UDebugRenderClass::DebugRender();
+	UEngineEditorGUI::GUIRender(CurLevel.get(), DeltaTime);
 	EngineDevice.RenderEnd();
 
 	CurLevel->Destroy();
 }
 
-std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string& _Name, std::shared_ptr<AActor> _GameMode)
+std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string_view _Name, std::shared_ptr<AActor> _GameMode)
 {
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
 	std::shared_ptr <AGameMode> GameModePtr = std::dynamic_pointer_cast<AGameMode>(_GameMode);
 
 	if (nullptr == GameModePtr)
@@ -141,7 +145,9 @@ std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string& _Name, std::sha
 	}
 
 	std::shared_ptr<ULevel> Level = std::make_shared<ULevel>();
+	Level->SetGameMode(GameModePtr);
+	Level->SetName(_Name);
 	Level->PushActor(_GameMode);
-	Levels[_Name] = Level;
+	Levels[UpperName] = Level;
 	return Level;
 }

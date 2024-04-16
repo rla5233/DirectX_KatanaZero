@@ -58,7 +58,7 @@ protected:
 private:
 	static void WindowInit(std::shared_ptr<UEngineEditorWindow> _Window, std::string_view _Name);
 
-	static void GUIRender(float _DeltaTime);
+	static void GUIRender(ULevel* Level, float _DeltaTime);
 	static void GUIInit();
 	static void GUIRelease();
 

@@ -63,6 +63,11 @@ public:
 		return MainCamera;
 	}
 
+	std::shared_ptr<AGameMode> GetGameMode()
+	{
+		return GameMode;
+	}
+
 	template<typename EnumType>
 	std::list<std::shared_ptr<AActor>> GetTickGroup(EnumType _Type)
 	{
@@ -103,5 +108,9 @@ private:
 	void ChangeOrderRenderer(std::shared_ptr<URenderer> _Renderer, int _PrevOrder, int _ChangeOrder);
 	void ChangeOrderCollision(std::shared_ptr<UCollision> _Collision, int _PrevOrder, int _ChangeOrder);
 
+	void SetGameMode(std::shared_ptr<AGameMode> _GameMode)
+	{
+		GameMode = _GameMode;
+	}
 };
 

@@ -35,3 +35,9 @@ enum class EEngineDir
 	Right,
 	MAX,
 };
+
+enum class EDebugRenderType
+{
+	Rect,
+	CirCle
+};

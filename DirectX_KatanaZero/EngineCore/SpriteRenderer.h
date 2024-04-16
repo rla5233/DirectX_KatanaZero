@@ -2,23 +2,7 @@
 #include "Renderer.h"
 #include "EngineEnums.h"
 #include "EngineSprite.h"
-
-struct FCuttingData
-{
-	//       0, 0
-	float4 CuttingPosition;
-	//      0.5 0.5
-	float4 CuttingSize;
-	float4x4 PivotMat;
-};
-
-struct ResultColorValue
-{
-	float4 PlusColor = float4::Zero;
-	float4 MulColor = float4::One;
-	float4 AlphaColor = float4::One;
-};
-
+#include "EngineStruct.h"
 
 class UEngineSprite;
 class USpriteAnimation : public UNameObject
@@ -75,7 +59,7 @@ public:
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, float _Inter = 0.1f, bool _Loop = true, int _Start = -1, int _End = -1);
 
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop = true);
-
+	
 	void ChangeAnimation(std::string_view _AnimationName);
 
 	void SetAutoSize(float _ScaleRatio, bool _AutoSize);
@@ -112,7 +96,7 @@ public:
 		Pivot = _Pivot;
 	}
 
-
+	
 protected:
 	void Tick(float _DeltaTime) override;
 	void MaterialSettingEnd() override;

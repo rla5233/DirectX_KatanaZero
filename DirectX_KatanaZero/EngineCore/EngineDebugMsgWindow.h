@@ -23,7 +23,7 @@ public:
 
 protected:
 	void Init() override;
-	void OnGui(float _Delta) override;
+	void OnGui(ULevel* Level, float _Delta) override;
 
 private:
 	static std::vector<std::string> Msg;

@@ -14,7 +14,8 @@ public:
 
 	void SetName(std::string_view _View)
 	{
-		Name = UEngineString::ToUpper(_View);
+		// Name = UEngineString::ToUpper(_View);
+		Name = _View;
 	}
 
 	std::string GetName()

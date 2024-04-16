@@ -56,6 +56,11 @@ public:
 		return RTV;
 	}
 
+	ID3D11ShaderResourceView* GetSRV()
+	{
+		return SRV;
+	}
+
 	float4 GetScale()
 	{
 		return float4(Desc.Width, Desc.Height);

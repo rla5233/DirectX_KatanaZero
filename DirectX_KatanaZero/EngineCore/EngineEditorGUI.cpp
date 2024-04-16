@@ -65,7 +65,7 @@ void UEngineEditorGUI::GUIRelease()
     ImGui::DestroyContext();
 }
 
-void UEngineEditorGUI::GUIRender(float _DeltaTime)
+void UEngineEditorGUI::GUIRender(ULevel* Level, float _DeltaTime)
 {
 
 	// imgui는 자신만의 스왑체인을 더 만들어낸다.
@@ -79,9 +79,17 @@ void UEngineEditorGUI::GUIRender(float _DeltaTime)
         for (std::pair<const std::string, std::shared_ptr<UEngineEditorWindow>> WindowPair : EditorWindows)
         {
             std::shared_ptr<UEngineEditorWindow> Window = WindowPair.second;
-            Window->Begin();
-            Window->OnGui(_DeltaTime);
-            Window->End();
+
+            Window->Tick(Level, _DeltaTime);
+
+            if (true == Window->IsActive)
+            {
+                Window->Begin();
+
+                Window->OnGui(Level, _DeltaTime);
+
+                Window->End();
+            }
         }
 	}
 

@@ -1,11 +1,11 @@
 #include "PreCompile.h"
 #include "Collision.h"
 
-UCollision::UCollision()
+UCollision::UCollision() 
 {
 }
 
-UCollision::~UCollision()
+UCollision::~UCollision() 
 {
 }
 
@@ -91,7 +91,7 @@ bool UCollision::Collision(int _TargetGroup,
 				_Stay(OtherCollision);
 			}
 		}
-		else if (true == OtherCheck.contains(CollisionPtr) && nullptr != _Exit)
+		else if(true == OtherCheck.contains(CollisionPtr) && nullptr != _Exit)
 		{
 			OtherCheck.erase(CollisionPtr);
 			_Exit(OtherCollision);

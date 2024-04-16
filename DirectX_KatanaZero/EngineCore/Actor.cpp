@@ -6,13 +6,13 @@
 std::set<AActor*> AActor::InputActors;
 std::set<AActor*> AActor::PrevInputActors;
 
-AActor::AActor()
+AActor::AActor() 
 {
 	// UEngineInput
 	// InputActors.insert(this);
 }
 
-AActor::~AActor()
+AActor::~AActor() 
 {
 }
 
@@ -221,7 +221,7 @@ void AActor::AddActorScale3D(FVector _Value)
 
 
 // 액터에서만 인풋 처리가 가능하게 되었습니다.
-bool AActor::IsDoubleClick(int _Key, float _ClickTime)
+bool AActor::IsDoubleClick(int _Key, float _ClickTime) 
 {
 	// InputActors 등록된 애들만 입력을 받을수 있다.
 	if (false == InputActors.contains(this))
@@ -245,7 +245,7 @@ void AActor::OnlyInputStop()
 	InputActors = PrevInputActors;
 }
 
-bool AActor::IsDown(int _Key)
+bool AActor::IsDown(int _Key) 
 {
 	// InputActors 등록된 애들만 입력을 받을수 있다.
 	if (false == InputActors.contains(this))
@@ -256,7 +256,7 @@ bool AActor::IsDown(int _Key)
 	return UEngineInput::IsDown(_Key);
 }
 
-float AActor::GetPressTime(int _Key)
+float AActor::GetPressTime(int _Key) 
 {
 	// InputActors 등록된 애들만 입력을 받을수 있다.
 	if (false == InputActors.contains(this))
@@ -268,7 +268,7 @@ float AActor::GetPressTime(int _Key)
 
 }
 
-bool AActor::IsPress(int _Key)
+bool AActor::IsPress(int _Key) 
 {
 	// InputActors 등록된 애들만 입력을 받을수 있다.
 	if (false == InputActors.contains(this))
@@ -280,7 +280,7 @@ bool AActor::IsPress(int _Key)
 
 }
 
-bool AActor::IsUp(int _Key)
+bool AActor::IsUp(int _Key) 
 {
 	// InputActors 등록된 애들만 입력을 받을수 있다.
 	if (false == InputActors.contains(this))

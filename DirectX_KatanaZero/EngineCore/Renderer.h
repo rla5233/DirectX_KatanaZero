@@ -61,14 +61,14 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void RenderingSetting();
+
 	void ResCopy(UEngineShader* _Shader);
 
 private:
-
-
 	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
 
-	void Render(float _DeltaTime);
+	virtual void Render(float _DeltaTime);
 
 	std::shared_ptr<UEngineInputLayOut> LayOut;
 	std::shared_ptr<UEngineMesh> Mesh;

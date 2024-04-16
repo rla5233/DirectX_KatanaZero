@@ -30,6 +30,8 @@ public:
 		return Res;
 	}
 
+	void IndexedDraw();
+
 protected:
 	void ResCreate(std::string_view _VertexName, std::string_view _IndexName);
 
@@ -39,6 +41,5 @@ private:
 
 	void InputAssembler1Setting();
 	void InputAssembler2Setting();
-	void IndexedDraw();
 };
 
