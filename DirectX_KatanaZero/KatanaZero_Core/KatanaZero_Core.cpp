@@ -28,21 +28,19 @@ void UKatanaZero_Core::Initialize()
 
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<AFactory_002>("Factory_002");
-	//GEngine->CreateLevel<AFactory_003>("Factory_003");
+	GEngine->CreateLevel<AFactory_003>("Factory_003");
+	GEngine->CreateLevel<AFactory_004>("Factory_004");
 	GEngine->CreateLevel<AFactory_005>("Factory_005");
 	
-	GEngine->ChangeLevel("TitleLevel");
+	//GEngine->ChangeLevel("TitleLevel");
 	GEngine->ChangeLevel("Factory_002");
 
 	//GEngine->ChangeLevel("Factory_003");
 	
-	//GEngine->CreateLevel<AFactory_004>("Factory_004");
 	//GEngine->ChangeLevel("Factory_004");
 
 
 #ifdef DEBUG
-	GEngine->ChangeLevel("Factory_005");
-
 	GEngine->CreateLevel<AHeadHunter_Phase1>("HeadHunter_Phase1");
 	GEngine->ChangeLevel("HeadHunter_Phase1");
 

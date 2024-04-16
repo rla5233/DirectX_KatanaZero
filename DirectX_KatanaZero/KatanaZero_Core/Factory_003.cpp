@@ -28,6 +28,11 @@ void AFactory_003::BeginPlay()
 void AFactory_003::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (true == IsStageClear())
+	{
+		GEngine->ChangeLevel("Factory_004");
+	}
 }
 
 void AFactory_003::ResetPlayer()

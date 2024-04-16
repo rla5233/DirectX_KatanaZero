@@ -42,7 +42,7 @@ bool APlayLevelBase::IsStageClear()
 
 	FVector PlayerPos = Player->GetActorLocation();
 
-	PlayerPos.Y = MapTexScale.Y - PlayerPos.Y;
+	PlayerPos.Y = MapTexScale.Y - (PlayerPos.Y + 5.0f);
 
 	Color8Bit PixelColor = MapTex->GetColor(PlayerPos, Color8Bit::Black);
 
