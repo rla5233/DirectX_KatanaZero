@@ -29,8 +29,29 @@ void APlayLevelBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	UCameraManager::PlayLevelChaseActor(GetWorld()->GetMainCamera(), Player->GetActorLocation());
+	UCameraManager::PlayLevelChaseActor(GetWorld()->GetMainCamera(), ColMap->GetMapTex(), Player->GetActorLocation());
 	Debug();
+}
+
+bool APlayLevelBase::IsStageClear()
+{
+	bool Result = false;
+
+	std::shared_ptr<UEngineTexture> MapTex = ColMap->GetMapTex();
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector PlayerPos = Player->GetActorLocation();
+
+	PlayerPos.Y = MapTexScale.Y - PlayerPos.Y;
+
+	Color8Bit PixelColor = MapTex->GetColor(PlayerPos, Color8Bit::Black);
+
+	if (ColMap::RED == PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
 }
 
 void APlayLevelBase::Debug()

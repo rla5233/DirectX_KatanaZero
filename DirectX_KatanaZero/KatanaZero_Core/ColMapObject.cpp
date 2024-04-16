@@ -1,8 +1,6 @@
 #include "PreCompile.h"
 #include "ColMapObject.h"
 
-std::shared_ptr<UEngineTexture> AColMapObject::MapTex = nullptr;
-
 AColMapObject::AColMapObject()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");

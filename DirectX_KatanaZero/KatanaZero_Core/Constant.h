@@ -5,6 +5,7 @@ namespace ColMap
 	const Color8Bit YELLOW	= Color8Bit(255, 255, 0, 255);
 	const Color8Bit GREEN	= Color8Bit(0, 255, 0, 255);
 	const Color8Bit BLUE	= Color8Bit(0, 0, 255, 255);
+	const Color8Bit RED		= Color8Bit(255, 0, 0, 255);
 }
 
 namespace ImgRes

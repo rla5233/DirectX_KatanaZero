@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PlayerBase.h"
 
+#include "PlayLevelBase.h"
 #include "ColMapObject.h"
 #include "MouseAim.h"
 
@@ -149,7 +150,9 @@ bool APlayerBase::IsOnGround()
 {
 	bool Result = false;
 
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+
+	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector FB_Pos = Front_Bot->GetWorldPosition();
@@ -173,7 +176,9 @@ bool APlayerBase::IsOnPlatForm()
 {
 	bool Result = false;
 
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+
+	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector FB_Pos = Front_Bot->GetWorldPosition();
@@ -197,7 +202,9 @@ bool APlayerBase::IsOnGP_Boundary()
 {
 	bool Result = false;
 
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+
+	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector FB_Pos = Front_Bot->GetWorldPosition();
@@ -226,7 +233,9 @@ bool APlayerBase::IsOnStairs()
 {
 	bool Result = false;
 
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+
+	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector FB_Pos = Front_Bot->GetWorldPosition();
@@ -258,7 +267,9 @@ bool APlayerBase::IsColWall()
 {
 	bool Result = false;
 
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+
+	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector FT_Pos = Front_Top->GetWorldPosition();
@@ -282,7 +293,9 @@ bool APlayerBase::IsColHeadToWall()
 {
 	bool Result = false;
 
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+
+	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector FT_Pos = Front_Top->GetWorldPosition();
@@ -303,7 +316,9 @@ bool APlayerBase::IsColHeadToCeil()
 {
 	bool Result = false;
 
-	std::shared_ptr<UEngineTexture> MapTex = AColMapObject::GetMapTex();
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+
+	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector FT_Pos = Front_Top->GetWorldPosition();

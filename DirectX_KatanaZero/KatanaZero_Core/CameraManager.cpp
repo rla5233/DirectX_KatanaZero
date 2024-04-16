@@ -13,12 +13,13 @@ UCameraManager::~UCameraManager()
 
 void UCameraManager::PlayLevelChaseActor(
 	std::shared_ptr<UCamera> _MainCamera, 
+	std::shared_ptr<UEngineTexture> MapTex,
 	const FVector& _ActorPos)
 {
 	FVector Result = _ActorPos;
 
 	FVector WinScale = GEngine->EngineWindow.GetWindowScale();
-	FVector TexScale = AColMapObject::GetMapTex()->GetScale();
+	FVector TexScale = MapTex->GetScale();
 
 	if (0.0f > Result.X - WinScale.hX())
 	{
@@ -43,5 +44,3 @@ void UCameraManager::PlayLevelChaseActor(
 	Result.Z = -100.0f;
 	_MainCamera->SetActorLocation(Result);
 }
-
-

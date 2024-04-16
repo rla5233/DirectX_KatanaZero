@@ -16,6 +16,7 @@ public:
 
 	static void PlayLevelChaseActor(
 		std::shared_ptr<UCamera> _MainCamera,
+		std::shared_ptr<UEngineTexture> MapTex,
 		const FVector& _ActorPos);
 
 protected:

@@ -37,7 +37,7 @@ public:
 		ColMap->SetScale(_Scale);
 	}
 
-	static std::shared_ptr<UEngineTexture> GetMapTex()
+	inline std::shared_ptr<UEngineTexture> GetMapTex() const
 	{
 #ifdef _DEBUG
 		if (nullptr == MapTex)
@@ -78,7 +78,7 @@ private:
 	void ActiveSwitchCheck();
 
 private:
-	static std::shared_ptr<UEngineTexture> MapTex;
+	std::shared_ptr<UEngineTexture> MapTex = nullptr;
 	USpriteRenderer* ColMap = nullptr;
 	USpriteRenderer* BackGround = nullptr;
 };

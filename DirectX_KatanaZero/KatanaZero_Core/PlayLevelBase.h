@@ -19,15 +19,23 @@ public:
 	APlayLevelBase& operator=(const APlayLevelBase& _Other) = delete;
 	APlayLevelBase& operator=(APlayLevelBase&& _Other) noexcept = delete;
 
+	inline std::shared_ptr<AColMapObject> GetColMap() const
+	{
+		return ColMap;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
+	bool IsStageClear();
 
 protected:
 	std::shared_ptr<AColMapObject> ColMap = nullptr;
 	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
 
+// µð¹ö±ë °ü·Ã
 private:
 	void Debug();
 	virtual void ResetPlayer() {};
