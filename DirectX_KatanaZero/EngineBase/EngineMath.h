@@ -407,13 +407,24 @@ public:
 
 	int iX() const
 	{
-		return std::lround(X);
+		return static_cast<int>(X);
 	}
 
 	int iY() const
 	{
+		return static_cast<int>(Y);
+	}
+
+	int iroundX() const
+	{
+		return std::lround(X);
+	}
+
+	int iroundY() const
+	{
 		return std::lround(Y);
 	}
+
 
 
 	float hX() const
@@ -892,6 +903,12 @@ public:
 		//Arr2D[3][2] = -(_Near * _Far) / (_Far - _Near);
 	}
 
+	float4x4 InverseReturn()
+	{
+		float4x4 Result = *this;
+		Result.DirectMatrix = DirectX::XMMatrixInverse(nullptr, DirectMatrix);
+		return Result;
+	}
 
 	// 모니터 크기로 확장
 	void ViewPort(float _Width, float _Height, float _Left, float _Right, float _ZMin, float _ZMax)
