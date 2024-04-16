@@ -28,13 +28,15 @@ void ADefaultPlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
-void ADefaultPlayer::SetAttackEffect()
+void ADefaultPlayer::SetAttackEffect(const FVector& _Dir)
 {
-	APlayerBase::SetAttackEffect();
-
+	APlayerBase::SetAttackEffect(_Dir);
+	
+	float Deg = UContentsMath::GetAngleToX_2D(_Dir);
 	Effect->ChangeAnimation(Anim::effect_player_slash);
 	Effect->SetAutoSize(2.0f, true);
 	Effect->SetPosition({ 0.0f, 30.0f, 0.0f });
+	Effect->SetRotationDeg({ 0.0f, 0.0f, Deg });
 	Effect->SetActive(true);
 }
 

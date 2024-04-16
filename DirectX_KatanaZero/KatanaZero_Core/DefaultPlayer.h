@@ -21,7 +21,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	void SetAttackEffect() override;
+	void SetAttackEffect(const FVector& _Dir) override;
 
 private:
 	void CreateAnimation();

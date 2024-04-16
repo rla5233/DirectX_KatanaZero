@@ -500,7 +500,7 @@ void APlayerBase::AttackStart()
 	CanAttack = false;
 
 	// ÀÌÆåÆ® ¼³Á¤
-	SetAttackEffect();
+	SetAttackEffect(AttackDir);
 	Renderer->ChangeAnimation(Anim::player_attack);
 }
 

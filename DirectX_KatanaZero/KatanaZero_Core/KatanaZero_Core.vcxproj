@@ -184,6 +184,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="ContentsMath.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="DefaultPlayer.h">
       <SubType>
       </SubType>
@@ -263,6 +267,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Constant.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentsMath.cpp">
       <SubType>
       </SubType>
     </ClCompile>

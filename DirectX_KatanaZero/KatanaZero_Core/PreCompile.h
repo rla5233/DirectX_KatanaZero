@@ -16,5 +16,6 @@
 #include <EngineCore/EngineSprite.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
 
+#include "ContentsMath.h"
 #include "ContentsEnum.h"
 #include "Constant.h"
