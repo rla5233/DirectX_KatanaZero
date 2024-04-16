@@ -22,9 +22,6 @@
     <Filter Include="Level\098.HeadHunterLevel\GameMode">
       <UniqueIdentifier>{e6378640-d467-47bc-84ea-2165fe8f8052}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Player">
-      <UniqueIdentifier>{a1f8616d-1a53-46e9-a2e8-5486cf03ae40}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\000.Object">
       <UniqueIdentifier>{1cc1d72d-2c21-425e-a0ab-e33ae4fa47c5}</UniqueIdentifier>
     </Filter>
@@ -49,14 +46,20 @@
     <Filter Include="Level\000.Object\UI">
       <UniqueIdentifier>{4b7aab0b-80b5-4cac-8554-f3a0702746a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Enemy">
-      <UniqueIdentifier>{32979922-5513-49f0-9191-0ee6956ef4b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Level">
-      <UniqueIdentifier>{1a46c717-e772-463c-8775-7a9f88c3c591}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\000.Object\Enemy">
       <UniqueIdentifier>{45ff3278-ad39-47cf-8b3c-8b3e2d8dceb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base">
+      <UniqueIdentifier>{cb8608b5-cd0c-4eec-a0f2-27e8dfe28d37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\Player">
+      <UniqueIdentifier>{a1f8616d-1a53-46e9-a2e8-5486cf03ae40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\Level">
+      <UniqueIdentifier>{1a46c717-e772-463c-8775-7a9f88c3c591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\Enemy">
+      <UniqueIdentifier>{32979922-5513-49f0-9191-0ee6956ef4b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +103,7 @@
       <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBase.h">
-      <Filter>Object\Player</Filter>
+      <Filter>Object\Base\Player</Filter>
     </ClInclude>
     <ClInclude Include="DefaultPlayer.h">
       <Filter>Level\000.Object</Filter>
@@ -118,10 +121,10 @@
       <Filter>Level\000.Object</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBase.h">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Base\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="PlayLevelBase.h">
-      <Filter>Object\Level</Filter>
+      <Filter>Object\Base\Level</Filter>
     </ClInclude>
     <ClInclude Include="ContentsMath.h">
       <Filter>Helper</Filter>
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsObject.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelColObject_Base.h">
+      <Filter>Object\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -174,16 +180,16 @@
       <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBase.cpp">
-      <Filter>Object\Player</Filter>
+      <Filter>Object\Base\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBase_State.cpp">
-      <Filter>Object\Player</Filter>
+      <Filter>Object\Base\Player</Filter>
     </ClCompile>
     <ClCompile Include="DefaultPlayer.cpp">
       <Filter>Level\000.Object</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBase_Input.cpp">
-      <Filter>Object\Player</Filter>
+      <Filter>Object\Base\Player</Filter>
     </ClCompile>
     <ClCompile Include="BackGroundObject.cpp">
       <Filter>Level\000.Object\Map</Filter>
@@ -198,10 +204,10 @@
       <Filter>Level\000.Object</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Base\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="PlayLevelBase.cpp">
-      <Filter>Object\Level</Filter>
+      <Filter>Object\Base\Level</Filter>
     </ClCompile>
     <ClCompile Include="ContentsMath.cpp">
       <Filter>Helper</Filter>
@@ -214,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelColObject_Base.cpp">
+      <Filter>Object\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
