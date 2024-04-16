@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PlayLevelBase.h"
 
+#include "CameraManager.h"
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "MouseAim.h"
@@ -28,6 +29,7 @@ void APlayLevelBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	UCameraManager::ChaseActor(GetWorld()->GetMainCamera(), Player->GetActorLocation());
 	Debug();
 }
 
