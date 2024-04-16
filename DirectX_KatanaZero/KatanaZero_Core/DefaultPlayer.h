@@ -20,7 +20,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-private:
+// Effect Setting
+protected:
 	void SetAttackEffect(const FVector& _Dir) override;
 
 private:
