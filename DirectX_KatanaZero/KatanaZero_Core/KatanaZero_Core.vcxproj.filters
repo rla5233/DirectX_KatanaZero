@@ -132,6 +132,9 @@
     <ClInclude Include="Grunt.h">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -208,6 +211,9 @@
     </ClCompile>
     <ClCompile Include="Grunt.cpp">
       <Filter>Level\000.Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

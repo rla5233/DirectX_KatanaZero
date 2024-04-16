@@ -1,8 +1,9 @@
 #pragma once
 #include <EngineCore/StateManager.h>
+#include "PhysicsObject.h"
 
 // Ό³Έν :
-class AEnemyBase : public AActor
+class AEnemyBase : public AActor, public UPhysicsObject
 {
 	GENERATED_BODY(AActor)
 public:
