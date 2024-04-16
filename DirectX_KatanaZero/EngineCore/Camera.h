@@ -41,6 +41,7 @@ public:
 	}
 
 	void ViewPortSetting();
+	float4 ScreenPosToWorldPos(float4 _ScreenPos);
 
 protected:
 	void BeginPlay() override;
@@ -57,6 +58,7 @@ private:
 
 	FMatrix View;
 	FMatrix Projection;
+	FMatrix ViewPortMat;
 	D3D11_VIEWPORT ViewPort;
 
 	FTransform PrevTransform;
