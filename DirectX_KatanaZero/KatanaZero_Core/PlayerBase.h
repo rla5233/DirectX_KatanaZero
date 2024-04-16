@@ -119,6 +119,9 @@ private:
 	void WallSlideStart();
 	void WallSlide(float _DeltaTime);
 
+	void FlipStart();
+	void Flip(float _DeltaTime);
+
 // FSM Input Check
 private:
 	bool IsRunInputDown();
@@ -167,11 +170,6 @@ private:
 // Effect Set (virtual)
 protected:
 	virtual void SetAttackEffect(const FVector& _Dir) {};
-
-
-// Effect Update (virtual)
-protected:
-
 
 };
 

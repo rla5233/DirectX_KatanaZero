@@ -593,8 +593,44 @@ void APlayerBase::WallSlide(float _DeltaTime)
 
 	if (true == IsJumpInputDown())
 	{
-
+		State.ChangeState("Flip");
+		return;
 	}
+}
+
+void APlayerBase::FlipStart()
+{
+	Velocity = FVector::Zero;
+
+	EEngineDir CurDir = Renderer->GetDir();
+	switch (CurDir)
+	{
+	case EEngineDir::Left:
+		RendererDirChange(EEngineDir::Right);
+		break;
+	case EEngineDir::Right:
+		RendererDirChange(EEngineDir::Left);
+		break;
+	}
+
+	Renderer->ChangeAnimation(Anim::player_flip);
+}
+
+void APlayerBase::Flip(float _DeltaTime)
+{
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// 충돌 체크
+	ColCheckUpdate();
+
+	// StateChange Check
+	if (true == Renderer->IsCurAnimationEnd())
+	{
+		State.ChangeState("Fall");
+		return;
+	}
+
 }
 
 
@@ -613,6 +649,7 @@ void APlayerBase::StateInit()
 	State.CreateState("Roll");
 	State.CreateState("Attack");
 	State.CreateState("WallSlide");
+	State.CreateState("Flip");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle", std::bind(&APlayerBase::IdleStart, this));
@@ -626,6 +663,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("Roll", std::bind(&APlayerBase::RollStart, this));
 	State.SetStartFunction("Attack", std::bind(&APlayerBase::AttackStart, this));
 	State.SetStartFunction("WallSlide", std::bind(&APlayerBase::WallSlideStart, this));
+	State.SetStartFunction("Flip", std::bind(&APlayerBase::FlipStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
@@ -639,6 +677,7 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Roll", std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
 	State.SetUpdateFunction("Attack", std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
 	State.SetUpdateFunction("WallSlide", std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
+	State.SetUpdateFunction("Flip", std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
 
 	// State End 함수 세팅
 	State.SetEndFunction("WallSlide", [=] 
