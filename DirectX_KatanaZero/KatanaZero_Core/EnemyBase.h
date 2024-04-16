@@ -1,9 +1,10 @@
 #pragma once
 #include <EngineCore/StateManager.h>
+#include "PixelColObject_Base.h"
 #include "PhysicsObject.h"
 
 // Ό³Έν :
-class AEnemyBase : public AActor, public UPhysicsObject
+class AEnemyBase : public APixelColObject_Base, public UPhysicsObject
 {
 	GENERATED_BODY(AActor)
 public:

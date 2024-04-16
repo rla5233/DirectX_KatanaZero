@@ -1,19 +1,19 @@
 #pragma once
 
 // 설명 : 픽셀 충돌 적용 액터 (4개 지점에서 체크, FT, FB, BT, BB)
-class UPixelColObject_Base : public AActor
+class APixelColObject_Base : public AActor
 {
 	GENERATED_BODY(AActor)
 public:
 	// constrcuter destructer
-	UPixelColObject_Base();
-	~UPixelColObject_Base();
+	APixelColObject_Base();
+	~APixelColObject_Base();
 
 	// delete Function
-	UPixelColObject_Base(const UPixelColObject_Base& _Other) = delete;
-	UPixelColObject_Base(UPixelColObject_Base&& _Other) noexcept = delete;
-	UPixelColObject_Base& operator=(const UPixelColObject_Base& _Other) = delete;
-	UPixelColObject_Base& operator=(UPixelColObject_Base&& _Other) noexcept = delete;
+	APixelColObject_Base(const APixelColObject_Base& _Other) = delete;
+	APixelColObject_Base(APixelColObject_Base&& _Other) noexcept = delete;
+	APixelColObject_Base& operator=(const APixelColObject_Base& _Other) = delete;
+	APixelColObject_Base& operator=(APixelColObject_Base&& _Other) noexcept = delete;
 
 	void SetTop(const FVector& _Pos)
 	{
