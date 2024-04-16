@@ -442,6 +442,16 @@ void APlayerBase::FallGravityUpdate(float _DeltaTime)
 	}
 }
 
+void APlayerBase::WallGravityUpdate(float _DeltaTime)
+{
+	Velocity.Y += 0.5f * Const::default_gravity * _DeltaTime;
+
+	if (-Const::player_fall_max_speedy > Velocity.Y)
+	{
+		Velocity.Y = -Const::player_fall_max_speedy;
+	}
+}
+
 void APlayerBase::JumpVelXUpdate(float _DeltaTime)
 {
 	EEngineDir Dir = Renderer->GetDir();

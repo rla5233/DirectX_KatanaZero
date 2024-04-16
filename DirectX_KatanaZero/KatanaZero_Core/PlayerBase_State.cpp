@@ -557,6 +557,7 @@ void APlayerBase::Attack(float _DeltaTime)
 void APlayerBase::WallSlideStart()
 {
 	Velocity.X = 0.0f;
+	Velocity.Y += 200.0f;
 
 	EEngineDir Dir = Renderer->GetDir();
 	switch (Dir)
@@ -575,7 +576,7 @@ void APlayerBase::WallSlideStart()
 void APlayerBase::WallSlide(float _DeltaTime)
 {
 	// 속도 업데이트
-	GravityUpdate(_DeltaTime);
+	WallGravityUpdate(_DeltaTime);
 
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
@@ -590,6 +591,10 @@ void APlayerBase::WallSlide(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsJumpInputDown())
+	{
+
+	}
 }
 
 
