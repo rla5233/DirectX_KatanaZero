@@ -14,8 +14,6 @@ void AGrunt::BeginPlay()
 	Super::BeginPlay();
 
 	CreateAnimation();
-
-	StateChange("Turn");
 }
 
 void AGrunt::Tick(float _DeltaTime)
@@ -36,18 +34,33 @@ void AGrunt::Idle(float _DeltaTime)
 
 }
 
-void AGrunt::WalkStart()
+void AGrunt::PatrolWalkStart()
 {
-	Super::WalkStart();
+	Super::PatrolWalkStart();
 
-	SetVelocityByDir({ 100.0f, 0.0f, 0.0f });
-
-	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_walk);
+	IWalkStart(PatrolWalkTime);
 }
 
-void AGrunt::Walk(float _DeltaTime)
+void AGrunt::PatrolWalk(float _DeltaTime)
 {
-	Super::Walk(_DeltaTime);
+	Super::PatrolWalk(_DeltaTime);
+
+	if (0.0f < TimeCount)
+	{
+		TimeCount -= _DeltaTime;
+		return;
+	}
+
+
+
+}
+
+void AGrunt::IWalkStart(float _Time)
+{
+	Super::IWalkStart(_Time);
+
+	SetVelocityByDir({ 100.0f, 0.0f, 0.0f });
+	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_walk);
 }
 
 void AGrunt::RunStart()

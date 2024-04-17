@@ -2,14 +2,12 @@
 
 enum class ETitleState
 {
-	None,
 	Intro,
 	Select
 };
 
 enum class ETitleRenderOrder
 {
-	None,
 	BackGround,
 	Bottom,
 	Mid,
@@ -18,7 +16,6 @@ enum class ETitleRenderOrder
 
 enum class ERenderOrder
 {
-	None,
 	ColMap,
 	BackGround,
 	Enemy,
@@ -26,4 +23,11 @@ enum class ERenderOrder
 	Player2,
 	Effect,
 	UI
+};
+
+enum class EEnemyPatrol
+{
+	Walk,
+	Turn,
+	Stop
 };

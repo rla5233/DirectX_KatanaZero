@@ -34,6 +34,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	std::shared_ptr<AGrunt> NewGrunt = GetWorld()->SpawnActor<AGrunt>("Grunt");
 	NewGrunt->SetActorLocation({ 500.0f, 400.0f, 0.0f });
+	NewGrunt->StateChange("PatrolWalk");
 	AllEnemy.push_back(NewGrunt);
 }
 

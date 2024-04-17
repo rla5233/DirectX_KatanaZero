@@ -36,8 +36,6 @@ protected:
 
 protected:
 	float TimeCount = 0.0f;
-	float PatrolWalkTime = 0.0f;
-	float PatrolIdleTime = 0.0f;
 
 private:
 	USpriteRenderer* Renderer = nullptr;
@@ -51,11 +49,8 @@ protected:
 	virtual void IdleStart() {};
 	virtual void Idle(float _DeltaTime) {};
 
-	virtual void PatrolStart() {};
-	virtual void Patrol(float _DeltaTime) {};
-
-	virtual void WalkStart() {};
-	virtual void Walk(float _DeltaTime);
+	virtual void PatrolWalkStart() {};
+	virtual void PatrolWalk(float _DeltaTime);
 
 	virtual void RunStart() {};
 	virtual void Run(float _DeltaTime);
@@ -65,6 +60,13 @@ protected:
 
 	virtual void FallStart() {};
 	virtual void Fall(float _DeltaTime) {};
+
+// Interface
+protected:
+	virtual void IWalkStart(float _Time) 
+	{
+		TimeCount = _Time;
+	};
 
 };
 
