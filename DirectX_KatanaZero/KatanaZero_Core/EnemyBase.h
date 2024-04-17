@@ -28,6 +28,8 @@ public:
 		State.ChangeState(_State);
 	}
 
+	void SetVelocityByDir(const FVector& _Vel);
+
 protected:
 	void DirChange();
 

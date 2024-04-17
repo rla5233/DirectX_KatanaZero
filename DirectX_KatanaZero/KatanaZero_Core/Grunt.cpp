@@ -40,6 +40,8 @@ void AGrunt::WalkStart()
 {
 	Super::WalkStart();
 
+	SetVelocityByDir({ 50.0f, 0.0f, 0.0f });
+
 	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_walk);
 }
 

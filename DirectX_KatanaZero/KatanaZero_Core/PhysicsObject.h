@@ -44,7 +44,7 @@ public:
 		Acc += _Acc;
 	}
 
-	void VelocityUpdate(float _DeltaTime)
+	inline void VelocityUpdate(float _DeltaTime)
 	{
 		Velocity += Acc * _DeltaTime;
 	}

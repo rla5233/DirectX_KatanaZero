@@ -7,6 +7,7 @@ AEnemyBase::AEnemyBase()
 	Renderer->SetPivot(EPivot::BOT);
 	Renderer->SetOrder(ERenderOrder::Enemy);
 	Renderer->SetAutoSize(2.0f, true);
+	Renderer->SetDir(EEngineDir::Right);
 	SetRoot(Renderer);
 }
 
@@ -19,6 +20,21 @@ void AEnemyBase::BeginPlay()
 	Super::BeginPlay();
 
 	StateInit();
+}
+
+void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
+{
+	EEngineDir Dir = Renderer->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		SetVelocity({ -_Vel.X, _Vel.Y, _Vel.Z });
+		break;
+	case EEngineDir::Right:
+		SetVelocity({ _Vel.X, _Vel.Y, _Vel.Z });
+		break;
+	}
 }
 
 void AEnemyBase::DirChange()
