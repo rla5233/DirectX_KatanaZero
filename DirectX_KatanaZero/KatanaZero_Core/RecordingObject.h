@@ -6,7 +6,9 @@ struct USpriteRendererInfo
 {
 public:
 	FSpriteInfo SpriteInfo;
-	EEngineDir Dir;
+	FVector Position = FVector::Zero;
+	FVector Rocation = FVector::Zero;
+	EEngineDir Dir = EEngineDir::MAX;
 };
 
 class URecordInfo
@@ -48,7 +50,7 @@ private:
 	
 	int MaxSize = 10000;
 	int CurIndex = 0;
-	float TimeCount = 0.0f;
+	float TimeCount = Const::recording_delay;
 
 	std::vector<URecordInfo> AllRecordInfo;
 };

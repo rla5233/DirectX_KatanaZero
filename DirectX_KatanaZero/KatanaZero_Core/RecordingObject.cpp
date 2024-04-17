@@ -45,6 +45,8 @@ void URecordingObject::Recording(float _DeltaTime)
 	for (size_t i = 0; i < AllRenderer.size(); i++)
 	{
 		NewRecInfo.SpriteRendererData[AllRenderer[i]].SpriteInfo = AllRenderer[i]->GetCurInfo();
+		NewRecInfo.SpriteRendererData[AllRenderer[i]].Position = AllRenderer[i]->GetLocalPosition();
+		NewRecInfo.SpriteRendererData[AllRenderer[i]].Rocation = AllRenderer[i]->GetLocalRotation();
 		NewRecInfo.SpriteRendererData[AllRenderer[i]].Dir = AllRenderer[i]->GetDir();
 	}
 	
@@ -62,15 +64,14 @@ void URecordingObject::SetReplayStart()
 
 void URecordingObject::Replaying(float _DeltaTime)
 {
-	if (0.0f < TimeCount)
+	if (AllRecordInfo.size() <= CurIndex)
 	{
-		TimeCount -= _DeltaTime;
 		return;
 	}
 
-	if (AllRecordInfo.size() <= CurIndex)
+	if (0.0f < TimeCount)
 	{
-		int a = 0;
+		TimeCount -= _DeltaTime;
 		return;
 	}
 
@@ -84,14 +85,17 @@ void URecordingObject::Replaying(float _DeltaTime)
 
 		if (nullptr == CurSpriteInfo.SpriteInfo.Texture)
 		{
+			AllRenderer[i]->SetActive(false);
 			continue;
 		}
 
 		AllRenderer[i]->SetCurInfo(CurSpriteInfo.SpriteInfo);
+		AllRenderer[i]->SetPosition(CurSpriteInfo.Position);
+		AllRenderer[i]->SetRotationDeg(CurSpriteInfo.Rocation);
 		AllRenderer[i]->SetDir(CurSpriteInfo.Dir);
+		AllRenderer[i]->SetActive(true);
 	}
 
 	CurIndex++;
-
 	TimeCount = Const::recording_delay;
 }
