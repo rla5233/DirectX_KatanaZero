@@ -9,6 +9,7 @@ public:
 	FVector Position = FVector::Zero;
 	FVector Rocation = FVector::Zero;
 	EEngineDir Dir = EEngineDir::MAX;
+	bool IsActive = false;
 };
 
 class URecordInfo

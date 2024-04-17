@@ -48,6 +48,7 @@ void URecordingObject::Recording(float _DeltaTime)
 		NewRecInfo.SpriteRendererData[AllRenderer[i]].Position = AllRenderer[i]->GetLocalPosition();
 		NewRecInfo.SpriteRendererData[AllRenderer[i]].Rocation = AllRenderer[i]->GetLocalRotation();
 		NewRecInfo.SpriteRendererData[AllRenderer[i]].Dir = AllRenderer[i]->GetDir();
+		NewRecInfo.SpriteRendererData[AllRenderer[i]].IsActive = AllRenderer[i]->IsActive();
 	}
 	
 	AllRecordInfo.push_back(NewRecInfo);
@@ -83,7 +84,7 @@ void URecordingObject::Replaying(float _DeltaTime)
 	{
 		USpriteRendererInfo CurSpriteInfo = AllRecordInfo[CurIndex].SpriteRendererData[AllRenderer[i]];
 
-		if (nullptr == CurSpriteInfo.SpriteInfo.Texture)
+		if (false == CurSpriteInfo.IsActive || nullptr == CurSpriteInfo.SpriteInfo.Texture)
 		{
 			AllRenderer[i]->SetActive(false);
 			continue;
