@@ -18,11 +18,27 @@ APlayLevelBase::~APlayLevelBase()
 void APlayLevelBase::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
-	std::shared_ptr<AMouseAim> Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
+void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
+{
+	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player");
 	HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
+}
+
+void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
+{
+	Aim->Destroy();
+	ColMap->Destroy();
+	Player->Destroy();
+	HUD->Destroy();
+
+	Aim = nullptr;
+	ColMap = nullptr;
+	Player = nullptr;
+	HUD = nullptr;
 }
 
 void APlayLevelBase::Tick(float _DeltaTime)
@@ -62,20 +78,20 @@ void APlayLevelBase::Debug()
 
 void APlayLevelBase::DebugMessageFunction()
 {
-	{
-		std::string Msg = std::format("WinScale : {}\n", GEngine->EngineWindow.GetWindowScale().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
+	//{
+	//	std::string Msg = std::format("WinScale : {}\n", GEngine->EngineWindow.GetWindowScale().ToString());
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
 
-	{
-		std::string Msg = std::format("MousePos : {}\n", GEngine->EngineWindow.GetScreenMousePos().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
+	//{
+	//	std::string Msg = std::format("MousePos : {}\n", GEngine->EngineWindow.GetScreenMousePos().ToString());
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
 
-	{
-		std::string Msg = std::format("AimPos : {}\n", AMouseAim::GetMouseAimLocation().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
+	//{
+	//	std::string Msg = std::format("AimPos : {}\n", AMouseAim::GetMouseAimLocation().ToString());
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
 
 	{
 		std::string Msg = std::format("Player_Pos : {}\n", Player->GetActorLocation().ToString());

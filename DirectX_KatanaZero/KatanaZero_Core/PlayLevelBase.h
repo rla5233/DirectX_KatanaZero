@@ -2,6 +2,8 @@
 
 class AColMapObject;
 class ADefaultPlayer;
+class AEnemyBase;
+class AMouseAim;
 class AUp_HUD;
 
 // 설명 : PlayLevel 기본 클래스
@@ -28,12 +30,17 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void LevelEnd(ULevel* _NextLevel) override;
+	void LevelStart(ULevel* _PrevLevel) override;
+
 	bool IsStageClear();
 
 protected:
+	std::shared_ptr<AMouseAim> Aim = nullptr;
 	std::shared_ptr<AColMapObject> ColMap = nullptr;
 	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
+	std::vector<std::shared_ptr<AEnemyBase>> AllEnemy;
 
 // 디버깅 관련
 private:
