@@ -61,8 +61,6 @@ void APlayerBase::BeginPlay()
 	Back_Bot->SetOrder(ERenderOrder::Player2);
 	Back_Bot->SetAutoSize(3.0f, true);
 	Back_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
-
-	
 }
 
 void APlayerBase::DefaultUpdate(float _DeltaTime)
@@ -643,12 +641,4 @@ void APlayerBase::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	DefaultUpdate(_DeltaTime);
-
-	// ¼öÁ¤
-	if (UEngineInput::IsDown('F'))
-	{
-		bool IsActiveValue = Renderer->IsActive();
-		IsActiveValue = !IsActiveValue;
-		Renderer->SetActive(IsActiveValue);
-	}
 }

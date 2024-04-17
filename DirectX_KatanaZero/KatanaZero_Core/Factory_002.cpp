@@ -40,18 +40,17 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 void AFactory_002::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
-
 }
 
+void AFactory_002::ChangeStage()
+{
+	GEngine->ChangeLevel("Factory_003");
+}
 
 void AFactory_002::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (true == IsStageClear())
-	{
-		GEngine->ChangeLevel("Factory_003");
-	}
 }
 
 void AFactory_002::ResetPlayer()

@@ -19,6 +19,8 @@ APlayLevelBase::~APlayLevelBase()
 void APlayLevelBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StateInit();
 }
 
 void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
@@ -29,6 +31,8 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player");
 	HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
+
+	State.ChangeState("Play");
 }
 
 void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
@@ -58,7 +62,8 @@ void APlayLevelBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	UCameraManager::PlayLevelChaseActor(GetWorld()->GetMainCamera(), ColMap->GetMapTex(), Player->GetActorLocation());
+	State.Update(_DeltaTime);
+
 	Debug();
 }
 
@@ -83,6 +88,7 @@ bool APlayLevelBase::IsStageClear()
 	return Result;
 }
 
+// 디버깅 관련
 void APlayLevelBase::Debug()
 {
 	DebugMessageFunction();
@@ -90,6 +96,7 @@ void APlayLevelBase::Debug()
 	RestartCheck();
 }
 
+// 재시작
 void APlayLevelBase::RestartCheck()
 {
 	if (UEngineInput::IsDown('P'))
@@ -101,21 +108,6 @@ void APlayLevelBase::RestartCheck()
 
 void APlayLevelBase::DebugMessageFunction()
 {
-	//{
-	//	std::string Msg = std::format("WinScale : {}\n", GEngine->EngineWindow.GetWindowScale().ToString());
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
-
-	//{
-	//	std::string Msg = std::format("MousePos : {}\n", GEngine->EngineWindow.GetScreenMousePos().ToString());
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
-
-	//{
-	//	std::string Msg = std::format("AimPos : {}\n", AMouseAim::GetMouseAimLocation().ToString());
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
-
 	{
 		std::string Msg = std::format("Player_Pos : {}\n", Player->GetActorLocation().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
@@ -149,5 +141,52 @@ void APlayLevelBase::DebugMessageFunction()
 	{
 		std::string Msg = std::format("IsStairsUp : {}\n", Player->IsStairUp());
 		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+}
+
+// 상태 초기화
+void APlayLevelBase::StateInit()
+{
+	// State 생성
+	State.CreateState("Play");
+	State.CreateState("Replay");
+
+	// State Start 함수 세팅
+	State.SetStartFunction("Play", [=] {});
+	State.SetStartFunction("Replay", [=] { InputOn(); });
+
+	// State Update 함수 세팅
+	State.SetUpdateFunction("Play", [=](float)
+		{
+			UCameraManager::PlayLevelChaseActor(GetWorld()->GetMainCamera(), ColMap->GetMapTex(), Player->GetActorLocation());
+			if (true == IsStageClear())
+			{
+				State.ChangeState("Replay");
+				return;
+			}
+		}
+	);
+
+	State.SetUpdateFunction("Replay", std::bind(&APlayLevelBase::Replay, this, std::placeholders::_1));
+
+	// State End 함수 세팅
+}
+
+void APlayLevelBase::Replay(float _DeltaTime)
+{
+	if (true)
+	{
+		Player->StateChange("Replay");
+
+
+
+
+
+		if (true == IsDown(VK_LBUTTON))
+		{
+			InputOff();
+
+			ChangeStage();
+		}
 	}
 }

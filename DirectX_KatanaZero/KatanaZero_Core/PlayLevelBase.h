@@ -1,4 +1,5 @@
 #pragma once
+#include <EngineCore/StateManager.h>
 
 class AColMapObject;
 class ADefaultPlayer;
@@ -41,6 +42,14 @@ protected:
 	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
 	std::vector<std::shared_ptr<AEnemyBase>> AllEnemy;
+
+// FSM
+private:
+	UStateManager State;
+	void StateInit();
+
+	void Replay(float _DeltaTime);
+	virtual void ChangeStage() {};
 
 // µð¹ö±ë °ü·Ã
 private:

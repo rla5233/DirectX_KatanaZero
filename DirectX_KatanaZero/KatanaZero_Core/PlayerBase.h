@@ -122,6 +122,9 @@ private:
 	void FlipStart();
 	void Flip(float _DeltaTime);
 
+	void ReplayStart();
+	void Replay(float _DeltaTime);
+		
 // FSM Input Check
 private:
 	bool IsRunInputDown();

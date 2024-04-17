@@ -135,9 +135,6 @@
     <ClInclude Include="Grunt.h">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PixelColObject_Base.h">
-      <Filter>Object\Base</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsObject.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
@@ -145,6 +142,9 @@
       <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="PixelColObject.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="RecordingObject.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
   </ItemGroup>
@@ -221,9 +221,6 @@
     <ClCompile Include="Grunt.cpp">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="PixelColObject_Base.cpp">
-      <Filter>Object\Base</Filter>
-    </ClCompile>
     <ClCompile Include="LerpObject.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
@@ -231,6 +228,9 @@
       <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="PixelColObject.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="RecordingObject.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
   </ItemGroup>

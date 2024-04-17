@@ -652,6 +652,16 @@ void APlayerBase::Flip(float _DeltaTime)
 	}
 }
 
+void APlayerBase::ReplayStart()
+{
+
+}
+
+void APlayerBase::Replay(float _DeltaTime)
+{
+	int a = 0;
+}
+
 
 // State 초기화
 void APlayerBase::StateInit()
@@ -669,6 +679,7 @@ void APlayerBase::StateInit()
 	State.CreateState("Attack");
 	State.CreateState("WallSlide");
 	State.CreateState("Flip");
+	State.CreateState("Replay");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle", std::bind(&APlayerBase::IdleStart, this));
@@ -683,6 +694,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("Attack", std::bind(&APlayerBase::AttackStart, this));
 	State.SetStartFunction("WallSlide", std::bind(&APlayerBase::WallSlideStart, this));
 	State.SetStartFunction("Flip", std::bind(&APlayerBase::FlipStart, this));
+	State.SetStartFunction("Replay", std::bind(&APlayerBase::ReplayStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
@@ -697,6 +709,7 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Attack", std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
 	State.SetUpdateFunction("WallSlide", std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
 	State.SetUpdateFunction("Flip", std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
+	State.SetUpdateFunction("Replay", std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
 
 	// State End 함수 세팅
 	State.SetEndFunction("WallSlide", [=] 
