@@ -44,7 +44,8 @@ void URecordingObject::Recording(float _DeltaTime)
 	std::vector<std::shared_ptr<USpriteRenderer>> AllRenderer = Actor->GetComponentToClass<USpriteRenderer>();
 	for (size_t i = 0; i < AllRenderer.size(); i++)
 	{
-		NewRecInfo.RendererData[AllRenderer[i]] = AllRenderer[i]->GetCurInfo();
+		NewRecInfo.SpriteRendererData[AllRenderer[i]].SpriteInfo = AllRenderer[i]->GetCurInfo();
+		NewRecInfo.SpriteRendererData[AllRenderer[i]].Dir = AllRenderer[i]->GetDir();
 	}
 	
 	AllRecordInfo.push_back(NewRecInfo);
@@ -79,14 +80,15 @@ void URecordingObject::Replaying(float _DeltaTime)
 
 	for (size_t i = 0; i < AllRenderer.size(); i++)
 	{
-		FSpriteInfo CurSpriteInfo = AllRecordInfo[CurIndex].RendererData[AllRenderer[i]];
+		USpriteRendererInfo CurSpriteInfo = AllRecordInfo[CurIndex].SpriteRendererData[AllRenderer[i]];
 
-		if (nullptr == CurSpriteInfo.Texture)
+		if (nullptr == CurSpriteInfo.SpriteInfo.Texture)
 		{
 			continue;
 		}
 
-		AllRenderer[i]->SetCurInfo(CurSpriteInfo);
+		AllRenderer[i]->SetCurInfo(CurSpriteInfo.SpriteInfo);
+		AllRenderer[i]->SetDir(CurSpriteInfo.Dir);
 	}
 
 	CurIndex++;
