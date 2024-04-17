@@ -96,6 +96,17 @@ public:
 		Pivot = _Pivot;
 	}
 
+	inline FSpriteInfo GetCurInfo() const
+	{
+		return CurInfo;
+	}
+
+	void SetCurInfo(FSpriteInfo _CurInfo)
+	{
+		CurInfo = _CurInfo;
+		SetSpriteInfo(CurInfo);
+		CurAnimation = nullptr;
+	}
 
 protected:
 	void Tick(float _DeltaTime) override;

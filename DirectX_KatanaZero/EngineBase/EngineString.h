@@ -20,6 +20,8 @@ public:
 	// wstring과 string 구분을 하고 인코딩을 해가면서 사용해야 한다.
 	static std::wstring AnsiToUniCode(std::string_view View);
 
+	static std::vector<std::string> StringCutting(std::string& _Value, std::vector<std::string> _CutText);
+
 	static std::vector<std::string> StringCutting(std::string& _Value, std::string_view _Start, std::string_view _End);
 
 protected:
