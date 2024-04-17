@@ -78,18 +78,21 @@ void AEnemyBase::StateInit()
 	State.CreateState("Walk");
 	State.CreateState("Run");
 	State.CreateState("Turn");
+	State.CreateState("Patrol");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle", std::bind(&AEnemyBase::IdleStart, this));
 	State.SetStartFunction("Walk", std::bind(&AEnemyBase::WalkStart, this));
 	State.SetStartFunction("Run", std::bind(&AEnemyBase::RunStart, this));
 	State.SetStartFunction("Turn", std::bind(&AEnemyBase::TurnStart, this));
+	State.SetStartFunction("Patrol", std::bind(&AEnemyBase::TurnStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Walk", std::bind(&AEnemyBase::Walk, this, std::placeholders::_1));
 	State.SetUpdateFunction("Run", std::bind(&AEnemyBase::Run, this, std::placeholders::_1));
 	State.SetUpdateFunction("Turn", std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));
+	State.SetUpdateFunction("Patrol", std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));
 
 	// State End 함수 세팅
 	State.SetEndFunction("Turn", [=] 

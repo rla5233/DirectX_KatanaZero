@@ -34,6 +34,11 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+protected:
+	float TimeCount = 0.0f;
+	float PatrolWalkTime = 0.0f;
+	float PatrolIdleTime = 0.0f;
+
 private:
 	USpriteRenderer* Renderer = nullptr;
 
@@ -45,6 +50,9 @@ private:
 protected:
 	virtual void IdleStart() {};
 	virtual void Idle(float _DeltaTime) {};
+
+	virtual void PatrolStart() {};
+	virtual void Patrol(float _DeltaTime) {};
 
 	virtual void WalkStart() {};
 	virtual void Walk(float _DeltaTime);
