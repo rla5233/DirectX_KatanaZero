@@ -54,7 +54,7 @@ void AGrunt::RunStart()
 {
 	Super::RunStart();
 	
-	SetVelocity({ 200.0f, 0.0f, 0.0f });
+	SetVelocity({ 350.0f, 0.0f, 0.0f });
 
 	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_run);
 }
