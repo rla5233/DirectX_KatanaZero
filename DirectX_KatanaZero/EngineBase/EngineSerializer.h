@@ -1,11 +1,13 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "EngineMath.h"
 
 // 직렬화
 // 
 // 설명 :
 class UEngineFile;
+class UEngineSerializeObject;
 class UEngineSerializer
 {
 	friend UEngineFile;
@@ -25,14 +27,26 @@ public:
 
 	void WriteText(const std::string& _Text);
 
+	void operator<<(UEngineSerializeObject& _Data);
+
+	void operator<<(UEngineSerializeObject* _Data);
+
 	void operator<<(const int& _Data)
 	{
 		Write(&_Data, sizeof(int));
 	}
+
 	void operator<<(const bool& _Data)
 	{
 		Write(&_Data, sizeof(bool));
 	}
+
+	void operator<<(const float4& _Data)
+	{
+		Write(&_Data, sizeof(float4));
+	}
+
+
 	void operator<<(const std::string& _Data)
 	{
 		int Size = static_cast<int>(_Data.size());
@@ -40,12 +54,31 @@ public:
 		Write(_Data.c_str(), Size);
 	}
 
+	template<typename DataType>
+	void operator<<(const std::vector<DataType>& _Data)
+	{
+		int Size = static_cast<int>(_Data.size());
+		operator<<(Size);
+
+		for (size_t i = 0; i < _Data.size(); i++)
+		{
+			operator<<(_Data[i]);
+		}
+	}
+
+
 	void Read(void* _Data, size_t _Size);
 
 	void operator>>(int& _Data)
 	{
 		Read(&_Data, sizeof(int));
 	}
+
+	void operator>>(float4& _Data)
+	{
+		Read(&_Data, sizeof(float4));
+	}
+
 
 	void operator>>(std::string& _Data)
 	{
@@ -58,6 +91,28 @@ public:
 		}
 		_Data.resize(Size);
 		Read(&_Data[0], Size);
+	}
+
+	void operator>>(UEngineSerializeObject& _Data);
+
+	void operator>>(UEngineSerializeObject* _Data);
+
+	template<typename DataType>
+	void operator>>(std::vector<DataType>& _Data)
+	{
+		int Size = 0;
+		operator>>(Size);
+
+		if (Size == 0)
+		{
+			return;
+		}
+
+		_Data.resize(Size);
+		for (size_t i = 0; i < Size; i++)
+		{
+			operator>>(_Data[i]);
+		}
 	}
 
 

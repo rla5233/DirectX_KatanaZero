@@ -46,3 +46,23 @@ std::string UEngineSerializer::ToString()
 {
 	return static_cast<char*>(&Data[0]);
 }
+
+void UEngineSerializer::operator<<(UEngineSerializeObject& _Data)
+{
+	_Data.Serialize(*this);
+}
+
+void UEngineSerializer::operator<<(UEngineSerializeObject* _Data)
+{
+	_Data->Serialize(*this);
+}
+
+void UEngineSerializer::operator>>(UEngineSerializeObject& _Data)
+{
+	_Data.DeSerialize(*this);
+}
+
+void UEngineSerializer::operator>>(UEngineSerializeObject* _Data)
+{
+	_Data->DeSerialize(*this);
+}
