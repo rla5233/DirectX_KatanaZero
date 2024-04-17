@@ -61,11 +61,20 @@ void APlayerBase::BeginPlay()
 	Back_Bot->SetOrder(ERenderOrder::Player2);
 	Back_Bot->SetAutoSize(3.0f, true);
 	Back_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
+
+	SetRecordingSize(0.0f);
 }
 
 void APlayerBase::DefaultUpdate(float _DeltaTime)
 {
 	AttackDelayTimeUpdate(_DeltaTime);
+	
+	std::string CurState = State.GetCurStateName();
+
+	if ("Replay" != CurState)
+	{
+		Recording(this, _DeltaTime);
+	}
 }
 
 void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)

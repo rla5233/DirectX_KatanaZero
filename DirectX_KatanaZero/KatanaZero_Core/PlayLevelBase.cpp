@@ -153,7 +153,12 @@ void APlayLevelBase::StateInit()
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Play", [=] {});
-	State.SetStartFunction("Replay", [=] { InputOn(); });
+	State.SetStartFunction("Replay", [=] 
+		{ 
+			Player->StateChange("Replay");
+			InputOn();
+		}
+	);
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Play", [=](float)
@@ -176,7 +181,7 @@ void APlayLevelBase::Replay(float _DeltaTime)
 {
 	if (true)
 	{
-		Player->StateChange("Replay");
+		UCameraManager::PlayLevelChaseActor(GetWorld()->GetMainCamera(), ColMap->GetMapTex(), Player->GetActorLocation());
 
 
 

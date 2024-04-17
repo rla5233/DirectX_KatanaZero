@@ -1,8 +1,9 @@
 #pragma once
 #include <EngineCore/StateManager.h>
+#include "RecordingObject.h"
 
 // 설명 : Player 부모 클래스
-class APlayerBase : public AActor
+class APlayerBase : public AActor, public URecordingObject
 {
 	GENERATED_BODY(AActor)
 public:

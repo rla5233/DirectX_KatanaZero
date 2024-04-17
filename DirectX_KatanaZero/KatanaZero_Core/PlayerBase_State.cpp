@@ -654,14 +654,13 @@ void APlayerBase::Flip(float _DeltaTime)
 
 void APlayerBase::ReplayStart()
 {
-
+	SetReplayStart();
 }
 
 void APlayerBase::Replay(float _DeltaTime)
 {
-	int a = 0;
+	Replaying(this, _DeltaTime);
 }
-
 
 // State √ ±‚»≠
 void APlayerBase::StateInit()
