@@ -5,6 +5,7 @@
 #include "EngineShaderResources.h"
 
 // 설명 :
+// 랜더로만 하기에는 디버깅이나 위젯이나 
 class URenderUnit
 {
 public:
@@ -34,7 +35,7 @@ public:
 
 	void RenderingSetting();
 	void ResCopy(UEngineShader* _Shader);
-	virtual void Render(float _DeltaTime);
+	virtual bool Render(float _DeltaTime);
 
 protected:
 	std::shared_ptr<UEngineInputLayOut> LayOut;

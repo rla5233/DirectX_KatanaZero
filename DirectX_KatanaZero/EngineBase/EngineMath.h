@@ -140,6 +140,22 @@ public:
 
 
 public:
+	void ABS3D()
+	{
+		X = fabs(X);
+		Y = fabs(Y);
+		Z = fabs(Z);
+	}
+
+	float4 ABS3DReturn()
+	{
+		float4 Result;
+		Result.X = fabs(X);
+		Result.Y = fabs(Y);
+		Result.Z = fabs(Z);
+		return Result;
+	}
+
 
 	static float4 VectorRotationZToDeg(float4 _OriginVector, float _Angle)
 	{

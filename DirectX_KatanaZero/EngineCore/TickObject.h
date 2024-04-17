@@ -60,7 +60,17 @@ public:
 			}
 		}
 
-		CallBacks.push_back(std::make_shared<UEngineTickCallBack>( _Time ,_CallBack ));
+		CallBacks.push_back(std::make_shared<UEngineTickCallBack>(_Time, _CallBack));
+	}
+
+	bool IsActive()
+	{
+		return ActiveValue;
+	}
+
+	void SetActive(bool _Value)
+	{
+		ActiveValue = _Value;
 	}
 
 protected:
@@ -71,6 +81,8 @@ protected:
 	virtual void LevelStart(ULevel* _PrevLevel) {};
 
 private:
+	bool ActiveValue = true;
+
 	int Order = 0;
 
 	std::vector<std::shared_ptr<UEngineTickCallBack>> CallBacks;

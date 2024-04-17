@@ -34,7 +34,7 @@ public:
 
 protected:
 	void BeginPlay() override;
-	void Render(float _DeltaTime) override;
+	bool Render(float _DeltaTime) override;
 
 	std::vector<std::vector<int>> Tiles;
 	ResultColorValue ColorData;

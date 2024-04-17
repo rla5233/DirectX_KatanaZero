@@ -107,7 +107,8 @@ public:
 
 		Result.OBB.Center = WorldPosition.DirectFloat3;
 		// 절반크기로 넣어줘야 합니다.
-		Result.OBB.Extents = (WorldScale * 0.5f).DirectFloat3;
+
+		Result.OBB.Extents = (WorldScale * 0.5f).ABS3DReturn().DirectFloat3;
 
 		// 가장 친숙한 각도 체계는
 		// x 30 y 20 z 60 
@@ -130,7 +131,7 @@ public:
 
 		Result.OBB.Center = WorldPosition.DirectFloat3;
 		Result.OBB.Center.z = 0.0f;
-		Result.OBB.Extents = (WorldScale * 0.5f).DirectFloat3;
+		Result.OBB.Extents = (WorldScale * 0.5f).ABS3DReturn().DirectFloat3;
 		Result.OBB.Orientation = WorldRotation.DegToQuaternion().DirectFloat4;
 		return Result;
 	}

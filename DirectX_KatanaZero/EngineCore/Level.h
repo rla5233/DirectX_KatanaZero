@@ -15,6 +15,7 @@ class URenderer;
 class UCollision;
 class AGameMode;
 class UEngineCore;
+class UWidget;
 class ULevel final : public UTickObject, public UNameObject
 {
 	GENERATED_BODY(UTickObject)
@@ -23,6 +24,7 @@ class ULevel final : public UTickObject, public UNameObject
 	friend URenderer;
 	friend UCollision;
 	friend UEngineCore;
+	friend UWidget;
 	static bool IsActorConstructer;
 
 public:
@@ -101,10 +103,15 @@ private:
 
 	std::map<int, std::list<std::shared_ptr<UCollision>>> Collisions;
 
+	// Widget이라고 불리고
+	// 아예 액터랑 분리되어 있다.
+	std::map<int, std::list<std::shared_ptr<UWidget>>> Widgets;
+
 	void ConstructorActor(std::shared_ptr<AActor> _Actor, std::string_view _Name, int Order);
 	void PushActor(std::shared_ptr<AActor> _Actor);
 	void PushRenderer(std::shared_ptr<URenderer> _Renderer);
 	void PushCollision(std::shared_ptr<UCollision> _Collision);
+	void PushWidget(std::shared_ptr<UWidget> _Widget);
 	void ChangeOrderRenderer(std::shared_ptr<URenderer> _Renderer, int _PrevOrder, int _ChangeOrder);
 	void ChangeOrderCollision(std::shared_ptr<UCollision> _Collision, int _PrevOrder, int _ChangeOrder);
 

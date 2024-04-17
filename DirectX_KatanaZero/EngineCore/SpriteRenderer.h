@@ -59,7 +59,7 @@ public:
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, float _Inter = 0.1f, bool _Loop = true, int _Start = -1, int _End = -1);
 
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop = true);
-	
+
 	void ChangeAnimation(std::string_view _AnimationName);
 
 	void SetAutoSize(float _ScaleRatio, bool _AutoSize);
@@ -96,7 +96,7 @@ public:
 		Pivot = _Pivot;
 	}
 
-	
+
 protected:
 	void Tick(float _DeltaTime) override;
 	void MaterialSettingEnd() override;
@@ -107,12 +107,12 @@ private:
 	FSpriteInfo CurInfo;
 	EPivot Pivot = EPivot::MAX;
 	EEngineDir Dir = EEngineDir::MAX;
-	ResultColorValue ColorData;
-	FCuttingData CuttingDataValue;
 	std::shared_ptr<UEngineTexture> CurTexture = nullptr;
 	std::map<std::string, std::shared_ptr<USpriteAnimation>> Animations;
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
 	ETextureSampling SamplingValue = ETextureSampling::POINT;
 
+	ResultColorValue ColorData;
+	FCuttingData CuttingDataValue;
 };
 
