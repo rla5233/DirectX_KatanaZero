@@ -25,6 +25,7 @@ APlayerBase::APlayerBase()
 	
 	SetRoot(Root);
 	
+	SetRecordActor(this);
 	InputOn();
 }
 
@@ -73,7 +74,7 @@ void APlayerBase::DefaultUpdate(float _DeltaTime)
 
 	if ("Replay" != CurState)
 	{
-		Recording(this, _DeltaTime);
+		Recording(_DeltaTime);
 	}
 }
 

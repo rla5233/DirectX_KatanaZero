@@ -659,7 +659,7 @@ void APlayerBase::ReplayStart()
 
 void APlayerBase::Replay(float _DeltaTime)
 {
-	Replaying(this, _DeltaTime);
+	Replaying(_DeltaTime);
 }
 
 // State √ ±‚»≠

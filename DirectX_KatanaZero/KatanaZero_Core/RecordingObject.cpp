@@ -16,11 +16,12 @@ void URecordingObject::SetRecordingSize(float _RecTime)
 	AllRecordInfo.reserve(MaxSize);
 }
 
-void URecordingObject::Recording(AActor* _Actor, float _DeltaTime)
+void URecordingObject::Recording(float _DeltaTime)
 {
-	if (0.0f < TimeCount)
+#ifdef _DEBUG
+	if (nullptr == Actor)
 	{
-		TimeCount -= _DeltaTime;
+		MsgBoxAssert("녹화 대상이 설정되지 않았습니다.");
 		return;
 	}
 
@@ -29,11 +30,24 @@ void URecordingObject::Recording(AActor* _Actor, float _DeltaTime)
 		MsgBoxAssert("녹화 용량을 초과했습니다.");
 		return;
 	}
+#endif // _DEBUG
 
-	AActor* Actor = _Actor;
+	if (0.0f < TimeCount)
+	{
+		TimeCount -= _DeltaTime;
+		return;
+	}
+
+	std::vector<std::shared_ptr<USpriteRenderer>> AllRenderer = Actor->GetComponentToClass<USpriteRenderer>();
 
 	URecordInfo NewRecInfo = URecordInfo();
-	NewRecInfo.Position = _Actor->GetActorLocation();
+	NewRecInfo.Position = Actor->GetActorLocation();
+	
+	for (size_t i = 0; i < AllRenderer.size(); i++)
+	{
+		NewRecInfo.RendererData[AllRenderer[i]];
+	}
+
 	
 	AllRecordInfo.push_back(NewRecInfo);
 
@@ -47,7 +61,7 @@ void URecordingObject::SetReplayStart()
 	CurIndex = 0;
 }
 
-void URecordingObject::Replaying(AActor* _Actor, float _DeltaTime)
+void URecordingObject::Replaying(float _DeltaTime)
 {
 	if (0.0f < TimeCount)
 	{
@@ -61,7 +75,7 @@ void URecordingObject::Replaying(AActor* _Actor, float _DeltaTime)
 		return;
 	}
 
-	_Actor->SetActorLocation(AllRecordInfo[CurIndex].Position);
+	Actor->SetActorLocation(AllRecordInfo[CurIndex].Position);
 
 	CurIndex++;
 
