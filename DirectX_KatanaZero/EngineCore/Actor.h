@@ -105,6 +105,23 @@ public:
 		return std::dynamic_pointer_cast<WidgetType>(NewWidget);
 	}
 
+	template<typename Class>
+	std::vector<std::shared_ptr<Class>> GetComponentToClass()
+	{
+		std::vector<std::shared_ptr<Class>> FindVector;
+
+		for (size_t i = 0; i < Components.size(); i++)
+		{
+			std::shared_ptr<Class> ClassType = std::dynamic_pointer_cast<Class>(Components[i]);
+
+			if (nullptr != ClassType)
+			{
+				FindVector.push_back(ClassType);
+			}
+		}
+
+		return FindVector;
+	}
 
 
 

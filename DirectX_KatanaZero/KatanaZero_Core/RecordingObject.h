@@ -7,7 +7,19 @@ class URecordInfo
 	friend URecordingObject;
 private:
 	std::map<URenderer*, FSpriteInfo> RendererData;
+	AActor* Actor;
 	FVector Position;
+
+public:
+	void Revers()
+	{
+		/*for (std::pair<const URenderer*, FSpriteInfo>& Pair : RendererData)
+		{
+
+		}*/
+		
+		Actor->SetActorLocation(Position);
+	}
 	
 
 };
