@@ -6,6 +6,7 @@ class URecordInfo
 {
 	friend URecordingObject;
 private:
+	std::map<URenderer*, FSpriteInfo> RendererData;
 	FVector Position;
 	
 

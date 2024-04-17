@@ -34,7 +34,7 @@ void URecordingObject::Recording(AActor* _Actor, float _DeltaTime)
 
 	URecordInfo NewRecInfo = URecordInfo();
 	NewRecInfo.Position = _Actor->GetActorLocation();
-
+	
 	AllRecordInfo.push_back(NewRecInfo);
 
 	CurIndex++;
