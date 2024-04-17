@@ -38,5 +38,7 @@ private:
 	FVector Top = FVector::Zero;
 	FVector Bot = FVector::Zero;
 
+	bool IsStairsUpValue = false;
+
 };
 
