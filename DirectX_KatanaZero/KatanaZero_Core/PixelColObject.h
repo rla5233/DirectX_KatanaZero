@@ -39,6 +39,5 @@ private:
 	FVector Bot = FVector::Zero;
 
 	bool IsStairsUpValue = false;
-
 };
 

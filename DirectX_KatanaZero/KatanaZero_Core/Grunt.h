@@ -27,5 +27,8 @@ protected:
 	void IdleStart() override;
 	void Idle(float _DeltaTime) override;
 
+	void WalkStart() override;
+	void Walk(float _DeltaTime) override;
+
  };
 

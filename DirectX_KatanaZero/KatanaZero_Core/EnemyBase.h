@@ -29,6 +29,9 @@ public:
 	}
 
 protected:
+	void DirChange();
+
+protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
@@ -43,6 +46,12 @@ private:
 protected:
 	virtual void IdleStart() {};
 	virtual void Idle(float _DeltaTime) {};
+
+	virtual void WalkStart() {};
+	virtual void Walk(float _DeltaTime);
+
+	virtual void FallStart() {};
+	virtual void Fall(float _DeltaTime) {};
 
 };
 

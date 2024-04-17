@@ -95,6 +95,7 @@ namespace Anim
 
 	// Enemy
 	const std::string_view enemy_grunt_idle = "grunt_idle";
+	const std::string_view enemy_grunt_walk = "grunt_walk";
 
 	// Effect Anim
 	const std::string_view effect_player_slash		= "player_slash";

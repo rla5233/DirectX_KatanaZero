@@ -24,11 +24,42 @@ public:
 		Velocity = _Vel;
 	}
 
+	inline FVector GetAcc() const
+	{
+		return Acc;
+	}
+
+	inline void SetAcc(const FVector& _Acc)
+	{
+		Acc = _Acc;
+	}
+
+	inline void AddVelocity(const FVector& _Vel)
+	{
+		Velocity += _Vel;
+	}
+
+	inline void AddAcc(const FVector& _Acc)
+	{
+		Acc += _Acc;
+	}
+
+	void VelocityUpdate(float _DeltaTime)
+	{
+		Velocity += Acc * _DeltaTime;
+	}
+
+	void PosUpdate(AActor* _Actor, float _DeltaTime)
+	{
+		_Actor->AddActorLocation(Velocity * _DeltaTime);
+	}
+
 protected:
 
 
 private:
 	FVector Velocity = FVector::Zero;
+	FVector Acc = FVector::Zero;
 
 };
 

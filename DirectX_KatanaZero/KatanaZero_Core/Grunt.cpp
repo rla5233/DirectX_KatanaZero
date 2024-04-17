@@ -15,17 +15,12 @@ void AGrunt::BeginPlay()
 
 	CreateAnimation();
 
-	StateChange("Idle");
+	StateChange("Walk");
 }
 
 void AGrunt::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-}
-
-void AGrunt::CreateAnimation()
-{
-	GetRenderer()->CreateAnimation(Anim::enemy_grunt_idle, ImgRes::enemy_grunt_idle, 0.02f, true);
 }
 
 void AGrunt::IdleStart()
@@ -39,4 +34,22 @@ void AGrunt::Idle(float _DeltaTime)
 {
 	Super::Idle(_DeltaTime);
 
+}
+
+void AGrunt::WalkStart()
+{
+	Super::WalkStart();
+
+	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_walk);
+}
+
+void AGrunt::Walk(float _DeltaTime)
+{
+	Super::Walk(_DeltaTime);
+}
+
+void AGrunt::CreateAnimation()
+{
+	GetRenderer()->CreateAnimation(Anim::enemy_grunt_idle, ImgRes::enemy_grunt_idle, 0.1f, true);
+	GetRenderer()->CreateAnimation(Anim::enemy_grunt_walk, ImgRes::enemy_grunt_walk, 0.1f, true);
 }

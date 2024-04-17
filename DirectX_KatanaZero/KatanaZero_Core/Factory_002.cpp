@@ -33,7 +33,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	AllEnemy.reserve(3);
 
 	std::shared_ptr<AGrunt> NewGrunt = GetWorld()->SpawnActor<AGrunt>("Grunt");
-	NewGrunt->SetActorLocation({ 200.0f, 147.0f, 0.0f });
+	NewGrunt->SetActorLocation({ 500.0f, 400.0f, 0.0f });
 	AllEnemy.push_back(NewGrunt);
 }
 
