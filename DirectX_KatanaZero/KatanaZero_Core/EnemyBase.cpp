@@ -20,6 +20,8 @@ void AEnemyBase::BeginPlay()
 void AEnemyBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
 }
 
 // State √ ±‚»≠

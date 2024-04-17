@@ -22,5 +22,10 @@ protected:
 
 private:
 	void CreateAnimation();
-};
+// FSM
+protected:
+	void IdleStart() override;
+	void Idle(float _DeltaTime) override;
+
+ };
 

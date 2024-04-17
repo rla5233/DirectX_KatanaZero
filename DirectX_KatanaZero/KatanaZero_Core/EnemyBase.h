@@ -1,10 +1,10 @@
 #pragma once
 #include <EngineCore/StateManager.h>
-#include "PixelColObject_Base.h"
+#include "PixelColObject.h"
 #include "PhysicsObject.h"
 
 // Ό³Έν :
-class AEnemyBase : public APixelColObject_Base, public UPhysicsObject
+class AEnemyBase : public AActor, public UPixelColObject, public UPhysicsObject
 {
 	GENERATED_BODY(AActor)
 public:
@@ -23,6 +23,11 @@ public:
 		return Renderer;
 	}
 
+	void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -35,6 +40,7 @@ private:
 	UStateManager State;
 	void StateInit();
 
+protected:
 	virtual void IdleStart() {};
 	virtual void Idle(float _DeltaTime) {};
 
