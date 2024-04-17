@@ -92,14 +92,21 @@ public:
 	static bool CircleToRotRect(const FTransform& _Left, const FTransform& _Right);
 	static bool CircleToPoint(const FTransform& _Left, const FTransform& _Right);
 
+	static bool RectToRotRect(const FTransform& _Left, const FTransform& _Right);
 	static bool RectToRect(const FTransform& _Left, const FTransform& _Right);
-	static bool RotRectToRotRect(const FTransform& _Left, const FTransform& _Right);
 	static bool RectToCircle(const FTransform& _Left, const FTransform& _Right);
-
 	static bool RectToPoint(const FTransform& _Left, const FTransform& _Right);
+
+	static bool RotRectToRotRect(const FTransform& _Left, const FTransform& _Right);
+	static bool RotRectToCirCle(const FTransform& _Left, const FTransform& _Right);
+	static bool RotRectToRect(const FTransform& _Left, const FTransform& _Right);
+	static bool RotRectToPoint(const FTransform& _Left, const FTransform& _Right);
 
 	static bool PointToRect(const FTransform& _Left, const FTransform& _Right);
 	static bool PointToCircle(const FTransform& _Left, const FTransform& _Right);
+	static bool PointToRotRect(const FTransform& _Left, const FTransform& _Right);
+
+
 public:
 	CollisionData GetCollisionData() const
 	{

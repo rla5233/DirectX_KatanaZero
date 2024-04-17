@@ -11,9 +11,23 @@ public:
 	CollisionFunctionInit()
 	{
 		FTransform::CollisionFunction[static_cast<int>(ECollisionType::CirCle)][static_cast<int>(ECollisionType::CirCle)] = FTransform::CircleToCircle;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::CirCle)][static_cast<int>(ECollisionType::Rect)] = FTransform::CircleToRect;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::CirCle)][static_cast<int>(ECollisionType::RotRect)] = FTransform::CircleToRotRect;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::CirCle)][static_cast<int>(ECollisionType::Point)] = FTransform::CircleToPoint;
+
 		FTransform::CollisionFunction[static_cast<int>(ECollisionType::Rect)][static_cast<int>(ECollisionType::Rect)] = FTransform::RectToRect;
 		FTransform::CollisionFunction[static_cast<int>(ECollisionType::Rect)][static_cast<int>(ECollisionType::CirCle)] = FTransform::RectToCircle;
-		FTransform::CollisionFunction[static_cast<int>(ECollisionType::CirCle)][static_cast<int>(ECollisionType::Rect)] = FTransform::CircleToRect;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::Rect)][static_cast<int>(ECollisionType::RotRect)] = FTransform::RectToRotRect;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::Rect)][static_cast<int>(ECollisionType::Point)] = FTransform::RectToPoint;
+
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::RotRect)][static_cast<int>(ECollisionType::Rect)] = FTransform::RotRectToRect;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::RotRect)][static_cast<int>(ECollisionType::CirCle)] = FTransform::RotRectToCirCle;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::RotRect)][static_cast<int>(ECollisionType::RotRect)] = FTransform::RotRectToRotRect;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::RotRect)][static_cast<int>(ECollisionType::Point)] = FTransform::RotRectToPoint;
+
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::Point)][static_cast<int>(ECollisionType::Rect)] = FTransform::PointToRect;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::Point)][static_cast<int>(ECollisionType::CirCle)] = FTransform::PointToCircle;
+		FTransform::CollisionFunction[static_cast<int>(ECollisionType::Point)][static_cast<int>(ECollisionType::RotRect)] = FTransform::PointToRotRect;
 	}
 	~CollisionFunctionInit()
 	{
@@ -44,24 +58,6 @@ bool FTransform::CircleToRotRect(const FTransform& _Left, const FTransform& _Rig
 	return Left.Sphere.Intersects(Right.OBB);
 }
 
-bool FTransform::RectToCircle(const FTransform& _Left, const FTransform& _Right)
-{
-	return CircleToRect(_Right, _Left);
-}
-
-bool FTransform::RectToRect(const FTransform& _Left, const FTransform& _Right)
-{
-	CollisionData Left = _Left.GetCollisionData2D();
-	CollisionData Right = _Right.GetCollisionData2D();
-	return Left.AABB.Intersects(Right.AABB);
-}
-
-bool FTransform::RotRectToRotRect(const FTransform& _Left, const FTransform& _Right)
-{
-	CollisionData Left = _Left.GetCollisionData2D();
-	CollisionData Right = _Right.GetCollisionData2D();
-	return Left.OBB.Intersects(Right.OBB);
-}
 
 bool FTransform::CircleToPoint(const FTransform& _Left, const FTransform& _Right)
 {
@@ -71,13 +67,26 @@ bool FTransform::CircleToPoint(const FTransform& _Left, const FTransform& _Right
 	return Left.Sphere.Intersects(Right.Sphere);
 }
 
-bool FTransform::PointToCircle(const FTransform& _Left, const FTransform& _Right)
+
+bool FTransform::RectToCircle(const FTransform& _Left, const FTransform& _Right)
 {
-	return CircleToPoint(_Right, _Left);
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.AABB.Intersects(Right.Sphere);
 }
-bool FTransform::PointToRect(const FTransform& _Left, const FTransform& _Right)
+
+bool FTransform::RectToRect(const FTransform& _Left, const FTransform& _Right)
 {
-	return RectToPoint(_Right, _Left);
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.AABB.Intersects(Right.AABB);
+}
+
+bool FTransform::RectToRotRect(const FTransform& _Left, const FTransform& _Right)
+{
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.AABB.Intersects(Right.OBB);
 }
 
 bool FTransform::RectToPoint(const FTransform& _Left, const FTransform& _Right)
@@ -88,6 +97,53 @@ bool FTransform::RectToPoint(const FTransform& _Left, const FTransform& _Right)
 	return Left.AABB.Intersects(Right.Sphere);
 }
 
+
+
+bool FTransform::PointToCircle(const FTransform& _Left, const FTransform& _Right)
+{
+	return CircleToPoint(_Right, _Left);
+}
+bool FTransform::PointToRect(const FTransform& _Left, const FTransform& _Right)
+{
+	return RectToPoint(_Right, _Left);
+}
+
+bool FTransform::PointToRotRect(const FTransform& _Left, const FTransform& _Right)
+{
+	return RotRectToPoint(_Right, _Left);
+}
+
+
+
+
+
+bool FTransform::RotRectToRotRect(const FTransform& _Left, const FTransform& _Right)
+{
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.OBB.Intersects(Right.OBB);
+}
+
+bool FTransform::RotRectToCirCle(const FTransform& _Left, const FTransform& _Right)
+{
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.OBB.Intersects(Right.Sphere);
+}
+bool FTransform::RotRectToRect(const FTransform& _Left, const FTransform& _Right)
+{
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	return Left.OBB.Intersects(Right.AABB);
+}
+
+bool FTransform::RotRectToPoint(const FTransform& _Left, const FTransform& _Right)
+{
+	CollisionData Left = _Left.GetCollisionData2D();
+	CollisionData Right = _Right.GetCollisionData2D();
+	Right.Sphere.Radius = 0.0f;
+	return Left.OBB.Intersects(Right.Sphere);
+}
 
 
 FTransform::FTransform()
