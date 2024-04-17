@@ -30,5 +30,8 @@ protected:
 	void WalkStart() override;
 	void Walk(float _DeltaTime) override;
 
+	void RunStart() override;
+	void Run(float _DeltaTime) override;
+
  };
 

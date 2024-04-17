@@ -46,6 +46,7 @@ protected:
 private:
 	void Debug();
 	virtual void ResetPlayer() {};
+	void RestartCheck();
 	void DebugMessageFunction();
 
 };

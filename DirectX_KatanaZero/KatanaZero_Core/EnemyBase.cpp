@@ -61,6 +61,13 @@ void AEnemyBase::Tick(float _DeltaTime)
 
 void AEnemyBase::Walk(float _DeltaTime)
 {
+	// 위치 업데이트
+	PosUpdate(this, _DeltaTime);
+}
+
+void AEnemyBase::Run(float _DeltaTime)
+{
+	// 위치 업데이트
 	PosUpdate(this, _DeltaTime);
 }
 
@@ -70,14 +77,17 @@ void AEnemyBase::StateInit()
 	// State 생성
 	State.CreateState("Idle");
 	State.CreateState("Walk");
+	State.CreateState("Run");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle", std::bind(&AEnemyBase::IdleStart, this));
 	State.SetStartFunction("Walk", std::bind(&AEnemyBase::WalkStart, this));
+	State.SetStartFunction("Run", std::bind(&AEnemyBase::RunStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Walk", std::bind(&AEnemyBase::Walk, this, std::placeholders::_1));
+	State.SetUpdateFunction("Run", std::bind(&AEnemyBase::Run, this, std::placeholders::_1));
 
 	// State End 함수 세팅
 }

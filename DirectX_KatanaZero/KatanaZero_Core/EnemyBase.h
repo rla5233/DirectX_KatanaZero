@@ -52,6 +52,9 @@ protected:
 	virtual void WalkStart() {};
 	virtual void Walk(float _DeltaTime);
 
+	virtual void RunStart() {};
+	virtual void Run(float _DeltaTime);
+
 	virtual void FallStart() {};
 	virtual void Fall(float _DeltaTime) {};
 

@@ -87,6 +87,16 @@ void APlayLevelBase::Debug()
 {
 	DebugMessageFunction();
 	ResetPlayer();
+	RestartCheck();
+}
+
+void APlayLevelBase::RestartCheck()
+{
+	if (UEngineInput::IsDown('P'))
+	{
+		LevelEnd(nullptr);
+		LevelStart(nullptr);
+	}
 }
 
 void APlayLevelBase::DebugMessageFunction()
