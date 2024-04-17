@@ -16,13 +16,6 @@ AFactory_003::~AFactory_003()
 void AFactory_003::BeginPlay()
 {
 	Super::BeginPlay();
-
-	GetWorld()->GetMainCamera()->SetActorLocation({ 665.0f, 392.0f, -100.0f });
-
-	ColMap->SetColMapSprite(ImgRes::factory_colmap3, 1.0f, true);
-	ColMap->SetBGSprite(ImgRes::factory_background3, 1.0f, true);
-
-	Player->SetActorLocation({ 175.0f, 300.0f, 0.0f });
 }
 
 void AFactory_003::Tick(float _DeltaTime)
@@ -33,6 +26,23 @@ void AFactory_003::Tick(float _DeltaTime)
 	{
 		GEngine->ChangeLevel("Factory_004");
 	}
+}
+
+void AFactory_003::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	GetWorld()->GetMainCamera()->SetActorLocation({ 665.0f, 392.0f, -100.0f });
+
+	ColMap->SetColMapSprite(ImgRes::factory_colmap3, 1.0f, true);
+	ColMap->SetBGSprite(ImgRes::factory_background3, 1.0f, true);
+
+	Player->SetActorLocation({ 175.0f, 300.0f, 0.0f });
+}
+
+void AFactory_003::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
 }
 
 void AFactory_003::ResetPlayer()

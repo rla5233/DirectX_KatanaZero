@@ -16,6 +16,16 @@ AFactory_005::~AFactory_005()
 void AFactory_005::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void AFactory_005::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+}
+
+void AFactory_005::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
 
 	GetWorld()->GetMainCamera()->SetActorLocation({ 665.0f, 392.0f, -100.0f });
 
@@ -25,9 +35,9 @@ void AFactory_005::BeginPlay()
 	Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
 }
 
-void AFactory_005::Tick(float _DeltaTime)
+void AFactory_005::LevelEnd(ULevel* _NextLevel)
 {
-	Super::Tick(_DeltaTime);
+	Super::LevelEnd(_NextLevel);
 }
 
 void AFactory_005::ResetPlayer()

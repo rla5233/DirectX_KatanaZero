@@ -22,6 +22,8 @@ void APlayLevelBase::BeginPlay()
 
 void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 {
+	Super::LevelStart(_PrevLevel);
+
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player");
@@ -30,6 +32,8 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 
 void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 {
+	Super::LevelEnd(_NextLevel);
+
 	Aim->Destroy();
 	ColMap->Destroy();
 	Player->Destroy();
