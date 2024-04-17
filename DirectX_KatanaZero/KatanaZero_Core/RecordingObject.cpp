@@ -38,16 +38,14 @@ void URecordingObject::Recording(float _DeltaTime)
 		return;
 	}
 
-	std::vector<std::shared_ptr<USpriteRenderer>> AllRenderer = Actor->GetComponentToClass<USpriteRenderer>();
-
 	URecordInfo NewRecInfo = URecordInfo();
 	NewRecInfo.Position = Actor->GetActorLocation();
 	
+	std::vector<std::shared_ptr<USpriteRenderer>> AllRenderer = Actor->GetComponentToClass<USpriteRenderer>();
 	for (size_t i = 0; i < AllRenderer.size(); i++)
 	{
-		NewRecInfo.RendererData[AllRenderer[i]];
+		NewRecInfo.RendererData[AllRenderer[i]] = AllRenderer[i]->GetCurInfo();
 	}
-
 	
 	AllRecordInfo.push_back(NewRecInfo);
 
@@ -76,6 +74,13 @@ void URecordingObject::Replaying(float _DeltaTime)
 	}
 
 	Actor->SetActorLocation(AllRecordInfo[CurIndex].Position);
+
+	std::vector<std::shared_ptr<USpriteRenderer>> AllRenderer = Actor->GetComponentToClass<USpriteRenderer>();
+
+	for (size_t i = 0; i < AllRenderer.size(); i++)
+	{
+		AllRenderer[i]->SetCurInfo(AllRecordInfo[CurIndex].RendererData[AllRenderer[i]]);
+	}
 
 	CurIndex++;
 
