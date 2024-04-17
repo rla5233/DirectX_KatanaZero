@@ -1,28 +1,31 @@
 #pragma once
 #include "EngineEnums.h"
 #include <EngineBase/Transform.h>
+#include "RenderUnit.h"
 
-// 작은 랜더러를 하나만든다고 생각하면 된다.
-class DebugRenderInfo
+class UDebugRenderInfo
 {
-	class UEngineMesh;
-	class UEngineMaterial;
-
-	std::shared_ptr<UEngineMesh> Mesh;
-	std::shared_ptr<UEngineMaterial> Material;
+public:
+	FTransform Trans;
+	float4 Color;
+	URenderUnit Unit;
 };
 
 class UEngineCore;
 class UDebugRenderClass
 {
+	// 함수 firend 
 	friend UEngineCore;
-private:
-	static void DebugRender();
+
+public:
+
+
+	static void DebugRender(ULevel* _Level);
 };
 
 namespace UEngineDebug
 {
-
-	void DebugRender(EDebugRenderType _DebugText, FTransform& _Transform);
+	//                   박스를                        여기에                   이색으로 그려줘.
+	void DrawDebugRender(EDebugRenderType _DebugText, FTransform& _Transform, float4 _Color);
 }
 

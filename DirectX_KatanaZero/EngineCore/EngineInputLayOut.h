@@ -2,11 +2,13 @@
 #include <EnginePlatform/EngineResources.h>
 
 class URenderer;
+class URenderUnit;
 class UEngineVertexBuffer;
 class UEngineVertexShader;
 // Ό³Έν :
 class UEngineInputLayOut : public UEngineResources<UEngineInputLayOut>
 {
+	friend URenderUnit;
 	friend URenderer;
 
 public:

@@ -25,6 +25,8 @@ class ULevel;
 class UEngineCore
 {
 public:
+	bool IsDebug;
+
 	// constrcuter destructer
 	UEngineCore();
 	~UEngineCore();
@@ -63,7 +65,7 @@ public:
 	{
 		return EngineDevice.GetContext();
 	}
-	
+
 	void ChangeLevel(std::string_view _Name)
 	{
 		std::string UpperName = UEngineString::ToUpper(_Name);

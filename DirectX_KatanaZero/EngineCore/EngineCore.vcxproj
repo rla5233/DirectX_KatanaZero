@@ -309,6 +309,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="RenderUnit.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SceneComponent.h">
       <SubType>
       </SubType>
@@ -475,6 +479,10 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PreCompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RenderUnit.cpp">
       <SubType>
       </SubType>
     </ClCompile>

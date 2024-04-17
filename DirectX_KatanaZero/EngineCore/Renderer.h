@@ -12,6 +12,8 @@
 // 기능이 집약되지 않았고 특화기능을 만들수가 없다.
 // 특화기능?
 
+// 랜더러는 순수하게 랜더링에 관련된 애가 아니다.
+// 액터 오더 등등등
 class UEngineShaderResources;
 class URenderer : public USceneComponent, public std::enable_shared_from_this<URenderer>
 {
@@ -41,9 +43,9 @@ public:
 		return Material;
 	}
 
-
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);
+	virtual void MaterialSettingEnd() {}
 
 	std::shared_ptr<UEngineShaderResources> Resources;
 
@@ -55,7 +57,6 @@ public:
 
 	void SetOrder(int _Order) override;
 
-	virtual void MaterialSettingEnd() {}
 
 protected:
 	void BeginPlay() override;

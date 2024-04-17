@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineEnums.h"
+#include <EngineBase/EngineDirectory.h>
 
 class UEngineInputLayOut;
 class UEngineShaderResources;
@@ -9,6 +10,8 @@ class UEngineShader
 	friend UEngineInputLayOut;
 
 public:
+	static void AutoCompile(UEngineDirectory _Dir);
+
 	// constrcuter destructer
 	UEngineShader();
 	~UEngineShader();

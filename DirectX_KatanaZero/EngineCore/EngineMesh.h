@@ -3,8 +3,10 @@
 #include "EngineIndexBuffer.h"
 
 // Ό³Έν :
+class URenderUnit;
 class UEngineMesh : public UEngineResources<UEngineMesh>
 {
+	friend URenderUnit;
 	friend URenderer;
 
 public:

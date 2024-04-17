@@ -243,6 +243,9 @@
     <ClInclude Include="EngineStruct.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="RenderUnit.h">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -394,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="EngineStruct.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUnit.cpp">
+      <Filter>Object\Component\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

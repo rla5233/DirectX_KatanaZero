@@ -84,63 +84,21 @@ void ShaderInit()
 {
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("EngineShader");
-
-	std::vector<UEngineFile> Files = Dir.GetAllFile({".fx", "hlsl"});
-
-	for (size_t i = 0; i < Files.size(); i++)
-	{
-		std::string FullPath = Files[i].GetFullPath();
-		std::string AllShaderCode = Files[i].GetString();
-
-		{
-			// 앞에서부터 뒤로
-			size_t ShaderEntryEnd = AllShaderCode.find("_VS("/*, 0*/);
-
-			if (std::string::npos != ShaderEntryEnd)
-			{
-				// 뒤에서부터 앞으로
-				size_t ShaderEntryStart = AllShaderCode.rfind(" ", ShaderEntryEnd);
-				std::string EntryName = AllShaderCode.substr(ShaderEntryStart + 1, ShaderEntryEnd - ShaderEntryStart - 1);
-				EntryName += "_VS";
-
-				UEngineVertexShader::Load(FullPath.c_str(), EntryName);
-			}
-		}
-
-		{
-			// 앞에서부터 뒤로
-			size_t ShaderEntryEnd = AllShaderCode.find("_PS("/*, 0*/);
-
-			if (std::string::npos != ShaderEntryEnd)
-			{
-				// 뒤에서부터 앞으로
-				size_t ShaderEntryStart = AllShaderCode.rfind(" ", ShaderEntryEnd);
-				std::string EntryName = AllShaderCode.substr(ShaderEntryStart + 1, ShaderEntryEnd - ShaderEntryStart - 1);
-				EntryName += "_PS";
-
-				UEnginePixelShader::Load(FullPath.c_str(), EntryName);
-			}
-		}
-	}
-
-	// UEngineVertexShader::Load("D:ENgineShader\MeshVertexShader", "AAAA_VS");
-
-	//UEngineVertexShader::Load("AAA.png", EntryName);
-	//UEngineVertexShader::Load("BBB.png", EntryName);
+	UEngineShader::AutoCompile(Dir);
 }
 
 void SettingInit()
 {
-		//D3D11_FILL_MODE FillMode;
-		//D3D11_CULL_MODE CullMode;
-		//BOOL FrontCounterClockwise;
-		//INT DepthBias;
-		//FLOAT DepthBiasClamp;
-		//FLOAT SlopeScaledDepthBias;
-		//BOOL DepthClipEnable;
-		//BOOL ScissorEnable;
-		//BOOL MultisampleEnable;
-		//BOOL AntialiasedLineEnable;
+	//D3D11_FILL_MODE FillMode;
+	//D3D11_CULL_MODE CullMode;
+	//BOOL FrontCounterClockwise;
+	//INT DepthBias;
+	//FLOAT DepthBiasClamp;
+	//FLOAT SlopeScaledDepthBias;
+	//BOOL DepthClipEnable;
+	//BOOL ScissorEnable;
+	//BOOL MultisampleEnable;
+	//BOOL AntialiasedLineEnable;
 
 	{
 		D3D11_RASTERIZER_DESC Desc = {};
@@ -166,6 +124,16 @@ void SettingInit()
 		// 레스터라이저 세팅
 		UEngineRasterizer::Create("EngineBase", Desc);
 	}
+
+	{
+		D3D11_RASTERIZER_DESC Desc = {};
+		Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+		Desc.AntialiasedLineEnable = TRUE;
+		Desc.DepthClipEnable = TRUE;
+		UEngineRasterizer::Create("Debug", Desc);
+	}
+
 
 	{
 		D3D11_SAMPLER_DESC Desc = {};
@@ -227,7 +195,7 @@ void SettingInit()
 
 		// float4 DestColor = 0011;
 		// float4 SrcColor = 0000;
-		
+
 		// float4 DestFilter = 0011;
 		// float4 SrcFilter = 0000;
 		// Result = DestColor * DestFilter (+) SrcColor * SrcFilter;
@@ -253,7 +221,7 @@ void SettingInit()
 		// SRCColor = 000(1)
 		// DestFilter =  1 - 1
 		// DestColor *DestFilter ; 
-		
+
 		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 
 		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
@@ -298,10 +266,19 @@ void SettingInit()
 void MaterialInit()
 {
 
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImage");
+		Mat->SetPixelShader("ImageShader.fx");
+		Mat->SetVertexShader("ImageShader.fx");
+	}
 
-	std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImage");
-	Mat->SetPixelShader("ImageShader.fx");
-	Mat->SetVertexShader("ImageShader.fx");
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Debug");
+		Mat->SetPixelShader("DebugShader.fx");
+		Mat->SetVertexShader("DebugShader.fx");
+		Mat->SetRasterizer("Debug");
+	}
+
 
 }
 

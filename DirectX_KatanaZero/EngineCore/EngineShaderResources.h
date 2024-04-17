@@ -39,9 +39,11 @@ public:
 
 // Ό³Έν :
 class URenderer;
+class URenderUnit;
 class UEngineShader;
 class UEngineShaderResources
 {
+	friend URenderUnit;
 	friend UEngineShader;
 	friend URenderer;
 
