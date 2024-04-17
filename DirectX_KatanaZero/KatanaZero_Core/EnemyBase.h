@@ -31,9 +31,6 @@ public:
 	void SetVelocityByDir(const FVector& _Vel);
 
 protected:
-	void DirChange();
-
-protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
@@ -54,6 +51,9 @@ protected:
 
 	virtual void RunStart() {};
 	virtual void Run(float _DeltaTime);
+
+	virtual void TurnStart();
+	virtual void Turn(float _DeltaTime);
 
 	virtual void FallStart() {};
 	virtual void Fall(float _DeltaTime) {};

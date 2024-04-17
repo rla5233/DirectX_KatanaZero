@@ -28,7 +28,7 @@ namespace ImgRes
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
 	const std::string_view enemy_grunt_attack		= "grunt_attack";
 	const std::string_view enemy_grunt_run			= "grunt_run";
-	const std::string_view enemy_grunt_turn			= "grunt_grunt_turn";
+	const std::string_view enemy_grunt_turn			= "grunt_turn";
 	const std::string_view enemy_grunt_walk			= "grunt_walk";
 	const std::string_view enemy_grunt_hitfall		= "grunt_hitfall";
 	const std::string_view enemy_grunt_dead			= "grunt_dead";
@@ -97,6 +97,7 @@ namespace Anim
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
 	const std::string_view enemy_grunt_walk			= "grunt_walk";
 	const std::string_view enemy_grunt_run			= "grunt_run";
+	const std::string_view enemy_grunt_turn			= "grunt_turn";
 
 	// Effect Anim
 	const std::string_view effect_player_slash		= "player_slash";

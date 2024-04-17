@@ -15,7 +15,7 @@ void AGrunt::BeginPlay()
 
 	CreateAnimation();
 
-	StateChange("Run");
+	StateChange("Turn");
 }
 
 void AGrunt::Tick(float _DeltaTime)
@@ -65,9 +65,22 @@ void AGrunt::Run(float _DeltaTime)
 
 }
 
+void AGrunt::TurnStart()
+{
+	Super::TurnStart();
+
+	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_turn);
+}
+
+void AGrunt::Turn(float _DeltaTime)
+{
+	Super::Turn(_DeltaTime);
+}
+
 void AGrunt::CreateAnimation()
 {
 	GetRenderer()->CreateAnimation(Anim::enemy_grunt_idle, ImgRes::enemy_grunt_idle, 0.1f, true);
 	GetRenderer()->CreateAnimation(Anim::enemy_grunt_walk, ImgRes::enemy_grunt_walk, 0.07f, true);
 	GetRenderer()->CreateAnimation(Anim::enemy_grunt_run, ImgRes::enemy_grunt_run, 0.07f, true);
+	GetRenderer()->CreateAnimation(Anim::enemy_grunt_turn, ImgRes::enemy_grunt_turn, 0.08f, false);
 }
