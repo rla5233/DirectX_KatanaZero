@@ -62,6 +62,11 @@ bool UCollision::Collision(int _TargetGroup,
 
 	for (std::shared_ptr<UCollision> OtherCollision : Group)
 	{
+		if (false == OtherCollision->IsActive())
+		{
+			continue;
+		}
+
 		ECollisionType ThisType = CollisionType;
 		ECollisionType OtherType = OtherCollision->CollisionType;
 
