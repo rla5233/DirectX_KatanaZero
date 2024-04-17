@@ -3,6 +3,7 @@
 
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
+#include "Grunt.h"
 #include "Up_HUD.h"
 
 AFactory_002::AFactory_002()
@@ -28,6 +29,12 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	ColMap->SetBGSprite(ImgRes::factory_background2, 1.0f, true);
 
 	Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
+
+	AllEnemy.reserve(3);
+
+	std::shared_ptr<AGrunt> NewGrunt = GetWorld()->SpawnActor<AGrunt>("Grunt");
+	NewGrunt->SetActorLocation({ 200.0f, 147.0f, 0.0f });
+	AllEnemy.push_back(NewGrunt);
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

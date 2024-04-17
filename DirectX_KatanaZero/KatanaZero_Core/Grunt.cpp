@@ -30,9 +30,13 @@ void AGrunt::CreateAnimation()
 
 void AGrunt::IdleStart()
 {
+	Super::IdleStart();
+
 	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_idle);
 }
 
 void AGrunt::Idle(float _DeltaTime)
 {
+	Super::Idle(_DeltaTime);
+
 }

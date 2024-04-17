@@ -5,6 +5,8 @@ AEnemyBase::AEnemyBase()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Enemy_Renderer");
 	Renderer->SetPivot(EPivot::BOT);
+	Renderer->SetOrder(ERenderOrder::Enemy);
+	Renderer->SetAutoSize(2.0f, true);
 	SetRoot(Renderer);
 }
 
@@ -15,6 +17,8 @@ AEnemyBase::~AEnemyBase()
 void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StateInit();
 }
 
 void AEnemyBase::Tick(float _DeltaTime)

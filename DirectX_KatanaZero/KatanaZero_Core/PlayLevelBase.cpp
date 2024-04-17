@@ -4,6 +4,7 @@
 #include "CameraManager.h"
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
+#include "EnemyBase.h"
 #include "MouseAim.h"
 #include "Up_HUD.h"
 
@@ -39,10 +40,18 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	Player->Destroy();
 	HUD->Destroy();
 
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->Destroy();
+		AllEnemy[i] = nullptr;
+	}
+
 	Aim = nullptr;
 	ColMap = nullptr;
 	Player = nullptr;
 	HUD = nullptr;
+
+	AllEnemy.clear();
 }
 
 void APlayLevelBase::Tick(float _DeltaTime)

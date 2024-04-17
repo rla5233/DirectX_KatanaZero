@@ -21,6 +21,7 @@ enum class ERenderOrder
 	None,
 	ColMap,
 	BackGround,
+	Enemy,
 	Player,
 	Player2,
 	Effect,
