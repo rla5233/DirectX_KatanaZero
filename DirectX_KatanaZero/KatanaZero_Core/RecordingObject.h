@@ -7,6 +7,7 @@ class URecordInfo
 	friend URecordingObject;
 private:
 	FVector Position;
+	
 
 };
 

@@ -33,6 +33,8 @@ void ADefaultPlayer::SetAttackEffect(const FVector& _Dir)
 	Effect->SetPosition({ 0.0f, 30.0f, 0.0f });
 	Effect->SetRotationDeg({ 0.0f, 0.0f, Deg });
 	Effect->SetActive(true);
+
+	
 }
 
 void ADefaultPlayer::CreateAnimation()
