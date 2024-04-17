@@ -61,6 +61,9 @@
     <Filter Include="Object\Base\Enemy">
       <UniqueIdentifier>{32979922-5513-49f0-9191-0ee6956ef4b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component">
+      <UniqueIdentifier>{f034dcea-c079-4069-ac05-51a7d586a66f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -77,9 +80,6 @@
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="LerpObject.h">
-      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Factory_002.h">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
@@ -135,11 +135,17 @@
     <ClInclude Include="Grunt.h">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="PixelColObject_Base.h">
       <Filter>Object\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsObject.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="LerpObject.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelColObject.h">
+      <Filter>Object\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +160,6 @@
     </ClCompile>
     <ClCompile Include="Constant.cpp">
       <Filter>Helper</Filter>
-    </ClCompile>
-    <ClCompile Include="LerpObject.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Factory_002.cpp">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
@@ -218,11 +221,17 @@
     <ClCompile Include="Grunt.cpp">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="PixelColObject_Base.cpp">
       <Filter>Object\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="LerpObject.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsObject.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelColObject.cpp">
+      <Filter>Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
