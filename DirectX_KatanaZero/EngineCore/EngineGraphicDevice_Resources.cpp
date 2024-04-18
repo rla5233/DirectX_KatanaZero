@@ -10,6 +10,7 @@
 #include "EngineRasterizer.h"
 #include "EngineBlend.h"
 #include "EngineMaterial.h"
+#include "EngineSprite.h"
 
 #include "EngineRenderTarget.h"
 
@@ -19,8 +20,9 @@ void UEngineGraphicDevice::EngineResourcesRelease()
 	// 엔진이 종료되는 시점에 텍스처를 모두다 삭제한다.
 
 	UEngineSound::ResourcesRelease();
-	UEngineTexture::ResourcesRelease();
+	UEngineSprite::ResourcesRelease();
 	UEngineRenderTarget::ResourcesRelease();
+	UEngineTexture::ResourcesRelease();
 
 
 	// Mesh

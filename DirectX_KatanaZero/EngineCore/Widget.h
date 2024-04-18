@@ -29,7 +29,7 @@ public:
 	friend ULevel;
 	// constrcuter destructer
 	UWidget();
-	~UWidget();
+	virtual ~UWidget();
 
 	// delete Function
 	UWidget(const UWidget& _Other) = delete;
