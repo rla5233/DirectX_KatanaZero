@@ -24,6 +24,30 @@ public:
 		Bot = _Pos;
 	}
 
+	void SetBodyInfo(const FVector& _BodyPos, const FVector& _BodyScale);
+
+	// 삭제
+	FVector GetFTFromActor()
+	{
+		return FrontTop - Actor->GetActorLocation();
+	}
+
+	FVector GetFBFromActor()
+	{
+		return FrontBot - Actor->GetActorLocation();
+	}
+
+	FVector GetBTFromActor()
+	{
+		return BackTop - Actor->GetActorLocation();
+	}
+
+	FVector GetBBFromActor()
+	{
+		return BackBot - Actor->GetActorLocation();
+	}
+	// 삭제
+
 	bool IsOnGround(EEngineDir _Dir);
 	bool IsOnPlatForm(EEngineDir _Dir);
 	bool IsOnGP_Boundary(EEngineDir _Dir);
@@ -39,9 +63,19 @@ protected:
 		SetMapTex();
 	}
 
+	void CalFourPoint(EEngineDir _Dir);
+
 private:
 	FVector Top = { 10.0f, 10.0f, 0.0f };
 	FVector Bot = { 10.0f, 0.0f, 0.0f };
+
+	FVector FrontTop = FVector::Zero;
+	FVector FrontBot = FVector::Zero;
+	FVector BackTop = FVector::Zero;
+	FVector BackBot = FVector::Zero;
+
+	FVector BodyPos = FVector::Zero;
+	FVector BodyScale = FVector::Zero;
 
 	bool IsStairsUpValue = false;
 	

@@ -12,6 +12,19 @@ AEnemyBase::AEnemyBase()
 	BodyCol->SetupAttachment(Root);
 
 	SetRoot(Root);
+
+
+
+	// 수정(삭제 필요)
+	RendererFT = CreateDefaultSubObject<USpriteRenderer>("RendererFT");
+	RendererFB = CreateDefaultSubObject<USpriteRenderer>("RendererFB");
+	RendererBT = CreateDefaultSubObject<USpriteRenderer>("RendererBT");
+	RendererBB = CreateDefaultSubObject<USpriteRenderer>("RendererBB");
+
+	RendererFT->SetupAttachment(GetRoot());
+	RendererFB->SetupAttachment(GetRoot());
+	RendererBT->SetupAttachment(GetRoot());
+	RendererBB->SetupAttachment(GetRoot());
 }
 
 AEnemyBase::~AEnemyBase()
@@ -28,6 +41,7 @@ void AEnemyBase::BeginPlay()
 
 	RendererInit();
 	CollisionInit();
+	DebugingRendererInit();
 	StateInit();
 }
 
@@ -43,6 +57,34 @@ void AEnemyBase::CollisionInit()
 {
 	BodyCol->SetCollisionType(ECollisionType::RotRect);
 	BodyCol->SetCollisionGroup(EColOrder::Enemy);
+}
+
+void AEnemyBase::DebugingRendererInit()
+{
+	RendererFT->SetSprite("RedPoint.png");
+	RendererFB->SetSprite("RedPoint.png");
+	RendererBT->SetSprite("RedPoint.png");
+	RendererBB->SetSprite("RedPoint.png");
+
+	RendererFT->SetOrder(ERenderOrder::UI);
+	RendererFB->SetOrder(ERenderOrder::UI);
+	RendererBT->SetOrder(ERenderOrder::UI);
+	RendererBB->SetOrder(ERenderOrder::UI);
+
+	RendererFT->SetAutoSize(4.0f, true);
+	RendererFB->SetAutoSize(8.0f, true);
+	RendererBT->SetAutoSize(12.0f, true);
+	RendererBB->SetAutoSize(16.0f, true);
+}
+
+void AEnemyBase::DebugingUpdate()
+{
+	CalFourPoint(GetRenderer()->GetDir());
+
+	RendererFT->SetPosition(GetFTFromActor());
+	RendererFB->SetPosition(GetFBFromActor());
+	RendererBT->SetPosition(GetBTFromActor());
+	RendererBB->SetPosition(GetBBFromActor());
 }
 
 void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
@@ -81,6 +123,7 @@ void AEnemyBase::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 	DefaultUpdate(_DeltaTime);
+	DebugingUpdate();
 }
 
 void AEnemyBase::DefaultUpdate(float _DeltaTime)
@@ -162,6 +205,16 @@ void AEnemyBase::Turn(float _DeltaTime)
 
 void AEnemyBase::HitFallStart()
 {
+	if (0.0f > HitDir.X)
+	{
+		Renderer->SetDir(EEngineDir::Left);
+	}
+	else
+	{
+		Renderer->SetDir(EEngineDir::Right);
+	}
+
+	SetVelocity(HitDir * 1000.0f);
 	BodyCol->SetActive(false);
 }
 

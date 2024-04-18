@@ -162,7 +162,7 @@ void UCollision::Tick(float _Delta)
 		break;
 	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:
-		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Black);
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Red);
 		break;
 	case ECollisionType::Max:
 		break;

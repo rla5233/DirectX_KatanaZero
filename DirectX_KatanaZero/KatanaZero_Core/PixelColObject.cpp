@@ -6,30 +6,30 @@
 
 UPixelColObject::UPixelColObject()
 {
+	
 }
 
 UPixelColObject::~UPixelColObject()
 {
 }
 
+void UPixelColObject::SetBodyInfo(const FVector& _BodyPos, const FVector& _BodyScale)
+{
+	BodyPos = _BodyPos;
+	BodyScale = _BodyScale;
+}
+
+void UPixelColObject::SetMapTex()
+{
+	APlayLevelBase* Level = dynamic_cast<APlayLevelBase*>(Actor->GetWorld()->GetGameMode().get());
+	MapTex = Level->GetColMap()->GetMapTex();
+}
+
 bool UPixelColObject::IsOnGround(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontBot = Actor->GetActorLocation();
-	FVector BackBot  = Actor->GetActorLocation();
-
-	switch (_Dir)
-	{
-	case EEngineDir::Left:
-		FrontBot += { -Bot.X, Bot.Y, 0.0f };
-		BackBot  += {  Bot.X, Bot.Y, 0.0f };
-		break;
-	case EEngineDir::Right:
-		FrontBot += {  Bot.X, Bot.Y, 0.0f };
-		BackBot  += { -Bot.X, Bot.Y, 0.0f };
-		break;
-	}
+	CalFourPoint(_Dir);
 
 	FVector MapTexScale = MapTex->GetScale();
 	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
@@ -50,20 +50,7 @@ bool UPixelColObject::IsOnPlatForm(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontBot = Actor->GetActorLocation();
-	FVector BackBot  = Actor->GetActorLocation();
-
-	switch (_Dir)
-	{
-	case EEngineDir::Left:
-		FrontBot += { -Bot.X, Bot.Y, 0.0f };
-		BackBot  += {  Bot.X, Bot.Y, 0.0f };
-		break;
-	case EEngineDir::Right:
-		FrontBot += {  Bot.X, Bot.Y, 0.0f };
-		BackBot  += { -Bot.X, Bot.Y, 0.0f };
-		break;
-	}
+	CalFourPoint(_Dir);
 
 	FVector MapTexScale = MapTex->GetScale();
 	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
@@ -84,20 +71,7 @@ bool UPixelColObject::IsOnGP_Boundary(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontBot = Actor->GetActorLocation();
-	FVector BackBot  = Actor->GetActorLocation();
-
-	switch (_Dir)
-	{
-	case EEngineDir::Left:
-		FrontBot += { -Bot.X, Bot.Y, 0.0f };
-		BackBot  += {  Bot.X, Bot.Y, 0.0f };
-		break;
-	case EEngineDir::Right:
-		FrontBot += {  Bot.X, Bot.Y, 0.0f };
-		BackBot  += { -Bot.X, Bot.Y, 0.0f };
-		break;
-	}
+	CalFourPoint(_Dir);
 
 	FVector MapTexScale = MapTex->GetScale();
 	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
@@ -123,20 +97,7 @@ bool UPixelColObject::IsOnStairs(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontBot = Actor->GetActorLocation();
-	FVector BackBot  = Actor->GetActorLocation();
-
-	switch (_Dir)
-	{
-	case EEngineDir::Left:
-		FrontBot += { -Bot.X, Bot.Y, 0.0f };
-		BackBot  += {  Bot.X, Bot.Y, 0.0f };
-		break;
-	case EEngineDir::Right:
-		FrontBot += {  Bot.X, Bot.Y, 0.0f };
-		BackBot  += { -Bot.X, Bot.Y, 0.0f };
-		break;
-	}
+	CalFourPoint(_Dir);
 
 	FVector MapTexScale = MapTex->GetScale();
 	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
@@ -165,20 +126,7 @@ bool UPixelColObject::IsColWall(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontTop = Actor->GetActorLocation();
-	FVector FrontBot = Actor->GetActorLocation();
-
-	switch (_Dir)
-	{
-	case EEngineDir::Left:
-		FrontTop += { -Top.X, Top.Y, 0.0f };
-		FrontBot += { -Bot.X, Bot.Y, 0.0f };
-		break;
-	case EEngineDir::Right:
-		FrontTop += {  Top.X, Top.Y, 0.0f };
-		FrontBot += {  Bot.X, Bot.Y, 0.0f };
-		break;
-	}
+	CalFourPoint(_Dir);
 
 	FVector MapTexScale = MapTex->GetScale();
 	FrontTop.Y = MapTexScale.Y - FrontTop.Y;
@@ -199,17 +147,7 @@ bool UPixelColObject::IsColHeadToWall(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontTop = Actor->GetActorLocation();
-
-	switch (_Dir)
-	{
-	case EEngineDir::Left:
-		FrontTop += { -Top.X, Top.Y, 0.0f };
-		break;
-	case EEngineDir::Right:
-		FrontTop += {  Top.X, Top.Y, 0.0f };
-		break;
-	}
+	CalFourPoint(_Dir);
 
 	FVector MapTexScale = MapTex->GetScale();
 	FrontTop.Y = MapTexScale.Y - FrontTop.Y;
@@ -228,20 +166,7 @@ bool UPixelColObject::IsColHeadToCeil(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontTop = Actor->GetActorLocation();
-	FVector BackTop  = Actor->GetActorLocation();
-
-	switch (_Dir)
-	{
-	case EEngineDir::Left:
-		FrontTop += { -Top.X, Top.Y, 0.0f };
-		BackTop  += {  Top.X, Top.Y, 0.0f };
-		break;
-	case EEngineDir::Right:
-		FrontTop += {  Top.X, Top.Y, 0.0f };
-		BackTop  += { -Top.X, Top.Y, 0.0f };
-		break;
-	}
+	CalFourPoint(_Dir);
 
 	FVector MapTexScale = MapTex->GetScale();
 	FrontTop.Y = MapTexScale.Y - FrontTop.Y;
@@ -258,8 +183,26 @@ bool UPixelColObject::IsColHeadToCeil(EEngineDir _Dir)
 	return Result;
 }
 
-void UPixelColObject::SetMapTex()
+void UPixelColObject::CalFourPoint(EEngineDir _Dir)
 {
-	APlayLevelBase* Level = dynamic_cast<APlayLevelBase*>(Actor->GetWorld()->GetGameMode().get());
-	MapTex = Level->GetColMap()->GetMapTex();
+	FrontTop = Actor->GetActorLocation() + BodyPos;
+	FrontBot = Actor->GetActorLocation() + BodyPos;
+	BackTop  = Actor->GetActorLocation() + BodyPos;
+	BackBot  = Actor->GetActorLocation() + BodyPos;
+
+	switch (_Dir)
+	{
+	case EEngineDir::Left:
+		FrontTop += { -BodyScale.hX(),  BodyScale.hY(), 0.0f };
+		FrontBot += { -BodyScale.hX(), -BodyScale.hY(), 0.0f };
+		BackTop  += {  BodyScale.hX(),  BodyScale.hY(), 0.0f };
+		BackBot  += {  BodyScale.hX(), -BodyScale.hY(), 0.0f };
+		break;					 
+	case EEngineDir::Right:		 
+		FrontTop += {  BodyScale.hX(),  BodyScale.hY(), 0.0f };
+		FrontBot += {  BodyScale.hX(), -BodyScale.hY(), 0.0f };
+		BackTop  += { -BodyScale.hX(),  BodyScale.hY(), 0.0f };
+		BackBot  += { -BodyScale.hX(), -BodyScale.hY(), 0.0f };
+		break;
+	}
 }
