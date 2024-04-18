@@ -82,6 +82,9 @@ void APlayerBase::CollisionInit()
 	AttackCol->SetCollisionType(ECollisionType::RotRect);
 	AttackCol->SetScale({ 150.0f, 75.0f, 0.0f });
 	AttackCol->SetActive(false);
+
+	BodyCol->SetCollisionGroup(EColOrder::Player);
+	BodyCol->SetCollisionType(ECollisionType::RotRect);
 }
 
 void APlayerBase::DefaultUpdate(float _DeltaTime)
