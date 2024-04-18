@@ -3,11 +3,11 @@
 #include "EngineDebug3D.h"
 #include "EngineCore.h"
 
-UCollision::UCollision() 
+UCollision::UCollision()
 {
 }
 
-UCollision::~UCollision() 
+UCollision::~UCollision()
 {
 }
 
@@ -84,15 +84,15 @@ bool UCollision::Collision(int _TargetGroup,
 				}
 			}
 
-			if (true == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
-			{
-				if (nullptr != _Enter)
-				{
-					_Enter(OtherCollision);
-				}
-			}
+			//if (true == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
+			//{
+			//	if (nullptr != _Enter)
+			//	{
+			//		_Enter(OtherCollision);
+			//	}
+			//}
 
-			
+
 			if (true == OtherCheck.contains(CollisionPtr))
 			{
 				if (nullptr != _Stay)
@@ -101,7 +101,7 @@ bool UCollision::Collision(int _TargetGroup,
 				}
 			}
 		}
-		else if(true == OtherCheck.contains(CollisionPtr))
+		else if (true == OtherCheck.contains(CollisionPtr))
 		{
 			OtherCheck.erase(CollisionPtr);
 			if (nullptr != _Exit)
