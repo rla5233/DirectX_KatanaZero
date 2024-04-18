@@ -44,22 +44,26 @@ public:
 		Acc += _Acc;
 	}
 
-	inline void VelocityUpdate(float _DeltaTime)
+	inline void ApplyAccToVelocity(float _DeltaTime)
 	{
 		Velocity += Acc * _DeltaTime;
 	}
 
-	void PosUpdate(AActor* _Actor, float _DeltaTime)
+	void PosUpdate(float _DeltaTime)
 	{
-		_Actor->AddActorLocation(Velocity * _DeltaTime);
+		Actor->AddActorLocation(Velocity * _DeltaTime);
 	}
 
 protected:
-
+	inline void SetActor(AActor* _Actor)
+	{
+		Actor = _Actor;
+	};
 
 private:
 	FVector Velocity = FVector::Zero;
 	FVector Acc = FVector::Zero;
 
+	AActor* Actor = nullptr;
 };
 

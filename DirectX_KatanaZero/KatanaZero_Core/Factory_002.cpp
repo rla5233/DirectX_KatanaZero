@@ -33,8 +33,16 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	AllEnemy.reserve(3);
 
 	std::shared_ptr<AGrunt> NewGrunt = GetWorld()->SpawnActor<AGrunt>("Grunt");
-	NewGrunt->SetActorLocation({ 500.0f, 400.0f, 0.0f });
+	NewGrunt->SetActorLocation({ 1075.0f, 400.0f, 0.0f });
+	NewGrunt->SetRendererDir(EEngineDir::Left);
+	NewGrunt->SetPatrolTime(3.5f, 5.0f);
 	NewGrunt->StateChange("PatrolWalk");
+
+	NewGrunt = GetWorld()->SpawnActor<AGrunt>("Grunt");
+	NewGrunt->SetActorLocation({ 340.0f, 400.0f, 0.0f });
+	NewGrunt->SetRendererDir(EEngineDir::Right);
+	NewGrunt->StateChange("Idle");
+
 	AllEnemy.push_back(NewGrunt);
 }
 

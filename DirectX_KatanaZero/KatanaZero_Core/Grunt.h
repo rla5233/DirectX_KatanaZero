@@ -16,14 +16,10 @@ public:
 	AGrunt& operator=(const AGrunt& _Other) = delete;
 	AGrunt& operator=(AGrunt&& _Other) noexcept = delete;
 
-	void SetPatrolWalkTime(float _Time)
+	inline void SetPatrolTime(float _WalkTime, float _StopTime)
 	{
-		PatrolWalkTime = _Time;
-	}
-
-	void SetPatrolStopTime(float _Time)
-	{
-		PatrolStopTime = _Time;
+		PatrolWalkTime = _WalkTime;
+		PatrolStopTime = _StopTime;
 	}
 
 protected:
@@ -39,13 +35,11 @@ private:
 // FSM
 protected:
 	void IdleStart() override;
-	void Idle(float _DeltaTime) override;
 
 	void PatrolWalkStart() override;
-	void PatrolWalk(float _DeltaTime) override;
-
-	void IWalkStart(float _Time) override;
-
+	void PatrolTurnStart() override;
+	void PatrolStopStart() override;
+	
 	void RunStart() override;
 	void Run(float _DeltaTime) override;
 

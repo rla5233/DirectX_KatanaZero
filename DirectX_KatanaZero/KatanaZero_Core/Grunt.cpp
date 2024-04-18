@@ -28,39 +28,28 @@ void AGrunt::IdleStart()
 	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_idle);
 }
 
-void AGrunt::Idle(float _DeltaTime)
-{
-	Super::Idle(_DeltaTime);
-
-}
-
 void AGrunt::PatrolWalkStart()
 {
 	Super::PatrolWalkStart();
 
-	IWalkStart(PatrolWalkTime);
-}
-
-void AGrunt::PatrolWalk(float _DeltaTime)
-{
-	Super::PatrolWalk(_DeltaTime);
-
-	if (0.0f < TimeCount)
-	{
-		TimeCount -= _DeltaTime;
-		return;
-	}
-
-
-
-}
-
-void AGrunt::IWalkStart(float _Time)
-{
-	Super::IWalkStart(_Time);
-
+	SetTimeCount(PatrolWalkTime);
 	SetVelocityByDir({ 100.0f, 0.0f, 0.0f });
 	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_walk);
+}
+
+void AGrunt::PatrolTurnStart()
+{
+	Super::PatrolTurnStart();
+
+	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_turn);
+}
+
+void AGrunt::PatrolStopStart()
+{
+	Super::PatrolStopStart();
+
+	SetTimeCount(PatrolStopTime);
+	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_idle);
 }
 
 void AGrunt::RunStart()

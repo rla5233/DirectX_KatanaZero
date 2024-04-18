@@ -9,6 +9,8 @@ AEnemyBase::AEnemyBase()
 	Renderer->SetAutoSize(2.0f, true);
 	Renderer->SetDir(EEngineDir::Right);
 	SetRoot(Renderer);
+
+	UPhysicsObject::SetActor(this);
 }
 
 AEnemyBase::~AEnemyBase()
@@ -37,24 +39,85 @@ void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
 	}
 }
 
+void AEnemyBase::RendererDirChange()
+{
+	EEngineDir Dir = Renderer->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Renderer->SetDir(EEngineDir::Right);
+		break;
+	case EEngineDir::Right:
+		Renderer->SetDir(EEngineDir::Left);
+		break;
+	}
+}
+
 void AEnemyBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+	DefaultUpdate(_DeltaTime);
+}
+
+void AEnemyBase::DefaultUpdate(float _DeltaTime)
+{
+
 }
 
 void AEnemyBase::PatrolWalk(float _DeltaTime)
 {
-	PosUpdate(this, _DeltaTime);
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
 
+	// State Change Check
+	if (0.0f > TimeCount)
+	{
+		State.ChangeState("PatrolTurn");
+		return;
+	}
 
+	TimeCount -= _DeltaTime;
+}
+
+void AEnemyBase::PatrolTurnStart()
+{
+	SetVelocityByDir(FVector::Zero);
+}
+
+void AEnemyBase::PatrolTurn(float _DeltaTime)
+{
+	// State Change Check
+	if (true == Renderer->IsCurAnimationEnd())
+	{
+		State.ChangeState("PatrolStop");
+		return;
+	}
+}
+
+void AEnemyBase::PatrolStopStart()
+{
+	SetVelocityByDir(FVector::Zero);
+}
+
+void AEnemyBase::PatrolStop(float _DeltaTime)
+{
+	// State Change Check
+	if (0.0f > TimeCount)
+	{
+		State.ChangeState("PatrolWalk");
+		return;
+	}
+
+	TimeCount -= _DeltaTime;
 }
 
 void AEnemyBase::Run(float _DeltaTime)
 {
 	// 위치 업데이트
-	PosUpdate(this, _DeltaTime);
+	PosUpdate(_DeltaTime);
 }
 
 void AEnemyBase::TurnStart()
@@ -78,6 +141,8 @@ void AEnemyBase::StateInit()
 	State.CreateState("Idle");
 	State.CreateState("Run");
 	State.CreateState("PatrolWalk");
+	State.CreateState("PatrolTurn");
+	State.CreateState("PatrolStop");
 	
 	State.CreateState("Turn");
 
@@ -85,6 +150,8 @@ void AEnemyBase::StateInit()
 	State.SetStartFunction("Idle", std::bind(&AEnemyBase::IdleStart, this));
 	State.SetStartFunction("Run", std::bind(&AEnemyBase::RunStart, this));
 	State.SetStartFunction("PatrolWalk", std::bind(&AEnemyBase::PatrolWalkStart, this));
+	State.SetStartFunction("PatrolTurn", std::bind(&AEnemyBase::PatrolTurnStart, this));
+	State.SetStartFunction("PatrolStop", std::bind(&AEnemyBase::PatrolStopStart, this));
 	
 	State.SetStartFunction("Turn", std::bind(&AEnemyBase::TurnStart, this));
 
@@ -92,23 +159,12 @@ void AEnemyBase::StateInit()
 	State.SetUpdateFunction("Idle", std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Run", std::bind(&AEnemyBase::Run, this, std::placeholders::_1));
 	State.SetUpdateFunction("PatrolWalk", std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
+	State.SetUpdateFunction("PatrolTurn", std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
+	State.SetUpdateFunction("PatrolStop", std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
 	
 	State.SetUpdateFunction("Turn", std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));
 
 	// State End 함수 세팅
-	State.SetEndFunction("Turn", [=] 
-		{
-			EEngineDir Dir = Renderer->GetDir();
-
-			switch (Dir)
-			{
-			case EEngineDir::Left:
-				Renderer->SetDir(EEngineDir::Right);
-				break;
-			case EEngineDir::Right:
-				Renderer->SetDir(EEngineDir::Left);
-				break;
-			}
-		}
-	);
+	State.SetEndFunction("PatrolTurn", [=] { RendererDirChange(); });
+	State.SetEndFunction("Turn", [=] {	RendererDirChange(); });
 }
