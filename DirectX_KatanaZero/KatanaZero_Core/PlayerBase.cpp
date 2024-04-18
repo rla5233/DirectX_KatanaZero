@@ -54,22 +54,22 @@ void APlayerBase::RendererInit()
 
 	Front_Top->SetSprite("RedPoint.png");
 	Front_Top->SetOrder(ERenderOrder::Player2);
-	Front_Top->SetAutoSize(5.0f, true);
+	Front_Top->SetAutoSize(4.0f, true);
 	Front_Top->SetPosition(Top);
 
 	Front_Bot->SetSprite("RedPoint.png");
 	Front_Bot->SetOrder(ERenderOrder::Player2);
-	Front_Bot->SetAutoSize(5.0f, true);
+	Front_Bot->SetAutoSize(4.0f, true);
 	Front_Bot->SetPosition(Bot);
 
 	Back_Top->SetSprite("RedPoint.png");
 	Back_Top->SetOrder(ERenderOrder::Player2);
-	Back_Top->SetAutoSize(3.0f, true);
+	Back_Top->SetAutoSize(4.0f, true);
 	Back_Top->SetPosition({ -Top.X, Top.Y, Top.Z });
 
 	Back_Bot->SetSprite("RedPoint.png");
 	Back_Bot->SetOrder(ERenderOrder::Player2);
-	Back_Bot->SetAutoSize(3.0f, true);
+	Back_Bot->SetAutoSize(4.0f, true);
 	Back_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
 }
 

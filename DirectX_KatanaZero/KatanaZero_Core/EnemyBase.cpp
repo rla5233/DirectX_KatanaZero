@@ -72,9 +72,9 @@ void AEnemyBase::DebugingRendererInit()
 	RendererBB->SetOrder(ERenderOrder::UI);
 
 	RendererFT->SetAutoSize(4.0f, true);
-	RendererFB->SetAutoSize(8.0f, true);
-	RendererBT->SetAutoSize(12.0f, true);
-	RendererBB->SetAutoSize(16.0f, true);
+	RendererFB->SetAutoSize(4.0f, true);
+	RendererBT->SetAutoSize(4.0f, true);
+	RendererBB->SetAutoSize(4.0f, true);
 }
 
 void AEnemyBase::DebugingUpdate()
@@ -228,6 +228,7 @@ void AEnemyBase::HitFall(float _DeltaTime)
 	if (true == IsColHeadToCeil(Dir))
 	{
 		Velocity.Y = 0.0f;
+		AddActorLocation({ 0.0f, -10.0f, 0.0f });
 	}
 
 	// 위치 업데이트
