@@ -1,6 +1,9 @@
 #include "PreCompile.h"
 #include "PixelColObject.h"
 
+#include "PlayLevelBase.h"
+#include "ColMapObject.h"
+
 UPixelColObject::UPixelColObject()
 {
 }
@@ -9,12 +12,12 @@ UPixelColObject::~UPixelColObject()
 {
 }
 
-bool UPixelColObject::IsOnGround(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir)
+bool UPixelColObject::IsOnGround(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontBot = _Pos;
-	FVector BackBot  = _Pos;
+	FVector FrontBot = Actor->GetActorLocation();
+	FVector BackBot  = Actor->GetActorLocation();
 
 	switch (_Dir)
 	{
@@ -28,12 +31,12 @@ bool UPixelColObject::IsOnGround(const std::shared_ptr<UEngineTexture> _MapTex, 
 		break;
 	}
 
-	FVector MapTexScale = _MapTex->GetScale();
+	FVector MapTexScale = MapTex->GetScale();
 	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
 	BackBot.Y  = MapTexScale.Y - BackBot.Y  - 1.0f;
 
-	Color8Bit FB_PixelColor = _MapTex->GetColor(FrontBot, Color8Bit::Black);
-	Color8Bit BB_PixelColor = _MapTex->GetColor(BackBot, Color8Bit::Black);
+	Color8Bit FB_PixelColor = MapTex->GetColor(FrontBot, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BackBot, Color8Bit::Black);
 
 	if (ColMap::YELLOW == FB_PixelColor && ColMap::YELLOW == BB_PixelColor)
 	{
@@ -43,12 +46,12 @@ bool UPixelColObject::IsOnGround(const std::shared_ptr<UEngineTexture> _MapTex, 
 	return Result;
 }
 
-bool UPixelColObject::IsOnPlatForm(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir)
+bool UPixelColObject::IsOnPlatForm(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontBot = _Pos;
-	FVector BackBot  = _Pos;
+	FVector FrontBot = Actor->GetActorLocation();
+	FVector BackBot  = Actor->GetActorLocation();
 
 	switch (_Dir)
 	{
@@ -62,12 +65,12 @@ bool UPixelColObject::IsOnPlatForm(const std::shared_ptr<UEngineTexture> _MapTex
 		break;
 	}
 
-	FVector MapTexScale = _MapTex->GetScale();
+	FVector MapTexScale = MapTex->GetScale();
 	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
 	BackBot.Y  = MapTexScale.Y - BackBot.Y  - 1.0f;
 
-	Color8Bit FB_PixelColor = _MapTex->GetColor(FrontBot, Color8Bit::Black);
-	Color8Bit BB_PixelColor = _MapTex->GetColor(BackBot, Color8Bit::Black);
+	Color8Bit FB_PixelColor = MapTex->GetColor(FrontBot, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BackBot, Color8Bit::Black);
 
 	if (ColMap::GREEN == FB_PixelColor && ColMap::GREEN == BB_PixelColor)
 	{
@@ -77,12 +80,12 @@ bool UPixelColObject::IsOnPlatForm(const std::shared_ptr<UEngineTexture> _MapTex
 	return Result;
 }
 
-bool UPixelColObject::IsOnGP_Boundary(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir)
+bool UPixelColObject::IsOnGP_Boundary(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontBot = _Pos;
-	FVector BackBot  = _Pos;
+	FVector FrontBot = Actor->GetActorLocation();
+	FVector BackBot  = Actor->GetActorLocation();
 
 	switch (_Dir)
 	{
@@ -96,12 +99,12 @@ bool UPixelColObject::IsOnGP_Boundary(const std::shared_ptr<UEngineTexture> _Map
 		break;
 	}
 
-	FVector MapTexScale = _MapTex->GetScale();
+	FVector MapTexScale = MapTex->GetScale();
 	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
 	BackBot.Y  = MapTexScale.Y - BackBot.Y  - 1.0f;
 
-	Color8Bit FB_PixelColor = _MapTex->GetColor(FrontBot, Color8Bit::Black);
-	Color8Bit BB_PixelColor = _MapTex->GetColor(BackBot, Color8Bit::Black);
+	Color8Bit FB_PixelColor = MapTex->GetColor(FrontBot, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BackBot, Color8Bit::Black);
 
 	if (ColMap::GREEN == FB_PixelColor && ColMap::YELLOW == BB_PixelColor)
 	{
@@ -116,12 +119,12 @@ bool UPixelColObject::IsOnGP_Boundary(const std::shared_ptr<UEngineTexture> _Map
 	return Result;
 }
 
-bool UPixelColObject::IsOnStairs(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir)
+bool UPixelColObject::IsOnStairs(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontBot = _Pos;
-	FVector BackBot  = _Pos;
+	FVector FrontBot = Actor->GetActorLocation();
+	FVector BackBot  = Actor->GetActorLocation();
 
 	switch (_Dir)
 	{
@@ -135,12 +138,12 @@ bool UPixelColObject::IsOnStairs(const std::shared_ptr<UEngineTexture> _MapTex, 
 		break;
 	}
 
-	FVector MapTexScale = _MapTex->GetScale();
+	FVector MapTexScale = MapTex->GetScale();
 	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
 	BackBot.Y  = MapTexScale.Y - BackBot.Y  - 1.0f;
 
-	Color8Bit FB_PixelColor = _MapTex->GetColor(FrontBot, Color8Bit::Black);
-	Color8Bit BB_PixelColor = _MapTex->GetColor(BackBot, Color8Bit::Black);
+	Color8Bit FB_PixelColor = MapTex->GetColor(FrontBot, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BackBot, Color8Bit::Black);
 
 	IsStairsUpValue = false;
 
@@ -158,12 +161,12 @@ bool UPixelColObject::IsOnStairs(const std::shared_ptr<UEngineTexture> _MapTex, 
 	return Result;
 }
 
-bool UPixelColObject::IsColWall(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir)
+bool UPixelColObject::IsColWall(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontTop = _Pos;
-	FVector FrontBot = _Pos;
+	FVector FrontTop = Actor->GetActorLocation();
+	FVector FrontBot = Actor->GetActorLocation();
 
 	switch (_Dir)
 	{
@@ -177,12 +180,12 @@ bool UPixelColObject::IsColWall(const std::shared_ptr<UEngineTexture> _MapTex, c
 		break;
 	}
 
-	FVector MapTexScale = _MapTex->GetScale();
+	FVector MapTexScale = MapTex->GetScale();
 	FrontTop.Y = MapTexScale.Y - FrontTop.Y;
 	FrontBot.Y = MapTexScale.Y - FrontBot.Y;
 
-	Color8Bit FT_PixelColor = _MapTex->GetColor(FrontTop, Color8Bit::Black);
-	Color8Bit FB_PixelColor = _MapTex->GetColor(FrontBot, Color8Bit::Black);
+	Color8Bit FT_PixelColor = MapTex->GetColor(FrontTop, Color8Bit::Black);
+	Color8Bit FB_PixelColor = MapTex->GetColor(FrontBot, Color8Bit::Black);
 
 	if (ColMap::YELLOW == FT_PixelColor && ColMap::YELLOW == FB_PixelColor)
 	{
@@ -192,11 +195,11 @@ bool UPixelColObject::IsColWall(const std::shared_ptr<UEngineTexture> _MapTex, c
 	return Result;
 }
 
-bool UPixelColObject::IsColHeadToWall(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir)
+bool UPixelColObject::IsColHeadToWall(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontTop = _Pos;
+	FVector FrontTop = Actor->GetActorLocation();
 
 	switch (_Dir)
 	{
@@ -208,10 +211,10 @@ bool UPixelColObject::IsColHeadToWall(const std::shared_ptr<UEngineTexture> _Map
 		break;
 	}
 
-	FVector MapTexScale = _MapTex->GetScale();
+	FVector MapTexScale = MapTex->GetScale();
 	FrontTop.Y = MapTexScale.Y - FrontTop.Y;
 
-	Color8Bit FT_PixelColor = _MapTex->GetColor(FrontTop, Color8Bit::Black);
+	Color8Bit FT_PixelColor = MapTex->GetColor(FrontTop, Color8Bit::Black);
 
 	if (ColMap::YELLOW == FT_PixelColor || ColMap::BLUE == FT_PixelColor)
 	{
@@ -221,12 +224,12 @@ bool UPixelColObject::IsColHeadToWall(const std::shared_ptr<UEngineTexture> _Map
 	return Result;
 }
 
-bool UPixelColObject::IsColHeadToCeil(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir)
+bool UPixelColObject::IsColHeadToCeil(EEngineDir _Dir)
 {
 	bool Result = false;
 
-	FVector FrontTop = _Pos;
-	FVector BackTop  = _Pos;
+	FVector FrontTop = Actor->GetActorLocation();
+	FVector BackTop  = Actor->GetActorLocation();
 
 	switch (_Dir)
 	{
@@ -240,12 +243,12 @@ bool UPixelColObject::IsColHeadToCeil(const std::shared_ptr<UEngineTexture> _Map
 		break;
 	}
 
-	FVector MapTexScale = _MapTex->GetScale();
+	FVector MapTexScale = MapTex->GetScale();
 	FrontTop.Y = MapTexScale.Y - FrontTop.Y;
 	BackTop.Y  = MapTexScale.Y - BackTop.Y;
 
-	Color8Bit FT_PixelColor = _MapTex->GetColor(FrontTop, Color8Bit::Black);
-	Color8Bit BT_PixelColor = _MapTex->GetColor(BackTop, Color8Bit::Black);
+	Color8Bit FT_PixelColor = MapTex->GetColor(FrontTop, Color8Bit::Black);
+	Color8Bit BT_PixelColor = MapTex->GetColor(BackTop, Color8Bit::Black);
 
 	if (ColMap::YELLOW == FT_PixelColor && ColMap::YELLOW == BT_PixelColor)
 	{
@@ -253,4 +256,10 @@ bool UPixelColObject::IsColHeadToCeil(const std::shared_ptr<UEngineTexture> _Map
 	}
 
 	return Result;
+}
+
+void UPixelColObject::SetMapTex()
+{
+	APlayLevelBase* Level = dynamic_cast<APlayLevelBase*>(Actor->GetWorld()->GetGameMode().get());
+	MapTex = Level->GetColMap()->GetMapTex();
 }

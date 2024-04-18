@@ -24,20 +24,32 @@ public:
 		Bot = _Pos;
 	}
 
-	bool IsOnGround(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir);
-	bool IsOnPlatForm(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir);
-	bool IsOnGP_Boundary(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir);
-	bool IsOnStairs(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir);
-	bool IsColWall(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir);
-	bool IsColHeadToWall(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir);
-	bool IsColHeadToCeil(const std::shared_ptr<UEngineTexture> _MapTex, const FVector& _Pos, EEngineDir _Dir);
+	bool IsOnGround(EEngineDir _Dir);
+	bool IsOnPlatForm(EEngineDir _Dir);
+	bool IsOnGP_Boundary(EEngineDir _Dir);
+	bool IsOnStairs(EEngineDir _Dir);
+	bool IsColWall(EEngineDir _Dir);
+	bool IsColHeadToWall(EEngineDir _Dir);
+	bool IsColHeadToCeil(EEngineDir _Dir);
 
 protected:
+	inline void SetActor(AActor* _Actor)
+	{
+		Actor = _Actor;
+		SetMapTex();
+	}
+
+	
 
 private:
 	FVector Top = FVector::Zero;
 	FVector Bot = FVector::Zero;
 
 	bool IsStairsUpValue = false;
+	
+	AActor* Actor = nullptr;
+	std::shared_ptr<UEngineTexture> MapTex;
+
+	void SetMapTex();
 };
 

@@ -24,8 +24,6 @@ APlayerBase::APlayerBase()
 	Renderer->SetPivot(EPivot::BOT);
 	
 	SetRoot(Root);
-	
-	SetRecordActor(this);
 	InputOn();
 }
 
@@ -36,6 +34,8 @@ APlayerBase::~APlayerBase()
 void APlayerBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	URecordingObject::SetActor(this);
 
 	StateInit();
 

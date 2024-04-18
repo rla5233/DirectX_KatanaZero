@@ -9,8 +9,6 @@ AEnemyBase::AEnemyBase()
 	Renderer->SetAutoSize(2.0f, true);
 	Renderer->SetDir(EEngineDir::Right);
 	SetRoot(Renderer);
-
-	UPhysicsObject::SetActor(this);
 }
 
 AEnemyBase::~AEnemyBase()
@@ -20,6 +18,10 @@ AEnemyBase::~AEnemyBase()
 void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	UPixelColObject::SetActor(this);
+	UPhysicsObject::SetActor(this);
+	URecordingObject::SetActor(this);
 
 	StateInit();
 }
@@ -136,7 +138,11 @@ void AEnemyBase::Turn(float _DeltaTime)
 
 void AEnemyBase::HitFall(float _DeltaTime)
 {
-
+	//if (true == IsOnGround() || true == IsOnPlatForm()
+	//||	true == IsOnGP_Boundary() || true == IsOnStairs())
+	//{
+	//
+	//}
 }
 
 // State √ ±‚»≠

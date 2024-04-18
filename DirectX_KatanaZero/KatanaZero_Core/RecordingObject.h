@@ -41,7 +41,7 @@ public:
 	void Replaying(float _DeltaTime);
 
 protected:
-	void SetRecordActor(AActor* _Actor)
+	void SetActor(AActor* _Actor)
 	{
 		Actor = _Actor;
 	}
