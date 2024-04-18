@@ -66,7 +66,6 @@ void ADefaultPlayer::CreateAnimation()
 	// Effect
 	Effect->CreateAnimation(Anim::effect_player_slash, ImgRes::effect_player_slash, 0.04f, false);
 	Effect->SetFrameCallback(Anim::effect_player_slash, 4, [=] { Effect->SetActive(false); } );
-	
 }
 
 void ADefaultPlayer::Tick(float _DeltaTime)
