@@ -363,7 +363,6 @@ void APlayerBase::RunToIdleVelUpdate(float _DeltaTime)
 	}
 }
 
-// 수정 필요 (디버깅용 제거)
 void APlayerBase::ColCheckUpdate()
 {
 	EEngineDir Dir = Renderer->GetDir();

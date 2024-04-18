@@ -42,6 +42,13 @@ void AFactory_004::LevelEnd(ULevel* _NextLevel)
 
 }
 
+void AFactory_004::ChangeStage()
+{
+	Super::ChangeStage();
+	aa
+	GEngine->ChangeLevel("Factory_005");
+}
+
 void AFactory_004::ResetPlayer()
 {
 	if (UEngineInput::IsDown('R'))

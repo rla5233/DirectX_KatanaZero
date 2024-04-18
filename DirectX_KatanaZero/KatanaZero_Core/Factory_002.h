@@ -24,7 +24,7 @@ protected:
 	void LevelEnd(ULevel* _NextLevel) override;
 
 protected:
-	void ChangeStage();
+	void ChangeStage() override;
 
 private:
 	void ResetPlayer() override;

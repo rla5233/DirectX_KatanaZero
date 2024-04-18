@@ -161,6 +161,7 @@ private:
 	void IdleToRunVelUpdate(float _DeltaTime);
 	void RunToIdleVelUpdate(float _DeltaTime);
 
+	// 수정 (간소화)
 	void ColCheckUpdate();	
 
 // Effect Set (virtual)

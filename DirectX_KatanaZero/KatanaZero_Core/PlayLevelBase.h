@@ -35,6 +35,7 @@ protected:
 	void LevelEnd(ULevel* _NextLevel) override;
 
 	bool IsStageClear();
+	virtual void ChangeStage() {};
 
 protected:
 	std::shared_ptr<AMouseAim> Aim = nullptr;
@@ -49,7 +50,6 @@ private:
 	void StateInit();
 
 	void Replay(float _DeltaTime);
-	virtual void ChangeStage() {};
 
 // µð¹ö±ë °ü·Ã
 private:
