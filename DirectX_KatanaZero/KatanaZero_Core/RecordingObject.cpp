@@ -18,6 +18,11 @@ void URecordingObject::SetRecordingSize(float _RecTime)
 
 void URecordingObject::Recording(float _DeltaTime)
 {
+	if (false == IsRecordingValue)
+	{
+		return;
+	}
+
 #ifdef _DEBUG
 	if (nullptr == Actor)
 	{

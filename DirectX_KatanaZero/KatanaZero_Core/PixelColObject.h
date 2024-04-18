@@ -39,11 +39,9 @@ protected:
 		SetMapTex();
 	}
 
-	
-
 private:
-	FVector Top = FVector::Zero;
-	FVector Bot = FVector::Zero;
+	FVector Top = { 10.0f, 10.0f, 0.0f };
+	FVector Bot = { 10.0f, 0.0f, 0.0f };
 
 	bool IsStairsUpValue = false;
 	

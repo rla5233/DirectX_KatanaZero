@@ -38,6 +38,8 @@ protected:
 
 	void HitFallStart() override;
 
+	void DeadStart() override;
+
 	void PatrolWalkStart() override;
 	void PatrolTurnStart() override;
 	void PatrolStopStart() override;

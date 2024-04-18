@@ -49,6 +49,7 @@ protected:
 private:
 	AActor* Actor = nullptr;
 	
+	bool IsRecordingValue = false;
 	int MaxSize = 10000;
 	int CurIndex = 0;
 	float TimeCount = Const::recording_delay;

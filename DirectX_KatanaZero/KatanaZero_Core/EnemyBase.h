@@ -88,5 +88,8 @@ protected:
 	virtual void DeadStart() {};
 	virtual void Dead(float _DeltaTime) {};
 
+// FSM Update
+private:
+
 };
 

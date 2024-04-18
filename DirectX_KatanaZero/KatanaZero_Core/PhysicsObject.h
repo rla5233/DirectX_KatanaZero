@@ -49,6 +49,11 @@ public:
 		Velocity += Acc * _DeltaTime;
 	}
 
+	inline void ApplyGravity(float _DeltaTime)
+	{
+		Velocity.Y += Const::default_gravity * _DeltaTime;
+	}
+
 	void PosUpdate(float _DeltaTime)
 	{
 		Actor->AddActorLocation(Velocity * _DeltaTime);
@@ -60,9 +65,10 @@ protected:
 		Actor = _Actor;
 	};
 
-private:
 	FVector Velocity = FVector::Zero;
 	FVector Acc = FVector::Zero;
+
+private:
 
 	AActor* Actor = nullptr;
 };

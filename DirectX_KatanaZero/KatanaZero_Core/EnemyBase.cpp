@@ -138,11 +138,26 @@ void AEnemyBase::Turn(float _DeltaTime)
 
 void AEnemyBase::HitFall(float _DeltaTime)
 {
-	//if (true == IsOnGround() || true == IsOnPlatForm()
-	//||	true == IsOnGP_Boundary() || true == IsOnStairs())
-	//{
-	//
-	//}
+	EEngineDir Dir = Renderer->GetDir();
+
+	// 속도 업데이트
+	ApplyGravity(_DeltaTime);
+
+	if (true == IsColHeadToCeil(Dir))
+	{
+		Velocity.Y = 0.0f;
+	}
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// State Change Check
+	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir)
+	||  true == IsOnGP_Boundary(Dir) || true == IsOnStairs(Dir))
+	{
+		State.ChangeState("Dead");
+		return;
+	}
 }
 
 // State 초기화
@@ -171,14 +186,13 @@ void AEnemyBase::StateInit()
 	
 
 
-
 	State.SetStartFunction("Turn", std::bind(&AEnemyBase::TurnStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Run", std::bind(&AEnemyBase::Run, this, std::placeholders::_1));
 	State.SetUpdateFunction("HitFall", std::bind(&AEnemyBase::HitFall, this, std::placeholders::_1));
-	State.SetUpdateFunction("HitFall", std::bind(&AEnemyBase::Dead, this, std::placeholders::_1));
+	State.SetUpdateFunction("Dead", std::bind(&AEnemyBase::Dead, this, std::placeholders::_1));
 	State.SetUpdateFunction("PatrolWalk", std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
 	State.SetUpdateFunction("PatrolTurn", std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
 	State.SetUpdateFunction("PatrolStop", std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));

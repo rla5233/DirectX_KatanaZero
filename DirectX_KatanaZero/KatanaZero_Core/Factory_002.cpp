@@ -41,7 +41,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	NewGrunt = GetWorld()->SpawnActor<AGrunt>("Grunt");
 	NewGrunt->SetActorLocation({ 340.0f, 400.0f, 0.0f });
 	NewGrunt->SetRendererDir(EEngineDir::Right);
-	NewGrunt->StateChange("Idle");
+	NewGrunt->StateChange("HitFall");
 
 	AllEnemy.push_back(NewGrunt);
 }

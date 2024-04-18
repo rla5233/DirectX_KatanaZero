@@ -35,6 +35,13 @@ void AGrunt::HitFallStart()
 	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_hitfall);
 }
 
+void AGrunt::DeadStart()
+{
+	Super::DeadStart();
+
+	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_dead);
+}
+
 void AGrunt::PatrolWalkStart()
 {
 	Super::PatrolWalkStart();
@@ -93,4 +100,5 @@ void AGrunt::CreateAnimation()
 	GetRenderer()->CreateAnimation(Anim::enemy_grunt_run, ImgRes::enemy_grunt_run, 0.07f, true);
 	GetRenderer()->CreateAnimation(Anim::enemy_grunt_turn, ImgRes::enemy_grunt_turn, 0.08f, false);
 	GetRenderer()->CreateAnimation(Anim::enemy_grunt_hitfall, ImgRes::enemy_grunt_hitfall, 0.08f, false);
+	GetRenderer()->CreateAnimation(Anim::enemy_grunt_dead, ImgRes::enemy_grunt_dead, 0.08f, false);
 }
