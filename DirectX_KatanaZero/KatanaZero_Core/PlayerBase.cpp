@@ -58,22 +58,18 @@ void APlayerBase::RendererInit()
 	Front_Top->SetSprite("RedPoint.png");
 	Front_Top->SetOrder(ERenderOrder::Player2);
 	Front_Top->SetAutoSize(4.0f, true);
-	Front_Top->SetPosition(Top);
-
+	
 	Front_Bot->SetSprite("RedPoint.png");
 	Front_Bot->SetOrder(ERenderOrder::Player2);
 	Front_Bot->SetAutoSize(4.0f, true);
-	Front_Bot->SetPosition(Bot);
 
 	Back_Top->SetSprite("RedPoint.png");
 	Back_Top->SetOrder(ERenderOrder::Player2);
 	Back_Top->SetAutoSize(4.0f, true);
-	Back_Top->SetPosition({ -Top.X, Top.Y, Top.Z });
 
 	Back_Bot->SetSprite("RedPoint.png");
 	Back_Bot->SetOrder(ERenderOrder::Player2);
 	Back_Bot->SetAutoSize(4.0f, true);
-	Back_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
 }
 
 void APlayerBase::CollisionInit()
@@ -162,17 +158,9 @@ void APlayerBase::RendererDirChange(EEngineDir _Dir)
 	{
 	case EEngineDir::Left:
 		Renderer->SetDir(EEngineDir::Left);
-		Front_Top->SetPosition({ -Top.X, Top.Y, Top.Z });
-		Front_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
-		Back_Top->SetPosition(Top);
-		Back_Bot->SetPosition(Bot);
 		break;
 	case EEngineDir::Right:
 		Renderer->SetDir(EEngineDir::Right);
-		Front_Top->SetPosition(Top);
-		Front_Bot->SetPosition(Bot);
-		Back_Top->SetPosition({ -Top.X, Top.Y, Top.Z });
-		Back_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
 		break;
 	}
 }
@@ -438,7 +426,7 @@ void APlayerBase::ColCheckUpdate()
 	// OnStairs
 	if (true == IsOnStairs(Dir))
 	{
-		if (true == IsStairsUpValue)
+		if (true == IsStairsUp())
 		{
 			Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 			Back_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
@@ -488,5 +476,16 @@ void APlayerBase::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	DefaultUpdate(_DeltaTime);
+	DebugUpdate();
 }
 
+
+void APlayerBase::DebugUpdate()
+{
+	CalFourPoint(Renderer->GetDir());
+
+	Front_Top->SetPosition(GetFTFromActor());
+	Front_Bot->SetPosition(GetFBFromActor());
+	Back_Top->SetPosition(GetBTFromActor());
+	Back_Bot->SetPosition(GetBBFromActor());
+}

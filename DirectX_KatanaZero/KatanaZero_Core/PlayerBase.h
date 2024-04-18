@@ -33,6 +33,9 @@ public:
 		return State.GetCurStateName();
 	}
 
+	// 수정 (삭제 필요)
+	void DebugUpdate();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -65,10 +68,6 @@ private:
 	USpriteRenderer* Back_Bot = nullptr;
 	USpriteRenderer* Front_Top = nullptr;
 	USpriteRenderer* Front_Bot = nullptr;
-
-	FVector Top = { 25.0f, 80.0f, 0.0f };
-	FVector Bot = { 25.0f, 0.0f, 0.0f };
-	bool IsStairsUpValue = false;
 
 	FVector Velocity = FVector::Zero;
 

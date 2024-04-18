@@ -46,6 +46,11 @@ public:
 	bool IsColHeadToWall(EEngineDir _Dir);
 	bool IsColHeadToCeil(EEngineDir _Dir);
 
+	bool IsStairsUp() const
+	{
+		return IsStairsUpValue;
+	}
+
 protected:
 	inline void SetActor(AActor* _Actor)
 	{
