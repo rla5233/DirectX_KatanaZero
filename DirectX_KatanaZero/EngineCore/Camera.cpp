@@ -2,8 +2,9 @@
 #include "Camera.h"
 #include "EngineCore.h"
 #include "DefaultSceneComponent.h"
+#include "EngineRenderTarget.h"
 
-UCamera::UCamera()
+UCamera::UCamera() 
 {
 	InputOn();
 
@@ -21,7 +22,7 @@ UCamera::UCamera()
 	ViewPort.MaxDepth = 1;
 }
 
-UCamera::~UCamera()
+UCamera::~UCamera() 
 {
 }
 
@@ -50,9 +51,18 @@ void UCamera::CameraTransformUpdate()
 
 }
 
+void UCamera::CamTargetSetting()
+{
+	CameraTarget->Setting();
+}
+
 void UCamera::BeginPlay()
 {
-
+	Super::BeginPlay();
+	CameraTarget = UEngineRenderTarget::Create();
+	// 내가 바라보는 애들을 모아서 그릴수 있는 랜더타겟을 만들고 싶어.
+	float4 Scale = GEngine->EngineWindow.GetWindowScale();
+	CameraTarget->CreateTexture(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, Scale, float4::Zero);
 }
 
 // 프리카메라가 되면
@@ -104,7 +114,7 @@ void UCamera::Tick(float _DeltaTime)
 		default:
 			break;
 		}
-
+		
 	}
 
 	float Speed = FreeCameraMoveSpeed;

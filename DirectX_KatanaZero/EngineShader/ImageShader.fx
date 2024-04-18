@@ -150,8 +150,7 @@ ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
     // 01,    11
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
     Out.COLOR.xyz += PlusColor.xyz;
-    //Out.COLOR.xyz *= MulColor.xyz;
-    //Out.COLOR.a = AlphaColor.a;
+    Out.COLOR.xyzw *= MulColor.xyzw;
     // #define Sampling(Name, TEXCOORD) Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
     // Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
     

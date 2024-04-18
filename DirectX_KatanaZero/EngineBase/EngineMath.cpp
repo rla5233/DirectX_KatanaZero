@@ -8,10 +8,10 @@ const float UEngineMath::RToD = 180.0f / UEngineMath::PI;
 
 
 const float4 float4::Zero = { 0.0f, 0.0f, 0.0f, 0.0f };
-const float4 float4::One = { 1.0f, 1.0f, 1.0f, 0.0f };
+const float4 float4::One = { 1.0f, 1.0f, 1.0f, 1.0f };
 const float4 float4::Forward = { 0.0f, 0.0f, 1.0f, 0.0f };;
 const float4 float4::BackWard = { 0.0f, 0.0f, -1.0f, 0.0f };;
-const float4 float4::Left = { -1.0f, 0.0f, 0.0f, 0.0f };
+const float4 float4::Left = {-1.0f, 0.0f, 0.0f, 0.0f};
 const float4 float4::Right = { 1.0f, 0.0f, 0.0f, 0.0f };
 const float4 float4::Up = { 0.0f, 1.0f, 0.0f, 0.0f };
 const float4 float4::Down = { 0.0f, -1.0f, 0.0f, 0.0f };
@@ -40,11 +40,11 @@ const Color8Bit Color8Bit::MagentaA = { 255, 0, 255, 0 };
 const Color8Bit Color8Bit::OrangeA = { 255, 170, 46, 0 };
 const Color8Bit Color8Bit::CyanA = { 0, 255, 255, 0 };
 
-UEngineMath::UEngineMath()
+UEngineMath::UEngineMath() 
 {
 }
 
-UEngineMath::~UEngineMath()
+UEngineMath::~UEngineMath() 
 {
 }
 
@@ -56,7 +56,7 @@ float4 float4::operator*(const float4x4& _Other) const
 	return Result;
 }
 
-float4& float4::operator*=(const class float4x4& _Other)
+float4& float4::operator*=(const class float4x4& _Other) 
 {
 	const float4& Left = *this;
 	const float4x4& Right = _Other;
@@ -76,7 +76,7 @@ float4& float4::operator*=(const class float4x4& _Other)
 float4x4 operator *(const float4x4& _Left, const float4x4& _Right)
 {
 	float4x4 Result;
-	Result.DirectMatrix = DirectX::XMMatrixMultiply(_Left.DirectMatrix, _Right.DirectMatrix);
+	Result.DirectMatrix =  DirectX::XMMatrixMultiply(_Left.DirectMatrix, _Right.DirectMatrix);
 
 	//const float4x4& A = _Left;
 	//const float4x4& B = _Right;

@@ -3,16 +3,7 @@
 
 #include <vector>
 #include "EngineTexture.h"
-
-class UEngineTexture;
-struct FSpriteInfo
-{
-	// UV값 0.0에서부터
-	FVector CuttingPosition = FVector::Zero;
-	// 1,1 까지를 
-	FVector CuttingSize = FVector::One;
-	std::shared_ptr<UEngineTexture> Texture = nullptr;
-};
+#include "EngineStruct.h"
 
 // 설명 :
 class UEngineSprite : public UEngineResources<UEngineSprite>

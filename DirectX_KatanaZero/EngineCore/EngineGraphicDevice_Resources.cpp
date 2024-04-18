@@ -11,12 +11,17 @@
 #include "EngineBlend.h"
 #include "EngineMaterial.h"
 
+#include "EngineRenderTarget.h"
+
 void UEngineGraphicDevice::EngineResourcesRelease()
 {
 	// 어차피 자동으로 지워지는 리소스들을 왜 굳이 여기서 클리어를 직접 해주지?
 	// 엔진이 종료되는 시점에 텍스처를 모두다 삭제한다.
+
 	UEngineSound::ResourcesRelease();
 	UEngineTexture::ResourcesRelease();
+	UEngineRenderTarget::ResourcesRelease();
+
 
 	// Mesh
 	UEngineVertexBuffer::ResourcesRelease();
@@ -28,6 +33,7 @@ void UEngineGraphicDevice::EngineResourcesRelease()
 	UEnginePixelShader::ResourcesRelease();
 	UEngineRasterizer::ResourcesRelease();
 	UEngineBlend::ResourcesRelease();
+
 
 	UEngineMaterial::ResourcesRelease();
 }
@@ -63,10 +69,10 @@ void MeshInit()
 		UEngineMesh::Create("Rect");
 
 		{
-			VertexData[0].POSITION *= 2.0f;
-			VertexData[1].POSITION *= 2.0f;
-			VertexData[2].POSITION *= 2.0f;
-			VertexData[3].POSITION *= 2.0f;
+			VertexData[0] = { {-1.0f, 1.0f, 0.0f, 1.0f} , {0.0f, 0.0f} };
+			VertexData[1] = { {1.0f, 1.0f, 0.0f, 1.0f} , {1.0f, 0.0f} };
+			VertexData[2] = { {1.0f, -1.0f, 0.0f, 1.0f}, {1.0f, 1.0f} };
+			VertexData[3] = { {-1.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f} };
 			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("FullRect", VertexData);
 		}
 
@@ -89,16 +95,16 @@ void ShaderInit()
 
 void SettingInit()
 {
-	//D3D11_FILL_MODE FillMode;
-	//D3D11_CULL_MODE CullMode;
-	//BOOL FrontCounterClockwise;
-	//INT DepthBias;
-	//FLOAT DepthBiasClamp;
-	//FLOAT SlopeScaledDepthBias;
-	//BOOL DepthClipEnable;
-	//BOOL ScissorEnable;
-	//BOOL MultisampleEnable;
-	//BOOL AntialiasedLineEnable;
+		//D3D11_FILL_MODE FillMode;
+		//D3D11_CULL_MODE CullMode;
+		//BOOL FrontCounterClockwise;
+		//INT DepthBias;
+		//FLOAT DepthBiasClamp;
+		//FLOAT SlopeScaledDepthBias;
+		//BOOL DepthClipEnable;
+		//BOOL ScissorEnable;
+		//BOOL MultisampleEnable;
+		//BOOL AntialiasedLineEnable;
 
 	{
 		D3D11_RASTERIZER_DESC Desc = {};
@@ -195,7 +201,7 @@ void SettingInit()
 
 		// float4 DestColor = 0011;
 		// float4 SrcColor = 0000;
-
+		
 		// float4 DestFilter = 0011;
 		// float4 SrcFilter = 0000;
 		// Result = DestColor * DestFilter (+) SrcColor * SrcFilter;
@@ -221,12 +227,12 @@ void SettingInit()
 		// SRCColor = 000(1)
 		// DestFilter =  1 - 1
 		// DestColor *DestFilter ; 
-
+		
 		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 
 		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 
-		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
+		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 
 		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
 
@@ -279,6 +285,11 @@ void MaterialInit()
 		Mat->SetRasterizer("Debug");
 	}
 
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("TargetCopy");
+		Mat->SetPixelShader("TargetCopyShader.fx");
+		Mat->SetVertexShader("TargetCopyShader.fx");
+	}
 
 }
 
@@ -305,4 +316,6 @@ void UEngineGraphicDevice::EngineResourcesInit()
 	SettingInit();
 	MaterialInit();
 	EngineTextureInit();
+
+	UEngineRenderTarget::RenderTargetInit();
 }

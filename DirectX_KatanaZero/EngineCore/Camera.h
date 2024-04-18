@@ -5,10 +5,12 @@
 
 // Ό³Έν :
 class ULevel;
+class UEngineRenderTarget;
 class UCamera : public AActor
 {
 	friend ULevel;
 	friend URenderer;
+	GENERATED_BODY(AActor)
 
 public:
 	// constrcuter destructer
@@ -43,11 +45,15 @@ public:
 	void ViewPortSetting();
 	float4 ScreenPosToWorldPos(float4 _ScreenPos);
 
+	void CamTargetSetting();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<UEngineRenderTarget> CameraTarget;
+
 	bool IsFreeCamera = false;
 
 	float Near = 1.0f;

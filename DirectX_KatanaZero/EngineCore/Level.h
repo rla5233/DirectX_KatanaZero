@@ -65,6 +65,11 @@ public:
 		return MainCamera;
 	}
 
+	std::shared_ptr<UCamera> GetUICamera()
+	{
+		return UICamera;
+	}
+
 	std::shared_ptr<AGameMode> GetGameMode()
 	{
 		return GameMode;

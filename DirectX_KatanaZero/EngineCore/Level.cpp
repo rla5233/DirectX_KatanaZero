@@ -6,11 +6,12 @@
 #include "Camera.h"
 #include "EngineCore.h"
 #include "EngineRenderTarget.h"
+#include "EngineGraphicDevice.h"
 #include "Widget.h"
 
 bool ULevel::IsActorConstructer = true;
 
-ULevel::ULevel()
+ULevel::ULevel() 
 {
 	// MainCamera = std::make_shared<UCamera>();
 
@@ -20,7 +21,7 @@ ULevel::ULevel()
 	UICamera->InputOff();
 }
 
-ULevel::~ULevel()
+ULevel::~ULevel() 
 {
 }
 
@@ -42,8 +43,11 @@ void ULevel::Tick(float _DeltaTime)
 void ULevel::Render(float _DeltaTime)
 {
 	MainCamera->ViewPortSetting();
-	GEngine->GetEngineDevice().BackBufferRenderTarget->Setting();
 
+	GEngine->GetEngineDevice().BackBufferRenderTarget->Setting();
+	
+	MainCamera->CameraTarget->Clear();
+	MainCamera->CameraTarget->Setting();
 	MainCamera->CameraTransformUpdate();
 
 	for (std::pair<const int, std::list<std::shared_ptr<URenderer>>>& RenderGroup : Renderers)
@@ -78,6 +82,8 @@ void ULevel::Render(float _DeltaTime)
 	// 모든 일반오브젝트들이 랜더링을 하고
 
 	// 언리얼은 제약이 많다.
+	UICamera->CameraTarget->Clear();
+	UICamera->CameraTarget->Setting();
 	UICamera->CameraTransformUpdate();
 
 	for (std::pair<const int, std::list<std::shared_ptr<UWidget>>>& WidgetGroup : Widgets)
@@ -92,6 +98,7 @@ void ULevel::Render(float _DeltaTime)
 				continue;
 			}
 
+			Widget->Tick(_DeltaTime);
 			Widget->RenderingTransformUpdate(UICamera);
 			if (false == Widget->Render(_DeltaTime))
 			{
@@ -99,6 +106,10 @@ void ULevel::Render(float _DeltaTime)
 			}
 		}
 	}
+
+	UEngineGraphicDevice& Device = GEngine->GetEngineDevice();
+	Device.BackBufferRenderTarget->Merge(MainCamera->CameraTarget);
+	Device.BackBufferRenderTarget->Merge(UICamera->CameraTarget);
 
 }
 
@@ -156,7 +167,7 @@ void ULevel::Destroy()
 		std::list<std::shared_ptr<AActor>>::iterator StartIter = GroupActors.begin();
 		std::list<std::shared_ptr<AActor>>::iterator EndIter = GroupActors.end();
 
-		for (; StartIter != EndIter; )
+		for ( ; StartIter != EndIter; )
 		{
 			std::shared_ptr<AActor> CurActor = *StartIter;
 
@@ -180,7 +191,7 @@ void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
 		MsgBoxAssert("만들지 않은 액터를 추가하려고 했습니다.");
 		return;
 	}
-
+	
 	_Actor->SetWorld(this);
 	_Actor->BeginPlay();
 

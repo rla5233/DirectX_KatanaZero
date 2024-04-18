@@ -36,6 +36,13 @@ public:
 		return NewRes;
 	}
 
+	static std::shared_ptr<UEngineTexture> Create(const D3D11_TEXTURE2D_DESC& _Desc)
+	{
+		std::shared_ptr<UEngineTexture> NewRes = CreateResUnName();
+		NewRes->ResCreate(_Desc);
+		return NewRes;
+	}
+
 	static std::shared_ptr<UEngineTexture> Load(std::string_view _Path)
 	{
 		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
@@ -102,11 +109,14 @@ private:
 
 	std::shared_ptr<UEngineSampler> Sampler;
 
+	void ResCreate(const D3D11_TEXTURE2D_DESC& _Desc);
+
 	void ResCreate(ID3D11Texture2D* _Texture);
 
 	void ResLoad();
 
 	void CreateRenderTargetView();
+	void CreateShaderResourceView();
 
 	void Setting(EShaderType _Type, UINT _Slot);
 };

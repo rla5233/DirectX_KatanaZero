@@ -10,6 +10,9 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{f7415d27-a140-4967-94d8-10062231d9ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Target">
+      <UniqueIdentifier>{0f2b3bf1-20ec-4508-80ba-b10ccdf1c0ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ColorShader.fx">
@@ -20,6 +23,9 @@
     </FxCompile>
     <FxCompile Include="DebugShader.fx">
       <Filter>Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="TargetCopyShader.fx">
+      <Filter>Target</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
