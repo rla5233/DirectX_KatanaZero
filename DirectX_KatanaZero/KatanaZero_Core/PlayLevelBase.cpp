@@ -156,6 +156,12 @@ void APlayLevelBase::StateInit()
 	State.SetStartFunction("Replay", [=] 
 		{ 
 			Player->StateChange("Replay");
+
+			for (size_t i = 0; i < AllEnemy.size(); i++)
+			{
+				AllEnemy[i]->StateChange("Replay");
+			}
+
 			InputOn();
 		}
 	);

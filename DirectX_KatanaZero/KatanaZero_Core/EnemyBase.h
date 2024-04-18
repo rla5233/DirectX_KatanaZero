@@ -88,6 +88,9 @@ protected:
 	virtual void DeadStart() {};
 	virtual void Dead(float _DeltaTime) {};
 
+	void ReplayStart();
+	void Replay(float _DeltaTime);
+
 // FSM Update
 private:
 

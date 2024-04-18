@@ -66,7 +66,12 @@ void AEnemyBase::Tick(float _DeltaTime)
 
 void AEnemyBase::DefaultUpdate(float _DeltaTime)
 {
+	std::string CurState = State.GetCurStateName();
 
+	if ("Replay" != CurState)
+	{
+		Recording(_DeltaTime);
+	}
 }
 
 void AEnemyBase::PatrolWalk(float _DeltaTime)
@@ -160,6 +165,16 @@ void AEnemyBase::HitFall(float _DeltaTime)
 	}
 }
 
+void AEnemyBase::ReplayStart()
+{
+	SetReplayStart();
+}
+
+void AEnemyBase::Replay(float _DeltaTime)
+{
+	Replaying(_DeltaTime);
+}
+
 // State √ ±‚»≠
 void AEnemyBase::StateInit()
 {
@@ -171,6 +186,7 @@ void AEnemyBase::StateInit()
 	State.CreateState("PatrolWalk");
 	State.CreateState("PatrolTurn");
 	State.CreateState("PatrolStop");
+	State.CreateState("Replay");
 
 
 	State.CreateState("Turn");
@@ -183,6 +199,7 @@ void AEnemyBase::StateInit()
 	State.SetStartFunction("PatrolWalk", std::bind(&AEnemyBase::PatrolWalkStart, this));
 	State.SetStartFunction("PatrolTurn", std::bind(&AEnemyBase::PatrolTurnStart, this));
 	State.SetStartFunction("PatrolStop", std::bind(&AEnemyBase::PatrolStopStart, this));
+	State.SetStartFunction("Replay", std::bind(&AEnemyBase::ReplayStart, this));
 	
 
 
@@ -196,8 +213,8 @@ void AEnemyBase::StateInit()
 	State.SetUpdateFunction("PatrolWalk", std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
 	State.SetUpdateFunction("PatrolTurn", std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
 	State.SetUpdateFunction("PatrolStop", std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
+	State.SetUpdateFunction("Replay", std::bind(&AEnemyBase::Replay, this, std::placeholders::_1));
 	
-
 
 	State.SetUpdateFunction("Turn", std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));
 
