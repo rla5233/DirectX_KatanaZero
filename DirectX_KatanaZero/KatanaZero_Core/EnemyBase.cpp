@@ -3,12 +3,15 @@
 
 AEnemyBase::AEnemyBase()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Enemy_Renderer");
-	Renderer->SetPivot(EPivot::BOT);
-	Renderer->SetOrder(ERenderOrder::Enemy);
-	Renderer->SetAutoSize(2.0f, true);
-	Renderer->SetDir(EEngineDir::Right);
-	SetRoot(Renderer);
+	BodyCol  = CreateDefaultSubObject<UCollision>("Enemy_Body_Col");
+
+	Renderer->SetupAttachment(Root);
+	BodyCol->SetupAttachment(Root);
+
+	SetRoot(Root);
 }
 
 AEnemyBase::~AEnemyBase()
@@ -23,7 +26,24 @@ void AEnemyBase::BeginPlay()
 	UPhysicsObject::SetActor(this);
 	URecordingObject::SetActor(this);
 
+	RendererInit();
+	CollisionInit();
 	StateInit();
+}
+
+void AEnemyBase::RendererInit()
+{
+	Renderer->SetPivot(EPivot::BOT);
+	Renderer->SetOrder(ERenderOrder::Enemy);
+	Renderer->SetAutoSize(2.0f, true);
+	Renderer->SetDir(EEngineDir::Right);
+}
+
+void AEnemyBase::CollisionInit()
+{
+	BodyCol->SetScale({ 100.0f, 100.0f, 100.0f });
+	BodyCol->SetCollisionGroup(EColOrder::Enemy);
+	BodyCol->SetCollisionType(ECollisionType::RotRect);
 }
 
 void AEnemyBase::SetVelocityByDir(const FVector& _Vel)

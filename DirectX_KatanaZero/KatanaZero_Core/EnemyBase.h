@@ -45,9 +45,18 @@ public:
 
 	void SetVelocityByDir(const FVector& _Vel);
 
+	void HitByPlayer(FVector _AttDir)
+	{
+		HitDir = _AttDir;
+		State.ChangeState("HitFall");
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
+	void RendererInit();
+	void CollisionInit();
 
 private:
 	void DefaultUpdate(float _DeltaTime);
@@ -56,6 +65,10 @@ private:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
+
+	UCollision* BodyCol = nullptr;
+	FVector HitDir = FVector::Zero;
+	
 	float TimeCount = 0.0f;
 
 // FSM

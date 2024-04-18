@@ -49,6 +49,9 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void RendererInit();
+	void CollisionInit();
+
 private:
 	// 기본 업데이트 함수
 	void DefaultUpdate(float _DeltaTime);

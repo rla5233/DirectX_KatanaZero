@@ -4,6 +4,7 @@
 #include "PlayLevelBase.h"
 #include "ColMapObject.h"
 #include "MouseAim.h"
+#include "EnemyBase.h"
 
 APlayerBase::APlayerBase()
 {
@@ -16,16 +17,13 @@ APlayerBase::APlayerBase()
 	Back_Bot	= CreateDefaultSubObject<USpriteRenderer>("Back_Bot");
 
 	AttackCol = CreateDefaultSubObject<UCollision>("Player_Attack");
-		
+
 	Renderer->SetupAttachment(Root);
 	Back_Top->SetupAttachment(Root);
 	Back_Bot->SetupAttachment(Root);
 	Front_Top->SetupAttachment(Root);
 	Front_Bot->SetupAttachment(Root);
-
 	AttackCol->SetupAttachment(Root);
-
-	Renderer->SetPivot(EPivot::BOT);
 	
 	SetRoot(Root);
 	InputOn();
@@ -41,11 +39,19 @@ void APlayerBase::BeginPlay()
 
 	URecordingObject::SetActor(this);
 
+	RendererInit();
+	CollisionInit();
 	StateInit();
 
+	SetRecordingSize(0.0f);
+}
+
+void APlayerBase::RendererInit()
+{
 	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetAutoSize(2.0f, true);
 	Renderer->SetDir(EEngineDir::Right);
+	Renderer->SetPivot(EPivot::BOT);
 
 	Front_Top->SetSprite("RedPoint.png");
 	Front_Top->SetOrder(ERenderOrder::Player2);
@@ -66,8 +72,20 @@ void APlayerBase::BeginPlay()
 	Back_Bot->SetOrder(ERenderOrder::Player2);
 	Back_Bot->SetAutoSize(3.0f, true);
 	Back_Bot->SetPosition({ -Bot.X, Bot.Y, Bot.Z });
+}
 
-	SetRecordingSize(0.0f);
+void APlayerBase::CollisionInit()
+{
+	AttackCol->SetCollisionGroup(EColOrder::PlayerAttack);
+	AttackCol->SetCollisionType(ECollisionType::RotRect);
+	AttackCol->SetScale({ 100.0f, 100.0f, 100.0f });
+	AttackCol->SetActive(false);
+	AttackCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
+		{
+			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
+			Enemy->HitByPlayer(AttackDir);
+		}
+	);
 }
 
 void APlayerBase::DefaultUpdate(float _DeltaTime)
@@ -656,3 +674,4 @@ void APlayerBase::Tick(float _DeltaTime)
 
 	DefaultUpdate(_DeltaTime);
 }
+

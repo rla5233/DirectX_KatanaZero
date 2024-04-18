@@ -34,7 +34,8 @@ enum class EEnemyPatrol
 
 enum class EColOrder
 {
-	Attack,
+	PlayerAttack,
+	EnemyAttack,
 	Player,
 	Enemy,
 	Door
