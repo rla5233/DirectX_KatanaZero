@@ -3,11 +3,11 @@
 #include "EngineDebug3D.h"
 #include "EngineCore.h"
 
-UCollision::UCollision()
+UCollision::UCollision() 
 {
 }
 
-UCollision::~UCollision()
+UCollision::~UCollision() 
 {
 }
 
@@ -51,6 +51,7 @@ bool UCollision::Collision(int _TargetGroup,
 {
 	// Group 상대 그룹
 
+
 	auto Test = GetWorld()->Collisions;
 
 	std::list<std::shared_ptr<UCollision>>& Group = GetWorld()->Collisions[_TargetGroup];
@@ -74,34 +75,39 @@ bool UCollision::Collision(int _TargetGroup,
 
 		if (true == Transform.Collision(ThisType, OtherType, OtherCollision->Transform))
 		{
-			bool IsFirst = false;
-
-			if (false == OtherCheck.contains(CollisionPtr))
+			if (false == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
-				IsFirst = true;
-			}
-			else {
-				IsFirst = false;
-			}
-
-			if (nullptr != _Enter || nullptr != _Exit)
-			{
-				OtherCheck.insert(CollisionPtr);
+				FirstCheck.insert(CollisionPtr);
+				if (nullptr != _Enter)
+				{
+					_Enter(OtherCollision);
+				}
 			}
 
-			if (true == IsFirst && nullptr != _Enter)
+			if (true == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
-				_Enter(OtherCollision);
+				if (nullptr != _Enter)
+				{
+					_Enter(OtherCollision);
+				}
 			}
-			else if (false == IsFirst && nullptr != _Stay)
+
+			
+			if (true == OtherCheck.contains(CollisionPtr))
 			{
-				_Stay(OtherCollision);
+				if (nullptr != _Stay)
+				{
+					_Stay(OtherCollision);
+				}
 			}
 		}
-		else if (true == OtherCheck.contains(CollisionPtr) && nullptr != _Exit)
+		else if(true == OtherCheck.contains(CollisionPtr))
 		{
 			OtherCheck.erase(CollisionPtr);
-			_Exit(OtherCollision);
+			if (nullptr != _Exit)
+			{
+				_Exit(OtherCollision);
+			}
 		}
 	}
 
@@ -126,6 +132,15 @@ void UCollision::SetOrder(int _Order)
 void UCollision::Tick(float _Delta)
 {
 	Super::Tick(_Delta);
+
+
+	for (UCollision* Col : FirstCheck)
+	{
+		OtherCheck.insert(Col);
+	}
+	FirstCheck.clear();
+
+
 	if (false == GEngine->IsDebug)
 	{
 		return;
@@ -162,7 +177,7 @@ void UCollision::Tick(float _Delta)
 		break;
 	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:
-		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Red);
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Black);
 		break;
 	case ECollisionType::Max:
 		break;

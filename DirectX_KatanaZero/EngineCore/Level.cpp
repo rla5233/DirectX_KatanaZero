@@ -46,6 +46,8 @@ void ULevel::Tick(float _DeltaTime)
 			Actor->Tick(_DeltaTime);
 		}
 	}
+
+
 }
 
 void ULevel::Render(float _DeltaTime)

@@ -13,8 +13,9 @@ UWidget::~UWidget()
 {
 }
 
-void UWidget::AddToViewPort()
+void UWidget::AddToViewPort(int _Order)
 {
+	SetOrder(_Order);
 	GetWorld()->PushWidget(shared_from_this());
 }
 

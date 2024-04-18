@@ -70,9 +70,9 @@ public:
 	// 충돌이 끝났을때 1번
 	bool CollisionExit(int _TargetGroup, std::function<void(std::shared_ptr<UCollision>)> _Function = nullptr);
 
-	bool Collision(int _TargetGroup,
-		std::function<void(std::shared_ptr<UCollision>)> _Enter = nullptr,
-		std::function<void(std::shared_ptr<UCollision>)> _Stay = nullptr,
+	bool Collision(int _TargetGroup, 
+		std::function<void(std::shared_ptr<UCollision>)> _Enter = nullptr, 
+		std::function<void(std::shared_ptr<UCollision>)> _Stay = nullptr, 
 		std::function<void(std::shared_ptr<UCollision>)> _Exit = nullptr);
 
 	void SetCollisionType(ECollisionType _CollisionType)
@@ -96,7 +96,7 @@ private:
 	ECollisionType CollisionType = ECollisionType::CirCle;
 
 	// 순환참조를 막자.
+	std::set<UCollision*> FirstCheck;
 	std::set<UCollision*> OtherCheck;
-
 };
 
