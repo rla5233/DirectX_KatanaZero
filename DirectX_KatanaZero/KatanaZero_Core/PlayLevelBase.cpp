@@ -29,7 +29,6 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
-	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player");
 	HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
 
 	State.ChangeState("Play");
@@ -119,27 +118,22 @@ void APlayLevelBase::DebugMessageFunction()
 	}
 
 	{
-		std::string Msg = std::format("IsOnGround : {}\n", Player->IsOnGround());
+		std::string Msg = std::format("IsOnGround : {}\n", Player->IsOnGround(Player->GetRenderer()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
 	{
-		std::string Msg = std::format("IsOnPlatForm : {}\n", Player->IsOnPlatForm());
+		std::string Msg = std::format("IsOnPlatForm : {}\n", Player->IsOnPlatForm(Player->GetRenderer()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
 	{
-		std::string Msg = std::format("IsOnStairs : {}\n", Player->IsOnStairs());
+		std::string Msg = std::format("IsOnStairs : {}\n", Player->IsOnStairs(Player->GetRenderer()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
 	{
-		std::string Msg = std::format("IsOnGP_Boundary : {}\n", Player->IsOnGP_Boundary());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("IsStairsUp : {}\n", Player->IsStairUp());
+		std::string Msg = std::format("IsOnGP_Boundary : {}\n", Player->IsOnGP_Boundary(Player->GetRenderer()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }

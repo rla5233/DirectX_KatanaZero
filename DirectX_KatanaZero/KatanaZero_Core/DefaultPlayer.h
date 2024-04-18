@@ -20,6 +20,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void CollisionInit() override;
+
 // Effect Setting
 protected:
 	void SetAttackEffect(float _Deg) override;

@@ -15,7 +15,8 @@ APlayerBase::APlayerBase()
 	Back_Top	= CreateDefaultSubObject<USpriteRenderer>("Back_Top");
 	Back_Bot	= CreateDefaultSubObject<USpriteRenderer>("Back_Bot");
 
-	AttackCol = CreateDefaultSubObject<UCollision>("Player_Attack");
+	AttackCol	= CreateDefaultSubObject<UCollision>("Player_Attack");
+	BodyCol		= CreateDefaultSubObject<UCollision>("Player_Body");
 
 	Renderer->SetupAttachment(Root);
 	Back_Top->SetupAttachment(Root);
@@ -23,6 +24,7 @@ APlayerBase::APlayerBase()
 	Front_Top->SetupAttachment(Root);
 	Front_Bot->SetupAttachment(Root);
 	AttackCol->SetupAttachment(Root);
+	BodyCol->SetupAttachment(Root);
 	
 	SetRoot(Root);
 	InputOn();
@@ -36,6 +38,7 @@ void APlayerBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UPixelColObject::SetActor(this);
 	URecordingObject::SetActor(this);
 
 	RendererInit();
@@ -171,205 +174,15 @@ void APlayerBase::RendererDirChange(EEngineDir _Dir)
 	}
 }
 
-bool APlayerBase::IsOnGround()
-{
-	bool Result = false;
-
-	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-
-	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
-
-	FVector FB_Pos = Front_Bot->GetWorldPosition();
-	FVector BB_Pos = Back_Bot->GetWorldPosition();
-
-	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
-	BB_Pos.Y = MapTexScale.Y - BB_Pos.Y - 1.0f;
-
-	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
-	Color8Bit BB_PixelColor = MapTex->GetColor(BB_Pos, Color8Bit::Black);
-
-	if (ColMap::YELLOW == FB_PixelColor && ColMap::YELLOW == BB_PixelColor)
-	{
-		Result = true;
-	}
-
-	return Result;
-}
-
-bool APlayerBase::IsOnPlatForm()
-{
-	bool Result = false;
-
-	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-
-	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
-
-	FVector FB_Pos = Front_Bot->GetWorldPosition();
-	FVector BB_Pos = Back_Bot->GetWorldPosition();
-
-	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
-	BB_Pos.Y = MapTexScale.Y - BB_Pos.Y - 1.0f;
-
-	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
-	Color8Bit BB_PixelColor = MapTex->GetColor(BB_Pos, Color8Bit::Black);
-
-	if (ColMap::GREEN == FB_PixelColor && ColMap::GREEN == BB_PixelColor)
-	{
-		Result = true;
-	}
-
-	return Result;
-}
-
-bool APlayerBase::IsOnGP_Boundary()
-{
-	bool Result = false;
-
-	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-
-	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
-
-	FVector FB_Pos = Front_Bot->GetWorldPosition();
-	FVector BB_Pos = Back_Bot->GetWorldPosition();
-
-	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
-	BB_Pos.Y = MapTexScale.Y - BB_Pos.Y - 1.0f;
-
-	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
-	Color8Bit BB_PixelColor = MapTex->GetColor(BB_Pos, Color8Bit::Black);
-
-	if (ColMap::GREEN == FB_PixelColor && ColMap::YELLOW == BB_PixelColor)
-	{
-		Result = true;
-	}
-
-	if (ColMap::YELLOW== FB_PixelColor && ColMap::GREEN == BB_PixelColor)
-	{
-		Result = true;
-	}
-
-	return Result;
-}
-
-bool APlayerBase::IsOnStairs()
-{
-	bool Result = false;
-
-	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-
-	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
-
-	FVector FB_Pos = Front_Bot->GetWorldPosition();
-	FVector BB_Pos = Back_Bot->GetWorldPosition();
-
-	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y - 1.0f;
-	BB_Pos.Y = MapTexScale.Y - BB_Pos.Y - 1.0f;
-
-	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
-	Color8Bit BB_PixelColor = MapTex->GetColor(BB_Pos, Color8Bit::Black);
-
-	IsStairsUpValue = false;
-
-	if (ColMap::BLUE == FB_PixelColor && ColMap::BLUE != BB_PixelColor)
-	{
-		IsStairsUpValue = true;
-		Result = true;
-	}
-
-	if (ColMap::BLUE != FB_PixelColor && ColMap::BLUE == BB_PixelColor)
-	{
-		Result = true;
-	}
-
-	return Result;
-}
-
-bool APlayerBase::IsColWall()
-{
-	bool Result = false;
-
-	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-
-	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
-
-	FVector FT_Pos = Front_Top->GetWorldPosition();
-	FVector FB_Pos = Front_Bot->GetWorldPosition();
-
-	FT_Pos.Y = MapTexScale.Y - FT_Pos.Y;
-	FB_Pos.Y = MapTexScale.Y - FB_Pos.Y;
-
-	Color8Bit FT_PixelColor = MapTex->GetColor(FT_Pos, Color8Bit::Black);
-	Color8Bit FB_PixelColor = MapTex->GetColor(FB_Pos, Color8Bit::Black);
-
-	if (ColMap::YELLOW == FT_PixelColor && ColMap::YELLOW == FB_PixelColor)
-	{
-		Result = true;
-	}
-
-	return Result;
-}
-
-bool APlayerBase::IsColHeadToWall()
-{
-	bool Result = false;
-
-	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-
-	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
-
-	FVector FT_Pos = Front_Top->GetWorldPosition();
-
-	FT_Pos.Y = MapTexScale.Y - FT_Pos.Y;
-
-	Color8Bit FT_PixelColor = MapTex->GetColor(FT_Pos, Color8Bit::Black);
-
-	if (ColMap::YELLOW == FT_PixelColor || ColMap::BLUE == FT_PixelColor)
-	{
-		Result = true;
-	}
-
-	return Result;
-}
-
-bool APlayerBase::IsColHeadToCeil()
-{
-	bool Result = false;
-
-	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-
-	std::shared_ptr<UEngineTexture> MapTex = PlayLevel->GetColMap()->GetMapTex();
-	FVector MapTexScale = MapTex->GetScale();
-
-	FVector FT_Pos = Front_Top->GetWorldPosition();
-	FVector BT_Pos = Back_Top->GetWorldPosition();
-
-	FT_Pos.Y = MapTexScale.Y - FT_Pos.Y;
-	BT_Pos.Y = MapTexScale.Y - BT_Pos.Y;
-
-	Color8Bit FT_PixelColor = MapTex->GetColor(FT_Pos, Color8Bit::Black);
-	Color8Bit BT_PixelColor = MapTex->GetColor(BT_Pos, Color8Bit::Black);
-
-	if (ColMap::YELLOW == FT_PixelColor && ColMap::YELLOW == BT_PixelColor)
-	{
-		Result = true;
-	}
-
-	return Result;
-}
-
 void APlayerBase::OnGroundPosAdjust()
 {
-	while (true == IsOnGround())
+	EEngineDir Dir = Renderer->GetDir();
+
+	while (true == IsOnGround(Dir))
 	{
 		AddActorLocation({ 0.0f, 1.0f, 0.0f });
 
-		if (false == IsOnGround())
+		if (false == IsOnGround(Dir))
 		{
 			AddActorLocation({ 0.0f, -1.0f, 0.0f });
 			break;
@@ -379,11 +192,13 @@ void APlayerBase::OnGroundPosAdjust()
 
 void APlayerBase::UpStairPosAdjust()
 {
-	while (true == IsOnStairs())
+	EEngineDir Dir = Renderer->GetDir();
+
+	while (true == IsOnStairs(Dir))
 	{
 		AddActorLocation({ 0.0f, 1.0f, 0.0f });
 
-		if (false == IsOnStairs())
+		if (false == IsOnStairs(Dir))
 		{
 			AddActorLocation({ 0.0f, -1.0f, 0.0f });
 			break;
@@ -442,7 +257,8 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 
 void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
 {
-	if (true == IsOnGround() || true == IsOnPlatForm() || true == IsOnStairs() || true == IsOnGP_Boundary())
+	EEngineDir Dir = Renderer->GetDir();
+	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir) || true == IsOnStairs(Dir) || true == IsOnGP_Boundary(Dir))
 	{
 		Velocity.Y = 0.0f;
 		return;
@@ -453,7 +269,8 @@ void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
 
 void APlayerBase::RollDownStairGravityUpdate(float _DeltaTime)
 {
-	if (true == IsOnGround() || true == IsOnStairs() || true == IsOnGP_Boundary())
+	EEngineDir Dir = Renderer->GetDir();
+	if (true == IsOnGround(Dir) || true == IsOnStairs(Dir) || true == IsOnGP_Boundary(Dir))
 	{
 		Velocity.Y = 0.0f;
 		return;
@@ -593,20 +410,22 @@ void APlayerBase::PosUpdate(float _DeltaTime)
 
 void APlayerBase::ColCheckUpdate()
 {
+	EEngineDir Dir = Renderer->GetDir();
+
 	Front_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 	Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 	Back_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 	Back_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 
 	// ColWall
-	if (true == IsColWall())
+	if (true == IsColWall(Dir))
 	{
 		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
 
 	// OnGround
-	if (true == IsOnGround())
+	if (true == IsOnGround(Dir))
 	{
 		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
@@ -614,7 +433,7 @@ void APlayerBase::ColCheckUpdate()
 	}
 
 	// OnStairs
-	if (true == IsOnStairs())
+	if (true == IsOnStairs(Dir))
 	{
 		if (true == IsStairsUpValue)
 		{
@@ -630,27 +449,27 @@ void APlayerBase::ColCheckUpdate()
 	}
 
 	// Platform
-	if (true == IsOnPlatForm())
+	if (true == IsOnPlatForm(Dir))
 	{
 		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
 
 	// GP_Boundary
-	if (true == IsOnGP_Boundary())
+	if (true == IsOnGP_Boundary(Dir))
 	{
 		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
 
 	// ColHeadToWall
-	if (true == IsColHeadToWall())
+	if (true == IsColHeadToWall(Dir))
 	{
 		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
 
 	// ColHeadToCeil
-	if (true == IsColHeadToCeil())
+	if (true == IsColHeadToCeil(Dir))
 	{
 		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Back_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });

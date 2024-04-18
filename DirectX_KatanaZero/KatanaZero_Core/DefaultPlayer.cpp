@@ -23,6 +23,19 @@ void ADefaultPlayer::BeginPlay()
 	StateChange("Idle");
 }
 
+void ADefaultPlayer::CollisionInit()
+{
+	Super::CollisionInit();
+
+	FVector BodyPos	= { 0.0f, 0.0f, 0.0f };
+	FVector BodyScale = { 0.0f, 0.0f, 0.0f };
+
+	BodyCol->SetPosition(BodyPos);
+	BodyCol->SetScale(BodyScale);
+
+	SetBodyInfo(BodyPos, BodyScale);
+}
+
 void ADefaultPlayer::SetAttackEffect(float _Deg)
 {
 	APlayerBase::SetAttackEffect(_Deg);

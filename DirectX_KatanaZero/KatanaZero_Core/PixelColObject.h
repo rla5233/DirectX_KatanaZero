@@ -14,16 +14,6 @@ public:
 	UPixelColObject& operator=(const UPixelColObject& _Other) = delete;
 	UPixelColObject& operator=(UPixelColObject&& _Other) noexcept = delete;
 
-	void SetTop(const FVector& _Pos)
-	{
-		Top = _Pos;
-	}
-
-	void SetBot(const FVector& _Pos)
-	{
-		Bot = _Pos;
-	}
-
 	void SetBodyInfo(const FVector& _BodyPos, const FVector& _BodyScale);
 
 	// ªË¡¶
@@ -66,9 +56,6 @@ protected:
 	void CalFourPoint(EEngineDir _Dir);
 
 private:
-	FVector Top = { 10.0f, 10.0f, 0.0f };
-	FVector Bot = { 10.0f, 0.0f, 0.0f };
-
 	FVector FrontTop = FVector::Zero;
 	FVector FrontBot = FVector::Zero;
 	FVector BackTop = FVector::Zero;

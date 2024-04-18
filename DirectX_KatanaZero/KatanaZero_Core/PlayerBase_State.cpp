@@ -28,9 +28,10 @@ void APlayerBase::Idle(float _DeltaTime)
 		return;
 	}
 
+	EEngineDir Dir = Renderer->GetDir();
 	if (true == IsRunInputDown())
 	{
-		if (false == IsColWall())
+		if (false == IsColWall(Dir))
 		{
 			State.ChangeState("IdleToRun");
 			return;
@@ -55,8 +56,8 @@ void APlayerBase::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (false == IsOnGround() &&  false == IsOnPlatForm() 
-	&&  false == IsOnStairs() &&  false == IsOnGP_Boundary())
+	if (false == IsOnGround(Dir) && false == IsOnPlatForm(Dir)
+	&&  false == IsOnStairs(Dir) && false == IsOnGP_Boundary(Dir))
 	{
 		State.ChangeState("Fall");
 		return;
@@ -81,7 +82,8 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		Velocity = FVector::Zero;
 	}
 
-	if (true == IsColWall())
+	EEngineDir Dir = Renderer->GetDir();
+	if (true == IsColWall(Dir))
 	{
 		Velocity.X = 0.0f;	
 	}	
@@ -175,9 +177,10 @@ void APlayerBase::Run(float _DeltaTime)
 		return;
 	}
 
-	if (false == IsRunInputPress() || true == IsColWall())
+	EEngineDir Dir = Renderer->GetDir();
+	if (false == IsRunInputPress() || true == IsColWall(Dir))
 	{
-		if (true == true == IsColWall())
+		if (true == true == IsColWall(Dir))
 		{ 
 			Velocity.X = 0.0f;
 		}
@@ -200,7 +203,8 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 	// 속도 업데이트
 	RunToIdleVelUpdate(_DeltaTime);
 
-	if (true == IsDirChangeKeyPress() || true == IsColWall())
+	EEngineDir Dir = Renderer->GetDir();
+	if (true == IsDirChangeKeyPress() || true == IsColWall(Dir))
 	{
 		Velocity.X = 0.0f;
 	}
@@ -220,7 +224,7 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsRunInputPress() && false == IsColWall())
+	if (true == IsRunInputPress() && false == IsColWall(Dir))
 	{
 		State.ChangeState("IdleToRun");
 		return;
@@ -256,7 +260,7 @@ void APlayerBase::PostCrouch(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsCrouchInputPress() && true == IsOnPlatForm())
+	if (true == IsCrouchInputPress() && true == IsOnPlatForm(Renderer->GetDir()))
 	{
 		State.ChangeState("Fall");
 		return;
@@ -313,7 +317,7 @@ void APlayerBase::RollStart()
 void APlayerBase::Roll(float _DeltaTime)
 {
 	// 속도 업데이트
-	if (true == IsColWall())
+	if (true == IsColWall(Renderer->GetDir()))
 	{
 		Velocity.X = 0.0f;
 	}
@@ -371,7 +375,7 @@ void APlayerBase::JumpStart()
 void APlayerBase::Jump(float _DeltaTime)
 {
 	// 속도 업데이트
-	if (true == IsColHeadToCeil())
+	if (true == IsColHeadToCeil(Renderer->GetDir()))
 	{
 		Velocity.Y = 0.0f;
 	}
@@ -383,7 +387,7 @@ void APlayerBase::Jump(float _DeltaTime)
 		JumpVelXUpdate(_DeltaTime);
 	}
 
-	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall())
+	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall(Renderer->GetDir()))
 	{
 		Velocity.X = 0.0f;
 	}
@@ -401,7 +405,7 @@ void APlayerBase::Jump(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsRunInputPress() && true == IsColWall())
+	if (true == IsRunInputPress() && true == IsColWall(Renderer->GetDir()))
 	{
 		State.ChangeState("WallSlide");
 		return;
@@ -422,7 +426,7 @@ void APlayerBase::FallStart()
 void APlayerBase::Fall(float _DeltaTime)
 {
 	// 속도 업데이트
-	if (true == IsColHeadToCeil())
+	if (true == IsColHeadToCeil(Renderer->GetDir()))
 	{
 		Velocity.Y = 0.0f;
 	}
@@ -433,8 +437,8 @@ void APlayerBase::Fall(float _DeltaTime)
 	}
 
 	FallGravityUpdate(_DeltaTime);
-	
-	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall())
+
+	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall(Renderer->GetDir()))
 	{
 		Velocity.X = 0.0f;
 	}
@@ -458,26 +462,26 @@ void APlayerBase::Fall(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsOnPlatForm() && true == IsFallInputPress())
+	if (true == IsOnPlatForm(Renderer->GetDir()) && true == IsFallInputPress())
 	{
 		return;
 	}
 
-	if (true == IsRunInputPress() && true == IsColWall())
+	if (true == IsRunInputPress() && true == IsColWall(Renderer->GetDir()))
 	{
 		State.ChangeState("WallSlide");
 		return;
 	}
 
-	if ((true == IsOnGround() || true == IsOnStairs() || true == IsOnGP_Boundary())
+	if ((true == IsOnGround(Renderer->GetDir()) || true == IsOnStairs(Renderer->GetDir()) || true == IsOnGP_Boundary(Renderer->GetDir()))
 	&&  (true == IsRunToRollInputPress() && true == IsCrouchToRollInputPress()))
 	{
 		State.ChangeState("Roll");
 		return;
 	}
 
-	if (true == IsOnGround() || true == IsOnPlatForm() 
-	||  true == IsOnStairs() || true == IsOnGP_Boundary())
+	if (true == IsOnGround(Renderer->GetDir()) || true == IsOnPlatForm(Renderer->GetDir())
+ 	||  true == IsOnStairs(Renderer->GetDir()) || true == IsOnGP_Boundary(Renderer->GetDir()))
 	{
 		if (true == IsRunInputPress())
 		{
@@ -536,22 +540,22 @@ void APlayerBase::Attack(float _DeltaTime)
 
 	FallGravityUpdate(_DeltaTime);
 
-	if (true == IsColHeadToCeil())
+	if (true == IsColHeadToCeil(Renderer->GetDir()))
 	{
 		Velocity.Y = 0.0f;
 		AddActorLocation({ 0.0f, -10.0f, 0.0f });
 	}
-	else if (true == IsColHeadToWall())
+	else if (true == IsColHeadToWall(Renderer->GetDir()))
 	{
 		Velocity.X = 0.0f;
 	}
 
-	if (true == IsOnGP_Boundary())
+	if (true == IsOnGP_Boundary(Renderer->GetDir()))
 	{
 		Velocity.Y = 0.0f;
 	}
 
-	if (true == IsOnStairs())
+	if (true == IsOnStairs(Renderer->GetDir()))
 	{
 		Velocity = FVector::Zero;
 	}
@@ -607,7 +611,7 @@ void APlayerBase::WallSlide(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsOnGround() || true == IsOnPlatForm())
+	if (true == IsOnGround(Renderer->GetDir()) || true == IsOnPlatForm(Renderer->GetDir()))
 	{
 		State.ChangeState("Idle");
 		return;
@@ -655,7 +659,7 @@ void APlayerBase::Flip(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsColWall() || true == IsColHeadToWall())
+	if (true == IsColWall(Renderer->GetDir()) || true == IsColHeadToWall(Renderer->GetDir()))
 	{
 		State.ChangeState("WallSlide");
 		return;

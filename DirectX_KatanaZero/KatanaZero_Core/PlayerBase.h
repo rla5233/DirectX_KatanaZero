@@ -1,9 +1,10 @@
 #pragma once
 #include <EngineCore/StateManager.h>
 #include "RecordingObject.h"
+#include "PixelColObject.h"
 
 // 설명 : Player 부모 클래스
-class APlayerBase : public AActor, public URecordingObject
+class APlayerBase : public AActor, public UPixelColObject, public URecordingObject
 {
 	GENERATED_BODY(AActor)
 public:
@@ -32,25 +33,14 @@ public:
 		return State.GetCurStateName();
 	}
 
-	inline bool IsStairUp() const
-	{
-		return IsStairsUpValue;
-	}
-
-	// 체크 함수
-	bool IsOnGround();
-	bool IsOnPlatForm();
-	bool IsOnGP_Boundary();
-	bool IsOnStairs();
-	bool IsColWall();
-	bool IsColHeadToWall();
-	bool IsColHeadToCeil();
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 	void RendererInit();
-	void CollisionInit();
+	virtual void CollisionInit();
+
+	UCollision* BodyCol = nullptr;
 
 private:
 	// 기본 업데이트 함수
