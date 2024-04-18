@@ -172,10 +172,33 @@ bool UPixelColObject::IsColHeadToCeil(EEngineDir _Dir)
 	FrontTop.Y = MapTexScale.Y - FrontTop.Y;
 	BackTop.Y  = MapTexScale.Y - BackTop.Y;
 
-	Color8Bit FT_PixelColor = MapTex->GetColor(FrontTop, Color8Bit::Black);
-	Color8Bit BT_PixelColor = MapTex->GetColor(BackTop, Color8Bit::Black);
+	FVector FT_Pos2 = FrontTop;
+	FVector BT_Pos2 = BackTop;
 
-	if (ColMap::YELLOW == FT_PixelColor && ColMap::YELLOW == BT_PixelColor)
+	switch (_Dir)
+	{
+	case EEngineDir::Left:
+		FT_Pos2.X += 1.0f;
+		BT_Pos2.X -= 1.0f;
+		break;
+	case EEngineDir::Right:
+		FT_Pos2.X -= 1.0f;
+		BT_Pos2.X += 1.0f;
+		break;
+	}
+
+	Color8Bit FT_PixelColor1 = MapTex->GetColor(FrontTop, Color8Bit::Black);
+	Color8Bit FT_PixelColor2 = MapTex->GetColor(FT_Pos2, Color8Bit::Black);
+
+	Color8Bit BT_PixelColor1 = MapTex->GetColor(BackTop, Color8Bit::Black);
+	Color8Bit BT_PixelColor2 = MapTex->GetColor(BT_Pos2, Color8Bit::Black);
+
+	if (ColMap::YELLOW == FT_PixelColor1 && ColMap::YELLOW == FT_PixelColor2)
+	{
+		Result = true;
+	}
+
+	if (ColMap::YELLOW == BT_PixelColor1 && ColMap::YELLOW == BT_PixelColor2)
 	{
 		Result = true;
 	}

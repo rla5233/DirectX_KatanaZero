@@ -231,6 +231,11 @@ void AEnemyBase::HitFall(float _DeltaTime)
 		AddActorLocation({ 0.0f, -10.0f, 0.0f });
 	}
 
+	if (true == IsColWall(Dir) || true == IsColHeadToWall(Dir))
+	{
+		Velocity.X = 0.0f;
+	}
+
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
