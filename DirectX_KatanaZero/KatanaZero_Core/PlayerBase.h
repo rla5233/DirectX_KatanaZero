@@ -88,7 +88,6 @@ private:
 	float AttackDelayTimeCount = 0.0f;
 	bool CanAttack = true;
 	
-	// 수정 (필요한가?)
 	bool IsPlayValue = true;
 
 // FSM

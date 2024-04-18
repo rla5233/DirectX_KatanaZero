@@ -679,6 +679,7 @@ void APlayerBase::Flip(float _DeltaTime)
 
 void APlayerBase::ReplayStart()
 {
+	IsPlayValue = false;
 	SetReplayStart();
 }
 

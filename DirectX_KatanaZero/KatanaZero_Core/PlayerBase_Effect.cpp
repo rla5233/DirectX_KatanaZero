@@ -83,7 +83,7 @@ void APlayerBase::SetCroudEffect(int _Num)
 
 void APlayerBase::SetCroudEffectUpdate(float _DeltaTime)
 {
-	if (false == IsPlayValue || "Replay" == State.GetCurStateName())
+	if (false == IsPlayValue)
 	{
 		return;
 	}
