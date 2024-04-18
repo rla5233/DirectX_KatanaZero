@@ -40,6 +40,7 @@ void APlayerBase::BeginPlay()
 
 	UPixelColObject::SetActor(this);
 	URecordingObject::SetActor(this);
+	UPhysicsObject::SetActor(this);
 
 	RendererInit();
 	CollisionInit();
@@ -163,38 +164,6 @@ void APlayerBase::RendererDirChange(EEngineDir _Dir)
 		Renderer->SetDir(EEngineDir::Right);
 		break;
 	}
-}
-
-void APlayerBase::OnGroundPosAdjust()
-{
-	EEngineDir Dir = Renderer->GetDir();
-
-	while (true == IsOnGround(Dir))
-	{
-		AddActorLocation({ 0.0f, 1.0f, 0.0f });
-
-		if (false == IsOnGround(Dir))
-		{
-			AddActorLocation({ 0.0f, -1.0f, 0.0f });
-			break;
-		}
-	}
-}
-
-void APlayerBase::UpStairPosAdjust()
-{
-	EEngineDir Dir = Renderer->GetDir();
-
-	while (true == IsOnStairs(Dir))
-	{
-		AddActorLocation({ 0.0f, 1.0f, 0.0f });
-
-		if (false == IsOnStairs(Dir))
-		{
-			AddActorLocation({ 0.0f, -1.0f, 0.0f });
-			break;
-		}
-	}	
 }
 
 ////////////////////
@@ -394,11 +363,7 @@ void APlayerBase::RunToIdleVelUpdate(float _DeltaTime)
 	}
 }
 
-void APlayerBase::PosUpdate(float _DeltaTime)
-{
-	AddActorLocation(Velocity * _DeltaTime);
-}
-
+// 수정 필요 (디버깅용 제거)
 void APlayerBase::ColCheckUpdate()
 {
 	EEngineDir Dir = Renderer->GetDir();
@@ -420,7 +385,7 @@ void APlayerBase::ColCheckUpdate()
 	{
 		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		OnGroundPosAdjust();
+		OnGroundPosAdjust(Dir);
 	}
 
 	// OnStairs
@@ -430,7 +395,7 @@ void APlayerBase::ColCheckUpdate()
 		{
 			Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 			Back_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
-			UpStairPosAdjust();
+			UpStairPosAdjust(Dir);
 		}
 		else
 		{

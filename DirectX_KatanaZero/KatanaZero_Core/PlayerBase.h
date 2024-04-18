@@ -1,10 +1,15 @@
 #pragma once
 #include <EngineCore/StateManager.h>
-#include "RecordingObject.h"
 #include "PixelColObject.h"
+#include "PhysicsObject.h"
+#include "RecordingObject.h"
 
 // 설명 : Player 부모 클래스
-class APlayerBase : public AActor, public UPixelColObject, public URecordingObject
+class APlayerBase : 
+	public AActor, 
+	public UPixelColObject,
+	public UPhysicsObject,
+	public URecordingObject
 {
 	GENERATED_BODY(AActor)
 public:
@@ -58,10 +63,6 @@ private:
 	bool IsDirChangeKeyPress();
 	void RendererDirChange(EEngineDir _Dir);
 
-	// 위치 조정
-	void OnGroundPosAdjust();
-	void UpStairPosAdjust();
-
 private:
 	USpriteRenderer* Renderer = nullptr;
 
@@ -69,8 +70,6 @@ private:
 	USpriteRenderer* Back_Bot = nullptr;
 	USpriteRenderer* Front_Top = nullptr;
 	USpriteRenderer* Front_Bot = nullptr;
-
-	FVector Velocity = FVector::Zero;
 
 	UCollision* AttackCol = nullptr;
 	FVector AttackDir = FVector::Zero;
@@ -161,8 +160,6 @@ private:
 	void FallVelXUpdate(float _DeltaTime);
 	void IdleToRunVelUpdate(float _DeltaTime);
 	void RunToIdleVelUpdate(float _DeltaTime);
-
-	void PosUpdate(float _DeltaTime);
 
 	void ColCheckUpdate();	
 

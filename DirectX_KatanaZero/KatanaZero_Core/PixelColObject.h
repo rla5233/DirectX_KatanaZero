@@ -38,6 +38,7 @@ public:
 	}
 	// 삭제
 
+	// 충돌 체크 함수
 	bool IsOnGround(EEngineDir _Dir);
 	bool IsOnPlatForm(EEngineDir _Dir);
 	bool IsOnGP_Boundary(EEngineDir _Dir);
@@ -50,6 +51,10 @@ public:
 	{
 		return IsStairsUpValue;
 	}
+
+	// 위치 조정
+	void OnGroundPosAdjust(EEngineDir _Dir);
+	void UpStairPosAdjust(EEngineDir _Dir);
 
 protected:
 	inline void SetActor(AActor* _Actor)

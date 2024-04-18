@@ -206,6 +206,34 @@ bool UPixelColObject::IsColHeadToCeil(EEngineDir _Dir)
 	return Result;
 }
 
+void UPixelColObject::OnGroundPosAdjust(EEngineDir _Dir)
+{
+	while (true == IsOnGround(_Dir))
+	{
+		Actor->AddActorLocation({ 0.0f, 1.0f, 0.0f });
+
+		if (false == IsOnGround(_Dir))
+		{
+			Actor->AddActorLocation({ 0.0f, -1.0f, 0.0f });
+			break;
+		}
+	}
+}
+
+void UPixelColObject::UpStairPosAdjust(EEngineDir _Dir)
+{
+	while (true == IsOnStairs(_Dir))
+	{
+		Actor->AddActorLocation({ 0.0f, 1.0f, 0.0f });
+
+		if (false == IsOnStairs(_Dir))
+		{
+			Actor->AddActorLocation({ 0.0f, -1.0f, 0.0f });
+			break;
+		}
+	}
+}
+
 void UPixelColObject::CalFourPoint(EEngineDir _Dir)
 {
 	FrontTop = Actor->GetActorLocation() + BodyPos;
