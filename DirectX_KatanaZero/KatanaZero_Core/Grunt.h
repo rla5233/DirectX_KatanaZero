@@ -36,6 +36,8 @@ private:
 protected:
 	void IdleStart() override;
 
+	void HitFallStart() override;
+
 	void PatrolWalkStart() override;
 	void PatrolTurnStart() override;
 	void PatrolStopStart() override;

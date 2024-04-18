@@ -59,7 +59,6 @@ void AFactory_002::ChangeStage()
 void AFactory_002::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
 }
 
 void AFactory_002::ResetPlayer()

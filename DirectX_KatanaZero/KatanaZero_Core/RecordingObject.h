@@ -2,7 +2,7 @@
 
 class URecordingObject;
 
-struct USpriteRendererInfo
+struct FSpriteRendererInfo
 {
 public:
 	FSpriteInfo SpriteInfo;
@@ -16,7 +16,7 @@ class URecordInfo
 {
 	friend URecordingObject;
 private:
-	std::map<std::shared_ptr<USpriteRenderer>, USpriteRendererInfo> SpriteRendererData;
+	std::map<std::shared_ptr<USpriteRenderer>, FSpriteRendererInfo> SpriteRendererData;
 	FVector Position;
 };
 

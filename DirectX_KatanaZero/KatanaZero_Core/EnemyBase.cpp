@@ -134,37 +134,57 @@ void AEnemyBase::Turn(float _DeltaTime)
 	}
 }
 
+void AEnemyBase::HitFall(float _DeltaTime)
+{
+
+}
+
 // State 초기화
 void AEnemyBase::StateInit()
 {
 	// State 생성
 	State.CreateState("Idle");
 	State.CreateState("Run");
+	State.CreateState("HitFall");
+	State.CreateState("Dead");
 	State.CreateState("PatrolWalk");
 	State.CreateState("PatrolTurn");
 	State.CreateState("PatrolStop");
-	
+
+
 	State.CreateState("Turn");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle", std::bind(&AEnemyBase::IdleStart, this));
 	State.SetStartFunction("Run", std::bind(&AEnemyBase::RunStart, this));
+	State.SetStartFunction("HitFall", std::bind(&AEnemyBase::HitFallStart, this));
+	State.SetStartFunction("Dead", std::bind(&AEnemyBase::DeadStart, this));
 	State.SetStartFunction("PatrolWalk", std::bind(&AEnemyBase::PatrolWalkStart, this));
 	State.SetStartFunction("PatrolTurn", std::bind(&AEnemyBase::PatrolTurnStart, this));
 	State.SetStartFunction("PatrolStop", std::bind(&AEnemyBase::PatrolStopStart, this));
 	
+
+
+
 	State.SetStartFunction("Turn", std::bind(&AEnemyBase::TurnStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle", std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("Run", std::bind(&AEnemyBase::Run, this, std::placeholders::_1));
+	State.SetUpdateFunction("HitFall", std::bind(&AEnemyBase::HitFall, this, std::placeholders::_1));
+	State.SetUpdateFunction("HitFall", std::bind(&AEnemyBase::Dead, this, std::placeholders::_1));
 	State.SetUpdateFunction("PatrolWalk", std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
 	State.SetUpdateFunction("PatrolTurn", std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
 	State.SetUpdateFunction("PatrolStop", std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
 	
+
+
 	State.SetUpdateFunction("Turn", std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));
 
 	// State End 함수 세팅
 	State.SetEndFunction("PatrolTurn", [=] { RendererDirChange(); });
+
+
+
 	State.SetEndFunction("Turn", [=] {	RendererDirChange(); });
 }

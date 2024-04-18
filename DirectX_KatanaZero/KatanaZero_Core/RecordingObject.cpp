@@ -82,7 +82,7 @@ void URecordingObject::Replaying(float _DeltaTime)
 
 	for (size_t i = 0; i < AllRenderer.size(); i++)
 	{
-		USpriteRendererInfo CurSpriteInfo = AllRecordInfo[CurIndex].SpriteRendererData[AllRenderer[i]];
+		FSpriteRendererInfo CurSpriteInfo = AllRecordInfo[CurIndex].SpriteRendererData[AllRenderer[i]];
 
 		if (false == CurSpriteInfo.IsActive || nullptr == CurSpriteInfo.SpriteInfo.Texture)
 		{
