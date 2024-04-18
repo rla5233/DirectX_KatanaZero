@@ -96,7 +96,7 @@ protected:
 	virtual void TurnStart();
 	virtual void Turn(float _DeltaTime);
 
-	virtual void HitFallStart() {};
+	virtual void HitFallStart();
 	virtual void HitFall(float _DeltaTime);
 
 	virtual void DeadStart() {};

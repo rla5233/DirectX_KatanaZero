@@ -4,7 +4,6 @@
 #include "PlayLevelBase.h"
 #include "ColMapObject.h"
 #include "MouseAim.h"
-#include "EnemyBase.h"
 
 APlayerBase::APlayerBase()
 {
@@ -80,12 +79,6 @@ void APlayerBase::CollisionInit()
 	AttackCol->SetCollisionType(ECollisionType::RotRect);
 	AttackCol->SetScale({ 150.0f, 75.0f, 0.0f });
 	AttackCol->SetActive(false);
-	AttackCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
-		{
-			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
-			Enemy->HitByPlayer(AttackDir);
-		}
-	);
 }
 
 void APlayerBase::DefaultUpdate(float _DeltaTime)

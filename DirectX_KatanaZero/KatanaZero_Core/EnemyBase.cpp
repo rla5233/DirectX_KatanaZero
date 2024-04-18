@@ -41,8 +41,8 @@ void AEnemyBase::RendererInit()
 
 void AEnemyBase::CollisionInit()
 {
-	BodyCol->SetCollisionGroup(EColOrder::Enemy);
 	BodyCol->SetCollisionType(ECollisionType::RotRect);
+	BodyCol->SetCollisionGroup(EColOrder::Enemy);
 }
 
 void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
@@ -158,6 +158,11 @@ void AEnemyBase::Turn(float _DeltaTime)
 		State.ChangeState("Idle"); 
 		return;
 	}
+}
+
+void AEnemyBase::HitFallStart()
+{
+	BodyCol->SetActive(false);
 }
 
 void AEnemyBase::HitFall(float _DeltaTime)
