@@ -233,5 +233,8 @@
     <ClCompile Include="RecordingObject.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerBase_Effect.cpp">
+      <Filter>Object\Base\Player</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

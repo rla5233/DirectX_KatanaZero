@@ -145,6 +145,7 @@ void APlayerBase::RunStart()
 	SetMaxRunVel();
 
 	Renderer->ChangeAnimation(Anim::player_run);
+	SetCroudEffect(5);
 }
 
 void APlayerBase::Run(float _DeltaTime)
@@ -312,6 +313,7 @@ void APlayerBase::RollStart()
 	}	
 
 	Renderer->ChangeAnimation(Anim::player_roll);
+	CroudTimeCount = Const::effect_cloud_delay;
 }
 
 void APlayerBase::Roll(float _DeltaTime)
@@ -334,6 +336,9 @@ void APlayerBase::Roll(float _DeltaTime)
 
 	// ColCheck
 	ColCheckUpdate();
+
+	// 이펙트 생성
+	CreateRollCroudEffect(_DeltaTime);
 
 	// StateChange Check
 	if (true == IsAttackInputDown())

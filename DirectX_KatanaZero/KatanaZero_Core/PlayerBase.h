@@ -4,6 +4,13 @@
 #include "PhysicsObject.h"
 #include "RecordingObject.h"
 
+class CloudEffect
+{
+public:
+	USpriteRenderer* Renderer = nullptr;
+	FVector Velocity = FVector::Zero;
+};
+
 // 설명 : Player 부모 클래스
 class APlayerBase : 
 	public AActor, 
@@ -47,6 +54,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	void RendererInit();
+	void EffectInit();
 	virtual void CollisionInit();
 
 	UCollision* BodyCol = nullptr;
@@ -65,6 +73,10 @@ private:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
+	USpriteRenderer* AttackEffect = nullptr;
+	std::vector<CloudEffect> Cloud;
+	const int CloudSize = 20;
+	int CloudIdx = 0;
 
 	USpriteRenderer* Back_Top = nullptr;
 	USpriteRenderer* Back_Bot = nullptr;
@@ -75,6 +87,9 @@ private:
 	FVector AttackDir = FVector::Zero;
 	float AttackDelayTimeCount = 0.0f;
 	bool CanAttack = true;
+	
+	// 수정 (필요한가?)
+	bool IsPlayValue = true;
 
 // FSM
 private:
@@ -165,8 +180,13 @@ private:
 	void ColCheckUpdate();	
 
 // Effect Set (virtual)
-protected:
-	virtual void SetAttackEffect(float _Deg) {};
+private:
+	void SetAttackEffect(float _Deg);
 
+	void EffectVecIdxUpdate();
+	void SetCroudEffect(int _Num);
+	void SetCroudEffectUpdate(float _DeltaTime);
+	void CreateRollCroudEffect(float _DeltaTime);
+	float CroudTimeCount = 0.0f;
 };
 

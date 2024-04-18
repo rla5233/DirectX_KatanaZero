@@ -342,6 +342,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerBase_Effect.cpp" />
     <ClCompile Include="PlayLevelBase.cpp">
       <SubType>
       </SubType>

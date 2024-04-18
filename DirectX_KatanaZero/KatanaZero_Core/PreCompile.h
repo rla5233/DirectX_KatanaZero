@@ -1,5 +1,7 @@
 #pragma once
 
+#include <EngineBase/EngineRandom.h>
+
 #include <EngineCore/PreCompile.h>
 
 #include <EngineCore/EngineCore.h>

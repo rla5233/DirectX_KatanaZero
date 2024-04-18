@@ -50,6 +50,7 @@ namespace ImgRes
 
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";
+	const std::string_view effect_player_dustcloud	= "player_dustcloud";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -103,6 +104,7 @@ namespace Anim
 
 	// Effect Anim
 	const std::string_view effect_player_slash		= "player_slash";
+	const std::string_view effect_player_dustcloud	= "player_dustcloud";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";
@@ -131,7 +133,11 @@ namespace Const
 	const float player_fall_max_speedy = 1200.0f;
 
 	const float player_attack_delay = 0.25f;
-
+	
 	// replay
 	const float recording_delay = 1 / 60.0f;
+
+	// delay
+	const float effect_cloud_delay = 0.02f;
+
 }

@@ -45,7 +45,7 @@ void AFactory_004::LevelEnd(ULevel* _NextLevel)
 void AFactory_004::ChangeStage()
 {
 	Super::ChangeStage();
-	aa
+
 	GEngine->ChangeLevel("Factory_005");
 }
 

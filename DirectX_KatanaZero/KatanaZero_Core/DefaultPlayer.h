@@ -22,15 +22,8 @@ protected:
 
 	void CollisionInit() override;
 
-// Effect Setting
-protected:
-	void SetAttackEffect(float _Deg) override;
-
 private:
 	void CreateAnimation();
-
-private:
-	USpriteRenderer* Effect = nullptr;
 
 };
 

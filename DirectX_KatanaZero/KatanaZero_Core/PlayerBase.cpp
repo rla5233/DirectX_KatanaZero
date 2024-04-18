@@ -18,6 +18,16 @@ APlayerBase::APlayerBase()
 	AttackCol	= CreateDefaultSubObject<UCollision>("Player_Attack");
 	BodyCol		= CreateDefaultSubObject<UCollision>("Player_Body");
 
+	AttackEffect = CreateDefaultSubObject<USpriteRenderer>("Player_Effect");
+	Cloud.reserve(CloudSize);
+	for (int i = 0; i < CloudSize; i++)
+	{
+		USpriteRenderer* NewRenderer = CreateDefaultSubObject<USpriteRenderer>("Cloud");
+		CloudEffect NewCloudEffect = CloudEffect();
+		NewCloudEffect.Renderer = NewRenderer;
+		Cloud.push_back(NewCloudEffect);
+	}
+
 	Renderer->SetupAttachment(Root);
 	Back_Top->SetupAttachment(Root);
 	Back_Bot->SetupAttachment(Root);
@@ -25,6 +35,7 @@ APlayerBase::APlayerBase()
 	Front_Bot->SetupAttachment(Root);
 	AttackCol->SetupAttachment(Root);
 	BodyCol->SetupAttachment(Root);
+	AttackEffect->SetupAttachment(Root);
 	
 	SetRoot(Root);
 	InputOn();
@@ -44,6 +55,7 @@ void APlayerBase::BeginPlay()
 
 	RendererInit();
 	CollisionInit();
+	EffectInit();
 	StateInit();
 
 	SetRecordingSize(0.0f);
@@ -87,6 +99,8 @@ void APlayerBase::CollisionInit()
 void APlayerBase::DefaultUpdate(float _DeltaTime)
 {
 	AttackDelayTimeUpdate(_DeltaTime);
+
+	SetCroudEffectUpdate(_DeltaTime);
 	
 	std::string CurState = State.GetCurStateName();
 
