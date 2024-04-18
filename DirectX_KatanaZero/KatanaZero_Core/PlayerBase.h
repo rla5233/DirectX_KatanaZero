@@ -67,6 +67,7 @@ private:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
+
 	USpriteRenderer* Back_Top = nullptr;
 	USpriteRenderer* Back_Bot = nullptr;
 	USpriteRenderer* Front_Top = nullptr;
@@ -78,6 +79,7 @@ private:
 
 	FVector Velocity = FVector::Zero;
 
+	UCollision* AttackCol = nullptr;
 	FVector AttackDir = FVector::Zero;
 	float AttackDelayTimeCount = 0.0f;
 	bool CanAttack = true;

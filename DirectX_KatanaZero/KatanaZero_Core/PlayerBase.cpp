@@ -9,17 +9,21 @@ APlayerBase::APlayerBase()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Player_Renderer");
-	Front_Top = CreateDefaultSubObject<USpriteRenderer>("Front_Top");
-	Front_Bot = CreateDefaultSubObject<USpriteRenderer>("Front_Bot");
-	Back_Top = CreateDefaultSubObject<USpriteRenderer>("Back_Top");
-	Back_Bot = CreateDefaultSubObject<USpriteRenderer>("Back_Bot");
-	
+	Renderer	= CreateDefaultSubObject<USpriteRenderer>("Player_Renderer");
+	Front_Top	= CreateDefaultSubObject<USpriteRenderer>("Front_Top");
+	Front_Bot	= CreateDefaultSubObject<USpriteRenderer>("Front_Bot");
+	Back_Top	= CreateDefaultSubObject<USpriteRenderer>("Back_Top");
+	Back_Bot	= CreateDefaultSubObject<USpriteRenderer>("Back_Bot");
+
+	AttackCol = CreateDefaultSubObject<UCollision>("Player_Attack");
+		
 	Renderer->SetupAttachment(Root);
 	Back_Top->SetupAttachment(Root);
 	Back_Bot->SetupAttachment(Root);
 	Front_Top->SetupAttachment(Root);
 	Front_Bot->SetupAttachment(Root);
+
+	AttackCol->SetupAttachment(Root);
 
 	Renderer->SetPivot(EPivot::BOT);
 	

@@ -10,6 +10,7 @@
 #include <EngineCore/Actor.h>
 #include <EngineCore/Level.h>
 #include <EngineCore/GameMode.h>
+#include <EngineCore/Collision.h>
 #include <EngineCore/Camera.h>
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>

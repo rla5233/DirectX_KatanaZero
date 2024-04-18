@@ -31,3 +31,11 @@ enum class EEnemyPatrol
 	Turn,
 	Stop
 };
+
+enum class EColOrder
+{
+	Attack,
+	Player,
+	Enemy,
+	Door
+};
