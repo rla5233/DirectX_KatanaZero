@@ -78,7 +78,7 @@ void APlayerBase::CollisionInit()
 {
 	AttackCol->SetCollisionGroup(EColOrder::PlayerAttack);
 	AttackCol->SetCollisionType(ECollisionType::RotRect);
-	AttackCol->SetScale({ 100.0f, 100.0f, 100.0f });
+	AttackCol->SetScale({ 150.0f, 75.0f, 0.0f });
 	AttackCol->SetActive(false);
 	AttackCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
 		{

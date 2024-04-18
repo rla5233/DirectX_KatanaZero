@@ -512,8 +512,15 @@ void APlayerBase::AttackStart()
 	CanAttack = false;
 
 	// 이펙트 설정
-	SetAttackEffect(AttackDir);
+	float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
+	SetAttackEffect(Deg);
 	Renderer->ChangeAnimation(Anim::player_attack);
+
+	// 콜리전 설정
+	AttackCol->SetPosition(AttackDir * 100.0f);
+	AttackCol->AddPosition({ 0.0f, 40.0f, 0.0f });
+	AttackCol->SetRotationDeg({ 0.0f, 0.0f, Deg });
+	AttackCol->SetActive(true);
 }
 
 void APlayerBase::Attack(float _DeltaTime)
@@ -711,6 +718,8 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Replay", std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
 
 	// State End 함수 세팅
+	State.SetEndFunction("Attack", [=] { AttackCol->SetActive(false); });
+
 	State.SetEndFunction("WallSlide", [=] 
 		{ 
 			Renderer->SetPosition({ 0.0f, 0.0f ,0.0f });

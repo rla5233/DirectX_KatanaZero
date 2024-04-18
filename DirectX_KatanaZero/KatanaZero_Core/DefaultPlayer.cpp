@@ -23,15 +23,14 @@ void ADefaultPlayer::BeginPlay()
 	StateChange("Idle");
 }
 
-void ADefaultPlayer::SetAttackEffect(const FVector& _Dir)
+void ADefaultPlayer::SetAttackEffect(float _Deg)
 {
-	APlayerBase::SetAttackEffect(_Dir);
+	APlayerBase::SetAttackEffect(_Deg);
 	
-	float Deg = UContentsMath::GetAngleToX_2D(_Dir);
 	Effect->ChangeAnimation(Anim::effect_player_slash);
 	Effect->SetAutoSize(2.0f, true);
 	Effect->SetPosition({ 0.0f, 30.0f, 0.0f });
-	Effect->SetRotationDeg({ 0.0f, 0.0f, Deg });
+	Effect->SetRotationDeg({ 0.0f, 0.0f, _Deg });
 	Effect->SetActive(true);
 }
 

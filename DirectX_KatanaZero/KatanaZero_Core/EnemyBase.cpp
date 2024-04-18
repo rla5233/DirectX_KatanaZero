@@ -41,7 +41,6 @@ void AEnemyBase::RendererInit()
 
 void AEnemyBase::CollisionInit()
 {
-	BodyCol->SetScale({ 100.0f, 100.0f, 100.0f });
 	BodyCol->SetCollisionGroup(EColOrder::Enemy);
 	BodyCol->SetCollisionType(ECollisionType::RotRect);
 }

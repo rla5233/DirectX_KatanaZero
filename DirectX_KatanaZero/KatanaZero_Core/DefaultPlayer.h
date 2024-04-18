@@ -22,7 +22,7 @@ protected:
 
 // Effect Setting
 protected:
-	void SetAttackEffect(const FVector& _Dir) override;
+	void SetAttackEffect(float _Deg) override;
 
 private:
 	void CreateAnimation();

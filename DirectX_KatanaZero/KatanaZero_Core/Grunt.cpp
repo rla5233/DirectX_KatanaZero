@@ -21,6 +21,14 @@ void AGrunt::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
+void AGrunt::CollisionInit()
+{
+	Super::CollisionInit();
+
+	BodyCol->AddPosition({ 0.0f, 40.0f, 0.0f });
+	BodyCol->SetScale({ 50.0f, 80.0f, 0.0f });
+}
+
 void AGrunt::IdleStart()
 {
 	Super::IdleStart();

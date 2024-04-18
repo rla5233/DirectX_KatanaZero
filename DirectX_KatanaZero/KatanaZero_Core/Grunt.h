@@ -26,6 +26,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void CollisionInit() override;
+
 private:
 	float PatrolWalkTime = 0.0f;
 	float PatrolStopTime = 0.0f;

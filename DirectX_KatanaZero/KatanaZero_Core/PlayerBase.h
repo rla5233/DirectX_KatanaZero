@@ -178,7 +178,7 @@ private:
 
 // Effect Set (virtual)
 protected:
-	virtual void SetAttackEffect(const FVector& _Dir) {};
+	virtual void SetAttackEffect(float _Deg) {};
 
 };
 

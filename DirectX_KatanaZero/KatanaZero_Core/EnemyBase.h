@@ -56,7 +56,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	void RendererInit();
-	void CollisionInit();
+	virtual void CollisionInit();
+
+	UCollision* BodyCol = nullptr;
 
 private:
 	void DefaultUpdate(float _DeltaTime);
@@ -66,7 +68,6 @@ private:
 private:
 	USpriteRenderer* Renderer = nullptr;
 
-	UCollision* BodyCol = nullptr;
 	FVector HitDir = FVector::Zero;
 	
 	float TimeCount = 0.0f;
