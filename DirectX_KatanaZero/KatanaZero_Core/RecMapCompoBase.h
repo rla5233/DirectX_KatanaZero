@@ -18,6 +18,11 @@ public:
 	ARecMapCompoBase& operator=(const ARecMapCompoBase& _Other) = delete;
 	ARecMapCompoBase& operator=(ARecMapCompoBase&& _Other) noexcept = delete;
 
+	inline USpriteRenderer* GetBody() const
+	{
+		return Body;
+	}
+
 	void StataChange(std::string_view _State)
 	{
 		State.ChangeState(_State);
@@ -27,6 +32,9 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+private:
+	USpriteRenderer* Body = nullptr;
+	
 protected:
 	UStateManager State;
 

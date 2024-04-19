@@ -3,6 +3,12 @@
 
 ARecMapCompoBase::ARecMapCompoBase()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+
+	Body = CreateDefaultSubObject<USpriteRenderer>("Body");
+	Body->SetupAttachment(Root);
+
+	SetRoot(Root);
 }
 
 ARecMapCompoBase::~ARecMapCompoBase()

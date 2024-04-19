@@ -1,7 +1,7 @@
 #pragma once
 
-class APlayLevelBase;
 class AEnemyBase;
+class ARecMapCompoBase;
 
 // 설명 : 적 스폰 매니저
 class USpawnManager
@@ -17,6 +17,7 @@ public:
 	USpawnManager& operator=(const USpawnManager& _Other) = delete;
 	USpawnManager& operator=(USpawnManager&& _Other) noexcept = delete;
 
+	// Enemy
 	template<typename EnemyType>
 	std::shared_ptr<EnemyType> SpawnIdleEnemy(std::string_view _Name,	const FVector& _Pos, EEngineDir _Dir)
 	{
@@ -45,6 +46,19 @@ public:
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
 	}
 
+
+	// RecComponent
+	template<typename RecCompoType>
+	std::shared_ptr<RecCompoType> SpawnRecComponent(std::string_view _Name, const FVector& _Pos, EEngineDir _Dir)
+	{
+		std::shared_ptr<ARecMapCompoBase> NewCompo= GameMode->GetWorld()->SpawnActor<RecCompoType>(_Name);
+		NewCompo->SetActorLocation(_Pos);
+		NewCompo->GetBody()->SetDir(_Dir);
+		NewCompo->StateChange("Idle");
+		PushRecComponent(NewCompo);
+		return std::dynamic_pointer_cast<RecCompoType>(NewCompo);
+	}
+
 protected:
 	void SetGameMode(AGameMode* _GameMode)
 	{
@@ -55,6 +69,7 @@ private:
 	AGameMode* GameMode = nullptr;
 
 	void PushEnemy(std::shared_ptr<AEnemyBase> _Enemy);
+	void PushRecComponent(std::shared_ptr<ARecMapCompoBase> _Component);
 
 };
 

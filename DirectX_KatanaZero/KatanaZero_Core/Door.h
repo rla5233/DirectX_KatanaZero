@@ -16,11 +16,6 @@ public:
 	ADoor& operator=(const ADoor& _Other) = delete;
 	ADoor& operator=(ADoor&& _Other) noexcept = delete;
 
-	inline USpriteRenderer* GetBody() const
-	{
-		return Body;
-	}
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -30,7 +25,6 @@ protected:
 	void CollisionInit();
 
 private:
-	USpriteRenderer* Body = nullptr;	
 	UCollision* BodyCol = nullptr;
 	UCollision* HitCol = nullptr;
 

@@ -3,17 +3,11 @@
 
 ADoor::ADoor()
 {
-	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-
-	Body = CreateDefaultSubObject<USpriteRenderer>("DoorBody");
 	BodyCol = CreateDefaultSubObject<UCollision>("DoorBody");
 	HitCol = CreateDefaultSubObject<UCollision>("DoorHit");
 	
-	Body->SetupAttachment(Root);
-	BodyCol->SetupAttachment(Root);
-	HitCol->SetupAttachment(Root);
-
-	SetRoot(Root);
+	BodyCol->SetupAttachment(GetRoot());
+	HitCol->SetupAttachment(GetRoot());
 }
 
 ADoor::~ADoor()
@@ -43,7 +37,7 @@ void ADoor::StateInit()
 	State.CreateState("Open");
 
 	// State Start
-	State.SetStartFunction("Idle", [=] { Body->ChangeAnimation(Anim::compo_door_idle); });
+	State.SetStartFunction("Idle", [=] { GetBody()->ChangeAnimation(Anim::compo_door_idle); });
 
 	// State Update
 
@@ -53,10 +47,10 @@ void ADoor::StateInit()
 
 void ADoor::RendererInit()
 {
-	Body->CreateAnimation(Anim::compo_door_idle, ImgRes::compo_door, 0.1f, 0, false);
-	Body->CreateAnimation(Anim::compo_door_open, ImgRes::compo_door, 0.05f, false);
-	Body->SetOrder(ERenderOrder::MapComponent);
-	Body->SetAutoSize(2.0f, true);
+	GetBody()->CreateAnimation(Anim::compo_door_idle, ImgRes::compo_door, 0.1f, 0, false);
+	GetBody()->CreateAnimation(Anim::compo_door_open, ImgRes::compo_door, 0.05f, false);
+	GetBody()->SetOrder(ERenderOrder::MapComponent);
+	GetBody()->SetAutoSize(2.0f, true);
 }
 
 void ADoor::CollisionInit()

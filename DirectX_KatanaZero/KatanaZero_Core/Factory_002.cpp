@@ -33,9 +33,10 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
 
 	AllEnemy.reserve(3);
-
-	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, "PatrolStop");
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, "PatrolWalk");
 	SpawnIdleEnemy<AGrunt>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right);
+
+
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)
