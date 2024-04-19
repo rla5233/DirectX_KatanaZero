@@ -21,6 +21,8 @@ void APlayLevelBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	USpawnManager::SetGameMode(this);
+
 	StateInit();
 }
 

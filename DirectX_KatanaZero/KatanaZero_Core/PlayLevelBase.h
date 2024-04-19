@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore/StateManager.h>
 
+#include "SpawnManager.h"
+
 class AColMapObject;
 class ARecMapCompoBase;
 class ADefaultPlayer;
@@ -9,8 +11,10 @@ class AMouseAim;
 class AUp_HUD;
 
 // 설명 : PlayLevel 기본 클래스
-class APlayLevelBase : public AGameMode
+class APlayLevelBase : public AGameMode, public USpawnManager
 {
+	friend USpawnManager;
+
 	GENERATED_BODY(AGameMode)
 public:
 	// constructor destructor

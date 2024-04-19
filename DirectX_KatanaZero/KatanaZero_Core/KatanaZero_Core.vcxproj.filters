@@ -70,6 +70,9 @@
     <Filter Include="Object\Base\MapCompo">
       <UniqueIdentifier>{789b86ee-12ef-4376-aeb0-d87f9ea28210}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{279b6a8c-5348-4abf-b94d-dc5068cd802d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -135,9 +138,6 @@
     <ClInclude Include="ContentsMath.h">
       <Filter>Helper</Filter>
     </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>Helper</Filter>
-    </ClInclude>
     <ClInclude Include="Grunt.h">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClInclude>
@@ -158,6 +158,12 @@
     </ClInclude>
     <ClInclude Include="RecMapCompoBase.h">
       <Filter>Object\Base\MapCompo</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnManager.h">
+      <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,9 +233,6 @@
     <ClCompile Include="ContentsMath.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
-      <Filter>Helper</Filter>
-    </ClCompile>
     <ClCompile Include="Grunt.cpp">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClCompile>
@@ -253,6 +256,12 @@
     </ClCompile>
     <ClCompile Include="RecMapCompoBase.cpp">
       <Filter>Object\Base\MapCompo</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

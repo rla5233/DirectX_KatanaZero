@@ -3,8 +3,9 @@
 
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
-#include "Grunt.h"
 #include "Up_HUD.h"
+#include "Grunt.h"
+#include "Door.h"
 
 AFactory_002::AFactory_002()
 {
@@ -40,11 +41,14 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	NewGrunt->StateChange("PatrolWalk");
 	AllEnemy.push_back(NewGrunt);
 
-	NewGrunt = GetWorld()->SpawnActor<AGrunt>("Grunt");
-	NewGrunt->SetActorLocation({ 340.0f, 400.0f, 0.0f });
-	NewGrunt->SetRendererDir(EEngineDir::Right);
-	NewGrunt->StateChange("HitFall");
-	AllEnemy.push_back(NewGrunt);
+	//ewGrunt = GetWorld()->SpawnActor<AGrunt>("Grunt");
+	//ewGrunt->SetActorLocation({ 340.0f, 400.0f, 0.0f });
+	//ewGrunt->SetRendererDir(EEngineDir::Right);
+	//ewGrunt->StateChange("HitFall");
+	//llEnemy.push_back(NewGrunt);
+
+	SpawnIdleEnemy<AGrunt>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right);
+
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)
