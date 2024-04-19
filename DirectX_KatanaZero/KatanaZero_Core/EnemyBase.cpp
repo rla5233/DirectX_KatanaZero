@@ -5,10 +5,10 @@ AEnemyBase::AEnemyBase()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Enemy_Renderer");
+	Body = CreateDefaultSubObject<USpriteRenderer>("Enemy_Renderer");
 	BodyCol  = CreateDefaultSubObject<UCollision>("Enemy_Body_Col");
 
-	Renderer->SetupAttachment(Root);
+	Body->SetupAttachment(Root);
 	BodyCol->SetupAttachment(Root);
 
 	SetRoot(Root);
@@ -47,10 +47,10 @@ void AEnemyBase::BeginPlay()
 
 void AEnemyBase::RendererInit()
 {
-	Renderer->SetPivot(EPivot::BOT);
-	Renderer->SetOrder(ERenderOrder::Enemy);
-	Renderer->SetAutoSize(2.0f, true);
-	Renderer->SetDir(EEngineDir::Right);
+	Body->SetPivot(EPivot::BOT);
+	Body->SetOrder(ERenderOrder::Enemy);
+	Body->SetAutoSize(2.0f, true);
+	Body->SetDir(EEngineDir::Right);
 }
 
 void AEnemyBase::CollisionInit()
@@ -79,7 +79,7 @@ void AEnemyBase::DebugingRendererInit()
 
 void AEnemyBase::DebugingUpdate()
 {
-	CalFourPoint(GetRenderer()->GetDir());
+	CalFourPoint(Body->GetDir());
 
 	RendererFT->SetPosition(GetFTFromActor());
 	RendererFB->SetPosition(GetFBFromActor());
@@ -89,7 +89,7 @@ void AEnemyBase::DebugingUpdate()
 
 void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	switch (Dir)
 	{
@@ -104,15 +104,15 @@ void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
 
 void AEnemyBase::RendererDirChange()
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Renderer->SetDir(EEngineDir::Right);
+		Body->SetDir(EEngineDir::Right);
 		break;
 	case EEngineDir::Right:
-		Renderer->SetDir(EEngineDir::Left);
+		Body->SetDir(EEngineDir::Left);
 		break;
 	}
 }
@@ -164,7 +164,7 @@ void AEnemyBase::PatrolTurnStart()
 void AEnemyBase::PatrolTurn(float _DeltaTime)
 {
 	// State Change Check
-	if (true == Renderer->IsCurAnimationEnd())
+	if (true == Body->IsCurAnimationEnd())
 	{
 		State.ChangeState("PatrolStop");
 		return;
@@ -202,7 +202,7 @@ void AEnemyBase::TurnStart()
 
 void AEnemyBase::Turn(float _DeltaTime)
 {
-	if (Renderer->IsCurAnimationEnd())
+	if (Body->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle"); 
 		return;
@@ -213,11 +213,11 @@ void AEnemyBase::HitFallStart()
 {
 	if (0.0f > HitDir.X)
 	{
-		Renderer->SetDir(EEngineDir::Left);
+		Body->SetDir(EEngineDir::Left);
 	}
 	else
 	{
-		Renderer->SetDir(EEngineDir::Right);
+		Body->SetDir(EEngineDir::Right);
 	}
 
 	SetVelocity(HitDir * 1000.0f);
@@ -226,7 +226,7 @@ void AEnemyBase::HitFallStart()
 
 void AEnemyBase::HitFall(float _DeltaTime)
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	// 속도 업데이트
 	ApplyGravity(_DeltaTime);

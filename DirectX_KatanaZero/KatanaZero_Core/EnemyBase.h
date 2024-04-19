@@ -23,9 +23,9 @@ public:
 	AEnemyBase& operator=(const AEnemyBase& _Other) = delete;
 	AEnemyBase& operator=(AEnemyBase&& _Other) noexcept = delete;
 
-	inline USpriteRenderer* GetRenderer() const
+	inline USpriteRenderer* GetBody() const
 	{
-		return Renderer;
+		return Body;
 	}
 
 	void StateChange(std::string_view _State)
@@ -39,9 +39,9 @@ public:
 		PatrolStopTime = _StopTime;
 	}
 
-	inline void SetRendererDir(EEngineDir _Dir)
+	inline void SetBodyDir(EEngineDir _Dir)
 	{
-		Renderer->SetDir(_Dir);
+		Body->SetDir(_Dir);
 	}
 
 	void SetVelocityByDir(const FVector& _Vel);
@@ -67,7 +67,7 @@ private:
 	void RendererDirChange();
 
 private:
-	USpriteRenderer* Renderer = nullptr;
+	USpriteRenderer* Body = nullptr;
 
 	FVector HitDir = FVector::Zero;
 	

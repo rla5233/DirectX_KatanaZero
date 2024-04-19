@@ -38,21 +38,21 @@ void AGrunt::IdleStart()
 {
 	Super::IdleStart();
 
-	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_idle);
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_idle);
 }
 
 void AGrunt::HitFallStart()
 {
 	Super::HitFallStart();
 
-	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_hitfall);
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_hitfall);
 }
 
 void AGrunt::DeadStart()
 {
 	Super::DeadStart();
 
-	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_dead);
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_dead);
 }
 
 void AGrunt::PatrolWalkStart()
@@ -60,21 +60,21 @@ void AGrunt::PatrolWalkStart()
 	Super::PatrolWalkStart();
 
 	SetVelocityByDir({ 100.0f, 0.0f, 0.0f });
-	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_walk);
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_walk);
 }
 
 void AGrunt::PatrolTurnStart()
 {
 	Super::PatrolTurnStart();
 
-	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_turn);
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_turn);
 }
 
 void AGrunt::PatrolStopStart()
 {
 	Super::PatrolStopStart();
 
-	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_idle);
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_idle);
 }
 
 void AGrunt::RunStart()
@@ -83,7 +83,7 @@ void AGrunt::RunStart()
 	
 	SetVelocity({ 350.0f, 0.0f, 0.0f });
 
-	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_run);
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_run);
 }
 
 void AGrunt::Run(float _DeltaTime)
@@ -96,7 +96,7 @@ void AGrunt::TurnStart()
 {
 	Super::TurnStart();
 
-	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_turn);
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_turn);
 }
 
 void AGrunt::Turn(float _DeltaTime)
@@ -106,10 +106,10 @@ void AGrunt::Turn(float _DeltaTime)
 
 void AGrunt::CreateAnimation()
 {
-	GetRenderer()->CreateAnimation(Anim::enemy_grunt_idle, ImgRes::enemy_grunt_idle, 0.1f, true);
-	GetRenderer()->CreateAnimation(Anim::enemy_grunt_walk, ImgRes::enemy_grunt_walk, 0.07f, true);
-	GetRenderer()->CreateAnimation(Anim::enemy_grunt_run, ImgRes::enemy_grunt_run, 0.07f, true);
-	GetRenderer()->CreateAnimation(Anim::enemy_grunt_turn, ImgRes::enemy_grunt_turn, 0.08f, false);
-	GetRenderer()->CreateAnimation(Anim::enemy_grunt_hitfall, ImgRes::enemy_grunt_hitfall, 0.08f, false);
-	GetRenderer()->CreateAnimation(Anim::enemy_grunt_dead, ImgRes::enemy_grunt_dead, 0.08f, false);
+	GetBody()->CreateAnimation(Anim::enemy_grunt_idle, ImgRes::enemy_grunt_idle, 0.1f, true);
+	GetBody()->CreateAnimation(Anim::enemy_grunt_walk, ImgRes::enemy_grunt_walk, 0.07f, true);
+	GetBody()->CreateAnimation(Anim::enemy_grunt_run, ImgRes::enemy_grunt_run, 0.07f, true);
+	GetBody()->CreateAnimation(Anim::enemy_grunt_turn, ImgRes::enemy_grunt_turn, 0.08f, false);
+	GetBody()->CreateAnimation(Anim::enemy_grunt_hitfall, ImgRes::enemy_grunt_hitfall, 0.08f, false);
+	GetBody()->CreateAnimation(Anim::enemy_grunt_dead, ImgRes::enemy_grunt_dead, 0.08f, false);
 }

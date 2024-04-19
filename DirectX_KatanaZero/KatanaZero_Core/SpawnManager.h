@@ -23,7 +23,7 @@ public:
 	{
 		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name);
 		NewEnemy->SetActorLocation(_Pos);
-		NewEnemy->SetRendererDir(_Dir);
+		NewEnemy->SetBodyDir(_Dir);
 		NewEnemy->StateChange("Idle");
 		PushEnemy(NewEnemy);
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
@@ -39,13 +39,12 @@ public:
 	{
 		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name);
 		NewEnemy->SetActorLocation(_Pos);
-		NewEnemy->SetRendererDir(_Dir);
+		NewEnemy->SetBodyDir(_Dir);
 		NewEnemy->SetPatrolTime(_WalkTime, _StopTime);
 		NewEnemy->StateChange(_InitState);
 		PushEnemy(NewEnemy);
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
 	}
-
 
 	// RecComponent
 	template<typename RecCompoType>
@@ -53,7 +52,7 @@ public:
 	{
 		std::shared_ptr<ARecMapCompoBase> NewCompo= GameMode->GetWorld()->SpawnActor<RecCompoType>(_Name);
 		NewCompo->SetActorLocation(_Pos);
-		NewCompo->GetBody()->SetDir(_Dir);
+		NewCompo->SetBodyDir(_Dir);
 		NewCompo->StateChange("Idle");
 		PushRecComponent(NewCompo);
 		return std::dynamic_pointer_cast<RecCompoType>(NewCompo);
