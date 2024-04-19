@@ -94,7 +94,7 @@ void APlayerBase::CollisionInit()
 	AttackCol->SetActive(false);
 
 	BodyCol->SetCollisionGroup(EColOrder::Player);
-	BodyCol->SetCollisionType(ECollisionType::RotRect);
+	BodyCol->SetCollisionType(ECollisionType::Rect);
 }
 
 void APlayerBase::DefaultUpdate(float _DeltaTime)

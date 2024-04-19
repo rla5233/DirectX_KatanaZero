@@ -173,7 +173,7 @@ void UCollision::Tick(float _Delta)
 		float4x4 PPos;
 
 		PScale.Scale(Scale);
-		PPos.Scale(Pos);
+		PPos.Position(Pos);
 
 		Trans.World = Trans.ScaleMat * Trans.PositionMat * PScale * PPos;
 		Trans.WVP = Trans.World * Trans.View * Trans.Projection;
@@ -187,7 +187,7 @@ void UCollision::Tick(float _Delta)
 		break;
 	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:
-		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Red);
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Black);
 		break;
 	case ECollisionType::Max:
 		break;
