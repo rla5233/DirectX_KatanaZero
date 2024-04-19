@@ -375,6 +375,7 @@ void APlayerBase::JumpStart()
 	Velocity.Y = Const::player_jump_speedy;
 
 	Body->ChangeAnimation(Anim::player_jump);
+	SetJumpEffect();
 }
 
 void APlayerBase::Jump(float _DeltaTime)
@@ -488,6 +489,7 @@ void APlayerBase::Fall(float _DeltaTime)
 	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir())
  	||  true == IsOnStairs(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
 	{
+		SetLandEffect();
 		if (true == IsRunInputPress())
 		{
 			State.ChangeState("Run");

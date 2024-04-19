@@ -74,6 +74,7 @@ private:
 private:
 	USpriteRenderer* Body = nullptr;
 	USpriteRenderer* AttackEffect = nullptr;
+	USpriteRenderer* JumpLandEffect = nullptr;
 	std::vector<CloudEffect> Cloud;
 	const int CloudSize = 20;
 	int CloudIdx = 0;
@@ -180,9 +181,10 @@ private:
 
 // Effect Set (virtual)
 private:
-	void SetAttackEffect(float _Deg);
-
 	void EffectVecIdxUpdate();
+	void SetAttackEffect(float _Deg);
+	void SetJumpEffect();
+	void SetLandEffect();
 	void SetCroudEffect(int _Num);
 	void SetCroudEffectUpdate(float _DeltaTime);
 	void CreateRollCroudEffect(float _DeltaTime);

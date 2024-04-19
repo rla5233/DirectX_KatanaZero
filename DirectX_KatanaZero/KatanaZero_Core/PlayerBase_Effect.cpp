@@ -5,6 +5,16 @@ void APlayerBase::EffectInit()
 {
 	AttackEffect->CreateAnimation(Anim::effect_player_slash, ImgRes::effect_player_slash, 0.04f, false);
 	AttackEffect->SetFrameCallback(Anim::effect_player_slash, 4, [=] { AttackEffect->SetActive(false); });
+	AttackEffect->SetOrder(ERenderOrder::EffectFront);
+	AttackEffect->SetActive(false);
+
+	JumpLandEffect->CreateAnimation(Anim::effect_player_jumpcloud, ImgRes::effect_player_jumpcloud, 0.08f, false);
+	JumpLandEffect->CreateAnimation(Anim::effect_player_landcloud, ImgRes::effect_player_landcloud, 0.06f, false);
+	JumpLandEffect->SetFrameCallback(Anim::effect_player_jumpcloud, 3, [=] { JumpLandEffect->SetActive(false); });
+	JumpLandEffect->SetFrameCallback(Anim::effect_player_landcloud, 6, [=] { JumpLandEffect->SetActive(false); });
+	JumpLandEffect->SetOrder(ERenderOrder::EffectBack);
+	JumpLandEffect->SetAutoSize(2.0f, true);
+	JumpLandEffect->SetActive(false);
 
 	for (size_t i = 0; i < Cloud.size(); i++)
 	{
@@ -15,13 +25,9 @@ void APlayerBase::EffectInit()
 			{ 0, 1, 2, 3, 4, 5, 6 },
 			false);
 		Cloud[i].Renderer->SetFrameCallback(Anim::effect_player_dustcloud, 6, [=] { Cloud[i].Renderer->SetActive(false); });
-
-		Cloud[i].Renderer->SetOrder(ERenderOrder::Effect);
+		Cloud[i].Renderer->SetOrder(ERenderOrder::EffectFront);
 		Cloud[i].Renderer->SetActive(false);
 	}
-
-	AttackEffect->SetOrder(ERenderOrder::Effect);
-	AttackEffect->SetActive(false);
 }
 
 void APlayerBase::EffectVecIdxUpdate()
@@ -41,6 +47,20 @@ void APlayerBase::SetAttackEffect(float _Deg)
 	AttackEffect->SetPosition({ 0.0f, 30.0f, 0.0f });
 	AttackEffect->SetRotationDeg({ 0.0f, 0.0f, _Deg });
 	AttackEffect->SetActive(true);
+}
+
+void APlayerBase::SetJumpEffect()
+{
+	JumpLandEffect->ChangeAnimation(Anim::effect_player_jumpcloud);
+	JumpLandEffect->SetPosition(GetActorLocation() + FVector(0.0f, 52.0f, 0.0f));
+	JumpLandEffect->SetActive(true);
+}
+
+void APlayerBase::SetLandEffect()
+{
+	JumpLandEffect->ChangeAnimation(Anim::effect_player_landcloud);
+	JumpLandEffect->SetPosition(GetActorLocation() + FVector(0.0f, 15.0f, 0.0f));
+	JumpLandEffect->SetActive(true);
 }
 
 void APlayerBase::SetCroudEffect(int _Num)

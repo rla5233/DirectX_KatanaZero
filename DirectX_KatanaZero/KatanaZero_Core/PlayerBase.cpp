@@ -19,6 +19,7 @@ APlayerBase::APlayerBase()
 	BodyCol		= CreateDefaultSubObject<UCollision>("Player_Body");
 
 	AttackEffect = CreateDefaultSubObject<USpriteRenderer>("Player_Effect");
+	JumpLandEffect = CreateDefaultSubObject<USpriteRenderer>("Player_Effect");
 	Cloud.reserve(CloudSize);
 	for (int i = 0; i < CloudSize; i++)
 	{
