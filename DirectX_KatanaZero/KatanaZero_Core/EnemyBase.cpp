@@ -13,8 +13,6 @@ AEnemyBase::AEnemyBase()
 
 	SetRoot(Root);
 
-
-
 	// 수정(삭제 필요)
 	RendererFT = CreateDefaultSubObject<USpriteRenderer>("RendererFT");
 	RendererFB = CreateDefaultSubObject<USpriteRenderer>("RendererFB");

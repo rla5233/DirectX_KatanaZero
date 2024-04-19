@@ -4,6 +4,8 @@
 #include "PlayLevelBase.h"
 #include "ColMapObject.h"
 #include "MouseAim.h"
+#include "EnemyBase.h"
+#include "Door.h"
 
 APlayerBase::APlayerBase()
 {
@@ -125,6 +127,23 @@ void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
 	}
 
 	AttackDelayTimeCount -= _DeltaTime;
+}
+
+void APlayerBase::AttackCollisionCheck()
+{
+	AttackCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
+		{
+			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
+			Enemy->HitByPlayer(AttackDir);
+		}
+	);
+
+	AttackCol->CollisionEnter(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
+		{
+			ADoor* Door = dynamic_cast<ADoor*>(_Other->GetActor());
+			Door->StateChange("Open");
+		}
+	);
 }
 
 void APlayerBase::DoorColCheck()

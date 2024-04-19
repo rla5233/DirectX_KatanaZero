@@ -185,6 +185,8 @@ private:
 
 // Collision
 private:
+	void AttackCollisionCheck();
+
 	void DoorColCheck();
 
 

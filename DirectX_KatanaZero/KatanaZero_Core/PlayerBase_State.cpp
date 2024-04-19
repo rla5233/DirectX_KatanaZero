@@ -1,8 +1,6 @@
 #include "PreCompile.h"
 #include "PlayerBase.h"
 
-#include "EnemyBase.h"
-
 // PlayerBase FSM
 
 // ±âº»
@@ -564,12 +562,7 @@ void APlayerBase::AttackStart()
 void APlayerBase::Attack(float _DeltaTime)
 {
 	// Collision Check
-	AttackCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
-		{
-			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
-			Enemy->HitByPlayer(AttackDir);
-		}
-	);
+	AttackCollisionCheck();
 
 	FallGravityUpdate(_DeltaTime);
 
