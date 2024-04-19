@@ -26,3 +26,12 @@ cbuffer FTransform : register(b10)
     float4x4 Projection;
     float4x4 WVP;
 };
+
+
+cbuffer FBaseRenderValue : register(b11)
+{
+    float AccTime;
+    float Temp0;
+    float ScreenX;
+    float ScreenY;
+};

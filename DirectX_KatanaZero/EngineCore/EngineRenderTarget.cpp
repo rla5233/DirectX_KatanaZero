@@ -3,6 +3,7 @@
 #include "EngineTexture.h"
 #include "EngineCore.h"
 
+
 URenderUnit UEngineRenderTarget::CopyUnit;
 
 void UEngineRenderTarget::RenderTargetInit()
@@ -71,7 +72,8 @@ void UEngineRenderTarget::Setting()
 
 void UEngineRenderTarget::Copy(std::shared_ptr<UEngineRenderTarget> _Other)
 {
-	
+	Clear();
+	Merge(_Other);
 }
 
 void UEngineRenderTarget::Merge(std::shared_ptr<UEngineRenderTarget> _Other, int _Index /*= 0*/)
@@ -85,4 +87,19 @@ void UEngineRenderTarget::Merge(std::shared_ptr<UEngineRenderTarget> _Other, int
 	UEngineRenderTarget::CopyUnit.Resources->SettingTexture("Image", CopyTarget, "POINT");
 	UEngineRenderTarget::CopyUnit.Render(0.0f);
 
+}
+
+void UEngineRenderTarget::Effect(float _DeltaTime)
+{
+	for (size_t i = 0; i < Effects.size(); i++)
+	{
+		UEffect* EffectPtr = Effects[i].get();
+		if (false == EffectPtr->IsActive())
+		{
+			continue;
+		}
+
+		EffectPtr->Update(_DeltaTime);
+		EffectPtr->Effect(shared_from_this());
+	}
 }

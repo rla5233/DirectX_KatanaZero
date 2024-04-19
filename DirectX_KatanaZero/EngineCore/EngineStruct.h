@@ -27,3 +27,10 @@ struct FSpriteInfo
 	std::shared_ptr<UEngineTexture> Texture = nullptr;
 };
 
+struct FBaseRenderValue 
+{
+	float AccTime = 0.0f;
+	float Temp0;
+	float ScreenX;
+	float ScreenY;
+};

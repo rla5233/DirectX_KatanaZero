@@ -47,6 +47,25 @@ void UEngineConstantBuffer::Setting(EShaderType _Type, UINT _Slot)
 	}
 }
 
+void UEngineConstantBuffer::Reset(EShaderType _Type, UINT _Slot)
+{
+	ID3D11Buffer* Buffer = nullptr;
+
+	switch (_Type)
+	{
+	case EShaderType::Vertex:
+		GEngine->GetDirectXContext()->VSSetConstantBuffers(_Slot, 1, &Buffer);
+		break;
+	case EShaderType::Pixel:
+		GEngine->GetDirectXContext()->PSSetConstantBuffers(_Slot, 1, &Buffer);
+		break;
+	case EShaderType::NONE:
+	default:
+		MsgBoxAssert("처리가 완료되지 않은 상수버퍼 쉐이더 세팅 타입입니다");
+		break;
+	}
+}
+
 void UEngineConstantBuffer::ChangeData(const void* _Data, UINT _Size)
 {
 #ifdef _DEBUG

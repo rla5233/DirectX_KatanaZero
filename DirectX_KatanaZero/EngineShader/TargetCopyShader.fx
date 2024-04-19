@@ -27,5 +27,11 @@ ImagePSOutPut TargetCopy_PS(ImageVSOutPut _Input)
 {
     ImagePSOutPut Out = (ImagePSOutPut) 0;
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
+    
+    if (1.0f <= Out.COLOR.a)
+    {
+        Out.COLOR.a = 1.0f;
+    }
+    
     return Out;
 }

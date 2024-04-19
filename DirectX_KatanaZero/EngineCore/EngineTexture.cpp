@@ -177,6 +177,26 @@ void UEngineTexture::Setting(EShaderType _Type, UINT _Slot)
 	}
 }
 
+void UEngineTexture::Reset(EShaderType _Type, UINT _Slot)
+{
+	ID3D11ShaderResourceView* NullptrSRV = nullptr;
+
+	switch (_Type)
+	{
+	case EShaderType::Vertex:
+		GEngine->GetDirectXContext()->VSSetShaderResources(_Slot, 1, &NullptrSRV);
+		break;
+	case EShaderType::Pixel:
+		GEngine->GetDirectXContext()->PSSetShaderResources(_Slot, 1, &NullptrSRV);
+		break;
+	case EShaderType::NONE:
+	default:
+		MsgBoxAssert("타입이 불분명한 텍스처 세팅입니다.");
+		break;
+	}
+}
+
+
 Color8Bit UEngineTexture::GetColor(unsigned int _X, unsigned int _Y, Color8Bit _DefaultColor)
 {
 	if (_X > GetScale().uiX())

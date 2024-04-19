@@ -293,6 +293,13 @@ void MaterialInit()
 		Mat->SetVertexShader("TargetCopyShader.fx");
 	}
 
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Blur");
+		Mat->SetPixelShader("BlurEffectShader.fx");
+		Mat->SetVertexShader("BlurEffectShader.fx");
+	}
+
+
 }
 
 void EngineTextureInit()

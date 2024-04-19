@@ -74,6 +74,7 @@ private:
 	void ResCreate(UINT _ByteSize);
 
 	void Setting(EShaderType _Type, UINT _Slot);
+	void Reset(EShaderType _Type, UINT _Slot);
 
 };
 

@@ -20,6 +20,7 @@ public:
 	UINT BufferSize = 0;
 
 	void Setting();
+	void Reset();
 };
 
 class UEngineTextureSetter : public USetterBase
@@ -27,6 +28,7 @@ class UEngineTextureSetter : public USetterBase
 public:
 	std::shared_ptr<class UEngineTexture> Res;
 	void Setting();
+	void Reset();
 };
 
 class UEngineSamplerSetter : public USetterBase
@@ -34,6 +36,7 @@ class UEngineSamplerSetter : public USetterBase
 public:
 	std::shared_ptr<class UEngineSampler> Res;
 	void Setting();
+	void Reset();
 };
 
 
@@ -62,6 +65,7 @@ public:
 	void SettingTexture(std::string_view _TexName, std::shared_ptr<UEngineTexture> _Texture, std::string_view _SamperName);
 
 
+	void ResetAllShaderResources();
 	void SettingAllShaderResources();
 
 	void Reset();

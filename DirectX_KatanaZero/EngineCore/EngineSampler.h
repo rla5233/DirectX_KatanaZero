@@ -32,5 +32,6 @@ private:
 
 	void ResCreate(const D3D11_SAMPLER_DESC& _Info);
 	void Setting(EShaderType _Type, UINT _Slot);
+	void Reset(EShaderType _Type, UINT _Slot);
 };
 

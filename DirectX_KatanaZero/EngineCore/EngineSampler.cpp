@@ -45,3 +45,22 @@ void UEngineSampler::Setting(EShaderType _Type, UINT _Slot)
 		break;
 	}
 }
+
+void UEngineSampler::Reset(EShaderType _Type, UINT _Slot)
+{
+	ID3D11SamplerState* NullptrState = nullptr;
+
+	switch (_Type)
+	{
+	case EShaderType::Vertex:
+		GEngine->GetDirectXContext()->VSSetSamplers(_Slot, 1, &NullptrState);
+		break;
+	case EShaderType::Pixel:
+		GEngine->GetDirectXContext()->PSSetSamplers(_Slot, 1, &NullptrState);
+		break;
+	case EShaderType::NONE:
+	default:
+		MsgBoxAssert("타입이 불분명한 셈플러 세팅입니다.");
+		break;
+	}
+}

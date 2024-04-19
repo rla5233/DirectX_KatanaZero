@@ -16,6 +16,7 @@ class UCollision;
 class AGameMode;
 class UEngineCore;
 class UWidget;
+class UEngineRenderTarget;
 class ULevel final : public UTickObject, public UNameObject
 {
 	GENERATED_BODY(UTickObject)
@@ -87,6 +88,11 @@ public:
 		return Actors[_Order];
 	}
 
+	std::shared_ptr<UEngineRenderTarget> GetLastTarget()
+	{
+		return LastTarget;
+	}
+
 
 protected:
 	void Tick(float _DeltaTime) override;
@@ -98,6 +104,8 @@ protected:
 	void Destroy();
 
 private:
+	std::shared_ptr<UEngineRenderTarget> LastTarget = nullptr;
+
 	std::shared_ptr<UCamera> MainCamera = nullptr;
 	std::shared_ptr<UCamera> UICamera = nullptr;
 
