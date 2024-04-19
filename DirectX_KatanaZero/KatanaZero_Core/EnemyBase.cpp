@@ -43,6 +43,8 @@ void AEnemyBase::BeginPlay()
 	CollisionInit();
 	DebugingRendererInit();
 	StateInit();
+
+	SetRecordingSize(0.0f);
 }
 
 void AEnemyBase::RendererInit()

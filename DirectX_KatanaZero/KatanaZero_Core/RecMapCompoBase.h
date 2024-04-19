@@ -38,6 +38,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void DefaultUpdate(float _DeltaTime);
+
+private:
 	USpriteRenderer* Body = nullptr;
 	
 protected:

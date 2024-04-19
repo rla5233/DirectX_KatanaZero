@@ -22,6 +22,8 @@ void ARecMapCompoBase::BeginPlay()
 	URecordingObject::SetActor(this);
 
 	StateInit();
+
+	SetRecordingSize(0.0f);
 }
 
 void ARecMapCompoBase::Tick(float _DeltaTime)
@@ -29,6 +31,17 @@ void ARecMapCompoBase::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+	DefaultUpdate(_DeltaTime);
+}
+
+void ARecMapCompoBase::DefaultUpdate(float _DeltaTime)
+{
+	std::string CurState = State.GetCurStateName();
+
+	if ("Replay" != CurState)
+	{
+		Recording(_DeltaTime);
+	}
 }
 
 void ARecMapCompoBase::StateInit()

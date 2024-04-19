@@ -20,7 +20,7 @@ void URecordingObject::Recording(float _DeltaTime)
 {
 	if (false == IsRecordingValue)
 	{
-		return;
+		//return;
 	}
 
 #ifdef _DEBUG

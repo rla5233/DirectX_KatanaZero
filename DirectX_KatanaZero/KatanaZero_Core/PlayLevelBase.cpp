@@ -170,7 +170,7 @@ void APlayLevelBase::StateInit()
 
 			for (size_t i = 0; i < AllRecComponent.size(); i++)
 			{
-
+				AllRecComponent[i]->StateChange("Replay");
 			}
 
 			InputOn();
