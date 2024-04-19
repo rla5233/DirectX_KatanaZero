@@ -26,7 +26,7 @@ void AGrunt::CollisionInit()
 	Super::CollisionInit();
 
 	FVector BodyPos = { 0.0f, 40.0f, 0.0f };
-	FVector BodyScale = { 50.0f, 80.0f, 0.0f };
+	FVector BodyScale = { 50.0f, 80.0f, 1.0f };
 
 	BodyCol->SetPosition(BodyPos);
 	BodyCol->SetScale(BodyScale);

@@ -158,11 +158,7 @@ void APlayerBase::RunStart()
 void APlayerBase::Run(float _DeltaTime)
 {
 	// Collision Check
-	BodyCol->CollisionEnter(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
-		{
-			int a = 0;
-		}
-	);
+
 
 	// 속도 업데이트
 	DownStairGravityUpdate(_DeltaTime);

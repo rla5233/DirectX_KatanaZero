@@ -90,7 +90,7 @@ void APlayerBase::CollisionInit()
 {
 	AttackCol->SetCollisionGroup(EColOrder::PlayerAttack);
 	AttackCol->SetCollisionType(ECollisionType::RotRect);
-	AttackCol->SetScale({ 110.0f, 75.0f, 0.0f });
+	AttackCol->SetScale({ 110.0f, 75.0f, 1.0f });
 	AttackCol->SetActive(false);
 
 	BodyCol->SetCollisionGroup(EColOrder::Player);
