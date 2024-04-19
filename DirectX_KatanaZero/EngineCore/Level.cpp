@@ -92,6 +92,8 @@ void ULevel::Render(float _DeltaTime)
 		}
 	}
 
+	MainCamera->CameraTarget->Effect(_DeltaTime);
+
 	// 모든 일반오브젝트들이 랜더링을 하고
 
 	// 언리얼은 제약이 많다.
@@ -119,6 +121,8 @@ void ULevel::Render(float _DeltaTime)
 			}
 		}
 	}
+
+	UICamera->CameraTarget->Effect(_DeltaTime);
 
 	UEngineGraphicDevice& Device = GEngine->GetEngineDevice();
 

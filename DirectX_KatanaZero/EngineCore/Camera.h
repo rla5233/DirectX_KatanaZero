@@ -47,6 +47,11 @@ public:
 
 	void CamTargetSetting();
 
+	std::shared_ptr<UEngineRenderTarget> GetCameraTarget()
+	{
+		return CameraTarget;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
