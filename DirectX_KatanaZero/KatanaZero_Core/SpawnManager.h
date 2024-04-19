@@ -17,7 +17,7 @@ public:
 	USpawnManager& operator=(const USpawnManager& _Other) = delete;
 	USpawnManager& operator=(USpawnManager&& _Other) noexcept = delete;
 
-	// Enemy
+	// Enemy 스폰 함수 (초기 상태 : Idle)
 	template<typename EnemyType>
 	std::shared_ptr<EnemyType> SpawnIdleEnemy(std::string_view _Name,	const FVector& _Pos, EEngineDir _Dir)
 	{
@@ -29,6 +29,7 @@ public:
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
 	}
 
+	// Patrol 상태 Enemy 스폰 함수
 	template<typename EnemyType>
 	std::shared_ptr<EnemyType> SpawnPatrolEnemy(
 		std::string_view _Name,
@@ -46,7 +47,7 @@ public:
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
 	}
 
-	// RecComponent
+	// RecComponent 스폰 함수 (초기 상태 : Idle)
 	template<typename RecCompoType>
 	std::shared_ptr<RecCompoType> SpawnRecComponent(std::string_view _Name, const FVector& _Pos, EEngineDir _Dir)
 	{

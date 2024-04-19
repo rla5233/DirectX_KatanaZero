@@ -5,7 +5,7 @@ ADoor::ADoor()
 {
 	BodyCol = CreateDefaultSubObject<UCollision>("DoorBody");
 	HitCol = CreateDefaultSubObject<UCollision>("DoorHit");
-	
+
 	BodyCol->SetupAttachment(GetRoot());
 	HitCol->SetupAttachment(GetRoot());
 }
@@ -19,6 +19,7 @@ void ADoor::BeginPlay()
 	Super::BeginPlay();
 
 	RendererInit();
+	CollisionInit();
 }
 
 void ADoor::Tick(float _DeltaTime)
@@ -26,23 +27,6 @@ void ADoor::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 
-}
-
-void ADoor::StateInit()
-{
-	Super::StateInit();
-
-	// State Create
-	State.CreateState("Idle");
-	State.CreateState("Open");
-
-	// State Start
-	State.SetStartFunction("Idle", [=] { GetBody()->ChangeAnimation(Anim::compo_door_idle); });
-
-	// State Update
-
-	
-	// State End
 }
 
 void ADoor::RendererInit()
@@ -55,4 +39,45 @@ void ADoor::RendererInit()
 
 void ADoor::CollisionInit()
 {
+	BodyCol->SetCollisionType(ECollisionType::RotRect);
+	BodyCol->SetCollisionGroup(EColOrder::HitComponent);
+	BodyCol->SetScale({ 25.0f, 120.0f, 0.0f });
+	BodyCol->SetPosition({ 37.0f, 0.0f, 0.0f });
+
+	BodyCol->SetActive(true);
+	HitCol->SetActive(false);
+}
+
+void ADoor::StateInit()
+{
+	Super::StateInit();
+
+	// State Create
+	State.CreateState("Idle");
+	State.CreateState("Open");
+
+	// State Start
+	State.SetStartFunction("Idle", [=] 
+		{ 
+			EEngineDir Dir = GetBody()->GetDir();
+			FVector BodyColPos = BodyCol->GetLocalPosition();
+			switch (Dir)
+			{
+			case EEngineDir::Left:
+				
+				break;
+			case EEngineDir::Right:
+				BodyColPos.X = -BodyColPos.X;
+				break;
+			}
+
+			BodyCol->SetPosition(BodyColPos);
+			GetBody()->ChangeAnimation(Anim::compo_door_idle); 
+		}
+	);
+
+	// State Update
+
+
+	// State End
 }

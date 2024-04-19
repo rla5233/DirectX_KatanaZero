@@ -40,5 +40,5 @@ enum class EColOrder
 	EnemyAttack,
 	Player,
 	Enemy,
-	Door
+	HitComponent
 };
