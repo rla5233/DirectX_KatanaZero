@@ -150,9 +150,6 @@ void APlayerBase::RunStart()
 
 void APlayerBase::Run(float _DeltaTime)
 {
-	// Collision Check
-
-
 	// 속도 업데이트
 	DownStairGravityUpdate(_DeltaTime);
 
@@ -166,6 +163,14 @@ void APlayerBase::Run(float _DeltaTime)
 	if (true == IsAttackInputDown())
 	{
 		State.ChangeState("Attack");
+		return;
+	}
+
+	// Collision Check
+	if (true == IsColDoorValue)
+	{
+		Velocity.X = 0;
+		State.ChangeState("RunToIdle");
 		return;
 	}
 
@@ -204,6 +209,12 @@ void APlayerBase::RunToIdleStart()
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
+	if (true == IsColDoorValue)
+	{
+		State.ChangeState("Kick");
+		return;
+	}
+
 	// 속도 업데이트
 	RunToIdleVelUpdate(_DeltaTime);
 
@@ -726,7 +737,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("Attack",		std::bind(&APlayerBase::AttackStart, this));
 	State.SetStartFunction("WallSlide",		std::bind(&APlayerBase::WallSlideStart, this));
 	State.SetStartFunction("Flip",			std::bind(&APlayerBase::FlipStart, this));
-	State.SetStartFunction("Kick",			[=] { Body->ChangeAnimation(Anim::player_kick_door); });
+	State.SetStartFunction("Kick",			[=] { Body->ChangeAnimation(Anim::player_kick_door);	});
 	State.SetStartFunction("Replay",		std::bind(&APlayerBase::ReplayStart, this));
 
 	// State Update 함수 세팅
@@ -742,6 +753,7 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Attack",		std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
 	State.SetUpdateFunction("WallSlide",	std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
 	State.SetUpdateFunction("Flip",			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
+	State.SetUpdateFunction("Kick",			[=] (float _DeltaTime){ });
 	State.SetUpdateFunction("Replay",		std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
 
 	// State End 함수 세팅

@@ -29,7 +29,7 @@ void ADefaultPlayer::CollisionInit()
 	BodyCol->SetActive(true);
 
 	FVector FrontPos = { 0.0f, 40.0f, 0.0f };
-	FVector FrontScale = { 5.0f, 80.0f, 1.0f };
+	FVector FrontScale = { 10.0f, 80.0f, 1.0f };
 	FrontCol->SetPosition(FrontPos);
 	FrontCol->SetScale(FrontScale);
 	FrontCol->SetActive(true);
@@ -52,9 +52,9 @@ void ADefaultPlayer::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::player_attack, ImgRes::player_attack, 0.02f, false);
 	GetBody()->CreateAnimation(Anim::player_wall_slide, ImgRes::player_wall_slide, 0.02f, false);
 	GetBody()->CreateAnimation(Anim::player_flip, ImgRes::player_flip, 0.02f, false);
-	GetBody()->CreateAnimation(Anim::player_kick_door, ImgRes::player_kick_door, 0.05f, false);
+	GetBody()->CreateAnimation(Anim::player_kick_door, ImgRes::player_kick_door, 0.06f, false);
 
-	GetBody()->SetFrameCallback(Anim::player_kick_door, 5, [=] { StateChange("Idle"); });
+	GetBody()->SetFrameCallback(Anim::player_kick_door, 9, [=] { StateChange("Idle"); });
 }
 
 void ADefaultPlayer::Tick(float _DeltaTime)

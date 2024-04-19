@@ -129,7 +129,7 @@ void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
 
 void APlayerBase::DoorColCheck()
 {
-	BodyCol->Collision(static_cast<int>(EColOrder::Door),
+	FrontCol->Collision(static_cast<int>(EColOrder::Door),
 		[=](std::shared_ptr<UCollision> _Other)	{ IsColDoorValue = true; },
 		nullptr,
 		[=](std::shared_ptr<UCollision> _Other)	{ IsColDoorValue = false; }
