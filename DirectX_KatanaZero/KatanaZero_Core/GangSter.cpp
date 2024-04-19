@@ -39,6 +39,8 @@ void AGangSter::CollisionInit()
 void AGangSter::CreateAnimation()
 {
 	GetBody()->CreateAnimation(Anim::enemy_gangster_idle, ImgRes::enemy_gangster_idle, 0.1f, true);
+	GetBody()->CreateAnimation(Anim::enemy_gangster_hitfall, ImgRes::enemy_gangster_hitfall, 0.06f, false);
+	GetBody()->CreateAnimation(Anim::enemy_gangster_dead, ImgRes::enemy_gangster_dead, 0.06f, false);
 }
 
 void AGangSter::IdleStart()
