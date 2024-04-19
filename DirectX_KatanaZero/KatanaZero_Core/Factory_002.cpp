@@ -36,7 +36,8 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, "PatrolWalk");
 	SpawnIdleEnemy<AGrunt>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right);
 
-
+	AllRecComponent.reserve(1);
+	SpawnRecComponent<ADoor>("Door", { 500.0f, 400.0f, 0.0f }, EEngineDir::Left);
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

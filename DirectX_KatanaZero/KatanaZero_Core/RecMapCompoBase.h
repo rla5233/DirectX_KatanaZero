@@ -28,7 +28,7 @@ public:
 		Body->SetDir(_Dir);
 	}
 
-	void StataChange(std::string_view _State)
+	void StateChange(std::string_view _State)
 	{
 		State.ChangeState(_State);
 	}
