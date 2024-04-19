@@ -18,6 +18,7 @@ enum class ERenderOrder
 {
 	ColMap,
 	BackGround,
+	MapComponent,
 	EffectBack,
 	Enemy,
 	Player,

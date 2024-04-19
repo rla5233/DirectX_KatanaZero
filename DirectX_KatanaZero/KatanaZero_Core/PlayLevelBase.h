@@ -2,6 +2,7 @@
 #include <EngineCore/StateManager.h>
 
 class AColMapObject;
+class ARecMapCompoBase;
 class ADefaultPlayer;
 class AEnemyBase;
 class AMouseAim;
@@ -43,6 +44,7 @@ protected:
 	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
 	std::vector<std::shared_ptr<AEnemyBase>> AllEnemy;
+	std::vector<std::shared_ptr<ARecMapCompoBase>> AllRecComponent;
 
 // FSM
 private:

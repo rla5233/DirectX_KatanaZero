@@ -3,6 +3,7 @@
 
 #include "CameraManager.h"
 #include "ColMapObject.h"
+#include "RecMapCompoBase.h"
 #include "DefaultPlayer.h"
 #include "EnemyBase.h"
 #include "MouseAim.h"
@@ -49,12 +50,19 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 		AllEnemy[i] = nullptr;
 	}
 
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->Destroy();
+		AllRecComponent[i] = nullptr;
+	}
+
 	Aim = nullptr;
 	ColMap = nullptr;
 	Player = nullptr;
 	HUD = nullptr;
 
 	AllEnemy.clear();
+	AllRecComponent.clear();
 }
 
 void APlayLevelBase::Tick(float _DeltaTime)
@@ -154,6 +162,11 @@ void APlayLevelBase::StateInit()
 			for (size_t i = 0; i < AllEnemy.size(); i++)
 			{
 				AllEnemy[i]->StateChange("Replay");
+			}
+
+			for (size_t i = 0; i < AllRecComponent.size(); i++)
+			{
+
 			}
 
 			InputOn();

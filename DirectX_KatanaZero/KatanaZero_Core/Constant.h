@@ -54,6 +54,9 @@ namespace ImgRes
 	const std::string_view effect_player_landcloud	= "player_landcloud";
 	const std::string_view effect_player_jumpcloud	= "player_jumpcloud";
 
+	// MapComponent
+	const std::string_view compo_door				= "spr_door";
+
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
 	const std::string_view title_fence				= "spr_title_fence_0.png";
@@ -109,6 +112,10 @@ namespace Anim
 	const std::string_view effect_player_dustcloud	= "player_dustcloud";
 	const std::string_view effect_player_landcloud	= "player_landcloud";
 	const std::string_view effect_player_jumpcloud	= "player_jumpcloud";
+
+	// MapComponent
+	const std::string_view compo_door_idle			= "door_idle";
+	const std::string_view compo_door_open			= "door_open";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";

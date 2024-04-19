@@ -64,6 +64,12 @@
     <Filter Include="Object\Component">
       <UniqueIdentifier>{f034dcea-c079-4069-ac05-51a7d586a66f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\000.Object\Component">
+      <UniqueIdentifier>{7b315559-a7bf-4a3c-8237-57db1289da8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\MapCompo">
+      <UniqueIdentifier>{789b86ee-12ef-4376-aeb0-d87f9ea28210}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -146,6 +152,12 @@
     </ClInclude>
     <ClInclude Include="RecordingObject.h">
       <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Level\000.Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="RecMapCompoBase.h">
+      <Filter>Object\Base\MapCompo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +247,12 @@
     </ClCompile>
     <ClCompile Include="PlayerBase_Effect.cpp">
       <Filter>Object\Base\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Level\000.Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="RecMapCompoBase.cpp">
+      <Filter>Object\Base\MapCompo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
