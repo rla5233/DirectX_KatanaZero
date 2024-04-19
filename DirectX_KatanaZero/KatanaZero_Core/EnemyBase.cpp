@@ -136,6 +136,11 @@ void AEnemyBase::DefaultUpdate(float _DeltaTime)
 	}
 }
 
+void AEnemyBase::PatrolWalkStart()
+{
+	TimeCount = PatrolWalkTime;
+}
+
 void AEnemyBase::PatrolWalk(float _DeltaTime)
 {
 	// 위치 업데이트
@@ -169,6 +174,7 @@ void AEnemyBase::PatrolTurn(float _DeltaTime)
 void AEnemyBase::PatrolStopStart()
 {
 	SetVelocityByDir(FVector::Zero);
+	TimeCount = PatrolStopTime;
 }
 
 void AEnemyBase::PatrolStop(float _DeltaTime)

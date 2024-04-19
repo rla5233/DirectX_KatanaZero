@@ -33,9 +33,10 @@ public:
 		State.ChangeState(_State);
 	}
 
-	inline void SetTimeCount(float _Time)
+	inline void SetPatrolTime(float _WalkTime, float _StopTime)
 	{
-		TimeCount = _Time;
+		PatrolWalkTime = _WalkTime;
+		PatrolStopTime = _StopTime;
 	}
 
 	inline void SetRendererDir(EEngineDir _Dir)
@@ -89,7 +90,7 @@ protected:
 	virtual void IdleStart() {};
 	virtual void Idle(float _DeltaTime) {};
 
-	virtual void PatrolWalkStart() {};
+	virtual void PatrolWalkStart();
 	virtual void PatrolWalk(float _DeltaTime);
 
 	virtual void PatrolTurnStart();
@@ -97,6 +98,9 @@ protected:
 
 	virtual void PatrolStopStart();
 	virtual void PatrolStop(float _DeltaTime);
+
+	float PatrolWalkTime = 0.0f;
+	float PatrolStopTime = 0.0f;
 
 	virtual void RunStart() {};
 	virtual void Run(float _DeltaTime);

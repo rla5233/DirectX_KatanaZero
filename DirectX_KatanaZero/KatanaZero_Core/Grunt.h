@@ -18,21 +18,11 @@ public:
 	AGrunt& operator=(const AGrunt& _Other) = delete;
 	AGrunt& operator=(AGrunt&& _Other) noexcept = delete;
 
-	inline void SetPatrolTime(float _WalkTime, float _StopTime)
-	{
-		PatrolWalkTime = _WalkTime;
-		PatrolStopTime = _StopTime;
-	}
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 	void CollisionInit() override;
-
-private:
-	float PatrolWalkTime = 0.0f;
-	float PatrolStopTime = 0.0f;
 
 private:
 	void CreateAnimation();

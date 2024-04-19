@@ -59,7 +59,6 @@ void AGrunt::PatrolWalkStart()
 {
 	Super::PatrolWalkStart();
 
-	SetTimeCount(PatrolWalkTime);
 	SetVelocityByDir({ 100.0f, 0.0f, 0.0f });
 	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_walk);
 }
@@ -75,7 +74,6 @@ void AGrunt::PatrolStopStart()
 {
 	Super::PatrolStopStart();
 
-	SetTimeCount(PatrolStopTime);
 	GetRenderer()->ChangeAnimation(Anim::enemy_grunt_idle);
 }
 

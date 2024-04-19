@@ -28,6 +28,23 @@ public:
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
 	}
 
+	template<typename EnemyType>
+	std::shared_ptr<EnemyType> SpawnPatrolEnemy(
+		std::string_view _Name,
+		const FVector& _Pos, 
+		EEngineDir _Dir,
+		float _WalkTime, float _StopTime,
+		std::string_view _InitState)
+	{
+		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name);
+		NewEnemy->SetActorLocation(_Pos);
+		NewEnemy->SetRendererDir(_Dir);
+		NewEnemy->SetPatrolTime(_WalkTime, _StopTime);
+		NewEnemy->StateChange(_InitState);
+		PushEnemy(NewEnemy);
+		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
+	}
+
 protected:
 	void SetGameMode(AGameMode* _GameMode)
 	{
