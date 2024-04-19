@@ -4,13 +4,13 @@
 #include "EngineShaderResources.h"
 #include "EngineSprite.h"
 
-UTileRenderer::UTileRenderer()
+UTileRenderer::UTileRenderer() 
 {
 	SetMesh("Rect");
 	SetMaterial("2DImage");
 }
 
-UTileRenderer::~UTileRenderer()
+UTileRenderer::~UTileRenderer() 
 {
 }
 
@@ -43,6 +43,19 @@ void UTileRenderer::CreateTileMap(std::string_view _TileSet, float4 _TileSize, i
 	for (size_t i = 0; i < Tiles.size(); i++)
 	{
 		Tiles[i].resize(_X);
+	}
+
+	SetAllTile(_DefaultIndex);
+}
+
+void UTileRenderer::SetAllTile(int _Index)
+{
+	for (size_t y = 0; y < Tiles.size(); y++)
+	{
+		for (size_t x = 0; x < Tiles[y].size(); x++)
+		{
+			Tiles[y][x] = _Index;
+		}
 	}
 }
 
@@ -90,7 +103,7 @@ bool UTileRenderer::Render(float _DeltaTime)
 {
 	RenderingSetting();
 
-	float4 StartPos = { 0,0 };
+	float4 StartPos = {0,0};
 
 	for (size_t y = 0; y < Tiles.size(); y++)
 	{
@@ -101,7 +114,7 @@ bool UTileRenderer::Render(float _DeltaTime)
 			CuttingDataValue.CuttingPosition = Info.CuttingPosition;
 			CuttingDataValue.CuttingSize = Info.CuttingSize;
 
-			float4 CurPos = { TileSize.X * x, TileSize.Y * y };
+			float4 CurPos = { TileSize.X* x, TileSize.Y* y };
 			CurPos += TileSize.Half2D();
 
 			Transform.SetPosition(StartPos + CurPos);

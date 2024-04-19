@@ -1,5 +1,57 @@
 #include "PreCompile.h"
 #include "Image.h"
+void UImage::SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (false == Animations.contains(UpperName))
+	{
+		MsgBoxAssert("존재하지 않는 애니메이션에 콜백을 지정할수 없습니다." + std::string(_AnimationName));
+		return;
+	}
+
+	Animations[UpperName]->FrameCallback[_Index] = _Function;
+
+}
+
+void UIAnimation::FrameCallBackCheck()
+{
+	if (false == FrameCallback.contains(CurFrame))
+	{
+		return;
+	}
+
+	FrameCallback[CurFrame]();
+}
+
+void UIAnimation::Update(float _DeltaTime)
+{
+	IsEnd = false;
+
+	CurTime += _DeltaTime;
+
+	if (CurTime > Inter[CurFrame])
+	{
+		CurTime -= Inter[CurFrame];
+		++CurFrame;
+		FrameCallBackCheck();
+
+		if (Frame.size() <= CurFrame)
+		{
+			if (true == Loop)
+			{
+				IsEnd = true;
+				CurFrame = 0;
+			}
+			else
+			{
+				IsEnd = true;
+				--CurFrame;
+			}
+		}
+	}
+}
+
 
 UImage::UImage() 
 {
@@ -12,12 +64,39 @@ UImage::~UImage()
 }
 
 
+void UImage::SetAutoSize(float _ScaleRatio, bool _AutoSize)
+{
+	AutoSize = _AutoSize;
+	ScaleRatio = _ScaleRatio;
+
+	if (true == AutoSize && nullptr != CurInfo.Texture)
+	{
+		SetSpriteInfo(CurInfo);
+	}
+}
+
+
+
 void UImage::MaterialSettingEnd()
 {
 	Super::MaterialSettingEnd();
 	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
 	Resources->SettingConstantBuffer("ResultColorValue", ColorData);
 	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
+}
+
+void UImage::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+
+	if (nullptr != CurAnimation)
+	{
+		CurAnimation->Update(_DeltaTime);
+
+		FSpriteInfo Info = CurAnimation->GetCurSpriteInfo();
+		SetSpriteInfo(Info);
+	}
 }
 
 void UImage::SetSpriteInfo(const FSpriteInfo& _Info)
@@ -111,6 +190,10 @@ void UImage::SetSpriteInfo(const FSpriteInfo& _Info)
 	SetSamplering(SamplingValue);
 }
 
+
+
+
+
 void UImage::SetSprite(std::string_view _Name, UINT _Index /*= 0*/)
 {
 	std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes(_Name);
@@ -125,16 +208,6 @@ void UImage::SetSprite(std::string_view _Name, UINT _Index /*= 0*/)
 	SetSpriteInfo(Info);
 }
 
-void UImage::SetAutoSize(float _ScaleRatio, bool _AutoSize)
-{
-	AutoSize = _AutoSize;
-	ScaleRatio = _ScaleRatio;
-
-	if (true == AutoSize && nullptr != CurInfo.Texture)
-	{
-		SetSpriteInfo(CurInfo);
-	}
-}
 
 
 void UImage::SetSamplering(ETextureSampling _Value)
@@ -162,4 +235,103 @@ void UImage::SetSamplering(ETextureSampling _Value)
 	default:
 		break;
 	}
+}
+
+void UImage::CreateAnimation(
+	std::string_view _AnimationName,
+	std::string_view _SpriteName,
+	float _Inter,
+	bool _Loop /*= true*/,
+	int _Start /*= -1*/,
+	int _End /*= -1*/)
+{
+	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
+
+	if (nullptr == FindSprite)
+	{
+		MsgBoxAssert("존재하지 않는 스프라이트로 애니메이션을 만들수는 없습니다.");
+		return;
+	}
+
+	std::vector<int> Frame;
+	std::vector<float> Inter;
+
+	int Start = _Start;
+	int End = _End;
+
+	if (0 > _Start)
+	{
+		Start = 0;
+	}
+
+	if (0 > End)
+	{
+		End = static_cast<int>(FindSprite->GetInfoSize()) - 1;
+	}
+
+	if (End < Start)
+	{
+		MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
+		return;
+	}
+
+
+
+	for (int i = Start; i < End + 1; i++)
+	{
+		Inter.push_back(_Inter);
+		Frame.push_back(i);
+	}
+
+	CreateAnimation(_AnimationName, _SpriteName, Inter, Frame, _Loop);
+}
+
+
+void UImage::ChangeAnimation(std::string_view _AnimationName)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (false == Animations.contains(UpperName))
+	{
+		MsgBoxAssert("존재하지 않는 애니메이션으로 체인지 할수 없습니다." + std::string(_AnimationName));
+		return;
+	}
+
+	CurAnimation = Animations[UpperName];
+	CurAnimation->Reset();
+	CurAnimation->FrameCallBackCheck();
+}
+
+void UImage::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop /*= true*/)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (true == Animations.contains(UpperName))
+	{
+		MsgBoxAssert("이미 존재하는 이름의 애니메이션은 만들수 없습니다.");
+		return;
+	}
+
+	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
+
+	if (nullptr == FindSprite)
+	{
+		MsgBoxAssert("존재하지 않는 스프라이트로 애니메이션을 만들수는 없습니다.");
+		return;
+	}
+
+	std::shared_ptr<UIAnimation> NewAnimation = std::make_shared<UIAnimation>();
+
+	NewAnimation->Sprite = FindSprite;
+	NewAnimation->Inter = _Inter;
+	NewAnimation->Frame = _Frame;
+	NewAnimation->Loop = _Loop;
+	NewAnimation->Reset();
+
+	Animations[UpperName] = NewAnimation;
+}
+
+bool UImage::IsCurAnimationEnd()
+{
+	return CurAnimation->IsEnd;
 }

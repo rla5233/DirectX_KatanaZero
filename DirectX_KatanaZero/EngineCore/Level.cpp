@@ -19,6 +19,11 @@ ULevel::ULevel()
 	UICamera = SpawnActor<UCamera>("NewActor");
 	UICamera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 	UICamera->InputOff();
+
+	LastTarget = UEngineRenderTarget::Create();
+	// 내가 바라보는 애들을 모아서 그릴수 있는 랜더타겟을 만들고 싶어.
+	float4 Scale = GEngine->EngineWindow.GetWindowScale();
+	LastTarget->CreateTexture(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, Scale, float4::Zero);
 }
 
 ULevel::~ULevel() 
@@ -46,8 +51,6 @@ void ULevel::Tick(float _DeltaTime)
 			Actor->Tick(_DeltaTime);
 		}
 	}
-
-
 }
 
 void ULevel::Render(float _DeltaTime)
@@ -118,9 +121,22 @@ void ULevel::Render(float _DeltaTime)
 	}
 
 	UEngineGraphicDevice& Device = GEngine->GetEngineDevice();
-	Device.BackBufferRenderTarget->Merge(MainCamera->CameraTarget);
-	Device.BackBufferRenderTarget->Merge(UICamera->CameraTarget);
 
+	// 백버퍼는 그냥 마지막 출력을 위해서 한번만 복제되는게 맞다.
+
+	// 1-r g b a
+
+	LastTarget->Clear();
+	LastTarget->Merge(MainCamera->CameraTarget);
+	LastTarget->Merge(UICamera->CameraTarget);
+	LastTarget->Effect(_DeltaTime);
+
+	// 여기 이순간.
+	// 포스트 이팩트
+	// 효과를 준다.
+	// LastTarget->AddEffect<UBlurEffect>();
+
+	Device.BackBufferRenderTarget->Copy(LastTarget);
 }
 
 void ULevel::Destroy()

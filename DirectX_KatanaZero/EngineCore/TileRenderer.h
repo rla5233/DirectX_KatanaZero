@@ -27,6 +27,8 @@ public:
 
 	void SetTile(int _X, int _Y, int _Index);
 
+	void SetAllTile(int _Index);
+
 	std::vector<std::vector<int>> GetTileMapData()
 	{
 		return Tiles;
