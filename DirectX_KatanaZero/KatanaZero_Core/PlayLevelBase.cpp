@@ -146,6 +146,8 @@ void APlayLevelBase::DebugMessageFunction()
 		std::string Msg = std::format("IsOnGP_Boundary : {}\n", Player->IsOnGP_Boundary(Player->GetBody()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+
+
 }
 
 // 상태 초기화

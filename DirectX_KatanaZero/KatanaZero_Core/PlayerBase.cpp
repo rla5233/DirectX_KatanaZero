@@ -17,6 +17,7 @@ APlayerBase::APlayerBase()
 
 	AttackCol	= CreateDefaultSubObject<UCollision>("Player_Attack");
 	BodyCol		= CreateDefaultSubObject<UCollision>("Player_Body");
+	FrontCol = CreateDefaultSubObject<UCollision>("Player_Front");
 
 	AttackEffect = CreateDefaultSubObject<USpriteRenderer>("Player_Effect");
 	JumpLandEffect = CreateDefaultSubObject<USpriteRenderer>("Player_Effect");
@@ -36,6 +37,7 @@ APlayerBase::APlayerBase()
 	Front_Bot->SetupAttachment(Root);
 	AttackCol->SetupAttachment(Root);
 	BodyCol->SetupAttachment(Root);
+	FrontCol->SetupAttachment(Root);
 	AttackEffect->SetupAttachment(Root);
 	
 	SetRoot(Root);
@@ -93,16 +95,19 @@ void APlayerBase::CollisionInit()
 	AttackCol->SetScale({ 110.0f, 75.0f, 1.0f });
 	AttackCol->SetActive(false);
 
-	BodyCol->SetCollisionGroup(EColOrder::Player);
+	BodyCol->SetCollisionGroup(EColOrder::PlayerBody);
 	BodyCol->SetCollisionType(ECollisionType::Rect);
+
+	FrontCol->SetCollisionGroup(EColOrder::PlayerFront);
+	FrontCol->SetCollisionType(ECollisionType::Rect);
 }
 
 void APlayerBase::DefaultUpdate(float _DeltaTime)
 {
 	AttackDelayTimeUpdate(_DeltaTime);
-
 	SetCroudEffectUpdate(_DeltaTime);
-	
+	DoorColCheck();
+
 	std::string CurState = State.GetCurStateName();
 
 	if ("Replay" != CurState)
@@ -122,6 +127,20 @@ void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
 	AttackDelayTimeCount -= _DeltaTime;
 }
 
+void APlayerBase::DoorColCheck()
+{
+	BodyCol->Collision(static_cast<int>(EColOrder::Door),
+		[=](std::shared_ptr<UCollision> _Other)	{ IsColDoorValue = true; },
+		nullptr,
+		[=](std::shared_ptr<UCollision> _Other)	{ IsColDoorValue = false; }
+	);
+
+	{
+		std::string Msg = std::format("IsColDoor : {}\n", IsColDoorValue);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+}
+
 bool APlayerBase::IsDirChangeKeyDown()
 {
 	bool Result = false;
@@ -129,13 +148,13 @@ bool APlayerBase::IsDirChangeKeyDown()
 
 	if ((EEngineDir::Left == Dir) && (true == IsDown('D') || true == IsDown(VK_RIGHT)))
 	{
-		RendererDirChange(EEngineDir::Right);
+		DirChange(EEngineDir::Right);
 		Result = true;
 	}
 
 	if ((EEngineDir::Right == Dir) && (true == IsDown('A') || true == IsDown(VK_LEFT)))
 	{
-		RendererDirChange(EEngineDir::Left);
+		DirChange(EEngineDir::Left);
 		Result = true;
 	}
 
@@ -149,13 +168,13 @@ bool APlayerBase::IsDirChangeKeyPress()
 
 	if ((EEngineDir::Left == Dir) && (true == IsPress('D') || true == IsPress(VK_RIGHT)))
 	{
-		RendererDirChange(EEngineDir::Right);
+		DirChange(EEngineDir::Right);
 		Result = true;
 	}
 
 	if ((EEngineDir::Right == Dir) && (true == IsPress('A') || true == IsPress(VK_LEFT)))
 	{
-		RendererDirChange(EEngineDir::Left);
+		DirChange(EEngineDir::Left);
 		Result = true;
 	}
 
@@ -168,15 +187,21 @@ bool APlayerBase::IsDirChangeKeyPress()
 	return Result;
 }
 
-void APlayerBase::RendererDirChange(EEngineDir _Dir)
+void APlayerBase::DirChange(EEngineDir _Dir)
 {
+	FVector BodyColScale = BodyCol->GetLocalScale();
+	FVector FrontColScale = FrontCol->GetLocalScale();
+	FVector FrontColPos = FrontCol->GetLocalPosition();
+
 	switch (_Dir)
 	{
 	case EEngineDir::Left:
 		Body->SetDir(EEngineDir::Left);
+		FrontCol->SetPosition({ -BodyColScale.hX() - FrontColScale.hX(), FrontColPos.Y, 0.0f});
 		break;
 	case EEngineDir::Right:
 		Body->SetDir(EEngineDir::Right);
+		FrontCol->SetPosition({ BodyColScale.hX() + FrontColScale.hX(), FrontColPos.Y, 0.0f});
 		break;
 	}
 }
@@ -206,11 +231,11 @@ void APlayerBase::SetAttackDir()
 
 	if (0.0f > AttackDir.X)
 	{
-		RendererDirChange(EEngineDir::Left);
+		DirChange(EEngineDir::Left);
 	}
 	else
 	{
-		RendererDirChange(EEngineDir::Right);
+		DirChange(EEngineDir::Right);
 	}
 
 	AttackDir.Normalize2D();

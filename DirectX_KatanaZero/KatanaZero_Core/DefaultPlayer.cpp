@@ -24,10 +24,15 @@ void ADefaultPlayer::CollisionInit()
 
 	FVector BodyPos	= { 0.0f, 40.0f, 0.0f };
 	FVector BodyScale = { 50.0f, 80.0f, 1.0f };
-
 	BodyCol->SetPosition(BodyPos);
 	BodyCol->SetScale(BodyScale);
 	BodyCol->SetActive(true);
+
+	FVector FrontPos = { 0.0f, 40.0f, 0.0f };
+	FVector FrontScale = { 5.0f, 80.0f, 1.0f };
+	FrontCol->SetPosition(FrontPos);
+	FrontCol->SetScale(FrontScale);
+	FrontCol->SetActive(true);
 
 	SetBodyInfo(BodyPos, BodyScale);
 }

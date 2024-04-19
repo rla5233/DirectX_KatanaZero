@@ -58,6 +58,7 @@ protected:
 	virtual void CollisionInit();
 
 	UCollision* BodyCol = nullptr;
+	UCollision* FrontCol = nullptr;
 
 private:
 	// 기본 업데이트 함수
@@ -69,7 +70,7 @@ private:
 	// 방향 관련
 	bool IsDirChangeKeyDown();
 	bool IsDirChangeKeyPress();
-	void RendererDirChange(EEngineDir _Dir);
+	void DirChange(EEngineDir _Dir);
 
 private:
 	USpriteRenderer* Body = nullptr;
@@ -90,6 +91,7 @@ private:
 	bool CanAttack = true;
 	
 	bool IsPlayValue = true;
+	bool IsColDoorValue = false;
 
 // FSM
 private:
@@ -181,7 +183,8 @@ private:
 
 // Collision
 private:
-	
+	void DoorColCheck();
+
 
 // Effect Set (virtual)
 private:

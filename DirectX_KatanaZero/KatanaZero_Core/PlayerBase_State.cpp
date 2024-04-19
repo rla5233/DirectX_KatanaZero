@@ -15,13 +15,6 @@ void APlayerBase::IdleStart()
 	
 void APlayerBase::Idle(float _DeltaTime)
 {
-	// Collision Check
-	if (true == BodyCol->CollisionStay(EColOrder::Door))
-	{
-		State.ChangeState("Kick");
-		return;
-	}
-
 	// 방향 전환 체크
 	IsDirChangeKeyDown();
 
@@ -454,14 +447,14 @@ void APlayerBase::Fall(float _DeltaTime)
 
 	FallGravityUpdate(_DeltaTime);
 
-	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall(Body->GetDir()))
-	{
-		Velocity.X = 0.0f;
-	}
-
 	if (true == IsRunInputPress())
 	{
 		FallVelXUpdate(_DeltaTime);
+	}
+
+	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall(Body->GetDir()))
+	{
+		Velocity.X = 0.0f;
 	}
 
 	// 위치 업데이트
@@ -648,11 +641,11 @@ void APlayerBase::FlipStart()
 	switch (CurDir)
 	{
 	case EEngineDir::Left:
-		RendererDirChange(EEngineDir::Right);
+		DirChange(EEngineDir::Right);
 		Velocity.X = 1.5f * Const::player_max_speedx;
 		break;
 	case EEngineDir::Right:
-		RendererDirChange(EEngineDir::Left);
+		DirChange(EEngineDir::Left);
 		Velocity.X = (-1.5f) * Const::player_max_speedx;
 		break;
 	}

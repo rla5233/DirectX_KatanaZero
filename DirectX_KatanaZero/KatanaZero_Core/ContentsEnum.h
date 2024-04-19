@@ -38,7 +38,8 @@ enum class EColOrder
 {
 	PlayerAttack,
 	EnemyAttack,
-	Player,
+	PlayerFront,
+	PlayerBody,
 	Enemy,
 	Door,
 	HitComponent

@@ -55,7 +55,7 @@ void AEnemyBase::RendererInit()
 
 void AEnemyBase::CollisionInit()
 {
-	BodyCol->SetCollisionType(ECollisionType::RotRect);
+	BodyCol->SetCollisionType(ECollisionType::Rect);
 	BodyCol->SetCollisionGroup(EColOrder::Enemy);
 }
 
