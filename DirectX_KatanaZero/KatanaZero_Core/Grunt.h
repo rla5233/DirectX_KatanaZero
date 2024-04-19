@@ -1,11 +1,9 @@
 #pragma once
 #include "EnemyBase.h"
 
-class UPixelColObject;
 // ¼³¸í : Àû Grunt
 class AGrunt : public AEnemyBase
 {
-	friend UPixelColObject;
 	GENERATED_BODY(AEnemyBase)
 public:
 	// constrcuter destructer
@@ -26,6 +24,7 @@ protected:
 
 private:
 	void CreateAnimation();
+
 // FSM
 protected:
 	void IdleStart() override;

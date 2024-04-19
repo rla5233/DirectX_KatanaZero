@@ -15,6 +15,13 @@ void APlayerBase::IdleStart()
 	
 void APlayerBase::Idle(float _DeltaTime)
 {
+	// Collision Check
+	if (true == BodyCol->CollisionEnter(EColOrder::Door))
+	{
+		State.ChangeState("Kick");
+		return;
+	}
+
 	// 방향 전환 체크
 	IsDirChangeKeyDown();
 
@@ -37,7 +44,6 @@ void APlayerBase::Idle(float _DeltaTime)
 			return;
 		}
 	}
-
 
 	if (true == IsCrouchInputPress())
 	{
@@ -539,6 +545,7 @@ void APlayerBase::AttackStart()
 
 void APlayerBase::Attack(float _DeltaTime)
 {
+	// Collision Check
 	AttackCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
 		{
 			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
@@ -707,50 +714,42 @@ void APlayerBase::StateInit()
 	State.CreateState("Attack");
 	State.CreateState("WallSlide");
 	State.CreateState("Flip");
+	State.CreateState("Kick");
 	State.CreateState("Replay");
 
 	// State Start 함수 세팅
-	State.SetStartFunction("Idle", std::bind(&APlayerBase::IdleStart, this));
-	State.SetStartFunction("IdleToRun", std::bind(&APlayerBase::IdleToRunStart, this));
-	State.SetStartFunction("Run", std::bind(&APlayerBase::RunStart, this));
-	State.SetStartFunction("RunToIdle", std::bind(&APlayerBase::RunToIdleStart, this));
-	State.SetStartFunction("PostCrouch", std::bind(&APlayerBase::PostCrouchStart, this));
-	State.SetStartFunction("PreCrouch", std::bind(&APlayerBase::PreCrouchStart, this));
-	State.SetStartFunction("Jump", std::bind(&APlayerBase::JumpStart, this));
-	State.SetStartFunction("Fall", std::bind(&APlayerBase::FallStart, this));
-	State.SetStartFunction("Roll", std::bind(&APlayerBase::RollStart, this));
-	State.SetStartFunction("Attack", std::bind(&APlayerBase::AttackStart, this));
-	State.SetStartFunction("WallSlide", std::bind(&APlayerBase::WallSlideStart, this));
-	State.SetStartFunction("Flip", std::bind(&APlayerBase::FlipStart, this));
-	State.SetStartFunction("Replay", std::bind(&APlayerBase::ReplayStart, this));
+	State.SetStartFunction("Idle",			std::bind(&APlayerBase::IdleStart, this));
+	State.SetStartFunction("IdleToRun",		std::bind(&APlayerBase::IdleToRunStart, this));
+	State.SetStartFunction("Run",			std::bind(&APlayerBase::RunStart, this));
+	State.SetStartFunction("RunToIdle",		std::bind(&APlayerBase::RunToIdleStart, this));
+	State.SetStartFunction("PostCrouch",	std::bind(&APlayerBase::PostCrouchStart, this));
+	State.SetStartFunction("PreCrouch",		std::bind(&APlayerBase::PreCrouchStart, this));
+	State.SetStartFunction("Jump",			std::bind(&APlayerBase::JumpStart, this));
+	State.SetStartFunction("Fall",			std::bind(&APlayerBase::FallStart, this));
+	State.SetStartFunction("Roll",			std::bind(&APlayerBase::RollStart, this));
+	State.SetStartFunction("Attack",		std::bind(&APlayerBase::AttackStart, this));
+	State.SetStartFunction("WallSlide",		std::bind(&APlayerBase::WallSlideStart, this));
+	State.SetStartFunction("Flip",			std::bind(&APlayerBase::FlipStart, this));
+	State.SetStartFunction("Kick",			[=] { Body->ChangeAnimation(Anim::player_kick_door); });
+	State.SetStartFunction("Replay",		std::bind(&APlayerBase::ReplayStart, this));
 
 	// State Update 함수 세팅
-	State.SetUpdateFunction("Idle", std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
-	State.SetUpdateFunction("IdleToRun", std::bind(&APlayerBase::IdleToRun, this, std::placeholders::_1));
-	State.SetUpdateFunction("Run", std::bind(&APlayerBase::Run, this, std::placeholders::_1));
-	State.SetUpdateFunction("RunToIdle", std::bind(&APlayerBase::RunToIdle, this, std::placeholders::_1));
-	State.SetUpdateFunction("PostCrouch", std::bind(&APlayerBase::PostCrouch, this, std::placeholders::_1));
-	State.SetUpdateFunction("PreCrouch", std::bind(&APlayerBase::PreCrouch, this, std::placeholders::_1));
-	State.SetUpdateFunction("Jump", std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
-	State.SetUpdateFunction("Fall", std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
-	State.SetUpdateFunction("Roll", std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
-	State.SetUpdateFunction("Attack", std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
-	State.SetUpdateFunction("WallSlide", std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
-	State.SetUpdateFunction("Flip", std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
-	State.SetUpdateFunction("Replay", std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
+	State.SetUpdateFunction("Idle",			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
+	State.SetUpdateFunction("IdleToRun",	std::bind(&APlayerBase::IdleToRun, this, std::placeholders::_1));
+	State.SetUpdateFunction("Run",			std::bind(&APlayerBase::Run, this, std::placeholders::_1));
+	State.SetUpdateFunction("RunToIdle",	std::bind(&APlayerBase::RunToIdle, this, std::placeholders::_1));
+	State.SetUpdateFunction("PostCrouch",	std::bind(&APlayerBase::PostCrouch, this, std::placeholders::_1));
+	State.SetUpdateFunction("PreCrouch",	std::bind(&APlayerBase::PreCrouch, this, std::placeholders::_1));
+	State.SetUpdateFunction("Jump",			std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
+	State.SetUpdateFunction("Fall",			std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
+	State.SetUpdateFunction("Roll",			std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
+	State.SetUpdateFunction("Attack",		std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
+	State.SetUpdateFunction("WallSlide",	std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
+	State.SetUpdateFunction("Flip",			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
+	State.SetUpdateFunction("Replay",		std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
 
 	// State End 함수 세팅
-	State.SetEndFunction("Attack", [=] { AttackCol->SetActive(false); });
-
-	State.SetEndFunction("WallSlide", [=] 
-		{ 
-			Body->SetPosition({ 0.0f, 0.0f ,0.0f });
-		}
-	);
-	
-	State.SetEndFunction("Flip", [=]
-		{
-			Velocity.Y = 0.0f;
-		}
-	);
+	State.SetEndFunction("Attack",			[=] { AttackCol->SetActive(false); });
+	State.SetEndFunction("WallSlide",		[=] {	Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
+	State.SetEndFunction("Flip",			[=] { Velocity.Y = 0.0f; });
 }

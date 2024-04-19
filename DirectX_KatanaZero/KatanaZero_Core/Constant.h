@@ -23,6 +23,7 @@ namespace ImgRes
 	const std::string_view player_attack			= "player_attack";
 	const std::string_view player_wall_slide		= "player_wallslide";
 	const std::string_view player_flip				= "player_flip";
+	const std::string_view player_kick_door			= "player_kick_door";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -32,6 +33,8 @@ namespace ImgRes
 	const std::string_view enemy_grunt_walk			= "grunt_walk";
 	const std::string_view enemy_grunt_hitfall		= "grunt_hitfall";
 	const std::string_view enemy_grunt_dead			= "grunt_dead";
+
+	const std::string_view enemy_gangster_idle = "gangster_idle";
 
 	// UI
 	const std::string_view ui_cursor				= "spr_cursor_0.png";
@@ -98,6 +101,7 @@ namespace Anim
 	const std::string_view player_attack			= "player_attack";
 	const std::string_view player_wall_slide		= "player_wallslide";
 	const std::string_view player_flip				= "player_flip";
+	const std::string_view player_kick_door			= "player_kick_door";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -106,6 +110,8 @@ namespace Anim
 	const std::string_view enemy_grunt_turn			= "grunt_turn";
 	const std::string_view enemy_grunt_hitfall		= "grunt_hitfall";
 	const std::string_view enemy_grunt_dead			= "grunt_dead";
+
+	const std::string_view enemy_gangster_idle		= "gangster_idle";
 
 	// Effect Anim
 	const std::string_view effect_player_slash		= "player_slash";

@@ -40,7 +40,7 @@ void ADoor::RendererInit()
 void ADoor::CollisionInit()
 {
 	BodyCol->SetCollisionType(ECollisionType::RotRect);
-	BodyCol->SetCollisionGroup(EColOrder::HitComponent);
+	BodyCol->SetCollisionGroup(EColOrder::Door);
 	BodyCol->SetScale({ 25.0f, 120.0f, 0.0f });
 	BodyCol->SetPosition({ 37.0f, 0.0f, 0.0f });
 

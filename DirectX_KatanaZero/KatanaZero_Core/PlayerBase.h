@@ -179,6 +179,10 @@ private:
 	// 수정 (간소화)
 	void ColCheckUpdate();	
 
+// Collision
+private:
+	
+
 // Effect Set (virtual)
 private:
 	void EffectVecIdxUpdate();

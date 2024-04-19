@@ -5,6 +5,7 @@
 #include "DefaultPlayer.h"
 #include "Up_HUD.h"
 #include "Grunt.h"
+#include "GangSter.h"
 #include "Door.h"
 
 AFactory_002::AFactory_002()
@@ -35,6 +36,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	AllEnemy.reserve(3);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, "PatrolWalk");
 	SpawnIdleEnemy<AGrunt>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right);
+	SpawnIdleEnemy<AGangSter>("GangSter", { 450.0f, 400.0f, 0.0f }, EEngineDir::Left);
 
 	AllRecComponent.reserve(1);
 	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left);
