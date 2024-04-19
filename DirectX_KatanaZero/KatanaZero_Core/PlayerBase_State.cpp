@@ -38,6 +38,7 @@ void APlayerBase::Idle(float _DeltaTime)
 		}
 	}
 
+
 	if (true == IsCrouchInputPress())
 	{
 		if (true == IsRunInputPress())
