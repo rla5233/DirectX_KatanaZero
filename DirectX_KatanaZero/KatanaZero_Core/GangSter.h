@@ -29,5 +29,9 @@ private:
 protected:
 	void IdleStart() override;
 
+	void HitFallStart() override;
+
+	void DeadStart() override;
+
 };
 

@@ -50,6 +50,11 @@ bool UCollision::Collision(int _TargetGroup,
 	std::function<void(std::shared_ptr<UCollision>)> _Exit /*= nullptr*/)
 {
 	// Group 상대 그룹
+	bool IsColCheck = false;
+	if (nullptr == _Enter && nullptr == _Stay && nullptr == _Exit)
+	{
+		IsColCheck = true;
+	}
 
 
 	auto Test = GetWorld()->Collisions;
@@ -75,6 +80,11 @@ bool UCollision::Collision(int _TargetGroup,
 
 		if (true == Transform.Collision(ThisType, OtherType, OtherCollision->Transform))
 		{
+			if (true == IsColCheck)
+			{
+				return true;
+			}
+
 			if (false == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
 				FirstCheck.insert(CollisionPtr);

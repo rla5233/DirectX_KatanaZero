@@ -45,5 +45,21 @@ void AGangSter::CreateAnimation()
 
 void AGangSter::IdleStart()
 {
+	Super::IdleStart();
+
 	GetBody()->ChangeAnimation(Anim::enemy_gangster_idle);
+}
+
+void AGangSter::HitFallStart()
+{
+	Super::HitFallStart();
+
+	GetBody()->ChangeAnimation(Anim::enemy_gangster_hitfall);
+}
+
+void AGangSter::DeadStart()
+{
+	Super::DeadStart();
+
+	GetBody()->ChangeAnimation(Anim::enemy_gangster_dead);
 }
