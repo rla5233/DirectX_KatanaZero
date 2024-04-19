@@ -15,6 +15,12 @@ void APlayerBase::IdleStart()
 	
 void APlayerBase::Idle(float _DeltaTime)
 {
+	if (true == IsDoorKickInputPress())
+	{
+		State.ChangeState("KickDoor");
+		return;
+	}
+
 	// 방향 전환 체크
 	IsDirChangeKeyDown();
 
@@ -29,7 +35,7 @@ void APlayerBase::Idle(float _DeltaTime)
 	}
 
 	EEngineDir Dir = Body->GetDir();
-	if (true == IsRunInputDown())
+	if (true == IsRunInputPress() && false == IsColDoorValue)
 	{
 		if (false == IsColWall(Dir))
 		{
@@ -87,6 +93,11 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 	{
 		Velocity.X = 0.0f;	
 	}	
+
+	if (true == IsColDoorValue)
+	{
+		Velocity.X = 0.0f;
+	}
 
 	DownStairGravityUpdate(_DeltaTime);
 
@@ -150,6 +161,13 @@ void APlayerBase::RunStart()
 
 void APlayerBase::Run(float _DeltaTime)
 {
+	if (true == IsColDoorValue)
+	{
+		Velocity.X = 0;
+		State.ChangeState("RunToIdle");
+		return;
+	}
+
 	// 속도 업데이트
 	DownStairGravityUpdate(_DeltaTime);
 
@@ -167,13 +185,6 @@ void APlayerBase::Run(float _DeltaTime)
 	}
 
 	// Collision Check
-	if (true == IsColDoorValue)
-	{
-		Velocity.X = 0;
-		State.ChangeState("RunToIdle");
-		return;
-	}
-
 	if (true == IsRunToRollInputDown())
 	{
 		State.ChangeState("Roll");
@@ -209,17 +220,11 @@ void APlayerBase::RunToIdleStart()
 
 void APlayerBase::RunToIdle(float _DeltaTime)
 {
-	if (true == IsColDoorValue)
-	{
-		State.ChangeState("Kick");
-		return;
-	}
-
 	// 속도 업데이트
 	RunToIdleVelUpdate(_DeltaTime);
 
 	EEngineDir Dir = Body->GetDir();
-	if (true == IsDirChangeKeyPress() || true == IsColWall(Dir))
+	if (true == IsDirChangeKeyPress() || true == IsColWall(Dir) || true == IsColDoorValue)
 	{
 		Velocity.X = 0.0f;
 	}
@@ -239,7 +244,13 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsRunInputPress() && false == IsColWall(Dir))
+	if (true == IsDoorKickInputPress())
+	{
+		State.ChangeState("KickDoor");
+		return;
+	}
+
+	if (true == IsRunInputPress() && false == IsColWall(Dir) && false == IsColDoorValue)
 	{
 		State.ChangeState("IdleToRun");
 		return;
@@ -721,7 +732,7 @@ void APlayerBase::StateInit()
 	State.CreateState("Attack");
 	State.CreateState("WallSlide");
 	State.CreateState("Flip");
-	State.CreateState("Kick");
+	State.CreateState("KickDoor");
 	State.CreateState("Replay");
 
 	// State Start 함수 세팅
@@ -737,7 +748,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("Attack",		std::bind(&APlayerBase::AttackStart, this));
 	State.SetStartFunction("WallSlide",		std::bind(&APlayerBase::WallSlideStart, this));
 	State.SetStartFunction("Flip",			std::bind(&APlayerBase::FlipStart, this));
-	State.SetStartFunction("Kick",			[=] { Body->ChangeAnimation(Anim::player_kick_door);	});
+	State.SetStartFunction("KickDoor",		[=] { Body->ChangeAnimation(Anim::player_kick_door);	});
 	State.SetStartFunction("Replay",		std::bind(&APlayerBase::ReplayStart, this));
 
 	// State Update 함수 세팅
@@ -753,11 +764,12 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Attack",		std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
 	State.SetUpdateFunction("WallSlide",	std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
 	State.SetUpdateFunction("Flip",			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
-	State.SetUpdateFunction("Kick",			[=] (float _DeltaTime){ });
+	State.SetUpdateFunction("KickDoor",		[=] (float _DeltaTime){ });
 	State.SetUpdateFunction("Replay",		std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
 
 	// State End 함수 세팅
 	State.SetEndFunction("Attack",			[=] { AttackCol->SetActive(false); });
 	State.SetEndFunction("WallSlide",		[=] {	Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
 	State.SetEndFunction("Flip",			[=] { Velocity.Y = 0.0f; });
+	State.SetEndFunction("KickDoor",		[=] { IsColDoorValue = false; });
 }

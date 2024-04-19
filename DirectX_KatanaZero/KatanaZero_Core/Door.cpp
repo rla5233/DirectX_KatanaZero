@@ -25,8 +25,6 @@ void ADoor::BeginPlay()
 void ADoor::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-
 }
 
 void ADoor::RendererInit()
@@ -76,7 +74,16 @@ void ADoor::StateInit()
 		}
 	);
 
+	State.SetStartFunction("Open", [=]
+		{
+			BodyCol->SetActive(false);
+			GetBody()->ChangeAnimation(Anim::compo_door_open);
+		}
+	);
+
 	// State Update
+	State.SetUpdateFunction("Idle", [=](float _DeltaTime) {});
+	State.SetUpdateFunction("Open", [=](float _DeltaTime) {});
 
 
 	// State End

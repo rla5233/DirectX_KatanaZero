@@ -154,6 +154,8 @@ private:
 	bool IsJumpInputDown();
 	bool IsJumpInputPress();
 
+	bool IsDoorKickInputPress();
+
 	bool IsFallInputPress();
 
 	bool IsAttackInputDown();

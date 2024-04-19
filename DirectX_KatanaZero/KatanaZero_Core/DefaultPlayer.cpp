@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "DefaultPlayer.h"
 
+#include "Door.h"
+
 ADefaultPlayer::ADefaultPlayer()
 {
 }
@@ -55,6 +57,17 @@ void ADefaultPlayer::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::player_kick_door, ImgRes::player_kick_door, 0.06f, false);
 
 	GetBody()->SetFrameCallback(Anim::player_kick_door, 9, [=] { StateChange("Idle"); });
+	GetBody()->SetFrameCallback(Anim::player_kick_door, 4, [=] 
+		{ 
+			FrontCol->CollisionStay(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
+				{
+					ADoor* Door = dynamic_cast<ADoor*>(_Other->GetActor());
+					Door->StateChange("Open");
+					
+				}
+			);
+		}
+	);
 }
 
 void ADefaultPlayer::Tick(float _DeltaTime)

@@ -27,6 +27,8 @@ void ARecMapCompoBase::BeginPlay()
 void ARecMapCompoBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
 }
 
 void ARecMapCompoBase::StateInit()

@@ -157,6 +157,36 @@ bool APlayerBase::IsJumpInputPress()
 	return Result;
 }
 
+bool APlayerBase::IsDoorKickInputPress()
+{
+	bool Result = false;
+
+	if (false == IsColDoorValue)
+	{
+		return false;
+	}
+
+	EEngineDir Dir = Body->GetDir();
+
+	if ((EEngineDir::Left == Dir) && (0.08f < GetPressTime('A') || 0.08f < GetPressTime(VK_LEFT)))
+	{
+		Result = true;
+	}
+
+	if ((EEngineDir::Right == Dir) && (0.08f < GetPressTime('D') || 0.08f < GetPressTime(VK_RIGHT)))
+	{
+		Result = true;
+	}
+
+	if ((true == IsPress('A') || true == IsPress(VK_LEFT))
+		&& (true == IsPress('D') || true == IsPress(VK_RIGHT)))
+	{
+		Result = false;
+	}
+
+	return Result;
+}
+
 bool APlayerBase::IsFallInputPress()
 {
 	bool Result = false;
