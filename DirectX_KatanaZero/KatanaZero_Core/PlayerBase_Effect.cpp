@@ -45,7 +45,7 @@ void APlayerBase::SetAttackEffect(float _Deg)
 
 void APlayerBase::SetCroudEffect(int _Num)
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	for (int i = 0; i < _Num; i++)
 	{

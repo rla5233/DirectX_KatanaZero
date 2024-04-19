@@ -118,22 +118,22 @@ void APlayLevelBase::DebugMessageFunction()
 	}
 
 	{
-		std::string Msg = std::format("IsOnGround : {}\n", Player->IsOnGround(Player->GetRenderer()->GetDir()));
+		std::string Msg = std::format("IsOnGround : {}\n", Player->IsOnGround(Player->GetBody()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
 	{
-		std::string Msg = std::format("IsOnPlatForm : {}\n", Player->IsOnPlatForm(Player->GetRenderer()->GetDir()));
+		std::string Msg = std::format("IsOnPlatForm : {}\n", Player->IsOnPlatForm(Player->GetBody()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
 	{
-		std::string Msg = std::format("IsOnStairs : {}\n", Player->IsOnStairs(Player->GetRenderer()->GetDir()));
+		std::string Msg = std::format("IsOnStairs : {}\n", Player->IsOnStairs(Player->GetBody()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
 	{
-		std::string Msg = std::format("IsOnGP_Boundary : {}\n", Player->IsOnGP_Boundary(Player->GetRenderer()->GetDir()));
+		std::string Msg = std::format("IsOnGP_Boundary : {}\n", Player->IsOnGP_Boundary(Player->GetBody()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }

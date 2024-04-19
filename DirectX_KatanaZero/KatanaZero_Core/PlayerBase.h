@@ -35,9 +35,9 @@ public:
 		State.ChangeState(_State);
 	}
 
-	inline USpriteRenderer* GetRenderer() const
+	inline USpriteRenderer* GetBody() const
 	{
-		return Renderer;
+		return Body;
 	}
 
 	inline std::string GetCurState() const
@@ -72,7 +72,7 @@ private:
 	void RendererDirChange(EEngineDir _Dir);
 
 private:
-	USpriteRenderer* Renderer = nullptr;
+	USpriteRenderer* Body = nullptr;
 	USpriteRenderer* AttackEffect = nullptr;
 	std::vector<CloudEffect> Cloud;
 	const int CloudSize = 20;

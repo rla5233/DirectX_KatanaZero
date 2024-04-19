@@ -10,7 +10,7 @@ void APlayerBase::IdleStart()
 {
 	Velocity = FVector::Zero;
 
-	Renderer->ChangeAnimation(Anim::player_idle);
+	Body->ChangeAnimation(Anim::player_idle);
 }
 	
 void APlayerBase::Idle(float _DeltaTime)
@@ -28,7 +28,7 @@ void APlayerBase::Idle(float _DeltaTime)
 		return;
 	}
 
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 	if (true == IsRunInputDown())
 	{
 		if (false == IsColWall(Dir))
@@ -69,7 +69,7 @@ void APlayerBase::IdleToRunStart()
 {
 	Velocity = FVector::Zero;
 
-	Renderer->ChangeAnimation(Anim::player_idle_to_run);
+	Body->ChangeAnimation(Anim::player_idle_to_run);
 }
 
 void APlayerBase::IdleToRun(float _DeltaTime)
@@ -82,7 +82,7 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		Velocity = FVector::Zero;
 	}
 
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 	if (true == IsColWall(Dir))
 	{
 		Velocity.X = 0.0f;	
@@ -117,7 +117,7 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 
 	if (true == IsJumpInputDown() && true == IsRunInputPress())
 	{
-		EEngineDir Dir = Renderer->GetDir();
+		EEngineDir Dir = Body->GetDir();
 		switch (Dir)
 		{
 		case EEngineDir::Left:
@@ -132,7 +132,7 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		return;
 	}
 
-	if (true == Renderer->IsCurAnimationEnd() && true == IsRunInputPress())
+	if (true == Body->IsCurAnimationEnd() && true == IsRunInputPress())
 	{
 		State.ChangeState("Run");
 		return;
@@ -144,7 +144,7 @@ void APlayerBase::RunStart()
 {
 	SetMaxRunVel();
 
-	Renderer->ChangeAnimation(Anim::player_run);
+	Body->ChangeAnimation(Anim::player_run);
 	SetCroudEffect(5);
 }
 
@@ -178,7 +178,7 @@ void APlayerBase::Run(float _DeltaTime)
 		return;
 	}
 
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 	if (false == IsRunInputPress() || true == IsColWall(Dir))
 	{
 		if (true == true == IsColWall(Dir))
@@ -196,7 +196,7 @@ void APlayerBase::RunToIdleStart()
 {
 	Velocity.Y = 0.0f;
 
-	Renderer->ChangeAnimation(Anim::player_run_to_idle);	
+	Body->ChangeAnimation(Anim::player_run_to_idle);
 }
 
 void APlayerBase::RunToIdle(float _DeltaTime)
@@ -204,7 +204,7 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 	// 속도 업데이트
 	RunToIdleVelUpdate(_DeltaTime);
 
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 	if (true == IsDirChangeKeyPress() || true == IsColWall(Dir))
 	{
 		Velocity.X = 0.0f;
@@ -231,7 +231,7 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 		return;
 	}
 
-	if (true == Renderer->IsCurAnimationEnd())
+	if (true == Body->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
 		return;
@@ -243,7 +243,7 @@ void APlayerBase::PostCrouchStart()
 {
 	Velocity = FVector::Zero;
 
-	Renderer->ChangeAnimation(Anim::player_postcrouch);
+	Body->ChangeAnimation(Anim::player_postcrouch);
 }
 
 void APlayerBase::PostCrouch(float _DeltaTime)
@@ -261,7 +261,7 @@ void APlayerBase::PostCrouch(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsCrouchInputPress() && true == IsOnPlatForm(Renderer->GetDir()))
+	if (true == IsCrouchInputPress() && true == IsOnPlatForm(Body->GetDir()))
 	{
 		State.ChangeState("Fall");
 		return;
@@ -278,7 +278,7 @@ void APlayerBase::PostCrouch(float _DeltaTime)
 // 웅크리기 해제
 void APlayerBase::PreCrouchStart()
 {
-	Renderer->ChangeAnimation(Anim::player_precrouch);
+	Body->ChangeAnimation(Anim::player_precrouch);
 }
 
 void APlayerBase::PreCrouch(float _DeltaTime)
@@ -290,7 +290,7 @@ void APlayerBase::PreCrouch(float _DeltaTime)
 		return;
 	}
 
-	if (true == Renderer->IsCurAnimationEnd())
+	if (true == Body->IsCurAnimationEnd())
 	{
 		State.ChangeState("Idle");
 		return;
@@ -300,7 +300,7 @@ void APlayerBase::PreCrouch(float _DeltaTime)
 // 구르기
 void APlayerBase::RollStart()
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	switch (Dir)
 	{
@@ -312,14 +312,14 @@ void APlayerBase::RollStart()
 		break;
 	}	
 
-	Renderer->ChangeAnimation(Anim::player_roll);
+	Body->ChangeAnimation(Anim::player_roll);
 	CroudTimeCount = Const::effect_cloud_delay;
 }
 
 void APlayerBase::Roll(float _DeltaTime)
 {
 	// 속도 업데이트
-	if (true == IsColWall(Renderer->GetDir()))
+	if (true == IsColWall(Body->GetDir()))
 	{
 		Velocity.X = 0.0f;
 	}
@@ -348,7 +348,7 @@ void APlayerBase::Roll(float _DeltaTime)
 		return;
 	}
 
-	if (true == Renderer->IsCurAnimationEnd())
+	if (true == Body->IsCurAnimationEnd())
 	{
 		IsDirChangeKeyPress();
 
@@ -374,13 +374,13 @@ void APlayerBase::JumpStart()
 {
 	Velocity.Y = Const::player_jump_speedy;
 
-	Renderer->ChangeAnimation(Anim::player_jump);
+	Body->ChangeAnimation(Anim::player_jump);
 }
 
 void APlayerBase::Jump(float _DeltaTime)
 {
 	// 속도 업데이트
-	if (true == IsColHeadToCeil(Renderer->GetDir()))
+	if (true == IsColHeadToCeil(Body->GetDir()))
 	{
 		Velocity.Y = 0.0f;
 	}
@@ -392,7 +392,7 @@ void APlayerBase::Jump(float _DeltaTime)
 		JumpVelXUpdate(_DeltaTime);
 	}
 
-	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall(Renderer->GetDir()))
+	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall(Body->GetDir()))
 	{
 		Velocity.X = 0.0f;
 	}
@@ -410,7 +410,7 @@ void APlayerBase::Jump(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsRunInputPress() && true == IsColWall(Renderer->GetDir()))
+	if (true == IsRunInputPress() && true == IsColWall(Body->GetDir()))
 	{
 		State.ChangeState("WallSlide");
 		return;
@@ -425,13 +425,13 @@ void APlayerBase::Jump(float _DeltaTime)
 
 void APlayerBase::FallStart()
 {
-	Renderer->ChangeAnimation(Anim::player_fall);
+	Body->ChangeAnimation(Anim::player_fall);
 }
 
 void APlayerBase::Fall(float _DeltaTime)
 {
 	// 속도 업데이트
-	if (true == IsColHeadToCeil(Renderer->GetDir()))
+	if (true == IsColHeadToCeil(Body->GetDir()))
 	{
 		Velocity.Y = 0.0f;
 	}
@@ -443,7 +443,7 @@ void APlayerBase::Fall(float _DeltaTime)
 
 	FallGravityUpdate(_DeltaTime);
 
-	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall(Renderer->GetDir()))
+	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall(Body->GetDir()))
 	{
 		Velocity.X = 0.0f;
 	}
@@ -467,26 +467,26 @@ void APlayerBase::Fall(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsOnPlatForm(Renderer->GetDir()) && true == IsFallInputPress())
+	if (true == IsOnPlatForm(Body->GetDir()) && true == IsFallInputPress())
 	{
 		return;
 	}
 
-	if (true == IsRunInputPress() && true == IsColWall(Renderer->GetDir()))
+	if (true == IsRunInputPress() && true == IsColWall(Body->GetDir()))
 	{
 		State.ChangeState("WallSlide");
 		return;
 	}
 
-	if ((true == IsOnGround(Renderer->GetDir()) || true == IsOnStairs(Renderer->GetDir()) || true == IsOnGP_Boundary(Renderer->GetDir()))
+	if ((true == IsOnGround(Body->GetDir()) || true == IsOnStairs(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
 	&&  (true == IsRunToRollInputPress() && true == IsCrouchToRollInputPress()))
 	{
 		State.ChangeState("Roll");
 		return;
 	}
 
-	if (true == IsOnGround(Renderer->GetDir()) || true == IsOnPlatForm(Renderer->GetDir())
- 	||  true == IsOnStairs(Renderer->GetDir()) || true == IsOnGP_Boundary(Renderer->GetDir()))
+	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir())
+ 	||  true == IsOnStairs(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
 	{
 		if (true == IsRunInputPress())
 		{
@@ -525,7 +525,7 @@ void APlayerBase::AttackStart()
 	// 이펙트 설정
 	float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
 	SetAttackEffect(Deg);
-	Renderer->ChangeAnimation(Anim::player_attack);
+	Body->ChangeAnimation(Anim::player_attack);
 
 	// 콜리전 설정
 	AttackCol->SetPosition(AttackDir * 100.0f);
@@ -545,22 +545,22 @@ void APlayerBase::Attack(float _DeltaTime)
 
 	FallGravityUpdate(_DeltaTime);
 
-	if (true == IsColHeadToCeil(Renderer->GetDir()))
+	if (true == IsColHeadToCeil(Body->GetDir()))
 	{
 		Velocity.Y = 0.0f;
 		AddActorLocation({ 0.0f, -10.0f, 0.0f });
 	}
-	else if (true == IsColHeadToWall(Renderer->GetDir()))
+	else if (true == IsColHeadToWall(Body->GetDir()))
 	{
 		Velocity.X = 0.0f;
 	}
 
-	if (true == IsOnGP_Boundary(Renderer->GetDir()))
+	if (true == IsOnGP_Boundary(Body->GetDir()))
 	{
 		Velocity.Y = 0.0f;
 	}
 
-	if (true == IsOnStairs(Renderer->GetDir()))
+	if (true == IsOnStairs(Body->GetDir()))
 	{
 		Velocity = FVector::Zero;
 	}
@@ -572,7 +572,7 @@ void APlayerBase::Attack(float _DeltaTime)
 	ColCheckUpdate();
 
 	// StateChange Check
-	if (true == Renderer->IsCurAnimationEnd())
+	if (true == Body->IsCurAnimationEnd())
 	{
 		State.ChangeState("Fall");
 		return;
@@ -584,18 +584,18 @@ void APlayerBase::WallSlideStart()
 	Velocity.X = 0.0f;
 	Velocity.Y += 180.0f;
 
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Renderer->SetPosition({ -9.0f, 0.0f, 0.0f });
+		Body->SetPosition({ -9.0f, 0.0f, 0.0f });
 		break;
 	case EEngineDir::Right:
-		Renderer->SetPosition({ 9.0f, 0.0f, 0.0f });
+		Body->SetPosition({ 9.0f, 0.0f, 0.0f });
 		break;
 	}
 
-	Renderer->ChangeAnimation(ImgRes::player_wall_slide);
+	Body->ChangeAnimation(ImgRes::player_wall_slide);
 }
 
 void APlayerBase::WallSlide(float _DeltaTime)
@@ -616,7 +616,7 @@ void APlayerBase::WallSlide(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsOnGround(Renderer->GetDir()) || true == IsOnPlatForm(Renderer->GetDir()))
+	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir()))
 	{
 		State.ChangeState("Idle");
 		return;
@@ -631,7 +631,7 @@ void APlayerBase::WallSlide(float _DeltaTime)
 
 void APlayerBase::FlipStart()
 {
-	EEngineDir CurDir = Renderer->GetDir();
+	EEngineDir CurDir = Body->GetDir();
 	switch (CurDir)
 	{
 	case EEngineDir::Left:
@@ -646,7 +646,7 @@ void APlayerBase::FlipStart()
 
 	Velocity.Y = 500.0f;
 
-	Renderer->ChangeAnimation(Anim::player_flip);
+	Body->ChangeAnimation(Anim::player_flip);
 }
 
 void APlayerBase::Flip(float _DeltaTime)
@@ -664,13 +664,13 @@ void APlayerBase::Flip(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsColWall(Renderer->GetDir()) || true == IsColHeadToWall(Renderer->GetDir()))
+	if (true == IsColWall(Body->GetDir()) || true == IsColHeadToWall(Body->GetDir()))
 	{
 		State.ChangeState("WallSlide");
 		return;
 	}
 
-	if (true == Renderer->IsCurAnimationEnd())
+	if (true == Body->IsCurAnimationEnd())
 	{
 		State.ChangeState("Fall");
 		return;
@@ -741,7 +741,7 @@ void APlayerBase::StateInit()
 
 	State.SetEndFunction("WallSlide", [=] 
 		{ 
-			Renderer->SetPosition({ 0.0f, 0.0f ,0.0f });
+			Body->SetPosition({ 0.0f, 0.0f ,0.0f });
 		}
 	);
 	

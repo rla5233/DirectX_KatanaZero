@@ -8,13 +8,13 @@ bool APlayerBase::IsRunInputDown()
 
 	if (true == IsDown('A') || true == IsDown(VK_LEFT))
 	{
-		Renderer->SetDir(EEngineDir::Left);
+		Body->SetDir(EEngineDir::Left);
 		Result = true;
 	}
 
 	if (true == IsDown('D') || true == IsDown(VK_RIGHT))
 	{
-		Renderer->SetDir(EEngineDir::Right);
+		Body->SetDir(EEngineDir::Right);
 		Result = true;
 	}
 
@@ -30,7 +30,7 @@ bool APlayerBase::IsRunInputDown()
 bool APlayerBase::IsRunInputPress()
 {
 	bool Result = false;
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	if ((EEngineDir::Left == Dir) && (true == IsPress('A') || true == IsPress(VK_LEFT)))
 	{

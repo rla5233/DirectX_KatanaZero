@@ -51,6 +51,8 @@ namespace ImgRes
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";
 	const std::string_view effect_player_dustcloud	= "player_dustcloud";
+	const std::string_view effect_player_landcloud	= "player_landcloud";
+	const std::string_view effect_player_jumpcloud	= "player_jumpcloud";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -105,6 +107,8 @@ namespace Anim
 	// Effect Anim
 	const std::string_view effect_player_slash		= "player_slash";
 	const std::string_view effect_player_dustcloud	= "player_dustcloud";
+	const std::string_view effect_player_landcloud	= "player_landcloud";
+	const std::string_view effect_player_jumpcloud	= "player_jumpcloud";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";

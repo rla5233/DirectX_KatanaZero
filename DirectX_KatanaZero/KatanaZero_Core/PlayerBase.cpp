@@ -9,7 +9,7 @@ APlayerBase::APlayerBase()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
-	Renderer	= CreateDefaultSubObject<USpriteRenderer>("Player_Renderer");
+	Body = CreateDefaultSubObject<USpriteRenderer>("Player_Renderer");
 	Front_Top	= CreateDefaultSubObject<USpriteRenderer>("Front_Top");
 	Front_Bot	= CreateDefaultSubObject<USpriteRenderer>("Front_Bot");
 	Back_Top	= CreateDefaultSubObject<USpriteRenderer>("Back_Top");
@@ -28,7 +28,7 @@ APlayerBase::APlayerBase()
 		Cloud.push_back(NewCloudEffect);
 	}
 
-	Renderer->SetupAttachment(Root);
+	Body->SetupAttachment(Root);
 	Back_Top->SetupAttachment(Root);
 	Back_Bot->SetupAttachment(Root);
 	Front_Top->SetupAttachment(Root);
@@ -63,10 +63,10 @@ void APlayerBase::BeginPlay()
 
 void APlayerBase::RendererInit()
 {
-	Renderer->SetOrder(ERenderOrder::Player);
-	Renderer->SetAutoSize(2.0f, true);
-	Renderer->SetDir(EEngineDir::Right);
-	Renderer->SetPivot(EPivot::BOT);
+	Body->SetOrder(ERenderOrder::Player);
+	Body->SetAutoSize(2.0f, true);
+	Body->SetDir(EEngineDir::Right);
+	Body->SetPivot(EPivot::BOT);
 
 	Front_Top->SetSprite("RedPoint.png");
 	Front_Top->SetOrder(ERenderOrder::Player2);
@@ -124,7 +124,7 @@ void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
 bool APlayerBase::IsDirChangeKeyDown()
 {
 	bool Result = false;
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	if ((EEngineDir::Left == Dir) && (true == IsDown('D') || true == IsDown(VK_RIGHT)))
 	{
@@ -144,7 +144,7 @@ bool APlayerBase::IsDirChangeKeyDown()
 bool APlayerBase::IsDirChangeKeyPress()
 {
 	bool Result = false;
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	if ((EEngineDir::Left == Dir) && (true == IsPress('D') || true == IsPress(VK_RIGHT)))
 	{
@@ -172,10 +172,10 @@ void APlayerBase::RendererDirChange(EEngineDir _Dir)
 	switch (_Dir)
 	{
 	case EEngineDir::Left:
-		Renderer->SetDir(EEngineDir::Left);
+		Body->SetDir(EEngineDir::Left);
 		break;
 	case EEngineDir::Right:
-		Renderer->SetDir(EEngineDir::Right);
+		Body->SetDir(EEngineDir::Right);
 		break;
 	}
 }
@@ -184,7 +184,7 @@ void APlayerBase::RendererDirChange(EEngineDir _Dir)
 // FSM Setting Start
 void APlayerBase::SetMaxRunVel()
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	switch (Dir)
 	{
@@ -231,7 +231,7 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 
 void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir) || true == IsOnStairs(Dir) || true == IsOnGP_Boundary(Dir))
 	{
 		Velocity.Y = 0.0f;
@@ -243,7 +243,7 @@ void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
 
 void APlayerBase::RollDownStairGravityUpdate(float _DeltaTime)
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 	if (true == IsOnGround(Dir) || true == IsOnStairs(Dir) || true == IsOnGP_Boundary(Dir))
 	{
 		Velocity.Y = 0.0f;
@@ -285,7 +285,7 @@ void APlayerBase::WallGravityUpdate(float _DeltaTime)
 
 void APlayerBase::JumpVelXUpdate(float _DeltaTime)
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	switch (Dir)
 	{
@@ -310,7 +310,7 @@ void APlayerBase::JumpVelXUpdate(float _DeltaTime)
 
 void APlayerBase::FallVelXUpdate(float _DeltaTime)
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	switch (Dir)
 	{
@@ -335,7 +335,7 @@ void APlayerBase::FallVelXUpdate(float _DeltaTime)
 
 void APlayerBase::IdleToRunVelUpdate(float _DeltaTime)
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 	switch (Dir)
 	{
 	case EEngineDir::Left:
@@ -355,7 +355,7 @@ void APlayerBase::IdleToRunVelUpdate(float _DeltaTime)
 
 void APlayerBase::RunToIdleVelUpdate(float _DeltaTime)
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 	float FrictionAcc = 3000.0f;
 
 	switch (Dir)
@@ -379,7 +379,7 @@ void APlayerBase::RunToIdleVelUpdate(float _DeltaTime)
 
 void APlayerBase::ColCheckUpdate()
 {
-	EEngineDir Dir = Renderer->GetDir();
+	EEngineDir Dir = Body->GetDir();
 
 	Front_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 	Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
@@ -460,7 +460,7 @@ void APlayerBase::Tick(float _DeltaTime)
 
 void APlayerBase::DebugUpdate()
 {
-	CalFourPoint(Renderer->GetDir());
+	CalFourPoint(Body->GetDir());
 
 	Front_Top->SetPosition(GetFTFromActor());
 	Front_Bot->SetPosition(GetFBFromActor());
