@@ -15,8 +15,7 @@ void ULerpObject::LerpMoveUpdate(float _DeltaTime, float _WeightTime)
 	{
 		if (0.0f > _WeightTime)
 		{
-			MsgBoxAssert("가중치 시간이 음수 입니다");
-			return;
+			_WeightTime = 0.01f;
 		}
 
 		MoveTime += _DeltaTime * _WeightTime;

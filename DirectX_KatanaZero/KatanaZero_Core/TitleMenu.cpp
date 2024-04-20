@@ -60,7 +60,7 @@ void ATitleMenu::SettingTransform()
 	BlackBar->SetScale({ 523.0f, 240.0f, 1.0f });
 	WhiteBar->SetScale({ 500.0f, 35.0f, 1.0f });
 
-	WhiteBar->SetPosition({ 0.0f, 75.0f, 0.0f });
+	WhiteBar->SetPosition(WhiteBarPos);
 }
 
 void ATitleMenu::Tick(float _DeltaTime)
@@ -74,6 +74,7 @@ void ATitleMenu::StateInit()
 {
 	// State Create
 	State.CreateState("TitleEnter");
+	State.CreateState("Wait");
 
 	// State Start
 	State.SetStartFunction("TitleEnter", [=] 
@@ -81,15 +82,57 @@ void ATitleMenu::StateInit()
 			FVector StartPos = { 0.0f, -800.0f, 0.0f };
 			FVector TargetPos = { 0.0f, -520.0f, 0.0f };
 			SetLerpMovePos(StartPos, TargetPos);
+
+			InputOn();
 		}
 	);
+
+	State.SetStartFunction("Wait", [=] {});
 
 	// State Update
 	State.SetUpdateFunction("TitleEnter", [=] (float _DeltaTime)
 		{
 			LerpMoveUpdate(_DeltaTime, EnterTitleTimeWeight);
-			EnterTitleTimeWeight -= 4.5f * _DeltaTime;
+			EnterTitleTimeWeight -= 2.0f * _DeltaTime;
+			InputCheck();
+
+			if (false == IsLerpMove())
+			{
+				State.ChangeState("Wait");
+				return;
+			}
 		}
 	);
+
+	State.SetUpdateFunction("Wait", [=](float _DeltaTime) { InputCheck(); });
 }
 
+void ATitleMenu::InputCheck()
+{
+	if (true == IsDown('W') || true == IsDown(VK_UP))
+	{
+		CurMenuIdx--;
+		if (0 > CurMenuIdx)
+		{
+			CurMenuIdx = 0;
+		}
+	}
+
+	if (true == IsDown('S') || true == IsDown(VK_DOWN))
+	{
+		CurMenuIdx++;
+		if (MenuNum <= CurMenuIdx)
+		{
+			CurMenuIdx = MenuNum - 1;
+		}
+	}
+
+	WhiteBarPosUpdate();
+}
+
+void ATitleMenu::WhiteBarPosUpdate()
+{
+	FVector NextPos = WhiteBarPos;
+	NextPos.Y -= WhiteBarInterVal * CurMenuIdx;
+	WhiteBar->SetPosition(NextPos);
+}

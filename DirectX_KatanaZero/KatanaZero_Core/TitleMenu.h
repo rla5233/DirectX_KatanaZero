@@ -32,10 +32,18 @@ private:
 	void StateInit();
 
 private:
+	void InputCheck();
+	void WhiteBarPosUpdate();
+	int CurMenuIdx = 0;
+	int MenuNum = 5;
+
+private:
 	USpriteRenderer* Text = nullptr;
 	USpriteRenderer* BlackBar = nullptr;
 	USpriteRenderer* WhiteBar = nullptr;
+	FVector WhiteBarPos = { 0.0f, 75.0f, 0.0f };
+	float WhiteBarInterVal = 40.0f;
 
-	float EnterTitleTimeWeight = 3.0f;
+	float EnterTitleTimeWeight = 2.0f;
 };
 

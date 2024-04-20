@@ -18,18 +18,19 @@ void ATitleGameMode::BeginPlay()
 	Super::BeginPlay();
 	
 	StateInit();
-
-	State.ChangeState("Title");
 }
 
 void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 {
+	Super::LevelStart(_PrevLevel);
 
-
+	State.ChangeState("Title");
 }
 
 void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
 {
+	Super::LevelEnd(_NextLevel);
+
 	Screen->Destroy();
 	Menu->Destroy();
 
