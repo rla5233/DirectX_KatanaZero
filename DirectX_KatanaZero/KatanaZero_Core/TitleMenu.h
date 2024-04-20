@@ -35,5 +35,7 @@ private:
 	USpriteRenderer* Text = nullptr;
 	USpriteRenderer* BlackBar = nullptr;
 	USpriteRenderer* WhiteBar = nullptr;
+
+	float EnterTitleTimeWeight = 3.0f;
 };
 

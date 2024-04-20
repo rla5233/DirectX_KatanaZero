@@ -30,6 +30,8 @@ void ATitleMenu::BeginPlay()
 	SettingRenderOrder();
 	SettingTransform();
 
+	StateInit();
+
 	State.ChangeState("TitleEnter");
 }
 
@@ -61,6 +63,13 @@ void ATitleMenu::SettingTransform()
 	WhiteBar->SetPosition({ 0.0f, 75.0f, 0.0f });
 }
 
+void ATitleMenu::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
+}
+
 void ATitleMenu::StateInit()
 {
 	// State Create
@@ -69,7 +78,7 @@ void ATitleMenu::StateInit()
 	// State Start
 	State.SetStartFunction("TitleEnter", [=] 
 		{
-			FVector StartPos = { 0.0f, -1020.0f, 0.0f };
+			FVector StartPos = { 0.0f, -800.0f, 0.0f };
 			FVector TargetPos = { 0.0f, -520.0f, 0.0f };
 			SetLerpMovePos(StartPos, TargetPos);
 		}
@@ -78,11 +87,9 @@ void ATitleMenu::StateInit()
 	// State Update
 	State.SetUpdateFunction("TitleEnter", [=] (float _DeltaTime)
 		{
+			LerpMoveUpdate(_DeltaTime, EnterTitleTimeWeight);
+			EnterTitleTimeWeight -= 4.5f * _DeltaTime;
 		}
 	);
 }
 
-void ATitleMenu::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-}

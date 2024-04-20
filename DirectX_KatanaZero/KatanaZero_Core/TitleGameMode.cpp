@@ -48,6 +48,7 @@ void ATitleGameMode::StateInit()
 {
 	// State Create
 	State.CreateState("Title");
+	State.CreateState("Wait");
 
 	// State Start
 	State.SetStartFunction("Title", [=] 
@@ -62,6 +63,8 @@ void ATitleGameMode::StateInit()
 		}
 	);
 
+	State.SetStartFunction("Wait", [=] {});
+
 	// State Update
 	State.SetUpdateFunction("Title", [=] (float _DeltaTime)
 		{
@@ -71,9 +74,13 @@ void ATitleGameMode::StateInit()
 			if (false == MainCamera->IsLerpMove())
 			{
 				Menu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
+				State.ChangeState("Wait");
+				return;
 			}
 		}
 	);
+
+	State.SetUpdateFunction("Wait", [=](float _DeltaTime) {});
 }
 
 
