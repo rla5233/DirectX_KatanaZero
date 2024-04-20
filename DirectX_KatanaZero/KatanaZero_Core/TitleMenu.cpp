@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "TitleMenu.h"
 
+#include "TitleGameMode.h"
+
 ATitleMenu::ATitleMenu()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -125,6 +127,12 @@ void ATitleMenu::InputCheck()
 		{
 			CurMenuIdx = MenuNum - 1;
 		}
+	}
+
+	if (true == IsDown(VK_SPACE) || true == IsDown(VK_RETURN))
+	{
+		ATitleGameMode* Title = dynamic_cast<ATitleGameMode*>(GetWorld()->GetGameMode().get());
+		Title->InputCheck(CurMenuIdx);
 	}
 
 	WhiteBarPosUpdate();

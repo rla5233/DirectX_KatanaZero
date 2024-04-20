@@ -84,4 +84,17 @@ void ATitleGameMode::StateInit()
 	State.SetUpdateFunction("Wait", [=](float _DeltaTime) {});
 }
 
+void ATitleGameMode::InputCheck(int _Input)
+{
+	switch (_Input)
+	{
+	case 0:
+		break;
+	case 4:
+		GEngine->EngineWindow.Off();
+		break;
+	default:
+		break;
+	}
+}
 

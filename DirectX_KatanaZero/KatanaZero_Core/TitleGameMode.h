@@ -21,6 +21,8 @@ public:
 	ATitleGameMode& operator=(const ATitleGameMode& _Other) = delete;
 	ATitleGameMode& operator=(ATitleGameMode&& _Other) noexcept = delete;
 
+	void InputCheck(int _Input);
+
 protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime);
@@ -32,7 +34,6 @@ private:
 	UStateManager State;
 
 	void StateInit();
-
 
 private:
 	std::shared_ptr<AMainCamera> MainCamera = nullptr;
