@@ -24,7 +24,7 @@ void ATitleGameMode::BeginPlay()
 
 	Screen = GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
 	Menu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
-	Menu->SetActorLocation({ 0.0f, -500.0f, 0.0f });
+	Menu->SetActorLocation({ 0.0f, -520.0f, 0.0f });
 }
 
 void ATitleGameMode::Intro(float _DeltaTime)
