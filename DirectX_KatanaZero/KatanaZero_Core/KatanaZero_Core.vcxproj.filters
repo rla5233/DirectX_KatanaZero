@@ -168,6 +168,9 @@
     <ClInclude Include="GangSter.h">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="TitleMenu.h">
+      <Filter>Level\001.TitleLevel\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -268,6 +271,9 @@
     </ClCompile>
     <ClCompile Include="GangSter.cpp">
       <Filter>Level\000.Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleMenu.cpp">
+      <Filter>Level\001.TitleLevel\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

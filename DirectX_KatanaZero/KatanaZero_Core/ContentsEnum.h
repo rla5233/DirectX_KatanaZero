@@ -11,7 +11,8 @@ enum class ETitleRenderOrder
 	BackGround,
 	Bottom,
 	Mid,
-	Top
+	Top,
+	Text
 };
 
 enum class ERenderOrder

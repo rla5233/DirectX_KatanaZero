@@ -70,6 +70,9 @@ namespace ImgRes
 	const std::string_view title_neon_o				= "spr_titlegraphic_2.png";
 	const std::string_view title_neon_katana		= "spr_titlegraphic_3.png";
 	const std::string_view title_plant				= "spr_plants";
+	const std::string_view title_menu_text			= "spr_menu_text.png";
+	const std::string_view title_menu_black_bar		= "spr_menu_black_bar.png";
+	const std::string_view title_menu_white_bar		= "spr_menu_white_bar.png";
 
 	// FactoryLevel
 	const std::string_view factory_background1		= "spr_background_factory_1.png";

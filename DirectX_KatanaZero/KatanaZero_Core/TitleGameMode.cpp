@@ -2,12 +2,13 @@
 #include "TitleGameMode.h"
 
 #include "TitleScreen.h"
+#include "TitleMenu.h"
 
 ATitleGameMode::ATitleGameMode()
 {
 }
 
-ATitleGameMode::~ATitleGameMode()
+ATitleGameMode::~ATitleGameMode()	
 {
 }
 
@@ -21,7 +22,9 @@ void ATitleGameMode::BeginPlay()
 	FVector CameraTargetPos = { 0.0f, -360.0f, -100.0f };
 	SetLerpMovePos(CameraStartPos, CameraTargetPos);
 
-	GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
+	Screen = GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
+	Menu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
+	Menu->SetActorLocation({ 0.0f, -500.0f, 0.0f });
 }
 
 void ATitleGameMode::Intro(float _DeltaTime)

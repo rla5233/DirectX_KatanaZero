@@ -1,6 +1,9 @@
 #pragma once
 #include "LerpObject.h"
 
+class ATitleScreen;
+class ATitleMenu;
+
 // 설명 : Title 메뉴
 class ATitleGameMode : public AGameMode, public ULerpObject
 {
@@ -24,6 +27,9 @@ private:
 	void Intro(float _DeltaTime);
 
 private:
+	std::shared_ptr<ATitleScreen> Screen = nullptr;
+	std::shared_ptr<ATitleMenu> Menu = nullptr;
+	
 	bool IsIntroEnd = false;
 	float IntroTimeWeight = 2.0f;
 };
