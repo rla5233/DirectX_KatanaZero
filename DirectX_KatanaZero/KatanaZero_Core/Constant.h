@@ -64,6 +64,7 @@ namespace ImgRes
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
+	const std::string_view title_black				= "spr_title_black.png";
 	const std::string_view title_fence				= "spr_title_fence_0.png";
 	const std::string_view title_grass				= "spr_title_grass_0.png";
 	const std::string_view title_neon_zer			= "spr_titlegraphic_1.png";

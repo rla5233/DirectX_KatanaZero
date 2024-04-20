@@ -50,6 +50,7 @@ void ATitleGameMode::StateInit()
 	// State Create
 	State.CreateState("Title");
 	State.CreateState("Wait");
+	State.CreateState("Exit");
 
 	// State Start
 	State.SetStartFunction("Title", [=] 
@@ -65,6 +66,7 @@ void ATitleGameMode::StateInit()
 	);
 
 	State.SetStartFunction("Wait", [=] {});
+	State.SetStartFunction("Exit", [=] {});
 
 	// State Update
 	State.SetUpdateFunction("Title", [=] (float _DeltaTime)
@@ -82,6 +84,7 @@ void ATitleGameMode::StateInit()
 	);
 
 	State.SetUpdateFunction("Wait", [=](float _DeltaTime) {});
+	State.SetUpdateFunction("Exit", [=](float _DeltaTime) {});
 }
 
 void ATitleGameMode::InputCheck(int _Input)
@@ -89,12 +92,12 @@ void ATitleGameMode::InputCheck(int _Input)
 	switch (_Input)
 	{
 	case 0:
+		Screen->StateChange("NewGame");
 		break;
 	case 4:
-		GEngine->EngineWindow.Off();
+		Screen->StateChange("Exit");
 		break;
 	default:
 		break;
 	}
 }
-

@@ -11,6 +11,7 @@ ATitleScreen::ATitleScreen()
 	Fence		= CreateDefaultSubObject<USpriteRenderer>("Fence");
 	Plants		= CreateDefaultSubObject<USpriteRenderer>("Plants");
 	Grass		= CreateDefaultSubObject<USpriteRenderer>("Grass");
+	Black		= CreateDefaultSubObject<USpriteRenderer>("Black");
 
 	Neon_ZER	= CreateDefaultSubObject<USpriteRenderer>("Neon_ZER");
 	Neon_O		= CreateDefaultSubObject<USpriteRenderer>("Neon_O");
@@ -20,6 +21,7 @@ ATitleScreen::ATitleScreen()
 	Fence->SetupAttachment(Root);
 	Plants->SetupAttachment(Root);
 	Grass->SetupAttachment(Root);
+	Black->SetupAttachment(Root);
 
 	Neon_ZER->SetupAttachment(Root);
 	Neon_O->SetupAttachment(Root);
@@ -36,13 +38,14 @@ void ATitleScreen::BeginPlay()
 {
 	Super::BeginPlay();
 
+	ULerpObject::SetActor(this);
+
 	SettingSprite();
 	SettingRenderOrder();
 	SettingTransform();
+	StateInit();
 
-	// Anim
-	Plants->CreateAnimation(Anim::plants, ImgRes::title_plant, 0.1f, true);
-	Plants->ChangeAnimation(Anim::plants);
+	State.ChangeState("Begin");
 }
 
 void ATitleScreen::SettingSprite()
@@ -51,6 +54,7 @@ void ATitleScreen::SettingSprite()
 	Fence->SetSprite(ImgRes::title_fence);
 	Plants->SetSprite(ImgRes::title_plant);
 	Grass->SetSprite(ImgRes::title_grass);
+	Black->SetSprite(ImgRes::title_black);
 
 	Neon_ZER->SetSprite(ImgRes::title_neon_zer);
 	Neon_O->SetSprite(ImgRes::title_neon_o);
@@ -63,6 +67,7 @@ void ATitleScreen::SettingRenderOrder()
 	Fence->SetOrder(ETitleRenderOrder::Mid);
 	Plants->SetOrder(ETitleRenderOrder::Top);
 	Grass->SetOrder(ETitleRenderOrder::Top);
+	Black->SetOrder(ETitleRenderOrder::UpText);
 
 	Neon_ZER->SetOrder(ETitleRenderOrder::Mid);
 	Neon_O->SetOrder(ETitleRenderOrder::Mid);
@@ -75,18 +80,77 @@ void ATitleScreen::SettingTransform()
 	Fence->SetAutoSize(2.0f, true);
 	Plants->SetAutoSize(2.0f, true);
 	Grass->SetAutoSize(2.0f, true);
+	
+	Black->SetScale({ 1280.0f, 700.0f, 0.0f });
+
 	Neon_ZER->SetAutoSize(1.25f, true);
 	Neon_O->SetAutoSize(1.25f, true);
 	Neon_Katana->SetAutoSize(1.5f, true);
 
 	Plants->SetPosition({ 0.0f, -465.0f, 0.0f });
-	Grass->SetPosition({ 0.0f, -650.0f, 0.0f });
+	Grass->SetPosition({ 0.0f, -690.0f, 0.0f });
+	Black->SetPosition({ 0.0f, -1150.0f, 0.0f });
 	Neon_ZER->SetPosition({ 0.0f, -300.0f, 0.0f });
 	Neon_O->SetPosition({ 0.0f, -300.0f, 0.0f });
 	Neon_Katana->SetPosition({ 0.0f, -240.0f, 0.0f });
 }
 
+void ATitleScreen::StateInit()
+{
+	// State Create
+	State.CreateState("Begin");
+	State.CreateState("Exit");
+	State.CreateState("NewGame");
+
+	// State Start
+	State.SetStartFunction("Begin", [=] 
+		{
+			Plants->CreateAnimation(Anim::plants, ImgRes::title_plant, 0.1f, true);
+			Plants->ChangeAnimation(Anim::plants);
+		}
+	);
+
+	State.SetStartFunction("Exit", [=] { SetTitleEndAim(); });
+	State.SetStartFunction("NewGame", [=] { SetTitleEndAim(); });
+
+	// State Update
+	State.SetUpdateFunction("Begin", [=](float _DeltaTime) {});
+	State.SetUpdateFunction("Exit", [=](float _DeltaTime)
+		{
+			LerpMoveUpdate(_DeltaTime, TitleEndWeightTime);
+			TitleEndWeightTime += 0.8f * _DeltaTime;
+
+			if (false == IsLerpMove())
+			{
+				GEngine->EngineWindow.Off();
+			}
+		}
+	);
+
+	State.SetUpdateFunction("NewGame", [=](float _DeltaTime) 
+		{
+			LerpMoveUpdate(_DeltaTime, TitleEndWeightTime);
+			TitleEndWeightTime += 0.8f * _DeltaTime;
+
+			if (false == IsLerpMove())
+			{
+				GEngine->ChangeLevel("Factory_002");
+			}
+		}
+	);
+}
+
+void ATitleScreen::SetTitleEndAim()
+{
+	FVector StartPos = GetActorLocation();
+	FVector TargetPos = StartPos + FVector(0.0f, 720.0f, 0.0f);
+	SetLerpMovePos(StartPos, TargetPos);
+	Grass->SetOrder(ETitleRenderOrder::UpText);
+}
+
 void ATitleScreen::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
 }
