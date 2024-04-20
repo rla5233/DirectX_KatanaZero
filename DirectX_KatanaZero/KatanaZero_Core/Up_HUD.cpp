@@ -4,45 +4,6 @@
 AUp_HUD::AUp_HUD()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-
-	// Left
-	Battery_Part.reserve(11);
-	for (size_t i = 0; i < Battery_Part.capacity(); i++)
-	{
-		Battery_Part.push_back(CreateDefaultSubObject<USpriteRenderer>("HUD_Battery_Part"));
-		Battery_Part[i]->SetupAttachment(Root);
-	}
-
-	Battery		= CreateDefaultSubObject<USpriteRenderer>("HUD_Battery");
-	Shift		= CreateDefaultSubObject<USpriteRenderer>("HUD_Shift");
-	
-	Battery->SetupAttachment(Root);
-	Shift->SetupAttachment(Root);
-
-	// Mid
-	Timer_Bar	= CreateDefaultSubObject<USpriteRenderer>("HUD_Timer_Bar");
-	Timer		= CreateDefaultSubObject<USpriteRenderer>("HUD_Timer");
-	
-	Timer_Bar->SetupAttachment(Root);
-	Timer->SetupAttachment(Root);
-
-	// Right
-	R_ClickIcon = CreateDefaultSubObject<USpriteRenderer>("R_Click_Icon");
-	L_ClickIcon = CreateDefaultSubObject<USpriteRenderer>("L_Click_Icon");
-	ItemIcon	= CreateDefaultSubObject<USpriteRenderer>("Item_Icon");
-	KatanaIcon	= CreateDefaultSubObject<USpriteRenderer>("Katana_Icon");
-	Weapon		= CreateDefaultSubObject<USpriteRenderer>("HUD_Weapon");
-	
-	R_ClickIcon->SetupAttachment(Root);
-	L_ClickIcon->SetupAttachment(Root);
-	ItemIcon->SetupAttachment(Root);
-	KatanaIcon->SetupAttachment(Root);
-	Weapon->SetupAttachment(Root);
-
-	// BackGround
-	Bar			= CreateDefaultSubObject<USpriteRenderer>("HUD_Bar");
-	Bar->SetupAttachment(Root);
-
 	SetRoot(Root);
 }
 
@@ -53,13 +14,41 @@ AUp_HUD::~AUp_HUD()
 void AUp_HUD::BeginPlay()
 {
 	Super::BeginPlay();
-
-	SettingSprite();
+	
+	CreateImage();
+	SettingImage();
 	SettingRenderOrder();
 	SettingTransform();
 }
 
-void AUp_HUD::SettingSprite()
+void AUp_HUD::CreateImage()
+{
+	// Left
+	Battery_Part.reserve(11);
+	for (size_t i = 0; i < Battery_Part.capacity(); i++)
+	{
+		Battery_Part.push_back(CreateWidget<UImage>(GetWorld(), "HUD_Battery_Part"));
+	}
+
+	Battery = CreateWidget<UImage>(GetWorld(), "HUD_Battery");
+	Shift = CreateWidget<UImage>(GetWorld(), "HUD_Shift");
+
+	// Mid
+	Timer_Bar = CreateWidget<UImage>(GetWorld(), "HUD_Timer_Bar");
+	Timer = CreateWidget<UImage>(GetWorld(), "HUD_Timer");
+
+	// Right
+	R_ClickIcon = CreateWidget<UImage>(GetWorld(), "R_Click_Icon");
+	L_ClickIcon = CreateWidget<UImage>(GetWorld(), "L_Click_Icon");
+	ItemIcon = CreateWidget<UImage>(GetWorld(), "Item_Icon");
+	KatanaIcon = CreateWidget<UImage>(GetWorld(), "Katana_Icon");
+	Weapon = CreateWidget<UImage>(GetWorld(), "HUD_Weapon");
+
+	// BackGround
+	Bar = CreateWidget<UImage>(GetWorld(), "HUD_Bar");
+}
+
+void AUp_HUD::SettingImage()
 {
 	// Left
 	for (size_t i = 0; i < Battery_Part.size(); i++)
@@ -90,25 +79,25 @@ void AUp_HUD::SettingRenderOrder()
 	// Left
 	for (size_t i = 0; i < Battery_Part.size(); i++)
 	{
-		Battery_Part[i]->SetOrder(ERenderOrder::UI);
+		Battery_Part[i]->AddToViewPort(EWidgetOrder::Top);
 	}
 
-	Battery->SetOrder(ERenderOrder::UI);
-	Shift->SetOrder(ERenderOrder::UI);
+	Battery->AddToViewPort(EWidgetOrder::Mid);
+	Shift->AddToViewPort(EWidgetOrder::Mid);
 
 	// Mid
-	Timer_Bar->SetOrder(ERenderOrder::UI);
-	Timer->SetOrder(ERenderOrder::UI);
+	Timer_Bar->AddToViewPort(EWidgetOrder::Mid);
+	Timer->AddToViewPort(EWidgetOrder::Mid);
 	
 	// Right
-	R_ClickIcon->SetOrder(ERenderOrder::UI);
-	L_ClickIcon->SetOrder(ERenderOrder::UI);
-	ItemIcon->SetOrder(ERenderOrder::UI);
-	KatanaIcon->SetOrder(ERenderOrder::UI);
-	Weapon->SetOrder(ERenderOrder::UI);
+	ItemIcon->AddToViewPort(EWidgetOrder::Top);
+	KatanaIcon->AddToViewPort(EWidgetOrder::Top);
+	R_ClickIcon->AddToViewPort(EWidgetOrder::Top);
+	L_ClickIcon->AddToViewPort(EWidgetOrder::Top);
+	Weapon->AddToViewPort(EWidgetOrder::Mid);
 
 	// BackGround
-	Bar->SetOrder(ERenderOrder::UI);
+	Bar->AddToViewPort(EWidgetOrder::Bottom);
 }
 
 void AUp_HUD::SettingTransform()
@@ -136,40 +125,36 @@ void AUp_HUD::SettingTransform()
 	// BackGround
 	Bar->SetAutoSize(2.0f, true);
 	
+	FVector WinScale = GEngine->EngineWindow.GetWindowScale();
+	WinScale.Y -= 47.0f;
 
 	// Left
 	const float interval = 10.0f;
 	for (size_t i = 0; i < Battery_Part.size(); i++)
 	{
 		float inter = interval * static_cast<float>(i);
-		Battery_Part[i]->SetPosition({ -612.0f + inter, 1.0f, 0.0f });
+		Battery_Part[i]->SetPosition({ -612.0f + inter, WinScale.hY() + 1.0f, 0.0f });
 	}
 
-	Battery->SetPosition({ -561.0f, 0.0f, 0.0f });
-	Shift->SetPosition({ -455.0f, 1.0f, 0.0f });
+	Battery->SetPosition({ -561.0f, WinScale.hY(), 0.0f });
+	Shift->SetPosition({ -455.0f, WinScale.hY() + 1.0f, 0.0f });
 	
 	// Mid
-	Timer_Bar->SetPosition({ 6.0f, 6.0f, 0.0f });
-	Timer->SetPosition({ -10.0f, 2.0f, 0.0f });
+	Timer_Bar->SetPosition({ 6.0f, WinScale.hY() + 6.0f, 0.0f });
+	Timer->SetPosition({ -10.0f, WinScale.hY() + 2.0f, 0.0f });
 	
 	// Right
-	R_ClickIcon->SetPosition({ 616.0f, -24.0f, 0.0f });
-	L_ClickIcon->SetPosition({ 553.0f, -24.0f, 0.0f });
-	ItemIcon->SetPosition({ 597.0f, -2.0f, 0.0f });
-	KatanaIcon->SetPosition({ 533.0f, -2.0f, 0.0f });
-	Weapon->SetPosition({ 565.0f, -1.0f, 0.0f });
-}
+	R_ClickIcon->SetPosition({ 616.0f, WinScale.hY() - 24.0f, 0.0f });
+	L_ClickIcon->SetPosition({ 553.0f, WinScale.hY() - 24.0f, 0.0f });
+	ItemIcon->SetPosition({ 597.0f, WinScale.hY() - 2.0f, 0.0f });
+	KatanaIcon->SetPosition({ 533.0f, WinScale.hY() - 2.0f, 0.0f });
+	Weapon->SetPosition({ 565.0f, WinScale.hY() - 1.0f, 0.0f });
 
-void AUp_HUD::CameraEffectOff()
-{
-	FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
-	SetActorLocation({ CameraPos.X, CameraPos.Y + 337.0f, 0.0f });
+	Bar->SetPosition({ 0.0f, WinScale.hY(), 0.0f });
 }
 
 void AUp_HUD::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	CameraEffectOff();
 }
 

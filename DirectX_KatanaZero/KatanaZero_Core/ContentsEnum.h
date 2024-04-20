@@ -27,6 +27,13 @@ enum class ERenderOrder
 	UI
 };
 
+enum class EWidgetOrder
+{
+	Bottom,
+	Mid,
+	Top
+};
+
 enum class EEnemyPatrol
 {
 	Walk,

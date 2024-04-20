@@ -15,36 +15,35 @@ public:
 	AUp_HUD& operator=(const AUp_HUD& _Other) = delete;
 	AUp_HUD& operator=(AUp_HUD&& _Other) noexcept = delete;
 
-	void CameraEffectOff();
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 // 초기 Setting 함수
 private:
-	void SettingSprite();
+	void CreateImage();
+	void SettingImage();
 	void SettingRenderOrder();
 	void SettingTransform();
 
 private:
 	// BackGround
-	USpriteRenderer* Bar = nullptr;
+	UImage* Bar = nullptr;
 
 	// Mid
-	USpriteRenderer* Timer = nullptr;
-	USpriteRenderer* Timer_Bar = nullptr;
+	UImage* Timer = nullptr;
+	UImage* Timer_Bar = nullptr;
 	
 	// Left
-	USpriteRenderer* Battery = nullptr;
-	std::vector<USpriteRenderer*> Battery_Part;
-	USpriteRenderer* Shift = nullptr;
+	UImage* Battery = nullptr;
+	std::vector<UImage*> Battery_Part;
+	UImage* Shift = nullptr;
 	
 	// Right
-	USpriteRenderer* Weapon = nullptr;
-	USpriteRenderer* KatanaIcon = nullptr;
-	USpriteRenderer* ItemIcon = nullptr;
-	USpriteRenderer* L_ClickIcon = nullptr;
-	USpriteRenderer* R_ClickIcon = nullptr;
+	UImage* Weapon = nullptr;
+	UImage* KatanaIcon = nullptr;
+	UImage* ItemIcon = nullptr;
+	UImage* L_ClickIcon = nullptr;
+	UImage* R_ClickIcon = nullptr;
 };
 

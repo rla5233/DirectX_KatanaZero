@@ -16,6 +16,8 @@
 #include <EngineCore/Camera.h>
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/Image.h>
+#include <EngineCore/Widget.h>
 #include <EngineCore/EngineSprite.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
 
