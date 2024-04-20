@@ -1,7 +1,9 @@
 #pragma once
+#include <EngineCore/StateManager.h>
+#include "LerpObject.h"
 
 // 설명 : Title 메뉴
-class ATitleMenu : public AActor
+class ATitleMenu : public AActor, public ULerpObject
 {
 	GENERATED_BODY(AActor)
 public:
@@ -23,6 +25,11 @@ private:
 	void SettingSprite();
 	void SettingRenderOrder();
 	void SettingTransform();
+
+private:
+	UStateManager State;
+
+	void StateInit();
 
 private:
 	USpriteRenderer* Text = nullptr;

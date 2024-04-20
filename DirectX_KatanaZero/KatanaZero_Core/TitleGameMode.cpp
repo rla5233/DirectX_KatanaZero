@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "TitleGameMode.h"
 
+#include "MainCamera.h"
 #include "TitleScreen.h"
 #include "TitleMenu.h"
 
@@ -15,38 +16,64 @@ ATitleGameMode::~ATitleGameMode()
 void ATitleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	StateInit();
 
-	FVector CameraStartPos = { 0.0f, 0.0f, -100.0f };
-	GetWorld()->GetMainCamera()->SetActorLocation(CameraStartPos);
-
-	FVector CameraTargetPos = { 0.0f, -360.0f, -100.0f };
-	SetLerpMovePos(CameraStartPos, CameraTargetPos);
-
-	Screen = GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
-	Menu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
-	Menu->SetActorLocation({ 0.0f, -520.0f, 0.0f });
+	State.ChangeState("Title");
 }
 
-void ATitleGameMode::Intro(float _DeltaTime)
+void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 {
-	if (false == IsIntroEnd)
-	{
-		FVector NextCameraPos = LerpMoveUpdate(_DeltaTime, IntroTimeWeight);
-		GetWorld()->GetMainCamera()->SetActorLocation(NextCameraPos);
-		IntroTimeWeight -= 2.0f * _DeltaTime;
 
-		if (false == IsLerpMove())
-		{
-			IsIntroEnd = true;
-		}
-	}
+
+}
+
+void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Screen->Destroy();
+	Menu->Destroy();
+
+	Screen = nullptr;
+	Menu = nullptr;
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	Intro(_DeltaTime);
+	State.Update(_DeltaTime);
+}
+
+void ATitleGameMode::StateInit()
+{
+	// State Create
+	State.CreateState("Title");
+
+	// State Start
+	State.SetStartFunction("Title", [=] 
+		{
+			MainCamera = GetWorld()->SpawnActor<AMainCamera>("MainCamera");
+			
+			FVector CameraStartPos = { 0.0f, 0.0f, -100.0f };
+			FVector CameraTargetPos = { 0.0f, -360.0f, -100.0f };
+			MainCamera->SetLerpMovePos(CameraStartPos, CameraTargetPos);
+
+			Screen = GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
+		}
+	);
+
+	// State Update
+	State.SetUpdateFunction("Title", [=] (float _DeltaTime)
+		{
+			MainCamera->LerpMoveUpdate(_DeltaTime, EnterTitleTimeWeight);
+			EnterTitleTimeWeight -= 2.0f * _DeltaTime;
+
+			if (false == MainCamera->IsLerpMove())
+			{
+				Menu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");
+			}
+		}
+	);
 }
 
 

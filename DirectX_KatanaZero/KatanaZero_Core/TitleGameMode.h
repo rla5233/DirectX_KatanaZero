@@ -1,11 +1,13 @@
 #pragma once
+#include <EngineCore/StateManager.h>
 #include "LerpObject.h"
 
 class ATitleScreen;
+class AMainCamera;
 class ATitleMenu;
 
 // 설명 : Title 메뉴
-class ATitleGameMode : public AGameMode, public ULerpObject
+class ATitleGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode);
 public:
@@ -23,14 +25,20 @@ protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime);
 
-private:
-	void Intro(float _DeltaTime);
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
 
 private:
+	UStateManager State;
+
+	void StateInit();
+
+
+private:
+	std::shared_ptr<AMainCamera> MainCamera = nullptr;
 	std::shared_ptr<ATitleScreen> Screen = nullptr;
 	std::shared_ptr<ATitleMenu> Menu = nullptr;
 	
-	bool IsIntroEnd = false;
-	float IntroTimeWeight = 2.0f;
+	float EnterTitleTimeWeight = 2.0f;
 };
 

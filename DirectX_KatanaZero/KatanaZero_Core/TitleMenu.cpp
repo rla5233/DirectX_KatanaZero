@@ -24,9 +24,13 @@ void ATitleMenu::BeginPlay()
 {
 	Super::BeginPlay();
 
+	ULerpObject::SetActor(this);
+
 	SettingSprite();
 	SettingRenderOrder();
 	SettingTransform();
+
+	State.ChangeState("TitleEnter");
 }
 
 void ATitleMenu::SettingSprite()
@@ -57,8 +61,28 @@ void ATitleMenu::SettingTransform()
 	WhiteBar->SetPosition({ 0.0f, 75.0f, 0.0f });
 }
 
+void ATitleMenu::StateInit()
+{
+	// State Create
+	State.CreateState("TitleEnter");
+
+	// State Start
+	State.SetStartFunction("TitleEnter", [=] 
+		{
+			FVector StartPos = { 0.0f, -1020.0f, 0.0f };
+			FVector TargetPos = { 0.0f, -520.0f, 0.0f };
+			SetLerpMovePos(StartPos, TargetPos);
+		}
+	);
+
+	// State Update
+	State.SetUpdateFunction("TitleEnter", [=] (float _DeltaTime)
+		{
+		}
+	);
+}
+
 void ATitleMenu::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
 }

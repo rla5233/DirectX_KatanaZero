@@ -73,6 +73,12 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{279b6a8c-5348-4abf-b94d-dc5068cd802d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\000.Object\Camera">
+      <UniqueIdentifier>{efaa99ae-4428-4e06-899d-a4619ac8bed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.Object\Player">
+      <UniqueIdentifier>{ad00d2b5-1e9b-44f1-a040-026afa6a0648}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -114,9 +120,6 @@
     <ClInclude Include="PlayerBase.h">
       <Filter>Object\Base\Player</Filter>
     </ClInclude>
-    <ClInclude Include="DefaultPlayer.h">
-      <Filter>Level\000.Object</Filter>
-    </ClInclude>
     <ClInclude Include="ColMapObject.h">
       <Filter>Level\000.Object\Map</Filter>
     </ClInclude>
@@ -125,9 +128,6 @@
     </ClInclude>
     <ClInclude Include="Up_HUD.h">
       <Filter>Level\000.Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseAim.h">
-      <Filter>Level\000.Object</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBase.h">
       <Filter>Object\Base\Enemy</Filter>
@@ -171,6 +171,15 @@
     <ClInclude Include="TitleMenu.h">
       <Filter>Level\001.TitleLevel\Object</Filter>
     </ClInclude>
+    <ClInclude Include="DefaultPlayer.h">
+      <Filter>Level\000.Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseAim.h">
+      <Filter>Level\000.Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MainCamera.h">
+      <Filter>Level\000.Object\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -212,9 +221,6 @@
     <ClCompile Include="PlayerBase_State.cpp">
       <Filter>Object\Base\Player</Filter>
     </ClCompile>
-    <ClCompile Include="DefaultPlayer.cpp">
-      <Filter>Level\000.Object</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerBase_Input.cpp">
       <Filter>Object\Base\Player</Filter>
     </ClCompile>
@@ -226,9 +232,6 @@
     </ClCompile>
     <ClCompile Include="Up_HUD.cpp">
       <Filter>Level\000.Object\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseAim.cpp">
-      <Filter>Level\000.Object</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp">
       <Filter>Object\Base\Enemy</Filter>
@@ -274,6 +277,15 @@
     </ClCompile>
     <ClCompile Include="TitleMenu.cpp">
       <Filter>Level\001.TitleLevel\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultPlayer.cpp">
+      <Filter>Level\000.Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseAim.cpp">
+      <Filter>Level\000.Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MainCamera.cpp">
+      <Filter>Level\000.Object\Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
