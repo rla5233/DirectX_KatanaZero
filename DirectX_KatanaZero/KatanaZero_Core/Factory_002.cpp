@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Factory_002.h"
 
+#include "MainCamera.h"
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "Up_HUD.h"
@@ -25,7 +26,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-	GetWorld()->GetMainCamera()->SetActorLocation({ 665.0f, 392.0f, -100.0f });
+	MainCamera->SetActorLocation({ 665.0f, 392.0f, -100.0f });
 
 	ColMap->SetColMapSprite(ImgRes::factory_colmap2, 1.0f, true);
 	ColMap->SetBGSprite(ImgRes::factory_background2, 1.0f, true);
@@ -40,6 +41,8 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	AllRecComponent.reserve(1);
 	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left);
+
+	PlayTime = 60.0f;
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

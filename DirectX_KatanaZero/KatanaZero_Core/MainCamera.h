@@ -36,6 +36,8 @@ public:
 		MainCamera->AddActorLocation(_Pos);
 	}
 
+	void PlayLevelChaseActor(std::shared_ptr<UEngineTexture> _MapTex, const FVector& _ActorPos);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

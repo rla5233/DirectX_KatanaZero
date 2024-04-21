@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "PlayLevelBase.h"
 
-#include "CameraManager.h"
+#include "MainCamera.h"
 #include "ColMapObject.h"
 #include "RecMapCompoBase.h"
 #include "DefaultPlayer.h"
@@ -29,6 +29,8 @@ void APlayLevelBase::BeginPlay()
 void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+	MainCamera = GetWorld()->SpawnActor<AMainCamera>("MainCamera");
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
@@ -146,8 +148,6 @@ void APlayLevelBase::DebugMessageFunction()
 		std::string Msg = std::format("IsOnGP_Boundary : {}\n", Player->IsOnGP_Boundary(Player->GetBody()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
-
-
 }
 
 // 상태 초기화
@@ -180,7 +180,7 @@ void APlayLevelBase::StateInit()
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Play", [=](float)
 		{
-			UCameraManager::PlayLevelChaseActor(GetWorld()->GetMainCamera(), ColMap->GetMapTex(), Player->GetActorLocation());
+			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			if (true == IsStageClear())
 			{
 				State.ChangeState("Replay");
@@ -198,7 +198,7 @@ void APlayLevelBase::Replay(float _DeltaTime)
 {
 	if (true)
 	{
-		UCameraManager::PlayLevelChaseActor(GetWorld()->GetMainCamera(), ColMap->GetMapTex(), Player->GetActorLocation());
+		MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 
 
 

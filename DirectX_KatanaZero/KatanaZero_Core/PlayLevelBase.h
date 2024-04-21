@@ -3,6 +3,7 @@
 
 #include "SpawnManager.h"
 
+class AMainCamera;
 class AColMapObject;
 class ARecMapCompoBase;
 class ADefaultPlayer;
@@ -43,12 +44,16 @@ protected:
 	virtual void ChangeStage() {};
 
 protected:
+	std::shared_ptr<AMainCamera> MainCamera = nullptr;
 	std::shared_ptr<AMouseAim> Aim = nullptr;
 	std::shared_ptr<AColMapObject> ColMap = nullptr;
 	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
 	std::vector<std::shared_ptr<AEnemyBase>> AllEnemy;
 	std::vector<std::shared_ptr<ARecMapCompoBase>> AllRecComponent;
+
+	float PlayTime = 0.0f;
+
 
 // FSM
 private:
