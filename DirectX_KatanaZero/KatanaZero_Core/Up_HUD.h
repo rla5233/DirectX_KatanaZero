@@ -1,4 +1,5 @@
 #pragma once
+#include <EngineCore/StateManager.h>
 
 // 설명 : 상단 Up_HUD
 class AUp_HUD : public AActor
@@ -33,6 +34,7 @@ private:
 	// Mid
 	UImage* Timer = nullptr;
 	UImage* Timer_Bar = nullptr;
+	UImage* Timer_Bar_Black = nullptr;
 	
 	// Left
 	UImage* Battery = nullptr;
@@ -45,5 +47,11 @@ private:
 	UImage* ItemIcon = nullptr;
 	UImage* L_ClickIcon = nullptr;
 	UImage* R_ClickIcon = nullptr;
+
+private:
+	UStateManager State;
+
+	void StateInit();
+
 };
 

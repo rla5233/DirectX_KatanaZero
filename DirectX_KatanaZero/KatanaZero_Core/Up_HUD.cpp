@@ -19,6 +19,9 @@ void AUp_HUD::BeginPlay()
 	SettingImage();
 	SettingRenderOrder();
 	SettingTransform();
+	StateInit();
+
+	State.ChangeState("Play");
 }
 
 void AUp_HUD::CreateImage()
@@ -35,6 +38,7 @@ void AUp_HUD::CreateImage()
 
 	// Mid
 	Timer_Bar = CreateWidget<UImage>(GetWorld(), "HUD_Timer_Bar");
+	Timer_Bar_Black = CreateWidget<UImage>(GetWorld(), "HUD_Timer_Bar_Black");
 	Timer = CreateWidget<UImage>(GetWorld(), "HUD_Timer");
 
 	// Right
@@ -60,7 +64,8 @@ void AUp_HUD::SettingImage()
 	Shift->SetSprite(ImgRes::ui_shift_up);
 
 	// Mid
-	Timer_Bar->SetSprite(ImgRes::ui_up_hud_timer_bar);
+	Timer_Bar->SetSprite(ImgRes::ui_up_hud_timer_bar1);
+	Timer_Bar_Black->SetSprite(ImgRes::ui_up_hud_timer_bar2);
 	Timer->SetSprite(ImgRes::ui_up_hud_timer);
 	
 	// Right
@@ -86,7 +91,8 @@ void AUp_HUD::SettingRenderOrder()
 	Shift->AddToViewPort(EWidgetOrder::Mid);
 
 	// Mid
-	Timer_Bar->AddToViewPort(EWidgetOrder::Mid);
+	Timer_Bar->AddToViewPort(EWidgetOrder::Top);
+	Timer_Bar_Black->AddToViewPort(EWidgetOrder::Top);
 	Timer->AddToViewPort(EWidgetOrder::Mid);
 	
 	// Right
@@ -114,6 +120,7 @@ void AUp_HUD::SettingTransform()
 	// Mid
 	Timer_Bar->SetAutoSize(2.0f, true);
 	Timer->SetAutoSize(2.0f, true);
+	Timer_Bar_Black->SetScale({ 2.0f, 22.0f, 1.0f });
 	
 	// Right
 	R_ClickIcon->SetAutoSize(2.0f, true);
@@ -140,7 +147,8 @@ void AUp_HUD::SettingTransform()
 	Shift->SetPosition({ -455.0f, WinScale.hY() + 1.0f, 0.0f });
 	
 	// Mid
-	Timer_Bar->SetPosition({ 6.0f, WinScale.hY() + 6.0f, 0.0f });
+	Timer_Bar->SetPosition({ 6.0f, WinScale.hY() + 5.0f, 0.0f });
+	Timer_Bar_Black->SetPosition({ 6.0f, WinScale.hY() + 5.0f, 0.0f });
 	Timer->SetPosition({ -10.0f, WinScale.hY() + 2.0f, 0.0f });
 	
 	// Right
@@ -156,5 +164,28 @@ void AUp_HUD::SettingTransform()
 void AUp_HUD::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
 }
+
+void AUp_HUD::StateInit()
+{
+	// State Create
+	State.CreateState("Wait");
+	State.CreateState("Play");
+	
+	// State Start
+	State.SetStartFunction("Wait", [=] {});
+	State.SetStartFunction("Play", [=] {});
+	
+	// State Update
+	State.SetUpdateFunction("Wait", [=](float _DeltaTime) {});
+	State.SetUpdateFunction("Play", [=](float _DeltaTime) 
+		{
+			
+		}
+	);
+	
+}
+
 
