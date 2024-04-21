@@ -208,7 +208,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GrayScale.h">
+    <ClInclude Include="GrayScaleEffect.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -342,7 +342,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GrayScale.cpp">
+    <ClCompile Include="GrayScaleEffect.cpp">
       <SubType>
       </SubType>
     </ClCompile>

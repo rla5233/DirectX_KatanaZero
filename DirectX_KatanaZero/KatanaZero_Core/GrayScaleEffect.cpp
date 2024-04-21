@@ -1,24 +1,24 @@
 #include "PreCompile.h"
-#include "GrayScale.h"
+#include "GrayScaleEffect.h"
 
-UGrayScale::UGrayScale()
+UGrayScaleEffect::UGrayScaleEffect()
 {
 }
 
-UGrayScale::~UGrayScale()
+UGrayScaleEffect::~UGrayScaleEffect()
 {
 }
 
-void UGrayScale::Init()
+void UGrayScaleEffect::Init()
 {
-	SetMaterial("GaryScale");
+	SetMaterial("GrayScale");
 
 	CopyTarget = UEngineRenderTarget::Create();
 	FVector WinScale = GEngine->EngineWindow.GetWindowScale();
 	CopyTarget->CreateTexture(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, WinScale, FVector::Zero);
 }
 
-void UGrayScale::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
+void UGrayScaleEffect::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
 {
 	CopyTarget->Copy(EffectTarget);
 	EffectTarget->Clear();

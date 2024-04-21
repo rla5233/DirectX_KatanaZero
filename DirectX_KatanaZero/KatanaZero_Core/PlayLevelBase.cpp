@@ -10,7 +10,7 @@
 #include "Up_HUD.h"
 #include "Go.h"
 
-#include <EngineCore/BlurEffect.h>
+#include "GrayScaleEffect.h"
 
 APlayLevelBase::APlayLevelBase()
 {
@@ -196,6 +196,8 @@ void APlayLevelBase::StateInit()
 			HUD->StateChange("Replay");
 
 			InputOn();
+
+			GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
 		}
 	);
 

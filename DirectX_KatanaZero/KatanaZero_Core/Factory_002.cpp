@@ -10,8 +10,6 @@
 #include "Door.h"
 #include "Go.h"
 
-#include "GrayScale.h"
-
 AFactory_002::AFactory_002()
 {
 }
@@ -47,8 +45,6 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	AllRecComponent.reserve(1);
 	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left);
-
-	GetWorld()->GetLastTarget()->AddEffect<UGrayScale>();
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

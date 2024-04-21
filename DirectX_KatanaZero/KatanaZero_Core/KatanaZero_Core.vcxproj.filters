@@ -183,7 +183,7 @@
     <ClInclude Include="Go.h">
       <Filter>Level\000.Object\UI</Filter>
     </ClInclude>
-    <ClInclude Include="GrayScale.h">
+    <ClInclude Include="GrayScaleEffect.h">
       <Filter>Object\Effect</Filter>
     </ClInclude>
   </ItemGroup>
@@ -296,7 +296,7 @@
     <ClCompile Include="KatanaZero_Resource.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="GrayScale.cpp">
+    <ClCompile Include="GrayScaleEffect.cpp">
       <Filter>Object\Effect</Filter>
     </ClCompile>
   </ItemGroup>
