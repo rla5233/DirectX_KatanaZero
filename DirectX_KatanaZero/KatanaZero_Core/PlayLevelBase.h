@@ -10,6 +10,7 @@ class ADefaultPlayer;
 class AEnemyBase;
 class AMouseAim;
 class AUp_HUD;
+class AGo;
 
 // 설명 : PlayLevel 기본 클래스
 class APlayLevelBase : public AGameMode, public USpawnManager
@@ -54,6 +55,7 @@ protected:
 	std::shared_ptr<AColMapObject> ColMap = nullptr;
 	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
+	std::shared_ptr<AGo> Go = nullptr;
 	std::vector<std::shared_ptr<AEnemyBase>> AllEnemy;
 	std::vector<std::shared_ptr<ARecMapCompoBase>> AllRecComponent;
 

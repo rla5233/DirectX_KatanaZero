@@ -53,6 +53,8 @@ namespace ImgRes
 	const std::string_view ui_shift_down			= "spr_keyboard_shift_1.png";
 	const std::string_view ui_left_click			= "spr_left_click_0.png";
 	const std::string_view ui_right_click			= "spr_right_click_0.png";
+	const std::string_view ui_go					= "spr_go.png";
+	const std::string_view ui_go_arrow				= "spr_go_arrow.png";
 
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";

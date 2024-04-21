@@ -177,6 +177,9 @@
     <ClInclude Include="MainCamera.h">
       <Filter>Level\000.Object\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Go.h">
+      <Filter>Level\000.Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -280,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="MainCamera.cpp">
       <Filter>Level\000.Object\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Go.cpp">
+      <Filter>Level\000.Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
