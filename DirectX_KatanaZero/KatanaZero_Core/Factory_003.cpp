@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Factory_003.h"
 
+#include "MainCamera.h"
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "Up_HUD.h"
@@ -26,8 +27,8 @@ void AFactory_003::Tick(float _DeltaTime)
 void AFactory_003::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
-
-	GetWorld()->GetMainCamera()->SetActorLocation({ 665.0f, 392.0f, -100.0f });
+	
+	MainCamera->SetActorLocation({ 665.0f, 392.0f, -100.0f });
 
 	ColMap->SetColMapSprite(ImgRes::factory_colmap3, 1.0f, true);
 	ColMap->SetBGSprite(ImgRes::factory_background3, 1.0f, true);

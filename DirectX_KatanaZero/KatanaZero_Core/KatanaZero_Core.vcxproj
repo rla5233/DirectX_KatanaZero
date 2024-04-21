@@ -175,10 +175,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ColMapObject.h">
       <SubType>
       </SubType>
@@ -303,10 +299,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundObject.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>
