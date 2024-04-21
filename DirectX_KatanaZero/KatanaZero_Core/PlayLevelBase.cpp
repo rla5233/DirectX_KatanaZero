@@ -10,6 +10,8 @@
 #include "Up_HUD.h"
 #include "Go.h"
 
+#include <EngineCore/BlurEffect.h>
+
 APlayLevelBase::APlayLevelBase()
 {
 }

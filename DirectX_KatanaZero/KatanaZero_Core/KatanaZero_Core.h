@@ -18,6 +18,6 @@ protected:
 
 private:
 	void ResLoad();
-
+	void CreateRes();
 };
 

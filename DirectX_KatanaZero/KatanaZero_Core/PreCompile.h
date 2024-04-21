@@ -20,6 +20,7 @@
 #include <EngineCore/Widget.h>
 #include <EngineCore/EngineSprite.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
+#include <EngineCore/EngineRenderTarget.h>
 
 #include "ContentsMath.h"
 #include "ContentsEnum.h"

@@ -287,5 +287,8 @@
     <ClCompile Include="Go.cpp">
       <Filter>Level\000.Object\UI</Filter>
     </ClCompile>
+    <ClCompile Include="KatanaZero_Resource.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

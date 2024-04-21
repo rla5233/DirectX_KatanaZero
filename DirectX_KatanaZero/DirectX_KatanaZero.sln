@@ -40,6 +40,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KatanaZero", "KatanaZero\Ka
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineShader", "EngineShader\EngineShader.vcxproj", "{CF634C22-38C8-4AEE-9E40-75D691B30BB2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KatanaZero_Shader", "KatanaZero_Shader\KatanaZero_Shader.vcxproj", "{13781911-A81E-4987-A377-7CBC6DC40488}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -96,6 +98,14 @@ Global
 		{CF634C22-38C8-4AEE-9E40-75D691B30BB2}.Release|x64.Build.0 = Release|x64
 		{CF634C22-38C8-4AEE-9E40-75D691B30BB2}.Release|x86.ActiveCfg = Release|Win32
 		{CF634C22-38C8-4AEE-9E40-75D691B30BB2}.Release|x86.Build.0 = Release|Win32
+		{13781911-A81E-4987-A377-7CBC6DC40488}.Debug|x64.ActiveCfg = Debug|x64
+		{13781911-A81E-4987-A377-7CBC6DC40488}.Debug|x64.Build.0 = Debug|x64
+		{13781911-A81E-4987-A377-7CBC6DC40488}.Debug|x86.ActiveCfg = Debug|Win32
+		{13781911-A81E-4987-A377-7CBC6DC40488}.Debug|x86.Build.0 = Debug|Win32
+		{13781911-A81E-4987-A377-7CBC6DC40488}.Release|x64.ActiveCfg = Release|x64
+		{13781911-A81E-4987-A377-7CBC6DC40488}.Release|x64.Build.0 = Release|x64
+		{13781911-A81E-4987-A377-7CBC6DC40488}.Release|x86.ActiveCfg = Release|Win32
+		{13781911-A81E-4987-A377-7CBC6DC40488}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +117,7 @@ Global
 		{695AA22C-FBB3-4A66-B37E-A8EEFBE0806C} = {E66DB8C6-2172-4AD2-BDB7-D5F9529D18DA}
 		{F0138009-D211-4E6E-8C86-E617B7D230E3} = {52E20A2B-9520-4630-84DA-D890579F4E43}
 		{CF634C22-38C8-4AEE-9E40-75D691B30BB2} = {CAAD39F7-7BAF-4EE4-9D5E-1CF9221B37E5}
+		{13781911-A81E-4987-A377-7CBC6DC40488} = {E66DB8C6-2172-4AD2-BDB7-D5F9529D18DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7BE7F74F-A22C-4B8E-8AD0-E27FAF0CC9A9}

@@ -338,6 +338,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="KatanaZero_Resource.cpp" />
     <ClCompile Include="MainCamera.cpp">
       <SubType>
       </SubType>
