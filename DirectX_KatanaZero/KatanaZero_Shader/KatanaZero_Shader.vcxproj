@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <FxCompile Include="FadeEffectShader.hlsl">
+    <FxCompile Include="GrayScaleEffectShader.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
@@ -135,8 +135,9 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="KatanaZeroShaderBase.hlsli" />
-    <None Include="Transform.hlsli" />
+    <None Include="KZ_ShaderBase.hlsli" />
+    <None Include="KZ_Texture.hlsli" />
+    <None Include="KZ_Vertex.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

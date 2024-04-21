@@ -79,6 +79,9 @@
     <Filter Include="Level\000.Object\Player">
       <UniqueIdentifier>{ad00d2b5-1e9b-44f1-a040-026afa6a0648}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Effect">
+      <UniqueIdentifier>{967472ec-7757-4243-86eb-de8799d02bf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -179,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="Go.h">
       <Filter>Level\000.Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GrayScale.h">
+      <Filter>Object\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="KatanaZero_Resource.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GrayScale.cpp">
+      <Filter>Object\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

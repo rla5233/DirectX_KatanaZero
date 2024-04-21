@@ -4,6 +4,13 @@
 void UKatanaZero_Core::CreateRes()
 {
 	// Material »ý¼º
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("GrayScale");
+		Mat->SetPixelShader("GrayScaleEffectShader.fx");
+		Mat->SetVertexShader("GrayScaleEffectShader.fx");
+	}
+	 
+	
 	//std::shared_ptr<UEngineMaterial> Blur = UEngineMaterial::Create("MyBlur");
 	//if (Blur != nullptr)
 	//{

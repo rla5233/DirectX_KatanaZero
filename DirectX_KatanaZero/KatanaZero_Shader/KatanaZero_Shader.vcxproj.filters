@@ -9,15 +9,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="FadeEffectShader.hlsl">
+    <FxCompile Include="GrayScaleEffectShader.fx">
       <Filter>Effect</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="KatanaZeroShaderBase.hlsli">
+    <None Include="KZ_ShaderBase.hlsli">
       <Filter>Header</Filter>
     </None>
-    <None Include="Transform.hlsli">
+    <None Include="KZ_Texture.hlsli">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="KZ_Vertex.hlsli">
       <Filter>Header</Filter>
     </None>
   </ItemGroup>
