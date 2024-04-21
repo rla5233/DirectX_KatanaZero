@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Up_HUD.h"
 
+#include "PlayLevelBase.h"
+
 AUp_HUD::AUp_HUD()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -120,7 +122,7 @@ void AUp_HUD::SettingTransform()
 	// Mid
 	Timer_Bar->SetAutoSize(2.0f, true);
 	Timer->SetAutoSize(2.0f, true);
-	Timer_Bar_Black->SetScale({ 2.0f, 22.0f, 1.0f });
+	Timer_Bar_Black->SetScale({ 0.0f, 22.0f, 1.0f });
 	
 	// Right
 	R_ClickIcon->SetAutoSize(2.0f, true);
@@ -182,7 +184,14 @@ void AUp_HUD::StateInit()
 	State.SetUpdateFunction("Wait", [=](float _DeltaTime) {});
 	State.SetUpdateFunction("Play", [=](float _DeltaTime) 
 		{
-			
+			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+			float AddScaleX = (188.0f * _DeltaTime) / PlayLevel->GetTotalPlayTime();
+			if (188.0f < Timer_Bar_Black->GetLocalScale().X)
+			{
+				AddScaleX = 0.0f;
+			}
+
+			Timer_Bar_Black->AddScale({ AddScaleX, 0.0f, 0.0f });
 		}
 	);
 	

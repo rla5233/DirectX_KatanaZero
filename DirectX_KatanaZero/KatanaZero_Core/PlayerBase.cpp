@@ -63,7 +63,7 @@ void APlayerBase::BeginPlay()
 	EffectInit();
 	StateInit();
 
-	SetRecordingSize(0.0f);
+	SetRecordingSize();
 }
 
 void APlayerBase::RendererInit()

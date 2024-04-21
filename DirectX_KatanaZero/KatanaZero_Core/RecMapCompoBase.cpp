@@ -23,7 +23,7 @@ void ARecMapCompoBase::BeginPlay()
 
 	StateInit();
 
-	SetRecordingSize(0.0f);
+	SetRecordingSize();
 }
 
 void ARecMapCompoBase::Tick(float _DeltaTime)

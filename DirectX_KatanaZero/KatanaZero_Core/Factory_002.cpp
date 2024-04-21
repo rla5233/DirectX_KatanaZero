@@ -26,6 +26,8 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
+	TotalPlayTime = 10.0f;
+
 	MainCamera->SetActorLocation({ 665.0f, 392.0f, -100.0f });
 
 	ColMap->SetColMapSprite(ImgRes::factory_colmap2, 1.0f, true);
@@ -41,8 +43,6 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	AllRecComponent.reserve(1);
 	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left);
-
-	PlayTime = 60.0f;
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

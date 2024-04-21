@@ -42,7 +42,7 @@ void AEnemyBase::BeginPlay()
 	DebugingRendererInit();
 	StateInit();
 
-	SetRecordingSize(0.0f);
+	SetRecordingSize();
 }
 
 void AEnemyBase::RendererInit()

@@ -34,7 +34,7 @@ public:
 	URecordingObject& operator=(const URecordingObject& _Other) = delete;
 	URecordingObject& operator=(URecordingObject&& _Other) noexcept = delete;
 
-	void SetRecordingSize(float _RecTime);
+	void SetRecordingSize();
 	void Recording(float _DeltaTime);
 
 	void SetReplayStart();
@@ -50,7 +50,7 @@ private:
 	AActor* Actor = nullptr;
 	
 	bool IsRecordingValue = false;
-	int MaxSize = 10000;
+	int MaxSize = 0;
 	int CurIndex = 0;
 	float TimeCount = Const::recording_delay;
 

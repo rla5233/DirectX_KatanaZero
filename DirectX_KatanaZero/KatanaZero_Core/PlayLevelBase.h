@@ -33,6 +33,11 @@ public:
 		return ColMap;
 	}
 
+	inline float GetTotalPlayTime() const
+	{
+		return TotalPlayTime;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -52,7 +57,7 @@ protected:
 	std::vector<std::shared_ptr<AEnemyBase>> AllEnemy;
 	std::vector<std::shared_ptr<ARecMapCompoBase>> AllRecComponent;
 
-	float PlayTime = 0.0f;
+	float TotalPlayTime = 0.0f;
 
 
 // FSM
