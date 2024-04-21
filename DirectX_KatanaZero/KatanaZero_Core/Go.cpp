@@ -16,6 +16,7 @@ void AGo::BeginPlay()
 	Super::BeginPlay();
 	
 	Init();
+	StateInit();
 }
 
 void AGo::Init()
@@ -44,7 +45,44 @@ void AGo::SetActorLocation(const FVector& _Pos)
 	Arrow->SetPosition(Pos);
 }
 
+void AGo::AddActorLocation(const FVector& _Pos)
+{
+	FVector Pos = _Pos;
+	Go->AddPosition(Pos);
+	Arrow->AddPosition(Pos);
+}
+
 void AGo::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
+}
+
+void AGo::StateInit()
+{
+	// State Create
+	State.CreateState("Repeat");
+
+	// State Start
+	State.SetStartFunction("Repeat", [=] 
+		{ 
+			Velocity.X = MaxSpeed;
+			SetActorLocation(RepeatPos);
+		}
+	);
+
+	// State Update
+	State.SetUpdateFunction("Repeat", [=](float _DeltaTime) 
+		{
+			Velocity += { -MaxSpeed * _DeltaTime, 0.0f, 0.0f };
+			AddActorLocation(Velocity * _DeltaTime);
+			if (0.2f > abs(Velocity.X))
+			{
+				SetActorLocation(RepeatPos);
+				Velocity.X = MaxSpeed;
+			}
+		}
+	);
+
 }

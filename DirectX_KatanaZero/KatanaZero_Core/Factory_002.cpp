@@ -46,6 +46,8 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left);
 
 	Go = GetWorld()->SpawnActor<AGo>("Go");
+	Go->SetRepeatPos({ 500.0f, 200.0f, 0.0f });
+	Go->StateChange("Repeat");
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)
