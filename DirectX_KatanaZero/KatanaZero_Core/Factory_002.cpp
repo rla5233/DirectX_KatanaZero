@@ -28,6 +28,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	Super::LevelStart(_PrevLevel);
 
 	TotalPlayTime = 60.0f;
+	TotalEnemy = 3;
 
 	MainCamera->SetActorLocation({ 665.0f, 392.0f, -100.0f });
 
@@ -44,10 +45,6 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	AllRecComponent.reserve(1);
 	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left);
-
-	Go = GetWorld()->SpawnActor<AGo>("Go");
-	Go->SetRepeatPos({ 500.0f, 200.0f, 0.0f });
-	Go->StateChange("Repeat");
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)
@@ -73,4 +70,12 @@ void AFactory_002::ResetPlayer()
 	{
 		Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
 	}
+}
+
+void AFactory_002::ClearStart()
+{
+	Super::ClearStart();
+
+	Go->SetRepeatPos({ 500.0f, 200.0f, 0.0f });
+	Go->StateChange("Repeat");
 }

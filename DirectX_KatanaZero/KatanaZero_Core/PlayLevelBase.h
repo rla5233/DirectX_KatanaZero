@@ -39,6 +39,19 @@ public:
 		return TotalPlayTime;
 	}
 
+	inline void EnemyDeadUpdate()
+	{
+		--TotalEnemy;
+
+#ifdef _DEBUG
+		if (0 > TotalEnemy)
+		{
+			MsgBoxAssert("적의 수 음수가 되었습니다.");
+			return;
+		}
+#endif // _DEBUG
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -47,6 +60,7 @@ protected:
 	void LevelEnd(ULevel* _NextLevel) override;
 
 	bool IsStageClear();
+	bool IsRelayStart();
 	virtual void ChangeStage() {};
 
 protected:
@@ -60,12 +74,14 @@ protected:
 	std::vector<std::shared_ptr<ARecMapCompoBase>> AllRecComponent;
 
 	float TotalPlayTime = 0.0f;
-
+	int TotalEnemy = 0;
 
 // FSM
-private:
+protected:
 	UStateManager State;
 	void StateInit();
+
+	virtual void ClearStart();
 
 	void Replay(float _DeltaTime);
 

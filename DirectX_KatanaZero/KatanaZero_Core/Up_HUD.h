@@ -16,6 +16,11 @@ public:
 	AUp_HUD& operator=(const AUp_HUD& _Other) = delete;
 	AUp_HUD& operator=(AUp_HUD&& _Other) noexcept = delete;
 
+	inline void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

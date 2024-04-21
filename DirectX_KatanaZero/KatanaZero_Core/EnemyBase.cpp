@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "EnemyBase.h"
 
+#include "PlayLevelBase.h"
+
 AEnemyBase::AEnemyBase()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -211,6 +213,9 @@ void AEnemyBase::Turn(float _DeltaTime)
 
 void AEnemyBase::HitFallStart()
 {
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	PlayLevel->EnemyDeadUpdate();
+
 	if (0.0f > HitDir.X)
 	{
 		Body->SetDir(EEngineDir::Left);

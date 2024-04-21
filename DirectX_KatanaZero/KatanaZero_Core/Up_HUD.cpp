@@ -175,10 +175,33 @@ void AUp_HUD::StateInit()
 	// State Create
 	State.CreateState("Wait");
 	State.CreateState("Play");
+	State.CreateState("Replay");
 	
 	// State Start
 	State.SetStartFunction("Wait", [=] {});
 	State.SetStartFunction("Play", [=] {});
+	State.SetStartFunction("Replay", [=] 
+		{
+			Bar->SetActive(false);
+
+			Timer->SetActive(false);
+			Timer_Bar->SetActive(false);
+			Timer_Bar_Black->SetActive(false);
+
+			Battery->SetActive(false);
+			for (size_t i = 0; i < Battery_Part.size(); i++)
+			{
+				Battery_Part[i]->SetActive(false);
+			}
+			Shift->SetActive(false);
+
+			Weapon->SetActive(false);
+			KatanaIcon->SetActive(false);
+			ItemIcon->SetActive(false);
+			L_ClickIcon->SetActive(false);
+			R_ClickIcon->SetActive(false);
+		}
+	);
 	
 	// State Update
 	State.SetUpdateFunction("Wait", [=](float _DeltaTime) {});
@@ -194,7 +217,8 @@ void AUp_HUD::StateInit()
 			Timer_Bar_Black->AddScale({ AddScaleX, 0.0f, 0.0f });
 		}
 	);
-	
+
+	State.SetUpdateFunction("Replay", [=](float _DeltaTime) {});	
 }
 
 

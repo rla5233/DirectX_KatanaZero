@@ -29,5 +29,9 @@ protected:
 private:
 	void ResetPlayer() override;
 
+// FSM	
+protected:
+	void  ClearStart() override;
+
 };
 

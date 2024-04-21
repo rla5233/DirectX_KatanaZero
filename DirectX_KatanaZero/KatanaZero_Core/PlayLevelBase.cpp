@@ -8,6 +8,7 @@
 #include "EnemyBase.h"
 #include "MouseAim.h"
 #include "Up_HUD.h"
+#include "Go.h"
 
 APlayLevelBase::APlayLevelBase()
 {
@@ -47,6 +48,7 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	ColMap->Destroy();
 	Player->Destroy();
 	HUD->Destroy();
+	Go->Destroy();
 
 	for (size_t i = 0; i < AllEnemy.size(); i++)
 	{
@@ -64,6 +66,7 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	ColMap = nullptr;
 	Player = nullptr;
 	HUD = nullptr;
+	Go = nullptr;
 
 	AllEnemy.clear();
 	AllRecComponent.clear();
@@ -79,6 +82,18 @@ void APlayLevelBase::Tick(float _DeltaTime)
 }
 
 bool APlayLevelBase::IsStageClear()
+{
+	bool Result = false;
+
+	if (0 == TotalEnemy)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
+bool APlayLevelBase::IsRelayStart()
 {
 	bool Result = false;
 
@@ -155,10 +170,12 @@ void APlayLevelBase::StateInit()
 {
 	// State 생성
 	State.CreateState("Play");
+	State.CreateState("Clear");
 	State.CreateState("Replay");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Play", [=] {});
+	State.SetStartFunction("Clear", std::bind(&APlayLevelBase::ClearStart, this));
 	State.SetStartFunction("Replay", [=] 
 		{ 
 			Player->StateChange("Replay");
@@ -173,6 +190,9 @@ void APlayLevelBase::StateInit()
 				AllRecComponent[i]->StateChange("Replay");
 			}
 
+			Go->StateChange("Replay");
+			HUD->StateChange("Replay");
+
 			InputOn();
 		}
 	);
@@ -183,6 +203,17 @@ void APlayLevelBase::StateInit()
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			if (true == IsStageClear())
 			{
+				State.ChangeState("Clear");
+				return;
+			}
+		}
+	);
+
+	State.SetUpdateFunction("Clear", [=](float)
+		{
+			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+			if (true == IsRelayStart())
+			{
 				State.ChangeState("Replay");
 				return;
 			}
@@ -192,6 +223,11 @@ void APlayLevelBase::StateInit()
 	State.SetUpdateFunction("Replay", std::bind(&APlayLevelBase::Replay, this, std::placeholders::_1));
 
 	// State End 함수 세팅
+}
+
+void APlayLevelBase::ClearStart()
+{
+	Go = GetWorld()->SpawnActor<AGo>("Go");
 }
 
 void APlayLevelBase::Replay(float _DeltaTime)
