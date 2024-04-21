@@ -21,6 +21,7 @@ struct UGrayScalePSOuput
     float4 COLOR : SV_Target0;
 };
 
+// Target BackBuffer
 TextureSet(Image, 0)
 
 UGrayScalePSOuput UGrayScaleEffect_PS(UGrayScaleVSOuput _Input)
