@@ -131,12 +131,17 @@ void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
 
 void APlayerBase::AttackCollisionCheck()
 {
+	AttackCol->CollisionEnter(EColOrder::Boundary, [=](std::shared_ptr<UCollision> _Other)
+		{
+			AttackCol->SetActive(false);
+		}
+	);
+
 	AttackCol->CollisionEnter(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
 		{
 			ADoor* Door = dynamic_cast<ADoor*>(_Other->GetActor());
 			Door->StateChange("Open");
 			AttackCol->SetActive(false);
-			return;
 		}
 	);
 
@@ -155,11 +160,6 @@ void APlayerBase::DoorColCheck()
 		nullptr,
 		[=](std::shared_ptr<UCollision> _Other)	{ IsColDoorValue = false; }
 	);
-
-	{
-		std::string Msg = std::format("IsColDoor : {}\n", IsColDoorValue);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
 }
 
 bool APlayerBase::IsDirChangeKeyDown()

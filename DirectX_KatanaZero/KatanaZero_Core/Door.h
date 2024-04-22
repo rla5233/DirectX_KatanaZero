@@ -28,9 +28,5 @@ private:
 	UCollision* BodyCol = nullptr;
 	UCollision* HitCol = nullptr;
 
-//FSM
-private:
-
-
 };
 

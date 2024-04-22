@@ -85,6 +85,7 @@ void ADoor::StateInit()
 			BodyCol->SetActive(false);
 			HitCol->SetActive(true);
 			GetBody()->ChangeAnimation(Anim::compo_door_open);
+			DelayCallBack(0.25f, [=] { State.ChangeState("Opened"); });
 		}
 	);
 
@@ -98,8 +99,8 @@ void ADoor::StateInit()
 				{
 					AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
 					Enemy->HitByDoor(GetBody()->GetDir());
-					HitCol->SetActive(false);
 					State.ChangeState("Opened");
+					return;
 				}
 			);
 		}
@@ -109,4 +110,5 @@ void ADoor::StateInit()
 
 
 	// State End
+	State.SetEndFunction("Open", [=] { HitCol->SetActive(false); });
 }

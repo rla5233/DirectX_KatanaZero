@@ -762,7 +762,7 @@ void APlayerBase::StateInit()
 
 	// State End 함수 세팅
 	State.SetEndFunction("Attack",			[=] { AttackCol->SetActive(false); });
-	State.SetEndFunction("WallSlide",		[=] {	Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
+	State.SetEndFunction("WallSlide",		[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
 	State.SetEndFunction("Flip",			[=] { Velocity.Y = 0.0f; });
 	State.SetEndFunction("KickDoor",		[=] { IsColDoorValue = false; });
 }
