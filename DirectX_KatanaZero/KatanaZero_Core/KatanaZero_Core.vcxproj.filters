@@ -189,6 +189,9 @@
     <ClInclude Include="ReplayUI.h">
       <Filter>Level\000.Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CeilLaser.h">
+      <Filter>Level\000.Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -304,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="ReplayUI.cpp">
       <Filter>Level\000.Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CeilLaser.cpp">
+      <Filter>Level\000.Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

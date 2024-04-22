@@ -110,9 +110,7 @@ void APlayerBase::DefaultUpdate(float _DeltaTime)
 	SetCroudEffectUpdate(_DeltaTime);
 	DoorColCheck();
 
-	std::string CurState = State.GetCurStateName();
-
-	if ("Replay" != CurState)
+	if (true == IsRecording())
 	{
 		Recording(_DeltaTime);
 	}

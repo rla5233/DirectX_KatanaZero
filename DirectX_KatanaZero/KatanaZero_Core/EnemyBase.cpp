@@ -158,9 +158,7 @@ void AEnemyBase::Tick(float _DeltaTime)
 
 void AEnemyBase::DefaultUpdate(float _DeltaTime)
 {
-	std::string CurState = State.GetCurStateName();
-
-	if ("Replay" != CurState)
+	if (true == IsRecording())
 	{
 		Recording(_DeltaTime);
 	}

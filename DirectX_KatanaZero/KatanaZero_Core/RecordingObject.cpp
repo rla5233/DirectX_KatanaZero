@@ -76,6 +76,7 @@ void URecordingObject::Recording(float _DeltaTime)
 
 void URecordingObject::SetReplayStart()
 {
+	IsRecordingValue = false;
 	CurIndex = 0;
 }
 

@@ -50,6 +50,11 @@ public:
 		IsRecordingValue = _Active;
 	}
 
+	inline bool IsRecording() const 
+	{
+		return IsRecordingValue;
+	}
+
 	inline void SetReplaySpeed(int _Speed)
 	{
 		ReplaySpeed = _Speed;
