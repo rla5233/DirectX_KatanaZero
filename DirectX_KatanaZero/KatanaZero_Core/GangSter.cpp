@@ -61,5 +61,6 @@ void AGangSter::DeadStart()
 {
 	Super::DeadStart();
 
+	GetBody()->AddPosition({ 0.0f, 12.0f, 0.0f });
 	GetBody()->ChangeAnimation(Anim::enemy_gangster_dead);
 }

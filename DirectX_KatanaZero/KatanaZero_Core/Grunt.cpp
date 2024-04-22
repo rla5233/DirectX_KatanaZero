@@ -52,6 +52,7 @@ void AGrunt::DeadStart()
 {
 	Super::DeadStart();
 
+	GetBody()->AddPosition({ 0.0f, 13.0f, 0.0f });
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_dead);
 }
 

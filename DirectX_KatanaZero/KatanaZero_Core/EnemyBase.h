@@ -5,10 +5,10 @@
 #include "RecordingObject.h"
 
 // 설명 :
-class AEnemyBase : 
-	public AActor, 
-	public UPixelColObject, 
-	public UPhysicsObject, 
+class AEnemyBase :
+	public AActor,
+	public UPixelColObject,
+	public UPhysicsObject,
 	public URecordingObject
 {
 	GENERATED_BODY(AActor)
@@ -57,6 +57,7 @@ protected:
 	virtual void CollisionInit();
 
 	UCollision* BodyCol = nullptr;
+	UCollision* DeadCol = nullptr;
 
 private:
 	void DefaultUpdate(float _DeltaTime);
@@ -67,7 +68,7 @@ private:
 	USpriteRenderer* Body = nullptr;
 
 	FVector HitDir = FVector::Zero;
-	
+
 	float TimeCount = 0.0f;
 
 	// 수정 (삭제 필요)
@@ -78,7 +79,7 @@ private:
 	void DebugingRendererInit();
 	void DebugingUpdate();
 
-// FSM
+	// FSM
 private:
 	UStateManager State;
 	void StateInit();
@@ -114,7 +115,7 @@ protected:
 	void ReplayStart();
 	void Replay(float _DeltaTime);
 
-// FSM Update
+	// FSM Update
 private:
 
 };

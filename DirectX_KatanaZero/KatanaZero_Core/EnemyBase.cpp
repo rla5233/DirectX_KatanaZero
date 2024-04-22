@@ -8,10 +8,12 @@ AEnemyBase::AEnemyBase()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
 	Body = CreateDefaultSubObject<USpriteRenderer>("Enemy_Renderer");
-	BodyCol  = CreateDefaultSubObject<UCollision>("Enemy_Body_Col");
+	BodyCol = CreateDefaultSubObject<UCollision>("Enemy_Body_Col");
+	DeadCol = CreateDefaultSubObject<UCollision>("Enemy_Dead_Col");
 
 	Body->SetupAttachment(Root);
 	BodyCol->SetupAttachment(Root);
+	DeadCol->SetupAttachment(Root);
 
 	SetRoot(Root);
 
@@ -21,10 +23,10 @@ AEnemyBase::AEnemyBase()
 	RendererBT = CreateDefaultSubObject<USpriteRenderer>("RendererBT");
 	RendererBB = CreateDefaultSubObject<USpriteRenderer>("RendererBB");
 
-	RendererFT->SetupAttachment(GetRoot());
-	RendererFB->SetupAttachment(GetRoot());
-	RendererBT->SetupAttachment(GetRoot());
-	RendererBB->SetupAttachment(GetRoot());
+	RendererFT->SetupAttachment(Root);
+	RendererFB->SetupAttachment(Root);
+	RendererBT->SetupAttachment(Root);
+	RendererBB->SetupAttachment(Root);
 }
 
 AEnemyBase::~AEnemyBase()
@@ -59,6 +61,9 @@ void AEnemyBase::CollisionInit()
 {
 	BodyCol->SetCollisionType(ECollisionType::Rect);
 	BodyCol->SetCollisionGroup(EColOrder::Enemy);
+
+	DeadCol->SetCollisionType(ECollisionType::Rect);
+	DeadCol->SetCollisionGroup(EColOrder::DeadEnemy);
 }
 
 void AEnemyBase::DebugingRendererInit()
@@ -250,11 +255,18 @@ void AEnemyBase::HitFallStart()
 
 	SetVelocity(HitDir * 1000.0f);
 	BodyCol->SetActive(false);
+
+	DeadCol->SetPosition(BodyCol->GetLocalPosition());
+	DeadCol->SetScale(BodyCol->GetLocalScale());
+	DeadCol->SetActive(true);
 }
 
 void AEnemyBase::HitFall(float _DeltaTime)
 {
 	EEngineDir Dir = Body->GetDir();
+
+	// 충돌 체크
+	DeadCol->CollisionEnter(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other) {	Velocity.X *= -1.0f; });
 
 	// 속도 업데이트
 	ApplyGravity(_DeltaTime);
@@ -337,7 +349,7 @@ void AEnemyBase::StateInit()
 
 	// State End 함수 세팅
 	State.SetEndFunction("PatrolTurn", [=] { RendererDirChange(); });
-
+	State.SetEndFunction("HitFall", [=] { DeadCol->SetActive(false); });
 
 
 	State.SetEndFunction("Turn", [=] {	RendererDirChange(); });
