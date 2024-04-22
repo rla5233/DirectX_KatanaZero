@@ -29,6 +29,13 @@ public:
 		State.ChangeState(_State);
 	}
 
+	void Destroy()
+	{
+		Go->SetActive(false);
+		Arrow->SetActive(false);
+		AActor::Destroy();
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

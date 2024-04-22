@@ -99,8 +99,6 @@ protected:
 
 	virtual void ClearStart();
 
-	void Replay(float _DeltaTime);
-
 // µð¹ö±ë °ü·Ã
 private:
 	void Debug();

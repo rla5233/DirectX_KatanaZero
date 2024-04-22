@@ -104,6 +104,29 @@ void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
 	}
 }
 
+void AEnemyBase::HitByPlayer(FVector _AttDir)
+{
+	HitDir = _AttDir;
+	State.ChangeState("HitFall");
+}
+
+void AEnemyBase::HitByDoor(EEngineDir _Dir)
+{
+	HitDir = { -10.0f, 2.0f, 0.0f };
+
+	switch (_Dir)
+	{
+	case EEngineDir::Left:
+		break;
+	case EEngineDir::Right:
+		HitDir.X *= -1;
+		break;
+	}
+
+	HitDir.Normalize2D();
+	State.ChangeState("HitFall");
+}
+
 void AEnemyBase::RendererDirChange()
 {
 	EEngineDir Dir = Body->GetDir();

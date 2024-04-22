@@ -46,11 +46,8 @@ public:
 
 	void SetVelocityByDir(const FVector& _Vel);
 
-	void HitByPlayer(FVector _AttDir)
-	{
-		HitDir = _AttDir;
-		State.ChangeState("HitFall");
-	}
+	void HitByPlayer(FVector _AttDir);
+	void HitByDoor(EEngineDir _Dir);
 
 protected:
 	void BeginPlay() override;

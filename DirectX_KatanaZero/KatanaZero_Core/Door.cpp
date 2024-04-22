@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Door.h"
 
+#include "EnemyBase.h"
+
 ADoor::ADoor()
 {
 	BodyCol = CreateDefaultSubObject<UCollision>("DoorBody");
@@ -42,6 +44,10 @@ void ADoor::CollisionInit()
 	BodyCol->SetScale({ 25.0f, 120.0f, 1.0f });
 	BodyCol->SetPosition({ 37.0f, 0.0f, 0.0f });
 
+	HitCol->SetCollisionType(ECollisionType::Rect);
+	HitCol->SetCollisionGroup(EColOrder::PlayerAttack);
+	HitCol->SetScale({ 100.0f, 120.0f, 1.0f });
+
 	BodyCol->SetActive(true);
 	HitCol->SetActive(false);
 }
@@ -53,6 +59,7 @@ void ADoor::StateInit()
 	// State Create
 	State.CreateState("Idle");
 	State.CreateState("Open");
+	State.CreateState("Opened");
 
 	// State Start
 	State.SetStartFunction("Idle", [=] 
@@ -62,7 +69,6 @@ void ADoor::StateInit()
 			switch (Dir)
 			{
 			case EEngineDir::Left:
-				
 				break;
 			case EEngineDir::Right:
 				BodyColPos.X = -BodyColPos.X;
@@ -77,13 +83,29 @@ void ADoor::StateInit()
 	State.SetStartFunction("Open", [=]
 		{
 			BodyCol->SetActive(false);
+			HitCol->SetActive(true);
 			GetBody()->ChangeAnimation(Anim::compo_door_open);
 		}
 	);
 
+	State.SetStartFunction("Opened", [=] {});
+
 	// State Update
 	State.SetUpdateFunction("Idle", [=](float _DeltaTime) {});
-	State.SetUpdateFunction("Open", [=](float _DeltaTime) {});
+	State.SetUpdateFunction("Open", [=](float _DeltaTime) 
+		{
+			HitCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
+				{
+					AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
+					Enemy->HitByDoor(GetBody()->GetDir());
+					HitCol->SetActive(false);
+					State.ChangeState("Opened");
+				}
+			);
+		}
+	);
+
+	State.SetUpdateFunction("Opened", [=](float _DeltaTime) {});
 
 
 	// State End

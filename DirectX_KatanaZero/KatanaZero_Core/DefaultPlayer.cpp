@@ -31,7 +31,7 @@ void ADefaultPlayer::CollisionInit()
 	BodyCol->SetActive(true);
 
 	FVector FrontPos = { 0.0f, 40.0f, 0.0f };
-	FVector FrontScale = { 10.0f, 80.0f, 1.0f };
+	FVector FrontScale = { 5.0f, 80.0f, 1.0f };
 	FrontCol->SetPosition(FrontPos);
 	FrontCol->SetScale(FrontScale);
 	FrontCol->SetActive(true);

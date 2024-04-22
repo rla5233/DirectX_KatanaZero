@@ -207,6 +207,20 @@ void APlayLevelBase::StateInit()
 	State.SetStartFunction("Clear", std::bind(&APlayLevelBase::ClearStart, this));
 	State.SetStartFunction("Replay", [=] 
 		{ 
+			// Recording Off
+			Player->SetRecordingActive(false);
+
+			for (size_t i = 0; i < AllEnemy.size(); i++)
+			{
+				AllEnemy[i]->SetRecordingActive(false);
+			}
+
+			for (size_t i = 0; i < AllRecComponent.size(); i++)
+			{
+				AllRecComponent[i]->SetRecordingActive(false);
+			}
+
+			// Replay State Set
 			Player->StateChange("Replay");
 
 			for (size_t i = 0; i < AllEnemy.size(); i++)
@@ -267,31 +281,11 @@ void APlayLevelBase::StateInit()
 	);
 
 	// State End 함수 세팅
-	State.SetEndFunction("Clear", [=]
-		{
-			Player->SetRecordingActive(false);
-
-			for (size_t i = 0; i < AllEnemy.size(); i++)
-			{
-				AllEnemy[i]->SetRecordingActive(false);
-			}
-
-			for (size_t i = 0; i < AllRecComponent.size(); i++)
-			{
-				AllRecComponent[i]->SetRecordingActive(false);
-			}
-		}
-	);
 }
 
 void APlayLevelBase::ClearStart()
 {
 	Go = GetWorld()->SpawnActor<AGo>("Go");
-}
-
-void APlayLevelBase::Replay(float _DeltaTime)
-{
-
 }
 
 void APlayLevelBase::SetReplay()

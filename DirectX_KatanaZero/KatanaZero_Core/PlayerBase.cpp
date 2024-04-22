@@ -131,17 +131,19 @@ void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
 
 void APlayerBase::AttackCollisionCheck()
 {
-	AttackCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
-		{
-			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
-			Enemy->HitByPlayer(AttackDir);
-		}
-	);
-
 	AttackCol->CollisionEnter(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
 		{
 			ADoor* Door = dynamic_cast<ADoor*>(_Other->GetActor());
 			Door->StateChange("Open");
+			AttackCol->SetActive(false);
+			return;
+		}
+	);
+
+	AttackCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
+		{
+			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
+			Enemy->HitByPlayer(AttackDir);
 		}
 	);
 }
@@ -498,7 +500,10 @@ void APlayerBase::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 
+
 	DefaultUpdate(_DeltaTime);
+	
+	// Debug Rendering
 	DebugUpdate();
 }
 
