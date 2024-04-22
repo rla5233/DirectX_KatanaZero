@@ -150,7 +150,7 @@ void AUp_HUD::SettingTransform()
 	
 	// Mid
 	Timer_Bar->SetPosition({ 6.0f, WinScale.hY() + 5.0f, 0.0f });
-	Timer_Bar_Black->SetPosition({ 6.0f, WinScale.hY() + 5.0f, 0.0f });
+	Timer_Bar_Black->SetPosition({ 100.0f, WinScale.hY() + 5.0f, 0.0f });
 	Timer->SetPosition({ -10.0f, WinScale.hY() + 2.0f, 0.0f });
 	
 	// Right
@@ -205,7 +205,7 @@ void AUp_HUD::StateInit()
 	
 	// State Update
 	State.SetUpdateFunction("Wait", [=](float _DeltaTime) {});
-	State.SetUpdateFunction("Play", [=](float _DeltaTime) 
+	State.SetUpdateFunction("Play", [=](float _DeltaTime)
 		{
 			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 			float AddScaleX = (188.0f * _DeltaTime) / PlayLevel->GetTotalPlayTime();
@@ -215,6 +215,7 @@ void AUp_HUD::StateInit()
 			}
 
 			Timer_Bar_Black->AddScale({ AddScaleX, 0.0f, 0.0f });
+			Timer_Bar_Black->AddPosition({ AddScaleX * (-0.5f), 0.0f, 0.0f });
 		}
 	);
 
