@@ -36,22 +36,22 @@ void AReplayUI::Tick(float _DeltaTime)
 void AReplayUI::ImageInit()
 {
 	//Mouse = CreateWidget<UImage>(GetWorld(), "Replay_Mouse");
-	LeftBottomText = CreateWidget<UImage>(GetWorld(), "LeftBottom_Text");
-	RightTopText = CreateWidget<UImage>(GetWorld(), "RightTop_Text");
+	RightBottomText = CreateWidget<UImage>(GetWorld(), "RightBottom_Text");
+	LeftTopText = CreateWidget<UImage>(GetWorld(), "LeftTop_Text");
 
 	Mouse->CreateAnimation(Anim::ui_replay_right_click, ImgRes::ui_replay_right_click, 0.5f, true);
 	Mouse->ChangeAnimation(Anim::ui_replay_right_click);
-	LeftBottomText->SetSprite(ImgRes::ui_replay_LB_text);
+	RightBottomText->SetSprite(ImgRes::ui_replay_RB_text);
 
 	Mouse->SetOrder(ERenderOrder::UI);
-	LeftBottomText->AddToViewPort(EWidgetOrder::Top);
-	RightTopText->AddToViewPort(EWidgetOrder::Top);
+	RightBottomText->AddToViewPort(EWidgetOrder::Top);
+	LeftTopText->AddToViewPort(EWidgetOrder::Top);
 
 	Mouse->SetAutoSize(2.0f, true);
-	LeftBottomText->SetAutoSize(1.0f, true);
-	RightTopText->SetAutoSize(1.0f, true);
+	RightBottomText->SetAutoSize(1.0f, true);
+	LeftTopText->SetAutoSize(1.0f, true);
 
-	LeftBottomText->SetPosition({ 500.0f, -340.0f, 0.0f });
+	RightBottomText->SetPosition({ 500.0f, -340.0f, 0.0f });
 }
 
 void AReplayUI::StateInit()
@@ -60,64 +60,129 @@ void AReplayUI::StateInit()
 	State.CreateState("Play");
 	State.CreateState("Stop");
 	State.CreateState("Rewind");
+	State.CreateState("FastPlay");
 
 
 	// State Start
 	State.SetStartFunction("Play", [=] 
 		{
-			RightTopText->SetSprite(ImgRes::ui_replay_RT_play);
-			RightTopText->SetPosition({ -400.0f, 270.0f, 0.0f });
+			LeftTopText->SetSprite(ImgRes::ui_replay_LT_play);
+			LeftTopText->SetPosition({ -400.0f, 270.0f, 0.0f });
 		}
 	);
 
 	State.SetStartFunction("Stop", [=] 
 		{
-			RightTopText->SetSprite(ImgRes::ui_replay_RT_stop);
-			RightTopText->SetPosition({ -354.0f, 271.0f, 0.0f });
+			LeftTopText->SetSprite(ImgRes::ui_replay_LT_stop);
+			LeftTopText->SetPosition({ -354.0f, 271.0f, 0.0f });
 		}
 	);
 
-	State.SetStartFunction("Rewind", [=] {});
+	State.SetStartFunction("Rewind", [=] 
+		{
+			LeftTopText->SetSprite(ImgRes::ui_replay_LT_rewind);
+			LeftTopText->SetPosition({ -370.0f, 271.0f, 0.0f });
+		}
+	);
+
+	State.SetStartFunction("FastPlay", [=]
+		{
+			//RightTopText->SetSprite(ImgRes::ui_replay_RT_rewind);
+			//RightTopText->SetPosition({ -354.0f, 271.0f, 0.0f });
+		}
+	);
 
 
 	// State Update
 	State.SetUpdateFunction("Play", [=](float _DeltaTime) 
 		{
-			InputCheck();
 			MousePosUpdate();
+
+			// State Change Check
+			if (true == IsDown(VK_SPACE))
+			{
+				State.ChangeState("Stop");
+				return;
+			}
+
+			if (true == IsDown('A') || true == IsDown(VK_LEFT))
+			{
+				State.ChangeState("Rewind");
+				return;
+			}
+
+			if (true == IsDown('D') || true == IsDown(VK_RIGHT))
+			{
+				return;
+			}
 		}
 	);
 
 	State.SetUpdateFunction("Stop", [=](float _DeltaTime) 
 		{
-			InputCheck();
 			MousePosUpdate();
+
+			// State Change Check
+			if (true == IsDown(VK_SPACE))
+			{
+				State.ChangeState("Play");
+				return;
+			}
+
+			if (true == IsDown('A') || true == IsDown(VK_LEFT))
+			{
+				State.ChangeState("Rewind");
+				return;
+			}
+
+			if (true == IsDown('D') || true == IsDown(VK_RIGHT))
+			{
+				return;
+			}
 		}
 	);
-	State.SetUpdateFunction("Rewind", [=](float _DeltaTime) {});
-}
 
-void AReplayUI::InputCheck()
-{
-	if (true == IsDown(VK_SPACE))
-	{
-		if ("Play" == State.GetCurStateName())
-		{
-			State.ChangeState("Stop");
-			return;
+	State.SetUpdateFunction("Rewind", [=](float _DeltaTime) 
+		{	
+			MousePosUpdate();
+
+			// State Change Check
+			if (true == IsDown(VK_SPACE))
+			{
+				State.ChangeState("Stop");
+				return;
+			}
+
+			if (true == IsDown('A')|| true == IsDown(VK_LEFT))
+			{
+				return;
+			}
+
+			if (true == IsDown('D') || true == IsDown(VK_RIGHT))
+			{
+				State.ChangeState("Play");
+				return;
+			}
 		}
+	);
 
-		if ("Stop" == State.GetCurStateName())
+	State.SetUpdateFunction("FastPlay", [=](float _DeltaTime)
 		{
-			State.ChangeState("Play");
-			return;
+			MousePosUpdate();
+
+			// State Change Check
+			if (true == IsDown('A') || true == IsDown(VK_LEFT))
+			{
+				State.ChangeState("Play");
+				return;
+			}
+
+			if (true == IsDown('D') || true == IsDown(VK_RIGHT))
+			{
+				return;
+			}
 		}
-	}
-
-	if (true == IsDown('A') || true == IsDown(VK_LEFT))
-	{
-
-	}
+	);
 }
 
 void AReplayUI::MousePosUpdate()

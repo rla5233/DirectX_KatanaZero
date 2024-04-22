@@ -31,8 +31,8 @@ private:
 
 private:
 	USpriteRenderer* Mouse = nullptr;
-	UImage* LeftBottomText = nullptr;
-	UImage* RightTopText = nullptr;
+	UImage* LeftTopText = nullptr;
+	UImage* RightBottomText = nullptr;
 
 // FSM
 private:
@@ -40,7 +40,6 @@ private:
 
 	void StateInit();
 
-	void InputCheck();
 	void MousePosUpdate();
 };
 

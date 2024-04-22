@@ -55,10 +55,11 @@ namespace ImgRes
 	const std::string_view ui_right_click			= "spr_right_click_0.png";
 	const std::string_view ui_go					= "spr_go.png";
 	const std::string_view ui_go_arrow				= "spr_go_arrow.png";
-	const std::string_view ui_replay_LB_text		= "spr_replay_text_000.png";
-	const std::string_view ui_replay_RT_play		= "spr_replay_text_001.png";
-	const std::string_view ui_replay_RT_rewind		= "spr_replay_text_002.png";
-	const std::string_view ui_replay_RT_stop		= "spr_replay_text_003.png";
+	const std::string_view ui_replay_RB_text		= "spr_replay_text_000.png";
+	const std::string_view ui_replay_LT_play		= "spr_replay_text_001.png";
+	const std::string_view ui_replay_LT_rewind		= "spr_replay_text_002.png";
+	const std::string_view ui_replay_LT_stop		= "spr_replay_text_003.png";
+	const std::string_view ui_replay_LT_fast		= "spr_replay_text_004.png";
 	const std::string_view ui_replay_right_click	= "spr_right_click";
 
 	// Effect
