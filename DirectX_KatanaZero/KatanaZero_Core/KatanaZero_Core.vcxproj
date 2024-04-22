@@ -175,10 +175,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="BoundaryColObject.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ColMapObject.h">
       <SubType>
       </SubType>
@@ -315,10 +311,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGroundObject.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="BoundaryColObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>

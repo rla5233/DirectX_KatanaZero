@@ -94,7 +94,7 @@ void APlayerBase::CollisionInit()
 {
 	AttackCol->SetCollisionGroup(EColOrder::PlayerAttack);
 	AttackCol->SetCollisionType(ECollisionType::RotRect);
-	AttackCol->SetScale({ 110.0f, 75.0f, 1.0f });
+	AttackCol->SetScale({ 60.0f, 75.0f, 1.0f });
 	AttackCol->SetActive(false);
 
 	BodyCol->SetCollisionGroup(EColOrder::PlayerBody);
@@ -131,12 +131,6 @@ void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
 
 void APlayerBase::AttackCollisionCheck()
 {
-	AttackCol->CollisionEnter(EColOrder::Boundary, [=](std::shared_ptr<UCollision> _Other)
-		{
-			AttackCol->SetActive(false);
-		}
-	);
-
 	AttackCol->CollisionEnter(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
 		{
 			ADoor* Door = dynamic_cast<ADoor*>(_Other->GetActor());

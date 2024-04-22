@@ -59,8 +59,6 @@ public:
 		return std::dynamic_pointer_cast<RecCompoType>(NewCompo);
 	}
 
-	void CreateBoundaryCol(const FVector& _Pos, const FVector& _Scale);
-
 protected:
 	void SetGameMode(AGameMode* _GameMode)
 	{

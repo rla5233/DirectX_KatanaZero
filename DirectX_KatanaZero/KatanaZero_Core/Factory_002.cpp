@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "Factory_002.h"
 
-#include "BoundaryColObject.h"
 #include "MainCamera.h"
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
@@ -46,8 +45,6 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	AllRecComponent.reserve(1);
 	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left);
-		
-	CreateBoundaryCol({ 305.0f, 369.0f, 0.0f, }, { 605.0f, 60.0f, 1.0f });
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

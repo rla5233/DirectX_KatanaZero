@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "PlayLevelBase.h"
 
-#include "BoundaryColObject.h"
 #include "MainCamera.h"
 #include "ColMapObject.h"
 #include "RecMapCompoBase.h"
@@ -68,12 +67,6 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	{
 		AllRecComponent[i]->Destroy();
 		AllRecComponent[i] = nullptr;
-	}
-
-	for (std::shared_ptr<ABoundaryColObject> Col : AllBoundaryCol)
-	{
-		Col->Destroy();
-		Col = nullptr;
 	}
 
 	Aim = nullptr;

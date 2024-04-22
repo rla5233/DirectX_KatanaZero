@@ -189,9 +189,6 @@
     <ClInclude Include="ReplayUI.h">
       <Filter>Level\000.Object\UI</Filter>
     </ClInclude>
-    <ClInclude Include="BoundaryColObject.h">
-      <Filter>Level\000.Object\Map</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -307,9 +304,6 @@
     </ClCompile>
     <ClCompile Include="ReplayUI.cpp">
       <Filter>Level\000.Object\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="BoundaryColObject.cpp">
-      <Filter>Level\000.Object\Map</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

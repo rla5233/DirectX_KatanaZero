@@ -4,7 +4,6 @@
 #include "SpawnManager.h"
 
 class AMainCamera;
-class ABoundaryColObject;
 class AColMapObject;
 class ARecMapCompoBase;
 class ADefaultPlayer;
@@ -88,9 +87,6 @@ protected:
 	std::shared_ptr<AGo> Go = nullptr;
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
 	std::shared_ptr<AReplayUI> ReplayUI = nullptr;
-
-	// Col
-	std::list<std::shared_ptr<ABoundaryColObject>> AllBoundaryCol;
 
 	float TotalPlayTime = 0.0f;
 	int TotalEnemy = 0;
