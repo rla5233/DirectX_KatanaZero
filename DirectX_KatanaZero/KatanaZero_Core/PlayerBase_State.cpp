@@ -741,7 +741,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("Attack",		std::bind(&APlayerBase::AttackStart, this));
 	State.SetStartFunction("WallSlide",		std::bind(&APlayerBase::WallSlideStart, this));
 	State.SetStartFunction("Flip",			std::bind(&APlayerBase::FlipStart, this));
-	State.SetStartFunction("KickDoor",		[=] { Body->ChangeAnimation(Anim::player_kick_door);	});
+	State.SetStartFunction("KickDoor",		[=] { Body->ChangeAnimation(Anim::player_kick_door); });
 	State.SetStartFunction("Replay",		std::bind(&APlayerBase::ReplayStart, this));
 
 	// State Update 함수 세팅

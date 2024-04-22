@@ -248,7 +248,7 @@ void APlayLevelBase::Replay(float _DeltaTime)
 
 
 
-		if (true == IsDown(VK_LBUTTON))
+		if (true == IsDown(VK_RBUTTON))
 		{
 			InputOff();
 

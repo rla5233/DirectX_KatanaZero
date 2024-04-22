@@ -40,6 +40,7 @@ private:
 
 	void StateInit();
 
+	void InputCheck();
 	void MousePosUpdate();
 };
 

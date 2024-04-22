@@ -21,6 +21,7 @@ void AReplayUI::BeginPlay()
 
 	ImageInit();
 	StateInit();
+	InputOn();
 
 	State.ChangeState("Play");
 }
@@ -41,7 +42,6 @@ void AReplayUI::ImageInit()
 	Mouse->CreateAnimation(Anim::ui_replay_right_click, ImgRes::ui_replay_right_click, 0.5f, true);
 	Mouse->ChangeAnimation(Anim::ui_replay_right_click);
 	LeftBottomText->SetSprite(ImgRes::ui_replay_LB_text);
-	RightTopText->SetSprite(ImgRes::ui_replay_RT_play);
 
 	Mouse->SetOrder(ERenderOrder::UI);
 	LeftBottomText->AddToViewPort(EWidgetOrder::Top);
@@ -58,18 +58,66 @@ void AReplayUI::StateInit()
 {
 	// State Create
 	State.CreateState("Play");
+	State.CreateState("Stop");
+	State.CreateState("Rewind");
 
 
 	// State Start
-	State.SetStartFunction("Play", [=] {});
+	State.SetStartFunction("Play", [=] 
+		{
+			RightTopText->SetSprite(ImgRes::ui_replay_RT_play);
+			RightTopText->SetPosition({ -400.0f, 270.0f, 0.0f });
+		}
+	);
+
+	State.SetStartFunction("Stop", [=] 
+		{
+			RightTopText->SetSprite(ImgRes::ui_replay_RT_stop);
+			RightTopText->SetPosition({ -354.0f, 271.0f, 0.0f });
+		}
+	);
+
+	State.SetStartFunction("Rewind", [=] {});
 
 
 	// State Update
 	State.SetUpdateFunction("Play", [=](float _DeltaTime) 
 		{
+			InputCheck();
 			MousePosUpdate();
 		}
 	);
+
+	State.SetUpdateFunction("Stop", [=](float _DeltaTime) 
+		{
+			InputCheck();
+			MousePosUpdate();
+		}
+	);
+	State.SetUpdateFunction("Rewind", [=](float _DeltaTime) {});
+}
+
+void AReplayUI::InputCheck()
+{
+	if (true == IsDown(VK_SPACE))
+	{
+		if ("Play" == State.GetCurStateName())
+		{
+			State.ChangeState("Stop");
+			return;
+		}
+
+		if ("Stop" == State.GetCurStateName())
+		{
+			State.ChangeState("Play");
+			return;
+		}
+	}
+
+	if (true == IsDown('A') || true == IsDown(VK_LEFT))
+	{
+
+	}
 }
 
 void AReplayUI::MousePosUpdate()
