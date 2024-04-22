@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "Up_HUD.h"
+#include "Go.h"
 
 AFactory_003::AFactory_003()
 {
@@ -27,6 +28,9 @@ void AFactory_003::Tick(float _DeltaTime)
 void AFactory_003::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+	TotalPlayTime = 60.0f;
+	TotalEnemy = 0;
 	
 	MainCamera->SetActorLocation({ 665.0f, 392.0f, -100.0f });
 
@@ -55,4 +59,12 @@ void AFactory_003::ResetPlayer()
 	{
 		Player->SetActorLocation({ 175.0f, 300.0f, 0.0f });
 	}
+}
+
+void AFactory_003::ClearStart()
+{
+	Super::ClearStart();
+
+	Go->SetRepeatPos({ 500.0f, 40.0f, 0.0f });
+	Go->StateChange("Repeat");
 }
