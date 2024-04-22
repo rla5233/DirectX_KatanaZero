@@ -186,6 +186,9 @@
     <ClInclude Include="GrayScaleEffect.h">
       <Filter>Object\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="ReplayUI.h">
+      <Filter>Level\000.Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -298,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="GrayScaleEffect.cpp">
       <Filter>Object\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="ReplayUI.cpp">
+      <Filter>Level\000.Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
