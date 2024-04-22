@@ -42,6 +42,7 @@ void APlayerBase::EffectVecIdxUpdate()
 
 void APlayerBase::SetAttackEffect(float _Deg)
 {
+	AttackEffect->AnimationReset();
 	AttackEffect->ChangeAnimation(Anim::effect_player_slash);
 	AttackEffect->SetAutoSize(2.0f, true);
 	AttackEffect->SetPosition({ 0.0f, 30.0f, 0.0f });
@@ -51,6 +52,7 @@ void APlayerBase::SetAttackEffect(float _Deg)
 
 void APlayerBase::SetJumpEffect()
 {
+	JumpLandEffect->AnimationReset();
 	JumpLandEffect->ChangeAnimation(Anim::effect_player_jumpcloud);
 	JumpLandEffect->SetPosition(GetActorLocation() + FVector(0.0f, 52.0f, 0.0f));
 	JumpLandEffect->SetActive(true);
@@ -58,6 +60,7 @@ void APlayerBase::SetJumpEffect()
 
 void APlayerBase::SetLandEffect()
 {
+	JumpLandEffect->AnimationReset();
 	JumpLandEffect->ChangeAnimation(Anim::effect_player_landcloud);
 	JumpLandEffect->SetPosition(GetActorLocation() + FVector(0.0f, 15.0f, 0.0f));
 	JumpLandEffect->SetActive(true);
@@ -74,6 +77,7 @@ void APlayerBase::SetCroudEffect(int _Num)
 			continue;
 		}
 
+		Cloud[CloudIdx].Renderer->AnimationReset();
 		Cloud[CloudIdx].Renderer->ChangeAnimation(Anim::effect_player_dustcloud);
 		Cloud[CloudIdx].Renderer->SetAutoSize(2.0f, true);
 		Cloud[CloudIdx].Renderer->SetActive(true);

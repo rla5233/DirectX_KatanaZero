@@ -51,7 +51,11 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	ColMap->Destroy();
 	Player->Destroy();
 	HUD->Destroy();
-	Go->Destroy();
+
+	if (nullptr != Go)
+	{
+		Go->Destroy();
+	}
 
 	for (size_t i = 0; i < AllEnemy.size(); i++)
 	{

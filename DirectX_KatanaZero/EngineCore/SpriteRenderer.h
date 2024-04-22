@@ -74,6 +74,11 @@ public:
 		return Dir;
 	}
 
+	inline void AnimationReset()
+	{
+		CurAnimation = nullptr;
+	}
+
 	bool IsCurAnimationEnd();
 
 	void SetPlusColor(float4 _Color)
