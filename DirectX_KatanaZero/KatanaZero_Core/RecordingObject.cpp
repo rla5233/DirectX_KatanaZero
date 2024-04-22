@@ -125,7 +125,7 @@ void URecordingObject::Replaying(float _DeltaTime)
 
 void URecordingObject::IncreaseReplaySpeed()
 {
-	if (32 <= ReplaySpeed)
+	if (16 <= ReplaySpeed)
 	{
 		return;
 	}

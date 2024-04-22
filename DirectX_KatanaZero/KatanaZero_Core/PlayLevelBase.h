@@ -59,6 +59,9 @@ public:
 	void ResetReplaySpeed();
 	void IncreaseReplaySpeed();
 
+	bool IsReplayEnd() const;
+	bool IsRewindEnd() const;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

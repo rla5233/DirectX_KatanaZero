@@ -230,8 +230,8 @@ void APlayLevelBase::StateInit()
 	);
 
 	// State Update 함수 세팅
-	State.SetUpdateFunction("Intro", [=](float) { State.ChangeState("Play"); });
-	State.SetUpdateFunction("Play", [=](float)
+	State.SetUpdateFunction("Intro", [=](float _DeltaTime) { State.ChangeState("Play"); });
+	State.SetUpdateFunction("Play", [=](float _DeltaTime)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			if (true == IsStageClear())
@@ -242,7 +242,7 @@ void APlayLevelBase::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction("Clear", [=](float)
+	State.SetUpdateFunction("Clear", [=](float _DeltaTime)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			if (true == IsRelayStart())
@@ -253,7 +253,18 @@ void APlayLevelBase::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction("Replay", std::bind(&APlayLevelBase::Replay, this, std::placeholders::_1));
+	State.SetUpdateFunction("Replay", [=](float _DeltaTime)
+		{
+			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+
+			if (true == IsDown(VK_RBUTTON))
+			{
+				InputOff();
+
+				ChangeStage();
+			}
+		}
+	);
 
 	// State End 함수 세팅
 	State.SetEndFunction("Clear", [=]
@@ -280,14 +291,7 @@ void APlayLevelBase::ClearStart()
 
 void APlayLevelBase::Replay(float _DeltaTime)
 {
-	MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 
-	if (true == IsDown(VK_RBUTTON))
-	{
-		InputOff();
-
-		ChangeStage();
-	}
 }
 
 void APlayLevelBase::SetReplay()
@@ -324,6 +328,8 @@ void APlayLevelBase::SetReplayStop()
 
 void APlayLevelBase::SetRewind()
 {
+	ResetReplaySpeed();
+
 	Player->SetReplayMode(EReplayMode::Rewind);
 
 	for (size_t i = 0; i < AllEnemy.size(); i++)
@@ -366,3 +372,15 @@ void APlayLevelBase::IncreaseReplaySpeed()
 		AllRecComponent[i]->IncreaseReplaySpeed();
 	}
 }
+
+bool APlayLevelBase::IsReplayEnd() const
+{
+	return Player->IsReplayEnd();
+}
+
+bool APlayLevelBase::IsRewindEnd() const
+{
+	return Player->IsRewindEnd();
+}
+
+

@@ -61,6 +61,10 @@ namespace ImgRes
 	const std::string_view ui_replay_LT_stop		= "spr_replay_text_003.png";
 	const std::string_view ui_replay_LT_fast		= "spr_replay_text_004.png";
 	const std::string_view ui_replay_right_click	= "spr_right_click";
+	const std::string_view ui_replay_x2				= "spr_replay_x2.png";
+	const std::string_view ui_replay_x4				= "spr_replay_x4.png";
+	const std::string_view ui_replay_x8				= "spr_replay_x8.png";
+	const std::string_view ui_replay_x16			= "spr_replay_x16.png";
 
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";

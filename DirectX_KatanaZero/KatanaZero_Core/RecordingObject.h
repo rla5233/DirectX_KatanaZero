@@ -57,11 +57,36 @@ public:
 
 	void IncreaseReplaySpeed();
 
+	inline bool IsReplayEnd() const
+	{
+		bool Result = false;
+
+		if (AllRecordInfo.size() - 1 <= CurIndex)
+		{
+			Result = true;
+		}
+		
+		return Result;
+	}
+
+	inline bool IsRewindEnd() const
+	{
+		bool Result = false;
+
+		if (0 >= CurIndex)
+		{
+			Result = true;
+		}
+
+		return Result;
+	}
+
 	// ¼öÁ¤ 
 	int GetReplaySpeed()
 	{
 		return ReplaySpeed;
 	}
+
 
 protected:
 	void SetActor(AActor* _Actor)
