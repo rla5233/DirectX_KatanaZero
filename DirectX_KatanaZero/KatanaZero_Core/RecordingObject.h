@@ -40,6 +40,29 @@ public:
 	void SetReplayStart();
 	void Replaying(float _DeltaTime);
 
+	inline void SetReplayMode(EReplayMode _Mode)
+	{
+		Mode = _Mode;
+	}
+
+	inline void SetRecordingActive(bool _Active)
+	{
+		IsRecordingValue = _Active;
+	}
+
+	inline void SetReplaySpeed(int _Speed)
+	{
+		ReplaySpeed = _Speed;
+	}
+
+	void IncreaseReplaySpeed();
+
+	// ¼öÁ¤ 
+	int GetReplaySpeed()
+	{
+		return ReplaySpeed;
+	}
+
 protected:
 	void SetActor(AActor* _Actor)
 	{
@@ -47,7 +70,14 @@ protected:
 	}
 
 private:
+	void DecreaseIndex();
+	void IncreaseIndex();
+
+private:
 	AActor* Actor = nullptr;
+
+	EReplayMode Mode = EReplayMode::Play;
+	int ReplaySpeed = 1;
 	
 	bool IsRecordingValue = false;
 	int MaxSize = 0;

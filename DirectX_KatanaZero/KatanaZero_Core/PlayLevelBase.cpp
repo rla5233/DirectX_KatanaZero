@@ -40,7 +40,7 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 	HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
 
-	State.ChangeState("Play");
+	State.ChangeState("Intro");
 }
 
 void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
@@ -166,20 +166,40 @@ void APlayLevelBase::DebugMessageFunction()
 		std::string Msg = std::format("IsOnGP_Boundary : {}\n", Player->IsOnGP_Boundary(Player->GetBody()->GetDir()));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+
+	{
+		std::string Msg = std::format("ReplaySpeed : {}\n", Player->GetReplaySpeed());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 // 상태 초기화
 void APlayLevelBase::StateInit()
 {
 	// State 생성
+	State.CreateState("Intro");
 	State.CreateState("Play");
 	State.CreateState("Clear");
 	State.CreateState("Replay");
 
 	// State Start 함수 세팅
-	State.SetStartFunction("Play", [=] {
-		
-		ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI"); });
+	State.SetStartFunction("Intro", [=] {});
+	State.SetStartFunction("Play", [=] 
+		{
+			Player->SetRecordingActive(true);
+
+			for (size_t i = 0; i < AllEnemy.size(); i++)
+			{
+				AllEnemy[i]->SetRecordingActive(true);
+			}
+
+			for (size_t i = 0; i < AllRecComponent.size(); i++)
+			{
+				AllRecComponent[i]->SetRecordingActive(true);
+			}
+		}
+	);
+
 	State.SetStartFunction("Clear", std::bind(&APlayLevelBase::ClearStart, this));
 	State.SetStartFunction("Replay", [=] 
 		{ 
@@ -206,6 +226,7 @@ void APlayLevelBase::StateInit()
 	);
 
 	// State Update 함수 세팅
+	State.SetUpdateFunction("Intro", [=](float) { State.ChangeState("Play"); });
 	State.SetUpdateFunction("Play", [=](float)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
@@ -231,6 +252,21 @@ void APlayLevelBase::StateInit()
 	State.SetUpdateFunction("Replay", std::bind(&APlayLevelBase::Replay, this, std::placeholders::_1));
 
 	// State End 함수 세팅
+	State.SetEndFunction("Clear", [=]
+		{
+			Player->SetRecordingActive(false);
+
+			for (size_t i = 0; i < AllEnemy.size(); i++)
+			{
+				AllEnemy[i]->SetRecordingActive(false);
+			}
+
+			for (size_t i = 0; i < AllRecComponent.size(); i++)
+			{
+				AllRecComponent[i]->SetRecordingActive(false);
+			}
+		}
+	);
 }
 
 void APlayLevelBase::ClearStart()
@@ -240,19 +276,89 @@ void APlayLevelBase::ClearStart()
 
 void APlayLevelBase::Replay(float _DeltaTime)
 {
-	if (true)
+	MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+
+	if (true == IsDown(VK_RBUTTON))
 	{
-		MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+		InputOff();
 
+		ChangeStage();
+	}
+}
 
+void APlayLevelBase::SetReplay()
+{
+	ResetReplaySpeed();
 
+	Player->SetReplayMode(EReplayMode::Play);
 
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->SetReplayMode(EReplayMode::Play);
+	}
 
-		if (true == IsDown(VK_RBUTTON))
-		{
-			InputOff();
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->SetReplayMode(EReplayMode::Play);
+	}
+}
 
-			ChangeStage();
-		}
+void APlayLevelBase::SetReplayStop()
+{
+	Player->SetReplayMode(EReplayMode::Stop);
+
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->SetReplayMode(EReplayMode::Stop);
+	}
+
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->SetReplayMode(EReplayMode::Stop);
+	}
+}
+
+void APlayLevelBase::SetRewind()
+{
+	Player->SetReplayMode(EReplayMode::Rewind);
+
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->SetReplayMode(EReplayMode::Rewind);
+	}
+
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->SetReplayMode(EReplayMode::Rewind);
+	}
+}
+
+void APlayLevelBase::ResetReplaySpeed()
+{
+	Player->SetReplaySpeed(1);
+
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->SetReplaySpeed(1);
+	}
+
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->SetReplaySpeed(1);
+	}
+}
+
+void APlayLevelBase::IncreaseReplaySpeed()
+{
+	Player->IncreaseReplaySpeed();
+
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->IncreaseReplaySpeed();
+	}
+
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->IncreaseReplaySpeed();
 	}
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore/StateManager.h>
 
+class APlayLevelBase;
+
 // 설명 : 리플레이 UI
 class AReplayUI : public AActor
 {
@@ -34,9 +36,12 @@ private:
 	UImage* LeftTopText = nullptr;
 	UImage* RightBottomText = nullptr;
 
+	APlayLevelBase* PlayLevel = nullptr;
+
 // FSM
 private:
 	UStateManager State;
+	
 
 	void StateInit();
 

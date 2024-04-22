@@ -13,8 +13,6 @@ URecordingObject::~URecordingObject()
 
 void URecordingObject::SetRecordingSize()
 {
-	//TransInfo.reserve(static_cast<size_t>(_RecTime));
-
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(Actor->GetWorld()->GetGameMode().get());
 	
 #ifdef _DEBUG
@@ -33,7 +31,7 @@ void URecordingObject::Recording(float _DeltaTime)
 {
 	if (false == IsRecordingValue)
 	{
-		//return;
+		return;
 	}
 
 #ifdef _DEBUG
@@ -83,11 +81,6 @@ void URecordingObject::SetReplayStart()
 
 void URecordingObject::Replaying(float _DeltaTime)
 {
-	if (AllRecordInfo.size() <= CurIndex)
-	{
-		return;
-	}
-
 	if (0.0f < TimeCount)
 	{
 		TimeCount -= _DeltaTime;
@@ -115,6 +108,47 @@ void URecordingObject::Replaying(float _DeltaTime)
 		AllRenderer[i]->SetActive(true);
 	}
 
-	CurIndex++;
+	switch (Mode)
+	{
+	case EReplayMode::Rewind:
+		DecreaseIndex();
+		break;
+	case EReplayMode::Stop:
+		break;
+	case EReplayMode::Play:
+		IncreaseIndex();
+		break;
+	}
+	
 	TimeCount = Const::recording_delay;
+}
+
+void URecordingObject::IncreaseReplaySpeed()
+{
+	if (32 <= ReplaySpeed)
+	{
+		return;
+	}
+
+	ReplaySpeed *= 2;
+}
+
+void URecordingObject::DecreaseIndex()
+{
+	CurIndex -= ReplaySpeed;
+
+	if (0 > CurIndex)
+	{
+		CurIndex = 0;
+	}
+}
+
+void URecordingObject::IncreaseIndex()
+{
+	CurIndex += ReplaySpeed;
+
+	if (static_cast<int>(AllRecordInfo.size()) <= CurIndex)
+	{
+		CurIndex = static_cast<int>(AllRecordInfo.size()) - 1;
+	}
 }

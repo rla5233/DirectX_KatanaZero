@@ -53,6 +53,12 @@ public:
 #endif // _DEBUG
 	}
 
+	void SetReplayStop();
+	void SetReplay();
+	void SetRewind();
+	void ResetReplaySpeed();
+	void IncreaseReplaySpeed();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -69,8 +75,8 @@ protected:
 	std::shared_ptr<AMainCamera> MainCamera = nullptr;
 	std::shared_ptr<AMouseAim> Aim = nullptr;
 	std::shared_ptr<AColMapObject> ColMap = nullptr;
-	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 
+	std::shared_ptr<ADefaultPlayer> Player = nullptr;
 	std::vector<std::shared_ptr<AEnemyBase>> AllEnemy;
 	std::vector<std::shared_ptr<ARecMapCompoBase>> AllRecComponent;
 	

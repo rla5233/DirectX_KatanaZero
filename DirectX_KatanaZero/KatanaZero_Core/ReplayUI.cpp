@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "ReplayUI.h"
 
+#include "PlayLevelBase.h"
+
 AReplayUI::AReplayUI()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -23,6 +25,8 @@ void AReplayUI::BeginPlay()
 	StateInit();
 	InputOn();
 
+	PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+
 	State.ChangeState("Play");
 }
 
@@ -35,7 +39,6 @@ void AReplayUI::Tick(float _DeltaTime)
 
 void AReplayUI::ImageInit()
 {
-	//Mouse = CreateWidget<UImage>(GetWorld(), "Replay_Mouse");
 	RightBottomText = CreateWidget<UImage>(GetWorld(), "RightBottom_Text");
 	LeftTopText = CreateWidget<UImage>(GetWorld(), "LeftTop_Text");
 
@@ -68,6 +71,7 @@ void AReplayUI::StateInit()
 		{
 			LeftTopText->SetSprite(ImgRes::ui_replay_LT_play);
 			LeftTopText->SetPosition({ -400.0f, 270.0f, 0.0f });
+			PlayLevel->SetReplay();
 		}
 	);
 
@@ -75,20 +79,24 @@ void AReplayUI::StateInit()
 		{
 			LeftTopText->SetSprite(ImgRes::ui_replay_LT_stop);
 			LeftTopText->SetPosition({ -354.0f, 271.0f, 0.0f });
+			PlayLevel->SetReplayStop();
 		}
 	);
 
 	State.SetStartFunction("Rewind", [=] 
 		{
 			LeftTopText->SetSprite(ImgRes::ui_replay_LT_rewind);
-			LeftTopText->SetPosition({ -370.0f, 271.0f, 0.0f });
+			LeftTopText->SetPosition({ -380.0f, 271.0f, 0.0f });
+			PlayLevel->SetRewind();
 		}
 	);
 
 	State.SetStartFunction("FastPlay", [=]
 		{
-			//RightTopText->SetSprite(ImgRes::ui_replay_RT_rewind);
-			//RightTopText->SetPosition({ -354.0f, 271.0f, 0.0f });
+			LeftTopText->SetSprite(ImgRes::ui_replay_LT_fast);
+			LeftTopText->SetPosition({ -347.0f, 271.0f, 0.0f });
+			PlayLevel->SetReplay();
+			PlayLevel->IncreaseReplaySpeed();
 		}
 	);
 
@@ -96,6 +104,7 @@ void AReplayUI::StateInit()
 	// State Update
 	State.SetUpdateFunction("Play", [=](float _DeltaTime) 
 		{
+
 			MousePosUpdate();
 
 			// State Change Check
@@ -112,7 +121,8 @@ void AReplayUI::StateInit()
 			}
 
 			if (true == IsDown('D') || true == IsDown(VK_RIGHT))
-			{
+			{	
+				State.ChangeState("FastPlay");
 				return;
 			}
 		}
@@ -137,6 +147,7 @@ void AReplayUI::StateInit()
 
 			if (true == IsDown('D') || true == IsDown(VK_RIGHT))
 			{
+				State.ChangeState("FastPlay");
 				return;
 			}
 		}
@@ -155,6 +166,7 @@ void AReplayUI::StateInit()
 
 			if (true == IsDown('A')|| true == IsDown(VK_LEFT))
 			{
+
 				return;
 			}
 
@@ -171,6 +183,12 @@ void AReplayUI::StateInit()
 			MousePosUpdate();
 
 			// State Change Check
+			if (true == IsDown(VK_SPACE))
+			{
+				State.ChangeState("Stop");
+				return;
+			}
+
 			if (true == IsDown('A') || true == IsDown(VK_LEFT))
 			{
 				State.ChangeState("Play");
@@ -179,6 +197,7 @@ void AReplayUI::StateInit()
 
 			if (true == IsDown('D') || true == IsDown(VK_RIGHT))
 			{
+				PlayLevel->IncreaseReplaySpeed();
 				return;
 			}
 		}

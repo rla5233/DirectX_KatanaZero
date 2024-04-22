@@ -53,3 +53,10 @@ enum class EColOrder
 	Door,
 	HitComponent
 };
+
+enum class EReplayMode
+{
+	Rewind,
+	Stop,
+	Play
+};
