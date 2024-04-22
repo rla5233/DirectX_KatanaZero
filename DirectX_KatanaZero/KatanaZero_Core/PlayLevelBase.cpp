@@ -7,6 +7,7 @@
 #include "DefaultPlayer.h"
 #include "EnemyBase.h"
 #include "MouseAim.h"
+#include "ReplayUI.h"
 #include "Up_HUD.h"
 #include "Go.h"
 
@@ -176,7 +177,9 @@ void APlayLevelBase::StateInit()
 	State.CreateState("Replay");
 
 	// State Start 함수 세팅
-	State.SetStartFunction("Play", [=] {});
+	State.SetStartFunction("Play", [=] {
+		
+		ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI"); });
 	State.SetStartFunction("Clear", std::bind(&APlayLevelBase::ClearStart, this));
 	State.SetStartFunction("Replay", [=] 
 		{ 
@@ -198,6 +201,7 @@ void APlayLevelBase::StateInit()
 			InputOn();
 
 			GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
+			ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
 		}
 	);
 

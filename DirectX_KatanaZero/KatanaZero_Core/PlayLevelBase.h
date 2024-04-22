@@ -9,6 +9,7 @@ class ARecMapCompoBase;
 class ADefaultPlayer;
 class AEnemyBase;
 class AMouseAim;
+class AReplayUI;
 class AUp_HUD;
 class AGo;
 
@@ -64,14 +65,20 @@ protected:
 	virtual void ChangeStage() {};
 
 protected:
+	// Object
 	std::shared_ptr<AMainCamera> MainCamera = nullptr;
 	std::shared_ptr<AMouseAim> Aim = nullptr;
 	std::shared_ptr<AColMapObject> ColMap = nullptr;
 	std::shared_ptr<ADefaultPlayer> Player = nullptr;
-	std::shared_ptr<AUp_HUD> HUD = nullptr;
-	std::shared_ptr<AGo> Go = nullptr;
+
 	std::vector<std::shared_ptr<AEnemyBase>> AllEnemy;
 	std::vector<std::shared_ptr<ARecMapCompoBase>> AllRecComponent;
+	
+	// UI
+	std::shared_ptr<AGo> Go = nullptr;
+	std::shared_ptr<AUp_HUD> HUD = nullptr;
+	std::shared_ptr<AReplayUI> ReplayUI = nullptr;
+
 
 	float TotalPlayTime = 0.0f;
 	int TotalEnemy = 0;

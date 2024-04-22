@@ -27,17 +27,19 @@ protected:
 
 // 초기 Setting 함수
 private:
-	void CreateImage();
+	void ImageInit();
 
 private:
+	USpriteRenderer* Mouse = nullptr;
 	UImage* LeftBottomText = nullptr;
 	UImage* RightTopText = nullptr;
-
 
 // FSM
 private:
 	UStateManager State;
 
 	void StateInit();
+
+	void MousePosUpdate();
 };
 
