@@ -74,6 +74,8 @@ namespace ImgRes
 
 	// MapComponent
 	const std::string_view compo_door				= "spr_door";
+	const std::string_view compo_ceil_laser_on		= "spr_laser_on_0.png";
+	const std::string_view compo_ceil_laser_off		= "spr_laser_off_0.png";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
