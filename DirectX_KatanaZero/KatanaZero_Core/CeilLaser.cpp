@@ -25,6 +25,9 @@ void ACeilLaser::BeginPlay()
 void ACeilLaser::RendererInit()
 {
 	Laser->CreateAnimation(Anim::compo_ceil_laser_idle, ImgRes::compo_ceil_laser_idle, 0.0175f, true);
+	Laser->CreateAnimation(Anim::compo_ceil_laser_attack, ImgRes::compo_ceil_laser_attack, 0.06f, false);
+	Laser->SetFrameCallback(Anim::compo_ceil_laser_attack, 3, [=] { State.ChangeState("On"); });
+
 	Laser->SetOrder(ERenderOrder::EffectFront);
 	Laser->SetPivot(EPivot::BOT);
 	Laser->SetScale({ 4.0f, 210.0f, 1.0f });
@@ -36,6 +39,10 @@ void ACeilLaser::RendererInit()
 
 void ACeilLaser::CollisionInit()
 {
+	HitCol->SetCollisionType(ECollisionType::Rect);
+	HitCol->SetCollisionGroup(EColOrder::EnemyAttack);
+	HitCol->SetScale({ 4.0f, 210.0f, 1.0f });
+	HitCol->SetPosition({ 0.0f, -113.0f, 0.0f });
 }
 
 void ACeilLaser::Tick(float _DeltaTime)
@@ -49,19 +56,41 @@ void ACeilLaser::StateInit()
 
 	// State Create
 	State.CreateState("On");
-
+	State.CreateState("Attack");
 
 	// State Start
 	State.SetStartFunction("On", [=] 
 		{ 
 			GetBody()->SetSprite(ImgRes::compo_ceil_laser_on); 
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_idle);
+			Laser->SetScale({ 4.0f, 210.0f, 1.0f });
+		}
+	);
+
+	State.SetStartFunction("Attack", [=]
+		{	
+			Laser->SetScale({ 10.0f, 210.0f, 1.0f });
+			Laser->ChangeAnimation(Anim::compo_ceil_laser_attack); 
 		}
 	);
 	
 	// State Update
-	State.SetUpdateFunction("On", [=](float _DeltaTime) {});
+	State.SetUpdateFunction("On", [=](float _DeltaTime) 
+		{
+			HitCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+				{
+					State.ChangeState("Attack");
+					return;
+				}
+			);
+		}
+	);
 
+	State.SetUpdateFunction("Attack", [=](float _DeltaTime)	
+		{ 
+			Laser->AddScale({ -40.0f * _DeltaTime, 0.0f, 0.0f }); 
+		}
+	);
 
 	// State End
 
