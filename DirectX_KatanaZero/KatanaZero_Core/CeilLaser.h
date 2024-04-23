@@ -20,11 +20,13 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-private:
-	UCollision* HitCol = nullptr;
-
-protected:
 	void StateInit() override;
+	void RendererInit();
+	void CollisionInit();
+
+private:
+	USpriteRenderer* Laser = nullptr;
+	UCollision* HitCol = nullptr;
 
 };
 

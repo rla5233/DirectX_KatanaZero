@@ -47,14 +47,14 @@ public:
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
 	}
 
-	// RecComponent 스폰 함수 (초기 상태 : Idle)
+	// RecComponent 스폰 함수 (기본값 : Idle)
 	template<typename RecCompoType>
-	std::shared_ptr<RecCompoType> SpawnRecComponent(std::string_view _Name, const FVector& _Pos, EEngineDir _Dir)
+	std::shared_ptr<RecCompoType> SpawnRecComponent(std::string_view _Name, const FVector& _Pos, EEngineDir _Dir, std::string_view _State = "Idle")
 	{
 		std::shared_ptr<ARecMapCompoBase> NewCompo= GameMode->GetWorld()->SpawnActor<RecCompoType>(_Name);
 		NewCompo->SetActorLocation(_Pos);
 		NewCompo->SetBodyDir(_Dir);
-		NewCompo->StateChange("Idle");
+		NewCompo->StateChange(_State);
 		PushRecComponent(NewCompo);
 		return std::dynamic_pointer_cast<RecCompoType>(NewCompo);
 	}

@@ -4,6 +4,7 @@
 #include "MainCamera.h"
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
+#include "CeilLaser.h"
 #include "Up_HUD.h"
 #include "Go.h"
 
@@ -39,6 +40,8 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player");
 	Player->SetActorLocation({ 175.0f, 300.0f, 0.0f });
+
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
 }
 
 void AFactory_003::LevelEnd(ULevel* _NextLevel)
