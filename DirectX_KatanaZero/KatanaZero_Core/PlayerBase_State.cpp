@@ -715,13 +715,13 @@ void APlayerBase::DeadStart()
 {
 	EEngineDir Dir = Body->GetDir();
 
+	Velocity = { 500.0f, 400.0f, 0.0f };
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Velocity = { 450.0f, 400.0f, 0.0f };
 		break;
 	case EEngineDir::Right:
-		Velocity = { -450.0f, 400.0f, 0.0f };
+		Velocity.X *= -1.0f;
 		break;
 	}
 
@@ -729,6 +729,12 @@ void APlayerBase::DeadStart()
 
 	FrontCol->SetActive(false);
 	BodyCol->SetActive(false);
+
+	InputOff();
+	float TimeScale = 1.0f;
+	GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
+	GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
+	GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
 }
 
 void APlayerBase::Dead(float _DeltaTime)

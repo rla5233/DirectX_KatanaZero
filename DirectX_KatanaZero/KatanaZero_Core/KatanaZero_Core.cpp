@@ -35,9 +35,9 @@ void UKatanaZero_Core::Initialize()
 	
 	//GEngine->ChangeLevel("TitleLevel");
 	
-	GEngine->ChangeLevel("Factory_002");
+	//GEngine->ChangeLevel("Factory_002");
 
-	//GEngine->ChangeLevel("Factory_003");
+	GEngine->ChangeLevel("Factory_003");
 	
 	//GEngine->ChangeLevel("Factory_004");
 
