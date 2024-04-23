@@ -172,7 +172,7 @@ namespace Const
 
 	const float player_run_accx = 1000.0f;
 
-	const float player_roll_speedx = 700.0f;
+	const float player_roll_speedx = 550.0f;
 
 	const float player_jump_accx = 1000.0f;
 	const float player_jump_start_speedx = player_max_speedx * 0.75f;

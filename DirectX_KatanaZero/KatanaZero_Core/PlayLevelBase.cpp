@@ -132,7 +132,7 @@ void APlayLevelBase::Debug()
 // ¿ÁΩ√¿€
 void APlayLevelBase::RestartCheck()
 {
-	if (UEngineInput::IsDown('P'))
+	if (UEngineInput::IsDown('P') && "Replay" != State.GetCurStateName())
 	{
 		LevelEnd(nullptr);
 		LevelStart(nullptr);

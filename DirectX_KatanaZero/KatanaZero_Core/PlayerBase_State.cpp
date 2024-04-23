@@ -726,6 +726,9 @@ void APlayerBase::DeadStart()
 	}
 
 	AddActorLocation({ 0.0f, 10.0f, 0.0f });
+
+	FrontCol->SetActive(false);
+	BodyCol->SetActive(false);
 }
 
 void APlayerBase::Dead(float _DeltaTime)

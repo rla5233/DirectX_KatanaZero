@@ -59,6 +59,7 @@ void ACeilLaser::StateInit()
 	// State Create
 	State.CreateState("On");
 	State.CreateState("Attack");
+	State.CreateState("Off");
 
 	// State Start
 	State.SetStartFunction("On", [=] 
@@ -66,6 +67,8 @@ void ACeilLaser::StateInit()
 			GetBody()->SetSprite(ImgRes::compo_ceil_laser_on); 
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_idle);
 			Laser->SetScale({ 4.0f, 210.0f, 1.0f });
+			Laser->SetActive(true);
+			HitCol->SetActive(true);
 		}
 	);
 
@@ -75,11 +78,19 @@ void ACeilLaser::StateInit()
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_attack); 
 		}
 	);
+
+	State.SetStartFunction("Off", [=]
+		{
+			GetBody()->SetSprite(ImgRes::compo_ceil_laser_off);
+			Laser->SetActive(false);
+			HitCol->SetActive(false);
+		}
+	);
 	
 	// State Update
 	State.SetUpdateFunction("On", [=](float _DeltaTime) 
 		{
-			HitCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+			HitCol->CollisionStay(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 				{
 					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
 					Player->HitByEnemy();
@@ -95,6 +106,8 @@ void ACeilLaser::StateInit()
 			Laser->AddScale({ -40.0f * _DeltaTime, 0.0f, 0.0f }); 
 		}
 	);
+
+	State.SetUpdateFunction("Off", [=](float _DeltaTime) {});
 
 	// State End
 
