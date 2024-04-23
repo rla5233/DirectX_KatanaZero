@@ -38,7 +38,7 @@ void APanicSwitch::CollisionInit()
 {
 	BodyCol->SetCollisionGroup(EColOrder::InteractionComponent);
 	BodyCol->SetCollisionType(ECollisionType::Rect);
-	BodyCol->SetScale({ 30.0f, 30.0f, 1.0f });
+	BodyCol->SetScale({ 50.0f, 60.0f, 1.0f });
 	BodyCol->SetPosition({ 0.0f, -10.0, 0.0f });
 }
 
