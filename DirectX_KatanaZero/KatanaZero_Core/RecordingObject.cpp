@@ -76,6 +76,11 @@ void URecordingObject::Recording(float _DeltaTime)
 
 void URecordingObject::SetReplayStart()
 {
+	float TimeScale = 1.0f;
+	GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
+	GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
+	GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
+
 	Actor->InputOff();
 	IsRecordingValue = false;
 	CurIndex = 0;
