@@ -85,7 +85,7 @@ void AGo::StateInit()
 		{
 			Velocity += { -MaxSpeed * _DeltaTime, 0.0f, 0.0f };
 			AddActorLocation(Velocity * _DeltaTime);
-			if (0.2f > abs(Velocity.X))
+			if (1.0f > abs(Velocity.X))
 			{
 				SetActorLocation(RepeatPos);
 				Velocity.X = MaxSpeed;
