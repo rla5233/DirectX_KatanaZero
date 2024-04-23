@@ -19,12 +19,17 @@ public:
 
 	// Enemy 스폰 함수 (초기 상태 : Idle)
 	template<typename EnemyType>
-	std::shared_ptr<EnemyType> SpawnIdleEnemy(std::string_view _Name,	const FVector& _Pos, EEngineDir _Dir)
+	std::shared_ptr<EnemyType> SpawnIdleEnemy(
+		std::string_view _Name,	
+		const FVector& _Pos, 
+		EEngineDir _Dir,
+		std::string_view _State = "Idle",
+		EUpdateOrder _Order = EUpdateOrder::Enemy)
 	{
-		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name);
+		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name, _Order);
 		NewEnemy->SetActorLocation(_Pos);
 		NewEnemy->SetBodyDir(_Dir);
-		NewEnemy->StateChange("Idle");
+		NewEnemy->StateChange(_State);
 		PushEnemy(NewEnemy);
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
 	}
@@ -36,9 +41,10 @@ public:
 		const FVector& _Pos, 
 		EEngineDir _Dir,
 		float _WalkTime, float _StopTime,
-		std::string_view _InitState)
+		std::string_view _InitState,
+		EUpdateOrder _Order = EUpdateOrder::Enemy)
 	{
-		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name);
+		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name, _Order);
 		NewEnemy->SetActorLocation(_Pos);
 		NewEnemy->SetBodyDir(_Dir);
 		NewEnemy->SetPatrolTime(_WalkTime, _StopTime);
@@ -49,9 +55,14 @@ public:
 
 	// RecComponent 스폰 함수 (기본값 : Idle)
 	template<typename RecCompoType>
-	std::shared_ptr<RecCompoType> SpawnRecComponent(std::string_view _Name, const FVector& _Pos, EEngineDir _Dir, std::string_view _State = "Idle")
+	std::shared_ptr<RecCompoType> SpawnRecComponent(
+		std::string_view _Name, 
+		const FVector& _Pos, 
+		EEngineDir _Dir, 
+		std::string_view _State = "Idle",
+		EUpdateOrder _Order = EUpdateOrder::RecComponent)
 	{
-		std::shared_ptr<ARecMapCompoBase> NewCompo= GameMode->GetWorld()->SpawnActor<RecCompoType>(_Name);
+		std::shared_ptr<ARecMapCompoBase> NewCompo= GameMode->GetWorld()->SpawnActor<RecCompoType>(_Name, _Order);
 		NewCompo->SetActorLocation(_Pos);
 		NewCompo->SetBodyDir(_Dir);
 		NewCompo->StateChange(_State);

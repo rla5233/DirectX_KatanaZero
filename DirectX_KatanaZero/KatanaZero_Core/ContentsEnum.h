@@ -29,6 +29,14 @@ enum class ERenderOrder
 	UI
 };
 
+enum class EUpdateOrder
+{
+	Default,
+	Player,
+	Enemy,
+	RecComponent
+};
+
 enum class EWidgetOrder
 {
 	Bottom,
