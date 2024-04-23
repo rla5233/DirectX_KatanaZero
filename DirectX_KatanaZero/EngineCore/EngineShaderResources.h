@@ -23,6 +23,19 @@ public:
 	void Reset();
 };
 
+class UEngineStructuredBufferSetter : public USetterBase
+{
+public:
+	std::shared_ptr<class UEngineStructuredBuffer> Res;
+	const void* CPUData = nullptr;
+	UINT BufferSize = 0;
+
+	//void Setting();
+	//void Reset();
+};
+
+
+
 class UEngineTextureSetter : public USetterBase
 {
 public:
@@ -64,11 +77,15 @@ public:
 
 	void SettingTexture(std::string_view _TexName, std::shared_ptr<UEngineTexture> _Texture, std::string_view _SamperName);
 
+	UEngineStructuredBufferSetter* GetStructuredBuffer(std::string_view _ResName);
 
 	void ResetAllShaderResources();
 	void SettingAllShaderResources();
 
 	void Reset();
+
+	void OtherResCopy(std::shared_ptr<UEngineShaderResources> _Resource);
+
 
 protected:
 
@@ -80,6 +97,7 @@ private:
 	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>> ConstantBuffers;
 	std::map<EShaderType, std::map<std::string, UEngineTextureSetter>> Textures;
 	std::map<EShaderType, std::map<std::string, UEngineSamplerSetter>> Samplers;
+	std::map<EShaderType, std::map<std::string, UEngineStructuredBufferSetter>> StructuredBuffers;
 
 };
 

@@ -99,6 +99,9 @@ void UEngineCore::EngineEnd()
 void UEngineCore::EngineFrameUpdate()
 {
 	float DeltaTime = MainTimer.TimeCheck();
+
+	DeltaTime *= GlobalTimeScale;
+
 	UEngineInput::KeyCheckTick(DeltaTime);
 
 	GEngine->EngineWindow.CalculateMouseUpdate(DeltaTime);

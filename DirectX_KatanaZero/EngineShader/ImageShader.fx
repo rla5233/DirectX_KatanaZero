@@ -80,15 +80,6 @@ ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
     Out.POSITION = mul(Out.POSITION, View);
     Out.POSITION = mul(Out.POSITION, Projection);
     
-    // Out.POSITION = mul(_Input.POSITION, WVP);
-    // Out.TEXCOORD = _Input.TEXCOORD;
-
-    
-    // 00,    1. 0
-    
-    
-    // 01,   1 1
-    
     Out.TEXCOORD.x = (_Input.TEXCOORD.x * CuttingSize.x) + CuttingPosition.x;
     Out.TEXCOORD.y = (_Input.TEXCOORD.y * CuttingSize.y) + CuttingPosition.y;
     

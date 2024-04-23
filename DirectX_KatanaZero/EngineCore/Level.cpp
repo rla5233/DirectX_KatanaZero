@@ -7,6 +7,7 @@
 #include "EngineCore.h"
 #include "EngineRenderTarget.h"
 #include "EngineGraphicDevice.h"
+#include "InstancingRender.h"
 #include "Widget.h"
 
 bool ULevel::IsActorConstructer = true;
@@ -43,12 +44,18 @@ void ULevel::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	for (std::pair<const int, std::list<std::shared_ptr<AActor>>>& TickGroup : Actors)
 	{
+		if (false == GEngine->TimeScales.contains(TickGroup.first))
+		{
+			GEngine->TimeScales[TickGroup.first] = 1.0f;
+		}
+
+		float TimeScale = GEngine->TimeScales[TickGroup.first];
+
 		std::list<std::shared_ptr<AActor>>& GroupActors = TickGroup.second;
 
 		for (std::shared_ptr<AActor> Actor : GroupActors)
 		{
-
-			Actor->Tick(_DeltaTime);
+			Actor->Tick(_DeltaTime * TimeScale);
 		}
 	}
 }
@@ -66,6 +73,38 @@ void ULevel::Render(float _DeltaTime)
 	for (std::pair<const int, std::list<std::shared_ptr<URenderer>>>& RenderGroup : Renderers)
 	{
 		std::list<std::shared_ptr<URenderer>>& GroupRenderers = RenderGroup.second;
+
+		if (true == InstancingRenders.contains(RenderGroup.first))
+		{
+			std::shared_ptr<UInstancingRender> Inst = InstancingRenders[RenderGroup.first];
+			// 첫번째 랜더러 어차피 뒤에 있는 모든애들은 같은 텍스처
+			// 같은 샘플러
+			// 같은 상수 버퍼 쓰고 있을것이다.
+			std::shared_ptr<URenderUnit> Unit = GroupRenderers.front();
+			Inst->Resources->OtherResCopy(Unit->Resources);
+
+			int Count = 0;
+			for (std::shared_ptr<URenderer> Renderer : GroupRenderers)
+			{
+				// 액터는 존재하는게 중요하지 
+				// 그리거나 충돌할때가 문제이기 때문에
+				if (nullptr == Renderer->GetActor()->RootComponent)
+				{
+					MsgBoxAssert("루트컴포넌트가 지정되지 않은 액터가 있습니다" + Renderer->GetActor()->GetName());
+					continue;
+				}
+
+				if (false == Renderer->IsActive())
+				{
+					continue;
+				}
+				Renderer->RenderingTransformUpdate(MainCamera);
+				Inst->InstancingDataCheck(Renderer.get(), Count++);
+			}
+
+			Inst->Render(_DeltaTime);
+			continue;
+		}
 
 		for (std::shared_ptr<URenderer> Renderer : GroupRenderers)
 		{
@@ -301,3 +340,5 @@ void ULevel::PushWidget(std::shared_ptr<UWidget> _Widget)
 	WidgetInits.remove(_Widget);
 	Widgets[_Widget->GetOrder()].push_back(_Widget);
 }
+
+

@@ -8,7 +8,28 @@
 // register(b15) 까지
 // 하지만 상수버퍼에는 516kb이상이 되면 세팅이 불가능합니다.
 // 크기에 제한이 있습니다.
+// 672by
+// 2개만 모여도 
 cbuffer FTransform : register(b10)
+{
+    float4 LocalScale;
+    float4 LocalRotation;
+    float4 LocalPosition;
+    float4 WorldScale;
+    float4 WorldRotation;
+    float4 WorldPosition;
+    float4x4 ScaleMat;
+    float4x4 RotationMat;
+    float4x4 PositionMat;
+    float4x4 ParentMat;
+    float4x4 LocalWorld;
+    float4x4 World;
+    float4x4 View;
+    float4x4 Projection;
+    float4x4 WVP;
+};
+
+struct FTransform 
 {
     float4 LocalScale;
     float4 LocalRotation;

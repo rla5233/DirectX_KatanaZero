@@ -185,6 +185,25 @@ void URenderUnit::ResCopy(UEngineShader* _Shader)
 		}
 	}
 
+	{
+		std::map<EShaderType, std::map<std::string, UEngineStructuredBufferSetter>>& RendererSetters
+			= Resources->StructuredBuffers;
+
+		std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+
+		std::map<EShaderType, std::map<std::string, UEngineStructuredBufferSetter>>& ShaderSetters
+			= ShaderResources->StructuredBuffers;
+
+		for (std::pair<const EShaderType, std::map<std::string, UEngineStructuredBufferSetter>> Setters : ShaderSetters)
+		{
+			for (std::pair<const std::string, UEngineStructuredBufferSetter> Setter : Setters.second)
+			{
+				RendererSetters[Setters.first][Setter.first] = Setter.second;
+			}
+		}
+	}
+
+
 
 }
 

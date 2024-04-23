@@ -25,6 +25,8 @@ class ULevel;
 class UEngineCore
 {
 public:
+	friend ULevel;
+
 	bool IsDebug;
 
 	// constrcuter destructer
@@ -65,7 +67,7 @@ public:
 	{
 		return EngineDevice.GetContext();
 	}
-
+	
 	void ChangeLevel(std::string_view _Name)
 	{
 		std::string UpperName = UEngineString::ToUpper(_Name);
@@ -103,6 +105,22 @@ public:
 
 	UEngineWindow EngineWindow;
 
+	void SetGlobalTimeScale(float _Value)
+	{
+		GlobalTimeScale = _Value;
+	}
+
+	template<typename EnumType>
+	void SetOrderTimeScale(EnumType _Order, float _Value)
+	{
+		SetOrderTimeScale(static_cast<int>(_Order), _Value);
+	}
+
+	void SetOrderTimeScale(int _Order, float _Value = 1.0f)
+	{
+		TimeScales[_Order] = _Value;
+	}
+
 protected:
 
 private:
@@ -127,6 +145,9 @@ private:
 	void EngineEnd();
 
 	std::shared_ptr<ULevel> NewLevelCreate(std::string_view _Name, std::shared_ptr<AActor> _GameMode);
+
+	float GlobalTimeScale = 1.0f;
+	std::map<int, float> TimeScales;
 };
 
 extern UEngineCore* GEngine;

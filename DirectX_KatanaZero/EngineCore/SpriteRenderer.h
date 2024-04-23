@@ -38,8 +38,10 @@ public:
 
 // Ό³Έν :
 class UEngineTexture;
+class USpriteInstancingRender;
 class USpriteRenderer : public URenderer
 {
+	friend USpriteInstancingRender;
 	GENERATED_BODY(URenderer);
 
 public:

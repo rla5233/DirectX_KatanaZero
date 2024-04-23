@@ -33,6 +33,7 @@ public:
 	}
 
 	void IndexedDraw();
+	void DrawIndexedInstanced(int _InstancingCount);
 
 protected:
 	void ResCreate(std::string_view _VertexName, std::string_view _IndexName);
