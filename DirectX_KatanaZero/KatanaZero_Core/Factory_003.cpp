@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "CeilLaser.h"
+#include "CeilGun.h"
 #include "PanicSwitch.h"
 #include "Up_HUD.h"
 #include "Go.h"
@@ -49,6 +50,12 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2025.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2085.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2145.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
+
+	std::shared_ptr<ACeilGun> NewCeilGun = nullptr;
+	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 368.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	NewCeilGun->SetPointX(200.0f, 400.0f);
+	NewCeilGun->SetVelocity({ -100.0f, 0.0f, 0.0f });
+
 	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f}, EEngineDir::Right, "On");
 }
 

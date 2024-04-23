@@ -1,8 +1,9 @@
 #pragma once
 #include "RecMapCompoBase.h"
+#include "PhysicsObject.h"
 
 // º≥∏Ì : √µ¿Â √—
-class ACeilGun : public ARecMapCompoBase
+class ACeilGun : public ARecMapCompoBase, public UPhysicsObject
 {
 	GENERATED_BODY(ARecMapCompoBase)
 public:
@@ -16,6 +17,12 @@ public:
 	ACeilGun& operator=(const ACeilGun& _Other) = delete;
 	ACeilGun& operator=(ACeilGun&& _Other) noexcept = delete;
 
+	void SetPointX(float _Left, float _Right)
+	{
+		LeftPoint_X = _Left;
+		RightPoint_X = _Right;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime);
@@ -28,5 +35,7 @@ private:
 	USpriteRenderer* Laser = nullptr;
 	UCollision* HitCol = nullptr;
 
+	float LeftPoint_X = 0.0f;
+	float RightPoint_X = 0.0f;
 };
 

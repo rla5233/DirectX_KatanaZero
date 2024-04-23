@@ -18,6 +18,8 @@ void ACeilGun::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UPhysicsObject::SetActor(this);
+
 	RendererInit();
 	CollisionInit();
 }
@@ -30,15 +32,15 @@ void ACeilGun::Tick(float _DeltaTime)
 void ACeilGun::RendererInit()
 {
 	Laser->CreateAnimation(Anim::compo_ceil_laser_idle, ImgRes::compo_ceil_laser_idle, 0.0175f, true);
-	Laser->CreateAnimation(Anim::compo_ceil_laser_attack, ImgRes::compo_ceil_laser_attack, 0.06f, false);
-	Laser->SetFrameCallback(Anim::compo_ceil_laser_attack, 3, [=] { State.ChangeState("On"); });
 
 	Laser->SetOrder(ERenderOrder::EffectFront);
 	Laser->SetPivot(EPivot::BOT);
-	Laser->SetScale({ 4.0f, 210.0f, 1.0f });
+	Laser->SetScale({ 4.0f, 204.0f, 1.0f });
 	Laser->SetPosition({ 0.0f, -218.0f, 0.0f });
 
+	GetBody()->SetSprite(ImgRes::compo_ceil_gun);
 	GetBody()->SetOrder(ERenderOrder::MapComponent);
+	GetBody()->SetPosition({ 0.0f, -3.0f, 0.0f });
 	GetBody()->SetAutoSize(2.0f, true);
 }
 
@@ -55,9 +57,19 @@ void ACeilGun::StateInit()
 	Super::StateInit();
 
 	// State Create
+	State.CreateState("On");
 	State.CreateState("Off");
 
 	// State Start
+	State.SetStartFunction("On", [=] 
+		{
+			Laser->ChangeAnimation(Anim::compo_ceil_laser_idle);
+
+			HitCol->SetActive(true);
+			Laser->SetActive(true);
+		}
+	);
+
 	State.SetStartFunction("Off", [=] 
 		{
 			HitCol->SetActive(false);
@@ -66,5 +78,24 @@ void ACeilGun::StateInit()
 	);
 
 	// State Update
+	State.SetUpdateFunction("On", [=](float _DeltaTime) 
+		{
+			if (LeftPoint_X > GetActorLocation().X)
+			{
+				GetBody()->SetDir(EEngineDir::Right);
+				Velocity.X *= -1.0f;
+			}
+
+			if (RightPoint_X < GetActorLocation().X)
+			{
+				GetBody()->SetDir(EEngineDir::Left);
+				Velocity.X *= -1.0f;
+			}
+
+			// 위치 업데이트
+			PosUpdate(_DeltaTime);
+		}
+	);
+
 	State.SetUpdateFunction("Off", [=](float _DeltaTime) {});
 }
