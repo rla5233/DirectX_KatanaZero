@@ -37,7 +37,6 @@ void ACeilGun::RendererInit()
 	Laser->SetPivot(EPivot::BOT);
 	Laser->SetScale({ 4.0f, 204.0f, 1.0f });
 	Laser->SetPosition({ 0.0f, -218.0f, 0.0f });
-	Laser->SetPlusColor({ -0.2f, 0.1f, 0.1f });
 
 	GetBody()->SetSprite(ImgRes::compo_ceil_gun);
 	GetBody()->SetOrder(ERenderOrder::MapComponent);
