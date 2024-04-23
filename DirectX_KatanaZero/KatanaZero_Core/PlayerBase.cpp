@@ -499,7 +499,6 @@ void APlayerBase::Tick(float _DeltaTime)
 	DebugUpdate();
 }
 
-
 void APlayerBase::DebugUpdate()
 {
 	CalFourPoint(Body->GetDir());

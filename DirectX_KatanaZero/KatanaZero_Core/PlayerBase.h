@@ -45,6 +45,8 @@ public:
 		return State.GetCurStateName();
 	}
 
+	void HitByEnemy();
+
 	// 수정 (삭제 필요)
 	void DebugUpdate();
     ///////////////////
@@ -92,6 +94,7 @@ private:
 	
 	bool IsPlayValue = true;
 	bool IsColDoorValue = false;
+	bool IsInvincibleValue = false;
 
 // FSM
 private:

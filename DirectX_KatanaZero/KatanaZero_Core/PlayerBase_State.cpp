@@ -337,6 +337,8 @@ void APlayerBase::RollStart()
 
 	Body->ChangeAnimation(Anim::player_roll);
 	CroudTimeCount = Const::effect_cloud_delay;
+
+	IsInvincibleValue = true;
 }
 
 void APlayerBase::Roll(float _DeltaTime)
@@ -709,6 +711,18 @@ void APlayerBase::Replay(float _DeltaTime)
 	Replaying(_DeltaTime);
 }
 
+
+void APlayerBase::HitByEnemy()
+{
+	if (true == IsInvincibleValue)
+	{
+		return;
+	}
+
+	State.ChangeState("Dead");
+}
+
+
 // State 초기화
 void APlayerBase::StateInit()
 {
@@ -727,6 +741,7 @@ void APlayerBase::StateInit()
 	State.CreateState("Flip");
 	State.CreateState("KickDoor");
 	State.CreateState("Replay");
+	State.CreateState("Dead");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle",			std::bind(&APlayerBase::IdleStart, this));
@@ -743,6 +758,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("Flip",			std::bind(&APlayerBase::FlipStart, this));
 	State.SetStartFunction("KickDoor",		[=] { Body->ChangeAnimation(Anim::player_kick_door); });
 	State.SetStartFunction("Replay",		std::bind(&APlayerBase::ReplayStart, this));
+	State.SetStartFunction("Dead",			[=] {});
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle",			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
@@ -757,12 +773,15 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Attack",		std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
 	State.SetUpdateFunction("WallSlide",	std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
 	State.SetUpdateFunction("Flip",			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
-	State.SetUpdateFunction("KickDoor",		[=] (float _DeltaTime){ });
+	State.SetUpdateFunction("KickDoor",		[=](float _DeltaTime) {});
 	State.SetUpdateFunction("Replay",		std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
+	State.SetUpdateFunction("Dead",			[=](float _DeltaTime) {});
 
 	// State End 함수 세팅
 	State.SetEndFunction("Attack",			[=] { AttackCol->SetActive(false); });
 	State.SetEndFunction("WallSlide",		[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
+	State.SetEndFunction("Roll",			[=] { IsInvincibleValue = false; });
 	State.SetEndFunction("Flip",			[=] { Velocity.Y = 0.0f; });
 	State.SetEndFunction("KickDoor",		[=] { IsColDoorValue = false; });
 }
+
