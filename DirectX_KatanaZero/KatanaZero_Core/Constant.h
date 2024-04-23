@@ -80,6 +80,7 @@ namespace ImgRes
 	const std::string_view compo_ceil_laser_idle	= "spr_laser_col_idle";
 	const std::string_view compo_ceil_laser_attack	= "spr_laser_col_attack";
 	const std::string_view compo_ceil_gun			= "spr_ceiling_gun_0.png";
+	const std::string_view compo_ceilgun_col_idle	= "spr_ceilgun_col_idle";
 	const std::string_view compo_panic_switch_on	= "spr_panic_switch_on.png";
 	const std::string_view compo_panic_switch_off	= "spr_panic_switch_off.png";
 
@@ -157,6 +158,7 @@ namespace Anim
 	const std::string_view compo_door_open			= "door_open";
 	const std::string_view compo_ceil_laser_idle	= "spr_laser_col_idle";
 	const std::string_view compo_ceil_laser_attack	= "spr_laser_col_attack";
+	const std::string_view compo_ceilgun_col_idle	= "spr_ceilgun_col_idle";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";

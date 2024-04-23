@@ -31,12 +31,13 @@ void ACeilGun::Tick(float _DeltaTime)
 
 void ACeilGun::RendererInit()
 {
-	Laser->CreateAnimation(Anim::compo_ceil_laser_idle, ImgRes::compo_ceil_laser_idle, 0.0175f, true);
+	Laser->CreateAnimation(Anim::compo_ceilgun_col_idle, ImgRes::compo_ceilgun_col_idle, 0.0175f, true);
 
 	Laser->SetOrder(ERenderOrder::EffectFront);
 	Laser->SetPivot(EPivot::BOT);
 	Laser->SetScale({ 4.0f, 204.0f, 1.0f });
 	Laser->SetPosition({ 0.0f, -218.0f, 0.0f });
+	Laser->SetPlusColor({ -0.2f, 0.1f, 0.1f });
 
 	GetBody()->SetSprite(ImgRes::compo_ceil_gun);
 	GetBody()->SetOrder(ERenderOrder::MapComponent);
@@ -63,7 +64,7 @@ void ACeilGun::StateInit()
 	// State Start
 	State.SetStartFunction("On", [=] 
 		{
-			Laser->ChangeAnimation(Anim::compo_ceil_laser_idle);
+			Laser->ChangeAnimation(Anim::compo_ceilgun_col_idle);
 
 			HitCol->SetActive(true);
 			Laser->SetActive(true);

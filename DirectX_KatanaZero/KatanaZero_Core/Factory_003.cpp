@@ -52,9 +52,9 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2145.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
 
 	std::shared_ptr<ACeilGun> NewCeilGun = nullptr;
-	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 368.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
-	NewCeilGun->SetPointX(200.0f, 400.0f);
-	NewCeilGun->SetVelocity({ -100.0f, 0.0f, 0.0f });
+	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 840.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	NewCeilGun->SetPointX(655.0f, 1280.0f);
+	NewCeilGun->SetVelocity({ -120.0f, 0.0f, 0.0f });
 
 	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f}, EEngineDir::Right, "On");
 }
