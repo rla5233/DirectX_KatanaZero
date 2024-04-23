@@ -192,6 +192,9 @@
     <ClInclude Include="CeilLaser.h">
       <Filter>Level\000.Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="PanicSwitch.h">
+      <Filter>Level\000.Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -309,6 +312,9 @@
       <Filter>Level\000.Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="CeilLaser.cpp">
+      <Filter>Level\000.Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PanicSwitch.cpp">
       <Filter>Level\000.Object\Component</Filter>
     </ClCompile>
   </ItemGroup>

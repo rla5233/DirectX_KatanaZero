@@ -77,8 +77,10 @@ namespace ImgRes
 	const std::string_view compo_door				= "spr_door";
 	const std::string_view compo_ceil_laser_on		= "spr_laser_on_0.png";
 	const std::string_view compo_ceil_laser_off		= "spr_laser_off_0.png";
-	const std::string_view compo_ceil_laser_idle	= "laser_col_idle";
-	const std::string_view compo_ceil_laser_attack	= "laser_col_attack";
+	const std::string_view compo_ceil_laser_idle	= "spr_laser_col_idle";
+	const std::string_view compo_ceil_laser_attack	= "spr_laser_col_attack";
+	const std::string_view compo_panic_switch_on	= "spr_panic_switch_on.png";
+	const std::string_view compo_panic_switch_off	= "spr_panic_switch_off.png";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -152,9 +154,8 @@ namespace Anim
 	// MapComponent
 	const std::string_view compo_door_idle			= "door_idle";
 	const std::string_view compo_door_open			= "door_open";
-
-	const std::string_view compo_ceil_laser_idle	= "laser_col_idle";
-	const std::string_view compo_ceil_laser_attack	= "laser_col_attack";
+	const std::string_view compo_ceil_laser_idle	= "spr_laser_col_idle";
+	const std::string_view compo_ceil_laser_attack	= "spr_laser_col_attack";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";

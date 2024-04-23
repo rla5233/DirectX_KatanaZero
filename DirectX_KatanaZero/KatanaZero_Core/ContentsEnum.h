@@ -52,7 +52,7 @@ enum class EColOrder
 	Door,
 	Enemy,
 	DeadEnemy,
-	HitComponent
+	InteractionComponent
 };
 
 enum class EReplayMode

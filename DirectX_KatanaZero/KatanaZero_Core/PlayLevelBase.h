@@ -59,6 +59,9 @@ public:
 	void ResetReplaySpeed();
 	void IncreaseReplaySpeed();
 
+	void PanicSwitchOn();
+	void PanicSwitchOff();
+
 	bool IsReplayEnd() const;
 	bool IsRewindEnd() const;
 

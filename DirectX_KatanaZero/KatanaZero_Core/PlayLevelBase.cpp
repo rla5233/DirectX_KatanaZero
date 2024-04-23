@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "RecMapCompoBase.h"
 #include "DefaultPlayer.h"
+#include "CeilLaser.h"
 #include "EnemyBase.h"
 #include "MouseAim.h"
 #include "ReplayUI.h"
@@ -364,6 +365,32 @@ void APlayLevelBase::IncreaseReplaySpeed()
 	for (size_t i = 0; i < AllRecComponent.size(); i++)
 	{
 		AllRecComponent[i]->IncreaseReplaySpeed();
+	}
+}
+
+void APlayLevelBase::PanicSwitchOn()
+{
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		ACeilLaser* Laser = dynamic_cast<ACeilLaser*>(AllRecComponent[i].get());
+
+		if (nullptr != Laser)
+		{
+			Laser->StateChange("On");
+		}
+	}
+}
+
+void APlayLevelBase::PanicSwitchOff()
+{
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		ACeilLaser* Laser = dynamic_cast<ACeilLaser*>(AllRecComponent[i].get());
+
+		if (nullptr != Laser)
+		{
+			Laser->StateChange("Off");
+		}
 	}
 }
 

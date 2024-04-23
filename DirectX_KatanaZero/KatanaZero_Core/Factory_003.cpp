@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "CeilLaser.h"
+#include "PanicSwitch.h"
 #include "Up_HUD.h"
 #include "Go.h"
 
@@ -48,6 +49,7 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2025.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2085.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2145.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
+	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f}, EEngineDir::Right, "On");
 }
 
 void AFactory_003::LevelEnd(ULevel* _NextLevel)
