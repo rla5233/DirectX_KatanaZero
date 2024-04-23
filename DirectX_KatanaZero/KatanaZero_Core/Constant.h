@@ -24,6 +24,7 @@ namespace ImgRes
 	const std::string_view player_wall_slide		= "player_wallslide";
 	const std::string_view player_flip				= "player_flip";
 	const std::string_view player_kick_door			= "player_kick_door";
+	const std::string_view player_dead				= "player_dead";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -125,6 +126,7 @@ namespace Anim
 	const std::string_view player_wall_slide		= "player_wallslide";
 	const std::string_view player_flip				= "player_flip";
 	const std::string_view player_kick_door			= "player_kick_door";
+	const std::string_view player_dead				= "player_dead";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";

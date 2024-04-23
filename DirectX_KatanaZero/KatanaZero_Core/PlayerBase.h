@@ -96,49 +96,52 @@ private:
 	bool IsColDoorValue = false;
 	bool IsInvincibleValue = false;
 
-// FSM
-private:
 	UStateManager State;
 	void StateInit();
 
-	void IdleStart();
-	void Idle(float _DeltaTime);
+// FSM
+protected:
+	virtual void IdleStart();
+	virtual void Idle(float _DeltaTime);
 
-	void IdleToRunStart();
-	void IdleToRun(float _DeltaTime);
+	virtual void IdleToRunStart();
+	virtual void IdleToRun(float _DeltaTime);
 
-	void RunStart();
-	void Run(float _DeltaTime);
+	virtual void RunStart();
+	virtual void Run(float _DeltaTime);
 
-	void RunToIdleStart();
-	void RunToIdle(float _DeltaTime);
+	virtual void RunToIdleStart();
+	virtual void RunToIdle(float _DeltaTime);
 
-	void PostCrouchStart();
-	void PostCrouch(float _DeltaTime);
+	virtual void PostCrouchStart();
+	virtual void PostCrouch(float _DeltaTime);
 
-	void PreCrouchStart();
-	void PreCrouch(float _DeltaTime);
+	virtual void PreCrouchStart();
+	virtual void PreCrouch(float _DeltaTime);
 
-	void RollStart();
-	void Roll(float _DeltaTime);
+	virtual void RollStart();
+	virtual void Roll(float _DeltaTime);
 
-	void JumpStart();
-	void Jump(float _DeltaTime);
+	virtual void JumpStart();
+	virtual void Jump(float _DeltaTime);
 
-	void FallStart();
-	void Fall(float _DeltaTime);
+	virtual void FallStart();
+	virtual void Fall(float _DeltaTime);
 
-	void AttackStart();
-	void Attack(float _DeltaTime);
+	virtual void AttackStart();
+	virtual void Attack(float _DeltaTime);
 
-	void WallSlideStart();
-	void WallSlide(float _DeltaTime);
+	virtual void WallSlideStart();
+	virtual void WallSlide(float _DeltaTime);
 
-	void FlipStart();
-	void Flip(float _DeltaTime);
+	virtual void FlipStart();
+	virtual void Flip(float _DeltaTime);
 
-	void ReplayStart();
-	void Replay(float _DeltaTime);
+	virtual void ReplayStart();
+	virtual void Replay(float _DeltaTime);
+
+	virtual void DeadStart();
+	virtual void Dead(float _DeltaTime);
 		
 // FSM Input Check
 private:
@@ -166,7 +169,6 @@ private:
 // FSM Setting
 private:
 	void SetMaxRunVel();
-
 	void SetAttackDir();
 
 // FSM Update

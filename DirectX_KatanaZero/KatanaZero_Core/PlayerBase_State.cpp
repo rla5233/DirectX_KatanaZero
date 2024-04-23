@@ -711,6 +711,48 @@ void APlayerBase::Replay(float _DeltaTime)
 	Replaying(_DeltaTime);
 }
 
+void APlayerBase::DeadStart()
+{
+	EEngineDir Dir = Body->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity = { 450.0f, 400.0f, 0.0f };
+		break;
+	case EEngineDir::Right:
+		Velocity = { -450.0f, 400.0f, 0.0f };
+		break;
+	}
+
+	AddActorLocation({ 0.0f, 10.0f, 0.0f });
+}
+
+void APlayerBase::Dead(float _DeltaTime)
+{
+	// 속도 업데이트
+	GravityUpdate(_DeltaTime);
+
+	EEngineDir Dir = Body->GetDir();
+	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir)
+		|| true == IsOnGP_Boundary(Dir) || true == IsOnStairs(Dir))
+	{
+		Velocity = { 0.0f, 0.0f, 0.0f };
+	}
+
+	if (true == IsColWall(Dir) || true == IsColHeadToWall(Dir))
+	{
+		Velocity.X = 0.0f;
+	}
+
+	if (true == IsColHeadToCeil(Dir))
+	{
+		Velocity.Y *= -1.0f;
+	}
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+}
 
 void APlayerBase::HitByEnemy()
 {
@@ -758,7 +800,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("Flip",			std::bind(&APlayerBase::FlipStart, this));
 	State.SetStartFunction("KickDoor",		[=] { Body->ChangeAnimation(Anim::player_kick_door); });
 	State.SetStartFunction("Replay",		std::bind(&APlayerBase::ReplayStart, this));
-	State.SetStartFunction("Dead",			[=] {});
+	State.SetStartFunction("Dead",			std::bind(&APlayerBase::DeadStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle",			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
@@ -775,7 +817,7 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Flip",			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
 	State.SetUpdateFunction("KickDoor",		[=](float _DeltaTime) {});
 	State.SetUpdateFunction("Replay",		std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
-	State.SetUpdateFunction("Dead",			[=](float _DeltaTime) {});
+	State.SetUpdateFunction("Dead",			std::bind(&APlayerBase::Dead, this, std::placeholders::_1));
 
 	// State End 함수 세팅
 	State.SetEndFunction("Attack",			[=] { AttackCol->SetActive(false); });

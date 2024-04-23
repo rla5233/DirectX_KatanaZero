@@ -25,5 +25,10 @@ protected:
 private:
 	void CreateAnimation();
 
+// FSM
+protected:
+
+	void DeadStart() override;	
+
 };
 

@@ -55,6 +55,7 @@ void ADefaultPlayer::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::player_wall_slide, ImgRes::player_wall_slide, 0.02f, false);
 	GetBody()->CreateAnimation(Anim::player_flip, ImgRes::player_flip, 0.02f, false);
 	GetBody()->CreateAnimation(Anim::player_kick_door, ImgRes::player_kick_door, 0.06f, false);
+	GetBody()->CreateAnimation(Anim::player_dead, ImgRes::player_dead, 0.05f, false);
 
 	GetBody()->SetFrameCallback(Anim::player_kick_door, 9, [=] { StateChange("Idle"); });
 	GetBody()->SetFrameCallback(Anim::player_kick_door, 4, [=] 
@@ -73,4 +74,11 @@ void ADefaultPlayer::CreateAnimation()
 void ADefaultPlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+}
+
+void ADefaultPlayer::DeadStart()
+{
+	Super::DeadStart();
+
+	GetBody()->ChangeAnimation(Anim::player_dead);
 }
