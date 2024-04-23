@@ -109,6 +109,7 @@ void APlayerBase::DefaultUpdate(float _DeltaTime)
 	AttackDelayTimeUpdate(_DeltaTime);
 	SetCroudEffectUpdate(_DeltaTime);
 	DoorColCheck();
+	AbilityCheck();
 
 	if (true == IsRecording())
 	{
@@ -125,6 +126,27 @@ void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
 	}
 
 	AttackDelayTimeCount -= _DeltaTime;
+}
+
+void APlayerBase::AbilityCheck()
+{
+	if (true == IsAbilityInputDown())
+	{
+		float TimeScale = 0.2f;
+		GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
+		GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
+		GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
+		return;
+	}
+
+	if (true == IsAbilityInputUp())
+	{
+		float TimeScale = 1.0f;
+		GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
+		GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
+		GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
+		return;
+	}
 }
 
 void APlayerBase::AttackCollisionCheck()

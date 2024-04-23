@@ -67,6 +67,7 @@ private:
 	void DefaultUpdate(float _DeltaTime);
 
 	void AttackDelayTimeUpdate(float _DeltaTime);
+	void AbilityCheck();
 
 private:
 	// 방향 관련
@@ -165,6 +166,9 @@ private:
 	bool IsFallInputPress();
 
 	bool IsAttackInputDown();
+
+	bool IsAbilityInputDown();
+	bool IsAbilityInputUp();
 
 // FSM Setting
 private:

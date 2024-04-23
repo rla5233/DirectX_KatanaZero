@@ -210,3 +210,27 @@ bool APlayerBase::IsAttackInputDown()
 
 	return Result;
 }
+
+bool APlayerBase::IsAbilityInputDown()
+{
+	bool Result = false;
+
+	if (true == IsDown(VK_SHIFT))
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
+bool APlayerBase::IsAbilityInputUp()
+{
+	bool Result = false;
+
+	if (true == IsUp(VK_SHIFT))
+	{
+		Result = true;
+	}
+
+	return Result;
+}
