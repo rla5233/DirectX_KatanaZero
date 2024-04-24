@@ -13,6 +13,7 @@ void APlayerBase::EffectInit()
 	JumpLandEffect->SetFrameCallback(Anim::effect_player_jumpcloud, 3, [=] { JumpLandEffect->SetActive(false); });
 	JumpLandEffect->SetFrameCallback(Anim::effect_player_landcloud, 6, [=] { JumpLandEffect->SetActive(false); });
 	JumpLandEffect->SetOrder(ERenderOrder::EffectBack);
+	JumpLandEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
 	JumpLandEffect->SetAutoSize(2.0f, true);
 	JumpLandEffect->SetActive(false);
 
@@ -55,6 +56,7 @@ void APlayerBase::SetJumpEffect()
 	JumpLandEffect->AnimationReset();
 	JumpLandEffect->ChangeAnimation(Anim::effect_player_jumpcloud);
 	JumpLandEffect->SetPosition(GetActorLocation() + FVector(0.0f, 52.0f, 0.0f));
+	JumpLandEffect->SetRotationDeg({ 0.0f, 0.0f, 0.0f });
 	JumpLandEffect->SetActive(true);
 }
 
@@ -63,6 +65,14 @@ void APlayerBase::SetLandEffect()
 	JumpLandEffect->AnimationReset();
 	JumpLandEffect->ChangeAnimation(Anim::effect_player_landcloud);
 	JumpLandEffect->SetPosition(GetActorLocation() + FVector(0.0f, 15.0f, 0.0f));
+	JumpLandEffect->SetRotationDeg({ 0.0f, 0.0f, 0.0f });
+	JumpLandEffect->SetActive(true);
+}
+
+void APlayerBase::SetWallJumpEffet()
+{
+	JumpLandEffect->AnimationReset();
+	JumpLandEffect->ChangeAnimation(Anim::effect_player_jumpcloud);
 	JumpLandEffect->SetActive(true);
 }
 

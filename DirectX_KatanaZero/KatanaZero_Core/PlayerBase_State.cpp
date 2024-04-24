@@ -611,10 +611,10 @@ void APlayerBase::WallSlideStart()
 	switch (Dir)
 	{
 	case EEngineDir::Left:
-		Body->SetPosition({ -9.0f, 0.0f, 0.0f });
+		Body->SetPosition({ -14.0f, 0.0f, 0.0f });
 		break;
 	case EEngineDir::Right:
-		Body->SetPosition({ 9.0f, 0.0f, 0.0f });
+		Body->SetPosition({ 14.0f, 0.0f, 0.0f });
 		break;
 	}
 
@@ -647,6 +647,21 @@ void APlayerBase::WallSlide(float _DeltaTime)
 
 	if (true == IsJumpInputDown())
 	{
+		// Effect Setting
+		SetWallJumpEffet();
+		EEngineDir Dir = Body->GetDir();
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+			JumpLandEffect->SetRotationDeg({ 0.0f, 0.0f, -90.0f });
+			JumpLandEffect->SetPosition(GetActorLocation() + FVector(21.0f, 52.0f, 0.0f));
+			break;
+		case EEngineDir::Right:
+			JumpLandEffect->SetRotationDeg({ 0.0f, 0.0f, 90.0f });
+			JumpLandEffect->SetPosition(GetActorLocation() + FVector(-21.0f, 52.0f, 0.0f));
+			break;
+		}		
+
 		State.ChangeState("Flip");
 		return;
 	}
@@ -674,6 +689,12 @@ void APlayerBase::FlipStart()
 
 void APlayerBase::Flip(float _DeltaTime)
 {
+	// 속도 업데이트
+	if (true == IsColHeadToCeil(Body->GetDir()))
+	{
+		Velocity.Y *= -1.0f;
+	}
+
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
@@ -687,7 +708,8 @@ void APlayerBase::Flip(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsColWall(Body->GetDir()) || true == IsColHeadToWall(Body->GetDir()))
+	if ((true == IsColWall(Body->GetDir()) || true == IsColHeadToWall(Body->GetDir()))
+	&&	(false == IsColHeadToCeil(Body->GetDir())))
 	{
 		State.ChangeState("WallSlide");
 		return;

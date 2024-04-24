@@ -88,6 +88,11 @@ void APlayerBase::RendererInit()
 	Back_Bot->SetSprite("RedPoint.png");
 	Back_Bot->SetOrder(ERenderOrder::Player2);
 	Back_Bot->SetAutoSize(4.0f, true);
+	
+	Front_Top->SetActive(false);
+	Front_Bot->SetActive(false);
+	Back_Top->SetActive(false);
+	Back_Bot->SetActive(false);
 }
 
 void APlayerBase::CollisionInit()

@@ -206,6 +206,7 @@ private:
 	void SetAttackEffect(float _Deg);
 	void SetJumpEffect();
 	void SetLandEffect();
+	void SetWallJumpEffet();
 	void SetCroudEffect(int _Num);
 	void SetCroudEffectUpdate(float _DeltaTime);
 	void CreateRollCroudEffect(float _DeltaTime);
