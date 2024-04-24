@@ -26,7 +26,7 @@ void APlayerBase::EffectInit()
 			{ 0, 1, 2, 3, 4, 5, 6 },
 			false);
 		Cloud[i].Renderer->SetFrameCallback(Anim::effect_player_dustcloud, 6, [=] { Cloud[i].Renderer->SetActive(false); });
-		Cloud[i].Renderer->SetOrder(ERenderOrder::EffectFront);
+		Cloud[i].Renderer->SetOrder(ERenderOrder::EffectBack);
 		Cloud[i].Renderer->SetActive(false);
 	}
 }
@@ -115,6 +115,45 @@ void APlayerBase::SetCroudEffect(int _Num)
 	}
 }
 
+void APlayerBase::SetWallSlideCroudEffect(int _Num)
+{
+	EEngineDir Dir = Body->GetDir();
+
+	for (int i = 0; i < _Num; i++)
+	{
+		if (true == Cloud[CloudIdx].Renderer->IsActive())
+		{
+			continue;
+		}
+
+		Cloud[CloudIdx].Renderer->AnimationReset();
+		Cloud[CloudIdx].Renderer->ChangeAnimation(Anim::effect_player_dustcloud);
+		Cloud[CloudIdx].Renderer->SetAutoSize(2.0f, true);
+		Cloud[CloudIdx].Renderer->SetActive(true);
+
+		float Deg = UEngineRandom::MainRandom.RandomFloat(5.0f, 35.0f);
+		Deg *= UEngineMath::DToR;
+		FVector VelDir = { cosf(Deg), sinf(Deg), 0.0f };
+
+		float Speed = UEngineRandom::MainRandom.RandomFloat(100.0f, 250.0f);
+
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+			Cloud[CloudIdx].Renderer->SetPosition(GetActorLocation() + FVector(-25.0f, 0.0f, 0.0f));
+			break;
+		case EEngineDir::Right:
+			Cloud[CloudIdx].Renderer->SetPosition(GetActorLocation() + FVector(25.0f, 0.0f, 0.0f));
+			VelDir.X *= -1;
+			break;
+		}
+
+		Cloud[CloudIdx].Velocity = VelDir * Speed;
+
+		EffectVecIdxUpdate();
+	}
+}
+
 void APlayerBase::SetCroudEffectUpdate(float _DeltaTime)
 {
 	if (false == IsPlayValue)
@@ -142,5 +181,18 @@ void APlayerBase::CreateRollCroudEffect(float _DeltaTime)
 	}
 
 	SetCroudEffect(1);
-	CroudTimeCount = Const::effect_cloud_delay;
+	CroudTimeCount = Const::effect_roll_cloud_delay;
+}
+
+void APlayerBase::CreateWallSlideCroudEffect(float _DeltaTime)
+{
+	if (0.0f < CroudTimeCount)
+	{
+		CroudTimeCount -= _DeltaTime;
+		return;
+	}
+
+	SetWallSlideCroudEffect(1);
+
+	CroudTimeCount = Const::effect_wallslide_cloud_delay;
 }

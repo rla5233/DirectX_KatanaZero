@@ -336,7 +336,7 @@ void APlayerBase::RollStart()
 	}	
 
 	Body->ChangeAnimation(Anim::player_roll);
-	CroudTimeCount = Const::effect_cloud_delay;
+	CroudTimeCount = Const::effect_roll_cloud_delay;
 
 	IsInvincibleValue = true;
 }
@@ -619,11 +619,19 @@ void APlayerBase::WallSlideStart()
 	}
 
 	Body->ChangeAnimation(ImgRes::player_wall_slide);
+	CroudTimeCount = Const::effect_wallslide_cloud_delay;
 }
 
 void APlayerBase::WallSlide(float _DeltaTime)
 {
 	// 속도 업데이트
+	if (true == IsColHeadToCeil(Body->GetDir()))
+	{
+		Velocity.Y = 0.0f;
+		AddActorLocation({ 0.0f, -2.0f, 0.0f });
+		return;
+	}
+
 	WallGravityUpdate(_DeltaTime);
 
 	// 위치 업데이트
@@ -632,6 +640,12 @@ void APlayerBase::WallSlide(float _DeltaTime)
 	// 충돌 체크
 	ColCheckUpdate();
 
+	// 이펙트 생성
+	if (100.0f < abs(Velocity.Y))
+	{
+		CreateWallSlideCroudEffect(_DeltaTime);
+	}
+
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
@@ -639,9 +653,15 @@ void APlayerBase::WallSlide(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir()))
+	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
 	{
 		State.ChangeState("Idle");
+		return;
+	}
+
+	if (false == IsColHeadToWall(Body->GetDir()) && false == IsColBotToWall(Body->GetDir()))
+	{
+		State.ChangeState("Fall");
 		return;
 	}
 
@@ -682,7 +702,7 @@ void APlayerBase::FlipStart()
 		break;
 	}
 
-	Velocity.Y = 500.0f;
+	Velocity.Y = 600.0f;
 
 	Body->ChangeAnimation(Anim::player_flip);
 }
@@ -692,8 +712,11 @@ void APlayerBase::Flip(float _DeltaTime)
 	// 속도 업데이트
 	if (true == IsColHeadToCeil(Body->GetDir()))
 	{
+		AddActorLocation({ 0.0f, -2.0f, 0.0f });
 		Velocity.Y *= -1.0f;
 	}
+
+	GravityUpdate(_DeltaTime);
 
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
@@ -708,9 +731,10 @@ void APlayerBase::Flip(float _DeltaTime)
 		return;
 	}
 
-	if ((true == IsColWall(Body->GetDir()) || true == IsColHeadToWall(Body->GetDir()))
+	if ((true == IsColWall(Body->GetDir()) || true == IsColHeadToWall(Body->GetDir()) || true == IsColBotToWall(Body->GetDir()))
 	&&	(false == IsColHeadToCeil(Body->GetDir())))
 	{
+		Velocity.Y = 150.0f;
 		State.ChangeState("WallSlide");
 		return;
 	}
@@ -864,7 +888,6 @@ void APlayerBase::StateInit()
 	State.SetEndFunction("Attack",			[=] { AttackCol->SetActive(false); });
 	State.SetEndFunction("WallSlide",		[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
 	State.SetEndFunction("Roll",			[=] { IsInvincibleValue = false; });
-	State.SetEndFunction("Flip",			[=] { Velocity.Y = 0.0f; });
 	State.SetEndFunction("KickDoor",		[=] { IsColDoorValue = false; });
 }
 

@@ -89,10 +89,10 @@ void APlayerBase::RendererInit()
 	Back_Bot->SetOrder(ERenderOrder::Player2);
 	Back_Bot->SetAutoSize(4.0f, true);
 	
-	Front_Top->SetActive(false);
-	Front_Bot->SetActive(false);
-	Back_Top->SetActive(false);
-	Back_Bot->SetActive(false);
+	//Front_Top->SetActive(false);
+	//Front_Bot->SetActive(false);
+	//Back_Top->SetActive(false);
+	//Back_Bot->SetActive(false);
 }
 
 void APlayerBase::CollisionInit()
@@ -341,11 +341,11 @@ void APlayerBase::FallGravityUpdate(float _DeltaTime)
 
 void APlayerBase::WallGravityUpdate(float _DeltaTime)
 {
-	Velocity.Y += 0.75f * Const::default_gravity * _DeltaTime;
+	Velocity.Y += 0.5f * Const::default_gravity * _DeltaTime;
 
-	if (-Const::player_fall_max_speedy > Velocity.Y)
+	if ((-0.5f) * Const::player_fall_max_speedy > Velocity.Y)
 	{
-		Velocity.Y = -Const::player_fall_max_speedy;
+		Velocity.Y = (-0.5f) * Const::player_fall_max_speedy;
 	}
 }
 

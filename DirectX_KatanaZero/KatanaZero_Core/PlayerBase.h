@@ -208,8 +208,10 @@ private:
 	void SetLandEffect();
 	void SetWallJumpEffet();
 	void SetCroudEffect(int _Num);
+	void SetWallSlideCroudEffect(int _Num);
 	void SetCroudEffectUpdate(float _DeltaTime);
 	void CreateRollCroudEffect(float _DeltaTime);
+	void CreateWallSlideCroudEffect(float _DeltaTime);
 	float CroudTimeCount = 0.0f;
 };
 

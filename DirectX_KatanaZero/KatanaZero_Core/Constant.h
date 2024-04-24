@@ -180,31 +180,32 @@ namespace Anim
 namespace Const
 {
 	// player
-	const float default_gravity = -2000.0f;
-	const float jump_gravity = -1100.0f;
-	const float down_stair_gravity = -15000.0f;
+	const float default_gravity						= -2000.0f;
+	const float jump_gravity						= -1100.0f;
+	const float down_stair_gravity					= -15000.0f;
 
-	const float player_max_speedx = 425.0f;
-	const float player_max_speedy = 425.0f;
+	const float player_max_speedx					= 425.0f;
+	const float player_max_speedy					= 425.0f;
 
-	const float player_run_accx = 1000.0f;
+	const float player_run_accx						= 1000.0f;
 
-	const float player_roll_speedx = 550.0f;
+	const float player_roll_speedx					= 550.0f;
 
-	const float player_jump_accx = 1000.0f;
-	const float player_jump_start_speedx = player_max_speedx * 0.75f;
-	const float player_jump_speedy = 500.0f;
+	const float player_jump_accx					= 1000.0f;
+	const float player_jump_start_speedx			= player_max_speedx * 0.75f;
+	const float player_jump_speedy					= 500.0f;
 
-	const float player_fall_accx = 1000.0f;
-	const float player_fall_input_accy = -6000.0f;
-	const float player_fall_max_speedy = 1200.0f;
+	const float player_fall_accx					= 1000.0f;
+	const float player_fall_input_accy				= -6000.0f;
+	const float player_fall_max_speedy				= 1200.0f;
 
-	const float player_attack_delay = 0.25f;
+	const float player_attack_delay					= 0.25f;
 	
 	// replay
-	const float recording_delay = 1 / 60.0f;
+	const float recording_delay						= 1 / 60.0f;
 
 	// delay
-	const float effect_cloud_delay = 0.02f;
+	const float effect_roll_cloud_delay				= 0.02f;
+	const float effect_wallslide_cloud_delay		= 0.04f;
 
 }

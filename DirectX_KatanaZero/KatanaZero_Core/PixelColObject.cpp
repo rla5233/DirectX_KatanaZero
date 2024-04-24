@@ -206,6 +206,25 @@ bool UPixelColObject::IsColHeadToCeil(EEngineDir _Dir)
 	return Result;
 }
 
+bool UPixelColObject::IsColBotToWall(EEngineDir _Dir)
+{
+	bool Result = false;
+
+	CalFourPoint(_Dir);
+
+	FVector MapTexScale = MapTex->GetScale();
+	FrontBot.Y = MapTexScale.Y - FrontBot.Y;
+
+	Color8Bit FB_PixelColor = MapTex->GetColor(FrontBot, Color8Bit::Black);
+
+	if (ColMap::YELLOW == FB_PixelColor || ColMap::BLUE == FB_PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 void UPixelColObject::OnGroundPosAdjust(EEngineDir _Dir)
 {
 	while (true == IsOnGround(_Dir))
