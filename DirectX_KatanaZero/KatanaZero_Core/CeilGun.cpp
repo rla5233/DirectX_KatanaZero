@@ -31,6 +31,13 @@ void ACeilGun::BeginPlay()
 void ACeilGun::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (true == UEngineInput::IsDown(VK_SPACE))
+	{
+		State.ChangeState("On");
+		State.ChangeState("Shoot");
+		return;
+	}
 }
 
 void ACeilGun::RendererInit()
@@ -44,15 +51,24 @@ void ACeilGun::RendererInit()
 	Spark->CreateAnimation(Anim::effect_gun_spark1, ImgRes::effect_gun_spark1, 0.06f, false);
 	Spark->CreateAnimation(Anim::effect_gun_spark2, ImgRes::effect_gun_spark2, 0.06f, false);
 	Spark->CreateAnimation(Anim::effect_gun_spark3, ImgRes::effect_gun_spark3, 0.06f, false);
-	Spark->SetFrameCallback(Anim::effect_gun_spark1, 8, [=] { Spark->SetActive(false); State.ChangeState("On"); });
-	Spark->SetFrameCallback(Anim::effect_gun_spark2, 8, [=] { Spark->SetActive(false); State.ChangeState("On"); });
-	Spark->SetFrameCallback(Anim::effect_gun_spark3, 8, [=] { Spark->SetActive(false); State.ChangeState("On"); });
+	Spark->SetFrameCallback(Anim::effect_gun_spark1, 8, [=] { Spark->SetActive(false); });
+	Spark->SetFrameCallback(Anim::effect_gun_spark2, 8, [=] { Spark->SetActive(false); });
+	Spark->SetFrameCallback(Anim::effect_gun_spark3, 8, [=] { Spark->SetActive(false); });
 	Spark->SetOrder(ERenderOrder::EffectFront);
 	Spark->AddRotationDeg({ 0.0f, 0.0f, -90.0f });
 	Spark->SetPosition({ 5.0f, -54.0f, 0.0f });
 	Spark->SetAutoSize(2.0f, true);
+	Spark->SetActive(false);
 
 	
+	Smoke->CreateAnimation(Anim::effect_gun_smoke1, ImgRes::effect_gun_smoke1, 0.04f, false);
+	Smoke->CreateAnimation(Anim::effect_gun_smoke3, ImgRes::effect_gun_smoke3, 0.04f, false);
+	Smoke->SetFrameCallback(Anim::effect_gun_smoke1, 10, [=] { Smoke->SetActive(false); });
+	Smoke->SetFrameCallback(Anim::effect_gun_smoke3, 11, [=] { Smoke->SetActive(false); });
+	Smoke->SetOrder(ERenderOrder::EffectFront);
+	Smoke->AddRotationDeg({ 0.0f, 0.0f, -90.0f });
+	Smoke->SetAutoSize(2.0f, true);
+	Smoke->SetActive(false);
 	Smoke->SetActive(false);
 
 	GetBody()->SetSprite(ImgRes::compo_ceil_gun);
@@ -98,9 +114,10 @@ void ACeilGun::StateInit()
 	State.SetStartFunction("Shoot", [=] 
 		{
 			Laser->SetActive(false);
-
 			SetRandomSparkAnim();
+			SetRandomSmokeAnim();
 
+			DelayCallBack(0.4f, [=] { State.ChangeState("On"); });
 		}
 	);
 
@@ -111,6 +128,7 @@ void ACeilGun::StateInit()
 			HitCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 				{
 					State.ChangeState("Shoot");
+					return;
 				}
 			);
 
@@ -155,6 +173,26 @@ void ACeilGun::SetRandomSparkAnim()
 		break;
 	case 3:
 		Spark->ChangeAnimation(Anim::effect_gun_spark3);
+		break;
+	}
+}
+
+void ACeilGun::SetRandomSmokeAnim()
+{
+	Smoke->SetActive(true);
+	Smoke->AnimationReset();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 2);
+
+	switch (RandomValue)
+	{
+	case 1:
+		Smoke->SetPosition({ 5.0f, -54.0f, 0.0f });
+		Smoke->ChangeAnimation(Anim::effect_gun_smoke1);
+		break;
+	case 2:
+		Smoke->SetPosition({ 5.0f, -54.0f, 0.0f });
+		Smoke->ChangeAnimation(Anim::effect_gun_smoke3);
 		break;
 	}
 }

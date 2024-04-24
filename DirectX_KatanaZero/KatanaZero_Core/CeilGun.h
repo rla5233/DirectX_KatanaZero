@@ -42,6 +42,7 @@ private:
 
 private:
 	void SetRandomSparkAnim();
+	void SetRandomSmokeAnim();
 
 };
 
