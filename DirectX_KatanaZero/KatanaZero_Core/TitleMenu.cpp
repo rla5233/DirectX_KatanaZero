@@ -43,9 +43,8 @@ void ATitleMenu::SettingSprite()
 	BlackBar->SetSprite(ImgRes::title_menu_black_bar);
 	WhiteBar->SetSprite(ImgRes::title_menu_white_bar);
 
-	//BlackBar->SetPlusColor({ 0.0f, 0.0f, 0.0f, 255.0f });
-	//BlackBar->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.5f });
-	//BlackBar->SetAlpha(0.0f);
+	BlackBar->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.5f });
+	WhiteBar->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.25f });
 }
 
 void ATitleMenu::SettingRenderOrder()
@@ -60,7 +59,7 @@ void ATitleMenu::SettingTransform()
 	Text->SetAutoSize(1.0f, true);
 
 	BlackBar->SetScale({ 523.0f, 240.0f, 1.0f });
-	WhiteBar->SetScale({ 500.0f, 35.0f, 1.0f });
+	WhiteBar->SetScale({ 500.0f, 37.0f, 1.0f });
 
 	WhiteBar->SetPosition(WhiteBarPos);
 }
