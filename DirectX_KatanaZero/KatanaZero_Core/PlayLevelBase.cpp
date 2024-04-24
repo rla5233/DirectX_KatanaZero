@@ -6,6 +6,7 @@
 #include "RecMapCompoBase.h"
 #include "DefaultPlayer.h"
 #include "CeilLaser.h"
+#include "CeilGun.h"
 #include "EnemyBase.h"
 #include "MouseAim.h"
 #include "ReplayUI.h"
@@ -377,6 +378,15 @@ void APlayLevelBase::PanicSwitchOn()
 		if (nullptr != Laser)
 		{
 			Laser->StateChange("On");
+			continue;
+		}
+
+		ACeilGun* Gun = dynamic_cast<ACeilGun*>(AllRecComponent[i].get());
+
+		if (nullptr != Gun)
+		{
+			Gun->StateChange("On");
+			continue;
 		}
 	}
 }
@@ -390,6 +400,15 @@ void APlayLevelBase::PanicSwitchOff()
 		if (nullptr != Laser)
 		{
 			Laser->StateChange("Off");
+			continue;
+		}
+
+		ACeilGun* Gun = dynamic_cast<ACeilGun*>(AllRecComponent[i].get());
+
+		if (nullptr != Gun)
+		{
+			Gun->StateChange("Off");
+			continue;
 		}
 	}
 }

@@ -51,6 +51,12 @@ enum class EEnemyPatrol
 	Stop
 };
 
+enum class EEnemyType
+{
+	Default,
+	CeilGun
+};
+
 enum class EColOrder
 {
 	PlayerAttack,

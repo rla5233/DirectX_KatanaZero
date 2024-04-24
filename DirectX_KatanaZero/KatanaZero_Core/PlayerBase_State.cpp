@@ -725,6 +725,15 @@ void APlayerBase::DeadStart()
 		break;
 	}
 
+	switch (HitEnemy)
+	{
+	case EEnemyType::Default:
+		break;
+	case EEnemyType::CeilGun:
+		Velocity.X = 0.0f;
+		break;
+	}
+
 	AddActorLocation({ 0.0f, 10.0f, 0.0f });
 
 	FrontCol->SetActive(false);
@@ -763,13 +772,14 @@ void APlayerBase::Dead(float _DeltaTime)
 	PosUpdate(_DeltaTime);
 }
 
-void APlayerBase::HitByEnemy()
+void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 {
 	if (true == IsInvincibleValue)
 	{
 		return;
 	}
 
+	HitEnemy = _EnemyType;
 	State.ChangeState("Dead");
 }
 

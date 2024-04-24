@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "CeilGun.h"
 
+#include "PlayerBase.h"
+
 ACeilGun::ACeilGun()
 {
 	Laser = CreateDefaultSubObject<USpriteRenderer>("Laser");
@@ -121,6 +123,8 @@ void ACeilGun::StateInit()
 		{			
 			HitCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 				{
+					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+					Player->HitByEnemy(EEnemyType::CeilGun);
 					State.ChangeState("Shoot");
 					return;
 				}

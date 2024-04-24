@@ -56,6 +56,10 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 	NewCeilGun->SetPointX(655.0f, 1280.0f);
 	NewCeilGun->SetVelocity({ -120.0f, 0.0f, 0.0f });
 
+	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 1270.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	NewCeilGun->SetPointX(655.0f, 1280.0f);
+	NewCeilGun->SetVelocity({ -120.0f, 0.0f, 0.0f });
+
 	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f}, EEngineDir::Right, "On");
 }
 

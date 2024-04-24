@@ -45,7 +45,7 @@ public:
 		return State.GetCurStateName();
 	}
 
-	void HitByEnemy();
+	void HitByEnemy(EEnemyType _EnemyType = EEnemyType::Default);
 
 	// 수정 (삭제 필요)
 	void DebugUpdate();
@@ -96,6 +96,7 @@ private:
 	bool IsPlayValue = true;
 	bool IsColDoorValue = false;
 	bool IsInvincibleValue = false;
+	EEnemyType HitEnemy = EEnemyType::Default;
 
 	UStateManager State;
 	void StateInit();
