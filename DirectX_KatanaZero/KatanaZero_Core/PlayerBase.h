@@ -45,6 +45,11 @@ public:
 		return State.GetCurStateName();
 	}
 
+	void SetIsPlayValue(bool _PlayValue)
+	{
+		IsPlayValue = _PlayValue;
+	}
+
 	void HitByEnemy(EEnemyType _EnemyType = EEnemyType::Default);
 
 	// 수정 (삭제 필요)

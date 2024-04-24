@@ -558,7 +558,6 @@ void APlayerBase::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 
-
 	DefaultUpdate(_DeltaTime);
 	
 	// Debug Rendering

@@ -36,7 +36,7 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-	MainCamera = GetWorld()->SpawnActor<AMainCamera>("MainCamera");
+	MainCamera = GetWorld()->SpawnActor<AMainCamera>("ContentsMainCamera");
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
@@ -51,7 +51,13 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	Aim->Destroy();
 	ColMap->Destroy();
 	Player->Destroy();
-	HUD->Destroy();
+	Player->SetIsPlayValue(false);
+	MainCamera->Destroy();
+	
+	if (nullptr != HUD)
+	{
+		HUD->Destroy();
+	}
 
 	if (nullptr != Go)
 	{
@@ -75,6 +81,7 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	Player = nullptr;
 	HUD = nullptr;
 	Go = nullptr;
+	MainCamera = nullptr;
 
 	AllEnemy.clear();
 	AllRecComponent.clear();
