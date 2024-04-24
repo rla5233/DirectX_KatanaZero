@@ -423,4 +423,7 @@ bool APlayLevelBase::IsRewindEnd() const
 	return Player->IsRewindEnd();
 }
 
-
+void APlayLevelBase::BatterPartUpdate(float _AbilityTime)
+{
+	HUD->BatterPartUpdate(_AbilityTime);
+}

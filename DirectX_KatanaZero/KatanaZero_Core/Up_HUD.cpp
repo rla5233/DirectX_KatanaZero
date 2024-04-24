@@ -59,7 +59,7 @@ void AUp_HUD::SettingImage()
 	// Left
 	for (size_t i = 0; i < Battery_Part.size(); i++)
 	{
-		Battery_Part[i]->SetSprite(ImgRes::ui_up_hud_battery_part);
+		Battery_Part[i]->SetSprite(ImgRes::ui_up_hud_battery_part1);
 	}
 
 	Battery->SetSprite(ImgRes::ui_up_hud_battery);
@@ -142,7 +142,7 @@ void AUp_HUD::SettingTransform()
 	for (size_t i = 0; i < Battery_Part.size(); i++)
 	{
 		float inter = interval * static_cast<float>(i);
-		Battery_Part[i]->SetPosition({ -612.0f + inter, WinScale.hY() + 1.0f, 0.0f });
+		Battery_Part[i]->SetPosition({ -612.0f + inter, WinScale.hY(), 0.0f });
 	}
 
 	Battery->SetPosition({ -561.0f, WinScale.hY(), 0.0f });
@@ -222,4 +222,44 @@ void AUp_HUD::StateInit()
 	State.SetUpdateFunction("Replay", [=](float _DeltaTime) {});	
 }
 
+void AUp_HUD::BatterPartUpdate(float _AbilityTime)
+{
+	int PartSize = static_cast<int>(Battery_Part.size());
+	float MaxAbilityTime = Const::player_ability_time;
+	float CurAbilityTime = _AbilityTime;
+	
+	int OnPartNum = static_cast<int>(CurAbilityTime / (MaxAbilityTime / PartSize));
+	for (int i = 0; i < OnPartNum; i++)
+	{
+		Battery_Part[i]->SetSprite(ImgRes::ui_up_hud_battery_part1);
+	}
+	
+	for (int i = OnPartNum; i < Battery_Part.size(); i++)
+	{
+		Battery_Part[i]->SetSprite(ImgRes::ui_up_hud_battery_part2);
+	}
+}
 
+void AUp_HUD::Destroy()
+{
+	Bar->SetActive(false);
+
+	Timer->SetActive(false);
+	Timer_Bar->SetActive(false);
+	Timer_Bar_Black->SetActive(false);
+
+	Battery->SetActive(false);
+	for (size_t i = 0; i < Battery_Part.size(); i++)
+	{
+		Battery_Part[i]->SetActive(false);
+	}
+	Shift->SetActive(false);
+
+	Weapon->SetActive(false);
+	KatanaIcon->SetActive(false);
+	ItemIcon->SetActive(false);
+	L_ClickIcon->SetActive(false);
+	R_ClickIcon->SetActive(false);
+
+	AActor::Destroy();
+}

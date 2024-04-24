@@ -68,6 +68,7 @@ private:
 
 	void AttackDelayTimeUpdate(float _DeltaTime);
 	void AbilityCheck();
+	void AbilityUpdate(float _DeltaTime);
 
 private:
 	// 방향 관련
@@ -92,6 +93,9 @@ private:
 	FVector AttackDir = FVector::Zero;
 	float AttackDelayTimeCount = 0.0f;
 	bool CanAttack = true;
+
+	float AbilityTime = Const::player_ability_time;
+	bool IsAbilityValue = false;
 	
 	bool IsPlayValue = true;
 	bool IsColDoorValue = false;
@@ -169,6 +173,7 @@ private:
 	bool IsAttackInputDown();
 
 	bool IsAbilityInputDown();
+	bool IsAbilityInputPress();
 	bool IsAbilityInputUp();
 
 // FSM Setting

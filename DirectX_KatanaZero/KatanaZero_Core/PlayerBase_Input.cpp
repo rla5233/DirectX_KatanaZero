@@ -223,6 +223,18 @@ bool APlayerBase::IsAbilityInputDown()
 	return Result;
 }
 
+bool APlayerBase::IsAbilityInputPress()
+{
+	bool Result = false;
+
+	if (true == IsPress(VK_SHIFT))
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 bool APlayerBase::IsAbilityInputUp()
 {
 	bool Result = false;

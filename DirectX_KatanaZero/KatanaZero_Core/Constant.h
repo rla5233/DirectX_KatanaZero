@@ -43,7 +43,8 @@ namespace ImgRes
 	const std::string_view ui_cursor				= "spr_cursor_0.png";
 	const std::string_view ui_up_hud_bar			= "spr_hud_0.png";
 	const std::string_view ui_up_hud_battery		= "spr_hud_battery_0.png";
-	const std::string_view ui_up_hud_battery_part	= "spr_hud_battery_part_0.png";
+	const std::string_view ui_up_hud_battery_part1	= "spr_hud_battery_part_0.png";
+	const std::string_view ui_up_hud_battery_part2	= "spr_hud_battery_part_1.png";
 	const std::string_view ui_up_hud_timer			= "spr_hud_timer_0.png";
 	const std::string_view ui_up_hud_timer_bar1		= "spr_hud_timer_1.png";
 	const std::string_view ui_up_hud_timer_bar2		= "spr_hud_timer_2.png";
@@ -200,6 +201,8 @@ namespace Const
 	const float player_fall_max_speedy				= 1200.0f;
 
 	const float player_attack_delay					= 0.25f;
+	const float player_ability_time					= 6.0f;
+	const float player_ability_timescale			= 0.2f;
 	
 	// replay
 	const float recording_delay						= 1 / 60.0f;

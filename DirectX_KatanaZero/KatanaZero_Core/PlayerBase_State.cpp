@@ -112,12 +112,6 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsAnykeyFree())
-	{
-		State.ChangeState("RunToIdle");
-		return;
-	}
-
 	if (true == IsRunToRollInputDown())
 	{
 		State.ChangeState("Roll");
@@ -144,6 +138,12 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 	if (true == Body->IsCurAnimationEnd() && true == IsRunInputPress())
 	{
 		State.ChangeState("Run");
+		return;
+	}
+
+	if (true == IsAnykeyFree() )
+	{
+		State.ChangeState("RunToIdle");
 		return;
 	}
 }

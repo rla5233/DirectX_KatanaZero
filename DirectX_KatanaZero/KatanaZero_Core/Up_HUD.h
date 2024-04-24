@@ -21,29 +21,9 @@ public:
 		State.ChangeState(_State);
 	}
 
-	void Destroy()
-	{
-		Bar->SetActive(false);
+	void BatterPartUpdate(float _AbilityTime);
 
-		Timer->SetActive(false);
-		Timer_Bar->SetActive(false);
-		Timer_Bar_Black->SetActive(false);
-
-		Battery->SetActive(false);
-		for (size_t i = 0; i < Battery_Part.size(); i++)
-		{
-			Battery_Part[i]->SetActive(false);
-		}
-		Shift->SetActive(false);
-
-		Weapon->SetActive(false);
-		KatanaIcon->SetActive(false);
-		ItemIcon->SetActive(false);
-		L_ClickIcon->SetActive(false);
-		R_ClickIcon->SetActive(false);
-
-		AActor::Destroy();
-	}
+	void Destroy();
 
 protected:
 	void BeginPlay() override;

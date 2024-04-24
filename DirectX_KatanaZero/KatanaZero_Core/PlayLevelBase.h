@@ -65,6 +65,8 @@ public:
 	bool IsReplayEnd() const;
 	bool IsRewindEnd() const;
 
+	void BatterPartUpdate(float _AbilityTime);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
