@@ -22,6 +22,7 @@ public:
 	ATitleGameMode& operator=(ATitleGameMode&& _Other) noexcept = delete;
 
 	void InputCheck(int _Input);
+	void MenuInputOff();
 
 protected:
 	void BeginPlay();

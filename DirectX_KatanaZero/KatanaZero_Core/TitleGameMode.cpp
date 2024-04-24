@@ -101,3 +101,8 @@ void ATitleGameMode::InputCheck(int _Input)
 		break;
 	}
 }
+
+void ATitleGameMode::MenuInputOff()
+{
+	Menu->InputOff();
+}

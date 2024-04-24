@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "TitleScreen.h"
 
-#include "Constant.h"
+#include "TitleGameMode.h"
 
 ATitleScreen::ATitleScreen()
 {
@@ -110,8 +110,21 @@ void ATitleScreen::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Exit", [=] { SetTitleEndAim(); });
-	State.SetStartFunction("NewGame", [=] { SetTitleEndAim(); });
+	State.SetStartFunction("Exit", [=] 
+		{ 
+			ATitleGameMode* Title = dynamic_cast<ATitleGameMode*>(GetWorld()->GetGameMode().get());
+			Title->MenuInputOff();
+			SetTitleEndAim(); 
+		}
+	);
+	
+	State.SetStartFunction("NewGame", [=] 
+		{ 
+			ATitleGameMode* Title = dynamic_cast<ATitleGameMode*>(GetWorld()->GetGameMode().get());
+			Title->MenuInputOff();
+			SetTitleEndAim(); 
+		}
+	);
 
 	// State Update
 	State.SetUpdateFunction("Begin", [=](float _DeltaTime) {});
