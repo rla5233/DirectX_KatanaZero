@@ -17,6 +17,21 @@ void USpriteRenderer::SetFrameCallback(std::string_view _AnimationName, int _Ind
 
 }
 
+void USpriteRenderer::SetLastFrameCallback(std::string_view _AnimationName, std::function<void()> _Function)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (false == Animations.contains(UpperName))
+	{
+		MsgBoxAssert("존재하지 않는 애니메이션에 콜백을 지정할수 없습니다." + std::string(_AnimationName));
+		return;
+	}
+
+	std::shared_ptr<USpriteAnimation> Animation = Animations[UpperName];
+	int LastIndex = static_cast<int>(Animation->Frame.size()) - 1;
+	Animations[UpperName]->FrameCallback[LastIndex] = _Function;
+}
+
 void USpriteAnimation::FrameCallBackCheck()
 {
 	if (false == FrameCallback.contains(CurFrame))
@@ -46,7 +61,7 @@ void USpriteAnimation::Update(float _DeltaTime)
 				IsEnd = true;
 				CurFrame = 0;
 			}
-			else 
+			else
 			{
 				IsEnd = true;
 				--CurFrame;
@@ -55,14 +70,14 @@ void USpriteAnimation::Update(float _DeltaTime)
 	}
 }
 
-USpriteRenderer::USpriteRenderer() 
+USpriteRenderer::USpriteRenderer()
 {
 	SetMesh("Rect");
 	SetMaterial("2DImage");
 }
 
 
-USpriteRenderer::~USpriteRenderer() 
+USpriteRenderer::~USpriteRenderer()
 {
 }
 
@@ -87,7 +102,7 @@ void USpriteRenderer::MaterialSettingEnd()
 }
 
 
-void USpriteRenderer::Tick(float _DeltaTime) 
+void USpriteRenderer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
@@ -177,7 +192,7 @@ void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
 	{
 		CuttingDataValue.PivotMat.Identity();
 	}
-		break;
+	break;
 	}
 
 	if (Dir != EEngineDir::MAX)
@@ -262,11 +277,11 @@ void USpriteRenderer::SetSamplering(ETextureSampling _Value)
 }
 
 void USpriteRenderer::CreateAnimation(
-	std::string_view _AnimationName, 
-	std::string_view _SpriteName, 
-	float _Inter, 
-	bool _Loop /*= true*/, 
-	int _Start /*= -1*/, 
+	std::string_view _AnimationName,
+	std::string_view _SpriteName,
+	float _Inter,
+	bool _Loop /*= true*/,
+	int _Start /*= -1*/,
 	int _End /*= -1*/)
 {
 	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
@@ -278,7 +293,7 @@ void USpriteRenderer::CreateAnimation(
 	}
 
 	std::vector<int> Frame;
-	std::vector<float> Inter; 
+	std::vector<float> Inter;
 
 	int Start = _Start;
 	int End = _End;
@@ -349,7 +364,7 @@ void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::stri
 		return;
 	}
 
-	 std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
+	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
 
 	if (nullptr == FindSprite)
 	{
