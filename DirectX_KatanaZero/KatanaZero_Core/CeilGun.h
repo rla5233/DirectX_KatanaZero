@@ -33,9 +33,15 @@ protected:
 
 private:
 	USpriteRenderer* Laser = nullptr;
+	USpriteRenderer* Spark = nullptr;
+	USpriteRenderer* Smoke = nullptr;
 	UCollision* HitCol = nullptr;
 
 	float LeftPoint_X = 0.0f;
 	float RightPoint_X = 0.0f;
+
+private:
+	void SetRandomSparkAnim();
+
 };
 
