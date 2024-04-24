@@ -141,7 +141,8 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsAnykeyFree() )
+	if (true == IsAnykeyFree()
+	|| (false == IsRunInputPress() && true == IsAbilityInputPress()))
 	{
 		State.ChangeState("RunToIdle");
 		return;
