@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "PlayerBase.h"
 
+#include "PlayLevelBase.h"
+
 // PlayerBase FSM
 
 // 기본
@@ -850,6 +852,7 @@ void APlayerBase::StateInit()
 	State.CreateState("KickDoor");
 	State.CreateState("Replay");
 	State.CreateState("Dead");
+	State.CreateState("Intro");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Idle",			std::bind(&APlayerBase::IdleStart, this));
@@ -867,6 +870,22 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("KickDoor",		[=] { Body->ChangeAnimation(Anim::player_kick_door); });
 	State.SetStartFunction("Replay",		std::bind(&APlayerBase::ReplayStart, this));
 	State.SetStartFunction("Dead",			std::bind(&APlayerBase::DeadStart, this));
+	
+	State.SetStartFunction("Intro",         [=] 
+		{ 
+			SetMaxRunVel();
+			Body->ChangeAnimation(Anim::player_run);
+			IntroOrder = EIntroOrder::Run;
+
+			DelayCallBack(0.5f, [=] 
+				{
+					Velocity = FVector::Zero;
+					Body->ChangeAnimation(Anim::player_run_to_idle);
+					IntroOrder = EIntroOrder::RunToIdle;
+				}
+			);
+		}
+	);
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction("Idle",			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
@@ -885,10 +904,40 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("Replay",		std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
 	State.SetUpdateFunction("Dead",			std::bind(&APlayerBase::Dead, this, std::placeholders::_1));
 
+	State.SetUpdateFunction("Intro", [=](float _DeltaTime)
+		{
+			switch (IntroOrder)
+			{
+			case EIntroOrder::Run:
+				PosUpdate(_DeltaTime);
+				break;
+			case EIntroOrder::RunToIdle:
+				if (true == Body->IsCurAnimationEnd())
+				{
+					Body->ChangeAnimation(Anim::player_idle);
+					State.ChangeState("Idle");
+					return;
+				}
+				break;
+			case EIntroOrder::MusicOn:
+				break;
+			}
+		}
+	);
+
 	// State End 함수 세팅
 	State.SetEndFunction("Attack",			[=] { AttackCol->SetActive(false); });
 	State.SetEndFunction("WallSlide",		[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
 	State.SetEndFunction("Roll",			[=] { IsInvincibleValue = false; });
 	State.SetEndFunction("KickDoor",		[=] { IsColDoorValue = false; });
+	State.SetEndFunction("Intro",			[=] 
+		{ 
+			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+			PlayLevel->StateChange("Play");
+			Body->AnimationReset();
+			IsPlayValue = true;
+			InputOn(); 
+		}
+	);
 }
 

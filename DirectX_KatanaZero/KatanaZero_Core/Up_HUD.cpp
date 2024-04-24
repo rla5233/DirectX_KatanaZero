@@ -222,7 +222,7 @@ void AUp_HUD::StateInit()
 	State.SetUpdateFunction("Replay", [=](float _DeltaTime) {});	
 }
 
-void AUp_HUD::BatterPartUpdate(float _AbilityTime)
+void AUp_HUD::BatteryPartUpdate(float _AbilityTime)
 {
 	int PartSize = static_cast<int>(Battery_Part.size());
 	float MaxAbilityTime = Const::player_ability_time;

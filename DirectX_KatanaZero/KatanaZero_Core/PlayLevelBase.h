@@ -30,6 +30,11 @@ public:
 	APlayLevelBase& operator=(const APlayLevelBase& _Other) = delete;
 	APlayLevelBase& operator=(APlayLevelBase&& _Other) noexcept = delete;
 
+	void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
+
 	inline std::shared_ptr<AColMapObject> GetColMap() const
 	{
 		return ColMap;

@@ -75,3 +75,10 @@ enum class EReplayMode
 	Stop,
 	Play
 };
+
+enum class EIntroOrder
+{
+	Run,
+	RunToIdle,
+	MusicOn,
+};

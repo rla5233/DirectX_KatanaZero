@@ -36,7 +36,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	ColMap->SetBGSprite(ImgRes::factory_background2, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
-	Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
+	Player->SetActorLocation({ -20.0f, 111.0f, 0.0f });
 
 	AllEnemy.reserve(3);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, "PatrolWalk");

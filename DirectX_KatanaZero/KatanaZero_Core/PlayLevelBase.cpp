@@ -40,7 +40,6 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
-	HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
 
 	State.ChangeState("Intro");
 }
@@ -192,6 +191,8 @@ void APlayLevelBase::StateInit()
 	State.SetStartFunction("Intro", [=] {});
 	State.SetStartFunction("Play", [=] 
 		{
+			HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
+
 			Player->SetRecordingActive(true);
 
 			for (size_t i = 0; i < AllEnemy.size(); i++)
@@ -246,7 +247,12 @@ void APlayLevelBase::StateInit()
 	);
 
 	// State Update 함수 세팅
-	State.SetUpdateFunction("Intro", [=](float _DeltaTime) { State.ChangeState("Play"); });
+	State.SetUpdateFunction("Intro", [=](float _DeltaTime) 
+		{
+			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+		}
+	);
+
 	State.SetUpdateFunction("Play", [=](float _DeltaTime)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
@@ -425,5 +431,5 @@ bool APlayLevelBase::IsRewindEnd() const
 
 void APlayLevelBase::BatterPartUpdate(float _AbilityTime)
 {
-	HUD->BatterPartUpdate(_AbilityTime);
+	HUD->BatteryPartUpdate(_AbilityTime);
 }

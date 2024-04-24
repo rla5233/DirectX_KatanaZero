@@ -77,6 +77,7 @@ private:
 	void DirChange(EEngineDir _Dir);
 
 private:
+	// Renderer
 	USpriteRenderer* Body = nullptr;
 	USpriteRenderer* AttackEffect = nullptr;
 	USpriteRenderer* JumpLandEffect = nullptr;
@@ -89,21 +90,28 @@ private:
 	USpriteRenderer* Front_Top = nullptr;
 	USpriteRenderer* Front_Bot = nullptr;
 
+	// Attack
 	UCollision* AttackCol = nullptr;
 	FVector AttackDir = FVector::Zero;
 	float AttackDelayTimeCount = 0.0f;
 	bool CanAttack = true;
 
+	// Ability
 	float AbilityTime = Const::player_ability_time;
 	bool IsAbilityValue = false;
 	
-	bool IsPlayValue = true;
+	// etc.
+	bool IsPlayValue = false;
 	bool IsColDoorValue = false;
 	bool IsInvincibleValue = false;
 	EEnemyType HitEnemy = EEnemyType::Default;
 
+
+	// FSM
 	UStateManager State;
 	void StateInit();
+	EIntroOrder IntroOrder = EIntroOrder::Run;
+
 
 // FSM
 protected:

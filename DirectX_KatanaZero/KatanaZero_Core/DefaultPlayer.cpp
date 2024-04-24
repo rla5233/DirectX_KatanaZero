@@ -17,7 +17,7 @@ void ADefaultPlayer::BeginPlay()
 
 	CreateAnimation();
 
-	StateChange("Idle");
+	StateChange("Intro");
 }
 
 void ADefaultPlayer::CollisionInit()
@@ -64,7 +64,6 @@ void ADefaultPlayer::CreateAnimation()
 				{
 					ADoor* Door = dynamic_cast<ADoor*>(_Other->GetActor());
 					Door->StateChange("Open");
-					
 				}
 			);
 		}

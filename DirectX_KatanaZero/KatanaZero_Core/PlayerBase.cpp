@@ -43,7 +43,6 @@ APlayerBase::APlayerBase()
 	AttackEffect->SetupAttachment(Root);
 	
 	SetRoot(Root);
-	InputOn();
 }
 
 APlayerBase::~APlayerBase()
@@ -158,6 +157,11 @@ void APlayerBase::AbilityCheck()
 
 void APlayerBase::AbilityUpdate(float _DeltaTime)
 {
+	if (false == IsPlayValue)
+	{
+		return;
+	}
+
 	if (true == IsAbilityInputPress() && true == IsAbilityValue)
 	{
 		float TimeScale = Const::player_ability_timescale;

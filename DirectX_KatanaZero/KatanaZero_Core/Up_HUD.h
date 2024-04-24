@@ -21,7 +21,7 @@ public:
 		State.ChangeState(_State);
 	}
 
-	void BatterPartUpdate(float _AbilityTime);
+	void BatteryPartUpdate(float _AbilityTime);
 
 	void Destroy();
 
