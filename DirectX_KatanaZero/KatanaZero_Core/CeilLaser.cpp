@@ -66,6 +66,7 @@ void ACeilLaser::StateInit()
 		{ 
 			GetBody()->SetSprite(ImgRes::compo_ceil_laser_on); 
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_idle);
+			Laser->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
 			Laser->SetScale({ 4.0f, 210.0f, 1.0f });
 			Laser->SetActive(true);
 			HitCol->SetActive(true);
@@ -75,6 +76,7 @@ void ACeilLaser::StateInit()
 	State.SetStartFunction("Attack", [=]
 		{	
 			Laser->SetScale({ 10.0f, 210.0f, 1.0f });
+			Laser->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_attack); 
 		}
 	);

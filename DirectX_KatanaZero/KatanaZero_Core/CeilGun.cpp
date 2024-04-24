@@ -4,13 +4,13 @@
 ACeilGun::ACeilGun()
 {
 	Laser = CreateDefaultSubObject<USpriteRenderer>("Laser");
-	Spark = CreateDefaultSubObject<USpriteRenderer>("Spark");
 	Smoke = CreateDefaultSubObject<USpriteRenderer>("Smoke");
+	Spark = CreateDefaultSubObject<USpriteRenderer>("Spark");
 	HitCol = CreateDefaultSubObject<UCollision>("LaserHit");
 
 	Laser->SetupAttachment(GetRoot());
-	Spark->SetupAttachment(GetRoot());
 	Smoke->SetupAttachment(GetRoot());
+	Spark->SetupAttachment(GetRoot());
 	HitCol->SetupAttachment(GetRoot());
 }
 
@@ -31,13 +31,6 @@ void ACeilGun::BeginPlay()
 void ACeilGun::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	if (true == UEngineInput::IsDown(VK_SPACE))
-	{
-		State.ChangeState("On");
-		State.ChangeState("Shoot");
-		return;
-	}
 }
 
 void ACeilGun::RendererInit()
@@ -47,6 +40,7 @@ void ACeilGun::RendererInit()
 	Laser->SetPivot(EPivot::BOT);
 	Laser->SetScale({ 4.0f, 204.0f, 1.0f });
 	Laser->SetPosition({ 0.0f, -218.0f, 0.0f });
+	Laser->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
 
 	Spark->CreateAnimation(Anim::effect_gun_spark1, ImgRes::effect_gun_spark1, 0.06f, false);
 	Spark->CreateAnimation(Anim::effect_gun_spark2, ImgRes::effect_gun_spark2, 0.06f, false);
@@ -68,7 +62,7 @@ void ACeilGun::RendererInit()
 	Smoke->SetOrder(ERenderOrder::EffectFront);
 	Smoke->AddRotationDeg({ 0.0f, 0.0f, -90.0f });
 	Smoke->SetAutoSize(2.0f, true);
-	Smoke->SetActive(false);
+	Smoke->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.5f });
 	Smoke->SetActive(false);
 
 	GetBody()->SetSprite(ImgRes::compo_ceil_gun);
