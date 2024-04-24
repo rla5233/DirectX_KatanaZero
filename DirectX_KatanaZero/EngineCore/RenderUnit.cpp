@@ -73,6 +73,42 @@ bool URenderUnit::Render(float _DeltaTime)
 	return true;
 }
 
+bool URenderUnit::RenderInstancing(float _DeltaTime, int _Count)
+{
+	// 순서는 상관업습니다.
+
+	if (nullptr == Mesh)
+	{
+		MsgBoxLog("매쉬가 세팅되지 않았습니다.")
+			return false;
+	}
+
+	if (nullptr == Material)
+	{
+		MsgBoxLog("머티리얼이 세팅되지 않았습니다.")
+			return false;
+	}
+
+	// 여기에서 이걸 하는 이유는 딱 1개입니다.
+	// 교육용으로 랜더링파이프라인의 순서에 따라 세팅해주려는 것뿐이지
+	// 꼭 아래의 순서대로 세팅을 해야만 랜더링이 되는게 아니에요.
+	// Mesh->Setting()
+
+	RenderingSetting();
+
+
+	Resources->SettingAllShaderResources();
+
+	// Draw
+	Mesh->DrawIndexedInstanced(_Count);
+
+	BaseValue;
+
+	Resources->ResetAllShaderResources();
+
+	return true;
+}
+
 
 void URenderUnit::SetMesh(std::string_view _Name)
 {

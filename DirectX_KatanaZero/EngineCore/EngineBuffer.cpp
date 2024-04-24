@@ -3,13 +3,18 @@
 
 UEngineBuffer::UEngineBuffer() 
 {
+
 }
 
 UEngineBuffer::~UEngineBuffer() 
+{
+	Release();
+}
+
+void UEngineBuffer::Release()
 {
 	if (nullptr != Buffer)
 	{
 		Buffer->Release();
 	}
 }
-

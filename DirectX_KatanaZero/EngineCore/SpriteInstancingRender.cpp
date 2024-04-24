@@ -34,11 +34,7 @@ void USpriteInstancingRender::InstancingDataCheck(URenderUnit* _Renderer, int _C
 	UEngineStructuredBufferSetter* CuttingDataInstancing = Resources->GetStructuredBuffer("CuttingDataInstancing");
 	UEngineStructuredBufferSetter* ResultColorValueInstancing = Resources->GetStructuredBuffer("ResultColorValueInstancing");
 
-	std::shared_ptr<UEngineStructuredBuffer> TransInstancingBuffer = TransInstancing->Res;
-	std::shared_ptr<UEngineStructuredBuffer> CuttingDataInstancingBuffer = CuttingDataInstancing->Res;
-	std::shared_ptr<UEngineStructuredBuffer> ResultColorValueInstancingBuffer = ResultColorValueInstancing->Res;
-
-	//TransInstancingBuffer->PushData(Transform);
-	//CuttingDataInstancingBuffer->PushData(CuttingData);
-	//ResultColorValueInstancingBuffer->PushData(ColorData);
+	TransInstancing->PushData(Transform);
+	CuttingDataInstancing->PushData(CuttingData);
+	ResultColorValueInstancing->PushData(ColorData);
 }

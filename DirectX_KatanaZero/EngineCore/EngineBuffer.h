@@ -14,10 +14,13 @@ public:
 	UEngineBuffer& operator=(const UEngineBuffer& _Other) = delete;
 	UEngineBuffer& operator=(UEngineBuffer&& _Other) noexcept = delete;
 
+	void Release();
+
 protected:
 	D3D11_BUFFER_DESC BufferInfo = {};
 	ID3D11Buffer* Buffer = nullptr;
 
 private:
+	
 };
 

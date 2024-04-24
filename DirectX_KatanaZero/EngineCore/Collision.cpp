@@ -3,11 +3,11 @@
 #include "EngineDebug3D.h"
 #include "EngineCore.h"
 
-UCollision::UCollision()
+UCollision::UCollision() 
 {
 }
 
-UCollision::~UCollision()
+UCollision::~UCollision() 
 {
 }
 
@@ -50,12 +50,6 @@ bool UCollision::Collision(int _TargetGroup,
 	std::function<void(std::shared_ptr<UCollision>)> _Exit /*= nullptr*/)
 {
 	// Group 상대 그룹
-	bool IsColCheck = false;
-	if (nullptr == _Enter && nullptr == _Stay && nullptr == _Exit)
-	{
-		IsColCheck = true;
-	}
-
 
 	auto Test = GetWorld()->Collisions;
 
@@ -80,10 +74,6 @@ bool UCollision::Collision(int _TargetGroup,
 
 		if (true == Transform.Collision(ThisType, OtherType, OtherCollision->Transform))
 		{
-			if (true == IsColCheck)
-			{
-				return true;
-			}
 
 			if (false == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
@@ -93,16 +83,7 @@ bool UCollision::Collision(int _TargetGroup,
 					_Enter(OtherCollision);
 				}
 			}
-
-			//if (true == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
-			//{
-			//	if (nullptr != _Enter)
-			//	{
-			//		_Enter(OtherCollision);
-			//	}
-			//}
-
-
+						
 			if (true == OtherCheck.contains(CollisionPtr))
 			{
 				if (nullptr != _Stay)
@@ -111,13 +92,24 @@ bool UCollision::Collision(int _TargetGroup,
 				}
 			}
 		}
-		else if (true == OtherCheck.contains(CollisionPtr))
+		else if(true == OtherCheck.contains(CollisionPtr) || true == ExitCheck.contains(CollisionPtr))
 		{
 			OtherCheck.erase(CollisionPtr);
-			if (nullptr != _Exit)
+
+			if (false == ExitCheck.contains(CollisionPtr))
 			{
-				_Exit(OtherCollision);
+				ExitCheck.insert(CollisionPtr);
 			}
+
+			if (true == ExitCheck.contains(CollisionPtr))
+			{
+				if (nullptr != _Exit)
+				{
+					_Exit(OtherCollision);
+				}
+				return false;
+			}
+
 		}
 	}
 
@@ -149,7 +141,7 @@ void UCollision::Tick(float _Delta)
 		OtherCheck.insert(Col);
 	}
 	FirstCheck.clear();
-
+	ExitCheck.clear();
 
 	if (false == GEngine->IsDebug)
 	{
@@ -178,7 +170,7 @@ void UCollision::Tick(float _Delta)
 		Trans.World = Trans.ScaleMat * Trans.PositionMat * PScale * PPos;
 		Trans.WVP = Trans.World * Trans.View * Trans.Projection;
 
-		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Trans, float4::Red);
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Trans, float4::Black);
 		break;
 	}
 	case ECollisionType::CirCle:
@@ -187,7 +179,7 @@ void UCollision::Tick(float _Delta)
 		break;
 	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:
-		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Red);
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Black);
 		break;
 	case ECollisionType::Max:
 		break;

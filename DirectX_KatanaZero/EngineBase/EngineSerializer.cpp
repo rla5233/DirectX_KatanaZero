@@ -1,11 +1,11 @@
 #include "PreCompile.h"
 #include "EngineSerializer.h"
 
-UEngineSerializer::UEngineSerializer()
+UEngineSerializer::UEngineSerializer() 
 {
 }
 
-UEngineSerializer::~UEngineSerializer()
+UEngineSerializer::~UEngineSerializer() 
 {
 }
 
@@ -65,4 +65,9 @@ void UEngineSerializer::operator>>(UEngineSerializeObject& _Data)
 void UEngineSerializer::operator>>(UEngineSerializeObject* _Data)
 {
 	_Data->DeSerialize(*this);
+}
+
+void UEngineSerializer::ResetWrite()
+{
+	WriteOffset = 0;
 }

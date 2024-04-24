@@ -72,5 +72,5 @@ void UEngineMesh::IndexedDraw()
 
 void UEngineMesh::DrawIndexedInstanced(int _InstancingCount)
 {
-	GEngine->GetDirectXContext()->DrawIndexedInstanced(IndexBuffer->Count, 1000, 0, 0, 0);
+	GEngine->GetDirectXContext()->DrawIndexedInstanced(IndexBuffer->Count, _InstancingCount, 0, 0, 0);
 }

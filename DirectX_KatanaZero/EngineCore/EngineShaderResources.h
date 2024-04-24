@@ -27,11 +27,20 @@ class UEngineStructuredBufferSetter : public USetterBase
 {
 public:
 	std::shared_ptr<class UEngineStructuredBuffer> Res;
-	const void* CPUData = nullptr;
+
+	template<typename DataType>
+	void PushData(const DataType& _Data)
+	{
+		PushData(&_Data, sizeof(_Data));
+	}
+
+	void PushData(const void* _Data, UINT _Size);
+
+	UEngineSerializer Ser;
 	UINT BufferSize = 0;
 
-	//void Setting();
-	//void Reset();
+	void Setting();
+	void Reset();
 };
 
 

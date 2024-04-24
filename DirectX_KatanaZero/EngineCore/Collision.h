@@ -98,5 +98,6 @@ private:
 	// 순환참조를 막자.
 	std::set<UCollision*> FirstCheck;
 	std::set<UCollision*> OtherCheck;
+	std::set<UCollision*> ExitCheck;
 };
 

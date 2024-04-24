@@ -74,6 +74,12 @@ void ULevel::Render(float _DeltaTime)
 	{
 		std::list<std::shared_ptr<URenderer>>& GroupRenderers = RenderGroup.second;
 
+		if (true == GroupRenderers.empty())
+		{
+			continue;
+		}
+
+
 		if (true == InstancingRenders.contains(RenderGroup.first))
 		{
 			std::shared_ptr<UInstancingRender> Inst = InstancingRenders[RenderGroup.first];
@@ -102,7 +108,7 @@ void ULevel::Render(float _DeltaTime)
 				Inst->InstancingDataCheck(Renderer.get(), Count++);
 			}
 
-			Inst->Render(_DeltaTime);
+			Inst->RenderInstancing(_DeltaTime, static_cast<int>(RenderGroup.second.size()));
 			continue;
 		}
 

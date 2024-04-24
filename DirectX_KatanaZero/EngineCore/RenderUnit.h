@@ -40,6 +40,8 @@ public:
 
 	virtual bool Render(float _DeltaTime);
 
+	virtual bool RenderInstancing(float _DeltaTime, int _Count);
+
 	void Update(float _DeltaTime);
 
 	void ResetTime()
