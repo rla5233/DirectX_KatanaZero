@@ -16,6 +16,11 @@ public:
 	AMouseAim& operator=(const AMouseAim& _Other) = delete;
 	AMouseAim& operator=(AMouseAim&& _Other) noexcept = delete;
 
+	inline void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
+
 	static FVector GetMouseAimLocation()
 	{
 		return Location;

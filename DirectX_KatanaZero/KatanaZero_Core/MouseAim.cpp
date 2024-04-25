@@ -32,12 +32,20 @@ void AMouseAim::StateInit()
 {
 	// State
 	State.CreateState(MouseAimState::play);
+	State.CreateState(MouseAimState::replay);
 
 	// Start
 	State.SetStartFunction(MouseAimState::play, [=]
 		{
 			//GEngine->EngineWindow.CursorOff();
 			Aim->SetActive(true);
+		}
+	);
+
+	State.SetStartFunction(MouseAimState::replay, [=]
+		{
+			GEngine->EngineWindow.CursorOn();
+			Aim->SetActive(false);
 		}
 	);
 
@@ -53,6 +61,8 @@ void AMouseAim::StateInit()
 			Location = TargetPos;
 		}
 	);
+
+	State.SetUpdateFunction(MouseAimState::replay, [=](float _DeltaTime) {});
 }
 
 void AMouseAim::Tick(float _DeltaTime)

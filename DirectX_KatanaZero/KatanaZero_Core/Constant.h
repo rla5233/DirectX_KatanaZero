@@ -319,6 +319,7 @@ namespace HudState
 namespace MouseAimState
 {
 	const std::string_view play				= "Play";
+	const std::string_view replay			= "RePlay";
 }
 
 namespace ReplayUIState

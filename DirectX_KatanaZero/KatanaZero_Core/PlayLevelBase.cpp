@@ -257,10 +257,11 @@ void APlayLevelBase::StateInit()
 				AllRecComponent[i]->StateChange(RecCompoState::replay);
 			}
 
-			InputOn();
+			Aim->StateChange(MouseAimState::replay);
 
 			GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
 			ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
+			InputOn();
 		}
 	);
 
