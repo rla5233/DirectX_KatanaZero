@@ -17,8 +17,8 @@ void ADefaultPlayer::BeginPlay()
 
 	CreateAnimation();
 
-	StateChange("None");
-	SubStateChange("Intro");
+	StateChange(PlayerState::none);
+	SubStateChange(PlayerSubState::intro);
 }
 
 void ADefaultPlayer::CollisionInit()
@@ -58,13 +58,13 @@ void ADefaultPlayer::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::player_kick_door, ImgRes::player_kick_door, 0.06f, false);
 	GetBody()->CreateAnimation(Anim::player_dead, ImgRes::player_dead, 0.05f, false);
 
-	GetBody()->SetFrameCallback(Anim::player_kick_door, 9, [=] { StateChange("Idle"); });
+	GetBody()->SetFrameCallback(Anim::player_kick_door, 9, [=] { StateChange(PlayerState::idle); });
 	GetBody()->SetFrameCallback(Anim::player_kick_door, 4, [=] 
 		{ 
 			FrontCol->CollisionStay(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
 				{
 					ADoor* Door = dynamic_cast<ADoor*>(_Other->GetActor());
-					Door->StateChange("Open");
+					Door->StateChange(DoorState::open);
 				}
 			);
 		}

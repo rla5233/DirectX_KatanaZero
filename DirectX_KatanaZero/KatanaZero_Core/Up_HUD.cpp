@@ -23,7 +23,7 @@ void AUp_HUD::BeginPlay()
 	SettingTransform();
 	StateInit();
 
-	State.ChangeState("Play");
+	State.ChangeState(HudState::play);
 }
 
 void AUp_HUD::CreateImage()
@@ -173,14 +173,14 @@ void AUp_HUD::Tick(float _DeltaTime)
 void AUp_HUD::StateInit()
 {
 	// State Create
-	State.CreateState("Wait");
-	State.CreateState("Play");
-	State.CreateState("Replay");
+	State.CreateState(HudState::wait);
+	State.CreateState(HudState::play);
+	State.CreateState(HudState::replay);
 	
 	// State Start
-	State.SetStartFunction("Wait", [=] {});
-	State.SetStartFunction("Play", [=] {});
-	State.SetStartFunction("Replay", [=] 
+	State.SetStartFunction(HudState::wait, [=] {});
+	State.SetStartFunction(HudState::play, [=] {});
+	State.SetStartFunction(HudState::replay, [=]
 		{
 			Bar->SetActive(false);
 
@@ -204,8 +204,8 @@ void AUp_HUD::StateInit()
 	);
 	
 	// State Update
-	State.SetUpdateFunction("Wait", [=](float _DeltaTime) {});
-	State.SetUpdateFunction("Play", [=](float _DeltaTime)
+	State.SetUpdateFunction(HudState::wait, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(HudState::play, [=](float _DeltaTime)
 		{
 			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 			float AddScaleX = (188.0f * _DeltaTime) / PlayLevel->GetTotalPlayTime();
@@ -219,7 +219,7 @@ void AUp_HUD::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction("Replay", [=](float _DeltaTime) {});	
+	State.SetUpdateFunction(HudState::replay, [=](float _DeltaTime) {});
 }
 
 void AUp_HUD::BatteryPartUpdate(float _AbilityTime)

@@ -25,16 +25,16 @@ void AMouseAim::BeginPlay()
 	Aim->SetSprite(ImgRes::ui_cursor);
 	Aim->SetAutoSize(2.0f, true);
 	Aim->SetOrder(ERenderOrder::UI);
-	State.ChangeState("Play");
+	State.ChangeState(MouseAimState::play);
 }
 
 void AMouseAim::StateInit()
 {
 	// State
-	State.CreateState("Play");
+	State.CreateState(MouseAimState::play);
 
 	// Start
-	State.SetStartFunction("Play", [=]
+	State.SetStartFunction(MouseAimState::play, [=]
 		{
 			//GEngine->EngineWindow.CursorOff();
 			Aim->SetActive(true);
@@ -42,7 +42,7 @@ void AMouseAim::StateInit()
 	);
 
 	// Update
-	State.SetUpdateFunction("Play", [=](float _DeltaTime)
+	State.SetUpdateFunction(MouseAimState::play, [=](float _DeltaTime)
 		{
 			FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
 			FVector MousePos = GEngine->EngineWindow.GetScreenMousePos();

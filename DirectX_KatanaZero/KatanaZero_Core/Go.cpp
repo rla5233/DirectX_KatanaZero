@@ -62,18 +62,18 @@ void AGo::Tick(float _DeltaTime)
 void AGo::StateInit()
 {
 	// State Create
-	State.CreateState("Repeat");
-	State.CreateState("Replay");
+	State.CreateState(GoState::repeat);
+	State.CreateState(GoState::replay);
 
 	// State Start
-	State.SetStartFunction("Repeat", [=] 
+	State.SetStartFunction(GoState::repeat, [=]
 		{ 
 			Velocity.X = MaxSpeed;
 			SetActorLocation(RepeatPos);
 		}
 	);
 
-	State.SetStartFunction("Replay", [=] 
+	State.SetStartFunction(GoState::replay, [=]
 		{
 			Go->SetActive(false);
 			Arrow->SetActive(false);
@@ -81,7 +81,7 @@ void AGo::StateInit()
 	);
 
 	// State Update
-	State.SetUpdateFunction("Repeat", [=](float _DeltaTime) 
+	State.SetUpdateFunction(GoState::repeat, [=](float _DeltaTime)
 		{
 			Velocity += { -MaxSpeed * _DeltaTime, 0.0f, 0.0f };
 			AddActorLocation(Velocity * _DeltaTime);
@@ -93,5 +93,5 @@ void AGo::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction("Replay", [=](float _DeltaTime) {});
+	State.SetUpdateFunction(GoState::replay, [=](float _DeltaTime) {});
 }

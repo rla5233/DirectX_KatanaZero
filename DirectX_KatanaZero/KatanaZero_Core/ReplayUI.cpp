@@ -27,7 +27,7 @@ void AReplayUI::BeginPlay()
 
 	PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 
-	State.ChangeState("Play");
+	State.ChangeState(ReplayUIState::play);
 }
 
 void AReplayUI::Tick(float _DeltaTime)
@@ -64,14 +64,14 @@ void AReplayUI::ImageInit()
 void AReplayUI::StateInit()
 {
 	// State Create
-	State.CreateState("Play");
-	State.CreateState("Stop");
-	State.CreateState("Rewind");
-	State.CreateState("FastPlay");
+	State.CreateState(ReplayUIState::play);
+	State.CreateState(ReplayUIState::stop);
+	State.CreateState(ReplayUIState::rewind);
+	State.CreateState(ReplayUIState::fastplay);
 
 
 	// State Start
-	State.SetStartFunction("Play", [=] 
+	State.SetStartFunction(ReplayUIState::play, [=]
 		{
 			LeftTopText->SetSprite(ImgRes::ui_replay_LT_play);
 			LeftTopText->SetPosition({ -400.0f, 270.0f, 0.0f });
@@ -80,7 +80,7 @@ void AReplayUI::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Stop", [=] 
+	State.SetStartFunction(ReplayUIState::stop, [=]
 		{
 			LeftTopText->SetSprite(ImgRes::ui_replay_LT_stop);
 			LeftTopText->SetPosition({ -354.0f, 271.0f, 0.0f });
@@ -89,7 +89,7 @@ void AReplayUI::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Rewind", [=] 
+	State.SetStartFunction(ReplayUIState::rewind, [=]
 		{
 			LeftTopText->SetSprite(ImgRes::ui_replay_LT_rewind);
 			LeftTopText->SetPosition({ -380.0f, 271.0f, 0.0f });
@@ -99,7 +99,7 @@ void AReplayUI::StateInit()
 		}
 	);
 
-	State.SetStartFunction("FastPlay", [=]
+	State.SetStartFunction(ReplayUIState::fastplay, [=]
 		{
 			LeftTopText->SetSprite(ImgRes::ui_replay_LT_fast);
 			LeftTopText->SetPosition({ -347.0f, 271.0f, 0.0f });
@@ -114,7 +114,7 @@ void AReplayUI::StateInit()
 	);
 
 	// State Update
-	State.SetUpdateFunction("Play", [=](float _DeltaTime) 
+	State.SetUpdateFunction(ReplayUIState::play, [=](float _DeltaTime)
 		{
 
 			MousePosUpdate();
@@ -122,59 +122,59 @@ void AReplayUI::StateInit()
 			// State Change Check
 			if (true == IsDown(VK_SPACE) || true == PlayLevel->IsReplayEnd())
 			{
-				State.ChangeState("Stop");
+				State.ChangeState(ReplayUIState::stop);
 				return;
 			}
 
 			if (true == IsDown('A') || true == IsDown(VK_LEFT))
 			{
-				State.ChangeState("Rewind");
+				State.ChangeState(ReplayUIState::rewind);
 				return;
 			}
 
 			if (true == IsDown('D') || true == IsDown(VK_RIGHT))
 			{	
-				State.ChangeState("FastPlay");
+				State.ChangeState(ReplayUIState::fastplay);
 				return;
 			}
 		}
 	);
 
-	State.SetUpdateFunction("Stop", [=](float _DeltaTime) 
+	State.SetUpdateFunction(ReplayUIState::stop, [=](float _DeltaTime)
 		{
 			MousePosUpdate();
 
 			// State Change Check
 			if (true == IsDown(VK_SPACE) && false == PlayLevel->IsReplayEnd())
 			{
-				State.ChangeState("Play");
+				State.ChangeState(ReplayUIState::play);
 				return;
 			}
 
 			if ((true == IsDown('A') || true == IsDown(VK_LEFT))
 			&& (false == PlayLevel->IsRewindEnd()))
 			{
-				State.ChangeState("Rewind");
+				State.ChangeState(ReplayUIState::rewind);
 				return;
 			}
 
 			if ((true == IsDown('D') || true == IsDown(VK_RIGHT))
 			&& (false == PlayLevel->IsReplayEnd()))
 			{
-				State.ChangeState("FastPlay");
+				State.ChangeState(ReplayUIState::fastplay);
 				return;
 			}
 		}
 	);
 
-	State.SetUpdateFunction("Rewind", [=](float _DeltaTime) 
+	State.SetUpdateFunction(ReplayUIState::rewind, [=](float _DeltaTime)
 		{	
 			MousePosUpdate();
 
 			// State Change Check
 			if (true == IsDown(VK_SPACE) || true == PlayLevel->IsRewindEnd())
 			{
-				State.ChangeState("Stop");
+				State.ChangeState(ReplayUIState::stop);
 				return;
 			}
 
@@ -187,26 +187,26 @@ void AReplayUI::StateInit()
 
 			if (true == IsDown('D') || true == IsDown(VK_RIGHT))
 			{
-				State.ChangeState("Play");
+				State.ChangeState(ReplayUIState::play);
 				return;
 			}
 		}
 	);
 
-	State.SetUpdateFunction("FastPlay", [=](float _DeltaTime)
+	State.SetUpdateFunction(ReplayUIState::fastplay, [=](float _DeltaTime)
 		{
 			MousePosUpdate();
 
 			// State Change Check
 			if (true == IsDown(VK_SPACE) || true == PlayLevel->IsReplayEnd())
 			{
-				State.ChangeState("Stop");
+				State.ChangeState(ReplayUIState::stop);
 				return;
 			}
 
 			if (true == IsDown('A') || true == IsDown(VK_LEFT))
 			{
-				State.ChangeState("Play");
+				State.ChangeState(ReplayUIState::play);
 				return;
 			}
 

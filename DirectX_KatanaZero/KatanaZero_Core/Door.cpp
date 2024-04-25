@@ -57,12 +57,12 @@ void ADoor::StateInit()
 	Super::StateInit();
 
 	// State Create
-	State.CreateState("Idle");
-	State.CreateState("Open");
-	State.CreateState("Opened");
+	State.CreateState(DoorState::idle);
+	State.CreateState(DoorState::open);
+	State.CreateState(DoorState::opened);
 
 	// State Start
-	State.SetStartFunction("Idle", [=] 
+	State.SetStartFunction(DoorState::idle, [=]
 		{ 
 			EEngineDir Dir = GetBody()->GetDir();
 			FVector BodyColPos = BodyCol->GetLocalPosition();
@@ -80,35 +80,35 @@ void ADoor::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Open", [=]
+	State.SetStartFunction(DoorState::open, [=]
 		{
 			BodyCol->SetActive(false);
 			HitCol->SetActive(true);
 			GetBody()->ChangeAnimation(Anim::compo_door_open);
-			DelayCallBack(0.25f, [=] { State.ChangeState("Opened"); });
+			DelayCallBack(0.25f, [=] { State.ChangeState(DoorState::opened); });
 		}
 	);
 
-	State.SetStartFunction("Opened", [=] {});
+	State.SetStartFunction(DoorState::opened, [=] {});
 
 	// State Update
-	State.SetUpdateFunction("Idle", [=](float _DeltaTime) {});
-	State.SetUpdateFunction("Open", [=](float _DeltaTime) 
+	State.SetUpdateFunction(DoorState::idle, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(DoorState::open, [=](float _DeltaTime)
 		{
 			HitCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
 				{
 					AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
 					Enemy->HitByDoor(GetBody()->GetDir());
-					State.ChangeState("Opened");
+					State.ChangeState(DoorState::opened);
 					return;
 				}
 			);
 		}
 	);
 
-	State.SetUpdateFunction("Opened", [=](float _DeltaTime) {});
+	State.SetUpdateFunction(DoorState::opened, [=](float _DeltaTime) {});
 
 
 	// State End
-	State.SetEndFunction("Open", [=] { HitCol->SetActive(false); });
+	State.SetEndFunction(DoorState::open, [=] { HitCol->SetActive(false); });
 }

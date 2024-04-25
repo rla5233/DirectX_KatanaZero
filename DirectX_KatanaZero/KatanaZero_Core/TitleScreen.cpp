@@ -45,7 +45,7 @@ void ATitleScreen::BeginPlay()
 	SettingTransform();
 	StateInit();
 
-	State.ChangeState("Begin");
+	State.ChangeState(TitleScreenState::begin);
 }
 
 void ATitleScreen::SettingSprite()
@@ -98,19 +98,19 @@ void ATitleScreen::SettingTransform()
 void ATitleScreen::StateInit()
 {
 	// State Create
-	State.CreateState("Begin");
-	State.CreateState("Exit");
-	State.CreateState("NewGame");
+	State.CreateState(TitleScreenState::begin);
+	State.CreateState(TitleScreenState::exit);
+	State.CreateState(TitleScreenState::newgame);
 
 	// State Start
-	State.SetStartFunction("Begin", [=] 
+	State.SetStartFunction(TitleScreenState::begin, [=]
 		{
 			Plants->CreateAnimation(Anim::plants, ImgRes::title_plant, 0.1f, true);
 			Plants->ChangeAnimation(Anim::plants);
 		}
 	);
 
-	State.SetStartFunction("Exit", [=] 
+	State.SetStartFunction(TitleScreenState::exit, [=]
 		{ 
 			ATitleGameMode* Title = dynamic_cast<ATitleGameMode*>(GetWorld()->GetGameMode().get());
 			Title->MenuInputOff();
@@ -118,7 +118,7 @@ void ATitleScreen::StateInit()
 		}
 	);
 	
-	State.SetStartFunction("NewGame", [=] 
+	State.SetStartFunction(TitleScreenState::newgame, [=]
 		{ 
 			ATitleGameMode* Title = dynamic_cast<ATitleGameMode*>(GetWorld()->GetGameMode().get());
 			Title->MenuInputOff();
@@ -127,8 +127,8 @@ void ATitleScreen::StateInit()
 	);
 
 	// State Update
-	State.SetUpdateFunction("Begin", [=](float _DeltaTime) {});
-	State.SetUpdateFunction("Exit", [=](float _DeltaTime)
+	State.SetUpdateFunction(TitleScreenState::begin, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(TitleScreenState::exit, [=](float _DeltaTime)
 		{
 			LerpMoveUpdate(_DeltaTime, TitleEndWeightTime);
 			TitleEndWeightTime += 0.8f * _DeltaTime;
@@ -140,7 +140,7 @@ void ATitleScreen::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction("NewGame", [=](float _DeltaTime) 
+	State.SetUpdateFunction(TitleScreenState::newgame, [=](float _DeltaTime)
 		{
 			LerpMoveUpdate(_DeltaTime, TitleEndWeightTime);
 			TitleEndWeightTime += 0.8f * _DeltaTime;

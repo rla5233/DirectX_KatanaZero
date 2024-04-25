@@ -213,6 +213,8 @@ namespace Const
 
 }
 
+//// State
+// Player
 namespace PlayerState
 {
 	const std::string_view none				= "None";
@@ -241,6 +243,15 @@ namespace PlayerSubState
 	const std::string_view run_outro		= "RunOutro";
 }
 
+
+// Level
+namespace TitleLevelState
+{
+	const std::string_view title = "Title";
+	const std::string_view wait = "Wait";
+	const std::string_view exit = "Exit";
+}
+
 namespace PlayLevelState
 {
 	const std::string_view intro			= "Intro";
@@ -248,6 +259,21 @@ namespace PlayLevelState
 	const std::string_view clear			= "Clear";
 	const std::string_view outro			= "Outro";
 	const std::string_view replay			= "Replay";
+}
+
+
+// Object
+namespace TitleScreenState
+{
+	const std::string_view begin			= "Begin";
+	const std::string_view newgame			= "NewGame";
+	const std::string_view exit				= "Exit";
+}
+
+namespace TitleMenuState
+{
+	const std::string_view title_enter		= "TitleEnter";
+	const std::string_view wait				= "Wait";
 }
 
 namespace EnemyState
@@ -271,17 +297,35 @@ namespace RecCompoState
 
 namespace DoorState
 {
+	const std::string_view idle				= "Idle";
 	const std::string_view open				= "Open";
+	const std::string_view opened			= "Opened";
 }
 
 namespace GoState
 {
+	const std::string_view repeat			= "Repeat";
 	const std::string_view replay			= "Replay";
 }
 
 namespace HudState
 {
+	const std::string_view wait				= "Wait";
+	const std::string_view play				= "Play";
 	const std::string_view replay			= "Replay";
+}
+
+namespace MouseAimState
+{
+	const std::string_view play				= "Play";
+}
+
+namespace ReplayUIState
+{
+	const std::string_view play				= "Play";
+	const std::string_view stop				= "Stop";
+	const std::string_view rewind			= "Rewind";
+	const std::string_view fastplay			= "FastPlay";
 }
 
 namespace CeilLaserState
@@ -296,4 +340,10 @@ namespace CeilGunState
 	const std::string_view on				= "On";
 	const std::string_view off				= "Off";
 	const std::string_view shoot			= "Shoot";
+}
+
+namespace PanicSwitch
+{
+	const std::string_view on				= "On";
+	const std::string_view off				= "Off";
 }

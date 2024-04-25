@@ -34,7 +34,7 @@ void ATitleMenu::BeginPlay()
 
 	StateInit();
 
-	State.ChangeState("TitleEnter");
+	State.ChangeState(TitleMenuState::title_enter);
 }
 
 void ATitleMenu::SettingSprite()
@@ -74,11 +74,11 @@ void ATitleMenu::Tick(float _DeltaTime)
 void ATitleMenu::StateInit()
 {
 	// State Create
-	State.CreateState("TitleEnter");
-	State.CreateState("Wait");
+	State.CreateState(TitleMenuState::title_enter);
+	State.CreateState(TitleMenuState::wait);
 
 	// State Start
-	State.SetStartFunction("TitleEnter", [=] 
+	State.SetStartFunction(TitleMenuState::title_enter, [=]
 		{
 			FVector StartPos = { 0.0f, -800.0f, 0.0f };
 			FVector TargetPos = { 0.0f, -520.0f, 0.0f };
@@ -88,10 +88,10 @@ void ATitleMenu::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Wait", [=] {});
+	State.SetStartFunction(TitleMenuState::wait, [=] {});
 
 	// State Update
-	State.SetUpdateFunction("TitleEnter", [=] (float _DeltaTime)
+	State.SetUpdateFunction(TitleMenuState::title_enter, [=] (float _DeltaTime)
 		{
 			LerpMoveUpdate(_DeltaTime, EnterTitleTimeWeight);
 			EnterTitleTimeWeight -= 2.0f * _DeltaTime;
@@ -99,13 +99,13 @@ void ATitleMenu::StateInit()
 
 			if (false == IsLerpMove())
 			{
-				State.ChangeState("Wait");
+				State.ChangeState(TitleMenuState::wait);
 				return;
 			}
 		}
 	);
 
-	State.SetUpdateFunction("Wait", [=](float _DeltaTime) { InputCheck(); });
+	State.SetUpdateFunction(TitleMenuState::wait, [=](float _DeltaTime) { InputCheck(); });
 }
 
 void ATitleMenu::InputCheck()
