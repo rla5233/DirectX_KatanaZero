@@ -411,6 +411,7 @@ void APlayerBase::Jump(float _DeltaTime)
 	// 속도 업데이트
 	if (true == IsColHeadToCeil(Body->GetDir()))
 	{
+		AddActorLocation({ 0.0f, -2.0f, 0.0f });
 		Velocity.Y = 0.0f;
 	}
 
@@ -462,6 +463,7 @@ void APlayerBase::Fall(float _DeltaTime)
 	// 속도 업데이트
 	if (true == IsColHeadToCeil(Body->GetDir()))
 	{
+		AddActorLocation({ 0.0f, -2.0f, 0.0f });
 		Velocity.Y = 0.0f;
 	}
 

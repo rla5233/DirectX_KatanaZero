@@ -86,4 +86,10 @@ enum class EIntroOrder
 enum class EOutroType
 {
 	Run,
+	IdleToRun,
+	RunToIdle,
+	Jump,
+	Fall,
+	Roll,
+	Attack
 };
