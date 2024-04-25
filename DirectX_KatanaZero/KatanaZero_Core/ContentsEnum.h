@@ -82,3 +82,8 @@ enum class EIntroOrder
 	RunToIdle,
 	MusicOn,
 };
+
+enum class EOutroType
+{
+	Run,
+};

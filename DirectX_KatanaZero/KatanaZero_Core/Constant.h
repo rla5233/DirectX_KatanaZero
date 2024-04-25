@@ -240,7 +240,7 @@ namespace PlayerSubState
 	const std::string_view intro			= "Intro";
 	const std::string_view play				= "Play";
 	const std::string_view replay			= "Replay";
-	const std::string_view run_outro		= "RunOutro";
+	const std::string_view outro			= "Outro";
 }
 
 

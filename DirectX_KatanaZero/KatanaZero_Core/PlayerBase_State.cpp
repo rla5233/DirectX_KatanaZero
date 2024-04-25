@@ -858,7 +858,8 @@ void APlayerBase::StateInit()
 	State.SetStartFunction(PlayerState::flip,			std::bind(&APlayerBase::FlipStart, this));
 	State.SetStartFunction(PlayerState::kickdoor,		[=] { Body->ChangeAnimation(Anim::player_kick_door); });
 	State.SetStartFunction(PlayerState::dead,			std::bind(&APlayerBase::DeadStart, this));
-	
+
+
 	// State Update 함수 세팅
 	State.SetUpdateFunction(PlayerState::none,			[=](float _DeltaTime) {});
 	State.SetUpdateFunction(PlayerState::idle,			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));

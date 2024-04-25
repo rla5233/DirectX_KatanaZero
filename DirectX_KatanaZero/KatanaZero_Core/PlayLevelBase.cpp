@@ -204,7 +204,11 @@ void APlayLevelBase::StateInit()
 	// State Start 함수 세팅
 	State.SetStartFunction(PlayLevelState::intro, [=] {});
 	State.SetStartFunction(PlayLevelState::clear, std::bind(&APlayLevelBase::ClearStart, this));
-	State.SetStartFunction(PlayLevelState::outro, [=] {});
+	State.SetStartFunction(PlayLevelState::outro, [=] 
+		{
+			Player->SubStateChange(PlayerSubState::outro);
+		}
+	);
 	State.SetStartFunction(PlayLevelState::play, [=]
 		{
 			HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
@@ -283,7 +287,7 @@ void APlayLevelBase::StateInit()
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			if (true == IsRelayStart())
 			{
-				State.ChangeState(PlayLevelState::replay);
+				State.ChangeState(PlayLevelState::outro);
 				return;
 			}
 		}

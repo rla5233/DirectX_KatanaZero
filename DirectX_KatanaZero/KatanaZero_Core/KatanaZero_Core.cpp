@@ -33,11 +33,11 @@ void UKatanaZero_Core::Initialize()
 	GEngine->CreateLevel<AFactory_004>("Factory_004");
 	GEngine->CreateLevel<AFactory_005>("Factory_005");
 	
-	GEngine->ChangeLevel("TitleLevel");
+	//GEngine->ChangeLevel("TitleLevel");
 	
 	//GEngine->ChangeLevel("Factory_002");
 
-	//GEngine->ChangeLevel("Factory_003");
+	GEngine->ChangeLevel("Factory_003");
 	
 	//GEngine->ChangeLevel("Factory_004");
 

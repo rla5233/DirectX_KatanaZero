@@ -10,8 +10,7 @@ void APlayerBase::SubStateInit()
 	SubState.CreateState(PlayerSubState::intro);
 	SubState.CreateState(PlayerSubState::play);
 	SubState.CreateState(PlayerSubState::replay);
-
-	SubState.CreateState(PlayerSubState::run_outro);
+	SubState.CreateState(PlayerSubState::outro);
 
 
 	// State Start
@@ -38,11 +37,21 @@ void APlayerBase::SubStateInit()
 			IsPlayValue = false;
 			SetRecordingActive(false);
 			SetReplayStart();
-			State.ChangeState(PlayerState::none);
 		}
 	);
 
-	SubState.SetStartFunction(PlayerSubState::run_outro, [=] { State.ChangeState(PlayerState::none); });
+	SubState.SetStartFunction(PlayerSubState::outro, [=] 
+		{
+			SetOutroType();
+			DelayCallBack(0.5f, [=]
+				{
+					APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+					PlayLevel->StateChange(PlayLevelState::replay);
+				}
+			);
+			State.ChangeState(PlayerState::none);
+		}
+	);
 
 	// State Update
 	SubState.SetUpdateFunction(PlayerSubState::none, [=](float _DeltaTime) {});
@@ -86,11 +95,7 @@ void APlayerBase::SubStateInit()
 		}
 	);
 
-	SubState.SetUpdateFunction(PlayerSubState::run_outro, [=](float _DeltaTime)
-		{
-
-		}
-	);
+	SubState.SetUpdateFunction(PlayerSubState::outro, [=](float _DeltaTime)	{ OutroUpdate(_DeltaTime); });
 
 	// State End
 	SubState.SetEndFunction(PlayerSubState::intro, [=]
@@ -184,5 +189,28 @@ void APlayerBase::AbilityUpdate(float _DeltaTime)
 		APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 		PlayLevel->BatterPartUpdate(AbilityTime);
 		return;
+	}
+}
+
+void APlayerBase::SetOutroType()
+{
+	std::string CurMainState = State.GetCurStateName();
+
+	if (PlayerState::run == CurMainState)
+	{
+		OutroType = EOutroType::Run;
+		SetMaxRunVel();
+		return;
+	}
+
+}
+
+void APlayerBase::OutroUpdate(float _DeltaTime)
+{
+	switch (OutroType)
+	{
+	case EOutroType::Run:
+		PosUpdate(_DeltaTime);
+		break;
 	}
 }

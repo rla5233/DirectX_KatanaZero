@@ -230,9 +230,13 @@ private:
 	void SubStateInit();
 	UStateManager SubState;
 	EIntroOrder IntroOrder = EIntroOrder::Run;
+	EOutroType OutroType = EOutroType::Run;
 
 	void AttackDelayTimeUpdate(float _DeltaTime);
 	void AbilityCheck();
 	void AbilityUpdate(float _DeltaTime);
+
+	void SetOutroType();
+	void OutroUpdate(float _DeltaTime);
 };
 
