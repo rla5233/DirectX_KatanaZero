@@ -30,6 +30,11 @@ public:
 		return Actor->GetWorld();
 	}
 
+	bool IsActive() override
+	{
+		return UTickObject::IsActive() && Actor->IsActive();
+	}
+
 protected:
 
 private:

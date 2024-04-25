@@ -72,7 +72,7 @@ public:
 	void SetWindowSmallIcon();
 	
 	
-	void IsCursor()
+	bool IsCursor()
 	{
 		return IsCursorValue;
 	}

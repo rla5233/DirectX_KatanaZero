@@ -51,11 +51,11 @@ void UEngineWindow::Init(HINSTANCE _hInst)
 
 
 
-UEngineWindow::UEngineWindow() 
+UEngineWindow::UEngineWindow()
 {
 }
 
-UEngineWindow::~UEngineWindow() 
+UEngineWindow::~UEngineWindow()
 {
 	BackBufferImage = nullptr;
 	WindowImage = nullptr;
@@ -215,7 +215,7 @@ void UEngineWindow::SetWindowPosition(const FVector& _Pos)
 void UEngineWindow::SetWindowScale(const FVector& _Scale)
 {
 	Scale = _Scale;
-	
+
 	BackBufferImage = std::make_shared<UWindowImage>();
 	BackBufferImage->Create(WindowImage, Scale);
 
@@ -250,7 +250,7 @@ void UEngineWindow::ScreenClear()
 void UEngineWindow::ScreenUpdate()
 {
 	FTransform CopyTrans;
-	CopyTrans.SetPosition({Scale.ihX(), Scale.ihY()});
+	CopyTrans.SetPosition({ Scale.ihX(), Scale.ihY() });
 	CopyTrans.SetScale({ Scale.iX(), Scale.iY() });
 
 	WindowImage->BitCopy(BackBufferImage, CopyTrans);
@@ -263,7 +263,7 @@ void UEngineWindow::ScreenUpdate()
 
 void UEngineWindow::SetWindowSmallIcon()
 {
-	
+
 }
 
 void UEngineWindow::CursorOff()
@@ -275,5 +275,5 @@ void UEngineWindow::CursorOff()
 void UEngineWindow::CursorOn()
 {
 	ShowCursor(TRUE);
-	IsCursorValue = false;
+	IsCursorValue = true;
 }

@@ -60,10 +60,10 @@ public:
 			}
 		}
 
-		CallBacks.push_back(std::make_shared<UEngineTickCallBack>(_Time, _CallBack));
+		CallBacks.push_back(std::make_shared<UEngineTickCallBack>( _Time ,_CallBack ));
 	}
 
-	bool IsActive()
+	virtual bool IsActive()
 	{
 		return ActiveValue;
 	}
