@@ -109,66 +109,6 @@ void APlayerBase::CollisionInit()
 	FrontCol->SetCollisionType(ECollisionType::Rect);
 }
 
-void APlayerBase::AbilityCheck()
-{
-	if (true == IsAbilityInputDown())
-	{
-		IsAbilityValue = true;
-		float TimeScale = Const::player_ability_timescale;
-		GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
-		GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
-		GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
-		return;
-	}
-
-	if (true == IsAbilityInputUp() || false == IsAbilityValue)
-	{
-		IsAbilityValue = false;
-		GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1);
-		GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, 1);
-		GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, 1);
-		return;
-	}
-}
-
-void APlayerBase::AbilityUpdate(float _DeltaTime)
-{
-	if (false == IsPlayValue)
-	{
-		return;
-	}
-
-	if (true == IsAbilityInputPress() && true == IsAbilityValue)
-	{
-		float TimeScale = Const::player_ability_timescale;
-		AbilityTime -= _DeltaTime * (1 / TimeScale);
-
-		if (0.0f > AbilityTime)
-		{
-			AbilityTime = 0.0f;
-			IsAbilityValue = false;
-		}
-		
-		APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-		PlayLevel->BatterPartUpdate(AbilityTime);
-		return;
-	}
-
-	if (false == IsAbilityValue)
-	{
-		AbilityTime += _DeltaTime * 0.75f;
-
-		if (Const::player_ability_time < AbilityTime)
-		{
-			AbilityTime = Const::player_ability_time;
-		}		
-
-		APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-		PlayLevel->BatterPartUpdate(AbilityTime);
-		return;
-	}
-}
-
 void APlayerBase::AttackCollisionCheck()
 {
 	AttackCol->CollisionEnter(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)

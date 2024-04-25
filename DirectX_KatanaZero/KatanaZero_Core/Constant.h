@@ -2,10 +2,10 @@
 
 namespace ColMap
 {
-	const Color8Bit YELLOW	= Color8Bit(255, 255, 0, 255);
-	const Color8Bit GREEN	= Color8Bit(0, 255, 0, 255);
-	const Color8Bit BLUE	= Color8Bit(0, 0, 255, 255);
-	const Color8Bit RED		= Color8Bit(255, 0, 0, 255);
+	const Color8Bit YELLOW	= Color8Bit(255, 255, 0, 255);	//	Ground
+	const Color8Bit GREEN	= Color8Bit(0, 255, 0, 255);	//	Platform
+	const Color8Bit BLUE	= Color8Bit(0, 0, 255, 255);	//	Stair
+	const Color8Bit RED		= Color8Bit(255, 0, 0, 255);	//	EndPoint
 }
 
 namespace ImgRes
@@ -211,4 +211,24 @@ namespace Const
 	const float effect_roll_cloud_delay				= 0.02f;
 	const float effect_wallslide_cloud_delay		= 0.04f;
 
+}
+
+namespace PlayerState
+{
+	// Player
+	const std::string_view none				= "None";
+	const std::string_view idle				= "Idle";
+	const std::string_view idle_to_run		= "IdleToRun";
+	const std::string_view run				= "Run";
+	const std::string_view run_to_idle		= "RunToIdle";
+	const std::string_view postcrouch		= "PostCrouch";
+	const std::string_view precrouch		= "PreCrouch";
+	const std::string_view jump				= "Jump";
+	const std::string_view fall				= "Fall";
+	const std::string_view roll				= "Roll";
+	const std::string_view attack			= "Attack";
+	const std::string_view wallslide		= "WallSlide";
+	const std::string_view flip				= "Flip";
+	const std::string_view kickdoor			= "KickDoor";
+	const std::string_view dead				= "Dead";
 }

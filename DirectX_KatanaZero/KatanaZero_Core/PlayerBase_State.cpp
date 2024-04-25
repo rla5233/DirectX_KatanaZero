@@ -17,7 +17,7 @@ void APlayerBase::Idle(float _DeltaTime)
 {
 	if (true == IsDoorKickInputPress())
 	{
-		State.ChangeState("KickDoor");
+		State.ChangeState(PlayerState::kickdoor);
 		return;
 	}
 
@@ -30,7 +30,7 @@ void APlayerBase::Idle(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
@@ -39,7 +39,7 @@ void APlayerBase::Idle(float _DeltaTime)
 	{
 		if (false == IsColWall(Dir))
 		{
-			State.ChangeState("IdleToRun");
+			State.ChangeState(PlayerState::idle_to_run);
 			return;
 		}
 	}
@@ -48,24 +48,24 @@ void APlayerBase::Idle(float _DeltaTime)
 	{
 		if (true == IsRunInputPress())
 		{
-			State.ChangeState("IdleToRun");
+			State.ChangeState(PlayerState::idle_to_run);
 			return;
 		}
 
-		State.ChangeState("PostCrouch");
+		State.ChangeState(PlayerState::postcrouch);
 		return;
 	}
 
 	if (true == IsJumpInputDown())
 	{
-		State.ChangeState("Jump");
+		State.ChangeState(PlayerState::jump);
 		return;
 	}
 
 	if (false == IsOnGround(Dir) && false == IsOnPlatForm(Dir)
 	&&  false == IsOnStairs(Dir) && false == IsOnGP_Boundary(Dir))
 	{
-		State.ChangeState("Fall");
+		State.ChangeState(PlayerState::fall);
 		return;
 	}
 }
@@ -110,13 +110,13 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
 	if (true == IsRunToRollInputDown())
 	{
-		State.ChangeState("Roll");
+		State.ChangeState(PlayerState::roll);
 		return;
 	}
 
@@ -133,20 +133,20 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 			break;
 		}
 
-		State.ChangeState("Jump");
+		State.ChangeState(PlayerState::jump);
 		return;
 	}
 
 	if (true == Body->IsCurAnimationEnd() && true == IsRunInputPress())
 	{
-		State.ChangeState("Run");
+		State.ChangeState(PlayerState::run);
 		return;
 	}
 
 	if (true == IsAnykeyFree()
 	|| (false == IsRunInputPress() && true == IsAbilityInputPress()))
 	{
-		State.ChangeState("RunToIdle");
+		State.ChangeState(PlayerState::run_to_idle);
 		return;
 	}
 }
@@ -165,7 +165,7 @@ void APlayerBase::Run(float _DeltaTime)
 	if (true == IsColDoorValue)
 	{
 		Velocity.X = 0;
-		State.ChangeState("RunToIdle");
+		State.ChangeState(PlayerState::run_to_idle);
 		return;
 	}
 
@@ -181,20 +181,20 @@ void APlayerBase::Run(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
 	// Collision Check
 	if (true == IsRunToRollInputDown())
 	{
-		State.ChangeState("Roll");
+		State.ChangeState(PlayerState::roll);
 		return;
 	}
 
 	if (true == IsJumpInputDown())
 	{
-		State.ChangeState("Jump");
+		State.ChangeState(PlayerState::jump);
 		return;
 	}
 
@@ -206,7 +206,7 @@ void APlayerBase::Run(float _DeltaTime)
 			Velocity.X = 0.0f;
 		}
 
-		State.ChangeState("RunToIdle");
+		State.ChangeState(PlayerState::run_to_idle);
 		return;
 	}
 }
@@ -241,25 +241,25 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
 	if (true == IsDoorKickInputPress())
 	{
-		State.ChangeState("KickDoor");
+		State.ChangeState(PlayerState::kickdoor);
 		return;
 	}
 
 	if (true == IsRunInputPress() && false == IsColWall(Dir) && false == IsColDoorValue)
 	{
-		State.ChangeState("IdleToRun");
+		State.ChangeState(PlayerState::idle_to_run);
 		return;
 	}
 
 	if (true == Body->IsCurAnimationEnd())
 	{
-		State.ChangeState("Idle");
+		State.ChangeState(PlayerState::idle);
 		return;
 	}
 }
@@ -277,26 +277,26 @@ void APlayerBase::PostCrouch(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
 	if (false == IsCrouchInputPress())
 	{
-		State.ChangeState("PreCrouch");
+		State.ChangeState(PlayerState::precrouch);
 		return;
 	}
 
 	if (true == IsCrouchInputPress() && true == IsOnPlatForm(Body->GetDir()))
 	{
-		State.ChangeState("Fall");
+		State.ChangeState(PlayerState::fall);
 		return;
 	}
 	 
 	if (true == IsCrouchToRollInputPress())
 	{
 		IsDirChangeKeyPress();
-		State.ChangeState("Roll");
+		State.ChangeState(PlayerState::roll);
 		return;
 	}
 }
@@ -312,13 +312,13 @@ void APlayerBase::PreCrouch(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
 	if (true == Body->IsCurAnimationEnd())
 	{
-		State.ChangeState("Idle");
+		State.ChangeState(PlayerState::idle);
 		return;
 	}
 }
@@ -372,7 +372,7 @@ void APlayerBase::Roll(float _DeltaTime)
 	if (true == IsAttackInputDown())
 	{
 		Velocity = FVector::Zero;
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
@@ -382,17 +382,17 @@ void APlayerBase::Roll(float _DeltaTime)
 
 		if (true == IsRunInputPress())
 		{
-			State.ChangeState("Run");
+			State.ChangeState(PlayerState::run);
 			return;
 		}
 		
 		if (true == IsCrouchInputPress())
 		{
-			State.ChangeState("PostCrouch");
+			State.ChangeState(PlayerState::postcrouch);
 			return;
 		}
 	
-		State.ChangeState("Idle");
+		State.ChangeState(PlayerState::idle);
 		return;
 	}
 }
@@ -435,19 +435,19 @@ void APlayerBase::Jump(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
 	if (true == IsRunInputPress() && true == IsColWall(Body->GetDir()))
 	{
-		State.ChangeState("WallSlide");
+		State.ChangeState(PlayerState::wallslide);
 		return;
 	}
 
 	if (true == IsFallInputPress() ||  false == IsJumpInputPress() ||  0.0f > Velocity.Y)
 	{
-		State.ChangeState("Fall");
+		State.ChangeState(PlayerState::fall);
 		return;
 	}
 }
@@ -492,7 +492,7 @@ void APlayerBase::Fall(float _DeltaTime)
 	if (true == IsAttackInputDown())
 	{
 		Velocity.X = 0.0f;
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
@@ -503,14 +503,14 @@ void APlayerBase::Fall(float _DeltaTime)
 
 	if (true == IsRunInputPress() && true == IsColWall(Body->GetDir()))
 	{
-		State.ChangeState("WallSlide");
+		State.ChangeState(PlayerState::wallslide);
 		return;
 	}
 
 	if ((true == IsOnGround(Body->GetDir()) || true == IsOnStairs(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
 	&&  (true == IsRunToRollInputPress() && true == IsCrouchToRollInputPress()))
 	{
-		State.ChangeState("Roll");
+		State.ChangeState(PlayerState::roll);
 		return;
 	}
 
@@ -520,11 +520,11 @@ void APlayerBase::Fall(float _DeltaTime)
 		SetLandEffect();
 		if (true == IsRunInputPress())
 		{
-			State.ChangeState("Run");
+			State.ChangeState(PlayerState::run);
 			return;
 		}
 		
-		State.ChangeState("RunToIdle");
+		State.ChangeState(PlayerState::run_to_idle);
 		return;
 	}
 }
@@ -600,7 +600,7 @@ void APlayerBase::Attack(float _DeltaTime)
 	// StateChange Check
 	if (true == Body->IsCurAnimationEnd())
 	{
-		State.ChangeState("Fall");
+		State.ChangeState(PlayerState::fall);
 		return;
 	}
 }
@@ -652,19 +652,19 @@ void APlayerBase::WallSlide(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
 	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
 	{
-		State.ChangeState("Idle");
+		State.ChangeState(PlayerState::idle);
 		return;
 	}
 
 	if (false == IsColHeadToWall(Body->GetDir()) && false == IsColBotToWall(Body->GetDir()))
 	{
-		State.ChangeState("Fall");
+		State.ChangeState(PlayerState::fall);
 		return;
 	}
 
@@ -685,7 +685,7 @@ void APlayerBase::WallSlide(float _DeltaTime)
 			break;
 		}		
 
-		State.ChangeState("Flip");
+		State.ChangeState(PlayerState::flip);
 		return;
 	}
 }
@@ -730,7 +730,7 @@ void APlayerBase::Flip(float _DeltaTime)
 	// StateChange Check
 	if (true == IsAttackInputDown())
 	{
-		State.ChangeState("Attack");
+		State.ChangeState(PlayerState::attack);
 		return;
 	}
 
@@ -738,13 +738,13 @@ void APlayerBase::Flip(float _DeltaTime)
 	&&	(false == IsColHeadToCeil(Body->GetDir())))
 	{
 		Velocity.Y = 150.0f;
-		State.ChangeState("WallSlide");
+		State.ChangeState(PlayerState::wallslide);
 		return;
 	}
 
 	if (true == Body->IsCurAnimationEnd())
 	{
-		State.ChangeState("Fall");
+		State.ChangeState(PlayerState::fall);
 		return;
 	}
 }
@@ -818,7 +818,7 @@ void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 	}
 
 	HitEnemy = _EnemyType;
-	State.ChangeState("Dead");
+	State.ChangeState(PlayerState::dead);
 }
 
 
@@ -826,61 +826,61 @@ void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 void APlayerBase::StateInit()
 {
 	// State 생성
-	State.CreateState("None");
-	State.CreateState("Idle");
-	State.CreateState("IdleToRun");
-	State.CreateState("Run");
-	State.CreateState("RunToIdle");
-	State.CreateState("PostCrouch");
-	State.CreateState("PreCrouch");
-	State.CreateState("Jump");
-	State.CreateState("Fall");
-	State.CreateState("Roll");
-	State.CreateState("Attack");
-	State.CreateState("WallSlide");
-	State.CreateState("Flip");
-	State.CreateState("KickDoor");
-	State.CreateState("Dead");
+	State.CreateState(PlayerState::none);
+	State.CreateState(PlayerState::idle);
+	State.CreateState(PlayerState::idle_to_run);
+	State.CreateState(PlayerState::run);
+	State.CreateState(PlayerState::run_to_idle);
+	State.CreateState(PlayerState::postcrouch);
+	State.CreateState(PlayerState::precrouch);
+	State.CreateState(PlayerState::jump);
+	State.CreateState(PlayerState::fall);
+	State.CreateState(PlayerState::roll);
+	State.CreateState(PlayerState::attack);
+	State.CreateState(PlayerState::wallslide);
+	State.CreateState(PlayerState::flip);
+	State.CreateState(PlayerState::kickdoor);
+	State.CreateState(PlayerState::dead);
 
 	// State Start 함수 세팅
-	State.SetStartFunction("None", [=] {});
-	State.SetStartFunction("Idle",			std::bind(&APlayerBase::IdleStart, this));
-	State.SetStartFunction("IdleToRun",		std::bind(&APlayerBase::IdleToRunStart, this));
-	State.SetStartFunction("Run",			std::bind(&APlayerBase::RunStart, this));
-	State.SetStartFunction("RunToIdle",		std::bind(&APlayerBase::RunToIdleStart, this));
-	State.SetStartFunction("PostCrouch",	std::bind(&APlayerBase::PostCrouchStart, this));
-	State.SetStartFunction("PreCrouch",		std::bind(&APlayerBase::PreCrouchStart, this));
-	State.SetStartFunction("Jump",			std::bind(&APlayerBase::JumpStart, this));
-	State.SetStartFunction("Fall",			std::bind(&APlayerBase::FallStart, this));
-	State.SetStartFunction("Roll",			std::bind(&APlayerBase::RollStart, this));
-	State.SetStartFunction("Attack",		std::bind(&APlayerBase::AttackStart, this));
-	State.SetStartFunction("WallSlide",		std::bind(&APlayerBase::WallSlideStart, this));
-	State.SetStartFunction("Flip",			std::bind(&APlayerBase::FlipStart, this));
-	State.SetStartFunction("KickDoor",		[=] { Body->ChangeAnimation(Anim::player_kick_door); });
-	State.SetStartFunction("Dead",			std::bind(&APlayerBase::DeadStart, this));
+	State.SetStartFunction(PlayerState::none, [=] {});
+	State.SetStartFunction(PlayerState::idle,			std::bind(&APlayerBase::IdleStart, this));
+	State.SetStartFunction(PlayerState::idle_to_run,	std::bind(&APlayerBase::IdleToRunStart, this));
+	State.SetStartFunction(PlayerState::run,			std::bind(&APlayerBase::RunStart, this));
+	State.SetStartFunction(PlayerState::run_to_idle,	std::bind(&APlayerBase::RunToIdleStart, this));
+	State.SetStartFunction(PlayerState::postcrouch,		std::bind(&APlayerBase::PostCrouchStart, this));
+	State.SetStartFunction(PlayerState::precrouch,		std::bind(&APlayerBase::PreCrouchStart, this));
+	State.SetStartFunction(PlayerState::jump,			std::bind(&APlayerBase::JumpStart, this));
+	State.SetStartFunction(PlayerState::fall,			std::bind(&APlayerBase::FallStart, this));
+	State.SetStartFunction(PlayerState::roll,			std::bind(&APlayerBase::RollStart, this));
+	State.SetStartFunction(PlayerState::attack,			std::bind(&APlayerBase::AttackStart, this));
+	State.SetStartFunction(PlayerState::wallslide,		std::bind(&APlayerBase::WallSlideStart, this));
+	State.SetStartFunction(PlayerState::flip,			std::bind(&APlayerBase::FlipStart, this));
+	State.SetStartFunction(PlayerState::kickdoor,		[=] { Body->ChangeAnimation(Anim::player_kick_door); });
+	State.SetStartFunction(PlayerState::dead,			std::bind(&APlayerBase::DeadStart, this));
 	
 	// State Update 함수 세팅
-	State.SetUpdateFunction("None", [=](float _DeltaTime) {});
-	State.SetUpdateFunction("Idle",			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
-	State.SetUpdateFunction("IdleToRun",	std::bind(&APlayerBase::IdleToRun, this, std::placeholders::_1));
-	State.SetUpdateFunction("Run",			std::bind(&APlayerBase::Run, this, std::placeholders::_1));
-	State.SetUpdateFunction("RunToIdle",	std::bind(&APlayerBase::RunToIdle, this, std::placeholders::_1));
-	State.SetUpdateFunction("PostCrouch",	std::bind(&APlayerBase::PostCrouch, this, std::placeholders::_1));
-	State.SetUpdateFunction("PreCrouch",	std::bind(&APlayerBase::PreCrouch, this, std::placeholders::_1));
-	State.SetUpdateFunction("Jump",			std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
-	State.SetUpdateFunction("Fall",			std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
-	State.SetUpdateFunction("Roll",			std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
-	State.SetUpdateFunction("Attack",		std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
-	State.SetUpdateFunction("WallSlide",	std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
-	State.SetUpdateFunction("Flip",			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
-	State.SetUpdateFunction("KickDoor",		[=](float _DeltaTime) {});
-	State.SetUpdateFunction("Dead",			std::bind(&APlayerBase::Dead, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::none,			[=](float _DeltaTime) {});
+	State.SetUpdateFunction(PlayerState::idle,			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::idle_to_run,	std::bind(&APlayerBase::IdleToRun, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::run,			std::bind(&APlayerBase::Run, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::run_to_idle,	std::bind(&APlayerBase::RunToIdle, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::postcrouch,	std::bind(&APlayerBase::PostCrouch, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::precrouch,		std::bind(&APlayerBase::PreCrouch, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::jump,			std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::fall,			std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::roll,			std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::attack,		std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::wallslide,		std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::flip,			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::kickdoor,		[=](float _DeltaTime) {});
+	State.SetUpdateFunction(PlayerState::dead,			std::bind(&APlayerBase::Dead, this, std::placeholders::_1));
 
 	// State End 함수 세팅
-	State.SetEndFunction("Attack",			[=] { AttackCol->SetActive(false); });
-	State.SetEndFunction("WallSlide",		[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
-	State.SetEndFunction("Roll",			[=] { IsInvincibleValue = false; });
-	State.SetEndFunction("KickDoor",		[=] { IsColDoorValue = false; });
+	State.SetEndFunction(PlayerState::attack,		[=] { AttackCol->SetActive(false); });
+	State.SetEndFunction(PlayerState::wallslide,	[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
+	State.SetEndFunction(PlayerState::roll,			[=] { IsInvincibleValue = false; });
+	State.SetEndFunction(PlayerState::kickdoor,		[=] { IsColDoorValue = false; });
 }
 
 

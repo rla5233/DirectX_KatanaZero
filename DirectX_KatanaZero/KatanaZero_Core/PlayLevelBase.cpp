@@ -198,10 +198,13 @@ void APlayLevelBase::StateInit()
 	State.CreateState("Intro");
 	State.CreateState("Play");
 	State.CreateState("Clear");
+	State.CreateState("Outro");
 	State.CreateState("Replay");
 
 	// State Start 함수 세팅
 	State.SetStartFunction("Intro", [=] {});
+	State.SetStartFunction("Clear", std::bind(&APlayLevelBase::ClearStart, this));
+	State.SetStartFunction("Outro", [=] {});
 	State.SetStartFunction("Play", [=] 
 		{
 			HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
@@ -220,7 +223,6 @@ void APlayLevelBase::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Clear", std::bind(&APlayLevelBase::ClearStart, this));
 	State.SetStartFunction("Replay", [=] 
 		{ 
 			// Recording Off
@@ -258,6 +260,7 @@ void APlayLevelBase::StateInit()
 	);
 
 	// State Update 함수 세팅
+	State.SetUpdateFunction("Outro", [=](float _DeltaTime) {});
 	State.SetUpdateFunction("Intro", [=](float _DeltaTime) 
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());

@@ -106,6 +106,7 @@ protected:
 	UStateManager State;
 	void StateInit();
 
+	// Go 위치 지정
 	virtual void ClearStart();
 
 // 디버깅 관련
