@@ -48,6 +48,45 @@ void UEngineSprite::ResLoadFolder()
 	}
 }
 
+
+void UEngineSprite::ThreadSafeResLoad()
+{
+	FSpriteInfo TextureInfo;
+
+	std::shared_ptr<UEngineTexture> Texture = UEngineTexture::FindRes(GetName());
+
+	if (nullptr == Texture)
+	{
+		Texture = UEngineTexture::ThreadSafeLoad(GetPath());
+	}
+
+	TextureInfo.Texture = Texture;
+
+	Infos.push_back(TextureInfo);
+}
+
+void UEngineSprite::ThreadSafeResLoadFolder()
+{
+	UEngineDirectory Dir = GetEnginePath();
+
+	std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png", ".jpg", ".jpeg", ".gif", ".bmp" });
+
+	for (size_t i = 0; i < Files.size(); i++)
+	{
+		std::string FileName = Files[i].GetFileName();
+
+		std::shared_ptr<UEngineTexture> Texture = UEngineTexture::FindRes(FileName);
+
+		if (nullptr == Texture)
+		{
+			Texture = UEngineTexture::ThreadSafeLoad(Files[i].GetFullPath());
+		}
+		FSpriteInfo TextureInfo;
+		TextureInfo.Texture = Texture;
+		Infos.push_back(TextureInfo);
+	}
+}
+
 void UEngineSprite::Cutting(std::shared_ptr<UEngineTexture> Texture, UINT _X, UINT _Y)
 {
 	Infos.clear();

@@ -269,4 +269,11 @@ void UEngineWindow::SetWindowSmallIcon()
 void UEngineWindow::CursorOff()
 {
 	ShowCursor(FALSE);
+	IsCursorValue = false;
+}
+
+void UEngineWindow::CursorOn()
+{
+	ShowCursor(TRUE);
+	IsCursorValue = false;
 }

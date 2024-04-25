@@ -69,6 +69,49 @@ public:
 		return NewRes;
 	}
 
+	////
+
+	// anyc 나
+	// thread safe가 함수에 붙어있으면 
+	static std::shared_ptr<ResType> ThreadSafeCreateResName(std::string_view _Path)
+	{
+		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
+		std::string FileName = NewPath.GetFileName();
+		return ThreadSafeCreateResName(_Path, FileName);
+	}
+
+	static std::shared_ptr<ResType> ThreadSafeCreateResName(std::string_view _Path, std::string_view _Name)
+	{
+		std::string UpperName = UEngineString::ToUpper(_Name);
+
+		std::shared_ptr<ResType> NewRes = std::make_shared<ResType>();
+		NewRes->SetName(_Name);
+		NewRes->SetPath(_Path);
+
+		{
+			std::lock_guard<std::mutex> Lock(NameResourcesMutex);
+			if (true == NameResources.contains(UpperName))
+			{
+				MsgBoxAssert("이미 존재하는 리소스를 또 로드하려고 했습니다." + UpperName);
+			}
+
+			NameResources[UpperName] = NewRes;
+		}
+		return NewRes;
+	}
+
+	static std::shared_ptr<ResType> ThreadSafeCreateResUnName()
+	{
+		std::shared_ptr<ResType> NewRes = std::make_shared<ResType>();
+
+		{
+			std::lock_guard<std::mutex> Lock(UnNameResourcesMutex);
+			UnNameResources.push_back(NewRes);
+		}
+
+		return NewRes;
+	}
+
 
 	static void ResourcesRelease()
 	{
@@ -90,9 +133,11 @@ private:
 	// {
 	//    std::shared_ptr<ResType> Value;
 	// }
+	static std::mutex NameResourcesMutex;
 	static std::map<std::string, std::shared_ptr<ResType>> NameResources;
-	static std::list<std::shared_ptr<ResType>> UnNameResources;
 
+	static std::mutex UnNameResourcesMutex;
+	static std::list<std::shared_ptr<ResType>> UnNameResources;
 	// std::string Name = "NONE";
 	// std::string Path = "NONE";
 };
@@ -104,7 +149,12 @@ private:
 template<typename ResType>
 std::map<std::string, std::shared_ptr<ResType>> UEngineResources<ResType>::NameResources;
 
+template<typename ResType>
+std::mutex UEngineResources<ResType>::NameResourcesMutex;
+
 // 템플릿 static 변수 선언하는법.
 template<typename ResType>
 std::list<std::shared_ptr<ResType>> UEngineResources<ResType>::UnNameResources;
 
+template<typename ResType>
+std::mutex UEngineResources<ResType>::UnNameResourcesMutex;

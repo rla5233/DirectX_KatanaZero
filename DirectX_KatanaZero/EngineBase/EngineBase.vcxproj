@@ -203,6 +203,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineThread.h" />
     <ClInclude Include="EngineTime.h">
       <SubType>
       </SubType>
@@ -261,6 +262,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineThread.cpp" />
     <ClCompile Include="EngineTime.cpp">
       <SubType>
       </SubType>

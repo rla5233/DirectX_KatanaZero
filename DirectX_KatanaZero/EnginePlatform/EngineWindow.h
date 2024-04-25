@@ -72,7 +72,12 @@ public:
 	void SetWindowSmallIcon();
 	
 	
+	void IsCursor()
+	{
+		return IsCursorValue;
+	}
 	void CursorOff();
+	void CursorOn();
 
 	inline float4 GetScreenMousePrevPos()
 	{ 
@@ -107,6 +112,7 @@ private:
 	HWND hWnd = nullptr;
 	FVector Scale;
 	FVector Position;
+	bool IsCursorValue = true;
 
 	std::shared_ptr<UWindowImage> WindowImage = nullptr;
 	std::shared_ptr<UWindowImage> BackBufferImage = nullptr;
