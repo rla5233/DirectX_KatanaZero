@@ -41,7 +41,7 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 
-	State.ChangeState("Intro");
+	State.ChangeState(PlayLevelState::intro);
 }
 
 void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
@@ -146,7 +146,7 @@ void APlayLevelBase::Debug()
 // 재시작
 void APlayLevelBase::RestartCheck()
 {
-	if (UEngineInput::IsDown('P') && "Replay" != State.GetCurStateName())
+	if (UEngineInput::IsDown('P') && PlayLevelState::replay != State.GetCurStateName())
 	{
 		LevelEnd(nullptr);
 		LevelStart(nullptr);
@@ -195,17 +195,17 @@ void APlayLevelBase::DebugMessageFunction()
 void APlayLevelBase::StateInit()
 {
 	// State 생성
-	State.CreateState("Intro");
-	State.CreateState("Play");
-	State.CreateState("Clear");
-	State.CreateState("Outro");
-	State.CreateState("Replay");
+	State.CreateState(PlayLevelState::intro);
+	State.CreateState(PlayLevelState::play);
+	State.CreateState(PlayLevelState::clear);
+	State.CreateState(PlayLevelState::outro);
+	State.CreateState(PlayLevelState::replay);
 
 	// State Start 함수 세팅
-	State.SetStartFunction("Intro", [=] {});
-	State.SetStartFunction("Clear", std::bind(&APlayLevelBase::ClearStart, this));
-	State.SetStartFunction("Outro", [=] {});
-	State.SetStartFunction("Play", [=] 
+	State.SetStartFunction(PlayLevelState::intro, [=] {});
+	State.SetStartFunction(PlayLevelState::clear, std::bind(&APlayLevelBase::ClearStart, this));
+	State.SetStartFunction(PlayLevelState::outro, [=] {});
+	State.SetStartFunction(PlayLevelState::play, [=]
 		{
 			HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
 
@@ -223,7 +223,7 @@ void APlayLevelBase::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Replay", [=] 
+	State.SetStartFunction(PlayLevelState::replay, [=]
 		{ 
 			// Recording Off
 			for (size_t i = 0; i < AllEnemy.size(); i++)
@@ -237,20 +237,20 @@ void APlayLevelBase::StateInit()
 			}
 
 			// Replay State Set
-			Player->SubStateChange("Replay");
+			Player->SubStateChange(PlayerSubState::replay);
 
 			for (size_t i = 0; i < AllEnemy.size(); i++)
 			{
-				AllEnemy[i]->StateChange("Replay");
+				AllEnemy[i]->StateChange(EnemyState::replay);
 			}
 
 			for (size_t i = 0; i < AllRecComponent.size(); i++)
 			{
-				AllRecComponent[i]->StateChange("Replay");
+				AllRecComponent[i]->StateChange(RecCompoState::replay);
 			}
 
-			Go->StateChange("Replay");
-			HUD->StateChange("Replay");
+			Go->StateChange(GoState::replay);
+			HUD->StateChange(HudState::replay);
 
 			InputOn();
 
@@ -260,36 +260,36 @@ void APlayLevelBase::StateInit()
 	);
 
 	// State Update 함수 세팅
-	State.SetUpdateFunction("Outro", [=](float _DeltaTime) {});
-	State.SetUpdateFunction("Intro", [=](float _DeltaTime) 
+	State.SetUpdateFunction(PlayLevelState::outro, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(PlayLevelState::intro, [=](float _DeltaTime)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 		}
 	);
 
-	State.SetUpdateFunction("Play", [=](float _DeltaTime)
+	State.SetUpdateFunction(PlayLevelState::play, [=](float _DeltaTime)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			if (true == IsStageClear())
 			{
-				State.ChangeState("Clear");
+				State.ChangeState(PlayLevelState::clear);
 				return;
 			}
 		}
 	);
 
-	State.SetUpdateFunction("Clear", [=](float _DeltaTime)
+	State.SetUpdateFunction(PlayLevelState::clear, [=](float _DeltaTime)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			if (true == IsRelayStart())
 			{
-				State.ChangeState("Replay");
+				State.ChangeState(PlayLevelState::replay);
 				return;
 			}
 		}
 	);
 
-	State.SetUpdateFunction("Replay", [=](float _DeltaTime)
+	State.SetUpdateFunction(PlayLevelState::replay, [=](float _DeltaTime)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 
@@ -397,7 +397,7 @@ void APlayLevelBase::PanicSwitchOn()
 
 		if (nullptr != Laser)
 		{
-			Laser->StateChange("On");
+			Laser->StateChange(CeilLaserState::on);
 			continue;
 		}
 
@@ -405,7 +405,7 @@ void APlayLevelBase::PanicSwitchOn()
 
 		if (nullptr != Gun)
 		{
-			Gun->StateChange("On");
+			Gun->StateChange(CeilGunState::on);
 			continue;
 		}
 	}
@@ -419,7 +419,7 @@ void APlayLevelBase::PanicSwitchOff()
 
 		if (nullptr != Laser)
 		{
-			Laser->StateChange("Off");
+			Laser->StateChange(CeilLaserState::off);
 			continue;
 		}
 
@@ -427,7 +427,7 @@ void APlayLevelBase::PanicSwitchOff()
 
 		if (nullptr != Gun)
 		{
-			Gun->StateChange("Off");
+			Gun->StateChange(CeilGunState::off);
 			continue;
 		}
 	}

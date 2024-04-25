@@ -215,7 +215,6 @@ namespace Const
 
 namespace PlayerState
 {
-	// Player
 	const std::string_view none				= "None";
 	const std::string_view idle				= "Idle";
 	const std::string_view idle_to_run		= "IdleToRun";
@@ -231,4 +230,59 @@ namespace PlayerState
 	const std::string_view flip				= "Flip";
 	const std::string_view kickdoor			= "KickDoor";
 	const std::string_view dead				= "Dead";
+}
+
+namespace PlayerSubState
+{
+	const std::string_view none				= "None";
+	const std::string_view intro			= "Intro";
+	const std::string_view play				= "Play";
+	const std::string_view replay			= "Replay";
+	const std::string_view run_outro		= "RunOutro";
+}
+
+namespace PlayLevelState
+{
+	const std::string_view intro			= "Intro";
+	const std::string_view play				= "Play";
+	const std::string_view clear			= "Clear";
+	const std::string_view outro			= "Outro";
+	const std::string_view replay			= "Replay";
+}
+
+namespace EnemyState
+{
+	const std::string_view replay = "Replay";
+}
+
+namespace RecCompoState
+{
+	const std::string_view replay = "Replay";
+}
+
+namespace DoorState
+{
+	const std::string_view open = "Open";
+}
+
+namespace GoState
+{
+	const std::string_view replay = "Replay";
+}
+
+namespace HudState
+{
+	const std::string_view replay = "Replay";
+}
+
+namespace CeilLaserState
+{
+	const std::string_view on = "On";
+	const std::string_view off = "Off";
+}
+
+namespace CeilGunState
+{
+	const std::string_view on = "On";
+	const std::string_view off = "Off";
 }

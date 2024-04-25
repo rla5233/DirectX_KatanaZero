@@ -6,18 +6,18 @@
 void APlayerBase::SubStateInit()
 {
 	// State Create
-	SubState.CreateState("None");
-	SubState.CreateState("Intro");
-	SubState.CreateState("Play");
-	SubState.CreateState("Replay");
+	SubState.CreateState(PlayerSubState::none);
+	SubState.CreateState(PlayerSubState::intro);
+	SubState.CreateState(PlayerSubState::play);
+	SubState.CreateState(PlayerSubState::replay);
 
-	SubState.CreateState("RunOutro");
+	SubState.CreateState(PlayerSubState::run_outro);
 
 
 	// State Start
-	SubState.SetStartFunction("None", [=] {});
-	SubState.SetStartFunction("Play", [=] {});
-	SubState.SetStartFunction("Intro", [=]
+	SubState.SetStartFunction(PlayerSubState::none, [=] {});
+	SubState.SetStartFunction(PlayerSubState::play, [=] {});
+	SubState.SetStartFunction(PlayerSubState::intro, [=]
 		{
 			SetMaxRunVel();
 			Body->ChangeAnimation(Anim::player_run);
@@ -33,20 +33,20 @@ void APlayerBase::SubStateInit()
 		}
 	);
 
-	SubState.SetStartFunction("Replay", [=]
+	SubState.SetStartFunction(PlayerSubState::replay, [=]
 		{
 			IsPlayValue = false;
 			SetRecordingActive(false);
 			SetReplayStart();
-			State.ChangeState("None");
+			State.ChangeState(PlayerState::none);
 		}
 	);
 
-	SubState.SetStartFunction("RunOutro", [=] { State.ChangeState("None"); });
+	SubState.SetStartFunction(PlayerSubState::run_outro, [=] { State.ChangeState(PlayerState::none); });
 
 	// State Update
-	SubState.SetUpdateFunction("None", [=](float _DeltaTime) {});
-	SubState.SetUpdateFunction("Intro", [=](float _DeltaTime)
+	SubState.SetUpdateFunction(PlayerSubState::none, [=](float _DeltaTime) {});
+	SubState.SetUpdateFunction(PlayerSubState::intro, [=](float _DeltaTime)
 		{
 			switch (IntroOrder)
 			{
@@ -57,8 +57,8 @@ void APlayerBase::SubStateInit()
 				if (true == Body->IsCurAnimationEnd())
 				{
 					Body->ChangeAnimation(Anim::player_idle);
-					State.ChangeState("Idle");
-					SubState.ChangeState("Play");
+					State.ChangeState(PlayerState::idle);
+					SubState.ChangeState(PlayerSubState::play);
 					return;
 				}
 				break;
@@ -68,7 +68,7 @@ void APlayerBase::SubStateInit()
 		}
 	);
 
-	SubState.SetUpdateFunction("Play", [=](float _DeltaTime) 
+	SubState.SetUpdateFunction(PlayerSubState::play, [=](float _DeltaTime)
 		{
 			AttackDelayTimeUpdate(_DeltaTime);
 			SetCroudEffectUpdate(_DeltaTime);
@@ -80,23 +80,23 @@ void APlayerBase::SubStateInit()
 		}
 	);
 
-	SubState.SetUpdateFunction("Replay", [=](float _DeltaTime)
+	SubState.SetUpdateFunction(PlayerSubState::replay, [=](float _DeltaTime)
 		{
 			Replaying(_DeltaTime);
 		}
 	);
 
-	SubState.SetUpdateFunction("RunOutro", [=](float _DeltaTime)
+	SubState.SetUpdateFunction(PlayerSubState::run_outro, [=](float _DeltaTime)
 		{
 
 		}
 	);
 
 	// State End
-	SubState.SetEndFunction("Intro", [=]
+	SubState.SetEndFunction(PlayerSubState::intro, [=]
 		{
 			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-			PlayLevel->StateChange("Play");
+			PlayLevel->StateChange(PlayLevelState::play);
 			Body->AnimationReset();
 			State.ChangeState(PlayerState::idle);
 			IsPlayValue = true;

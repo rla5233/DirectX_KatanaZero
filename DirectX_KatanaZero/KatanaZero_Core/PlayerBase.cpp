@@ -114,7 +114,7 @@ void APlayerBase::AttackCollisionCheck()
 	AttackCol->CollisionEnter(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
 		{
 			ADoor* Door = dynamic_cast<ADoor*>(_Other->GetActor());
-			Door->StateChange("Open");
+			Door->StateChange(DoorState::open);
 			AttackCol->SetActive(false);
 		}
 	);
