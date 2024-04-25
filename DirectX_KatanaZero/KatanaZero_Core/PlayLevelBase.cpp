@@ -64,6 +64,11 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 		Go->Destroy();
 	}
 
+	if (nullptr != ReplayUI)
+	{
+		ReplayUI->Destroy();
+	}
+
 	for (size_t i = 0; i < AllEnemy.size(); i++)
 	{
 		AllEnemy[i]->Destroy();
@@ -76,12 +81,13 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 		AllRecComponent[i] = nullptr;
 	}
 
-	Aim = nullptr;
-	ColMap = nullptr;
-	Player = nullptr;
-	HUD = nullptr;
-	Go = nullptr;
-	MainCamera = nullptr;
+	Aim			= nullptr;
+	ColMap		= nullptr;
+	Player		= nullptr;
+	HUD			= nullptr;
+	Go			= nullptr;
+	MainCamera	= nullptr;
+	ReplayUI	= nullptr;
 
 	AllEnemy.clear();
 	AllRecComponent.clear();
@@ -218,8 +224,6 @@ void APlayLevelBase::StateInit()
 	State.SetStartFunction("Replay", [=] 
 		{ 
 			// Recording Off
-			Player->SetRecordingActive(false);
-
 			for (size_t i = 0; i < AllEnemy.size(); i++)
 			{
 				AllEnemy[i]->SetRecordingActive(false);
@@ -231,7 +235,7 @@ void APlayLevelBase::StateInit()
 			}
 
 			// Replay State Set
-			Player->StateChange("Replay");
+			Player->SubStateChange("Replay");
 
 			for (size_t i = 0; i < AllEnemy.size(); i++)
 			{

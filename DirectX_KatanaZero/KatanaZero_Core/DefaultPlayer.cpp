@@ -17,7 +17,8 @@ void ADefaultPlayer::BeginPlay()
 
 	CreateAnimation();
 
-	StateChange("Intro");
+	StateChange("None");
+	SubStateChange("Intro");
 }
 
 void ADefaultPlayer::CollisionInit()

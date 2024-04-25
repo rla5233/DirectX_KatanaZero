@@ -323,5 +323,8 @@
     <ClCompile Include="CeilGun.cpp">
       <Filter>Level\000.Object\Component</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerBase_SubState.cpp">
+      <Filter>Object\Base\Player</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

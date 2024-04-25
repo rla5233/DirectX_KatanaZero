@@ -35,6 +35,11 @@ public:
 		State.ChangeState(_State);
 	}
 
+	inline void SubStateChange(std::string_view _State)
+	{
+		SubState.ChangeState(_State);
+	}
+
 	inline USpriteRenderer* GetBody() const
 	{
 		return Body;
@@ -66,14 +71,6 @@ protected:
 
 	UCollision* BodyCol = nullptr;
 	UCollision* FrontCol = nullptr;
-
-private:
-	// 기본 업데이트 함수
-	void DefaultUpdate(float _DeltaTime);
-
-	void AttackDelayTimeUpdate(float _DeltaTime);
-	void AbilityCheck();
-	void AbilityUpdate(float _DeltaTime);
 
 private:
 	// 방향 관련
@@ -113,10 +110,8 @@ private:
 
 
 	// FSM
-	UStateManager State;
-	void StateInit();
-	EIntroOrder IntroOrder = EIntroOrder::Run;
-
+	UStateManager State;	
+	void StateInit();	
 
 // FSM
 protected:
@@ -155,9 +150,6 @@ protected:
 
 	virtual void FlipStart();
 	virtual void Flip(float _DeltaTime);
-
-	virtual void ReplayStart();
-	virtual void Replay(float _DeltaTime);
 
 	virtual void DeadStart();
 	virtual void Dead(float _DeltaTime);
@@ -231,5 +223,16 @@ private:
 	void CreateRollCroudEffect(float _DeltaTime);
 	void CreateWallSlideCroudEffect(float _DeltaTime);
 	float CroudTimeCount = 0.0f;
+
+
+// Sub FSM
+private:
+	void SubStateInit();
+	UStateManager SubState;
+	EIntroOrder IntroOrder = EIntroOrder::Run;
+
+	void AttackDelayTimeUpdate(float _DeltaTime);
+	void AbilityCheck();
+	void AbilityUpdate(float _DeltaTime);
 };
 

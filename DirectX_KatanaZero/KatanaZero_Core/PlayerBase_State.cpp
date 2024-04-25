@@ -749,17 +749,6 @@ void APlayerBase::Flip(float _DeltaTime)
 	}
 }
 
-void APlayerBase::ReplayStart()
-{
-	IsPlayValue = false;
-	SetReplayStart();
-}
-
-void APlayerBase::Replay(float _DeltaTime)
-{
-	Replaying(_DeltaTime);
-}
-
 void APlayerBase::DeadStart()
 {
 	EEngineDir Dir = Body->GetDir();
@@ -837,6 +826,7 @@ void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 void APlayerBase::StateInit()
 {
 	// State 생성
+	State.CreateState("None");
 	State.CreateState("Idle");
 	State.CreateState("IdleToRun");
 	State.CreateState("Run");
@@ -850,11 +840,10 @@ void APlayerBase::StateInit()
 	State.CreateState("WallSlide");
 	State.CreateState("Flip");
 	State.CreateState("KickDoor");
-	State.CreateState("Replay");
 	State.CreateState("Dead");
-	State.CreateState("Intro");
 
 	// State Start 함수 세팅
+	State.SetStartFunction("None", [=] {});
 	State.SetStartFunction("Idle",			std::bind(&APlayerBase::IdleStart, this));
 	State.SetStartFunction("IdleToRun",		std::bind(&APlayerBase::IdleToRunStart, this));
 	State.SetStartFunction("Run",			std::bind(&APlayerBase::RunStart, this));
@@ -868,26 +857,10 @@ void APlayerBase::StateInit()
 	State.SetStartFunction("WallSlide",		std::bind(&APlayerBase::WallSlideStart, this));
 	State.SetStartFunction("Flip",			std::bind(&APlayerBase::FlipStart, this));
 	State.SetStartFunction("KickDoor",		[=] { Body->ChangeAnimation(Anim::player_kick_door); });
-	State.SetStartFunction("Replay",		std::bind(&APlayerBase::ReplayStart, this));
 	State.SetStartFunction("Dead",			std::bind(&APlayerBase::DeadStart, this));
 	
-	State.SetStartFunction("Intro",         [=] 
-		{ 
-			SetMaxRunVel();
-			Body->ChangeAnimation(Anim::player_run);
-			IntroOrder = EIntroOrder::Run;
-
-			DelayCallBack(0.5f, [=] 
-				{
-					Velocity = FVector::Zero;
-					Body->ChangeAnimation(Anim::player_run_to_idle);
-					IntroOrder = EIntroOrder::RunToIdle;
-				}
-			);
-		}
-	);
-
 	// State Update 함수 세팅
+	State.SetUpdateFunction("None", [=](float _DeltaTime) {});
 	State.SetUpdateFunction("Idle",			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction("IdleToRun",	std::bind(&APlayerBase::IdleToRun, this, std::placeholders::_1));
 	State.SetUpdateFunction("Run",			std::bind(&APlayerBase::Run, this, std::placeholders::_1));
@@ -901,43 +874,14 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction("WallSlide",	std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
 	State.SetUpdateFunction("Flip",			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
 	State.SetUpdateFunction("KickDoor",		[=](float _DeltaTime) {});
-	State.SetUpdateFunction("Replay",		std::bind(&APlayerBase::Replay, this, std::placeholders::_1));
 	State.SetUpdateFunction("Dead",			std::bind(&APlayerBase::Dead, this, std::placeholders::_1));
-
-	State.SetUpdateFunction("Intro", [=](float _DeltaTime)
-		{
-			switch (IntroOrder)
-			{
-			case EIntroOrder::Run:
-				PosUpdate(_DeltaTime);
-				break;
-			case EIntroOrder::RunToIdle:
-				if (true == Body->IsCurAnimationEnd())
-				{
-					Body->ChangeAnimation(Anim::player_idle);
-					State.ChangeState("Idle");
-					return;
-				}
-				break;
-			case EIntroOrder::MusicOn:
-				break;
-			}
-		}
-	);
 
 	// State End 함수 세팅
 	State.SetEndFunction("Attack",			[=] { AttackCol->SetActive(false); });
 	State.SetEndFunction("WallSlide",		[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
 	State.SetEndFunction("Roll",			[=] { IsInvincibleValue = false; });
 	State.SetEndFunction("KickDoor",		[=] { IsColDoorValue = false; });
-	State.SetEndFunction("Intro",			[=] 
-		{ 
-			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-			PlayLevel->StateChange("Play");
-			Body->AnimationReset();
-			IsPlayValue = true;
-			InputOn(); 
-		}
-	);
 }
+
+
 

@@ -61,6 +61,7 @@ void APlayerBase::BeginPlay()
 	CollisionInit();
 	EffectInit();
 	StateInit();
+	SubStateInit();
 
 	SetRecordingSize();
 }
@@ -106,31 +107,6 @@ void APlayerBase::CollisionInit()
 
 	FrontCol->SetCollisionGroup(EColOrder::PlayerFront);
 	FrontCol->SetCollisionType(ECollisionType::Rect);
-}
-
-void APlayerBase::DefaultUpdate(float _DeltaTime)
-{
-	AttackDelayTimeUpdate(_DeltaTime);
-	SetCroudEffectUpdate(_DeltaTime);
-	AbilityUpdate(_DeltaTime);
-	DoorColCheck();
-	AbilityCheck();
-
-	if (true == IsRecording())
-	{
-		Recording(_DeltaTime);
-	}
-}
-
-void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
-{
-	if (0.0f >= AttackDelayTimeCount)
-	{
-		CanAttack = true;
-		return;
-	}
-
-	AttackDelayTimeCount -= _DeltaTime;
 }
 
 void APlayerBase::AbilityCheck()
@@ -208,15 +184,6 @@ void APlayerBase::AttackCollisionCheck()
 			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
 			Enemy->HitByPlayer(AttackDir);
 		}
-	);
-}
-
-void APlayerBase::DoorColCheck()
-{
-	FrontCol->Collision(static_cast<int>(EColOrder::Door),
-		[=](std::shared_ptr<UCollision> _Other)	{ IsColDoorValue = true; },
-		nullptr,
-		[=](std::shared_ptr<UCollision> _Other)	{ IsColDoorValue = false; }
 	);
 }
 
@@ -557,8 +524,7 @@ void APlayerBase::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-
-	DefaultUpdate(_DeltaTime);
+	SubState.Update(_DeltaTime);
 	
 	// Debug Rendering
 	DebugUpdate();
