@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore/StateManager.h>
 
+class UFadeImage;
+
 // 설명 : Outro 메시지
 class AOutroMsg : public AActor
 {
@@ -21,13 +23,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	UImage* Body = nullptr;
-
-
-private:
-	UStateManager State;
-
-	void StateInit();
+	UFadeImage* Body = nullptr;
 	
+	UStateManager State;
+	void StateInit();
 };
 

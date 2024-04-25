@@ -82,6 +82,15 @@
     <Filter Include="Object\Effect">
       <UniqueIdentifier>{967472ec-7757-4243-86eb-de8799d02bf4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component\Actor">
+      <UniqueIdentifier>{a720947a-0118-4fa0-9d5e-9067fd43de03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component\Image">
+      <UniqueIdentifier>{4950cc03-8c1f-41ae-ab9c-fe14e2d01bd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering">
+      <UniqueIdentifier>{bafb0efb-54a7-4f85-ae50-a352474b36bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -144,18 +153,6 @@
     <ClInclude Include="Grunt.h">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsObject.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="LerpObject.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="PixelColObject.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="RecordingObject.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Door.h">
       <Filter>Level\000.Object\Component</Filter>
     </ClInclude>
@@ -200,6 +197,24 @@
     </ClInclude>
     <ClInclude Include="OutroMsg.h">
       <Filter>Level\000.Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LerpObject.h">
+      <Filter>Object\Component\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsObject.h">
+      <Filter>Object\Component\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelColObject.h">
+      <Filter>Object\Component\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="RecordingObject.h">
+      <Filter>Object\Component\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeObject.h">
+      <Filter>Object\Component\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeImage.h">
+      <Filter>Object\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,18 +281,6 @@
     <ClCompile Include="Grunt.cpp">
       <Filter>Level\000.Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="LerpObject.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsObject.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelColObject.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="RecordingObject.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerBase_Effect.cpp">
       <Filter>Object\Base\Player</Filter>
     </ClCompile>
@@ -331,6 +334,24 @@
     </ClCompile>
     <ClCompile Include="OutroMsg.cpp">
       <Filter>Level\000.Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="LerpObject.cpp">
+      <Filter>Object\Component\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsObject.cpp">
+      <Filter>Object\Component\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelColObject.cpp">
+      <Filter>Object\Component\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="RecordingObject.cpp">
+      <Filter>Object\Component\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeObject.cpp">
+      <Filter>Object\Component\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeImage.cpp">
+      <Filter>Object\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

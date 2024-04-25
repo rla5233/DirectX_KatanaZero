@@ -209,6 +209,7 @@ void APlayLevelBase::StateInit()
 		{
 			Player->SubStateChange(PlayerSubState::outro);
 			HUD->StateChange(HudState::outro);
+			Go->StateChange(GoState::outro);
 			GetWorld()->SpawnActor<AOutroMsg>("OutroMsg");
 		}
 	);
@@ -255,8 +256,6 @@ void APlayLevelBase::StateInit()
 			{
 				AllRecComponent[i]->StateChange(RecCompoState::replay);
 			}
-
-			Go->StateChange(GoState::replay);
 
 			InputOn();
 

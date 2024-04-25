@@ -63,7 +63,7 @@ void AGo::StateInit()
 {
 	// State Create
 	State.CreateState(GoState::repeat);
-	State.CreateState(GoState::replay);
+	State.CreateState(GoState::outro);
 
 	// State Start
 	State.SetStartFunction(GoState::repeat, [=]
@@ -73,7 +73,7 @@ void AGo::StateInit()
 		}
 	);
 
-	State.SetStartFunction(GoState::replay, [=]
+	State.SetStartFunction(GoState::outro, [=]
 		{
 			Go->SetActive(false);
 			Arrow->SetActive(false);
@@ -93,5 +93,5 @@ void AGo::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction(GoState::replay, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(GoState::outro, [=](float _DeltaTime) {});
 }

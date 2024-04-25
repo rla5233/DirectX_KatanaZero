@@ -208,6 +208,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="FadeImage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FadeObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GangSter.h">
       <SubType>
       </SubType>
@@ -359,6 +367,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FadeImage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FadeObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>

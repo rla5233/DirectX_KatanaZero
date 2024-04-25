@@ -49,9 +49,9 @@ void AReplayUI::ImageInit()
 	RightBottomText->SetSprite(ImgRes::ui_replay_RB_text);
 
 	Mouse->SetOrder(ERenderOrder::UI);
-	RightBottomText->AddToViewPort(EWidgetOrder::Top);
-	LeftTopText->AddToViewPort(EWidgetOrder::Top);
-	Speed->AddToViewPort(EWidgetOrder::Top);
+	RightBottomText->AddToViewPort(EWidgetOrder::Mid);
+	LeftTopText->AddToViewPort(EWidgetOrder::Mid);
+	Speed->AddToViewPort(EWidgetOrder::Mid);
 
 	Mouse->SetAutoSize(2.0f, true);
 	RightBottomText->SetAutoSize(1.0f, true);

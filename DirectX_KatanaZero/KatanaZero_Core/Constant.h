@@ -306,7 +306,7 @@ namespace DoorState
 namespace GoState
 {
 	const std::string_view repeat			= "Repeat";
-	const std::string_view replay			= "Replay";
+	const std::string_view outro			= "Outro";
 }
 
 namespace HudState
@@ -353,4 +353,5 @@ namespace OutroMsgState
 {
 	const std::string_view fade_in			= "FadeIn";
 	const std::string_view fade_out			= "FadeOut";
+	const std::string_view wait				= "Wait";
 }

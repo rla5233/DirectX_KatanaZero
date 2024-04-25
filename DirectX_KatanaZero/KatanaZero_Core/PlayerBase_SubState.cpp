@@ -43,12 +43,6 @@ void APlayerBase::SubStateInit()
 	SubState.SetStartFunction(PlayerSubState::outro, [=] 
 		{
 			SetOutroType();
-			DelayCallBack(0.5f, [=]
-				{
-					APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-					PlayLevel->StateChange(PlayLevelState::replay);
-				}
-			);
 			State.ChangeState(PlayerState::none);
 		}
 	);
