@@ -252,37 +252,46 @@ namespace PlayLevelState
 
 namespace EnemyState
 {
-	const std::string_view replay = "Replay";
+	const std::string_view idle				= "Idle";
+	const std::string_view run				= "Run";
+	const std::string_view hitfall			= "HitFall";
+	const std::string_view dead				= "Dead";
+	const std::string_view turn				= "Turn";
+	const std::string_view replay			= "Replay";
+
+	const std::string_view patrol_walk		= "PatrolWalk";
+	const std::string_view patrol_turn		= "PatrolTurn";
+	const std::string_view patrol_stop		= "PatrolStop";
 }
 
 namespace RecCompoState
 {
-	const std::string_view replay = "Replay";
+	const std::string_view replay			= "Replay";
 }
 
 namespace DoorState
 {
-	const std::string_view open = "Open";
+	const std::string_view open				= "Open";
 }
 
 namespace GoState
 {
-	const std::string_view replay = "Replay";
+	const std::string_view replay			= "Replay";
 }
 
 namespace HudState
 {
-	const std::string_view replay = "Replay";
+	const std::string_view replay			= "Replay";
 }
 
 namespace CeilLaserState
 {
-	const std::string_view on = "On";
-	const std::string_view off = "Off";
+	const std::string_view on				= "On";
+	const std::string_view off				= "Off";
 }
 
 namespace CeilGunState
 {
-	const std::string_view on = "On";
-	const std::string_view off = "Off";
+	const std::string_view on				= "On";
+	const std::string_view off				= "Off";
 }

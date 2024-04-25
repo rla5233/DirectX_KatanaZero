@@ -43,13 +43,13 @@ void ARecMapCompoBase::DefaultUpdate(float _DeltaTime)
 void ARecMapCompoBase::StateInit()
 {
 	// State Create
-	State.CreateState("Replay");
+	State.CreateState(RecCompoState::replay);
 
 	// State Start
-	State.SetStartFunction("Replay", [=] { SetReplayStart(); });
+	State.SetStartFunction(RecCompoState::replay, [=] { SetReplayStart(); });
 
 	// State Update
-	State.SetUpdateFunction("Replay", [=](float _DeltaTime) { Replaying(_DeltaTime); });
+	State.SetUpdateFunction(RecCompoState::replay, [=](float _DeltaTime) { Replaying(_DeltaTime); });
 
 	// State End
 

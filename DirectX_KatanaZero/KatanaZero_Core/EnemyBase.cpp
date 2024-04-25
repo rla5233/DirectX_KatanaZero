@@ -112,7 +112,7 @@ void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
 void AEnemyBase::HitByPlayer(FVector _AttDir)
 {
 	HitDir = _AttDir;
-	State.ChangeState("HitFall");
+	State.ChangeState(EnemyState::hitfall);
 }
 
 void AEnemyBase::HitByDoor(EEngineDir _Dir)
@@ -129,7 +129,7 @@ void AEnemyBase::HitByDoor(EEngineDir _Dir)
 	}
 
 	HitDir.Normalize2D();
-	State.ChangeState("HitFall");
+	State.ChangeState(EnemyState::hitfall);
 }
 
 void AEnemyBase::RendererDirChange()
@@ -177,7 +177,7 @@ void AEnemyBase::PatrolWalk(float _DeltaTime)
 	// State Change Check
 	if (0.0f > TimeCount)
 	{
-		State.ChangeState("PatrolTurn");
+		State.ChangeState(EnemyState::patrol_turn);
 		return;
 	}
 
@@ -194,7 +194,7 @@ void AEnemyBase::PatrolTurn(float _DeltaTime)
 	// State Change Check
 	if (true == Body->IsCurAnimationEnd())
 	{
-		State.ChangeState("PatrolStop");
+		State.ChangeState(EnemyState::patrol_stop);
 		return;
 	}
 }
@@ -210,7 +210,7 @@ void AEnemyBase::PatrolStop(float _DeltaTime)
 	// State Change Check
 	if (0.0f > TimeCount)
 	{
-		State.ChangeState("PatrolWalk");
+		State.ChangeState(EnemyState::patrol_walk);
 		return;
 	}
 
@@ -232,7 +232,7 @@ void AEnemyBase::Turn(float _DeltaTime)
 {
 	if (Body->IsCurAnimationEnd())
 	{
-		State.ChangeState("Idle"); 
+		State.ChangeState(EnemyState::idle); 
 		return;
 	}
 }
@@ -287,7 +287,7 @@ void AEnemyBase::HitFall(float _DeltaTime)
 	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir)
 	||  true == IsOnGP_Boundary(Dir) || true == IsOnStairs(Dir))
 	{
-		State.ChangeState("Dead");
+		State.ChangeState(EnemyState::dead);
 		return;
 	}
 }
@@ -306,49 +306,49 @@ void AEnemyBase::Replay(float _DeltaTime)
 void AEnemyBase::StateInit()
 {
 	// State 생성
-	State.CreateState("Idle");
-	State.CreateState("Run");
-	State.CreateState("HitFall");
-	State.CreateState("Dead");
-	State.CreateState("PatrolWalk");
-	State.CreateState("PatrolTurn");
-	State.CreateState("PatrolStop");
-	State.CreateState("Replay");
+	State.CreateState(EnemyState::idle);
+	State.CreateState(EnemyState::run);
+	State.CreateState(EnemyState::hitfall);
+	State.CreateState(EnemyState::dead);
+	State.CreateState(EnemyState::patrol_walk);
+	State.CreateState(EnemyState::patrol_turn);
+	State.CreateState(EnemyState::patrol_stop);
+	State.CreateState(EnemyState::replay);
 
 
-	State.CreateState("Turn");
+	State.CreateState(EnemyState::turn);
 
 	// State Start 함수 세팅
-	State.SetStartFunction("Idle", std::bind(&AEnemyBase::IdleStart, this));
-	State.SetStartFunction("Run", std::bind(&AEnemyBase::RunStart, this));
-	State.SetStartFunction("HitFall", std::bind(&AEnemyBase::HitFallStart, this));
-	State.SetStartFunction("Dead", std::bind(&AEnemyBase::DeadStart, this));
-	State.SetStartFunction("PatrolWalk", std::bind(&AEnemyBase::PatrolWalkStart, this));
-	State.SetStartFunction("PatrolTurn", std::bind(&AEnemyBase::PatrolTurnStart, this));
-	State.SetStartFunction("PatrolStop", std::bind(&AEnemyBase::PatrolStopStart, this));
-	State.SetStartFunction("Replay", std::bind(&AEnemyBase::ReplayStart, this));
+	State.SetStartFunction(EnemyState::idle, std::bind(&AEnemyBase::IdleStart, this));
+	State.SetStartFunction(EnemyState::run, std::bind(&AEnemyBase::RunStart, this));
+	State.SetStartFunction(EnemyState::hitfall, std::bind(&AEnemyBase::HitFallStart, this));
+	State.SetStartFunction(EnemyState::dead, std::bind(&AEnemyBase::DeadStart, this));
+	State.SetStartFunction(EnemyState::patrol_walk, std::bind(&AEnemyBase::PatrolWalkStart, this));
+	State.SetStartFunction(EnemyState::patrol_turn, std::bind(&AEnemyBase::PatrolTurnStart, this));
+	State.SetStartFunction(EnemyState::patrol_stop, std::bind(&AEnemyBase::PatrolStopStart, this));
+	State.SetStartFunction(EnemyState::replay, std::bind(&AEnemyBase::ReplayStart, this));
 	
 
 
-	State.SetStartFunction("Turn", std::bind(&AEnemyBase::TurnStart, this));
+	State.SetStartFunction(EnemyState::turn, std::bind(&AEnemyBase::TurnStart, this));
 
 	// State Update 함수 세팅
-	State.SetUpdateFunction("Idle", std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
-	State.SetUpdateFunction("Run", std::bind(&AEnemyBase::Run, this, std::placeholders::_1));
-	State.SetUpdateFunction("HitFall", std::bind(&AEnemyBase::HitFall, this, std::placeholders::_1));
-	State.SetUpdateFunction("Dead", std::bind(&AEnemyBase::Dead, this, std::placeholders::_1));
-	State.SetUpdateFunction("PatrolWalk", std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
-	State.SetUpdateFunction("PatrolTurn", std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
-	State.SetUpdateFunction("PatrolStop", std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
-	State.SetUpdateFunction("Replay", std::bind(&AEnemyBase::Replay, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::idle, std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::run, std::bind(&AEnemyBase::Run, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::hitfall, std::bind(&AEnemyBase::HitFall, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::dead, std::bind(&AEnemyBase::Dead, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::patrol_walk, std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::patrol_turn, std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::patrol_stop, std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::replay, std::bind(&AEnemyBase::Replay, this, std::placeholders::_1));
 	
 
-	State.SetUpdateFunction("Turn", std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::turn, std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));
 
 	// State End 함수 세팅
-	State.SetEndFunction("PatrolTurn", [=] { RendererDirChange(); });
-	State.SetEndFunction("HitFall", [=] { DeadCol->SetActive(false); });
+	State.SetEndFunction(EnemyState::patrol_turn, [=] { RendererDirChange(); });
+	State.SetEndFunction(EnemyState::hitfall, [=] { DeadCol->SetActive(false); });
 
 
-	State.SetEndFunction("Turn", [=] {	RendererDirChange(); });
+	State.SetEndFunction(EnemyState::turn, [=] {	RendererDirChange(); });
 }
