@@ -28,7 +28,7 @@ void ACeilLaser::RendererInit()
 {
 	Laser->CreateAnimation(Anim::compo_ceil_laser_idle, ImgRes::compo_ceil_laser_idle, 0.0175f, true);
 	Laser->CreateAnimation(Anim::compo_ceil_laser_attack, ImgRes::compo_ceil_laser_attack, 0.06f, false);
-	Laser->SetFrameCallback(Anim::compo_ceil_laser_attack, 3, [=] { State.ChangeState("On"); });
+	Laser->SetFrameCallback(Anim::compo_ceil_laser_attack, 3, [=] { State.ChangeState(CeilLaserState::on); });
 
 	Laser->SetOrder(ERenderOrder::EffectFront);
 	Laser->SetPivot(EPivot::BOT);
@@ -57,12 +57,12 @@ void ACeilLaser::StateInit()
 	Super::StateInit();
 
 	// State Create
-	State.CreateState("On");
-	State.CreateState("Attack");
-	State.CreateState("Off");
+	State.CreateState(CeilLaserState::on);
+	State.CreateState(CeilLaserState::shoot);
+	State.CreateState(CeilLaserState::off);
 
 	// State Start
-	State.SetStartFunction("On", [=] 
+	State.SetStartFunction(CeilLaserState::on, [=] 
 		{ 
 			GetBody()->SetSprite(ImgRes::compo_ceil_laser_on); 
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_idle);
@@ -73,7 +73,7 @@ void ACeilLaser::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Attack", [=]
+	State.SetStartFunction(CeilLaserState::shoot, [=]
 		{	
 			Laser->SetScale({ 10.0f, 210.0f, 1.0f });
 			Laser->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
@@ -81,7 +81,7 @@ void ACeilLaser::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Off", [=]
+	State.SetStartFunction(CeilLaserState::off, [=]
 		{
 			GetBody()->SetSprite(ImgRes::compo_ceil_laser_off);
 			Laser->SetActive(false);
@@ -90,26 +90,26 @@ void ACeilLaser::StateInit()
 	);
 	
 	// State Update
-	State.SetUpdateFunction("On", [=](float _DeltaTime) 
+	State.SetUpdateFunction(CeilLaserState::on, [=](float _DeltaTime)
 		{
 			HitCol->CollisionStay(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 				{
 					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
 					Player->HitByEnemy();
-					State.ChangeState("Attack");
+					State.ChangeState(CeilLaserState::shoot);
 					return;
 				}
 			);
 		}
 	);
 
-	State.SetUpdateFunction("Attack", [=](float _DeltaTime)	
+	State.SetUpdateFunction(CeilLaserState::shoot, [=](float _DeltaTime)
 		{ 
 			Laser->AddScale({ -40.0f * _DeltaTime, 0.0f, 0.0f }); 
 		}
 	);
 
-	State.SetUpdateFunction("Off", [=](float _DeltaTime) {});
+	State.SetUpdateFunction(CeilLaserState::off, [=](float _DeltaTime) {});
 
 	// State End
 

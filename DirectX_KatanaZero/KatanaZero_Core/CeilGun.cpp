@@ -86,12 +86,12 @@ void ACeilGun::StateInit()
 	Super::StateInit();
 
 	// State Create
-	State.CreateState("On");
-	State.CreateState("Off");
-	State.CreateState("Shoot");
+	State.CreateState(CeilGunState::on);
+	State.CreateState(CeilGunState::off);
+	State.CreateState(CeilGunState::shoot);
 
 	// State Start
-	State.SetStartFunction("On", [=] 
+	State.SetStartFunction(CeilGunState::on, [=]
 		{
 			Laser->SetActive(true);
 			Laser->ChangeAnimation(Anim::compo_ceilgun_col_idle);
@@ -100,32 +100,32 @@ void ACeilGun::StateInit()
 		}
 	);
 
-	State.SetStartFunction("Off", [=] 
+	State.SetStartFunction(CeilGunState::off, [=]
 		{
 			HitCol->SetActive(false);
 			Laser->SetActive(false);
 		}
 	);
 
-	State.SetStartFunction("Shoot", [=] 
+	State.SetStartFunction(CeilGunState::shoot, [=]
 		{
 			Laser->SetActive(false);
 			SetRandomSparkAnim();
 			SetRandomSmokeAnim();
 
-			DelayCallBack(0.4f, [=] { State.ChangeState("On"); });
+			DelayCallBack(0.4f, [=] { State.ChangeState(CeilGunState::on); });
 		}
 	);
 
 	// State Update
-	State.SetUpdateFunction("Off", [=](float _DeltaTime) {});
-	State.SetUpdateFunction("On", [=](float _DeltaTime) 
+	State.SetUpdateFunction(CeilGunState::off, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(CeilGunState::on, [=](float _DeltaTime)
 		{			
 			HitCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 				{
 					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
 					Player->HitByEnemy(EEnemyType::CeilGun);
-					State.ChangeState("Shoot");
+					State.ChangeState(CeilGunState::shoot);
 					return;
 				}
 			);
@@ -148,7 +148,7 @@ void ACeilGun::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction("Shoot", [=](float _DeltaTime) 
+	State.SetUpdateFunction(CeilGunState::shoot, [=](float _DeltaTime)
 		{
 		}
 	);

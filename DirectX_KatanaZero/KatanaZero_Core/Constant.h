@@ -288,10 +288,12 @@ namespace CeilLaserState
 {
 	const std::string_view on				= "On";
 	const std::string_view off				= "Off";
+	const std::string_view shoot			= "Shoot";
 }
 
 namespace CeilGunState
 {
 	const std::string_view on				= "On";
 	const std::string_view off				= "Off";
+	const std::string_view shoot			= "Shoot";
 }
