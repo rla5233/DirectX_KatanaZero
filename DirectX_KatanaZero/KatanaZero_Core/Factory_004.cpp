@@ -38,7 +38,7 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 	ColMap->SetBGSprite(ImgRes::factory_background4, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
-	Player->SetActorLocation({ 175.0f, 250.0f, 0.0f });
+	Player->SetActorLocation({ -50.0f, 222.0f, 0.0f });
 }
 
 void AFactory_004::LevelEnd(ULevel* _NextLevel)

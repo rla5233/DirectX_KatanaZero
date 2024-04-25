@@ -41,7 +41,7 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 	ColMap->SetBGSprite(ImgRes::factory_background3, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
-	Player->SetActorLocation({ 175.0f, 300.0f, 0.0f });
+	Player->SetActorLocation({ 10.0f, 259.0f, 0.0f });
 
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1343.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
