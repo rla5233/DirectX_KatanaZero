@@ -10,6 +10,7 @@
 #include "EnemyBase.h"
 #include "MouseAim.h"
 #include "ReplayUI.h"
+#include "OutroMsg.h"
 #include "Up_HUD.h"
 #include "Go.h"
 
@@ -207,6 +208,8 @@ void APlayLevelBase::StateInit()
 	State.SetStartFunction(PlayLevelState::outro, [=] 
 		{
 			Player->SubStateChange(PlayerSubState::outro);
+			HUD->StateChange(HudState::outro);
+			GetWorld()->SpawnActor<AOutroMsg>("OutroMsg");
 		}
 	);
 	State.SetStartFunction(PlayLevelState::play, [=]
@@ -254,7 +257,6 @@ void APlayLevelBase::StateInit()
 			}
 
 			Go->StateChange(GoState::replay);
-			HUD->StateChange(HudState::replay);
 
 			InputOn();
 

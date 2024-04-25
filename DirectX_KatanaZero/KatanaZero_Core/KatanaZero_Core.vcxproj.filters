@@ -198,6 +198,9 @@
     <ClInclude Include="CeilGun.h">
       <Filter>Level\000.Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="OutroMsg.h">
+      <Filter>Level\000.Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -325,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="PlayerBase_SubState.cpp">
       <Filter>Object\Base\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="OutroMsg.cpp">
+      <Filter>Level\000.Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

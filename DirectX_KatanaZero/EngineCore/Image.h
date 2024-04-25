@@ -67,6 +67,16 @@ public:
 
 	bool IsCurAnimationEnd();
 
+	void SetPlusColor(float4 _Color)
+	{
+		ColorData.PlusColor = _Color;
+	}
+
+	void SetMulColor(float4 _Color)
+	{
+		ColorData.MulColor = _Color;
+	}
+
 protected:
 	void MaterialSettingEnd() override;
 	void Tick(float _DetaTime) override;

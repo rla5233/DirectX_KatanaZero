@@ -67,6 +67,7 @@ namespace ImgRes
 	const std::string_view ui_replay_x4				= "spr_replay_x4.png";
 	const std::string_view ui_replay_x8				= "spr_replay_x8.png";
 	const std::string_view ui_replay_x16			= "spr_replay_x16.png";
+	const std::string_view ui_outro_msg				= "spr_outro_0.png";
 
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";
@@ -312,7 +313,7 @@ namespace HudState
 {
 	const std::string_view wait				= "Wait";
 	const std::string_view play				= "Play";
-	const std::string_view replay			= "Replay";
+	const std::string_view outro			= "Outro";
 }
 
 namespace MouseAimState
@@ -342,8 +343,14 @@ namespace CeilGunState
 	const std::string_view shoot			= "Shoot";
 }
 
-namespace PanicSwitch
+namespace PanicSwitchState
 {
 	const std::string_view on				= "On";
 	const std::string_view off				= "Off";
+}
+
+namespace OutroMsgState
+{
+	const std::string_view fade_in			= "FadeIn";
+	const std::string_view fade_out			= "FadeOut";
 }

@@ -47,24 +47,24 @@ void APanicSwitch::StateInit()
 	Super::StateInit();
 
 	// State Create
-	State.CreateState(PanicSwitch::on);
-	State.CreateState(PanicSwitch::off);
+	State.CreateState(PanicSwitchState::on);
+	State.CreateState(PanicSwitchState::off);
 
 	// State Start
-	State.SetStartFunction(PanicSwitch::on, [=]
+	State.SetStartFunction(PanicSwitchState::on, [=]
 		{
 			GetBody()->SetSprite(ImgRes::compo_panic_switch_on);
 		}
 	);
 
-	State.SetStartFunction(PanicSwitch::off, [=]
+	State.SetStartFunction(PanicSwitchState::off, [=]
 		{
 			GetBody()->SetSprite(ImgRes::compo_panic_switch_off);
 		}
 	);
 
 	// State Update
-	State.SetUpdateFunction(PanicSwitch::on, [=](float _DeltaTime)
+	State.SetUpdateFunction(PanicSwitchState::on, [=](float _DeltaTime)
 		{
 			if (true == IsDown(VK_SPACE))
 			{
@@ -72,7 +72,7 @@ void APanicSwitch::StateInit()
 					{
 						APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 						PlayLevel->PanicSwitchOff();
-						State.ChangeState(PanicSwitch::off);
+						State.ChangeState(PanicSwitchState::off);
 						return;
 					}
 				);
@@ -80,7 +80,7 @@ void APanicSwitch::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction(PanicSwitch::off, [=](float _DeltaTime)
+	State.SetUpdateFunction(PanicSwitchState::off, [=](float _DeltaTime)
 		{
 			if (true == IsDown(VK_SPACE))
 			{
@@ -88,7 +88,7 @@ void APanicSwitch::StateInit()
 					{
 						APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 						PlayLevel->PanicSwitchOn();
-						State.ChangeState(PanicSwitch::on);
+						State.ChangeState(PanicSwitchState::on);
 						return;
 					}
 				);

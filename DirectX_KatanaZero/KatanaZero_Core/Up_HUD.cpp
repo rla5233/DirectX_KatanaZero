@@ -175,12 +175,12 @@ void AUp_HUD::StateInit()
 	// State Create
 	State.CreateState(HudState::wait);
 	State.CreateState(HudState::play);
-	State.CreateState(HudState::replay);
+	State.CreateState(HudState::outro);
 	
 	// State Start
 	State.SetStartFunction(HudState::wait, [=] {});
 	State.SetStartFunction(HudState::play, [=] {});
-	State.SetStartFunction(HudState::replay, [=]
+	State.SetStartFunction(HudState::outro, [=]
 		{
 			Bar->SetActive(false);
 
@@ -219,7 +219,7 @@ void AUp_HUD::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction(HudState::replay, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(HudState::outro, [=](float _DeltaTime) {});
 }
 
 void AUp_HUD::BatteryPartUpdate(float _AbilityTime)
