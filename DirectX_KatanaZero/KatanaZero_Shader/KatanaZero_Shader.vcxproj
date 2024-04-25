@@ -137,6 +137,7 @@
   <ItemGroup>
     <None Include="KZ_ShaderBase.hlsli" />
     <None Include="KZ_Texture.hlsli" />
+    <None Include="KZ_Transform.hlsli" />
     <None Include="KZ_Vertex.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
