@@ -33,6 +33,11 @@ public:
 		Far = _Value;
 	}
 
+	inline void SetProjectionType(ECameraType _ProjectionType)
+	{
+		ProjectionType = _ProjectionType;
+	}
+
 	inline FMatrix GetView()
 	{
 		return View;
