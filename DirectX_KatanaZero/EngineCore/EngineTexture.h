@@ -61,7 +61,7 @@ public:
 
 	static std::shared_ptr<UEngineTexture> ThreadSafeCreate(ID3D11Texture2D* _Texture)
 	{
-		std::shared_ptr<UEngineTexture> NewRes = CreateResUnName();
+		std::shared_ptr<UEngineTexture> NewRes = ThreadSafeCreateResUnName();
 		NewRes->ResCreate(_Texture);
 		return NewRes;
 	}
@@ -152,3 +152,4 @@ private:
 	void Reset(EShaderType _Type, UINT _Slot);
 };
 
+ 
