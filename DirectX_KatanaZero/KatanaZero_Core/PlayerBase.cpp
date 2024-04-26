@@ -7,6 +7,8 @@
 #include "EnemyBase.h"
 #include "Door.h"
 
+const int APlayerBase::CloudSize = 20;
+
 APlayerBase::APlayerBase()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");

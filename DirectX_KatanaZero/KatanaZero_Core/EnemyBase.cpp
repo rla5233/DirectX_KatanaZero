@@ -3,6 +3,8 @@
 
 #include "PlayLevelBase.h"
 
+const int AEnemyBase::BloodSize = 10;
+
 AEnemyBase::AEnemyBase()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -14,6 +16,15 @@ AEnemyBase::AEnemyBase()
 	Body->SetupAttachment(Root);
 	BodyCol->SetupAttachment(Root);
 	DeadCol->SetupAttachment(Root);
+
+	Blood.reserve(BloodSize);
+	for (int i = 0; i < BloodSize; i++)
+	{
+		USpriteRenderer* NewRenderer = CreateDefaultSubObject<USpriteRenderer>("Blood");
+		BloodEffect NewBloodEffect = BloodEffect();
+		NewBloodEffect.Renderer = NewRenderer;
+		Blood.push_back(NewBloodEffect);
+	}
 
 	SetRoot(Root);
 

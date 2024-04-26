@@ -4,6 +4,13 @@
 #include "PhysicsObject.h"
 #include "RecordingObject.h"
 
+class BloodEffect
+{
+public:
+	USpriteRenderer* Renderer = nullptr;
+	FVector Velocity = FVector::Zero;
+};
+
 // 설명 :
 class AEnemyBase :
 	public AActor,
@@ -64,9 +71,10 @@ private:
 
 private:
 	USpriteRenderer* Body = nullptr;
+	std::vector<BloodEffect> Blood;
+	static const int BloodSize;
 
 	FVector HitDir = FVector::Zero;
-
 	float TimeCount = 0.0f;
 
 	// 수정 (삭제 필요)

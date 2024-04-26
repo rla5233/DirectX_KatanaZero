@@ -89,7 +89,7 @@ private:
 	USpriteRenderer* AttackEffect = nullptr;
 	USpriteRenderer* JumpLandEffect = nullptr;
 	std::vector<CloudEffect> Cloud;
-	const int CloudSize = 20;
+	static const int CloudSize;
 	int CloudIdx = 0;
 
 	USpriteRenderer* Back_Top = nullptr;
