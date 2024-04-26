@@ -61,6 +61,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	void RendererInit();
+	void EffectInit();
 	virtual void CollisionInit();
 
 	UCollision* BodyCol = nullptr;
@@ -73,6 +74,7 @@ private:
 	USpriteRenderer* Body = nullptr;
 	std::vector<BloodEffect> Blood;
 	static const int BloodSize;
+	int BloodIdx = 0;
 
 	FVector HitDir = FVector::Zero;
 	float TimeCount = 0.0f;
@@ -116,10 +118,15 @@ protected:
 	virtual void HitFall(float _DeltaTime);
 
 	virtual void DeadStart() {};
-	virtual void Dead(float _DeltaTime) { Recording(_DeltaTime); };
+	virtual void Dead(float _DeltaTime);
 
-	// FSM Update
+// Effect
 private:
+	void BloodVecIdxUpdate();
+	void CreateBloodEffect(float _DeltaTime);
+	void BloodEffectUpdate(float _DeltaTime);
+	float BloodTimeCount = 0.0f;
+
 
 };
 

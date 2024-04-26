@@ -53,6 +53,7 @@ void AEnemyBase::BeginPlay()
 	URecordingObject::SetActor(this);
 
 	RendererInit();
+	EffectInit();
 	CollisionInit();
 	DebugingRendererInit();
 	StateInit();
@@ -297,6 +298,10 @@ void AEnemyBase::HitFall(float _DeltaTime)
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
+	// Effect
+	CreateBloodEffect(_DeltaTime);
+	BloodEffectUpdate(_DeltaTime);
+
 	// State Change Check
 	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir)
 	||  true == IsOnGP_Boundary(Dir) || true == IsOnStairs(Dir))
@@ -363,4 +368,90 @@ void AEnemyBase::StateInit()
 
 
 	State.SetEndFunction(EnemyState::turn, [=] { RendererDirChange(); });
+}
+
+void AEnemyBase::Dead(float _DeltaTime)
+{
+	BloodEffectUpdate(_DeltaTime);
+	Recording(_DeltaTime);
+}
+
+/////////
+// Effect
+void AEnemyBase::EffectInit()
+{
+	for (size_t i = 0; i < Blood.size(); i++)
+	{
+		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter1, ImgRes::effect_blood_splatter1, 0.1f, true);
+		Blood[i].Renderer->SetLastFrameCallback(Anim::effect_blood_splatter1, [=] { Blood[i].Renderer->SetActive(false); });
+		Blood[i].Renderer->SetOrder(ERenderOrder::EffectBack);
+		Blood[i].Renderer->SetAutoSize(2.0f, true);
+		Blood[i].Renderer->SetActive(false);
+	}
+}
+
+void AEnemyBase::BloodVecIdxUpdate()
+{
+	++BloodIdx;
+
+	if (BloodSize <= BloodIdx)
+	{
+		BloodIdx = 0;
+	}
+}
+
+void AEnemyBase::CreateBloodEffect(float _DeltaTime)
+{
+	if (0.0f < BloodTimeCount)
+	{
+		BloodTimeCount -= _DeltaTime;
+		return;
+	}
+
+	EEngineDir Dir = Body->GetDir();
+
+	if (true == Blood[BloodIdx].Renderer->IsActive())
+	{
+		return;
+	}
+
+	Blood[BloodIdx].Renderer->AnimationReset();
+	Blood[BloodIdx].Renderer->ChangeAnimation(Anim::effect_blood_splatter1);
+	Blood[BloodIdx].Renderer->SetActive(true);
+
+	float Deg = UEngineRandom::MainRandom.RandomFloat(5.0f, 35.0f);
+	Deg *= UEngineMath::DToR;
+	FVector VelDir = { cosf(Deg), sinf(Deg), 0.0f };
+
+	float Speed = UEngineRandom::MainRandom.RandomFloat(100.0f, 250.0f);
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Blood[BloodIdx].Renderer->SetPosition(GetActorLocation() + FVector(20.0f, 5.0f, 0.0f));
+		break;
+	case EEngineDir::Right:
+		Blood[BloodIdx].Renderer->SetPosition(GetActorLocation() + FVector(-20.0f, 5.0f, 0.0f));
+		VelDir.X *= -1;
+		break;
+	}
+
+	Blood[BloodIdx].Velocity = VelDir * Speed;
+
+	BloodVecIdxUpdate();
+
+	BloodTimeCount = Const::effect_blood_splatter_delay;
+}
+
+void AEnemyBase::BloodEffectUpdate(float _DeltaTime)
+{
+	for (size_t i = 0; i < Blood.size(); i++)
+	{
+		if (false == Blood[i].Renderer->IsActive())
+		{
+			continue;
+		}
+
+		Blood[i].Renderer->AddPosition(Blood[i].Velocity * _DeltaTime);
+	}
 }
