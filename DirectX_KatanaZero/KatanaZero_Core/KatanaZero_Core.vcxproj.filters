@@ -46,9 +46,6 @@
     <Filter Include="Level\000.Object\UI">
       <UniqueIdentifier>{4b7aab0b-80b5-4cac-8554-f3a0702746a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\000.Object\Enemy">
-      <UniqueIdentifier>{45ff3278-ad39-47cf-8b3c-8b3e2d8dceb9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Base">
       <UniqueIdentifier>{cb8608b5-cd0c-4eec-a0f2-27e8dfe28d37}</UniqueIdentifier>
     </Filter>
@@ -90,6 +87,12 @@
     </Filter>
     <Filter Include="Level\000.Object\Player">
       <UniqueIdentifier>{ad00d2b5-1e9b-44f1-a040-026afa6a0648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\002.FactoryLevel\Object">
+      <UniqueIdentifier>{ecabbc09-bcba-419d-ab34-7851ba966883}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.Object\Enemy">
+      <UniqueIdentifier>{45ff3278-ad39-47cf-8b3c-8b3e2d8dceb9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="FadeImage.h">
       <Filter>Object\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Fan.h">
+      <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -352,6 +358,9 @@
     </ClCompile>
     <ClCompile Include="FadeImage.cpp">
       <Filter>Object\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Fan.cpp">
+      <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ void APanicSwitch::Tick(float _DeltaTime)
 
 void APanicSwitch::RendererInit()
 {
-	GetBody()->SetOrder(ERenderOrder::MapComponent);
+	GetBody()->SetOrder(ERenderOrder::MapComponent_Back);
 	GetBody()->SetAutoSize(2.0f, true);
 }
 

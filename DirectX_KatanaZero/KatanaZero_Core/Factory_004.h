@@ -1,6 +1,8 @@
 #pragma once
 #include "PlayLevelBase.h"
 
+class AFan;
+
 // 설명 : Factory 4번째 스테이지
 class AFactory_004 : public APlayLevelBase
 {
@@ -32,5 +34,8 @@ protected:
 protected:
 	void ClearStart() override;
 
+
+private:
+	std::shared_ptr<AFan> Fan = nullptr;
 };
 

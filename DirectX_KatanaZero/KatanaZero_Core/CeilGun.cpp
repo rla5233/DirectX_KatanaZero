@@ -68,7 +68,7 @@ void ACeilGun::RendererInit()
 	Smoke->SetActive(false);
 
 	GetBody()->SetSprite(ImgRes::compo_ceil_gun);
-	GetBody()->SetOrder(ERenderOrder::MapComponent);
+	GetBody()->SetOrder(ERenderOrder::MapComponent_Back);
 	GetBody()->SetPosition({ 0.0f, -3.0f, 0.0f });
 	GetBody()->SetAutoSize(2.0f, true);
 }

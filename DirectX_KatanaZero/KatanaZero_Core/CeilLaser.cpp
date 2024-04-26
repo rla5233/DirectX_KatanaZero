@@ -35,7 +35,7 @@ void ACeilLaser::RendererInit()
 	Laser->SetScale({ 4.0f, 210.0f, 1.0f });
 	Laser->SetPosition({ 0.0f, -218.0f, 0.0f });
 
-	GetBody()->SetOrder(ERenderOrder::MapComponent);
+	GetBody()->SetOrder(ERenderOrder::MapComponent_Back);
 	GetBody()->SetAutoSize(2.0f, true);
 }
 

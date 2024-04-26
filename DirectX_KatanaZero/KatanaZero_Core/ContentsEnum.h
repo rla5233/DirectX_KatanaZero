@@ -20,12 +20,13 @@ enum class ERenderOrder
 {
 	ColMap,
 	BackGround,
-	MapComponent,
+	MapComponent_Back,
 	EffectBack,
 	Enemy,
 	Player,
 	Player2,
 	EffectFront,
+	MapComponent_Front,
 	UI
 };
 

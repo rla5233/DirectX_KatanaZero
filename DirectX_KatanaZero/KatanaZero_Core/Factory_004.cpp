@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "Up_HUD.h"
+#include "Fan.h"
 #include "Go.h"
 
 AFactory_004::AFactory_004()
@@ -39,6 +40,8 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -50.0f, 222.0f, 0.0f });
+
+	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right);
 }
 
 void AFactory_004::LevelEnd(ULevel* _NextLevel)

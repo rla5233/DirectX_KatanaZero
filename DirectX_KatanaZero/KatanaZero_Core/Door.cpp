@@ -33,7 +33,7 @@ void ADoor::RendererInit()
 {
 	GetBody()->CreateAnimation(Anim::compo_door_idle, ImgRes::compo_door, 0.1f, false, 0, 0);
 	GetBody()->CreateAnimation(Anim::compo_door_open, ImgRes::compo_door, 0.05f, false);
-	GetBody()->SetOrder(ERenderOrder::MapComponent);
+	GetBody()->SetOrder(ERenderOrder::MapComponent_Back);
 	GetBody()->SetAutoSize(2.0f, true);
 }
 

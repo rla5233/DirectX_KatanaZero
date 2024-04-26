@@ -91,6 +91,9 @@ namespace ImgRes
 	const std::string_view compo_ceilgun_col_idle	= "spr_ceilgun_col_idle";
 	const std::string_view compo_panic_switch_on	= "spr_panic_switch_on.png";
 	const std::string_view compo_panic_switch_off	= "spr_panic_switch_off.png";
+	const std::string_view compo_fan_back			= "spr_fan_bg.png";
+	const std::string_view compo_fan_front			= "spr_fan_fg.png";
+	const std::string_view compo_fan_blade			= "spr_fanblade";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -174,6 +177,7 @@ namespace Anim
 	const std::string_view compo_ceil_laser_idle	= "spr_laser_col_idle";
 	const std::string_view compo_ceil_laser_attack	= "spr_laser_col_attack";
 	const std::string_view compo_ceilgun_col_idle	= "spr_ceilgun_col_idle";
+	const std::string_view compo_fan_blade			= "spr_fanblade";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";
@@ -360,4 +364,9 @@ namespace OutroMsgState
 	const std::string_view fade_in			= "FadeIn";
 	const std::string_view fade_out			= "FadeOut";
 	const std::string_view wait				= "Wait";
+}
+
+namespace FanState
+{
+	const std::string_view idle				= "Idle";
 }
