@@ -54,7 +54,8 @@ enum class EEnemyPatrol
 enum class EEnemyType
 {
 	Default,
-	CeilGun
+	CeilGun,
+	TimeOut
 };
 
 enum class EColOrder

@@ -54,14 +54,6 @@ void AFactory_004::ChangeStage()
 	GEngine->ChangeLevel("Factory_005");
 }
 
-void AFactory_004::ResetPlayer()
-{
-	if (UEngineInput::IsDown('R'))
-	{
-		Player->SetActorLocation({ 175.0f, 250.0f, 0.0f });
-	}
-}
-
 void AFactory_004::ClearStart()
 {
 	Super::ClearStart();

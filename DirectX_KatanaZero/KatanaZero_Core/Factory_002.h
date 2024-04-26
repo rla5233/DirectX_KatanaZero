@@ -26,9 +26,6 @@ protected:
 protected:
 	void ChangeStage() override;
 
-private:
-	void ResetPlayer() override;
-
 // FSM	
 protected:
 	void  ClearStart() override;

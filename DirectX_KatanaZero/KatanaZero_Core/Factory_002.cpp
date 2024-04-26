@@ -64,14 +64,6 @@ void AFactory_002::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
-void AFactory_002::ResetPlayer()
-{
-	if (UEngineInput::IsDown('R'))
-	{
-		Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
-	}
-}
-
 void AFactory_002::ClearStart()
 {
 	Super::ClearStart();

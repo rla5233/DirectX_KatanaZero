@@ -140,14 +140,13 @@ bool APlayLevelBase::IsRelayStart()
 void APlayLevelBase::Debug()
 {
 	DebugMessageFunction();
-	ResetPlayer();
 	RestartCheck();
 }
 
 // ¿ÁΩ√¿€
 void APlayLevelBase::RestartCheck()
 {
-	if (UEngineInput::IsDown('P') && PlayLevelState::replay != State.GetCurStateName())
+	if (UEngineInput::IsDown('R') && PlayLevelState::replay != State.GetCurStateName())
 	{
 		LevelEnd(nullptr);
 		LevelStart(nullptr);

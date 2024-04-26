@@ -41,11 +41,3 @@ void AFactory_005::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 }
-
-void AFactory_005::ResetPlayer()
-{
-	if (UEngineInput::IsDown('R'))
-	{
-		Player->SetActorLocation({ 175.0f, 147.0f, 0.0f });
-	}
-}

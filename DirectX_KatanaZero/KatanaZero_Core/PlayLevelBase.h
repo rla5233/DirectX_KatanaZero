@@ -112,7 +112,6 @@ protected:
 // µð¹ö±ë °ü·Ã
 private:
 	void Debug();
-	virtual void ResetPlayer() {};
 	void RestartCheck();
 	void DebugMessageFunction();
 

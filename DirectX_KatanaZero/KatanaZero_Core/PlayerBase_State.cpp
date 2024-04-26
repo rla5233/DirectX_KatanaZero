@@ -772,6 +772,10 @@ void APlayerBase::DeadStart()
 	case EEnemyType::CeilGun:
 		Velocity.X = 0.0f;
 		break;
+	case EEnemyType::TimeOut:
+		Velocity.X = 0.0f;
+		Velocity.Y = 0.0f;
+		break;
 	}
 
 	AddActorLocation({ 0.0f, 10.0f, 0.0f });

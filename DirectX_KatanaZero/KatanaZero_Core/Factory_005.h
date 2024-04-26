@@ -24,8 +24,5 @@ protected:
 	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
 
-private:
-	void ResetPlayer() override;
-
 };
 
