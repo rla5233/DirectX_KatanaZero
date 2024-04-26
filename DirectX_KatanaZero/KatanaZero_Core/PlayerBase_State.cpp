@@ -561,7 +561,7 @@ void APlayerBase::AttackStart()
 	Body->ChangeAnimation(Anim::player_attack);
 
 	// 콜리전 설정
-	AttackCol->SetPosition(AttackDir * 75.0f);
+	AttackCol->SetPosition(AttackDir * 50.0f);
 	AttackCol->AddPosition({ 0.0f, 40.0f, 0.0f });
 	AttackCol->SetRotationDeg({ 0.0f, 0.0f, Deg });
 	AttackCol->SetActive(true);

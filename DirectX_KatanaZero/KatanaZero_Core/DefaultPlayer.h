@@ -27,8 +27,6 @@ private:
 
 // FSM
 protected:
-
 	void DeadStart() override;	
-
 };
 

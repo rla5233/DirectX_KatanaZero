@@ -382,8 +382,8 @@ void AEnemyBase::EffectInit()
 {
 	for (size_t i = 0; i < Blood.size(); i++)
 	{
-		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter1, ImgRes::effect_blood_splatter1, 0.1f, true);
-		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter2, ImgRes::effect_blood_splatter2, 0.1f, true);
+		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter1, ImgRes::effect_blood_splatter1, 0.08f, true);
+		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter2, ImgRes::effect_blood_splatter2, 0.08f, true);
 		Blood[i].Renderer->SetLastFrameCallback(Anim::effect_blood_splatter1, [=] { Blood[i].Renderer->SetActive(false); });
 		Blood[i].Renderer->SetLastFrameCallback(Anim::effect_blood_splatter2, [=] { Blood[i].Renderer->SetActive(false); });
 		Blood[i].Renderer->SetOrder(ERenderOrder::EffectBack);
