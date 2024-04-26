@@ -269,6 +269,15 @@ void APlayLevelBase::StateInit()
 		{
 			Player->SubStateChange(PlayerSubState::restart);
 
+			for (size_t i = 0; i < AllEnemy.size(); i++)
+			{
+				AllEnemy[i]->StateChange(EnemyState::restart);
+			}
+
+			for (size_t i = 0; i < AllRecComponent.size(); i++)
+			{
+				AllRecComponent[i]->StateChange(RecCompoState::restart);
+			}
 
 		}
 	);

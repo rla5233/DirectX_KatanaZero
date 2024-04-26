@@ -304,6 +304,7 @@ void AEnemyBase::StateInit()
 	State.CreateState(EnemyState::patrol_turn);
 	State.CreateState(EnemyState::patrol_stop);
 	State.CreateState(EnemyState::replay);
+	State.CreateState(EnemyState::restart);
 
 
 	State.CreateState(EnemyState::turn);
@@ -323,6 +324,9 @@ void AEnemyBase::StateInit()
 		}
 	);
 
+	State.SetStartFunction(EnemyState::restart, [=] { SetRewindStart(); });
+
+
 	State.SetStartFunction(EnemyState::turn, std::bind(&AEnemyBase::TurnStart, this));
 
 	// State Update 함수 세팅
@@ -334,6 +338,7 @@ void AEnemyBase::StateInit()
 	State.SetUpdateFunction(EnemyState::patrol_turn, std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::patrol_stop, std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::replay, [=](float _DeltaTime) { Replaying(_DeltaTime); });
+	State.SetUpdateFunction(EnemyState::restart, [=](float _DeltaTime) { Replaying(_DeltaTime); });
 	
 
 	State.SetUpdateFunction(EnemyState::turn, std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));

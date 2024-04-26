@@ -44,6 +44,7 @@ void ARecMapCompoBase::StateInit()
 {
 	// State Create
 	State.CreateState(RecCompoState::replay);
+	State.CreateState(RecCompoState::restart);
 
 	// State Start
 	State.SetStartFunction(RecCompoState::replay, [=] 
@@ -53,8 +54,11 @@ void ARecMapCompoBase::StateInit()
 		}
 	);
 
+	State.SetStartFunction(RecCompoState::restart, [=] { SetRewindStart(); });
+
 	// State Update
 	State.SetUpdateFunction(RecCompoState::replay, [=](float _DeltaTime) { Replaying(_DeltaTime); });
+	State.SetUpdateFunction(RecCompoState::restart, [=](float _DeltaTime) { Replaying(_DeltaTime); });
 
 	// State End
 

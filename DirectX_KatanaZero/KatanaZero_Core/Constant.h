@@ -292,11 +292,13 @@ namespace EnemyState
 	const std::string_view patrol_walk		= "PatrolWalk";
 	const std::string_view patrol_turn		= "PatrolTurn";
 	const std::string_view patrol_stop		= "PatrolStop";
+	const std::string_view restart			= "Restart";
 }
 
 namespace RecCompoState
 {
 	const std::string_view replay			= "Replay";
+	const std::string_view restart			= "Restart";
 }
 
 namespace DoorState
