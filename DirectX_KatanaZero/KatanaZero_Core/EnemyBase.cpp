@@ -3,7 +3,7 @@
 
 #include "PlayLevelBase.h"
 
-const int AEnemyBase::BloodSize = 10;
+const int AEnemyBase::BloodSize = 20;
 
 AEnemyBase::AEnemyBase()
 {
@@ -383,9 +383,11 @@ void AEnemyBase::EffectInit()
 	for (size_t i = 0; i < Blood.size(); i++)
 	{
 		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter1, ImgRes::effect_blood_splatter1, 0.1f, true);
+		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter2, ImgRes::effect_blood_splatter2, 0.1f, true);
 		Blood[i].Renderer->SetLastFrameCallback(Anim::effect_blood_splatter1, [=] { Blood[i].Renderer->SetActive(false); });
+		Blood[i].Renderer->SetLastFrameCallback(Anim::effect_blood_splatter2, [=] { Blood[i].Renderer->SetActive(false); });
 		Blood[i].Renderer->SetOrder(ERenderOrder::EffectBack);
-		Blood[i].Renderer->SetAutoSize(2.0f, true);
+		Blood[i].Renderer->SetAutoSize(3.0f, true);
 		Blood[i].Renderer->SetActive(false);
 	}
 }
@@ -416,27 +418,35 @@ void AEnemyBase::CreateBloodEffect(float _DeltaTime)
 	}
 
 	Blood[BloodIdx].Renderer->AnimationReset();
-	Blood[BloodIdx].Renderer->ChangeAnimation(Anim::effect_blood_splatter1);
 	Blood[BloodIdx].Renderer->SetActive(true);
 
-	float Deg = UEngineRandom::MainRandom.RandomFloat(5.0f, 35.0f);
-	Deg *= UEngineMath::DToR;
-	FVector VelDir = { cosf(Deg), sinf(Deg), 0.0f };
-
-	float Speed = UEngineRandom::MainRandom.RandomFloat(100.0f, 250.0f);
-
-	switch (Dir)
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 2);
+	switch (RandomValue)
 	{
-	case EEngineDir::Left:
-		Blood[BloodIdx].Renderer->SetPosition(GetActorLocation() + FVector(20.0f, 5.0f, 0.0f));
+	case 1:
+		Blood[BloodIdx].Renderer->ChangeAnimation(Anim::effect_blood_splatter1);
 		break;
-	case EEngineDir::Right:
-		Blood[BloodIdx].Renderer->SetPosition(GetActorLocation() + FVector(-20.0f, 5.0f, 0.0f));
-		VelDir.X *= -1;
+	case 2:
+		Blood[BloodIdx].Renderer->ChangeAnimation(Anim::effect_blood_splatter2);
 		break;
 	}
 
-	Blood[BloodIdx].Velocity = VelDir * Speed;
+
+	//float Deg = UEngineRandom::MainRandom.RandomFloat(5.0f, 35.0f);
+	//Deg *= UEngineMath::DToR;
+	//FVector VelDir = { cosf(Deg), sinf(Deg), 0.0f };
+
+	//float Speed = UEngineRandom::MainRandom.RandomFloat(100.0f, 250.0f);
+
+	FVector ActorVector = Velocity;
+	FVector VelDir = -ActorVector;
+	float Deg = UContentsMath::GetAngleToX_2D(VelDir.Normalize2DReturn());
+		
+	Blood[BloodIdx].BloodEffect::Velocity = VelDir * 0.15f;
+	Blood[BloodIdx].Renderer->SetPosition(GetActorLocation() + FVector(0.0f, 50.0f, 0.0f));
+	//Blood[BloodIdx].Renderer->AddPosition(VelDir * 50.0f);
+	Blood[BloodIdx].Renderer->SetRotationDeg({ 0.0f, 0.0f, Deg });
+
 
 	BloodVecIdxUpdate();
 

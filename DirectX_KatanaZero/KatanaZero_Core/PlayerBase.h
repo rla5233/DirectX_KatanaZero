@@ -229,7 +229,6 @@ private:
 	void CreateWallSlideCroudEffect(float _DeltaTime);
 	float CroudTimeCount = 0.0f;
 
-
 // Sub FSM
 private:
 	void SubStateInit();
