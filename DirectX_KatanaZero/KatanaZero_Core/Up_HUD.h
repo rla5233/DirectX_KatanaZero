@@ -24,6 +24,9 @@ public:
 	void BatteryPartUpdate(float _AbilityTime);
 
 	void Destroy();
+	void On();
+	void Off();
+	void Reset();
 
 protected:
 	void BeginPlay() override;

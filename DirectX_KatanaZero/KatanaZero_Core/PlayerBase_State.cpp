@@ -9,7 +9,8 @@
 void APlayerBase::IdleStart()
 {
 	Velocity = FVector::Zero;
-
+	
+	Body->AnimationReset();
 	Body->ChangeAnimation(Anim::player_idle);
 }
 	

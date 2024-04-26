@@ -152,16 +152,7 @@ void AEnemyBase::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-	DefaultUpdate(_DeltaTime);
 	DebugingUpdate();
-}
-
-void AEnemyBase::DefaultUpdate(float _DeltaTime)
-{
-	if (true == IsRecording())
-	{
-		Recording(_DeltaTime);
-	}
 }
 
 void AEnemyBase::PatrolWalkStart()
@@ -171,6 +162,8 @@ void AEnemyBase::PatrolWalkStart()
 
 void AEnemyBase::PatrolWalk(float _DeltaTime)
 {
+	Recording(_DeltaTime);
+
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
@@ -191,6 +184,8 @@ void AEnemyBase::PatrolTurnStart()
 
 void AEnemyBase::PatrolTurn(float _DeltaTime)
 {
+	Recording(_DeltaTime);
+
 	// State Change Check
 	if (true == Body->IsCurAnimationEnd())
 	{
@@ -207,6 +202,8 @@ void AEnemyBase::PatrolStopStart()
 
 void AEnemyBase::PatrolStop(float _DeltaTime)
 {
+	Recording(_DeltaTime);
+
 	// State Change Check
 	if (0.0f > TimeCount)
 	{
@@ -219,6 +216,8 @@ void AEnemyBase::PatrolStop(float _DeltaTime)
 
 void AEnemyBase::Run(float _DeltaTime)
 {
+	Recording(_DeltaTime);
+
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 }
@@ -230,6 +229,8 @@ void AEnemyBase::TurnStart()
 
 void AEnemyBase::Turn(float _DeltaTime)
 {
+	Recording(_DeltaTime);
+
 	if (Body->IsCurAnimationEnd())
 	{
 		State.ChangeState(EnemyState::idle); 
@@ -261,6 +262,8 @@ void AEnemyBase::HitFallStart()
 
 void AEnemyBase::HitFall(float _DeltaTime)
 {
+	Recording(_DeltaTime);
+
 	EEngineDir Dir = Body->GetDir();
 
 	// 충돌 체크
@@ -348,5 +351,5 @@ void AEnemyBase::StateInit()
 	State.SetEndFunction(EnemyState::hitfall, [=] { DeadCol->SetActive(false); });
 
 
-	State.SetEndFunction(EnemyState::turn, [=] {	RendererDirChange(); });
+	State.SetEndFunction(EnemyState::turn, [=] { RendererDirChange(); });
 }

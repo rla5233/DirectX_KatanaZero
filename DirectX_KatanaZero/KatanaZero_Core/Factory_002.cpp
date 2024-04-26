@@ -52,6 +52,26 @@ void AFactory_002::LevelEnd(ULevel* _NextLevel)
 	Super::LevelEnd(_NextLevel);
 }
 
+void AFactory_002::LevelReStart()
+{
+	Super::LevelReStart();
+
+	TotalEnemy = 3;
+
+	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
+	Player->SetActorLocation({ 192.0f, 111.0f, 0.0f });
+	Player->SubStateChange(PlayerSubState::play);
+	Player->StateChange(PlayerState::idle);
+
+	AllEnemy.reserve(3);
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, "PatrolWalk");
+	SpawnIdleEnemy<AGrunt>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right);
+	SpawnIdleEnemy<AGangSter>("GangSter", { 540.0f, 400.0f, 0.0f }, EEngineDir::Left);
+
+	AllRecComponent.reserve(1);
+	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left);
+}
+
 void AFactory_002::ChangeStage()
 {
 	Super::ChangeStage();

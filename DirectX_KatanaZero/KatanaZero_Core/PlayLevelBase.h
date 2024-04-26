@@ -78,6 +78,9 @@ protected:
 
 	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
+	
+	virtual void LevelReStart() {};
+	virtual void LevelReEnd();
 
 	bool IsStageClear();
 	bool IsRelayStart();

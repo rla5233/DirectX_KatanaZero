@@ -94,6 +94,29 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	AllRecComponent.clear();
 }
 
+void APlayLevelBase::LevelReEnd()
+{
+	Player->Destroy();
+	Player->SetIsPlayValue(false);
+
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->Destroy();
+		AllEnemy[i] = nullptr;
+	}
+
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->Destroy();
+		AllRecComponent[i] = nullptr;
+	}
+
+	Player = nullptr;
+
+	AllEnemy.clear();
+	AllRecComponent.clear();
+}
+
 void APlayLevelBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -141,8 +164,6 @@ void APlayLevelBase::Debug()
 {
 	DebugMessageFunction();
 }
-
-
 
 void APlayLevelBase::DebugMessageFunction()
 {
@@ -211,8 +232,13 @@ void APlayLevelBase::StateInit()
 	);
 	State.SetStartFunction(PlayLevelState::play, [=]
 		{
-			HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
+			if (nullptr == HUD)
+			{
+				HUD = GetWorld()->SpawnActor<AUp_HUD>("Up_HUD");
+			}
 
+			HUD->Reset();
+			HUD->On();
 			Player->SetRecordingActive(true);
 
 			for (size_t i = 0; i < AllEnemy.size(); i++)
@@ -267,6 +293,16 @@ void APlayLevelBase::StateInit()
 
 	State.SetStartFunction(PlayLevelState::restart, [=] 
 		{
+			if (nullptr != HUD)
+			{
+				HUD->Off();
+			}
+
+			if (nullptr != Go)
+			{
+				Go->Off();
+			}
+
 			Player->SubStateChange(PlayerSubState::restart);
 
 			for (size_t i = 0; i < AllEnemy.size(); i++)
@@ -278,7 +314,6 @@ void APlayLevelBase::StateInit()
 			{
 				AllRecComponent[i]->StateChange(RecCompoState::restart);
 			}
-
 		}
 	);
 
@@ -350,8 +385,9 @@ void APlayLevelBase::StateInit()
 
 			if (Player->IsRewindEnd())
 			{
-				LevelEnd(nullptr);
-				LevelStart(nullptr);
+				LevelReEnd();
+				LevelReStart();
+				State.ChangeState(PlayLevelState::play);
 			}
 		}
 	);
@@ -361,7 +397,12 @@ void APlayLevelBase::StateInit()
 
 void APlayLevelBase::ClearStart()
 {
-	Go = GetWorld()->SpawnActor<AGo>("Go");
+	if (nullptr == Go)
+	{
+		Go = GetWorld()->SpawnActor<AGo>("Go");
+	}
+
+	Go->On();
 }
 
 void APlayLevelBase::SetReplay()

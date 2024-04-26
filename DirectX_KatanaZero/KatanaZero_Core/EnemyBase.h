@@ -60,8 +60,6 @@ protected:
 	UCollision* DeadCol = nullptr;
 
 private:
-	void DefaultUpdate(float _DeltaTime);
-
 	void RendererDirChange();
 
 private:
@@ -86,7 +84,7 @@ private:
 
 protected:
 	virtual void IdleStart() {};
-	virtual void Idle(float _DeltaTime) {};
+	virtual void Idle(float _DeltaTime) { Recording(_DeltaTime); };
 
 	virtual void PatrolWalkStart();
 	virtual void PatrolWalk(float _DeltaTime);
@@ -110,7 +108,7 @@ protected:
 	virtual void HitFall(float _DeltaTime);
 
 	virtual void DeadStart() {};
-	virtual void Dead(float _DeltaTime) {};
+	virtual void Dead(float _DeltaTime) { Recording(_DeltaTime); };
 
 	// FSM Update
 private:

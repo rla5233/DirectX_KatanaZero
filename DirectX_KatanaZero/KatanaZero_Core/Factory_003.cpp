@@ -68,6 +68,37 @@ void AFactory_003::LevelEnd(ULevel* _NextLevel)
 	Super::LevelEnd(_NextLevel);
 }
 
+void AFactory_003::LevelReStart()
+{
+	Super::LevelReStart();
+
+	TotalEnemy = 0;
+
+	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
+	Player->SetActorLocation({ 222.0f, 259.0f, 0.0f });
+	Player->SubStateChange(PlayerSubState::play);
+	Player->StateChange(PlayerState::idle);
+
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1343.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1905.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1965.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2025.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2085.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2145.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+
+	std::shared_ptr<ACeilGun> NewCeilGun = nullptr;
+	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 840.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	NewCeilGun->SetPointX(655.0f, 1280.0f);
+	NewCeilGun->SetVelocity({ -120.0f, 0.0f, 0.0f });
+
+	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 1270.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	NewCeilGun->SetPointX(655.0f, 1280.0f);
+	NewCeilGun->SetVelocity({ -120.0f, 0.0f, 0.0f });
+
+	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f }, EEngineDir::Right, "On");
+}
+
 void AFactory_003::ChangeStage()
 {
 	Super::ChangeStage();

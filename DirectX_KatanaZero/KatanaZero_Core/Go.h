@@ -31,10 +31,21 @@ public:
 
 	void Destroy()
 	{
-		Go->SetActive(false);
-		Arrow->SetActive(false);
+		Off();
 		AActor::Destroy();
 	}
+
+	void On()
+	{
+		Go->SetActive(true);
+		Arrow->SetActive(true);
+	};
+
+	void Off()
+	{
+		Go->SetActive(false);
+		Arrow->SetActive(false);
+	};
 
 protected:
 	void BeginPlay() override;

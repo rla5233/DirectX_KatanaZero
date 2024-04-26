@@ -44,7 +44,18 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 void AFactory_004::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+}
 
+void AFactory_004::LevelReStart()
+{
+	Super::LevelReStart();
+
+	TotalEnemy = 0;
+
+	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
+	Player->SetActorLocation({ 162.0f, 222.0f, 0.0f });
+	Player->SubStateChange(PlayerSubState::play);
+	Player->StateChange(PlayerState::idle);
 }
 
 void AFactory_004::ChangeStage()

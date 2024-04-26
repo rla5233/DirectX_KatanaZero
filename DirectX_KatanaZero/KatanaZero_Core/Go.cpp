@@ -73,12 +73,7 @@ void AGo::StateInit()
 		}
 	);
 
-	State.SetStartFunction(GoState::outro, [=]
-		{
-			Go->SetActive(false);
-			Arrow->SetActive(false);
-		}
-	);
+	State.SetStartFunction(GoState::outro, [=] { Off(); });
 
 	// State Update
 	State.SetUpdateFunction(GoState::repeat, [=](float _DeltaTime)

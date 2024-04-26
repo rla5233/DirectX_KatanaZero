@@ -180,28 +180,7 @@ void AUp_HUD::StateInit()
 	// State Start
 	State.SetStartFunction(HudState::wait, [=] {});
 	State.SetStartFunction(HudState::play, [=] {});
-	State.SetStartFunction(HudState::outro, [=]
-		{
-			Bar->SetActive(false);
-
-			Timer->SetActive(false);
-			Timer_Bar->SetActive(false);
-			Timer_Bar_Black->SetActive(false);
-
-			Battery->SetActive(false);
-			for (size_t i = 0; i < Battery_Part.size(); i++)
-			{
-				Battery_Part[i]->SetActive(false);
-			}
-			Shift->SetActive(false);
-
-			Weapon->SetActive(false);
-			KatanaIcon->SetActive(false);
-			ItemIcon->SetActive(false);
-			L_ClickIcon->SetActive(false);
-			R_ClickIcon->SetActive(false);
-		}
-	);
+	State.SetStartFunction(HudState::outro, [=]	{ Off(); });
 	
 	// State Update
 	State.SetUpdateFunction(HudState::wait, [=](float _DeltaTime) {});
@@ -242,6 +221,34 @@ void AUp_HUD::BatteryPartUpdate(float _AbilityTime)
 
 void AUp_HUD::Destroy()
 {
+	Off();
+	AActor::Destroy();
+}
+
+void AUp_HUD::On()
+{
+	Bar->SetActive(true);
+
+	Timer->SetActive(true);
+	Timer_Bar->SetActive(true);
+	Timer_Bar_Black->SetActive(true);
+
+	Battery->SetActive(true);
+	for (size_t i = 0; i < Battery_Part.size(); i++)
+	{
+		Battery_Part[i]->SetActive(true);
+	}
+	Shift->SetActive(true);
+
+	Weapon->SetActive(true);
+	KatanaIcon->SetActive(true);
+	ItemIcon->SetActive(true);
+	L_ClickIcon->SetActive(true);
+	R_ClickIcon->SetActive(true);
+}
+
+void AUp_HUD::Off()
+{
 	Bar->SetActive(false);
 
 	Timer->SetActive(false);
@@ -260,6 +267,12 @@ void AUp_HUD::Destroy()
 	ItemIcon->SetActive(false);
 	L_ClickIcon->SetActive(false);
 	R_ClickIcon->SetActive(false);
+}
 
-	AActor::Destroy();
+void AUp_HUD::Reset()
+{
+	FVector WinScale = GEngine->EngineWindow.GetWindowScale();
+	WinScale.Y -= 47.0f;
+	Timer_Bar_Black->SetPosition({ 100.0f, WinScale.hY() + 5.0f, 1.0f });
+	Timer_Bar_Black->SetScale({ 0.0f, 22.0f, 1.0f });
 }
