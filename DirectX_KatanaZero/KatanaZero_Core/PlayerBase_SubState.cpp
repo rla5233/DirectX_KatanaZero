@@ -147,15 +147,17 @@ void APlayerBase::AbilityCheck()
 		GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
 		GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
 		GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
+		GEngine->SetOrderTimeScale(EUpdateOrder::Fan, 0.05f);
 		return;
 	}
 
 	if (true == IsAbilityInputUp() || false == IsAbilityValue)
 	{
 		IsAbilityValue = false;
-		GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1);
-		GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, 1);
-		GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, 1);
+		GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1.0f);
+		GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, 1.0f);
+		GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, 1.0f);
+		GEngine->SetOrderTimeScale(EUpdateOrder::Fan, 1.0f);
 		return;
 	}
 }

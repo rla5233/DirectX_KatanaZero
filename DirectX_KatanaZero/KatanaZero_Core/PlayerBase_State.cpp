@@ -788,12 +788,14 @@ void APlayerBase::DeadStart()
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	PlayLevel->StateChange(PlayLevelState::player_dead);
 	SubState.ChangeState(PlayerSubState::none);
+	IsAbilityValue = false;
 
 	InputOff();
 	float TimeScale = 1.0f;
 	GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
 	GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
 	GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
+	GEngine->SetOrderTimeScale(EUpdateOrder::Fan, TimeScale);
 }
 
 void APlayerBase::Dead(float _DeltaTime)
@@ -820,11 +822,13 @@ void APlayerBase::Dead(float _DeltaTime)
 
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
+
+	AbilityUpdate(_DeltaTime);
 }
 
 void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 {
-	if (true == IsInvincibleValue)
+	if (true == IsInvincibleValue && EEnemyType::Fan != _EnemyType)
 	{
 		return;
 	}

@@ -18,6 +18,8 @@ public:
 	AFactory_004& operator=(const AFactory_004& _Other) = delete;
 	AFactory_004& operator=(AFactory_004&& _Other) noexcept = delete;
 
+	bool IsPlayerAbilityOn() const;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -33,7 +35,6 @@ protected:
 // FSM
 protected:
 	void ClearStart() override;
-
 
 private:
 	std::shared_ptr<AFan> Fan = nullptr;

@@ -2,6 +2,7 @@
 #include "Fan.h"
 
 #include "PlayerBase.h"
+#include "Factory_004.h"
 
 AFan::AFan()
 {
@@ -50,18 +51,6 @@ void AFan::RendererInit()
 
 	Blade->SetPosition({ 30.0f, -5.0f, 0.0f });
 	Front->SetPosition({ 72.0f, 0.0f, 0.0f });
-
-	Blade->SetFrameCallback(Anim::compo_fan_blade, 10, [=]
-		{
-			BodyCol->SetActive(false);
-		}
-	);
-
-	Blade->SetFrameCallback(Anim::compo_fan_blade, 29, [=]
-		{
-			BodyCol->SetActive(true);
-		}
-	);
 }
 
 void AFan::CollisionInit()
@@ -85,12 +74,35 @@ void AFan::StateInit()
 	// State Update
 	State.SetUpdateFunction(FanState::idle, [=](float _DeltaTime) 
 		{
-			BodyCol->CollisionStay(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+			BodyCol->CollisionEnter(EColOrder::PlayerFront, [=](std::shared_ptr<UCollision> _Other)
 				{
 					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-					Player->HitByEnemy();
+					Player->HitByEnemy(EEnemyType::Fan);
 				}
 			);
+			
+			int CurFrame = Blade->GetCurAnimationFrame();
+			if (10 <= CurFrame && 29 > CurFrame)
+			{
+				AFactory_004* PlayLevel = dynamic_cast<AFactory_004*>(GetWorld()->GetGameMode().get());
+				if (true == PlayLevel->IsPlayerAbilityOn())
+				{
+					BodyCol->SetActive(false);
+				}
+
+				Blade->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+			}
+
+			if (10 > CurFrame || 29 <= CurFrame)
+			{
+				AFactory_004* PlayLevel = dynamic_cast<AFactory_004*>(GetWorld()->GetGameMode().get());
+				if (true == PlayLevel->IsPlayerAbilityOn())
+				{
+					Blade->SetPlusColor({ 0.0f, -0.25f, -0.25f });
+				}
+
+				BodyCol->SetActive(true);
+			}
 		}
 	);
 

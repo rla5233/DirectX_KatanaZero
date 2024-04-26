@@ -41,7 +41,7 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -50.0f, 222.0f, 0.0f });
 
-	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right);
+	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, "Idle", EUpdateOrder::Fan);
 }
 
 void AFactory_004::LevelEnd(ULevel* _NextLevel)
@@ -52,7 +52,7 @@ void AFactory_004::LevelEnd(ULevel* _NextLevel)
 void AFactory_004::LevelReStart()
 {
 	Super::LevelReStart();
-
+	
 	TotalEnemy = 0;
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
@@ -60,7 +60,7 @@ void AFactory_004::LevelReStart()
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
 
-	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right);
+	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, "Idle", EUpdateOrder::Fan);
 }
 
 void AFactory_004::ChangeStage()
@@ -76,4 +76,9 @@ void AFactory_004::ClearStart()
 
 	Go->SetRepeatPos({ 500.0f, 140.0f, 0.0f });
 	Go->StateChange("Repeat");
+}
+
+bool AFactory_004::IsPlayerAbilityOn() const
+{
+	return Player->IsAbilityOn();
 }

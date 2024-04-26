@@ -35,7 +35,8 @@ enum class EUpdateOrder
 	Default,
 	Player,
 	Enemy,
-	RecComponent
+	RecComponent,
+	Fan
 };
 
 enum class EWidgetOrder
@@ -56,7 +57,8 @@ enum class EEnemyType
 {
 	Default,
 	CeilGun,
-	TimeOut
+	TimeOut,
+	Fan
 };
 
 enum class EColOrder
