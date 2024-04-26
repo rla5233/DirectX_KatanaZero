@@ -59,6 +59,8 @@ void AFactory_004::LevelReStart()
 	Player->SetActorLocation({ 162.0f, 222.0f, 0.0f });
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
+
+	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right);
 }
 
 void AFactory_004::ChangeStage()

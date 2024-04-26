@@ -49,6 +49,8 @@ void AFan::RendererInit()
 
 void AFan::StateInit()
 {
+	Super::StateInit();
+
 	// State Create
 	State.CreateState(FanState::idle);
 
