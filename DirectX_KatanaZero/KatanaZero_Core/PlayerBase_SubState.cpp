@@ -11,17 +11,18 @@ void APlayerBase::SubStateInit()
 	SubState.CreateState(PlayerSubState::play);
 	SubState.CreateState(PlayerSubState::replay);
 	SubState.CreateState(PlayerSubState::outro);
+	SubState.CreateState(PlayerSubState::restart);
 
 
 	// State Start
 	SubState.SetStartFunction(PlayerSubState::none, [=] {});
 	SubState.SetStartFunction(PlayerSubState::play, [=] {});
+	SubState.SetStartFunction(PlayerSubState::restart, [=] { State.ChangeState(PlayerState::none); });
 	SubState.SetStartFunction(PlayerSubState::intro, [=]
 		{
 			SetMaxRunVel();
 			Body->ChangeAnimation(Anim::player_run);
 			IntroOrder = EIntroOrder::Run;
-
 			DelayCallBack(0.5f, [=]
 				{
 					Velocity = FVector::Zero;
@@ -49,6 +50,7 @@ void APlayerBase::SubStateInit()
 
 	// State Update
 	SubState.SetUpdateFunction(PlayerSubState::none, [=](float _DeltaTime) {});
+	SubState.SetUpdateFunction(PlayerSubState::outro, [=](float _DeltaTime)	{ OutroUpdate(_DeltaTime); });
 	SubState.SetUpdateFunction(PlayerSubState::intro, [=](float _DeltaTime)
 		{
 			switch (IntroOrder)
@@ -89,7 +91,11 @@ void APlayerBase::SubStateInit()
 		}
 	);
 
-	SubState.SetUpdateFunction(PlayerSubState::outro, [=](float _DeltaTime)	{ OutroUpdate(_DeltaTime); });
+	SubState.SetUpdateFunction(PlayerSubState::restart, [=](float _DeltaTime) 
+		{
+			Replaying(_DeltaTime);
+		}
+	);
 
 	// State End
 	SubState.SetEndFunction(PlayerSubState::intro, [=]

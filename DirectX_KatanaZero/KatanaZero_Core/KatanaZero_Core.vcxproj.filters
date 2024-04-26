@@ -76,9 +76,6 @@
     <Filter Include="Level\000.Object\Camera">
       <UniqueIdentifier>{efaa99ae-4428-4e06-899d-a4619ac8bed2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\000.Object\Player">
-      <UniqueIdentifier>{ad00d2b5-1e9b-44f1-a040-026afa6a0648}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Effect">
       <UniqueIdentifier>{967472ec-7757-4243-86eb-de8799d02bf4}</UniqueIdentifier>
     </Filter>
@@ -90,6 +87,9 @@
     </Filter>
     <Filter Include="Object\Rendering">
       <UniqueIdentifier>{bafb0efb-54a7-4f85-ae50-a352474b36bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.Object\Player">
+      <UniqueIdentifier>{ad00d2b5-1e9b-44f1-a040-026afa6a0648}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

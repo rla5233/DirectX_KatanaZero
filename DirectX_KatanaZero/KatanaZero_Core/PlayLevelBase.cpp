@@ -200,6 +200,7 @@ void APlayLevelBase::StateInit()
 	State.CreateState(PlayLevelState::clear);
 	State.CreateState(PlayLevelState::outro);
 	State.CreateState(PlayLevelState::replay);
+	State.CreateState(PlayLevelState::player_dead);
 
 	// State Start 함수 세팅
 	State.SetStartFunction(PlayLevelState::intro, [=] {});
@@ -233,17 +234,6 @@ void APlayLevelBase::StateInit()
 	State.SetStartFunction(PlayLevelState::replay, [=]
 		{ 
 			// Recording Off
-			for (size_t i = 0; i < AllEnemy.size(); i++)
-			{
-				AllEnemy[i]->SetRecordingActive(false);
-			}
-
-			for (size_t i = 0; i < AllRecComponent.size(); i++)
-			{
-				AllRecComponent[i]->SetRecordingActive(false);
-			}
-
-			// Replay State Set
 			Player->SubStateChange(PlayerSubState::replay);
 
 			for (size_t i = 0; i < AllEnemy.size(); i++)
@@ -261,6 +251,21 @@ void APlayLevelBase::StateInit()
 			GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
 			ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
 			InputOn();
+		}
+	);
+
+	State.SetStartFunction(PlayLevelState::player_dead, [=] 
+		{
+			// Recording Off
+			for (size_t i = 0; i < AllEnemy.size(); i++)
+			{
+				AllEnemy[i]->SetRecordingActive(false);
+			}
+
+			for (size_t i = 0; i < AllRecComponent.size(); i++)
+			{
+				AllRecComponent[i]->SetRecordingActive(false);
+			}
 		}
 	);
 

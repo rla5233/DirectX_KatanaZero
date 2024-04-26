@@ -292,16 +292,6 @@ void AEnemyBase::HitFall(float _DeltaTime)
 	}
 }
 
-void AEnemyBase::ReplayStart()
-{
-	SetReplayStart();
-}
-
-void AEnemyBase::Replay(float _DeltaTime)
-{
-	Replaying(_DeltaTime);
-}
-
 // State √ ±‚»≠
 void AEnemyBase::StateInit()
 {
@@ -326,9 +316,12 @@ void AEnemyBase::StateInit()
 	State.SetStartFunction(EnemyState::patrol_walk, std::bind(&AEnemyBase::PatrolWalkStart, this));
 	State.SetStartFunction(EnemyState::patrol_turn, std::bind(&AEnemyBase::PatrolTurnStart, this));
 	State.SetStartFunction(EnemyState::patrol_stop, std::bind(&AEnemyBase::PatrolStopStart, this));
-	State.SetStartFunction(EnemyState::replay, std::bind(&AEnemyBase::ReplayStart, this));
-	
-
+	State.SetStartFunction(EnemyState::replay, [=] 
+		{
+			SetRecordingActive(false);
+			SetReplayStart();
+		}
+	);
 
 	State.SetStartFunction(EnemyState::turn, std::bind(&AEnemyBase::TurnStart, this));
 
@@ -340,7 +333,7 @@ void AEnemyBase::StateInit()
 	State.SetUpdateFunction(EnemyState::patrol_walk, std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::patrol_turn, std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::patrol_stop, std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::replay, std::bind(&AEnemyBase::Replay, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::replay, [=](float _DeltaTime) { Replaying(_DeltaTime); });
 	
 
 	State.SetUpdateFunction(EnemyState::turn, std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));

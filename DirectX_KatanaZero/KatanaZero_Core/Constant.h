@@ -242,6 +242,7 @@ namespace PlayerSubState
 	const std::string_view play				= "Play";
 	const std::string_view replay			= "Replay";
 	const std::string_view outro			= "Outro";
+	const std::string_view restart			= "Restart";
 }
 
 
@@ -260,6 +261,8 @@ namespace PlayLevelState
 	const std::string_view clear			= "Clear";
 	const std::string_view outro			= "Outro";
 	const std::string_view replay			= "Replay";
+	const std::string_view player_dead		= "PlayerDead";
+	const std::string_view restart			= "Restart";
 }
 
 
