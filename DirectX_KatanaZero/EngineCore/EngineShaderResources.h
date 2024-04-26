@@ -73,6 +73,8 @@ class UEngineShaderResources
 	friend URenderer;
 
 public:
+	~UEngineShaderResources();
+
 	template<typename Value>
 	void SettingConstantBuffer(std::string_view _Name, Value& _Data)
 	{

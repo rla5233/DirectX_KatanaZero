@@ -36,6 +36,8 @@ void UEngineThread::ThreadStartFunction(UEngineThread* _Thread)
 
 	// 여러분들의 함수가 실행됩니다.
 	_Thread->CallBack();
+
+	_Thread->End = true;
 }
 
 void UEngineThread::Start(std::function<void()> _Function /*= nullptr*/)

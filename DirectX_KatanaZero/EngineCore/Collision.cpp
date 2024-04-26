@@ -3,11 +3,11 @@
 #include "EngineDebug3D.h"
 #include "EngineCore.h"
 
-UCollision::UCollision()
+UCollision::UCollision() 
 {
 }
 
-UCollision::~UCollision()
+UCollision::~UCollision() 
 {
 }
 
@@ -87,7 +87,7 @@ bool UCollision::Collision(int _TargetGroup,
 					_Enter(OtherCollision);
 				}
 			}
-
+						
 			if (true == OtherCheck.contains(CollisionPtr))
 			{
 				if (nullptr != _Stay)
@@ -96,7 +96,7 @@ bool UCollision::Collision(int _TargetGroup,
 				}
 			}
 		}
-		else if (true == OtherCheck.contains(CollisionPtr) || true == ExitCheck.contains(CollisionPtr))
+		else if(true == OtherCheck.contains(CollisionPtr) || true == ExitCheck.contains(CollisionPtr))
 		{
 			OtherCheck.erase(CollisionPtr);
 
@@ -180,6 +180,7 @@ void UCollision::Tick(float _Delta)
 	case ECollisionType::CirCle:
 	case ECollisionType::Point:
 	case ECollisionType::Sphere:
+		UEngineDebug::DrawDebugRender(EDebugRenderType::CirCle, Transform, float4::Black);
 		break;
 	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:

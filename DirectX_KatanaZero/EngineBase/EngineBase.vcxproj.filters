@@ -72,6 +72,9 @@
     <ClInclude Include="EngineThread.h">
       <Filter>Thread</Filter>
     </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -117,6 +120,9 @@
       <Filter>Time</Filter>
     </ClCompile>
     <ClCompile Include="EngineThread.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
   </ItemGroup>

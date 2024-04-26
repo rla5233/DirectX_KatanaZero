@@ -6,6 +6,7 @@
 
 #include <EnginePlatform/EngineWindow.h>
 #include <EngineBase/EngineTime.h>
+#include <EngineBase/ThreadPool.h>
 
 #include "EngineGraphicDevice.h"
 #include "EngineOption.h"
@@ -120,6 +121,8 @@ public:
 	{
 		TimeScales[_Order] = _Value;
 	}
+
+	UThreadPool JobWorker;
 
 protected:
 

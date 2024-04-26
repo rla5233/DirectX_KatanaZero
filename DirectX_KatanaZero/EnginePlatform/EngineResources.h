@@ -22,6 +22,8 @@ public:
 
 	static std::shared_ptr<ResType> FindRes(std::string_view _Name)
 	{
+		std::lock_guard<std::mutex> Lock(NameResourcesMutex);
+
 		std::string UpperName = UEngineString::ToUpper(_Name);
 
 		if (false == NameResources.contains(UpperName))

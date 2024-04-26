@@ -39,7 +39,7 @@ namespace UEngineDebug
 		{
 			return;
 		}
-
+		
 		if (DebugIndex >= DebugRenderUnits.size())
 		{
 			// 메모리아끼려고 지연생성
@@ -48,25 +48,27 @@ namespace UEngineDebug
 
 		UDebugRenderInfo& CurInfo = DebugRenderUnits[DebugIndex];
 
+		CurInfo.Trans = _Transform;
+
 		switch (_DebugText)
 		{
 		case EDebugRenderType::Rect:
 			CurInfo.Unit.SetMesh("Rect");
 			break;
 		case EDebugRenderType::CirCle:
+			CurInfo.Trans.SetScale({ CurInfo.Trans.GetScale().X, CurInfo.Trans.GetScale().X , CurInfo.Trans.GetScale().X });
 			CurInfo.Unit.SetMesh("Sphere");
 			break;
 		default:
 			break;
 		}
 
-		CurInfo.Trans = _Transform;
 		CurInfo.Color = _Color;
 		CurInfo.Unit.SetMaterial("Debug");
 		CurInfo.Unit.Resources->SettingConstantBuffer("DebugColorValue", CurInfo.Color);
 		CurInfo.Unit.Resources->SettingConstantBuffer("FTransform", CurInfo.Trans);
 
 		++DebugIndex;
-
+		
 	}
 }

@@ -5,6 +5,11 @@
 #include "EngineTexture.h"
 #include "EngineSampler.h"
 
+
+UEngineShaderResources::~UEngineShaderResources()
+{
+	int a = 0;
+}
 /// UEngineConstantBufferSetter
 void UEngineConstantBufferSetter::Setting()
 {

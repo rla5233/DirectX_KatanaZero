@@ -220,6 +220,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Transform.h">
       <SubType>
       </SubType>
@@ -287,6 +288,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PreCompile.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="Transform.cpp">
       <SubType>
       </SubType>

@@ -11,12 +11,13 @@ public:
 	UEngineThread();
 	~UEngineThread();
 
-	// delete Function
-	UEngineThread(const UEngineThread& _Other) = delete;
-	UEngineThread(UEngineThread&& _Other) noexcept = delete;
-	UEngineThread& operator=(const UEngineThread& _Other) = delete;
-	UEngineThread& operator=(UEngineThread&& _Other) noexcept = delete;
+	// true
+	bool IsEnd()
+	{
+		return Thread.joinable();
+	}
 
+	// delete Function
 	void SetFunction(std::function<void()> _Function);
 
 	void Start(std::function<void()> _Function = nullptr);
@@ -24,6 +25,7 @@ public:
 protected:
 	std::thread Thread;
 	std::function<void()> CallBack;
+	bool End = false;
 
 private:
 	static void ThreadStartFunction(UEngineThread* _Thread);

@@ -40,7 +40,7 @@ public:
 class UImage : public UWidget
 {
 	GENERATED_BODY(UWidget);
-
+	
 public:
 	UImage();
 	~UImage();
@@ -57,7 +57,7 @@ public:
 	void SetSamplering(ETextureSampling _Value);
 
 	void SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function);
-
+	
 
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, float _Inter = 0.1f, bool _Loop = true, int _Start = -1, int _End = -1);
 
@@ -96,6 +96,7 @@ private:
 
 	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
+	FVertexUV VertexUVValue;
 
 	// 여기에 자기자신의 std::shared_ptr
 	// std::shared_ptr<UWidget> This = ;

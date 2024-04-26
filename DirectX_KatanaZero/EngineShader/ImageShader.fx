@@ -61,6 +61,13 @@ cbuffer FCuttingData : register(b2)
     float4x4 PivotMat;
 };
 
+cbuffer FVertexUV : register(b3)
+{
+    //       0, 0
+    float4 PlusUV;
+};
+
+
 struct ImagePSOutPut
 {
     float4 COLOR : SV_Target0;
@@ -82,6 +89,11 @@ ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
     
     Out.TEXCOORD.x = (_Input.TEXCOORD.x * CuttingSize.x) + CuttingPosition.x;
     Out.TEXCOORD.y = (_Input.TEXCOORD.y * CuttingSize.y) + CuttingPosition.y;
+    
+    Out.TEXCOORD.x += CuttingSize.x * PlusUV.x;
+    Out.TEXCOORD.y += CuttingSize.y * PlusUV.y;
+    
+    
     
     // 00,    1. 0
     

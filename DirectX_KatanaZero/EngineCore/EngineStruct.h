@@ -34,3 +34,10 @@ struct FBaseRenderValue
 	float ScreenX;
 	float ScreenY;
 };
+
+
+struct FVertexUV 
+{
+	//       0, 0
+	float4 PlusUV;
+};
