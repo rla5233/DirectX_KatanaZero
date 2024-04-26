@@ -50,9 +50,14 @@ public:
 		return State.GetCurStateName();
 	}
 
-	void SetIsPlayValue(bool _PlayValue)
+	inline void SetIsPlayValue(bool _PlayValue)
 	{
 		IsPlayValue = _PlayValue;
+	}
+
+	inline bool IsAbilityOn() const
+	{
+		return IsAbilityValue;
 	}
 
 	void HitByEnemy(EEnemyType _EnemyType = EEnemyType::Default);

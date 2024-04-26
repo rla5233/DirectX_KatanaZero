@@ -21,12 +21,15 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	void RendererInit();
+	void CollisionInit();
 	void StateInit() override;
 
 private:
 	USpriteRenderer* Back = nullptr;
 	USpriteRenderer* Front = nullptr;
 	USpriteRenderer* Blade = nullptr;
+
+	UCollision* BodyCol = nullptr;
 
 };
 
