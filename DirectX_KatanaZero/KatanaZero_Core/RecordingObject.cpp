@@ -86,6 +86,14 @@ void URecordingObject::SetReplayStart()
 	CurIndex = 0;
 }
 
+void URecordingObject::SetRewindStart()
+{
+	Actor->InputOff();
+	Mode = EReplayMode::Rewind;
+	ReplaySpeed = 8;
+	CurIndex = static_cast<int>(AllRecordInfo.size()) - 1;
+}
+
 void URecordingObject::Replaying(float _DeltaTime)
 {
 	if (0.0f < TimeCount)

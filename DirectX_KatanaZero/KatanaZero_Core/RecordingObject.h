@@ -35,9 +35,10 @@ public:
 	URecordingObject& operator=(URecordingObject&& _Other) noexcept = delete;
 
 	void SetRecordingSize();
-	void Recording(float _DeltaTime);
-
 	void SetReplayStart();
+	void SetRewindStart();
+
+	void Recording(float _DeltaTime);
 	void Replaying(float _DeltaTime);
 
 	inline void SetReplayMode(EReplayMode _Mode)

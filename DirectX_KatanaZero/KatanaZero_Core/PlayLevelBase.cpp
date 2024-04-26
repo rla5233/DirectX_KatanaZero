@@ -140,18 +140,9 @@ bool APlayLevelBase::IsRelayStart()
 void APlayLevelBase::Debug()
 {
 	DebugMessageFunction();
-	RestartCheck();
 }
 
-// 재시작
-void APlayLevelBase::RestartCheck()
-{
-	if (UEngineInput::IsDown('R') && PlayLevelState::replay != State.GetCurStateName())
-	{
-		LevelEnd(nullptr);
-		LevelStart(nullptr);
-	}
-}
+
 
 void APlayLevelBase::DebugMessageFunction()
 {
@@ -201,6 +192,7 @@ void APlayLevelBase::StateInit()
 	State.CreateState(PlayLevelState::outro);
 	State.CreateState(PlayLevelState::replay);
 	State.CreateState(PlayLevelState::player_dead);
+	State.CreateState(PlayLevelState::restart);
 
 	// State Start 함수 세팅
 	State.SetStartFunction(PlayLevelState::intro, [=] {});
@@ -211,6 +203,10 @@ void APlayLevelBase::StateInit()
 			HUD->StateChange(HudState::outro);
 			Go->StateChange(GoState::outro);
 			GetWorld()->SpawnActor<AOutroMsg>("OutroMsg");
+
+			GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1.0f);
+			GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, 1.0f);
+			GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, 1.0f);
 		}
 	);
 	State.SetStartFunction(PlayLevelState::play, [=]
@@ -269,8 +265,25 @@ void APlayLevelBase::StateInit()
 		}
 	);
 
+	State.SetStartFunction(PlayLevelState::restart, [=] 
+		{
+			Player->SubStateChange(PlayerSubState::restart);
+
+
+		}
+	);
+
 	// State Update 함수 세팅
 	State.SetUpdateFunction(PlayLevelState::outro, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(PlayLevelState::player_dead, [=](float _DeltaTime) 
+		{ 	
+			if (UEngineInput::IsDown('R'))
+			{
+				State.ChangeState(PlayLevelState::restart);
+			} 
+		}
+	);
+
 	State.SetUpdateFunction(PlayLevelState::intro, [=](float _DeltaTime)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
@@ -285,6 +298,11 @@ void APlayLevelBase::StateInit()
 				State.ChangeState(PlayLevelState::clear);
 				return;
 			}
+
+			if (UEngineInput::IsDown('R'))
+			{
+				State.ChangeState(PlayLevelState::restart);
+			}
 		}
 	);
 
@@ -295,6 +313,11 @@ void APlayLevelBase::StateInit()
 			{
 				State.ChangeState(PlayLevelState::outro);
 				return;
+			}
+
+			if (UEngineInput::IsDown('R'))
+			{
+				State.ChangeState(PlayLevelState::restart);
 			}
 		}
 	);
@@ -308,6 +331,18 @@ void APlayLevelBase::StateInit()
 				InputOff();
 
 				ChangeStage();
+			}
+		}
+	);
+
+	State.SetUpdateFunction(PlayLevelState::restart, [=](float _DeltaTime) 
+		{
+			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+
+			if (Player->IsRewindEnd())
+			{
+				LevelEnd(nullptr);
+				LevelStart(nullptr);
 			}
 		}
 	);

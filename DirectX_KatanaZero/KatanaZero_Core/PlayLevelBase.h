@@ -112,7 +112,6 @@ protected:
 // µð¹ö±ë °ü·Ã
 private:
 	void Debug();
-	void RestartCheck();
 	void DebugMessageFunction();
 
 };

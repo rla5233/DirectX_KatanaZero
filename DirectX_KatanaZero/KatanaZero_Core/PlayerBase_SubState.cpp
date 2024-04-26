@@ -17,7 +17,6 @@ void APlayerBase::SubStateInit()
 	// State Start
 	SubState.SetStartFunction(PlayerSubState::none, [=] {});
 	SubState.SetStartFunction(PlayerSubState::play, [=] {});
-	SubState.SetStartFunction(PlayerSubState::restart, [=] { State.ChangeState(PlayerState::none); });
 	SubState.SetStartFunction(PlayerSubState::intro, [=]
 		{
 			SetMaxRunVel();
@@ -47,6 +46,14 @@ void APlayerBase::SubStateInit()
 			State.ChangeState(PlayerState::none);
 		}
 	);
+
+	SubState.SetStartFunction(PlayerSubState::restart, [=]
+		{
+			SetRewindStart();
+			State.ChangeState(PlayerState::none);
+		}
+	);
+
 
 	// State Update
 	SubState.SetUpdateFunction(PlayerSubState::none, [=](float _DeltaTime) {});

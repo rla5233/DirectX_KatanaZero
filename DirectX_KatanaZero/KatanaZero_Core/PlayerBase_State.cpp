@@ -783,6 +783,11 @@ void APlayerBase::DeadStart()
 	FrontCol->SetActive(false);
 	BodyCol->SetActive(false);
 
+	SetRecordingActive(false);
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	PlayLevel->StateChange(PlayLevelState::player_dead);
+	SubState.ChangeState(PlayerSubState::none);
+
 	InputOff();
 	float TimeScale = 1.0f;
 	GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
