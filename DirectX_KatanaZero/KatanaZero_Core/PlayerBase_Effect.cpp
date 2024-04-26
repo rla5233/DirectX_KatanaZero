@@ -174,6 +174,11 @@ void APlayerBase::SetCroudEffectUpdate(float _DeltaTime)
 
 void APlayerBase::CreateRollCroudEffect(float _DeltaTime)
 {
+	if (true == IsAbilityValue)
+	{
+		return;
+	}
+
 	if (0.0f < CroudTimeCount)
 	{
 		CroudTimeCount -= _DeltaTime;
