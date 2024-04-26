@@ -55,7 +55,7 @@ public:
 	static std::shared_ptr<UEngineSprite> ThreadSafeLoad(std::string_view _Path, std::string_view _Name)
 	{
 		std::shared_ptr<UEngineSprite> NewRes = ThreadSafeCreateResName(_Path, _Name);
-		NewRes->ResLoad();
+		NewRes->ThreadSafeResLoad();
 		return NewRes;
 	}
 
@@ -65,7 +65,7 @@ public:
 		std::string FileName = NewPath.GetFileName();
 
 		std::shared_ptr<UEngineSprite> NewRes = ThreadSafeCreateResName(_Path, FileName);
-		NewRes->ResLoadFolder();
+		NewRes->ThreadSafeResLoadFolder();
 		return NewRes;
 	}
 

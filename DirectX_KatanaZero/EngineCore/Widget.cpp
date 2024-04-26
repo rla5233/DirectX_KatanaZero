@@ -16,7 +16,17 @@ UWidget::~UWidget()
 void UWidget::AddToViewPort(int _Order)
 {
 	SetOrder(_Order);
-	GetWorld()->PushWidget(shared_from_this());
+	if (nullptr == WidgetParent)
+	{
+		GetWorld()->PushWidget(shared_from_this());
+	}
+}
+
+void UWidget::SetupAttachment(UWidget* _Parent)
+{
+	SetParent(_Parent);
+	WidgetParent = _Parent;
+	_Parent->ChildWidgets.push_back(shared_from_this());
 }
 
 void UWidget::MaterialSettingEnd() 
@@ -28,9 +38,20 @@ void UWidget::MaterialSettingEnd()
 	}
 }
 
+void UWidget::WidgetInit(std::shared_ptr<UWidget> _Widget, std::string_view _Name)
+{
+	_Widget->UWorldObject::SetWorld(GetWorld());
+	_Widget->SetName(_Name);
+}
+
 void UWidget::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
 {
 	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
+
+	for (std::shared_ptr<UWidget> ChildWidget : ChildWidgets)
+	{
+		ChildWidget->RenderingTransformUpdate(_Camera);
+	}
 }
 
 
@@ -73,4 +94,58 @@ void UWidget::Tick(float _DeltaTime)
 	}
 
 	// GEngine->EngineWindow.mouse
+}
+
+bool UWidget::Render(float _DeltaTime)
+{
+	Transform;
+	URenderUnit::Render(_DeltaTime);
+
+	for (std::shared_ptr<UWidget> ChildWidget : ChildWidgets)
+	{
+		ChildWidget->Render(_DeltaTime);
+	}
+
+	return true;
+}
+
+
+FVector UWidget::GetWidgetScale3D()
+{
+	return GetWorldScale();
+}
+
+FVector UWidget::GetWidgetLocation()
+{
+	return GetWorldPosition();
+}
+
+void UWidget::SetWidgetLocation(FVector _Value)
+{
+	SetPosition(_Value);
+}
+
+void UWidget::SetWidgetScale3D(FVector _Value)
+{
+	SetScale(_Value);
+}
+
+void UWidget::SetWidgetRotation(FVector _Value)
+{
+	SetRotationDeg(_Value);
+}
+
+void UWidget::AddWidgetLocation(FVector _Value)
+{
+	AddPosition(_Value);
+}
+
+void UWidget::AddWidgetRotation(FVector _Value)
+{
+	AddRotationDeg(_Value);
+}
+
+void UWidget::AddWidgetScale3D(FVector _Value)
+{
+	AddScale(_Value);
 }

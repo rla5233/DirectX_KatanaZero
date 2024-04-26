@@ -23,7 +23,7 @@ public:
 		Parent = _Parent;
 		Parent->Transform.TransformUpdate();
 		Parent->Childs.push_back(this);
-		ChildUpdate();
+		Parent->ChildUpdate();
 	}
 
 	void ChildUpdate();

@@ -68,7 +68,7 @@ public:
 
 	static std::shared_ptr<UEngineTexture> ThreadSafeCreate(const D3D11_TEXTURE2D_DESC& _Desc)
 	{
-		std::shared_ptr<UEngineTexture> NewRes = CreateResUnName();
+		std::shared_ptr<UEngineTexture> NewRes = ThreadSafeCreateResUnName();
 		NewRes->ResCreate(_Desc);
 		return NewRes;
 	}
@@ -77,12 +77,12 @@ public:
 	{
 		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
 		std::string FileName = NewPath.GetFileName();
-		return Load(_Path, FileName);
+		return ThreadSafeLoad(_Path, FileName);
 	}
 
 	static std::shared_ptr<UEngineTexture> ThreadSafeLoad(std::string_view _Path, std::string_view _Name)
 	{
-		std::shared_ptr<UEngineTexture> NewRes = CreateResName(_Path, _Name);
+		std::shared_ptr<UEngineTexture> NewRes = ThreadSafeCreateResName(_Path, _Name);
 		NewRes->ResLoad();
 		return NewRes;
 	}

@@ -9,6 +9,7 @@ class UWorldObject
 public:
 	friend AActor;
 	friend ULevel;
+	friend UWidget;
 	// constrcuter destructer
 	UWorldObject();
 	~UWorldObject();

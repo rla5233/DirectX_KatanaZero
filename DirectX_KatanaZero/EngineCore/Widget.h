@@ -60,7 +60,30 @@ public:
 		UnHover = _UnHover;
 	}
 
+	template<typename WidgetType>
+	WidgetType* CreateWidget(ULevel* _Level, std::string_view _Name)
+	{
+		std::shared_ptr<UWidget> NewWidget = std::make_shared<WidgetType>();
 
+		WidgetInit(NewWidget, _Name);
+
+		return dynamic_cast<WidgetType*>(NewWidget.get());
+	}
+
+	void SetupAttachment(UWidget* _Parent);
+
+	bool Render(float _DeltaTime) override;
+
+	FVector GetWidgetLocation();
+	FVector GetWidgetScale3D();
+
+	void SetWidgetScale3D(FVector _Value);
+	void SetWidgetRotation(FVector _Value);
+	void SetWidgetLocation(FVector _Value);
+
+	void AddWidgetScale3D(FVector _Value);
+	void AddWidgetRotation(FVector _Value);
+	void AddWidgetLocation(FVector _Value);
 
 protected:
 	void MaterialSettingEnd() override;
@@ -73,8 +96,11 @@ protected:
 
 private:
 	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
+	void WidgetInit(std::shared_ptr<UWidget>, std::string_view _Name);
 
 	bool IsHover = false;
+	UWidget* WidgetParent = nullptr;
+	std::list<std::shared_ptr<UWidget>> ChildWidgets;
 
 	std::function<void()> UnHover;
 	std::function<void()> Hover;
