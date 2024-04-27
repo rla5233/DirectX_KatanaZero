@@ -3,7 +3,7 @@
 
 #include "PlayLevelBase.h"
 
-const int AEnemyBase::BloodSize = 18;
+const int AEnemyBase::BloodSize = 25;
 
 AEnemyBase::AEnemyBase()
 {
