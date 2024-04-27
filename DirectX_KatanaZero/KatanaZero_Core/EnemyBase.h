@@ -62,8 +62,9 @@ protected:
 
 	void RendererInit();
 	void EffectInit();
-	virtual void CollisionInit();
 
+	// Collision
+	virtual void CollisionInit();
 	UCollision* BodyCol = nullptr;
 	UCollision* DeadCol = nullptr;
 
@@ -71,11 +72,18 @@ private:
 	void RendererDirChange();
 
 private:
+	// Blood Effect
 	USpriteRenderer* Body = nullptr;
 	std::vector<BloodEffect> Blood;
 	static const int BloodSize;
+	float BloodTimeCount = 0.0f;
 	int BloodIdx = 0;
 
+	// Patrol State
+	float PatrolWalkTime = 0.0f;
+	float PatrolStopTime = 0.0f;
+
+	// etc.
 	FVector HitDir = FVector::Zero;
 	float TimeCount = 0.0f;
 
@@ -87,46 +95,51 @@ private:
 	void DebugingRendererInit();
 	void DebugingUpdate();
 
-	// FSM
+// FSM
 private:
 	UStateManager State;
 	void StateInit();
 
 protected:
 	virtual void IdleStart() {};
-	virtual void Idle(float _DeltaTime) { Recording(_DeltaTime); };
-
-	virtual void PatrolWalkStart();
-	virtual void PatrolWalk(float _DeltaTime);
-
-	virtual void PatrolTurnStart();
-	virtual void PatrolTurn(float _DeltaTime);
-
-	virtual void PatrolStopStart();
-	virtual void PatrolStop(float _DeltaTime);
-
-	float PatrolWalkTime = 0.0f;
-	float PatrolStopTime = 0.0f;
-
+	void Idle(float _DeltaTime);
+	
 	virtual void RunStart() {};
 	virtual void Run(float _DeltaTime);
+	
+	virtual void HitFallStart();
+	void HitFall(float _DeltaTime);
+
+	virtual void DeadStart() {};
+	void Dead(float _DeltaTime);
+
+	virtual void PatrolWalkStart();
+	void PatrolWalk(float _DeltaTime);
+
+	virtual void PatrolTurnStart();
+	void PatrolTurn(float _DeltaTime);
+
+	virtual void PatrolStopStart();
+	void PatrolStop(float _DeltaTime);
+	
+	
+
+
+
+
+
+
+	virtual void ChaseStart();
+	virtual void Chase(float _DeltaTime);
 
 	virtual void TurnStart();
 	virtual void Turn(float _DeltaTime);
-
-	virtual void HitFallStart();
-	virtual void HitFall(float _DeltaTime);
-
-	virtual void DeadStart() {};
-	virtual void Dead(float _DeltaTime);
 
 // Effect
 private:
 	void BloodVecIdxUpdate();
 	void CreateBloodEffect(float _DeltaTime);
 	void BloodEffectUpdate(float _DeltaTime);
-	float BloodTimeCount = 0.0f;
-
 
 };
 

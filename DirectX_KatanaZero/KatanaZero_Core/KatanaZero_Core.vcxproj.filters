@@ -362,5 +362,8 @@
     <ClCompile Include="Fan.cpp">
       <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBase_State.cpp">
+      <Filter>Object\Base\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
