@@ -9,6 +9,7 @@ UContentsMath::~UContentsMath()
 {
 }
 
+// X축 과의 각도 구하는 함수 (0 ~ 360)
 float UContentsMath::GetAngleToX_2D(const FVector& _Dir)
 {
 	float Result = 0.0f;
@@ -22,9 +23,8 @@ float UContentsMath::GetAngleToX_2D(const FVector& _Dir)
 
 	Result = acosf(dot / (dir_norm * x_axis_norm));
 
-	FVector n_vec = { 0.0f, 0.0f, 1.0f };
 	FVector cross = float4::Cross3D(dir, x_axis);
-
+	FVector n_vec = { 0.0f, 0.0f, 1.0f };
 	if (0 < cross.Z * n_vec.Z)
 	{
 		Result = UEngineMath::PI2 - Result;

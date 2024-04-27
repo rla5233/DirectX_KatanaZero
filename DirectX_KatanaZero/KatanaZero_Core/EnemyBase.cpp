@@ -3,7 +3,7 @@
 
 #include "PlayLevelBase.h"
 
-const int AEnemyBase::BloodSize = 20;
+const int AEnemyBase::BloodSize = 18;
 
 AEnemyBase::AEnemyBase()
 {
@@ -382,8 +382,8 @@ void AEnemyBase::EffectInit()
 {
 	for (size_t i = 0; i < Blood.size(); i++)
 	{
-		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter1, ImgRes::effect_blood_splatter1, 0.08f, true);
-		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter2, ImgRes::effect_blood_splatter2, 0.08f, true);
+		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter1, ImgRes::effect_blood_splatter1, 0.06f, true);
+		Blood[i].Renderer->CreateAnimation(Anim::effect_blood_splatter2, ImgRes::effect_blood_splatter2, 0.06f, true);
 		Blood[i].Renderer->SetLastFrameCallback(Anim::effect_blood_splatter1, [=] { Blood[i].Renderer->SetActive(false); });
 		Blood[i].Renderer->SetLastFrameCallback(Anim::effect_blood_splatter2, [=] { Blood[i].Renderer->SetActive(false); });
 		Blood[i].Renderer->SetOrder(ERenderOrder::EffectBack);
@@ -431,25 +431,18 @@ void AEnemyBase::CreateBloodEffect(float _DeltaTime)
 		break;
 	}
 
-
-	//float Deg = UEngineRandom::MainRandom.RandomFloat(5.0f, 35.0f);
-	//Deg *= UEngineMath::DToR;
-	//FVector VelDir = { cosf(Deg), sinf(Deg), 0.0f };
-
-	//float Speed = UEngineRandom::MainRandom.RandomFloat(100.0f, 250.0f);
-
-	FVector ActorVector = Velocity;
-	FVector VelDir = -ActorVector;
-	float Deg = UContentsMath::GetAngleToX_2D(VelDir.Normalize2DReturn());
-		
-	Blood[BloodIdx].BloodEffect::Velocity = VelDir * 0.15f;
-	Blood[BloodIdx].Renderer->SetPosition(GetActorLocation() + FVector(0.0f, 50.0f, 0.0f));
-	//Blood[BloodIdx].Renderer->AddPosition(VelDir * 50.0f);
+	FVector VelDir = -UPhysicsObject::Velocity.Normalize2DReturn();
+	float Deg = UContentsMath::GetAngleToX_2D(VelDir);
+	Deg += UEngineRandom::MainRandom.RandomFloat(-35.0f, 35.0f);
 	Blood[BloodIdx].Renderer->SetRotationDeg({ 0.0f, 0.0f, Deg });
 
+	float Rad = Deg * UEngineMath::DToR;
+	VelDir = { cosf(Rad), sinf(Rad), 0.0f };
+	Blood[BloodIdx].BloodEffect::Velocity = VelDir * 150.0f;
+	Blood[BloodIdx].Renderer->SetPosition(GetActorLocation() + FVector(0.0f, 50.0f, 0.0f));
+	Blood[BloodIdx].Renderer->AddPosition(VelDir * 40.0f);
 
 	BloodVecIdxUpdate();
-
 	BloodTimeCount = Const::effect_blood_splatter_delay;
 }
 
