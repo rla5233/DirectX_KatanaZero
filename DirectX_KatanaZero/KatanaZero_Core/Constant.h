@@ -82,6 +82,7 @@ namespace ImgRes
 	const std::string_view effect_gun_smoke3		= "spr_gun_smoke3";
 	const std::string_view effect_blood_splatter1	= "spr_bloodsplatter1";
 	const std::string_view effect_blood_splatter2	= "spr_bloodsplatter2";
+	const std::string_view effect_blood_splatter3	= "spr_bloodsplatter3";
 
 	// MapComponent
 	const std::string_view compo_door				= "spr_door";
@@ -175,6 +176,7 @@ namespace Anim
 
 	const std::string_view effect_blood_splatter1	= "spr_bloodsplatter1";
 	const std::string_view effect_blood_splatter2	= "spr_bloodsplatter2";
+	const std::string_view effect_blood_splatter3	= "spr_bloodsplatter3";
 
 	// MapComponent
 	const std::string_view compo_door_idle			= "door_idle";
