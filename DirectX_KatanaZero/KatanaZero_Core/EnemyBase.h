@@ -132,7 +132,7 @@ protected:
 	void ChaseTurn(float _DeltaTime);
 
 	virtual void ChaseAttackStart();
-	void ChaseAttack(float _DeltaTime);
+	virtual void ChaseAttack(float _DeltaTime);
 
 // Effect
 private:

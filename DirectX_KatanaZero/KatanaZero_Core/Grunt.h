@@ -29,7 +29,9 @@ private:
 private:
 	UCollision* AttackCol = nullptr;
 	USpriteRenderer* AttackEffect = nullptr;
-	float AttackLen = 100.0f;
+	FVector AttackDir = FVector::Zero;
+	float AttackRange = 100.0f;
+	float AttackDeg = 0.0f;
 
 // FSM
 protected:
@@ -46,8 +48,9 @@ protected:
 	void ChaseRunStart() override;
 	void ChaseTurnStart() override;
 	void ChaseAttackStart() override;
+	void ChaseAttack(float _DeltaTime) override;
 
-// Effect
+// Setting
 private:
 	void SetAttackEffect(float _Deg);
 	void SetAttackCollision(const FVector& _Dir, float _Deg);

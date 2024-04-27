@@ -2,6 +2,7 @@
 #include "Grunt.h"
 
 #include "PlayLevelBase.h"
+#include "PlayerBase.h"
 
 AGrunt::AGrunt()
 {
@@ -43,6 +44,7 @@ void AGrunt::CollisionInit()
 	AttackCol->SetCollisionType(ECollisionType::RotRect);
 	AttackCol->SetCollisionGroup(EColOrder::EnemyAttack);
 	AttackCol->SetScale({ 30.0f, 70.0f, 1.0f });
+	AttackCol->SetActive(false);
 }
 
 void AGrunt::EffectInit()
@@ -64,14 +66,13 @@ void AGrunt::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::enemy_grunt_attack, ImgRes::enemy_grunt_attack, 0.07f, false);
 	GetBody()->SetFrameCallback(Anim::enemy_grunt_attack, 2, [=]
 		{
-			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-			FVector PlayerPos = PlayLevel->GetPlayerLocation();
-			FVector AttackDir = PlayerPos - GetActorLocation();
-			AttackDir.Normalize2D();
+			SetAttackEffect(AttackDeg);
+		}
+	);
 
-			float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
-			SetAttackEffect(Deg);
-			SetAttackCollision(AttackDir, Deg);
+	GetBody()->SetFrameCallback(Anim::enemy_grunt_attack, 4, [=]
+		{
+			SetAttackCollision(AttackDir, AttackDeg);
 		}
 	);
 
@@ -147,10 +148,29 @@ void AGrunt::ChaseAttackStart()
 {
 	Super::ChaseAttackStart();
 
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+	AttackDir = PlayerPos - GetActorLocation();
+	AttackDir.Normalize2D();
+	AttackDeg = UContentsMath::GetAngleToX_2D(AttackDir);
+
 	GetBody()->AnimationReset();
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_attack);
 }
 
+void AGrunt::ChaseAttack(float _DeltaTime)
+{
+	// Collison Check
+	AttackCol->CollisionStay(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+		{
+			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+			Player->HitByEnemy();
+		}
+	);
+}
+
+
+// Setting 
 void AGrunt::SetAttackEffect(float _Deg)
 {
 	AttackEffect->SetActive(true);
