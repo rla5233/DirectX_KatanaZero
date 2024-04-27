@@ -21,9 +21,15 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	void CollisionInit() override;
+	void EffectInit();
 
 private:
 	void CreateAnimation();
+
+private:
+	UCollision* AttackCol = nullptr;
+	USpriteRenderer* AttackEffect = nullptr;
+	float AttackLen = 100.0f;
 
 // FSM
 protected:
@@ -36,8 +42,10 @@ protected:
 	void PatrolWalkStart() override;
 	void PatrolTurnStart() override;
 	void PatrolStopStart() override;
-	
-	void RunStart() override;
+
+	void ChaseRunStart() override;
+	void ChaseTurnStart() override;
+	void ChaseAttackStart() override;
 
  };
 

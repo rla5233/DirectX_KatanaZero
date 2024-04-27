@@ -89,6 +89,7 @@ namespace ImgRes
 	const std::string_view effect_blood_splatter3	= "spr_bloodsplatter3";
 
 	const std::string_view effect_enemy_follow		= "spr_enemy_follow";
+	const std::string_view effect_grunt_attack		= "grunt_attack_effect";
 
 	// MapComponent
 	const std::string_view compo_door				= "spr_door";
@@ -154,6 +155,7 @@ namespace Anim
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
+	const std::string_view enemy_grunt_attack		= "grunt_attack";
 	const std::string_view enemy_grunt_walk			= "grunt_walk";
 	const std::string_view enemy_grunt_run			= "grunt_run";
 	const std::string_view enemy_grunt_turn			= "grunt_turn";
@@ -179,12 +181,13 @@ namespace Anim
 	const std::string_view effect_gun_smoke1		= "spr_gun_smoke1";
 	const std::string_view effect_gun_smoke2		= "spr_gun_smoke2";
 	const std::string_view effect_gun_smoke3		= "spr_gun_smoke3";
-
+		
 	const std::string_view effect_blood_splatter1	= "spr_bloodsplatter1";
 	const std::string_view effect_blood_splatter2	= "spr_bloodsplatter2";
 	const std::string_view effect_blood_splatter3	= "spr_bloodsplatter3";
 
 	const std::string_view effect_enemy_follow		= "spr_enemy_follow";
+	const std::string_view effect_grunt_attack		= "grunt_attack_effect";
 
 	// MapComponent
 	const std::string_view compo_door_idle			= "door_idle";
@@ -303,7 +306,6 @@ namespace TitleMenuState
 namespace EnemyState
 {
 	const std::string_view idle				= "Idle";
-	const std::string_view run				= "Run";
 	const std::string_view hitfall			= "HitFall";
 	const std::string_view dead				= "Dead";
 	const std::string_view patrol_walk		= "Patrol_Walk";
@@ -311,6 +313,7 @@ namespace EnemyState
 	const std::string_view patrol_stop		= "Patrol_Stop";
 	const std::string_view chase_run		= "Chase_Run";
 	const std::string_view chase_turn		= "Chase_Turn";
+	const std::string_view chase_attack		= "Chase_Attack";
 
 	const std::string_view turn				= "Turn";
 

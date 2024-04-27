@@ -201,6 +201,6 @@ void AEnemyBase::Tick(float _DeltaTime)
 	// Test
 	if (UEngineInput::IsDown(VK_SPACE))
 	{
-		State.ChangeState(EnemyState::chase_run);
+		State.ChangeState(EnemyState::chase_attack);
 	}
 }
