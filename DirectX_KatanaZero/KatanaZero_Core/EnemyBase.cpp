@@ -9,7 +9,7 @@ AEnemyBase::AEnemyBase()
 
 	Body = CreateDefaultSubObject<USpriteRenderer>("Enemy_Renderer");
 	BodyCol = CreateDefaultSubObject<UCollision>("Enemy_Body_Col");
-	DeadCol = CreateDefaultSubObject<UCollision>("Enemy_Dead_Col");
+	DeadCol = CreateDefaultSubObject<UCollision>("Enemy_Dead_Col"); 
 
 	Body->SetupAttachment(Root);
 	BodyCol->SetupAttachment(Root);
@@ -104,6 +104,11 @@ void AEnemyBase::DebugingUpdate()
 	RendererBB->SetPosition(GetBBFromActor());
 }
 
+void AEnemyBase::SetBodyDir(EEngineDir _Dir)
+{
+	Body->SetDir(_Dir);
+}
+
 void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
 {
 	EEngineDir Dir = Body->GetDir();
@@ -142,7 +147,7 @@ void AEnemyBase::HitByDoor(EEngineDir _Dir)
 	State.ChangeState(EnemyState::hitfall);
 }
 
-void AEnemyBase::RendererDirChange()
+void AEnemyBase::DirChange()
 {
 	EEngineDir Dir = Body->GetDir();
 
@@ -155,6 +160,11 @@ void AEnemyBase::RendererDirChange()
 		Body->SetDir(EEngineDir::Left);
 		break;
 	}
+}
+
+void AEnemyBase::PlayerCheck()
+{
+
 }
 
 void AEnemyBase::Tick(float _DeltaTime)

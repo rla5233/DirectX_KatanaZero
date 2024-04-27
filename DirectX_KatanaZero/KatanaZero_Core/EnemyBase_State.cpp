@@ -76,7 +76,7 @@ void AEnemyBase::StateInit()
 	// State End 함수 세팅
 	State.SetEndFunction(EnemyState::patrol_turn,		std::bind(&AEnemyBase::PatrolTurnEnd, this));
 
-	State.SetEndFunction(EnemyState::turn, [=] { RendererDirChange(); });
+	State.SetEndFunction(EnemyState::turn, [=] { DirChange(); });
 }
 
 void AEnemyBase::Idle(float _DeltaTime)
@@ -203,7 +203,7 @@ void AEnemyBase::PatrolTurn(float _DeltaTime)
 
 void AEnemyBase::PatrolTurnEnd()
 {
-	RendererDirChange();
+	DirChange();
 }
 
 void AEnemyBase::PatrolStopStart()

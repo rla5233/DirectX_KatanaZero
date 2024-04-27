@@ -48,11 +48,7 @@ public:
 		PatrolStopTime = _StopTime;
 	}
 
-	inline void SetBodyDir(EEngineDir _Dir)
-	{
-		Body->SetDir(_Dir);
-	}
-
+	void SetBodyDir(EEngineDir _Dir);
 	void SetVelocityByDir(const FVector& _Vel);
 
 	void HitByPlayer(FVector _AttDir);
@@ -72,7 +68,9 @@ protected:
 	UCollision* DeadCol = nullptr;
 
 private:
-	void RendererDirChange();
+	void DirChange();
+
+	void PlayerCheck();
 
 private:
 	// Renderer

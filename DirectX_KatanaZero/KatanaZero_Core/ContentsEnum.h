@@ -63,13 +63,14 @@ enum class EEnemyType
 
 enum class EColOrder
 {
-	PlayerAttack,
-	EnemyAttack,
-	PlayerFront,
 	PlayerBody,
-	Door,
+	PlayerFront,
+	PlayerAttack,
 	Enemy,
 	DeadEnemy,
+	EnemyDetect,
+	EnemyAttack,
+	Door,
 	InteractionComponent
 };
 
