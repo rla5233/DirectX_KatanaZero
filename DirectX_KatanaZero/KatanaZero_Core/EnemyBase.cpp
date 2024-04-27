@@ -77,6 +77,7 @@ void AEnemyBase::CollisionInit()
 
 	DeadCol->SetCollisionType(ECollisionType::Rect);
 	DeadCol->SetCollisionGroup(EColOrder::DeadEnemy);
+	DeadCol->SetActive(false);
 }
 
 void AEnemyBase::DebugingRendererInit()
@@ -168,10 +169,10 @@ void AEnemyBase::DirChange()
 void AEnemyBase::PlayerCheck()
 {
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-	FVector PlayerLocation = PlayLevel->GetPlayerLocation();
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
 
 	// аб©Л ц╪е╘
-	FVector DiffDir = PlayerLocation - GetActorLocation();
+	FVector DiffDir = PlayerPos - GetActorLocation();
 
 	switch (Body->GetDir())
 	{

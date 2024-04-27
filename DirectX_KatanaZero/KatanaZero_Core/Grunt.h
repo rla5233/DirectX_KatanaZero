@@ -47,5 +47,10 @@ protected:
 	void ChaseTurnStart() override;
 	void ChaseAttackStart() override;
 
+// Effect
+private:
+	void SetAttackEffect(float _Deg);
+	void SetAttackCollision(const FVector& _Dir, float _Deg);
+
  };
 
