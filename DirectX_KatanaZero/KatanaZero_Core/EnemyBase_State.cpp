@@ -14,13 +14,10 @@ void AEnemyBase::StateInit()
 	State.CreateState(EnemyState::patrol_walk);
 	State.CreateState(EnemyState::patrol_turn);
 	State.CreateState(EnemyState::patrol_stop);
-	State.CreateState(EnemyState::chase);
+	State.CreateState(EnemyState::chase_run);
 
 	State.CreateState(EnemyState::replay);
 	State.CreateState(EnemyState::restart);
-
-	// etc.
-	State.CreateState(EnemyState::turn);
 
 	// State Start 함수 세팅
 	State.SetStartFunction(EnemyState::idle,			std::bind(&AEnemyBase::IdleStart, this));
@@ -30,7 +27,7 @@ void AEnemyBase::StateInit()
 	State.SetStartFunction(EnemyState::patrol_walk,		std::bind(&AEnemyBase::PatrolWalkStart, this));
 	State.SetStartFunction(EnemyState::patrol_turn,		std::bind(&AEnemyBase::PatrolTurnStart, this));
 	State.SetStartFunction(EnemyState::patrol_stop,		std::bind(&AEnemyBase::PatrolStopStart, this));
-	State.SetStartFunction(EnemyState::chase,			std::bind(&AEnemyBase::ChaseStart, this));
+	State.SetStartFunction(EnemyState::chase_run,		std::bind(&AEnemyBase::ChaseRunStart, this));
 
 	// Sub
 	State.SetStartFunction(EnemyState::replay, [=]
@@ -46,8 +43,6 @@ void AEnemyBase::StateInit()
 		}
 	);
 
-	State.SetStartFunction(EnemyState::turn,			std::bind(&AEnemyBase::TurnStart, this));
-
 	// State Update 함수 세팅
 	State.SetUpdateFunction(EnemyState::idle,			std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::run,			std::bind(&AEnemyBase::Run, this, std::placeholders::_1));
@@ -56,7 +51,7 @@ void AEnemyBase::StateInit()
 	State.SetUpdateFunction(EnemyState::patrol_walk,	std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::patrol_turn,	std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::patrol_stop,	std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::chase,			std::bind(&AEnemyBase::Chase, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase_run,			std::bind(&AEnemyBase::ChaseRun, this, std::placeholders::_1));
 
 	State.SetUpdateFunction(EnemyState::replay, [=](float _DeltaTime) 
 		{ 
@@ -70,13 +65,8 @@ void AEnemyBase::StateInit()
 		}
 	);
 
-
-	State.SetUpdateFunction(EnemyState::turn,			std::bind(&AEnemyBase::Turn, this, std::placeholders::_1));
-
 	// State End 함수 세팅
 	State.SetEndFunction(EnemyState::patrol_turn,		std::bind(&AEnemyBase::PatrolTurnEnd, this));
-
-	State.SetEndFunction(EnemyState::turn, [=] { DirChange(); });
 }
 
 void AEnemyBase::Idle(float _DeltaTime)
@@ -226,32 +216,13 @@ void AEnemyBase::PatrolStop(float _DeltaTime)
 }
 
 
-void AEnemyBase::Turn(float _DeltaTime)
-{
-	Recording(_DeltaTime);
-
-	if (Body->IsCurAnimationEnd())
-	{
-		State.ChangeState(EnemyState::idle);
-		return;
-	}
-}
-
-void AEnemyBase::ChaseStart()
+void AEnemyBase::ChaseRunStart()
 {
 	ChaseMark = GetWorld()->SpawnActor<AUpMark>("ChaseMark");
 	 
 }
 
-void AEnemyBase::Chase(float _DeltaTime)
+void AEnemyBase::ChaseRun(float _DeltaTime)
 {
 	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
 }
-
-void AEnemyBase::TurnStart()
-{
-	SetVelocityByDir({ 0.0f, 0.0f, 0.0f });
-}
-
-
-

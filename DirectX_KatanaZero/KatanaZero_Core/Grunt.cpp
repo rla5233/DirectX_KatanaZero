@@ -86,13 +86,6 @@ void AGrunt::RunStart()
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_run);
 }
 
-void AGrunt::TurnStart()
-{
-	Super::TurnStart();
-
-	GetBody()->ChangeAnimation(Anim::enemy_grunt_turn);
-}
-
 void AGrunt::CreateAnimation()
 {
 	GetBody()->CreateAnimation(Anim::enemy_grunt_idle, ImgRes::enemy_grunt_idle, 0.1f, true);

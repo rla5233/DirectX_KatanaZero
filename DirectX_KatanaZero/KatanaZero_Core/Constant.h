@@ -306,10 +306,11 @@ namespace EnemyState
 	const std::string_view run				= "Run";
 	const std::string_view hitfall			= "HitFall";
 	const std::string_view dead				= "Dead";
-	const std::string_view patrol_walk		= "PatrolWalk";
-	const std::string_view patrol_turn		= "PatrolTurn";
-	const std::string_view patrol_stop		= "PatrolStop";
-	const std::string_view chase			= "Chase";
+	const std::string_view patrol_walk		= "Patrol_Walk";
+	const std::string_view patrol_turn		= "Patrol_Turn";
+	const std::string_view patrol_stop		= "Patrol_Stop";
+	const std::string_view chase_run		= "Chase_Run";
+	const std::string_view chase_turn		= "Chase_Turn";
 
 	const std::string_view turn				= "Turn";
 

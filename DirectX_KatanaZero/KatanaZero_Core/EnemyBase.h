@@ -129,11 +129,8 @@ protected:
 	virtual void PatrolStopStart();
 	void PatrolStop(float _DeltaTime);
 
-	virtual void ChaseStart();
-	void Chase(float _DeltaTime);
-
-	virtual void TurnStart();
-	void Turn(float _DeltaTime);
+	virtual void ChaseRunStart();
+	void ChaseRun(float _DeltaTime);
 
 // Effect
 private:

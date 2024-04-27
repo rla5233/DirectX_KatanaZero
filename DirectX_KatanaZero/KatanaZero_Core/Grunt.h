@@ -39,7 +39,5 @@ protected:
 	
 	void RunStart() override;
 
-	void TurnStart() override;
-
  };
 

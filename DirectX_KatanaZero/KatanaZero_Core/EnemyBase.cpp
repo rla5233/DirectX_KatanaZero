@@ -1,6 +1,9 @@
 #include "PreCompile.h"
 #include "EnemyBase.h"
 
+#include "PlayLevelBase.h"
+#include "PlayerBase.h"
+
 const int AEnemyBase::BloodSize = 25;
 
 AEnemyBase::AEnemyBase()
@@ -164,6 +167,24 @@ void AEnemyBase::DirChange()
 
 void AEnemyBase::PlayerCheck()
 {
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	FVector PlayerLocation = PlayLevel->GetPlayerLocation();
+
+	// аб©Л ц╪е╘
+	FVector DiffDir = PlayerLocation - GetActorLocation();
+
+	switch (Body->GetDir())
+	{
+	case EEngineDir::Left:
+		if (0.0f < DiffDir.X)
+		{
+
+		}
+		break;
+	case EEngineDir::Right:
+		
+		break;
+	}
 
 }
 
@@ -180,6 +201,6 @@ void AEnemyBase::Tick(float _DeltaTime)
 	// Test
 	if (UEngineInput::IsDown(VK_SPACE))
 	{
-		State.ChangeState(EnemyState::chase);
+		State.ChangeState(EnemyState::chase_run);
 	}
 }

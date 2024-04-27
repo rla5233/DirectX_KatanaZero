@@ -58,6 +58,8 @@ public:
 #endif // _DEBUG
 	}
 
+	FVector GetPlayerLocation() const;
+
 	void SetReplayStop();
 	void SetReplay();
 	void SetRewind();

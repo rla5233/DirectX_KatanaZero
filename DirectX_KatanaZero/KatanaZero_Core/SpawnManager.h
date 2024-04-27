@@ -17,13 +17,13 @@ public:
 	USpawnManager& operator=(const USpawnManager& _Other) = delete;
 	USpawnManager& operator=(USpawnManager&& _Other) noexcept = delete;
 
-	// Enemy 스폰 함수 (초기 상태 : Idle)
+	// Enemy 스폰 함수
 	template<typename EnemyType>
-	std::shared_ptr<EnemyType> SpawnIdleEnemy(
+	std::shared_ptr<EnemyType> SpawnEnemy(
 		std::string_view _Name,	
 		const FVector& _Pos, 
 		EEngineDir _Dir,
-		std::string_view _State = "Idle",
+		std::string_view _State,
 		EUpdateOrder _Order = EUpdateOrder::Enemy)
 	{
 		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name, _Order);
@@ -53,16 +53,16 @@ public:
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
 	}
 
-	// RecComponent 스폰 함수 (기본값 : Idle)
+	// RecComponent 스폰 함수
 	template<typename RecCompoType>
 	std::shared_ptr<RecCompoType> SpawnRecComponent(
 		std::string_view _Name, 
 		const FVector& _Pos, 
 		EEngineDir _Dir, 
-		std::string_view _State = "Idle",
+		std::string_view _State,
 		EUpdateOrder _Order = EUpdateOrder::RecComponent)
 	{
-		std::shared_ptr<ARecMapCompoBase> NewCompo= GameMode->GetWorld()->SpawnActor<RecCompoType>(_Name, _Order);
+		std::shared_ptr<ARecMapCompoBase> NewCompo = GameMode->GetWorld()->SpawnActor<RecCompoType>(_Name, _Order);
 		NewCompo->SetActorLocation(_Pos);
 		NewCompo->SetBodyDir(_Dir);
 		NewCompo->StateChange(_State);

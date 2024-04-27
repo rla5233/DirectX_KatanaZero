@@ -542,3 +542,8 @@ void APlayLevelBase::BatterPartUpdate(float _AbilityTime)
 {
 	HUD->BatteryPartUpdate(_AbilityTime);
 }
+
+FVector APlayLevelBase::GetPlayerLocation() const
+{
+	return Player->GetActorLocation();
+}
