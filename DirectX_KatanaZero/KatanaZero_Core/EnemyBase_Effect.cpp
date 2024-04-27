@@ -29,16 +29,9 @@ void AEnemyBase::BloodVecIdxUpdate()
 
 void AEnemyBase::CreateBloodEffect(float _DeltaTime)
 {
-	if (0.0f < BloodTimeCount)
+	if (0.0f < BloodTimeCount || true == Blood[BloodIdx].Renderer->IsActive())
 	{
 		BloodTimeCount -= _DeltaTime;
-		return;
-	}
-
-	EEngineDir Dir = Body->GetDir();
-
-	if (true == Blood[BloodIdx].Renderer->IsActive())
-	{
 		return;
 	}
 
@@ -56,6 +49,7 @@ void AEnemyBase::CreateBloodEffect(float _DeltaTime)
 		break;
 	case 3:
 		Blood[BloodIdx].Renderer->ChangeAnimation(Anim::effect_blood_splatter3);
+		break;
 	}
 
 	FVector VelDir = -UPhysicsObject::Velocity.Normalize2DReturn();

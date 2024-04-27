@@ -55,8 +55,10 @@ namespace ImgRes
 	const std::string_view ui_shift_down			= "spr_keyboard_shift_1.png";
 	const std::string_view ui_left_click			= "spr_left_click_0.png";
 	const std::string_view ui_right_click			= "spr_right_click_0.png";
+
 	const std::string_view ui_go					= "spr_go.png";
 	const std::string_view ui_go_arrow				= "spr_go_arrow.png";
+
 	const std::string_view ui_replay_RB_text		= "spr_replay_text_000.png";
 	const std::string_view ui_replay_LT_play		= "spr_replay_text_001.png";
 	const std::string_view ui_replay_LT_rewind		= "spr_replay_text_002.png";
@@ -74,15 +76,19 @@ namespace ImgRes
 	const std::string_view effect_player_dustcloud	= "player_dustcloud";
 	const std::string_view effect_player_landcloud	= "player_landcloud";
 	const std::string_view effect_player_jumpcloud	= "player_jumpcloud";
+
 	const std::string_view effect_gun_spark1		= "spr_gun_spark1";
 	const std::string_view effect_gun_spark2		= "spr_gun_spark2";
 	const std::string_view effect_gun_spark3		= "spr_gun_spark3";
 	const std::string_view effect_gun_smoke1		= "spr_gun_smoke1";
 	const std::string_view effect_gun_smoke2		= "spr_gun_smoke2";
 	const std::string_view effect_gun_smoke3		= "spr_gun_smoke3";
+
 	const std::string_view effect_blood_splatter1	= "spr_bloodsplatter1";
 	const std::string_view effect_blood_splatter2	= "spr_bloodsplatter2";
 	const std::string_view effect_blood_splatter3	= "spr_bloodsplatter3";
+
+	const std::string_view effect_enemy_follow		= "spr_enemy_follow";
 
 	// MapComponent
 	const std::string_view compo_door				= "spr_door";
@@ -161,7 +167,7 @@ namespace Anim
 	// UI
 	const std::string_view ui_replay_right_click	= "spr_right_click";
 
-	// Effect Anim
+	// Effect
 	const std::string_view effect_player_slash		= "player_slash";
 	const std::string_view effect_player_dustcloud	= "player_dustcloud";
 	const std::string_view effect_player_landcloud	= "player_landcloud";
@@ -177,6 +183,8 @@ namespace Anim
 	const std::string_view effect_blood_splatter1	= "spr_bloodsplatter1";
 	const std::string_view effect_blood_splatter2	= "spr_bloodsplatter2";
 	const std::string_view effect_blood_splatter3	= "spr_bloodsplatter3";
+
+	const std::string_view effect_enemy_follow		= "spr_enemy_follow";
 
 	// MapComponent
 	const std::string_view compo_door_idle			= "door_idle";
@@ -226,7 +234,7 @@ namespace Const
 
 }
 
-//// State
+//// State ////
 // Player
 namespace PlayerState
 {
@@ -298,12 +306,14 @@ namespace EnemyState
 	const std::string_view run				= "Run";
 	const std::string_view hitfall			= "HitFall";
 	const std::string_view dead				= "Dead";
-	const std::string_view turn				= "Turn";
-	const std::string_view replay			= "Replay";
-
 	const std::string_view patrol_walk		= "PatrolWalk";
 	const std::string_view patrol_turn		= "PatrolTurn";
 	const std::string_view patrol_stop		= "PatrolStop";
+	const std::string_view chase			= "Chase";
+
+	const std::string_view turn				= "Turn";
+
+	const std::string_view replay			= "Replay";
 	const std::string_view restart			= "Restart";
 }
 

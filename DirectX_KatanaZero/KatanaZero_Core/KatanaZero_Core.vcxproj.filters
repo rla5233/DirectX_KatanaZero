@@ -58,9 +58,6 @@
     <Filter Include="Object\Base\Enemy">
       <UniqueIdentifier>{32979922-5513-49f0-9191-0ee6956ef4b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\000.Object\Component">
-      <UniqueIdentifier>{7b315559-a7bf-4a3c-8237-57db1289da8e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Base\MapCompo">
       <UniqueIdentifier>{789b86ee-12ef-4376-aeb0-d87f9ea28210}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,12 @@
     </Filter>
     <Filter Include="Object\Base\Player\Component\Image">
       <UniqueIdentifier>{4950cc03-8c1f-41ae-ab9c-fe14e2d01bd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.Object\Map\Component">
+      <UniqueIdentifier>{7b315559-a7bf-4a3c-8237-57db1289da8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\000.Object\Enemy\Component">
+      <UniqueIdentifier>{78836ffc-9bfa-4e7d-89cb-b7e44dd6702b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +160,7 @@
       <Filter>Level\000.Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Door.h">
-      <Filter>Level\000.Object\Component</Filter>
+      <Filter>Level\000.Object\Map\Component</Filter>
     </ClInclude>
     <ClInclude Include="RecMapCompoBase.h">
       <Filter>Object\Base\MapCompo</Filter>
@@ -190,13 +193,13 @@
       <Filter>Level\000.Object\UI</Filter>
     </ClInclude>
     <ClInclude Include="CeilLaser.h">
-      <Filter>Level\000.Object\Component</Filter>
+      <Filter>Level\000.Object\Map\Component</Filter>
     </ClInclude>
     <ClInclude Include="PanicSwitch.h">
-      <Filter>Level\000.Object\Component</Filter>
+      <Filter>Level\000.Object\Map\Component</Filter>
     </ClInclude>
     <ClInclude Include="CeilGun.h">
-      <Filter>Level\000.Object\Component</Filter>
+      <Filter>Level\000.Object\Map\Component</Filter>
     </ClInclude>
     <ClInclude Include="OutroMsg.h">
       <Filter>Level\000.Object\UI</Filter>
@@ -221,6 +224,9 @@
     </ClInclude>
     <ClInclude Include="Fan.h">
       <Filter>Level\002.FactoryLevel\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="UpMark.h">
+      <Filter>Level\000.Object\Enemy\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -291,7 +297,7 @@
       <Filter>Object\Base\Player</Filter>
     </ClCompile>
     <ClCompile Include="Door.cpp">
-      <Filter>Level\000.Object\Component</Filter>
+      <Filter>Level\000.Object\Map\Component</Filter>
     </ClCompile>
     <ClCompile Include="RecMapCompoBase.cpp">
       <Filter>Object\Base\MapCompo</Filter>
@@ -327,13 +333,13 @@
       <Filter>Level\000.Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="CeilLaser.cpp">
-      <Filter>Level\000.Object\Component</Filter>
+      <Filter>Level\000.Object\Map\Component</Filter>
     </ClCompile>
     <ClCompile Include="PanicSwitch.cpp">
-      <Filter>Level\000.Object\Component</Filter>
+      <Filter>Level\000.Object\Map\Component</Filter>
     </ClCompile>
     <ClCompile Include="CeilGun.cpp">
-      <Filter>Level\000.Object\Component</Filter>
+      <Filter>Level\000.Object\Map\Component</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBase_SubState.cpp">
       <Filter>Object\Base\Player</Filter>
@@ -367,6 +373,9 @@
     </ClCompile>
     <ClCompile Include="EnemyBase_Effect.cpp">
       <Filter>Object\Base\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="UpMark.cpp">
+      <Filter>Level\000.Object\Enemy\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

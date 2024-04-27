@@ -11,6 +11,8 @@ public:
 	FVector Velocity = FVector::Zero;
 };
 
+class AUpMark;
+
 // 설명 :
 class AEnemyBase :
 	public AActor,
@@ -60,11 +62,12 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	// Init
 	void RendererInit();
 	void EffectInit();
+	virtual void CollisionInit();
 
 	// Collision
-	virtual void CollisionInit();
 	UCollision* BodyCol = nullptr;
 	UCollision* DeadCol = nullptr;
 
@@ -72,19 +75,25 @@ private:
 	void RendererDirChange();
 
 private:
-	// Blood Effect
+	// Renderer
 	USpriteRenderer* Body = nullptr;
+
+	// Blood Effect
 	std::vector<BloodEffect> Blood;
 	static const int BloodSize;
 	float BloodTimeCount = 0.0f;
 	int BloodIdx = 0;
 
+	// Hit State
+	FVector HitDir = FVector::Zero;
+
 	// Patrol State
 	float PatrolWalkTime = 0.0f;
 	float PatrolStopTime = 0.0f;
 
-	// etc.
-	FVector HitDir = FVector::Zero;
+	// Chase
+	std::shared_ptr<AUpMark> ChaseMark = nullptr;
+
 
 	// 수정 (삭제 필요)
 	USpriteRenderer* RendererFT = nullptr;
@@ -122,16 +131,11 @@ protected:
 	virtual void PatrolStopStart();
 	void PatrolStop(float _DeltaTime);
 
-
-
-
-
-
 	virtual void ChaseStart();
-	virtual void Chase(float _DeltaTime);
+	void Chase(float _DeltaTime);
 
 	virtual void TurnStart();
-	virtual void Turn(float _DeltaTime);
+	void Turn(float _DeltaTime);
 
 // Effect
 private:

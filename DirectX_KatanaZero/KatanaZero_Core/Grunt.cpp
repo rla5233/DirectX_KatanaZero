@@ -87,22 +87,11 @@ void AGrunt::RunStart()
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_run);
 }
 
-void AGrunt::Run(float _DeltaTime)
-{
-	Super::Run(_DeltaTime);
-
-}
-
 void AGrunt::TurnStart()
 {
 	Super::TurnStart();
 
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_turn);
-}
-
-void AGrunt::Turn(float _DeltaTime)
-{
-	Super::Turn(_DeltaTime);
 }
 
 void AGrunt::CreateAnimation()

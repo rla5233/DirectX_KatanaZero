@@ -38,10 +38,8 @@ protected:
 	void PatrolStopStart() override;
 	
 	void RunStart() override;
-	void Run(float _DeltaTime) override;
 
 	void TurnStart() override;
-	void Turn(float _DeltaTime) override;
 
  };
 

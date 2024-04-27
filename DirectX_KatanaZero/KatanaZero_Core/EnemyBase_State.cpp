@@ -2,6 +2,7 @@
 #include "EnemyBase.h"
 
 #include "PlayLevelBase.h"
+#include "UpMark.h"
 
 void AEnemyBase::StateInit()
 {
@@ -13,6 +14,7 @@ void AEnemyBase::StateInit()
 	State.CreateState(EnemyState::patrol_walk);
 	State.CreateState(EnemyState::patrol_turn);
 	State.CreateState(EnemyState::patrol_stop);
+	State.CreateState(EnemyState::chase);
 
 	State.CreateState(EnemyState::replay);
 	State.CreateState(EnemyState::restart);
@@ -28,6 +30,7 @@ void AEnemyBase::StateInit()
 	State.SetStartFunction(EnemyState::patrol_walk,		std::bind(&AEnemyBase::PatrolWalkStart, this));
 	State.SetStartFunction(EnemyState::patrol_turn,		std::bind(&AEnemyBase::PatrolTurnStart, this));
 	State.SetStartFunction(EnemyState::patrol_stop,		std::bind(&AEnemyBase::PatrolStopStart, this));
+	State.SetStartFunction(EnemyState::chase,			std::bind(&AEnemyBase::ChaseStart, this));
 
 	// Sub
 	State.SetStartFunction(EnemyState::replay, [=]
@@ -53,6 +56,7 @@ void AEnemyBase::StateInit()
 	State.SetUpdateFunction(EnemyState::patrol_walk,	std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::patrol_turn,	std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::patrol_stop,	std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase,			std::bind(&AEnemyBase::Chase, this, std::placeholders::_1));
 
 	State.SetUpdateFunction(EnemyState::replay, [=](float _DeltaTime) 
 		{ 
@@ -233,16 +237,15 @@ void AEnemyBase::Turn(float _DeltaTime)
 	}
 }
 
-
-
-
-
 void AEnemyBase::ChaseStart()
 {
+	ChaseMark = GetWorld()->SpawnActor<AUpMark>("ChaseMark");
+	 
 }
 
 void AEnemyBase::Chase(float _DeltaTime)
 {
+	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
 }
 
 void AEnemyBase::TurnStart()

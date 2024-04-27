@@ -162,5 +162,14 @@ void AEnemyBase::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+	
 	DebugingUpdate();
+
+
+
+	// Test
+	if (UEngineInput::IsDown(VK_SPACE))
+	{
+		State.ChangeState(EnemyState::chase);
+	}
 }
