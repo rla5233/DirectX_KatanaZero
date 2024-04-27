@@ -387,7 +387,7 @@ void AEnemyBase::EffectInit()
 		Blood[i].Renderer->SetLastFrameCallback(Anim::effect_blood_splatter1, [=] { Blood[i].Renderer->SetActive(false); });
 		Blood[i].Renderer->SetLastFrameCallback(Anim::effect_blood_splatter2, [=] { Blood[i].Renderer->SetActive(false); });
 		Blood[i].Renderer->SetOrder(ERenderOrder::EffectBack);
-		Blood[i].Renderer->SetAutoSize(3.0f, true);
+		Blood[i].Renderer->SetAutoSize(2.5f, true);
 		Blood[i].Renderer->SetActive(false);
 	}
 }
@@ -421,6 +421,7 @@ void AEnemyBase::CreateBloodEffect(float _DeltaTime)
 	Blood[BloodIdx].Renderer->SetActive(true);
 
 	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 2);
+	RandomValue = 1;
 	switch (RandomValue)
 	{
 	case 1:
