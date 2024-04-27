@@ -365,5 +365,8 @@
     <ClCompile Include="EnemyBase_State.cpp">
       <Filter>Object\Base\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBase_Effect.cpp">
+      <Filter>Object\Base\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

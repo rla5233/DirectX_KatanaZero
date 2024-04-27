@@ -374,6 +374,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EnemyBase_Effect.cpp" />
     <ClCompile Include="EnemyBase_State.cpp" />
     <ClCompile Include="FadeImage.cpp">
       <SubType>

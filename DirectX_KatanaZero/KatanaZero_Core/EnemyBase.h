@@ -85,7 +85,6 @@ private:
 
 	// etc.
 	FVector HitDir = FVector::Zero;
-	float TimeCount = 0.0f;
 
 	// 수정 (삭제 필요)
 	USpriteRenderer* RendererFT = nullptr;
@@ -110,7 +109,7 @@ protected:
 	virtual void HitFallStart();
 	void HitFall(float _DeltaTime);
 
-	virtual void DeadStart() {};
+	virtual void DeadStart();
 	void Dead(float _DeltaTime);
 
 	virtual void PatrolWalkStart();
@@ -118,11 +117,10 @@ protected:
 
 	virtual void PatrolTurnStart();
 	void PatrolTurn(float _DeltaTime);
+	void PatrolTurnEnd();
 
 	virtual void PatrolStopStart();
 	void PatrolStop(float _DeltaTime);
-	
-	
 
 
 
