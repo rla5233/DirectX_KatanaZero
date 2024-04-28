@@ -17,7 +17,7 @@ void AStair::BeginPlay()
 
 	BodyCol->SetCollisionGroup(EColOrder::Stair);
 	BodyCol->SetCollisionType(ECollisionType::Rect);
-	BodyCol->SetScale({ 50.0f, 50.0f, 1.0f });
+	BodyCol->SetScale({ 20.0f, 20.0f, 1.0f });
 }
 
 void AStair::Tick(float _DeltaTime)

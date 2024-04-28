@@ -12,6 +12,7 @@
 #include "ReplayUI.h"
 #include "OutroMsg.h"
 #include "Up_HUD.h"
+#include "Stair.h"
 #include "Go.h"
 
 #include "GrayScaleEffect.h"
@@ -82,6 +83,18 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 		AllRecComponent[i] = nullptr;
 	}
 
+
+	for (size_t i = 0; i < AllStair.size(); i++)
+	{
+		for (size_t j = 0; j < AllStair[i].size(); j++)
+		{
+			AllStair[i][j]->Destroy();
+			AllStair[i][j] = nullptr;
+		}
+
+		AllStair[i].clear();
+	}
+
 	Aim			= nullptr;
 	ColMap		= nullptr;
 	Player		= nullptr;
@@ -90,6 +103,7 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	MainCamera	= nullptr;
 	ReplayUI	= nullptr;
 
+	AllStair.clear();
 	AllEnemy.clear();
 	AllRecComponent.clear();
 }

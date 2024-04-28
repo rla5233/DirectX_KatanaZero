@@ -2,7 +2,7 @@
 
 class AEnemyBase;
 class ARecMapCompoBase;
-class UStairInfo;
+class AStair;
 
 // 설명 : 적 스폰 매니저
 class USpawnManager
@@ -70,6 +70,9 @@ public:
 		PushRecComponent(NewCompo);
 		return std::dynamic_pointer_cast<RecCompoType>(NewCompo);
 	}
+
+	// Stair 생성 함수
+	std::shared_ptr<AStair> CreateStair(const FVector& _Pos, EStairType _StairType, int _FloorNum);
 
 protected:
 	void SetGameMode(AGameMode* _GameMode)
