@@ -39,6 +39,7 @@ protected:
 	void AttackStart() override;
 	void WallSlideStart() override;
 	void FlipStart() override;
+	void KickDoorStart() override;
 	void DeadStart() override;	
 };
 

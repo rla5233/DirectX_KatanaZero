@@ -3,7 +3,67 @@
 
 #include "PlayLevelBase.h"
 
-// PlayerBase FSM
+// State 초기화
+void APlayerBase::StateInit()
+{
+	// State 생성
+	State.CreateState(PlayerState::none);
+	State.CreateState(PlayerState::idle);
+	State.CreateState(PlayerState::idle_to_run);
+	State.CreateState(PlayerState::run);
+	State.CreateState(PlayerState::run_to_idle);
+	State.CreateState(PlayerState::postcrouch);
+	State.CreateState(PlayerState::precrouch);
+	State.CreateState(PlayerState::jump);
+	State.CreateState(PlayerState::fall);
+	State.CreateState(PlayerState::roll);
+	State.CreateState(PlayerState::attack);
+	State.CreateState(PlayerState::wallslide);
+	State.CreateState(PlayerState::flip);
+	State.CreateState(PlayerState::kickdoor);
+	State.CreateState(PlayerState::dead);
+
+	// State Start 함수 세팅
+	State.SetStartFunction(PlayerState::none,			[=] {});
+	State.SetStartFunction(PlayerState::idle,			std::bind(&APlayerBase::IdleStart, this));
+	State.SetStartFunction(PlayerState::idle_to_run,	std::bind(&APlayerBase::IdleToRunStart, this));
+	State.SetStartFunction(PlayerState::run,			std::bind(&APlayerBase::RunStart, this));
+	State.SetStartFunction(PlayerState::run_to_idle,	std::bind(&APlayerBase::RunToIdleStart, this));
+	State.SetStartFunction(PlayerState::postcrouch,		std::bind(&APlayerBase::PostCrouchStart, this));
+	State.SetStartFunction(PlayerState::precrouch,		std::bind(&APlayerBase::PreCrouchStart, this));
+	State.SetStartFunction(PlayerState::jump,			std::bind(&APlayerBase::JumpStart, this));
+	State.SetStartFunction(PlayerState::fall,			std::bind(&APlayerBase::FallStart, this));
+	State.SetStartFunction(PlayerState::roll,			std::bind(&APlayerBase::RollStart, this));
+	State.SetStartFunction(PlayerState::attack,			std::bind(&APlayerBase::AttackStart, this));
+	State.SetStartFunction(PlayerState::wallslide,		std::bind(&APlayerBase::WallSlideStart, this));
+	State.SetStartFunction(PlayerState::flip,			std::bind(&APlayerBase::FlipStart, this));
+	State.SetStartFunction(PlayerState::kickdoor,		std::bind(&APlayerBase::KickDoorStart, this));
+	State.SetStartFunction(PlayerState::dead,			std::bind(&APlayerBase::DeadStart, this));
+
+
+	// State Update 함수 세팅
+	State.SetUpdateFunction(PlayerState::none,			[=](float _DeltaTime) {});
+	State.SetUpdateFunction(PlayerState::idle,			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::idle_to_run,	std::bind(&APlayerBase::IdleToRun, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::run,			std::bind(&APlayerBase::Run, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::run_to_idle,	std::bind(&APlayerBase::RunToIdle, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::postcrouch,	std::bind(&APlayerBase::PostCrouch, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::precrouch,		std::bind(&APlayerBase::PreCrouch, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::jump,			std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::fall,			std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::roll,			std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::attack,		std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::wallslide,		std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::flip,			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::kickdoor,		std::bind(&APlayerBase::KickDoor, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::dead,			std::bind(&APlayerBase::Dead, this, std::placeholders::_1));
+
+	// State End 함수 세팅
+	State.SetEndFunction(PlayerState::attack,			[=] { AttackCol->SetActive(false); });
+	State.SetEndFunction(PlayerState::wallslide,		[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
+	State.SetEndFunction(PlayerState::roll,				[=] { IsInvincibleValue = false; });
+	State.SetEndFunction(PlayerState::kickdoor,			[=] { IsColDoorValue = false; });
+}
 
 // 기본
 void APlayerBase::IdleStart()
@@ -804,6 +864,14 @@ void APlayerBase::Dead(float _DeltaTime)
 	AbilityUpdate(_DeltaTime);
 }
 
+void APlayerBase::KickDoorStart()
+{
+}
+
+void APlayerBase::KickDoor(float _DeltaTime)
+{
+}
+
 void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 {
 	if (true == IsInvincibleValue && EEnemyType::Fan != _EnemyType)
@@ -816,67 +884,6 @@ void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 }
 
 
-// State 초기화
-void APlayerBase::StateInit()
-{
-	// State 생성
-	State.CreateState(PlayerState::none);
-	State.CreateState(PlayerState::idle);
-	State.CreateState(PlayerState::idle_to_run);
-	State.CreateState(PlayerState::run);
-	State.CreateState(PlayerState::run_to_idle);
-	State.CreateState(PlayerState::postcrouch);
-	State.CreateState(PlayerState::precrouch);
-	State.CreateState(PlayerState::jump);
-	State.CreateState(PlayerState::fall);
-	State.CreateState(PlayerState::roll);
-	State.CreateState(PlayerState::attack);
-	State.CreateState(PlayerState::wallslide);
-	State.CreateState(PlayerState::flip);
-	State.CreateState(PlayerState::kickdoor);
-	State.CreateState(PlayerState::dead);
-
-	// State Start 함수 세팅
-	State.SetStartFunction(PlayerState::none, [=] {});
-	State.SetStartFunction(PlayerState::idle,			std::bind(&APlayerBase::IdleStart, this));
-	State.SetStartFunction(PlayerState::idle_to_run,	std::bind(&APlayerBase::IdleToRunStart, this));
-	State.SetStartFunction(PlayerState::run,			std::bind(&APlayerBase::RunStart, this));
-	State.SetStartFunction(PlayerState::run_to_idle,	std::bind(&APlayerBase::RunToIdleStart, this));
-	State.SetStartFunction(PlayerState::postcrouch,		std::bind(&APlayerBase::PostCrouchStart, this));
-	State.SetStartFunction(PlayerState::precrouch,		std::bind(&APlayerBase::PreCrouchStart, this));
-	State.SetStartFunction(PlayerState::jump,			std::bind(&APlayerBase::JumpStart, this));
-	State.SetStartFunction(PlayerState::fall,			std::bind(&APlayerBase::FallStart, this));
-	State.SetStartFunction(PlayerState::roll,			std::bind(&APlayerBase::RollStart, this));
-	State.SetStartFunction(PlayerState::attack,			std::bind(&APlayerBase::AttackStart, this));
-	State.SetStartFunction(PlayerState::wallslide,		std::bind(&APlayerBase::WallSlideStart, this));
-	State.SetStartFunction(PlayerState::flip,			std::bind(&APlayerBase::FlipStart, this));
-	State.SetStartFunction(PlayerState::kickdoor,		[=] { Body->ChangeAnimation(Anim::player_kick_door); });
-	State.SetStartFunction(PlayerState::dead,			std::bind(&APlayerBase::DeadStart, this));
-
-
-	// State Update 함수 세팅
-	State.SetUpdateFunction(PlayerState::none,			[=](float _DeltaTime) {});
-	State.SetUpdateFunction(PlayerState::idle,			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::idle_to_run,	std::bind(&APlayerBase::IdleToRun, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::run,			std::bind(&APlayerBase::Run, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::run_to_idle,	std::bind(&APlayerBase::RunToIdle, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::postcrouch,	std::bind(&APlayerBase::PostCrouch, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::precrouch,		std::bind(&APlayerBase::PreCrouch, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::jump,			std::bind(&APlayerBase::Jump, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::fall,			std::bind(&APlayerBase::Fall, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::roll,			std::bind(&APlayerBase::Roll, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::attack,		std::bind(&APlayerBase::Attack, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::wallslide,		std::bind(&APlayerBase::WallSlide, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::flip,			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayerState::kickdoor,		[=](float _DeltaTime) {});
-	State.SetUpdateFunction(PlayerState::dead,			std::bind(&APlayerBase::Dead, this, std::placeholders::_1));
-
-	// State End 함수 세팅
-	State.SetEndFunction(PlayerState::attack,		[=] { AttackCol->SetActive(false); });
-	State.SetEndFunction(PlayerState::wallslide,	[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
-	State.SetEndFunction(PlayerState::roll,			[=] { IsInvincibleValue = false; });
-	State.SetEndFunction(PlayerState::kickdoor,		[=] { IsColDoorValue = false; });
-}
 
 
 

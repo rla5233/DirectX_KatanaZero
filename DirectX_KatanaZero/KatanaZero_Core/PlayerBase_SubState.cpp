@@ -15,102 +15,21 @@ void APlayerBase::SubStateInit()
 
 
 	// State Start
-	SubState.SetStartFunction(PlayerSubState::none, [=] {});
-	SubState.SetStartFunction(PlayerSubState::play, [=] {});
-	SubState.SetStartFunction(PlayerSubState::intro, [=]
-		{
-			SetMaxRunVel();
-			Body->ChangeAnimation(Anim::player_run);
-			IntroOrder = EIntroOrder::Run;
-			DelayCallBack(0.5f, [=]
-				{
-					Velocity = FVector::Zero;
-					Body->ChangeAnimation(Anim::player_run_to_idle);
-					IntroOrder = EIntroOrder::RunToIdle;
-				}
-			);
-		}
-	);
-
-	SubState.SetStartFunction(PlayerSubState::replay, [=]
-		{
-			IsPlayValue = false;
-			SetRecordingActive(false);
-			SetReplayStart();
-		}
-	);
-
-	SubState.SetStartFunction(PlayerSubState::outro, [=] 
-		{
-			SetOutroType();
-			State.ChangeState(PlayerState::none);
-		}
-	);
-
-	SubState.SetStartFunction(PlayerSubState::restart, [=]
-		{
-			SetRewindStart();
-			State.ChangeState(PlayerState::none);
-		}
-	);
+	SubState.SetStartFunction(PlayerSubState::none,		[=] {});
+	SubState.SetStartFunction(PlayerSubState::play,		std::bind(&APlayerBase::PlayStart, this));
+	SubState.SetStartFunction(PlayerSubState::intro,	std::bind(&APlayerBase::IntroStart, this));
+	SubState.SetStartFunction(PlayerSubState::replay,	std::bind(&APlayerBase::ReplayStart, this));
+	SubState.SetStartFunction(PlayerSubState::outro,	std::bind(&APlayerBase::OutroStart, this));
+	SubState.SetStartFunction(PlayerSubState::restart,	std::bind(&APlayerBase::ReStartStart, this));
 
 
 	// State Update
-	SubState.SetUpdateFunction(PlayerSubState::none, [=](float _DeltaTime) {});
-	SubState.SetUpdateFunction(PlayerSubState::outro, [=](float _DeltaTime)	{ OutroUpdate(_DeltaTime); });
-	SubState.SetUpdateFunction(PlayerSubState::intro, [=](float _DeltaTime)
-		{
-			switch (IntroOrder)
-			{
-			case EIntroOrder::Run:
-				PosUpdate(_DeltaTime);
-				break;
-			case EIntroOrder::RunToIdle:
-				if (true == Body->IsCurAnimationEnd())
-				{
-					Body->ChangeAnimation(Anim::player_idle);
-					State.ChangeState(PlayerState::idle);
-					SubState.ChangeState(PlayerSubState::play);
-					return;
-				}
-				break;
-			case EIntroOrder::MusicOn:
-				break;
-			}
-		}
-	);
-
-	SubState.SetUpdateFunction(PlayerSubState::play, [=](float _DeltaTime)
-		{
-			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-			FloorNum = PlayLevel->FloorCheck(GetActorLocation().Y);
-
-			{
-				std::string Msg = std::format("PlayerFloor : {}\n", FloorNum);
-				UEngineDebugMsgWindow::PushMsg(Msg);
-			}
-
-			AttackDelayTimeUpdate(_DeltaTime);
-			SetCroudEffectUpdate(_DeltaTime);
-			Recording(_DeltaTime);
-			DoorColCheck();
-
-			AbilityCheck();
-			AbilityUpdate(_DeltaTime);
-		}
-	);
-
-	SubState.SetUpdateFunction(PlayerSubState::replay, [=](float _DeltaTime)
-		{
-			Replaying(_DeltaTime);
-		}
-	);
-
-	SubState.SetUpdateFunction(PlayerSubState::restart, [=](float _DeltaTime) 
-		{
-			Replaying(_DeltaTime);
-		}
-	);
+	SubState.SetUpdateFunction(PlayerSubState::none,	[=](float _DeltaTime) {});
+	SubState.SetUpdateFunction(PlayerSubState::intro,	std::bind(&APlayerBase::Intro, this, std::placeholders::_1));
+	SubState.SetUpdateFunction(PlayerSubState::play,	std::bind(&APlayerBase::Play, this, std::placeholders::_1));
+	SubState.SetUpdateFunction(PlayerSubState::replay,	std::bind(&APlayerBase::RePlay, this, std::placeholders::_1));
+	SubState.SetUpdateFunction(PlayerSubState::outro,	std::bind(&APlayerBase::Outro, this, std::placeholders::_1));
+	SubState.SetUpdateFunction(PlayerSubState::restart, std::bind(&APlayerBase::ReStart, this, std::placeholders::_1));
 
 	// State End
 	SubState.SetEndFunction(PlayerSubState::intro, [=]
@@ -123,9 +42,103 @@ void APlayerBase::SubStateInit()
 			InputOn();
 		}
 	);
-
 }
 
+// 
+void APlayerBase::IntroStart()
+{
+	SetMaxRunVel();
+	Body->ChangeAnimation(Anim::player_run);
+	IntroOrder = EIntroOrder::Run;
+	DelayCallBack(0.5f, [=]
+		{
+			Velocity = FVector::Zero;
+			Body->ChangeAnimation(Anim::player_run_to_idle);
+			IntroOrder = EIntroOrder::RunToIdle;
+		}
+	);
+}
+
+void APlayerBase::Intro(float _DeltaTime)
+{
+	switch (IntroOrder)
+	{
+	case EIntroOrder::Run:
+		PosUpdate(_DeltaTime);
+		break;
+	case EIntroOrder::RunToIdle:
+		if (true == Body->IsCurAnimationEnd())
+		{
+			Body->ChangeAnimation(Anim::player_idle);
+			State.ChangeState(PlayerState::idle);
+			SubState.ChangeState(PlayerSubState::play);
+			return;
+		}
+		break;
+	case EIntroOrder::MusicOn:
+		break;
+	}
+}
+
+void APlayerBase::PlayStart()
+{
+}
+
+void APlayerBase::Play(float _DeltaTime)
+{
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	FloorNum = PlayLevel->FloorCheck(GetActorLocation().Y);
+
+	// ¼öÁ¤ Debug
+	{
+		std::string Msg = std::format("PlayerFloor : {}\n", FloorNum);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	AttackDelayTimeUpdate(_DeltaTime);
+	SetCroudEffectUpdate(_DeltaTime);
+	Recording(_DeltaTime);
+	DoorColCheck();
+
+	AbilityCheck();
+	AbilityUpdate(_DeltaTime);
+}
+
+void APlayerBase::ReplayStart()
+{
+	IsPlayValue = false;
+	SetRecordingActive(false);
+	SetReplayStart();
+}
+
+void APlayerBase::RePlay(float _DeltaTime)
+{
+	Replaying(_DeltaTime);
+}
+
+void APlayerBase::OutroStart()
+{
+	SetOutroType();
+	State.ChangeState(PlayerState::none);
+}
+
+void APlayerBase::Outro(float _DeltaTime)
+{
+	OutroUpdate(_DeltaTime);
+}
+
+void APlayerBase::ReStartStart()
+{
+	SetRewindStart();
+	State.ChangeState(PlayerState::none);
+}
+
+void APlayerBase::ReStart(float _DeltaTime)
+{
+	Replaying(_DeltaTime);
+}
+
+//// Setting & Check & Update
 void APlayerBase::AttackDelayTimeUpdate(float _DeltaTime)
 {
 	if (0.0f >= AttackDelayTimeCount)

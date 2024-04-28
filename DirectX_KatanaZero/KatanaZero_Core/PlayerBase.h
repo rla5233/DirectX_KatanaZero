@@ -157,12 +157,29 @@ protected:
 
 	virtual void FlipStart();
 	void Flip(float _DeltaTime);
+	
+	virtual void KickDoorStart();
+	void KickDoor(float _DeltaTime);
 
 	virtual void DeadStart();
 	void Dead(float _DeltaTime);
 		
 protected:
 	// Sub State
+	void IntroStart();
+	void Intro(float _DeltaTime);
+
+	void PlayStart();
+	void Play(float _DeltaTime);
+
+	void ReplayStart();
+	void RePlay(float _DeltaTime);
+
+	void OutroStart();
+	void Outro(float _DeltaTime);
+
+	void ReStartStart();
+	void ReStart(float _DeltaTime);
 
 
 // FSM Input Check

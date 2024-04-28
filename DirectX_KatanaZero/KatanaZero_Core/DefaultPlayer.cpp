@@ -162,6 +162,13 @@ void ADefaultPlayer::FlipStart()
 	GetBody()->ChangeAnimation(Anim::player_flip);
 }
 
+void ADefaultPlayer::KickDoorStart()
+{
+	Super::KickDoorStart();
+
+	GetBody()->ChangeAnimation(Anim::player_kick_door);
+}
+
 void ADefaultPlayer::DeadStart()
 {
 	Super::DeadStart();
