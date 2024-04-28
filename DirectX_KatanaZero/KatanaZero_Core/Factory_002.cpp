@@ -49,7 +49,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	AllStair.resize(2);
 	CreateStair({ 768.0f, 110.0f, 0.0f }, EStairType::Up, 0);
-	CreateStair({ 1057.0f, 397.0f, 0.0f }, EStairType::Down, 0);
+	CreateStair({ 1057.0f, 397.0f, 0.0f }, EStairType::Down, 1);
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

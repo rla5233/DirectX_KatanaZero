@@ -241,6 +241,57 @@ bool AEnemyBase::ChaseLeftAndRightCheck()
 	return Result;
 }
 
+bool AEnemyBase::ChaseUpAndDownCheck()
+{
+	bool Result = false;
+	
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	int PlayerFloorNum = PlayLevel->GetPlayerFloorNum();
+
+	if (PlayerFloorNum == FloorNum)
+	{
+		Result = true;
+	}
+	
+	return Result;
+}
+
+void AEnemyBase::FindStair()
+{
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	int PlayerFloorNum = PlayLevel->GetPlayerFloorNum();
+	FVector CurPos = GetActorLocation();
+	float DirX = 0.0f;
+
+	if (PlayerFloorNum < FloorNum)
+	{
+		FVector StairPos = PlayLevel->FindStairLocation(EStairType::Down, FloorNum);
+		DirX = StairPos.X - CurPos.X;
+	}
+	else if (PlayerFloorNum > FloorNum)
+	{
+		FVector StairPos = PlayLevel->FindStairLocation(EStairType::Up, FloorNum);
+		DirX = StairPos.X - CurPos.X;
+	}
+
+	EEngineDir Dir = Body->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		if (0.0f < DirX)
+		{
+			Velocity.X *= -1.0f;
+		}
+		break;
+	case EEngineDir::Right:
+		if (0.0f > DirX)
+		{
+			Velocity.X *= -1.0f;
+		}
+		break;
+	}
+}
+
 bool AEnemyBase::AttackRangeCheck()
 {
 	return false;

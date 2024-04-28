@@ -269,8 +269,15 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 	
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
+	
+	// Player 와 다른 층에 있을 경우
+	if (false == ChaseUpAndDownCheck())
+	{
+		FindStair();
+	}
 
-	if (true == ChaseLeftAndRightCheck())
+	// State Change Check
+	if (true == ChaseLeftAndRightCheck() && true == ChaseUpAndDownCheck())
 	{
 		State.ChangeState(EnemyState::chase_turn);
 		return;

@@ -137,6 +137,9 @@ protected:
 	bool PlayerChaseCheck();
 
 	bool ChaseLeftAndRightCheck();
+	bool ChaseUpAndDownCheck();
+	void FindStair();
+
 	virtual bool AttackRangeCheck();
 
 // Effect

@@ -585,6 +585,20 @@ int APlayLevelBase::FloorCheck(float _PosY)
 	return Result;
 }
 
+FVector APlayLevelBase::FindStairLocation(EStairType _StairType, int _FloorNum) const
+{
+	FVector Result = FVector::Zero;
+	for (size_t i = 0; i < AllStair[_FloorNum].size(); i++)
+	{
+		if (_StairType == AllStair[_FloorNum][i]->GetStairType())
+		{
+			Result = AllStair[_FloorNum][i]->GetActorLocation();
+		}
+	}
+
+	return Result;
+}
+
 FVector APlayLevelBase::GetPlayerLocation() const
 {
 	return Player->GetActorLocation();
