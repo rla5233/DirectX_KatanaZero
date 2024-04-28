@@ -1,23 +1,37 @@
 #pragma once
 
-// 설명 :
-class Stair
+// 설명 : 계단 역할 Actor
+class AStair : public AActor
 {
+	GENERATED_BODY(AActor);
 public:
 	// constructor destructor
-	Stair();
-	~Stair();
+	AStair();
+	~AStair();
 	
 	// delete Function
-	Stair(const Stair& _Other) = delete;
-	Stair(Stair&& _Other) noexcept = delete;
-	Stair& operator=(const Stair& _Other) = delete;
-	Stair& operator=(Stair&& _Other) noexcept = delete;
+	AStair(const AStair& _Other) = delete;
+	AStair(AStair&& _Other) noexcept = delete;
+	AStair& operator=(const AStair& _Other) = delete;
+	AStair& operator=(AStair&& _Other) noexcept = delete;
 
+	void SetStairType(EStairType _StairType)
+	{
+		StairType = _StairType;
+	}
+
+	EStairType GetStairType() const
+	{
+		return StairType;
+	}
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
+	UCollision* BodyCol = nullptr;
+	EStairType StairType = EStairType::None;
 
 };
 

@@ -11,14 +11,9 @@ class AEnemyBase;
 class AMouseAim;
 class AReplayUI;
 class AUp_HUD;
+class AStair;
 class AGo;
 
-class UStairInfo
-{
-public:
-	UCollision* BodyCol = nullptr;
-	EStairType Type = EStairType::None;
-};
 
 // 설명 : PlayLevel 기본 클래스
 class APlayLevelBase : public AGameMode, public USpawnManager
@@ -118,7 +113,7 @@ protected:
 	int TotalEnemy = 0;
 
 	std::vector<float> FloorY;
-	std::vector<std::vector<UStairInfo>> StairInfo;
+	std::vector<std::vector<std::shared_ptr<AStair>>> AllStair;
 
 // FSM
 protected:

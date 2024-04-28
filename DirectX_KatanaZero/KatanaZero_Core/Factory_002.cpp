@@ -46,6 +46,9 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	AllRecComponent.reserve(1);
 	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left, DoorState::idle);
+
+
+
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

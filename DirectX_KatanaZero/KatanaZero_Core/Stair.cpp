@@ -1,10 +1,26 @@
 #include "PreCompile.h"
 #include "Stair.h"
 
-Stair::Stair()
+AStair::AStair()
+{
+	BodyCol = CreateDefaultSubObject<UCollision>("Stair");
+	SetRoot(BodyCol);
+}
+
+AStair::~AStair()
 {
 }
 
-Stair::~Stair()
+void AStair::BeginPlay()
 {
+	Super::BeginPlay();
+
+	BodyCol->SetCollisionGroup(EColOrder::Stair);
+	BodyCol->SetCollisionType(ECollisionType::Rect);
+	BodyCol->SetScale({ 50.0f, 50.0f, 1.0f });
+}
+
+void AStair::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
 }
