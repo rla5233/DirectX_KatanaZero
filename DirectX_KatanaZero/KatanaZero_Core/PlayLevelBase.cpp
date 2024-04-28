@@ -559,6 +559,11 @@ void APlayLevelBase::BatterPartUpdate(float _AbilityTime)
 
 int APlayLevelBase::FloorCheck(float _PosY)
 {
+	if (0 == FloorY.size())
+	{
+		return 0;
+	}
+
 	int Result = -1;
 	int FloorSize = static_cast<int>(FloorY.size());
 

@@ -380,7 +380,12 @@ void AEnemyBase::ChaseTurn(float _DeltaTime)
 
 void AEnemyBase::ChaseStairUpStart()
 {
+	AStair* PartnerStair = TargetStair->GetPartnerStair();
+	FVector PartnerStairPos = PartnerStair->GetActorLocation();
+	FVector CurPos = GetActorLocation();
 
+	FVector DirVec = PartnerStairPos - CurPos;
+	Velocity = DirVec.Normalize2DReturn() * Const::enemy_run_speed;
 }
 
 void AEnemyBase::ChaseStairUp(float _DeltaTime)
@@ -388,6 +393,21 @@ void AEnemyBase::ChaseStairUp(float _DeltaTime)
 	Recording(_DeltaTime);
 	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
 
+	// 위치 업데에트
+	PosUpdate(_DeltaTime);
+
+	AStair* PartnerStair = TargetStair->GetPartnerStair();
+	FVector PartnerStairPos = PartnerStair->GetActorLocation();
+	FVector CurPos = GetActorLocation();
+	FVector Diff = PartnerStairPos - CurPos;
+
+	// State Change Check
+	if (2.0f > UContentsMath::GetVectorNorm(Diff))
+	{
+		SetActorLocation(PartnerStairPos);
+		State.ChangeState(EnemyState::chase_run);
+		return;
+	}
 }
 
 void AEnemyBase::ChaseStairDownStart()
@@ -407,6 +427,19 @@ void AEnemyBase::ChaseStairDown(float _DeltaTime)
 
 	// 위치 업데에트
 	PosUpdate(_DeltaTime);
+
+	AStair* PartnerStair = TargetStair->GetPartnerStair();
+	FVector PartnerStairPos = PartnerStair->GetActorLocation();
+	FVector CurPos = GetActorLocation();
+	FVector Diff = PartnerStairPos - CurPos;
+
+	// State Change Check
+	if (2.0f > UContentsMath::GetVectorNorm(Diff))
+	{
+		SetActorLocation(PartnerStairPos);
+		State.ChangeState(EnemyState::chase_run);
+		return;
+	}
 }
 
 void AEnemyBase::ChaseStairTurnStart()
