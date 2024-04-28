@@ -543,6 +543,34 @@ void APlayLevelBase::BatterPartUpdate(float _AbilityTime)
 	HUD->BatteryPartUpdate(_AbilityTime);
 }
 
+int APlayLevelBase::FloorCheck(float _PosY)
+{
+	int Result = -1;
+	int FloorSize = static_cast<int>(FloorY.size());
+
+	if (FloorY[0] > _PosY)
+	{
+		Result = 1;
+		return Result;
+	}
+
+	if (FloorY[FloorSize - 1] <= _PosY)
+	{
+		Result = FloorSize + 1;
+		return Result;
+	}
+
+	for (int i = 1; i <= FloorSize - 1; i++)
+	{
+		if (FloorY[i - 1] <= _PosY && FloorY[i] > _PosY)
+		{
+			Result = i + 1;
+		}
+	}
+
+	return Result;
+}
+
 FVector APlayLevelBase::GetPlayerLocation() const
 {
 	return Player->GetActorLocation();

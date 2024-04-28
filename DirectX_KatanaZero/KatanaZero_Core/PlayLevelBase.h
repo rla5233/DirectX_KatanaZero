@@ -74,6 +74,8 @@ public:
 
 	void BatterPartUpdate(float _AbilityTime);
 
+	int FloorCheck(float _PosY);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -105,6 +107,8 @@ protected:
 
 	float TotalPlayTime = 0.0f;
 	int TotalEnemy = 0;
+
+	std::vector<float> FloorY;
 
 // FSM
 protected:

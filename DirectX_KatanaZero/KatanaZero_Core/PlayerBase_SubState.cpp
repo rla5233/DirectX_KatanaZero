@@ -82,6 +82,14 @@ void APlayerBase::SubStateInit()
 
 	SubState.SetUpdateFunction(PlayerSubState::play, [=](float _DeltaTime)
 		{
+			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+			FloorNum = PlayLevel->FloorCheck(GetActorLocation().Y);
+
+			{
+				std::string Msg = std::format("PlayerFloor : {}\n", FloorNum);
+				UEngineDebugMsgWindow::PushMsg(Msg);
+			}
+
 			AttackDelayTimeUpdate(_DeltaTime);
 			SetCroudEffectUpdate(_DeltaTime);
 			Recording(_DeltaTime);

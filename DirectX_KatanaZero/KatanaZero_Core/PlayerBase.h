@@ -108,6 +108,7 @@ private:
 	bool IsAbilityValue = false;
 	
 	// etc.
+	int FloorNum = 0;
 	bool IsPlayValue = false;
 	bool IsColDoorValue = false;
 	bool IsInvincibleValue = false;
