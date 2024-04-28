@@ -256,7 +256,7 @@ bool AEnemyBase::ChaseUpAndDownCheck()
 	return Result;
 }
 
-void AEnemyBase::FindStair()
+float AEnemyBase::FindStairDirX()
 {
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	int PlayerFloorNum = PlayLevel->GetPlayerFloorNum();
@@ -274,22 +274,7 @@ void AEnemyBase::FindStair()
 		DirX = StairPos.X - CurPos.X;
 	}
 
-	EEngineDir Dir = Body->GetDir();
-	switch (Dir)
-	{
-	case EEngineDir::Left:
-		if (0.0f < DirX)
-		{
-			Velocity.X *= -1.0f;
-		}
-		break;
-	case EEngineDir::Right:
-		if (0.0f > DirX)
-		{
-			Velocity.X *= -1.0f;
-		}
-		break;
-	}
+	return DirX;
 }
 
 bool AEnemyBase::AttackRangeCheck()

@@ -269,12 +269,6 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 	
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
-	
-	// Player 와 다른 층에 있을 경우
-	if (false == ChaseUpAndDownCheck())
-	{
-		FindStair();
-	}
 
 	// State Change Check
 	if (true == ChaseLeftAndRightCheck() && true == ChaseUpAndDownCheck())
@@ -287,6 +281,31 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 	{
 		State.ChangeState(EnemyState::chase_attack);
 		return;
+	}
+
+	// Player 와 다른 층에 있을 경우
+	if (false == ChaseUpAndDownCheck())
+	{
+		float DirX = FindStairDirX();
+
+		EEngineDir Dir = Body->GetDir();
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+			if (0.0f < DirX)
+			{
+				State.ChangeState(EnemyState::chase_turn);
+				return;
+			}
+			break;
+		case EEngineDir::Right:
+			if (0.0f > DirX)
+			{
+				State.ChangeState(EnemyState::chase_turn);
+				return;
+			}
+			break;
+		}
 	}
 }
 

@@ -138,7 +138,7 @@ protected:
 
 	bool ChaseLeftAndRightCheck();
 	bool ChaseUpAndDownCheck();
-	void FindStair();
+	float FindStairDirX();
 
 	virtual bool AttackRangeCheck();
 

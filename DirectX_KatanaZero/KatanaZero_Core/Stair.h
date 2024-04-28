@@ -25,6 +25,16 @@ public:
 		return StairType;
 	}
 
+	void SetPartnerStair(AStair* _Stair)
+	{
+		PartnerStair = _Stair;
+	}
+
+	AStair* GetPartnerStair() const
+	{
+		return PartnerStair;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -32,6 +42,6 @@ protected:
 private:
 	UCollision* BodyCol = nullptr;
 	EStairType StairType = EStairType::None;
-
+	AStair* PartnerStair = nullptr;
 };
 
