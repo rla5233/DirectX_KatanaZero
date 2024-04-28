@@ -36,12 +36,24 @@ void AEnemyBase::StateInit()
 		{
 			SetRecordingActive(false);
 			SetReplayStart();
+
+			if (nullptr != ChaseMark)
+			{
+				ChaseMark->Destroy();
+				ChaseMark = nullptr;
+			}
 		}
 	);
 
 	State.SetStartFunction(EnemyState::restart, [=]
 		{
 			SetRewindStart();
+
+			if (nullptr != ChaseMark)
+			{
+				ChaseMark->Destroy();
+				ChaseMark = nullptr;
+			}
 		}
 	);
 
@@ -96,6 +108,12 @@ void AEnemyBase::HitFallStart()
 	DeadCol->SetPosition(BodyCol->GetLocalPosition());
 	DeadCol->SetScale(BodyCol->GetLocalScale());
 	DeadCol->SetActive(true);
+
+	if (nullptr != ChaseMark)
+	{
+		ChaseMark->Destroy();
+		ChaseMark = nullptr;
+	}
 }
 
 void AEnemyBase::HitFall(float _DeltaTime)
@@ -208,9 +226,13 @@ void AEnemyBase::PatrolStop(float _DeltaTime)
 
 void AEnemyBase::ChaseRunStart()
 {
-	ChaseMark = GetWorld()->SpawnActor<AUpMark>("ChaseMark");
+	if (nullptr == ChaseMark)
+	{
+		ChaseMark = GetWorld()->SpawnActor<AUpMark>("ChaseMark");
+	}
 
-	SetVelocityByDir({ 350.0f, 0.0f, 0.0f });
+	SetVelocityByDir(FVector::Zero);
+	//SetVelocityByDir({ 350.0f, 0.0f, 0.0f });
 }
 
 void AEnemyBase::ChaseRun(float _DeltaTime)
@@ -220,10 +242,12 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 	
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
-}
 
-void AEnemyBase::ChaseTurnStart()
-{
+	if (true == AttackRangeCheck())
+	{
+		State.ChangeState(EnemyState::chase_attack);
+		return;
+	}
 }
 
 void AEnemyBase::ChaseTurn(float _DeltaTime)
@@ -239,4 +263,10 @@ void AEnemyBase::ChaseAttackStart()
 void AEnemyBase::ChaseAttack(float _DeltaTime)
 {
 	Recording(_DeltaTime);
+
+	if (true == Body->IsCurAnimationEnd())
+	{
+		State.ChangeState(EnemyState::chase_run);
+		return;
+	}
 }

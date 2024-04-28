@@ -9,7 +9,7 @@ UContentsMath::~UContentsMath()
 {
 }
 
-// X축 과의 각도 구하는 함수 (0 ~ 360)
+/// <summary> X축 과의 각도 구하는 함수 (0 ~ 360) </summary>
 float UContentsMath::GetAngleToX_2D(const FVector& _Dir)
 {
 	float Result = 0.0f;
@@ -33,6 +33,9 @@ float UContentsMath::GetAngleToX_2D(const FVector& _Dir)
 	return Result * UEngineMath::RToD;
 }
 
+
+
+/// <summary> Vector의 길이를 구하는 함수 </summary>
 float UContentsMath::GetVectorNorm(const FVector& _Vec)
 {
 	float Result = 0.0f;

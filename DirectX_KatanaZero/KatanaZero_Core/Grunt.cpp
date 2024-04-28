@@ -160,6 +160,8 @@ void AGrunt::ChaseAttackStart()
 
 void AGrunt::ChaseAttack(float _DeltaTime)
 {
+	Super::ChaseAttack(_DeltaTime);
+
 	// Collison Check
 	AttackCol->CollisionStay(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 		{
@@ -169,6 +171,22 @@ void AGrunt::ChaseAttack(float _DeltaTime)
 	);
 }
 
+bool AGrunt::AttackRangeCheck()
+{
+	bool Result = false;
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+
+	FVector DiffVec = PlayerPos - GetActorLocation();
+	float DiffLen = UContentsMath::GetVectorNorm(DiffVec);
+	
+	if (AttackRange >= DiffLen)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
 
 // Setting 
 void AGrunt::SetAttackEffect(float _Deg)

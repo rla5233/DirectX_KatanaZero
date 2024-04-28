@@ -3,6 +3,7 @@
 
 #include "PlayLevelBase.h"
 #include "PlayerBase.h"
+#include "UpMark.h"
 
 const int AEnemyBase::BloodSize = 25;
 
@@ -43,6 +44,11 @@ AEnemyBase::AEnemyBase()
 
 AEnemyBase::~AEnemyBase()
 {
+	if (nullptr != ChaseMark)
+	{
+		ChaseMark->Destroy();
+		ChaseMark = nullptr;
+	}
 }
 
 void AEnemyBase::BeginPlay()
@@ -189,6 +195,11 @@ void AEnemyBase::PlayerCheck()
 
 }
 
+bool AEnemyBase::AttackRangeCheck()
+{
+	return false;
+}
+
 void AEnemyBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -202,6 +213,6 @@ void AEnemyBase::Tick(float _DeltaTime)
 	// Test
 	if (UEngineInput::IsDown(VK_SPACE))
 	{
-		State.ChangeState(EnemyState::chase_attack);
+		State.ChangeState(EnemyState::chase_run);
 	}
 }

@@ -50,6 +50,8 @@ protected:
 	void ChaseAttackStart() override;
 	void ChaseAttack(float _DeltaTime) override;
 
+	bool AttackRangeCheck() override;
+
 // Setting
 private:
 	void SetAttackEffect(float _Deg);

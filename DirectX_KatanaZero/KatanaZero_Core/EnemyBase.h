@@ -70,7 +70,6 @@ protected:
 private:
 	void DirChange();
 
-	void PlayerCheck();
 
 private:
 	// Renderer
@@ -128,11 +127,14 @@ protected:
 	virtual void ChaseRunStart();
 	void ChaseRun(float _DeltaTime);
 
-	virtual void ChaseTurnStart();
+	virtual void ChaseTurnStart() {};
 	void ChaseTurn(float _DeltaTime);
 
 	virtual void ChaseAttackStart();
 	virtual void ChaseAttack(float _DeltaTime);
+
+	void PlayerCheck();
+	virtual bool AttackRangeCheck();
 
 // Effect
 private:
