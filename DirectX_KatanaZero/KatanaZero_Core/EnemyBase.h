@@ -70,7 +70,6 @@ protected:
 private:
 	void DirChange();
 
-
 private:
 	// Renderer
 	USpriteRenderer* Body = nullptr;
@@ -127,13 +126,13 @@ protected:
 	virtual void ChaseRunStart();
 	void ChaseRun(float _DeltaTime);
 
-	virtual void ChaseTurnStart() {};
+	virtual void ChaseTurnStart();
 	void ChaseTurn(float _DeltaTime);
 
 	virtual void ChaseAttackStart();
 	virtual void ChaseAttack(float _DeltaTime);
 
-	void PlayerCheck();
+	bool ChaseLeftAndRightCheck();
 	virtual bool AttackRangeCheck();
 
 // Effect

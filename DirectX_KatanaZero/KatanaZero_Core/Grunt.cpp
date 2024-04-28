@@ -43,7 +43,7 @@ void AGrunt::CollisionInit()
 
 	AttackCol->SetCollisionType(ECollisionType::RotRect);
 	AttackCol->SetCollisionGroup(EColOrder::EnemyAttack);
-	AttackCol->SetScale({ 30.0f, 70.0f, 1.0f });
+	AttackCol->SetScale({ 40.0f, 70.0f, 1.0f });
 	AttackCol->SetActive(false);
 }
 

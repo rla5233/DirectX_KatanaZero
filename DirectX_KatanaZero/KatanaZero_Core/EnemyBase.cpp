@@ -172,8 +172,9 @@ void AEnemyBase::DirChange()
 	}
 }
 
-void AEnemyBase::PlayerCheck()
+bool AEnemyBase::ChaseLeftAndRightCheck()
 {
+	bool Result = false;
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	FVector PlayerPos = PlayLevel->GetPlayerLocation();
 
@@ -185,14 +186,18 @@ void AEnemyBase::PlayerCheck()
 	case EEngineDir::Left:
 		if (0.0f < DiffDir.X)
 		{
-
+			Result = true;
 		}
 		break;
 	case EEngineDir::Right:
-		
+		if (0.0f > DiffDir.X)
+		{
+			Result = true;
+		}
 		break;
 	}
 
+	return Result;
 }
 
 bool AEnemyBase::AttackRangeCheck()

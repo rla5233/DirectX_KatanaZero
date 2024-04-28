@@ -231,8 +231,7 @@ void AEnemyBase::ChaseRunStart()
 		ChaseMark = GetWorld()->SpawnActor<AUpMark>("ChaseMark");
 	}
 
-	SetVelocityByDir(FVector::Zero);
-	//SetVelocityByDir({ 350.0f, 0.0f, 0.0f });
+	SetVelocityByDir({ 350.0f, 0.0f, 0.0f });
 }
 
 void AEnemyBase::ChaseRun(float _DeltaTime)
@@ -243,6 +242,12 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
+	if (true == ChaseLeftAndRightCheck())
+	{
+		State.ChangeState(EnemyState::chase_turn);
+		return;
+	}
+
 	if (true == AttackRangeCheck())
 	{
 		State.ChangeState(EnemyState::chase_attack);
@@ -250,9 +255,22 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 	}
 }
 
+void AEnemyBase::ChaseTurnStart()
+{
+	Velocity = FVector::Zero;
+}
+
 void AEnemyBase::ChaseTurn(float _DeltaTime)
 {
 	Recording(_DeltaTime);
+
+	// State Change Check
+	if (true == Body->IsCurAnimationEnd())
+	{
+		DirChange();
+		State.ChangeState(EnemyState::chase_run);
+		return;
+	}
 }
 
 void AEnemyBase::ChaseAttackStart()
