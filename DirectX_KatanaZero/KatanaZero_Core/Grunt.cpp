@@ -64,6 +64,13 @@ void AGrunt::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::enemy_grunt_hitfall, ImgRes::enemy_grunt_hitfall, 0.08f, false);
 	GetBody()->CreateAnimation(Anim::enemy_grunt_dead, ImgRes::enemy_grunt_dead, 0.08f, false);
 	GetBody()->CreateAnimation(Anim::enemy_grunt_attack, ImgRes::enemy_grunt_attack, 0.07f, false);
+	
+	GetBody()->SetFrameCallback(Anim::enemy_grunt_turn, 8, [=]
+		{
+			DirChange();
+		}
+	);
+	
 	GetBody()->SetFrameCallback(Anim::enemy_grunt_attack, 2, [=]
 		{
 			SetAttackEffect(AttackDeg);
@@ -112,7 +119,6 @@ void AGrunt::PatrolWalkStart()
 {
 	Super::PatrolWalkStart();
 
-	SetVelocityByDir({ 100.0f, 0.0f, 0.0f });
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_walk);
 }
 
@@ -140,6 +146,27 @@ void AGrunt::ChaseRunStart()
 void AGrunt::ChaseTurnStart()
 {
 	Super::ChaseTurnStart();
+
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_turn);
+}
+
+void AGrunt::ChaseStairUpStart()
+{
+	Super::ChaseStairUpStart();
+
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_run);
+}
+
+void AGrunt::ChaseStairDownStart()
+{
+	Super::ChaseStairDownStart();
+
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_run);
+}
+
+void AGrunt::ChaseStairTurnStart()
+{
+	Super::ChaseStairTurnStart();
 
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_turn);
 }

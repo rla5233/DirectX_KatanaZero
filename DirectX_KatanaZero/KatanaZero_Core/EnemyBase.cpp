@@ -49,6 +49,11 @@ AEnemyBase::~AEnemyBase()
 		ChaseMark->Destroy();
 		ChaseMark = nullptr;
 	}
+
+	if (nullptr != TargetStair)
+	{
+		TargetStair = nullptr;
+	}
 }
 
 void AEnemyBase::BeginPlay()
@@ -160,7 +165,6 @@ void AEnemyBase::HitByDoor(EEngineDir _Dir)
 void AEnemyBase::DirChange()
 {
 	EEngineDir Dir = Body->GetDir();
-
 	switch (Dir)
 	{
 	case EEngineDir::Left:
@@ -213,7 +217,7 @@ bool AEnemyBase::PlayerChaseCheck()
 	return Result;
 }
 
-bool AEnemyBase::ChaseLeftAndRightCheck()
+bool AEnemyBase::ChaseTurnCheck()
 {
 	bool Result = false;
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
@@ -241,7 +245,7 @@ bool AEnemyBase::ChaseLeftAndRightCheck()
 	return Result;
 }
 
-bool AEnemyBase::ChaseUpAndDownCheck()
+bool AEnemyBase::ChaseSameFloorCheck()
 {
 	bool Result = false;
 	
@@ -256,25 +260,22 @@ bool AEnemyBase::ChaseUpAndDownCheck()
 	return Result;
 }
 
-float AEnemyBase::FindStairDirX()
+std::shared_ptr<AStair> AEnemyBase::FindStair()
 {
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	int PlayerFloorNum = PlayLevel->GetPlayerFloorNum();
-	FVector CurPos = GetActorLocation();
-	float DirX = 0.0f;
+	std::shared_ptr<AStair> Stair = nullptr;
 
 	if (PlayerFloorNum < FloorNum)
 	{
-		FVector StairPos = PlayLevel->FindStairLocation(EStairType::Down, FloorNum);
-		DirX = StairPos.X - CurPos.X;
+		Stair = PlayLevel->FindStair(EStairType::Down, FloorNum);
 	}
 	else if (PlayerFloorNum > FloorNum)
 	{
-		FVector StairPos = PlayLevel->FindStairLocation(EStairType::Up, FloorNum);
-		DirX = StairPos.X - CurPos.X;
+		Stair = PlayLevel->FindStair(EStairType::Up, FloorNum);
 	}
 
-	return DirX;
+	return Stair;
 }
 
 bool AEnemyBase::AttackRangeCheck()

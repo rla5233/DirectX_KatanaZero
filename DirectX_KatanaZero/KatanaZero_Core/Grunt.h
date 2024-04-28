@@ -47,6 +47,11 @@ protected:
 
 	void ChaseRunStart() override;
 	void ChaseTurnStart() override;
+
+	void ChaseStairUpStart() override;
+	void ChaseStairDownStart() override;
+	void ChaseStairTurnStart() override;
+
 	void ChaseAttackStart() override;
 	void ChaseAttack(float _DeltaTime) override;
 

@@ -12,6 +12,7 @@ public:
 };
 
 class AUpMark;
+class AStair;
 
 // 설명 :
 class AEnemyBase :
@@ -68,10 +69,6 @@ protected:
 	UCollision* DeadCol = nullptr;
 
 private:
-	void DirChange();
-	void FloorNumUpdate();
-
-private:
 	// Renderer
 	USpriteRenderer* Body = nullptr;
 
@@ -90,6 +87,7 @@ private:
 
 	// Chase
 	int FloorNum = -1;
+	std::shared_ptr<AStair> TargetStair = nullptr;
 	std::shared_ptr<AUpMark> ChaseMark = nullptr;
 
 	// 수정 (삭제 필요)
@@ -130,15 +128,25 @@ protected:
 	virtual void ChaseTurnStart();
 	void ChaseTurn(float _DeltaTime);
 
+	virtual void ChaseStairUpStart();
+	void ChaseStairUp(float _DeltaTime);
+
+	virtual void ChaseStairDownStart();
+	void ChaseStairDown(float _DeltaTime);
+
+	virtual void ChaseStairTurnStart();
+	void ChaseStairTurn(float _DeltaTime);
+
 	virtual void ChaseAttackStart();
 	virtual void ChaseAttack(float _DeltaTime);
 
 protected:
+	void DirChange();
 	bool PlayerChaseCheck();
 
-	bool ChaseLeftAndRightCheck();
-	bool ChaseUpAndDownCheck();
-	float FindStairDirX();
+	bool ChaseTurnCheck();
+	bool ChaseSameFloorCheck();
+	std::shared_ptr<AStair> FindStair();
 
 	virtual bool AttackRangeCheck();
 
@@ -148,5 +156,7 @@ private:
 	void CreateBloodEffect(float _DeltaTime);
 	void BloodEffectUpdate(float _DeltaTime);
 
+private:
+	void FloorNumUpdate();
 };
 

@@ -203,7 +203,7 @@ namespace Anim
 
 namespace Const
 {
-	// player
+	// Player
 	const float default_gravity						= -2000.0f;
 	const float jump_gravity						= -1100.0f;
 	const float down_stair_gravity					= -15000.0f;
@@ -226,11 +226,15 @@ namespace Const
 	const float player_attack_delay					= 0.25f;
 	const float player_ability_time					= 6.0f;
 	const float player_ability_timescale			= 0.2f;
+
+	// Enemy
+	const float enemy_patrol_walk_speed				= 100.0f;
+	const float enemy_run_speed						= 350.0f;
 	
-	// replay
+	// Replay
 	const float recording_delay						= 1 / 60.0f;
 
-	// delay
+	// Delay
 	const float effect_roll_cloud_delay				= 0.02f;
 	const float effect_wallslide_cloud_delay		= 0.04f;
 	const float effect_blood_splatter_delay			= 0.01f;
@@ -313,6 +317,9 @@ namespace EnemyState
 	const std::string_view patrol_stop		= "Patrol_Stop";
 	const std::string_view chase_run		= "Chase_Run";
 	const std::string_view chase_turn		= "Chase_Turn";
+	const std::string_view chase_stair_up	= "Chase_Stair_Up";
+	const std::string_view chase_stair_down	= "Chase_Stair_Down";
+	const std::string_view chase_stair_turn	= "Chase_Stair_Turn";
 	const std::string_view chase_attack		= "Chase_Attack";
 
 	const std::string_view turn				= "Turn";

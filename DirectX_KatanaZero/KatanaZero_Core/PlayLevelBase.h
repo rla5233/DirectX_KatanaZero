@@ -60,7 +60,7 @@ public:
 #endif // _DEBUG
 	}
 
-	FVector FindStairLocation(EStairType _StairType, int _FloorNum) const;
+	std::shared_ptr<AStair> FindStair(EStairType _StairType, int _FloorNum) const;
 	FVector GetPlayerLocation() const;
 	int GetPlayerFloorNum() const;
 
