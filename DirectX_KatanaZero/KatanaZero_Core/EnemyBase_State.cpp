@@ -184,6 +184,12 @@ void AEnemyBase::PatrolWalk(float _DeltaTime)
 
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
+
+	if (true == PlayerChaseCheck())
+	{
+		State.ChangeState(EnemyState::chase_run);
+		return;
+	}
 }
 
 void AEnemyBase::PatrolTurnStart()
@@ -221,8 +227,14 @@ void AEnemyBase::PatrolStopStart()
 void AEnemyBase::PatrolStop(float _DeltaTime)
 {
 	Recording(_DeltaTime);
-}
 
+	// State Change Check
+	if (true == PlayerChaseCheck())
+	{
+		State.ChangeState(EnemyState::chase_run);
+		return;
+	}
+}
 
 void AEnemyBase::ChaseRunStart()
 {

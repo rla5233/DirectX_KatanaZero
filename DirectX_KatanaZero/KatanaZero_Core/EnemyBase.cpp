@@ -172,6 +172,34 @@ void AEnemyBase::DirChange()
 	}
 }
 
+bool AEnemyBase::PlayerChaseCheck()
+{
+	bool Result = false;
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+
+	// аб©Л ц╪е╘
+	FVector DiffDir = PlayerPos - GetActorLocation();
+
+	switch (Body->GetDir())
+	{
+	case EEngineDir::Left:
+		if (0.0f > DiffDir.X)
+		{
+			Result = true;
+		}
+		break;
+	case EEngineDir::Right:
+		if (0.0f < DiffDir.X)
+		{
+			Result = true;
+		}
+		break;
+	}
+
+	return Result;
+}
+
 bool AEnemyBase::ChaseLeftAndRightCheck()
 {
 	bool Result = false;

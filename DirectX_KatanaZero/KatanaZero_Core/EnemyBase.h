@@ -132,6 +132,9 @@ protected:
 	virtual void ChaseAttackStart();
 	virtual void ChaseAttack(float _DeltaTime);
 
+protected:
+	bool PlayerChaseCheck();
+
 	bool ChaseLeftAndRightCheck();
 	virtual bool AttackRangeCheck();
 
