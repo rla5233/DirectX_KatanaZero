@@ -175,3 +175,142 @@ void ADefaultPlayer::DeadStart()
 
 	GetBody()->ChangeAnimation(Anim::player_dead);
 }
+
+void ADefaultPlayer::IntroStart()
+{
+	Super::IntroStart();
+
+	GetBody()->ChangeAnimation(Anim::player_run);
+	DelayCallBack(0.5f, [=]
+		{
+			Velocity = FVector::Zero;
+			GetBody()->ChangeAnimation(Anim::player_run_to_idle);
+			SetIntroOrder(EIntroOrder::RunToIdle);
+		}
+	);
+}
+
+void ADefaultPlayer::Intro(float _DeltaTime)
+{
+	Super::Intro(_DeltaTime);
+
+	switch (GetIntroOrder())
+	{
+	case EIntroOrder::Run:
+		PosUpdate(_DeltaTime);
+		break;
+	case EIntroOrder::RunToIdle:
+		if (true == GetBody()->IsCurAnimationEnd())
+		{
+			GetBody()->ChangeAnimation(Anim::player_idle);
+			StateChange(PlayerState::idle);
+			SubStateChange(PlayerSubState::play);
+			return;
+		}
+		break;
+	case EIntroOrder::MusicOn:
+		break;
+	}
+}
+
+void ADefaultPlayer::OutroTypeInit()
+{
+	std::string CurMainState = GetCurMainState();
+
+	if (PlayerState::run == CurMainState)
+	{
+		SetOutroType(EOutroType::Run);
+		SetMaxRunVel();
+		return;
+	}
+
+	if (PlayerState::idle_to_run == CurMainState)
+	{
+		SetOutroType(EOutroType::IdleToRun);
+		return;
+	}
+
+	if (PlayerState::run_to_idle == CurMainState)
+	{
+		SetOutroType(EOutroType::RunToIdle);
+		SetMaxRunVel();
+		GetBody()->ChangeAnimation(Anim::player_run);
+		return;
+	}
+
+	if (PlayerState::jump == CurMainState)
+	{
+		SetOutroType(EOutroType::Jump);
+		return;
+	}
+
+	if (PlayerState::fall == CurMainState)
+	{
+		SetOutroType(EOutroType::Fall);
+		return;
+	}
+
+	if (PlayerState::roll == CurMainState)
+	{
+		SetOutroType(EOutroType::Roll);
+		return;
+	}
+
+	if (PlayerState::attack == CurMainState)
+	{
+		SetOutroType(EOutroType::Attack);
+		return;
+	}
+}
+
+void ADefaultPlayer::OutroUpdate(float _DeltaTime)
+{
+	Super::OutroUpdate(_DeltaTime);
+
+	switch (GetOutroType())
+	{
+	case EOutroType::IdleToRun:
+		if (true == GetBody()->IsCurAnimationEnd())
+		{
+			SetMaxRunVel();
+			GetBody()->ChangeAnimation(Anim::player_run);
+		}
+		break;
+	case EOutroType::Jump:
+		if (true == IsColHeadToCeil(GetBody()->GetDir()))
+		{
+			AddActorLocation({ 0.0f, -2.0f, 0.0f });
+			Velocity.Y = 0.0f;
+		}
+
+		JumpGravityUpdate(_DeltaTime);
+
+		if (0.0f > Velocity.Y)
+		{
+			GetBody()->ChangeAnimation(Anim::player_fall);
+			SetOutroType(EOutroType::Fall);
+		}
+		break;
+
+	case EOutroType::Fall:
+		FallGravityUpdate(_DeltaTime);
+		break;
+
+	case EOutroType::Roll:
+		if (true == GetBody()->IsCurAnimationEnd())
+		{
+			SetMaxRunVel();
+			GetBody()->ChangeAnimation(Anim::player_run);
+		}
+		break;
+
+	case EOutroType::Attack:
+		if (true == GetBody()->IsCurAnimationEnd())
+		{
+			GetBody()->ChangeAnimation(Anim::player_fall);
+			SetOutroType(EOutroType::Fall);
+		}
+		FallGravityUpdate(_DeltaTime);
+		break;
+	}
+}

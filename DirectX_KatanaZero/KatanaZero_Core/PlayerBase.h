@@ -45,7 +45,7 @@ public:
 		return Body;
 	}
 
-	inline std::string GetCurState() const
+	inline std::string GetCurMainState() const
 	{
 		return State.GetCurStateName();
 	}
@@ -58,6 +58,26 @@ public:
 	inline bool IsAbilityOn() const
 	{
 		return IsAbilityValue;
+	}
+
+	inline EIntroOrder GetIntroOrder() const
+	{
+		return IntroOrder;
+	}
+
+	inline void SetIntroOrder(EIntroOrder _IntroOrder)
+	{
+		IntroOrder = _IntroOrder;
+	}
+	 
+	inline EOutroType GetOutroType() const
+	{
+		return OutroType;
+	}
+
+	inline void SetOutroType(EOutroType _OutroType)
+	{
+		OutroType = _OutroType;
 	}
 
 	void HitByEnemy(EEnemyType _EnemyType = EEnemyType::Default);
@@ -114,10 +134,20 @@ private:
 	bool IsInvincibleValue = false;
 	EEnemyType HitEnemy = EEnemyType::Default;
 
-
 	// FSM
 	UStateManager State;	
 	void StateInit();	
+
+	UStateManager SubState;
+	void SubStateInit();
+
+	EIntroOrder IntroOrder = EIntroOrder::Run;
+	EOutroType OutroType = EOutroType::Run;
+
+private:
+	void AttackDelayTimeUpdate(float _DeltaTime);
+	void AbilityUpdate(float _DeltaTime);
+	void AbilityCheck();
 
 // FSM
 protected:
@@ -166,8 +196,8 @@ protected:
 		
 protected:
 	// Sub State
-	void IntroStart();
-	void Intro(float _DeltaTime);
+	virtual void IntroStart();
+	virtual void Intro(float _DeltaTime);
 
 	void PlayStart();
 	void Play(float _DeltaTime);
@@ -181,6 +211,9 @@ protected:
 	void ReStartStart();
 	void ReStart(float _DeltaTime);
 
+
+	virtual void OutroTypeInit();
+	virtual void OutroUpdate(float _DeltaTime);
 
 // FSM Input Check
 private:
@@ -210,12 +243,12 @@ private:
 	bool IsAbilityInputUp();
 
 // FSM Setting
-private:
+protected:
 	void SetMaxRunVel();
 	void SetAttackDir();
 
 // FSM Update
-private:
+protected:
 	void GravityUpdate(float _DeltaTime);
 	void DownStairGravityUpdate(float _DeltaTime);
 	void RollDownStairGravityUpdate(float _DeltaTime);
@@ -234,11 +267,9 @@ private:
 // Collision
 private:
 	void AttackCollisionCheck();
-
 	void DoorColCheck();
 
-
-// Effect Set (virtual)
+// Effect
 private:
 	void EffectVecIdxUpdate();
 	void SetAttackEffect(float _Deg);
@@ -252,18 +283,5 @@ private:
 	void CreateWallSlideCroudEffect(float _DeltaTime);
 	float CroudTimeCount = 0.0f;
 
-// Sub FSM
-private:
-	void SubStateInit();
-	UStateManager SubState;
-	EIntroOrder IntroOrder = EIntroOrder::Run;
-	EOutroType OutroType = EOutroType::Run;
-
-	void AttackDelayTimeUpdate(float _DeltaTime);
-	void AbilityCheck();
-	void AbilityUpdate(float _DeltaTime);
-
-	void SetOutroType();
-	void OutroUpdate(float _DeltaTime);
 };
 

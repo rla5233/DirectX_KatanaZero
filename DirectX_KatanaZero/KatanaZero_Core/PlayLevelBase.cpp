@@ -173,7 +173,7 @@ void APlayLevelBase::DebugMessageFunction()
 	}
 
 	{
-		std::string Msg = std::format("Player_State : {}\n", Player->GetCurState());
+		std::string Msg = std::format("Player_State : {}\n", Player->GetCurMainState());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 

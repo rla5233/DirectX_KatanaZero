@@ -48,36 +48,11 @@ void APlayerBase::SubStateInit()
 void APlayerBase::IntroStart()
 {
 	SetMaxRunVel();
-	Body->ChangeAnimation(Anim::player_run);
 	IntroOrder = EIntroOrder::Run;
-	DelayCallBack(0.5f, [=]
-		{
-			Velocity = FVector::Zero;
-			Body->ChangeAnimation(Anim::player_run_to_idle);
-			IntroOrder = EIntroOrder::RunToIdle;
-		}
-	);
 }
 
 void APlayerBase::Intro(float _DeltaTime)
 {
-	switch (IntroOrder)
-	{
-	case EIntroOrder::Run:
-		PosUpdate(_DeltaTime);
-		break;
-	case EIntroOrder::RunToIdle:
-		if (true == Body->IsCurAnimationEnd())
-		{
-			Body->ChangeAnimation(Anim::player_idle);
-			State.ChangeState(PlayerState::idle);
-			SubState.ChangeState(PlayerSubState::play);
-			return;
-		}
-		break;
-	case EIntroOrder::MusicOn:
-		break;
-	}
 }
 
 void APlayerBase::PlayStart()
@@ -86,6 +61,7 @@ void APlayerBase::PlayStart()
 
 void APlayerBase::Play(float _DeltaTime)
 {
+	Recording(_DeltaTime);
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	FloorNum = PlayLevel->FloorCheck(GetActorLocation().Y);
 
@@ -97,7 +73,6 @@ void APlayerBase::Play(float _DeltaTime)
 
 	AttackDelayTimeUpdate(_DeltaTime);
 	SetCroudEffectUpdate(_DeltaTime);
-	Recording(_DeltaTime);
 	DoorColCheck();
 
 	AbilityCheck();
@@ -118,7 +93,7 @@ void APlayerBase::RePlay(float _DeltaTime)
 
 void APlayerBase::OutroStart()
 {
-	SetOutroType();
+	OutroTypeInit();
 	State.ChangeState(PlayerState::none);
 }
 
@@ -183,7 +158,6 @@ void APlayerBase::AbilityCheck()
 	}
 }
 
-
 void APlayerBase::AbilityUpdate(float _DeltaTime)
 {
 	if (false == IsPlayValue)
@@ -222,104 +196,11 @@ void APlayerBase::AbilityUpdate(float _DeltaTime)
 	}
 }
 
-void APlayerBase::SetOutroType()
+void APlayerBase::OutroTypeInit()
 {
-	std::string CurMainState = State.GetCurStateName();
-
-	if (PlayerState::run == CurMainState)
-	{
-		OutroType = EOutroType::Run;
-		SetMaxRunVel();
-		return;
-	}
-
-	if (PlayerState::idle_to_run == CurMainState)
-	{
-		OutroType = EOutroType::IdleToRun;
-		return;
-	}
-
-	if (PlayerState::run_to_idle == CurMainState)
-	{
-		OutroType = EOutroType::RunToIdle;
-		SetMaxRunVel();
-		Body->ChangeAnimation(Anim::player_run);
-		return;
-	}
-
-	if (PlayerState::jump == CurMainState)
-	{
-		OutroType = EOutroType::Jump;
-		return;
-	}
-
-	if (PlayerState::fall == CurMainState)
-	{
-		OutroType = EOutroType::Fall;
-		return;
-	}
-
-	if (PlayerState::roll == CurMainState)
-	{
-		OutroType = EOutroType::Roll;
-		return;
-	}
-
-	if (PlayerState::attack == CurMainState)
-	{
-		OutroType = EOutroType::Attack;
-		return;
-	}
 }
 
 void APlayerBase::OutroUpdate(float _DeltaTime)
 {
-	PosUpdate(_DeltaTime);
-	
-	switch (OutroType)
-	{
-	case EOutroType::IdleToRun:
-		if (true == Body->IsCurAnimationEnd())
-		{
-			SetMaxRunVel();
-			Body->ChangeAnimation(Anim::player_run);
-		}
-		break;
-	case EOutroType::Jump:
-		if (true == IsColHeadToCeil(Body->GetDir()))
-		{
-			AddActorLocation({ 0.0f, -2.0f, 0.0f });
-			Velocity.Y = 0.0f;
-		}
-		
-		JumpGravityUpdate(_DeltaTime);
-
-		if (0.0f > Velocity.Y)
-		{
-			Body->ChangeAnimation(Anim::player_fall);
-			OutroType = EOutroType::Fall;
-		}
-		break;
-
-	case EOutroType::Fall:
-		FallGravityUpdate(_DeltaTime);
-		break;
-
-	case EOutroType::Roll:
-		if (true == Body->IsCurAnimationEnd())
-		{
-			SetMaxRunVel();
-			Body->ChangeAnimation(Anim::player_run);
-		}
-		break;
-
-	case EOutroType::Attack:
-		if (true == Body->IsCurAnimationEnd())
-		{
-			Body->ChangeAnimation(Anim::player_fall);
-			OutroType = EOutroType::Fall;
-		}
-		FallGravityUpdate(_DeltaTime);
-		break;
-	}
+	PosUpdate(_DeltaTime);	
 }

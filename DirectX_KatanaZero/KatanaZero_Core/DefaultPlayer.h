@@ -27,6 +27,7 @@ private:
 
 // FSM
 protected:
+	// Main State
 	void IdleStart() override;
 	void IdleToRunStart() override;
 	void RunStart() override;
@@ -41,5 +42,15 @@ protected:
 	void FlipStart() override;
 	void KickDoorStart() override;
 	void DeadStart() override;	
+
+protected:
+	// Sub State
+	void IntroStart() override;
+	void Intro(float _DeltaTime) override;
+
+protected:
+	void OutroTypeInit() override;
+	void OutroUpdate(float _DeltaTime) override;
+
 };
 
