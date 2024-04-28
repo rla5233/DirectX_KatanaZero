@@ -40,7 +40,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -20.0f, 111.0f, 0.0f });
 
-	AllEnemy.reserve(3);
+	AllEnemy.reserve(TotalEnemy);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, EnemyState::patrol_walk);
 	SpawnEnemy<AGrunt>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 	SpawnEnemy<AGangSter>("GangSter", { 540.0f, 400.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
@@ -71,7 +71,7 @@ void AFactory_002::LevelReStart()
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
 
-	AllEnemy.reserve(3);
+	AllEnemy.reserve(TotalEnemy);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, EnemyState::patrol_walk);
 	SpawnEnemy<AGrunt>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 	SpawnEnemy<AGangSter>("GangSter", { 540.0f, 400.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
@@ -87,15 +87,15 @@ void AFactory_002::ChangeStage()
 	GEngine->ChangeLevel("Factory_003");
 }
 
-void AFactory_002::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-}
-
 void AFactory_002::ClearStart()
 {
 	Super::ClearStart();
 
 	Go->SetRepeatPos({ 500.0f, 200.0f, 0.0f });
 	Go->StateChange("Repeat");
+}
+
+void AFactory_002::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
 }

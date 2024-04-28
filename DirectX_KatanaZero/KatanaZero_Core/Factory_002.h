@@ -30,7 +30,7 @@ protected:
 
 // FSM	
 protected:
-	void  ClearStart() override;
+	void ClearStart() override;
 
 };
 

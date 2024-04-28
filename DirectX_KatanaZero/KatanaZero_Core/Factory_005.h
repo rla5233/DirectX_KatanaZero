@@ -24,5 +24,14 @@ protected:
 	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
 
+	void LevelReStart() override;
+
+protected:
+	void ChangeStage() override;
+
+// FSM	
+protected:
+	void ClearStart() override;
+
 };
 
