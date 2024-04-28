@@ -27,6 +27,18 @@ private:
 
 // FSM
 protected:
+	void IdleStart() override;
+	void IdleToRunStart() override;
+	void RunStart() override;
+	void RunToIdleStart() override;
+	void PostCrouchStart() override;
+	void PreCrouchStart() override;
+	void RollStart() override;
+	void JumpStart() override;
+	void FallStart() override;
+	void AttackStart() override;
+	void WallSlideStart() override;
+	void FlipStart() override;
 	void DeadStart() override;	
 };
 

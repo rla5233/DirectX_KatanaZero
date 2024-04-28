@@ -121,45 +121,50 @@ private:
 
 // FSM
 protected:
+	// Main State
 	virtual void IdleStart();
-	virtual void Idle(float _DeltaTime);
+	void Idle(float _DeltaTime);
 
 	virtual void IdleToRunStart();
-	virtual void IdleToRun(float _DeltaTime);
+	void IdleToRun(float _DeltaTime);
 
 	virtual void RunStart();
-	virtual void Run(float _DeltaTime);
+	void Run(float _DeltaTime);
 
 	virtual void RunToIdleStart();
-	virtual void RunToIdle(float _DeltaTime);
+	void RunToIdle(float _DeltaTime);
 
 	virtual void PostCrouchStart();
-	virtual void PostCrouch(float _DeltaTime);
+	void PostCrouch(float _DeltaTime);
 
 	virtual void PreCrouchStart();
-	virtual void PreCrouch(float _DeltaTime);
+	void PreCrouch(float _DeltaTime);
 
 	virtual void RollStart();
-	virtual void Roll(float _DeltaTime);
+	void Roll(float _DeltaTime);
 
 	virtual void JumpStart();
-	virtual void Jump(float _DeltaTime);
+	void Jump(float _DeltaTime);
 
 	virtual void FallStart();
-	virtual void Fall(float _DeltaTime);
+	void Fall(float _DeltaTime);
 
 	virtual void AttackStart();
-	virtual void Attack(float _DeltaTime);
+	void Attack(float _DeltaTime);
 
 	virtual void WallSlideStart();
-	virtual void WallSlide(float _DeltaTime);
+	void WallSlide(float _DeltaTime);
 
 	virtual void FlipStart();
-	virtual void Flip(float _DeltaTime);
+	void Flip(float _DeltaTime);
 
 	virtual void DeadStart();
-	virtual void Dead(float _DeltaTime);
+	void Dead(float _DeltaTime);
 		
+protected:
+	// Sub State
+
+
 // FSM Input Check
 private:
 	bool IsRunInputDown();

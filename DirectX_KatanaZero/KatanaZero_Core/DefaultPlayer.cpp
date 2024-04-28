@@ -76,6 +76,92 @@ void ADefaultPlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
+// State
+void ADefaultPlayer::IdleStart()
+{
+	Super::IdleStart();
+
+	GetBody()->AnimationReset();
+	GetBody()->ChangeAnimation(Anim::player_idle);
+}
+
+void ADefaultPlayer::IdleToRunStart()
+{
+	Super::IdleToRunStart();
+
+	GetBody()->ChangeAnimation(Anim::player_idle_to_run);
+}
+
+void ADefaultPlayer::RunStart()
+{
+	Super::RunStart();
+
+	GetBody()->ChangeAnimation(Anim::player_run);
+}
+
+void ADefaultPlayer::RunToIdleStart()
+{
+	Super::RunToIdleStart();
+
+	GetBody()->ChangeAnimation(Anim::player_run_to_idle);
+}
+
+void ADefaultPlayer::PostCrouchStart()
+{
+	Super::PostCrouchStart();
+
+	GetBody()->ChangeAnimation(Anim::player_postcrouch);
+}
+
+void ADefaultPlayer::PreCrouchStart()
+{
+	Super::PreCrouchStart();
+
+	GetBody()->ChangeAnimation(Anim::player_precrouch);
+}
+
+void ADefaultPlayer::RollStart()
+{
+	Super::RollStart();
+
+	GetBody()->ChangeAnimation(Anim::player_roll);
+}
+
+void ADefaultPlayer::JumpStart()
+{
+	Super::JumpStart();
+
+	GetBody()->ChangeAnimation(Anim::player_jump);
+}
+
+void ADefaultPlayer::FallStart()
+{
+	Super::FallStart();
+
+	GetBody()->ChangeAnimation(Anim::player_fall);
+}
+
+void ADefaultPlayer::AttackStart()
+{
+	Super::AttackStart();
+
+	GetBody()->ChangeAnimation(Anim::player_attack);
+}
+
+void ADefaultPlayer::WallSlideStart()
+{
+	Super::WallSlideStart();
+
+	GetBody()->ChangeAnimation(ImgRes::player_wall_slide);
+}
+
+void ADefaultPlayer::FlipStart()
+{
+	Super::FlipStart();
+
+	GetBody()->ChangeAnimation(Anim::player_flip);
+}
+
 void ADefaultPlayer::DeadStart()
 {
 	Super::DeadStart();

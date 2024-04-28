@@ -9,9 +9,6 @@
 void APlayerBase::IdleStart()
 {
 	Velocity = FVector::Zero;
-	
-	Body->AnimationReset();
-	Body->ChangeAnimation(Anim::player_idle);
 }
 	
 void APlayerBase::Idle(float _DeltaTime)
@@ -75,8 +72,6 @@ void APlayerBase::Idle(float _DeltaTime)
 void APlayerBase::IdleToRunStart()
 {
 	Velocity = FVector::Zero;
-
-	Body->ChangeAnimation(Anim::player_idle_to_run);
 }
 
 void APlayerBase::IdleToRun(float _DeltaTime)
@@ -156,8 +151,6 @@ void APlayerBase::IdleToRun(float _DeltaTime)
 void APlayerBase::RunStart()
 {
 	SetMaxRunVel();
-
-	Body->ChangeAnimation(Anim::player_run);
 	SetCroudEffect(5);
 }
 
@@ -216,8 +209,6 @@ void APlayerBase::Run(float _DeltaTime)
 void APlayerBase::RunToIdleStart()
 {
 	Velocity.Y = 0.0f;
-
-	Body->ChangeAnimation(Anim::player_run_to_idle);
 }
 
 void APlayerBase::RunToIdle(float _DeltaTime)
@@ -269,8 +260,6 @@ void APlayerBase::RunToIdle(float _DeltaTime)
 void APlayerBase::PostCrouchStart()
 {
 	Velocity = FVector::Zero;
-
-	Body->ChangeAnimation(Anim::player_postcrouch);
 }
 
 void APlayerBase::PostCrouch(float _DeltaTime)
@@ -305,7 +294,6 @@ void APlayerBase::PostCrouch(float _DeltaTime)
 // 웅크리기 해제
 void APlayerBase::PreCrouchStart()
 {
-	Body->ChangeAnimation(Anim::player_precrouch);
 }
 
 void APlayerBase::PreCrouch(float _DeltaTime)
@@ -328,7 +316,6 @@ void APlayerBase::PreCrouch(float _DeltaTime)
 void APlayerBase::RollStart()
 {
 	EEngineDir Dir = Body->GetDir();
-
 	switch (Dir)
 	{
 	case EEngineDir::Left:
@@ -339,9 +326,7 @@ void APlayerBase::RollStart()
 		break;
 	}	
 
-	Body->ChangeAnimation(Anim::player_roll);
 	CroudTimeCount = Const::effect_roll_cloud_delay;
-
 	IsInvincibleValue = true;
 }
 
@@ -402,8 +387,6 @@ void APlayerBase::Roll(float _DeltaTime)
 void APlayerBase::JumpStart()
 {
 	Velocity.Y = Const::player_jump_speedy;
-
-	Body->ChangeAnimation(Anim::player_jump);
 	SetJumpEffect();
 }
 
@@ -456,7 +439,6 @@ void APlayerBase::Jump(float _DeltaTime)
 
 void APlayerBase::FallStart()
 {
-	Body->ChangeAnimation(Anim::player_fall);
 }
 
 void APlayerBase::Fall(float _DeltaTime)
@@ -558,7 +540,6 @@ void APlayerBase::AttackStart()
 	// 이펙트 설정
 	float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
 	SetAttackEffect(Deg);
-	Body->ChangeAnimation(Anim::player_attack);
 
 	// 콜리전 설정
 	AttackCol->SetPosition(AttackDir * 50.0f);
@@ -624,7 +605,6 @@ void APlayerBase::WallSlideStart()
 		break;
 	}
 
-	Body->ChangeAnimation(ImgRes::player_wall_slide);
 	CroudTimeCount = Const::effect_wallslide_cloud_delay;
 }
 
@@ -709,8 +689,6 @@ void APlayerBase::FlipStart()
 	}
 
 	Velocity.Y = 600.0f;
-
-	Body->ChangeAnimation(Anim::player_flip);
 }
 
 void APlayerBase::Flip(float _DeltaTime)
