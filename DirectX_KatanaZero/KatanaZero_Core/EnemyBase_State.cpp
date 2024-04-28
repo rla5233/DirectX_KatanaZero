@@ -91,6 +91,13 @@ void AEnemyBase::IdleStart()
 void AEnemyBase::Idle(float _DeltaTime)
 {
 	Recording(_DeltaTime);
+	
+	// State Change Check
+	if (true == PlayerChaseCheck())
+	{
+		State.ChangeState(EnemyState::chase_run);
+		return;
+	}
 }
 
 void AEnemyBase::HitFallStart()
