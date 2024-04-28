@@ -550,13 +550,13 @@ int APlayLevelBase::FloorCheck(float _PosY)
 
 	if (FloorY[0] > _PosY)
 	{
-		Result = 1;
+		Result = 0;
 		return Result;
 	}
 
 	if (FloorY[FloorSize - 1] <= _PosY)
 	{
-		Result = FloorSize + 1;
+		Result = FloorSize;
 		return Result;
 	}
 
@@ -564,7 +564,7 @@ int APlayLevelBase::FloorCheck(float _PosY)
 	{
 		if (FloorY[i - 1] <= _PosY && FloorY[i] > _PosY)
 		{
-			Result = i + 1;
+			Result = i;
 		}
 	}
 

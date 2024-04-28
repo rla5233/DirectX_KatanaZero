@@ -13,6 +13,13 @@ class AReplayUI;
 class AUp_HUD;
 class AGo;
 
+class UStairInfo
+{
+public:
+	UCollision* BodyCol = nullptr;
+	EStairType Type = EStairType::None;
+};
+
 // 설명 : PlayLevel 기본 클래스
 class APlayLevelBase : public AGameMode, public USpawnManager
 {
@@ -106,10 +113,12 @@ protected:
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
 	std::shared_ptr<AReplayUI> ReplayUI = nullptr;
 
+	// Stage Info.
 	float TotalPlayTime = 0.0f;
 	int TotalEnemy = 0;
 
 	std::vector<float> FloorY;
+	std::vector<std::vector<UStairInfo>> StairInfo;
 
 // FSM
 protected:

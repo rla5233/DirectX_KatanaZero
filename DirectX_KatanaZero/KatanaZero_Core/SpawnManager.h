@@ -2,6 +2,7 @@
 
 class AEnemyBase;
 class ARecMapCompoBase;
+class UStairInfo;
 
 // 설명 : 적 스폰 매니저
 class USpawnManager

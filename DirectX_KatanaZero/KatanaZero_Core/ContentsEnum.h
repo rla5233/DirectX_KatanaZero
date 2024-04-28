@@ -98,3 +98,10 @@ enum class EOutroType
 	Roll,
 	Attack
 };
+
+enum class EStairType
+{
+	None,
+	Up,
+	Down
+};

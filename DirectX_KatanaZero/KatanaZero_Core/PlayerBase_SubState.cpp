@@ -65,12 +65,6 @@ void APlayerBase::Play(float _DeltaTime)
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	FloorNum = PlayLevel->FloorCheck(GetActorLocation().Y);
 
-	// ¼öÁ¤ Debug
-	{
-		std::string Msg = std::format("PlayerFloor : {}\n", FloorNum);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
 	AttackDelayTimeUpdate(_DeltaTime);
 	SetCroudEffectUpdate(_DeltaTime);
 	DoorColCheck();
