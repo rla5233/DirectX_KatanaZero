@@ -69,6 +69,7 @@ protected:
 
 private:
 	void DirChange();
+	void FloorNumUpdate();
 
 private:
 	// Renderer
@@ -88,8 +89,8 @@ private:
 	float PatrolStopTime = 0.0f;
 
 	// Chase
+	int FloorNum = -1;
 	std::shared_ptr<AUpMark> ChaseMark = nullptr;
-
 
 	// 수정 (삭제 필요)
 	USpriteRenderer* RendererFT = nullptr;
@@ -105,7 +106,7 @@ private:
 	void StateInit();
 
 protected:
-	virtual void IdleStart() {};
+	virtual void IdleStart();
 	void Idle(float _DeltaTime);
 	
 	virtual void HitFallStart();

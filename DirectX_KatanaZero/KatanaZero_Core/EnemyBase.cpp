@@ -172,6 +172,12 @@ void AEnemyBase::DirChange()
 	}
 }
 
+void AEnemyBase::FloorNumUpdate()
+{
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	FloorNum = PlayLevel->FloorCheck(GetActorLocation().Y);
+}
+
 bool AEnemyBase::PlayerChaseCheck()
 {
 	bool Result = false;
@@ -195,6 +201,13 @@ bool AEnemyBase::PlayerChaseCheck()
 			Result = true;
 		}
 		break;
+	}
+
+	// Floor üũ
+	int PlayerFloorNum = PlayLevel->GetPlayerFloorNum();
+	if (PlayerFloorNum != FloorNum)
+	{
+		Result = false;
 	}
 
 	return Result;

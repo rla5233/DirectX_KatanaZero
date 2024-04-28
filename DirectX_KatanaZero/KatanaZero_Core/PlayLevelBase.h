@@ -59,6 +59,7 @@ public:
 	}
 
 	FVector GetPlayerLocation() const;
+	int GetPlayerFloorNum() const;
 
 	void SetReplayStop();
 	void SetReplay();

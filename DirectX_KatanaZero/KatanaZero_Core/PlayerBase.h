@@ -80,6 +80,11 @@ public:
 		OutroType = _OutroType;
 	}
 
+	inline int GetFloorNum() const
+	{
+		return FloorNum;
+	}
+
 	void HitByEnemy(EEnemyType _EnemyType = EEnemyType::Default);
 
 	// 수정 (삭제 필요)

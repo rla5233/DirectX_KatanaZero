@@ -575,3 +575,8 @@ FVector APlayLevelBase::GetPlayerLocation() const
 {
 	return Player->GetActorLocation();
 }
+
+int APlayLevelBase::GetPlayerFloorNum() const
+{
+	return Player->GetFloorNum();
+}

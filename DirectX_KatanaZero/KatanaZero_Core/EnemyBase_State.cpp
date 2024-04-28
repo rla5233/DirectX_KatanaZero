@@ -83,6 +83,11 @@ void AEnemyBase::StateInit()
 	// State End 함수 세팅
 }
 
+void AEnemyBase::IdleStart()
+{
+	FloorNumUpdate();
+}
+
 void AEnemyBase::Idle(float _DeltaTime)
 {
 	Recording(_DeltaTime);
@@ -167,6 +172,7 @@ void AEnemyBase::Dead(float _DeltaTime)
 
 void AEnemyBase::PatrolWalkStart()
 {
+	FloorNumUpdate();
 	DelayCallBack(PatrolWalkTime, [=] 
 		{ 
 			std::string CurState = State.GetCurStateName();
@@ -194,6 +200,7 @@ void AEnemyBase::PatrolWalk(float _DeltaTime)
 
 void AEnemyBase::PatrolTurnStart()
 {
+	FloorNumUpdate();
 	SetVelocityByDir(FVector::Zero);
 }
 
@@ -212,6 +219,7 @@ void AEnemyBase::PatrolTurn(float _DeltaTime)
 
 void AEnemyBase::PatrolStopStart()
 {
+	FloorNumUpdate();
 	SetVelocityByDir(FVector::Zero);
 	DelayCallBack(PatrolStopTime, [=] 
 		{ 
@@ -248,6 +256,7 @@ void AEnemyBase::ChaseRunStart()
 
 void AEnemyBase::ChaseRun(float _DeltaTime)
 {
+	FloorNumUpdate();
 	Recording(_DeltaTime);
 	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
 	

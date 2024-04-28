@@ -41,14 +41,14 @@ public:
 		const FVector& _Pos, 
 		EEngineDir _Dir,
 		float _WalkTime, float _StopTime,
-		std::string_view _InitState,
+		std::string_view _PatrolState,
 		EUpdateOrder _Order = EUpdateOrder::Enemy)
 	{
 		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name, _Order);
 		NewEnemy->SetActorLocation(_Pos);
 		NewEnemy->SetBodyDir(_Dir);
 		NewEnemy->SetPatrolTime(_WalkTime, _StopTime);
-		NewEnemy->StateChange(_InitState);
+		NewEnemy->StateChange(_PatrolState);
 		PushEnemy(NewEnemy);
 		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
 	}
