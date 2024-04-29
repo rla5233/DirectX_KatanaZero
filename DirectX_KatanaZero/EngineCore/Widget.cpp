@@ -42,6 +42,8 @@ void UWidget::WidgetInit(std::shared_ptr<UWidget> _Widget, std::string_view _Nam
 {
 	_Widget->UWorldObject::SetWorld(GetWorld());
 	_Widget->SetName(_Name);
+	_Widget->BeginPlay();
+	GetWorld()->WidgetInits.push_back(_Widget);
 }
 
 void UWidget::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
@@ -99,7 +101,10 @@ void UWidget::Tick(float _DeltaTime)
 bool UWidget::Render(float _DeltaTime)
 {
 	Transform;
-	URenderUnit::Render(_DeltaTime);
+	if (nullptr != GetMesh())
+	{
+		URenderUnit::Render(_DeltaTime);
+	}
 
 	for (std::shared_ptr<UWidget> ChildWidget : ChildWidgets)
 	{

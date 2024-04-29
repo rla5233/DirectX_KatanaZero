@@ -26,6 +26,8 @@ class UWidget :
 public:
 	GENERATED_BODY(URenderUnit)
 
+	friend AActor;
+	friend UWidget;
 	friend ULevel;
 	// constrcuter destructer
 	UWidget();

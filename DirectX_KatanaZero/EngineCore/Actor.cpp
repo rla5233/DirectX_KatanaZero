@@ -354,5 +354,6 @@ void AActor::WidgetInit(std::shared_ptr<UWidget> _Widget, std::string_view _Name
 {
 	_Widget->SetWorld(GetWorld());
 	_Widget->SetName(_Name);
+	_Widget->BeginPlay();
 	GetWorld()->WidgetInits.push_back(_Widget);
 }

@@ -146,6 +146,8 @@ void ULevel::Render(float _DeltaTime)
 	UICamera->CameraTarget->Setting();
 	UICamera->CameraTransformUpdate();
 
+	WidgetInits.clear();
+
 	for (std::pair<const int, std::list<std::shared_ptr<UWidget>>>& WidgetGroup : Widgets)
 	{
 		std::list<std::shared_ptr<UWidget>>& GroupRenderers = WidgetGroup.second;

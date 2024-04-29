@@ -210,12 +210,12 @@ Color8Bit UEngineTexture::GetColor(unsigned int _X, unsigned int _Y, Color8Bit _
 	}
 
 
-	if (_X > GetScale().uiX())
+	if (_X >= GetScale().uiX())
 	{
 		return _DefaultColor;
 	}
 
-	if (_Y > GetScale().uiY())
+	if (_Y >= GetScale().uiY())
 	{
 		return _DefaultColor;
 	}

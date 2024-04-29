@@ -94,6 +94,18 @@
     <Filter Include="Object\Rendering\Contents">
       <UniqueIdentifier>{cc1f39f9-87fc-4591-9341-ed629ec82552}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirdParty\FW1FontWrapper">
+      <UniqueIdentifier>{4150b447-543b-4e45-b644-b39f669cad19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\FW1FontWrapper\inc">
+      <UniqueIdentifier>{5113b3e6-57fd-45b2-b802-9b7be31b179c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\FW1FontWrapper\Release">
+      <UniqueIdentifier>{2372f713-0cdb-464b-9860-e4c2148fdaf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Font">
+      <UniqueIdentifier>{a5de3f8f-5727-40ce-83a9-126fb44b6146}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -273,6 +285,15 @@
     <ClInclude Include="EngineStructuredBuffer.h">
       <Filter>Resources\ShaderResources</Filter>
     </ClInclude>
+    <ClInclude Include="ThirdParty\FW1FontWrapper\inc\FW1FontWrapper.h">
+      <Filter>ThirdParty\FW1FontWrapper\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="TextWidget.h">
+      <Filter>Object\UI\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineFont.h">
+      <Filter>Resources\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -446,6 +467,12 @@
     <ClCompile Include="EngineStructuredBuffer.cpp">
       <Filter>Resources\ShaderResources</Filter>
     </ClCompile>
+    <ClCompile Include="TextWidget.cpp">
+      <Filter>Object\UI\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineFont.cpp">
+      <Filter>Resources\Font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ThirdParty\DirectxTex\inc\DirectXTex.inl">
@@ -464,6 +491,15 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.pdb">
+      <Filter>ThirdParty\FW1FontWrapper\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.dll">
+      <Filter>ThirdParty\FW1FontWrapper\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.lib">
+      <Filter>ThirdParty\FW1FontWrapper\Release</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

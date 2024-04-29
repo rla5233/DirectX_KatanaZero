@@ -47,6 +47,11 @@ public:
 		return Projection;
 	}
 
+	inline FMatrix GetViewPort()
+	{
+		return ViewPortMat;
+	}
+	
 	void ViewPortSetting();
 	float4 ScreenPosToWorldPos(float4 _ScreenPos);
 

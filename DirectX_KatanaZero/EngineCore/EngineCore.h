@@ -131,6 +131,7 @@ private:
 
 	UEngineTime MainTimer;
 
+	std::string WindowIconPath;
 
 	UEngineGraphicDevice EngineDevice;
 
