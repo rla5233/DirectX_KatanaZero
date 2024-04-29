@@ -40,7 +40,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	UCollision* BodyCol = nullptr;
+	//UCollision* BodyCol = nullptr;
 	EStairType StairType = EStairType::None;
 	AStair* PartnerStair = nullptr;
 };

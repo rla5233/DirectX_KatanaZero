@@ -3,8 +3,9 @@
 
 AScientist::AScientist()
 {
-
-
+	BodyCol = CreateDefaultSubObject<UCollision>("Scientist_BodyCol");
+	
+	BodyCol->SetupAttachment(GetRoot());
 }
 
 AScientist::~AScientist()
@@ -58,6 +59,8 @@ void AScientist::RendererInit()
 
 void AScientist::CollisionInit()
 {
+	BodyCol->SetCollisionType(ECollisionType::Rect);
+	BodyCol->SetCollisionGroup(EColOrder::InteractionComponent);
 
 }
 

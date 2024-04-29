@@ -28,6 +28,7 @@ private:
 	void StateInit() override;
 
 private:
+	UCollision* BodyCol = nullptr;
 
 };
 
