@@ -36,6 +36,8 @@ enum class EEngineDir
 {
 	Left,
 	Right,
+	Up,
+	Down,
 	MAX,
 };
 

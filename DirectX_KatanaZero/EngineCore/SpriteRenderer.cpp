@@ -218,6 +218,22 @@ void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
 			}
 			break;
 		}
+		case EEngineDir::Up:
+		{
+			if (0 > Scale.Y)
+			{
+				Scale.Y = -Scale.Y;
+			}
+			break;
+		}
+		case EEngineDir::Down:
+		{
+			if (0 < Scale.Y)
+			{
+				Scale.Y = -Scale.Y;
+			}
+			break;
+		}
 		case EEngineDir::MAX:
 		default:
 			break;

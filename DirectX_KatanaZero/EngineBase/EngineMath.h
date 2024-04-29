@@ -156,7 +156,6 @@ public:
 		return Result;
 	}
 
-
 	static float4 VectorRotationZToDeg(float4 _OriginVector, float _Angle)
 	{
 		return VectorRotationZToRad(_OriginVector, _Angle * UEngineMath::DToR);
@@ -253,6 +252,30 @@ public:
 	float4 QuaternionToDeg() const
 	{
 		return QuaternionToRad() * UEngineMath::RToD;
+	}
+
+	float RightVectorToAngle2DDeg() const
+	{
+		return RightVectorToAngle2DRad() * UEngineMath::RToD;
+	}
+
+	float RightVectorToAngle2DRad() const
+	{
+		// 노말라이즈 되어있다.
+		float4 ThisVector = *this;
+
+		float4 NormalVector = ThisVector.Normalize2DReturn();
+
+		float RadAngle = DotProduct3D(ThisVector.Normalize2DReturn(), float4::Right);
+
+		float Angle = acosf(RadAngle);
+
+		if (0.0f >= NormalVector.Y)
+		{
+			Angle = UEngineMath::PI2 - Angle;
+		}
+
+		return Angle;
 	}
 
 	// 그냥 언리얼에 있는 변환함수 배낌.

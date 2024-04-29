@@ -199,6 +199,17 @@ void UEngineTexture::Reset(EShaderType _Type, UINT _Slot)
 
 Color8Bit UEngineTexture::GetColor(unsigned int _X, unsigned int _Y, Color8Bit _DefaultColor)
 {
+	if (_X < 0)
+	{
+		return _DefaultColor;
+	}
+
+	if (_Y < 0)
+	{
+		return _DefaultColor;
+	}
+
+
 	if (_X > GetScale().uiX())
 	{
 		return _DefaultColor;
