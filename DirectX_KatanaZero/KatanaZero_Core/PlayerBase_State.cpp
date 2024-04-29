@@ -621,7 +621,7 @@ void APlayerBase::Attack(float _DeltaTime)
 		Velocity.Y = 0.0f;
 		AddActorLocation({ 0.0f, -10.0f, 0.0f });
 	}
-	else if (true == IsColHeadToWall(Body->GetDir()))
+	else if (true == IsColHeadToWall(Body->GetDir()) || true == IsColBotToWall(Body->GetDir()))
 	{
 		Velocity.X = 0.0f;
 	}

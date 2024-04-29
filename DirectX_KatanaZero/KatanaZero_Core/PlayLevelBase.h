@@ -12,6 +12,7 @@ class AMouseAim;
 class AReplayUI;
 class AUp_HUD;
 class AStair;
+class ADoor;
 class AGo;
 
 
@@ -60,6 +61,8 @@ public:
 #endif // _DEBUG
 	}
 
+
+	bool IsCloseDoor(float _StartX, float _EndX, int _FloorNum);
 	AStair* FindStair(EStairType _StairType, int _FloorNum) const;
 	FVector GetPlayerLocation() const;
 	int GetPlayerFloorNum() const;
@@ -115,6 +118,7 @@ protected:
 
 	std::vector<float> FloorY;
 	std::vector<std::vector<std::shared_ptr<AStair>>> AllStair;
+	std::vector<std::vector<std::shared_ptr<ADoor>>> AllDoor;
 
 // FSM
 protected:

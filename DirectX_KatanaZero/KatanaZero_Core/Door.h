@@ -16,6 +16,11 @@ public:
 	ADoor& operator=(const ADoor& _Other) = delete;
 	ADoor& operator=(ADoor&& _Other) noexcept = delete;
 
+	std::string GetCurState() const
+	{
+		return State.GetCurStateName();
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

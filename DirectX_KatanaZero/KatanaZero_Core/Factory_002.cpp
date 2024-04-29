@@ -46,7 +46,9 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	SpawnEnemy<AGangSter>("GangSter", { 540.0f, 400.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
 
 	AllRecComponent.reserve(1);
-	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left, DoorState::idle);
+	AllDoor.resize(2);
+	std::shared_ptr<ADoor> NewDoor = SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left, DoorState::close);
+	AllDoor[1].push_back(NewDoor);
 
 	AllStair.resize(2);
 	AStair* UpStair = CreateStair({ 768.0f, 110.0f, 0.0f }, EStairType::Up, 0).get();
@@ -77,7 +79,9 @@ void AFactory_002::LevelReStart()
 	SpawnEnemy<AGangSter>("GangSter", { 540.0f, 400.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
 
 	AllRecComponent.reserve(1);
-	SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left, DoorState::idle);
+	AllDoor.resize(2);
+	std::shared_ptr<ADoor> NewDoor = SpawnRecComponent<ADoor>("Door", { 560.0f, 464.0f, 0.0f }, EEngineDir::Left, DoorState::close);
+	AllDoor[1].push_back(NewDoor);
 }
 
 void AFactory_002::ChangeStage()

@@ -213,6 +213,7 @@ void AEnemyBase::ColCheckUpdate()
 	{
 		RendererFB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		OnPlatFormPosAdjust(Dir);
 	}
 
 	// GP_Boundary
@@ -220,6 +221,7 @@ void AEnemyBase::ColCheckUpdate()
 	{
 		RendererFB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		OnGP_BoundaryPosAdjust(Dir);
 	}
 }
 
@@ -263,6 +265,11 @@ bool AEnemyBase::PlayerChaseCheck()
 	// Floor üũ
 	int PlayerFloorNum = PlayLevel->GetPlayerFloorNum();
 	if (PlayerFloorNum != FloorNum)
+	{
+		Result = false;
+	}
+
+	if (true == PlayLevel->IsCloseDoor(GetActorLocation().X, PlayerPos.X, FloorNum))
 	{
 		Result = false;
 	}
@@ -343,12 +350,4 @@ void AEnemyBase::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 	
 	DebugingUpdate();
-
-
-
-	// Test
-	if (UEngineInput::IsDown(VK_SPACE))
-	{
-		State.ChangeState(EnemyState::chase_run);
-	}
 }

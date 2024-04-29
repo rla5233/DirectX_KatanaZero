@@ -30,7 +30,7 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 
 	TotalPlayTime = 100.0f;
 	TotalEnemy = 3;
-	FloorY = { 414.0f, 702.0f };
+	FloorY = { 414.0f, 701.0f };
 
 	MainCamera->SetActorLocation({ 665.0f, 392.0f, -100.0f });
 

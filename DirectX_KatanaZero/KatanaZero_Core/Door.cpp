@@ -57,12 +57,12 @@ void ADoor::StateInit()
 	Super::StateInit();
 
 	// State Create
-	State.CreateState(DoorState::idle);
+	State.CreateState(DoorState::close);
 	State.CreateState(DoorState::open);
 	State.CreateState(DoorState::opened);
 
 	// State Start
-	State.SetStartFunction(DoorState::idle, [=]
+	State.SetStartFunction(DoorState::close, [=]
 		{ 
 			EEngineDir Dir = GetBody()->GetDir();
 			FVector BodyColPos = BodyCol->GetLocalPosition();
@@ -92,7 +92,7 @@ void ADoor::StateInit()
 	State.SetStartFunction(DoorState::opened, [=] {});
 
 	// State Update
-	State.SetUpdateFunction(DoorState::idle, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(DoorState::close, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(DoorState::open, [=](float _DeltaTime)
 		{
 			HitCol->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)

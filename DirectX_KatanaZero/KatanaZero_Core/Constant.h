@@ -338,7 +338,7 @@ namespace RecCompoState
 
 namespace DoorState
 {
-	const std::string_view idle				= "Idle";
+	const std::string_view close			= "Close";
 	const std::string_view open				= "Open";
 	const std::string_view opened			= "Opened";
 }

@@ -13,6 +13,7 @@
 #include "OutroMsg.h"
 #include "Up_HUD.h"
 #include "Stair.h"
+#include "Door.h"
 #include "Go.h"
 
 #include "GrayScaleEffect.h"
@@ -84,6 +85,17 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	}
 
 
+	for (size_t i = 0; i < AllDoor.size(); i++)
+	{
+		for (size_t j = 0; j < AllDoor[i].size(); j++)
+		{
+			AllDoor[i][j]->Destroy();
+			AllDoor[i][j] = nullptr;
+		}
+
+		AllDoor[i].clear();
+	}
+
 	for (size_t i = 0; i < AllStair.size(); i++)
 	{
 		for (size_t j = 0; j < AllStair[i].size(); j++)
@@ -103,6 +115,7 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	MainCamera	= nullptr;
 	ReplayUI	= nullptr;
 
+	AllDoor.clear();
 	AllStair.clear();
 	AllEnemy.clear();
 	AllRecComponent.clear();
@@ -579,6 +592,35 @@ int APlayLevelBase::FloorCheck(float _PosY)
 		if (FloorY[i - 1] <= _PosY && FloorY[i] > _PosY)
 		{
 			Result = i;
+		}
+	}
+
+	return Result;
+}
+
+bool APlayLevelBase::IsCloseDoor(float _StartX, float _EndX, int _FloorNum)
+{
+	bool Result = false;
+
+	if (true == AllDoor.empty() || true == AllDoor[_FloorNum].empty())
+	{
+		return false;
+	}
+
+	for (size_t i = 0; i < AllDoor[_FloorNum].size(); i++)
+	{
+		float DoorX = AllDoor[_FloorNum][i]->GetActorLocation().X;
+
+		if (DoorState::close == AllDoor[_FloorNum][i]->GetCurState())
+		{
+			if (_StartX < DoorX && _EndX > DoorX)
+			{
+				Result = true;
+			}
+			else if (_EndX < DoorX && _StartX > DoorX)
+			{
+				Result = true;
+			}
 		}
 	}
 
