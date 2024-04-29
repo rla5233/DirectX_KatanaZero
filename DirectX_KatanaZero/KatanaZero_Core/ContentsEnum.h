@@ -71,6 +71,7 @@ enum class EColOrder
 	EnemyDetect,
 	EnemyAttack,
 	Door,
+	Stair,
 	InteractionComponent
 };
 

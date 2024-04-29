@@ -92,6 +92,8 @@ namespace ImgRes
 	const std::string_view effect_enemy_follow		= "spr_enemy_follow";
 	const std::string_view effect_grunt_attack		= "grunt_attack_effect";
 
+	const std::string_view effect_collar_explode	= "spr_collar_explode";
+
 	// MapComponent
 	const std::string_view compo_door				= "spr_door";
 	const std::string_view compo_ceil_laser_on		= "spr_laser_on_0.png";
@@ -192,6 +194,8 @@ namespace Anim
 
 	const std::string_view effect_enemy_follow		= "spr_enemy_follow";
 	const std::string_view effect_grunt_attack		= "grunt_attack_effect";
+
+	const std::string_view effect_collar_explode	= "spr_collar_explode";
 
 	// MapComponent
 	const std::string_view compo_door_idle			= "door_idle";

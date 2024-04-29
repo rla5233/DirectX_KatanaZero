@@ -29,6 +29,7 @@ private:
 
 private:
 	UCollision* BodyCol = nullptr;
+	USpriteRenderer* ExplodeEffect = nullptr;
 
 };
 
