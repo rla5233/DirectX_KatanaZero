@@ -407,3 +407,9 @@ namespace FanState
 {
 	const std::string_view idle				= "Idle";
 }
+
+namespace ScientistState
+{
+	const std::string_view idle				= "Idle";
+	const std::string_view explode			= "Explode";
+}

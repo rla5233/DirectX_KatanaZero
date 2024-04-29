@@ -45,24 +45,24 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 	Player->DirChange(EEngineDir::Right);
 
 	AllRecComponent.reserve(10);
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1343.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1905.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1965.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2025.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2085.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2145.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f}, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1343.0f, 478.0f, 0.0f}, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1905.0f, 478.0f, 0.0f}, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1965.0f, 478.0f, 0.0f}, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2025.0f, 478.0f, 0.0f}, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2085.0f, 478.0f, 0.0f}, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2145.0f, 478.0f, 0.0f}, EEngineDir::Left, CeilLaserState::on);
 
 	std::shared_ptr<ACeilGun> NewCeilGun = nullptr;
-	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 840.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 840.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilGunState::on);
 	NewCeilGun->SetPointX(655.0f, 1280.0f);
 	NewCeilGun->SetVelocity({ -120.0f, 0.0f, 0.0f });
 
-	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 1270.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 1270.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilGunState::on);
 	NewCeilGun->SetPointX(655.0f, 1280.0f);
 	NewCeilGun->SetVelocity({ -120.0f, 0.0f, 0.0f });
 
-	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f}, EEngineDir::Right, "On");
+	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f}, EEngineDir::Right, PanicSwitchState::on);
 }
 
 void AFactory_003::LevelEnd(ULevel* _NextLevel)
@@ -83,24 +83,24 @@ void AFactory_003::LevelReStart()
 	Player->DirChange(EEngineDir::Right);
 
 	AllRecComponent.reserve(10);
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1343.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1905.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1965.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2025.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2085.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
-	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2145.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1343.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1905.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1965.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2025.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2085.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 2145.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
 
 	std::shared_ptr<ACeilGun> NewCeilGun = nullptr;
-	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 840.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 840.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilGunState::on);
 	NewCeilGun->SetPointX(655.0f, 1280.0f);
 	NewCeilGun->SetVelocity({ -120.0f, 0.0f, 0.0f });
 
-	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 1270.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
+	NewCeilGun = SpawnRecComponent<ACeilGun>("CeilGun", { 1270.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilGunState::on);
 	NewCeilGun->SetPointX(655.0f, 1280.0f);
 	NewCeilGun->SetVelocity({ -120.0f, 0.0f, 0.0f });
 
-	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f }, EEngineDir::Right, "On");
+	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f }, EEngineDir::Right, PanicSwitchState::on);
 }
 
 void AFactory_003::ChangeStage()

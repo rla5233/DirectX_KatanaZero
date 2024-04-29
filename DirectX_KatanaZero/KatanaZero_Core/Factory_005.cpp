@@ -9,6 +9,7 @@
 #include "GangSter.h"
 #include "CeilLaser.h"
 #include "PanicSwitch.h"
+#include "Scientist.h"
 #include "Stair.h"
 #include "Door.h"
 #include "Go.h"
@@ -40,8 +41,8 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 	ColMap->SetBGSprite(ImgRes::factory_background5, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
-	Player->SetActorLocation({ -5.0f, 127.0f, 0.0f });
-	//Player->SetActorLocation({ -5.0f, 701.0f, 0.0f });
+	//Player->SetActorLocation({ -5.0f, 127.0f, 0.0f });
+	Player->SetActorLocation({ -5.0f, 701.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
 
 	AllEnemy.reserve(TotalEnemy);
@@ -54,7 +55,7 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 
 
 
-	AllRecComponent.reserve(9);
+	AllRecComponent.reserve(10);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 657.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 687.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 754.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
@@ -63,7 +64,8 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1743.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1743.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
 
-	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1165.0f, 795.0f, 0.0f }, EEngineDir::Right, "On");
+	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1165.0f, 795.0f, 0.0f }, EEngineDir::Right, PanicSwitchState::on);
+	SpawnRecComponent<AScientist>("Scientist", { 1910.0f, 703.0f, 0.0f }, EEngineDir::Left, ScientistState::idle);
 
 	AllDoor.resize(3);
 	{
@@ -121,7 +123,7 @@ void AFactory_005::LevelReStart()
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 247.0f, 704.0f, 0.0f }, EEngineDir::Right, 4.5f, 5.0f, EnemyState::patrol_walk);
 
 
-	AllRecComponent.reserve(9);
+	AllRecComponent.reserve(10);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 657.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 687.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 754.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
