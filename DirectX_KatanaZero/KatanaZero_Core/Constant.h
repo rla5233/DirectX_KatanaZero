@@ -317,6 +317,7 @@ namespace EnemyState
 	const std::string_view patrol_turn		= "Patrol_Turn";
 	const std::string_view patrol_stop		= "Patrol_Stop";
 	const std::string_view chase_run		= "Chase_Run";
+	const std::string_view chase_stop		= "Chase_Stop";
 	const std::string_view chase_turn		= "Chase_Turn";
 	const std::string_view chase_stair_up	= "Chase_Stair_Up";
 	const std::string_view chase_stair_down	= "Chase_Stair_Down";

@@ -154,6 +154,13 @@ void AGrunt::ChaseRunStart()
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_run);
 }
 
+void AGrunt::ChaseStopStart()
+{
+	Super::ChaseRunStart();
+
+	GetBody()->ChangeAnimation(Anim::enemy_grunt_idle);
+}
+
 void AGrunt::ChaseTurnStart()
 {
 	Super::ChaseTurnStart();

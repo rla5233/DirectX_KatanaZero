@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "Up_HUD.h"
+#include "Grunt.h"
 #include "Fan.h"
 #include "Go.h"
 
@@ -31,7 +32,9 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 	Super::LevelStart(_PrevLevel);
 
 	TotalPlayTime = 60.0f;
-	TotalEnemy = 0;
+	TotalEnemy = 2;
+
+	FloorY = { 637.0f, 925.0f };
 
 	MainCamera->SetActorLocation({ 665.0f, 395.0f, -100.0f });
 
@@ -40,6 +43,9 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -50.0f, 222.0f, 0.0f });
+
+	AllEnemy.reserve(TotalEnemy);
+	//SpawnEnemy<AGrunt>("Grunt", { 480.0f, 638.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 
 	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, "Idle", EUpdateOrder::Fan);
 }
@@ -53,12 +59,15 @@ void AFactory_004::LevelReStart()
 {
 	Super::LevelReStart();
 	
-	TotalEnemy = 0;
+	TotalEnemy = 2;
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ 162.0f, 222.0f, 0.0f });
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
+
+	AllEnemy.reserve(TotalEnemy);
+	//SpawnEnemy<AGrunt>("Grunt", { 480.0f, 638.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 
 	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, "Idle", EUpdateOrder::Fan);
 }

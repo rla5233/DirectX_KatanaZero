@@ -15,6 +15,7 @@ void AEnemyBase::StateInit()
 	State.CreateState(EnemyState::patrol_turn);
 	State.CreateState(EnemyState::patrol_stop);
 	State.CreateState(EnemyState::chase_run);
+	State.CreateState(EnemyState::chase_stop);
 	State.CreateState(EnemyState::chase_turn);
 	State.CreateState(EnemyState::chase_stair_up);
 	State.CreateState(EnemyState::chase_stair_down);
@@ -32,6 +33,7 @@ void AEnemyBase::StateInit()
 	State.SetStartFunction(EnemyState::patrol_turn,			std::bind(&AEnemyBase::PatrolTurnStart, this));
 	State.SetStartFunction(EnemyState::patrol_stop,			std::bind(&AEnemyBase::PatrolStopStart, this));
 	State.SetStartFunction(EnemyState::chase_run,			std::bind(&AEnemyBase::ChaseRunStart, this));
+	State.SetStartFunction(EnemyState::chase_stop,			std::bind(&AEnemyBase::ChaseStopStart, this));
 	State.SetStartFunction(EnemyState::chase_turn,			std::bind(&AEnemyBase::ChaseTurnStart, this));
 	State.SetStartFunction(EnemyState::chase_stair_up,		std::bind(&AEnemyBase::ChaseStairUpStart, this));
 	State.SetStartFunction(EnemyState::chase_stair_down,	std::bind(&AEnemyBase::ChaseStairDownStart, this));
@@ -72,6 +74,7 @@ void AEnemyBase::StateInit()
 	State.SetUpdateFunction(EnemyState::patrol_turn,		std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::patrol_stop,		std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::chase_run,			std::bind(&AEnemyBase::ChaseRun, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase_stop,			std::bind(&AEnemyBase::ChaseStop, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::chase_turn,			std::bind(&AEnemyBase::ChaseTurn, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::chase_stair_up,		std::bind(&AEnemyBase::ChaseStairUp, this, std::placeholders::_1));
 	State.SetUpdateFunction(EnemyState::chase_stair_down,	std::bind(&AEnemyBase::ChaseStairDown, this, std::placeholders::_1));
@@ -303,7 +306,13 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 	// Player 와 다른 층에 있을 경우
 	if (false == ChaseSameFloorCheck())
 	{
-		TargetStair = FindStair().get();
+		TargetStair = FindStair();
+
+		if (nullptr == TargetStair)
+		{
+			State.ChangeState(EnemyState::chase_stop);
+			return;
+		}
 		
 		if (true == IsOnStairs(Body->GetDir()))
 		{
@@ -398,6 +407,24 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 				}
 			}
 		}		
+	}
+}
+
+void AEnemyBase::ChaseStopStart() 
+{
+}
+
+void AEnemyBase::ChaseStop(float _DeltaTime)
+{
+	Recording(_DeltaTime);
+	FloorNumUpdate();
+	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
+
+	// State Change Check
+	if (true == PlayerChaseCheck())
+	{
+		State.ChangeState(EnemyState::chase_run);
+		return;
 	}
 }
 

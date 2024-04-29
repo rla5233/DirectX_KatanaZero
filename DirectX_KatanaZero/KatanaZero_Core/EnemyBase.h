@@ -130,6 +130,9 @@ protected:
 	virtual void ChaseRunStart();
 	void ChaseRun(float _DeltaTime);
 
+	virtual void ChaseStopStart();
+	void ChaseStop(float _DeltaTime);
+
 	virtual void ChaseTurnStart();
 	void ChaseTurn(float _DeltaTime);
 
@@ -151,7 +154,7 @@ protected:
 
 	bool ChaseTurnCheck();
 	bool ChaseSameFloorCheck();
-	std::shared_ptr<AStair> FindStair();
+	AStair* FindStair();
 
 	virtual bool AttackRangeCheck();
 

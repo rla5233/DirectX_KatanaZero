@@ -46,6 +46,7 @@ protected:
 	void PatrolStopStart() override;
 
 	void ChaseRunStart() override;
+	void ChaseStopStart() override;
 	void ChaseTurnStart() override;
 
 	void ChaseStairUpStart() override;

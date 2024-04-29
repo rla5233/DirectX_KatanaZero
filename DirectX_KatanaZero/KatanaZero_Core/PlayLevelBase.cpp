@@ -585,16 +585,21 @@ int APlayLevelBase::FloorCheck(float _PosY)
 	return Result;
 }
 
-std::shared_ptr<AStair> APlayLevelBase::FindStair(EStairType _StairType, int _FloorNum) const
+AStair* APlayLevelBase::FindStair(EStairType _StairType, int _FloorNum) const
 {
-	std::shared_ptr<AStair> Result = nullptr;
-	for (size_t i = 0; i < AllStair[_FloorNum].size(); i++)
+	AStair* Result = nullptr;
+
+	if (false == AllStair.empty() && false == AllStair[_FloorNum].empty())
 	{
-		if (_StairType == AllStair[_FloorNum][i]->GetStairType())
+		for (size_t i = 0; i < AllStair[_FloorNum].size(); i++)
 		{
-			Result = AllStair[_FloorNum][i];
+			if (_StairType == AllStair[_FloorNum][i]->GetStairType())
+			{
+				Result = AllStair[_FloorNum][i].get();
+			}
 		}
 	}
+
 
 	return Result;
 }

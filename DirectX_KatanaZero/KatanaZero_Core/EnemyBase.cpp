@@ -313,11 +313,11 @@ bool AEnemyBase::ChaseSameFloorCheck()
 	return Result;
 }
 
-std::shared_ptr<AStair> AEnemyBase::FindStair()
+AStair* AEnemyBase::FindStair()
 {
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	int PlayerFloorNum = PlayLevel->GetPlayerFloorNum();
-	std::shared_ptr<AStair> Stair = nullptr;
+	AStair* Stair = nullptr;
 
 	if (PlayerFloorNum < FloorNum)
 	{
