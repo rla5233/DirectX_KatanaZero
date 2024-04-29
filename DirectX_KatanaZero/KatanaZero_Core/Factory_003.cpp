@@ -42,7 +42,9 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ 10.0f, 259.0f, 0.0f });
+	Player->DirChange(EEngineDir::Right);
 
+	AllRecComponent.reserve(10);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1343.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1905.0f, 478.0f, 0.0f}, EEngineDir::Left, "On");
@@ -78,7 +80,9 @@ void AFactory_003::LevelReStart()
 	Player->SetActorLocation({ 222.0f, 259.0f, 0.0f });
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
+	Player->DirChange(EEngineDir::Right);
 
+	AllRecComponent.reserve(10);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1343.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1905.0f, 478.0f, 0.0f }, EEngineDir::Left, "On");

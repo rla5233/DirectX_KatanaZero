@@ -44,11 +44,13 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -50.0f, 222.0f, 0.0f });
+	Player->DirChange(EEngineDir::Right);
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnEnemy<AGrunt>("Grunt", { 480.0f, 638.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 	SpawnEnemy<AGrunt>("Grunt", { 690.0f, 638.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
 
+	AllRecComponent.reserve(2);
 	ACeilLaser* NewCeilLaser = SpawnRecComponent<ACeilLaser>("CeilLaser", { 945.0f, 1145.0f, 0.0f }, EEngineDir::Left, "On").get();
 	NewCeilLaser->AddLaserPositionY(-288.0f);
 	NewCeilLaser->AddLaserScaleY(288.0f);
@@ -71,11 +73,13 @@ void AFactory_004::LevelReStart()
 	Player->SetActorLocation({ 162.0f, 222.0f, 0.0f });
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
+	Player->DirChange(EEngineDir::Right);
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnEnemy<AGrunt>("Grunt", { 480.0f, 638.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 	SpawnEnemy<AGrunt>("Grunt", { 690.0f, 638.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
 
+	AllRecComponent.reserve(2);
 	ACeilLaser* NewCeilLaser = SpawnRecComponent<ACeilLaser>("CeilLaser", { 945.0f, 1145.0f, 0.0f }, EEngineDir::Left, "On").get();
 	NewCeilLaser->AddLaserPositionY(-288.0f);
 	NewCeilLaser->AddLaserScaleY(288.0f);

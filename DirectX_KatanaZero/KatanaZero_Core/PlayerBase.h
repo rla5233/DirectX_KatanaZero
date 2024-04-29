@@ -85,6 +85,8 @@ public:
 		return FloorNum;
 	}
 
+	void DirChange(EEngineDir _Dir);
+
 	void HitByEnemy(EEnemyType _EnemyType = EEnemyType::Default);
 
 	// 수정 (삭제 필요)
@@ -106,7 +108,6 @@ private:
 	// 방향 관련
 	bool IsDirChangeKeyDown();
 	bool IsDirChangeKeyPress();
-	void DirChange(EEngineDir _Dir);
 
 private:
 	// Renderer

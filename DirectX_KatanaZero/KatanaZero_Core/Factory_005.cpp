@@ -7,6 +7,8 @@
 #include "Up_HUD.h"
 #include "Grunt.h"
 #include "GangSter.h"
+#include "CeilLaser.h"
+#include "PanicSwitch.h"
 #include "Stair.h"
 #include "Door.h"
 #include "Go.h"
@@ -29,7 +31,7 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 	Super::LevelStart(_PrevLevel);
 
 	TotalPlayTime = 100.0f;
-	TotalEnemy = 3;
+	TotalEnemy = 6;
 	FloorY = { 414.0f, 701.0f };
 
 	MainCamera->SetActorLocation({ 665.0f, 392.0f, -100.0f });
@@ -39,10 +41,45 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -5.0f, 127.0f, 0.0f });
+	//Player->SetActorLocation({ -5.0f, 701.0f, 0.0f });
+	Player->DirChange(EEngineDir::Right);
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 580.0f, 130.0f, 0.0f }, EEngineDir::Right, 3.5f, 5.0f, EnemyState::patrol_walk);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 950.0f, 130.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, EnemyState::patrol_stop);
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 1454.0f, 415.0f, 0.0f }, EEngineDir::Right, 1.8f, 5.0f, EnemyState::patrol_stop);
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 247.0f, 704.0f, 0.0f }, EEngineDir::Right, 4.5f, 5.0f, EnemyState::patrol_walk);
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 1111.0f, 704.0f, 0.0f }, EEngineDir::Right, 5.0f, 4.0f, EnemyState::patrol_walk);
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 1633.0f, 704.0f, 0.0f }, EEngineDir::Left, 5.0f, 5.0f, EnemyState::patrol_stop);
+
+
+
+	AllRecComponent.reserve(9);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 657.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 687.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 754.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 784.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1713.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1743.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1743.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+
+	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1165.0f, 795.0f, 0.0f }, EEngineDir::Right, "On");
+
+	AllDoor.resize(3);
+	{
+		std::shared_ptr<ADoor> NewDoor = SpawnRecComponent<ADoor>("Door", { 527.0f, 192.0f, 0.0f }, EEngineDir::Right, DoorState::close);
+		AllDoor[0].push_back(NewDoor);
+	}
+
+	{
+		std::shared_ptr<ADoor> NewDoor = SpawnRecComponent<ADoor>("Door", { 1422.0f, 480.0f, 0.0f }, EEngineDir::Right, DoorState::close);
+		AllDoor[1].push_back(NewDoor);
+	}
+
+	{
+		std::shared_ptr<ADoor> NewDoor = SpawnRecComponent<ADoor>("Door", { 1070.0f, 768.0f, 0.0f }, EEngineDir::Right, DoorState::close);
+		AllDoor[2].push_back(NewDoor);
+	}
 
 	AllStair.resize(4);
 	{
@@ -69,17 +106,47 @@ void AFactory_005::LevelReStart()
 {
 	Super::LevelReStart();
 
-	TotalEnemy = 3;
+	TotalEnemy = 6;
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ 207.0f, 127.0f, 0.0f });
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
+	Player->DirChange(EEngineDir::Right);
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 580.0f, 130.0f, 0.0f }, EEngineDir::Right, 3.5f, 5.0f, EnemyState::patrol_walk);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 950.0f, 130.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, EnemyState::patrol_stop);
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 1454.0f, 415.0f, 0.0f }, EEngineDir::Right, 1.8f, 5.0f, EnemyState::patrol_stop);
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 247.0f, 704.0f, 0.0f }, EEngineDir::Right, 4.5f, 5.0f, EnemyState::patrol_walk);
 
+
+	AllRecComponent.reserve(9);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 657.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 687.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 754.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 784.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1713.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1743.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1743.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
+
+	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1165.0f, 795.0f, 0.0f }, EEngineDir::Right, "On");
+	
+	AllDoor.resize(3);
+	{
+		std::shared_ptr<ADoor> NewDoor = SpawnRecComponent<ADoor>("Door", { 528.0f, 192.0f, 0.0f }, EEngineDir::Right, DoorState::close);
+		AllDoor[0].push_back(NewDoor);
+	}
+
+	{
+		std::shared_ptr<ADoor> NewDoor = SpawnRecComponent<ADoor>("Door", { 1422.0f, 480.0f, 0.0f }, EEngineDir::Right, DoorState::close);
+		AllDoor[1].push_back(NewDoor);
+	}
+
+	{
+		std::shared_ptr<ADoor> NewDoor = SpawnRecComponent<ADoor>("Door", { 1070.0f, 768.0f, 0.0f }, EEngineDir::Right, DoorState::close);
+		AllDoor[2].push_back(NewDoor);
+	}
 }
 
 void AFactory_005::ChangeStage()
