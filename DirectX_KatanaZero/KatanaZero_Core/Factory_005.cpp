@@ -121,6 +121,8 @@ void AFactory_005::LevelReStart()
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 950.0f, 130.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, EnemyState::patrol_stop);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1454.0f, 415.0f, 0.0f }, EEngineDir::Right, 1.8f, 5.0f, EnemyState::patrol_stop);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 247.0f, 704.0f, 0.0f }, EEngineDir::Right, 4.5f, 5.0f, EnemyState::patrol_walk);
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 1111.0f, 704.0f, 0.0f }, EEngineDir::Right, 5.0f, 4.0f, EnemyState::patrol_walk);
+	SpawnPatrolEnemy<AGrunt>("Grunt", { 1633.0f, 704.0f, 0.0f }, EEngineDir::Left, 5.0f, 5.0f, EnemyState::patrol_stop);
 
 
 	AllRecComponent.reserve(10);
@@ -132,7 +134,8 @@ void AFactory_005::LevelReStart()
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1743.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 1743.0f, 922.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
 
-	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1165.0f, 795.0f, 0.0f }, EEngineDir::Right, "On");
+	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1165.0f, 795.0f, 0.0f }, EEngineDir::Right, PanicSwitchState::on);
+	SpawnRecComponent<AScientist>("Scientist", { 1910.0f, 703.0f, 0.0f }, EEngineDir::Left, ScientistState::idle);
 	
 	AllDoor.resize(3);
 	{

@@ -51,11 +51,11 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 	SpawnEnemy<AGrunt>("Grunt", { 690.0f, 638.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
 
 	AllRecComponent.reserve(2);
-	ACeilLaser* NewCeilLaser = SpawnRecComponent<ACeilLaser>("CeilLaser", { 945.0f, 1145.0f, 0.0f }, EEngineDir::Left, "On").get();
+	ACeilLaser* NewCeilLaser = SpawnRecComponent<ACeilLaser>("CeilLaser", { 945.0f, 1145.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on).get();
 	NewCeilLaser->AddLaserPositionY(-288.0f);
 	NewCeilLaser->AddLaserScaleY(288.0f);
 
-	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, "Idle", EUpdateOrder::Fan);
+	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, FanState::idle, EUpdateOrder::Fan);
 }
 
 void AFactory_004::LevelEnd(ULevel* _NextLevel)
@@ -80,11 +80,11 @@ void AFactory_004::LevelReStart()
 	SpawnEnemy<AGrunt>("Grunt", { 690.0f, 638.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
 
 	AllRecComponent.reserve(2);
-	ACeilLaser* NewCeilLaser = SpawnRecComponent<ACeilLaser>("CeilLaser", { 945.0f, 1145.0f, 0.0f }, EEngineDir::Left, "On").get();
+	ACeilLaser* NewCeilLaser = SpawnRecComponent<ACeilLaser>("CeilLaser", { 945.0f, 1145.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on).get();
 	NewCeilLaser->AddLaserPositionY(-288.0f);
 	NewCeilLaser->AddLaserScaleY(288.0f);
 
-	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, "Idle", EUpdateOrder::Fan);
+	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, FanState::idle, EUpdateOrder::Fan);
 }
 
 void AFactory_004::ChangeStage()
