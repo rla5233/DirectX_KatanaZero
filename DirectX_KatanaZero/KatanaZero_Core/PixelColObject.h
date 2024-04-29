@@ -43,6 +43,7 @@ public:
 	bool IsOnPlatForm(EEngineDir _Dir);
 	bool IsOnGP_Boundary(EEngineDir _Dir);
 	bool IsOnStairs(EEngineDir _Dir);
+	bool IsOnCliff(EEngineDir _Dir);
 	bool IsColWall(EEngineDir _Dir);
 	bool IsColHeadToWall(EEngineDir _Dir);
 	bool IsColHeadToCeil(EEngineDir _Dir);
@@ -56,6 +57,8 @@ public:
 	// 위치 조정
 	void OnGroundPosAdjust(EEngineDir _Dir);
 	void UpStairPosAdjust(EEngineDir _Dir);
+	void OnCliffPosAdjust(EEngineDir _Dir);
+
 
 protected:
 	inline void SetActor(AActor* _Actor)

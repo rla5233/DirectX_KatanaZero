@@ -120,7 +120,7 @@ void APlayerBase::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (false == IsOnGround(Dir) && false == IsOnPlatForm(Dir)
+	if (false == IsOnGround(Dir) && false == IsOnPlatForm(Dir) && false == IsOnCliff(Dir)
 	&&  false == IsOnStairs(Dir) && false == IsOnGP_Boundary(Dir))
 	{
 		State.ChangeState(PlayerState::fall);
@@ -552,14 +552,14 @@ void APlayerBase::Fall(float _DeltaTime)
 		return;
 	}
 
-	if ((true == IsOnGround(Body->GetDir()) || true == IsOnStairs(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
+	if ((true == IsOnGround(Body->GetDir()) || true == IsOnStairs(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()) || true == IsOnCliff(Body->GetDir()))
 	&&  (true == IsRunToRollInputPress() && true == IsCrouchToRollInputPress()))
 	{
 		State.ChangeState(PlayerState::roll);
 		return;
 	}
 
-	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir())
+	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir()) || true == IsOnCliff(Body->GetDir())
  	||  true == IsOnStairs(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
 	{
 		SetLandEffect();

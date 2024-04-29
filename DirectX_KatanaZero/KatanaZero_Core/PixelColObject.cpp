@@ -122,6 +122,27 @@ bool UPixelColObject::IsOnStairs(EEngineDir _Dir)
 	return Result;
 }
 
+bool UPixelColObject::IsOnCliff(EEngineDir _Dir)
+{
+	bool Result = false;
+
+	CalFourPoint(_Dir);
+
+	FVector MapTexScale = MapTex->GetScale();
+	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
+	BackBot.Y = MapTexScale.Y - BackBot.Y - 1.0f;
+
+	Color8Bit FB_PixelColor = MapTex->GetColor(FrontBot, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BackBot, Color8Bit::Black);
+
+	if (ColMap::MAGENTA == FB_PixelColor || ColMap::MAGENTA == BB_PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 bool UPixelColObject::IsColWall(EEngineDir _Dir)
 {
 	bool Result = false;
@@ -154,7 +175,7 @@ bool UPixelColObject::IsColHeadToWall(EEngineDir _Dir)
 
 	Color8Bit FT_PixelColor = MapTex->GetColor(FrontTop, Color8Bit::Black);
 
-	if (ColMap::YELLOW == FT_PixelColor || ColMap::BLUE == FT_PixelColor)
+	if (ColMap::YELLOW == FT_PixelColor || ColMap::BLUE == FT_PixelColor || ColMap::MAGENTA == FT_PixelColor)
 	{
 		Result = true;
 	}
@@ -203,6 +224,26 @@ bool UPixelColObject::IsColHeadToCeil(EEngineDir _Dir)
 		Result = true;
 	}
 
+	if (ColMap::MAGENTA == FT_PixelColor1 && ColMap::MAGENTA == FT_PixelColor2)
+	{
+		Result = true;
+	}
+
+	if (ColMap::MAGENTA == BT_PixelColor1 && ColMap::MAGENTA == BT_PixelColor2)
+	{
+		Result = true;
+	}
+
+	if (ColMap::BLUE == FT_PixelColor1 && ColMap::BLUE == FT_PixelColor2)
+	{
+		Result = true;
+	}
+
+	if (ColMap::BLUE == BT_PixelColor1 && ColMap::BLUE == BT_PixelColor2)
+	{
+		Result = true;
+	}
+
 	return Result;
 }
 
@@ -246,6 +287,20 @@ void UPixelColObject::UpStairPosAdjust(EEngineDir _Dir)
 		Actor->AddActorLocation({ 0.0f, 1.0f, 0.0f });
 
 		if (false == IsOnStairs(_Dir))
+		{
+			Actor->AddActorLocation({ 0.0f, -1.0f, 0.0f });
+			break;
+		}
+	}
+}
+
+void UPixelColObject::OnCliffPosAdjust(EEngineDir _Dir)
+{
+	while (true == IsOnCliff(_Dir))
+	{
+		Actor->AddActorLocation({ 0.0f, 1.0f, 0.0f });
+
+		if (false == IsOnCliff(_Dir))
 		{
 			Actor->AddActorLocation({ 0.0f, -1.0f, 0.0f });
 			break;

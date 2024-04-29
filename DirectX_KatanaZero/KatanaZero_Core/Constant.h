@@ -6,6 +6,7 @@ namespace ColMap
 	const Color8Bit GREEN	= Color8Bit(0, 255, 0, 255);	//	Platform
 	const Color8Bit BLUE	= Color8Bit(0, 0, 255, 255);	//	Stair
 	const Color8Bit RED		= Color8Bit(255, 0, 0, 255);	//	EndPoint
+	const Color8Bit MAGENTA	= Color8Bit(255, 0, 255, 255);	//	Cliff
 }
 
 namespace ImgRes

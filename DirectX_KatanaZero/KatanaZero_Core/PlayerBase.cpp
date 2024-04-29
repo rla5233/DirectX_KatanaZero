@@ -246,7 +246,7 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
 {
 	EEngineDir Dir = Body->GetDir();
-	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir) || true == IsOnStairs(Dir) || true == IsOnGP_Boundary(Dir))
+	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir) || true == IsOnStairs(Dir) || true == IsOnGP_Boundary(Dir) || true == IsOnCliff(Dir))
 	{
 		Velocity.Y = 0.0f;
 		return;
@@ -429,6 +429,12 @@ void APlayerBase::ColCheckUpdate()
 			Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 			Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		}
+	}
+	
+	// OnCliff
+	if (true == IsOnCliff(Dir))
+	{
+		OnCliffPosAdjust(Dir);
 	}
 
 	// Platform
