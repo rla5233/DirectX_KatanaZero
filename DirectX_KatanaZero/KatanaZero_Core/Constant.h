@@ -106,6 +106,9 @@ namespace ImgRes
 	const std::string_view compo_fan_front			= "spr_fan_fg.png";
 	const std::string_view compo_fan_blade			= "spr_fanblade";
 
+	const std::string_view compo_scientist_chair	= "spr_scientist_chair";
+	const std::string_view compo_scientist_explode	= "spr_scientist_explode";
+
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
 	const std::string_view title_black				= "spr_title_black.png";
@@ -197,6 +200,9 @@ namespace Anim
 	const std::string_view compo_ceil_laser_attack	= "spr_laser_col_attack";
 	const std::string_view compo_ceilgun_col_idle	= "spr_ceilgun_col_idle";
 	const std::string_view compo_fan_blade			= "spr_fanblade";
+
+	const std::string_view compo_scientist_chair	= "spr_scientist_chair";
+	const std::string_view compo_scientist_explode	= "spr_scientist_explode";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";

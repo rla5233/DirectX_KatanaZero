@@ -228,6 +228,9 @@
     <ClInclude Include="Stair.h">
       <Filter>Level\000.Object\Map\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Scientist.h">
+      <Filter>Level\000.Object\Map\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -375,6 +378,9 @@
       <Filter>Level\000.Object\Enemy\Component</Filter>
     </ClCompile>
     <ClCompile Include="Stair.cpp">
+      <Filter>Level\000.Object\Map\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Scientist.cpp">
       <Filter>Level\000.Object\Map\Component</Filter>
     </ClCompile>
   </ItemGroup>
