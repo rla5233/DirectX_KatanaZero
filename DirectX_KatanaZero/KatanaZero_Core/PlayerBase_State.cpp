@@ -121,7 +121,7 @@ void APlayerBase::Idle(float _DeltaTime)
 	}
 
 	if (false == IsOnGround(Dir) && false == IsOnPlatForm(Dir) && false == IsOnCliff(Dir)
-	&&  false == IsOnStairs(Dir) && false == IsOnGP_Boundary(Dir))
+	&&  false == IsOnStairs(Dir) && false == IsOnGP_Boundary(Dir) && false == IsOnGroundBoundary(Dir))
 	{
 		State.ChangeState(PlayerState::fall);
 		return;

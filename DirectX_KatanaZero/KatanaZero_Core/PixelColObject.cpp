@@ -46,6 +46,27 @@ bool UPixelColObject::IsOnGround(EEngineDir _Dir)
 	return Result;
 }
 
+bool UPixelColObject::IsOnGroundBoundary(EEngineDir _Dir)
+{
+	bool Result = false;
+
+	CalFourPoint(_Dir);
+
+	FVector MapTexScale = MapTex->GetScale();
+	FrontBot.Y = MapTexScale.Y - FrontBot.Y - 1.0f;
+	BackBot.Y = MapTexScale.Y - BackBot.Y - 1.0f;
+
+	Color8Bit FB_PixelColor = MapTex->GetColor(FrontBot, Color8Bit::Black);
+	Color8Bit BB_PixelColor = MapTex->GetColor(BackBot, Color8Bit::Black);
+
+	if (ColMap::YELLOW == FB_PixelColor || ColMap::YELLOW == BB_PixelColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 bool UPixelColObject::IsOnPlatForm(EEngineDir _Dir)
 {
 	bool Result = false;
@@ -199,12 +220,12 @@ bool UPixelColObject::IsColHeadToCeil(EEngineDir _Dir)
 	switch (_Dir)
 	{
 	case EEngineDir::Left:
-		FT_Pos2.X += 1.0f;
-		BT_Pos2.X -= 1.0f;
+		FT_Pos2.X += 3.0f;
+		BT_Pos2.X -= 3.0f;
 		break;
 	case EEngineDir::Right:
-		FT_Pos2.X -= 1.0f;
-		BT_Pos2.X += 1.0f;
+		FT_Pos2.X -= 3.0f;
+		BT_Pos2.X += 3.0f;
 		break;
 	}
 
@@ -258,7 +279,7 @@ bool UPixelColObject::IsColBotToWall(EEngineDir _Dir)
 
 	Color8Bit FB_PixelColor = MapTex->GetColor(FrontBot, Color8Bit::Black);
 
-	if (ColMap::YELLOW == FB_PixelColor || ColMap::BLUE == FB_PixelColor)
+	if (ColMap::YELLOW == FB_PixelColor || ColMap::BLUE == FB_PixelColor || ColMap::MAGENTA == FB_PixelColor)
 	{
 		Result = true;
 	}
@@ -301,6 +322,34 @@ void UPixelColObject::OnCliffPosAdjust(EEngineDir _Dir)
 		Actor->AddActorLocation({ 0.0f, 1.0f, 0.0f });
 
 		if (false == IsOnCliff(_Dir))
+		{
+			Actor->AddActorLocation({ 0.0f, -1.0f, 0.0f });
+			break;
+		}
+	}
+}
+
+void UPixelColObject::OnPlatFormPosAdjust(EEngineDir _Dir)
+{
+	while (true == IsOnPlatForm(_Dir))
+	{
+		Actor->AddActorLocation({ 0.0f, 1.0f, 0.0f });
+
+		if (false == IsOnPlatForm(_Dir))
+		{
+			Actor->AddActorLocation({ 0.0f, -1.0f, 0.0f });
+			break;
+		}
+	}
+}
+
+void UPixelColObject::OnGP_BoundaryPosAdjust(EEngineDir _Dir)
+{
+	while (true == IsOnGP_Boundary(_Dir))
+	{
+		Actor->AddActorLocation({ 0.0f, 1.0f, 0.0f });
+
+		if (false == IsOnGP_Boundary(_Dir))
 		{
 			Actor->AddActorLocation({ 0.0f, -1.0f, 0.0f });
 			break;

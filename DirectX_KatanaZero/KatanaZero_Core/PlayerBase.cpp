@@ -246,7 +246,8 @@ void APlayerBase::GravityUpdate(float _DeltaTime)
 void APlayerBase::DownStairGravityUpdate(float _DeltaTime)
 {
 	EEngineDir Dir = Body->GetDir();
-	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir) || true == IsOnStairs(Dir) || true == IsOnGP_Boundary(Dir) || true == IsOnCliff(Dir))
+	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir) || true == IsOnStairs(Dir) 
+	||  true == IsOnGP_Boundary(Dir) || true == IsOnCliff(Dir) || true == IsOnGroundBoundary(Dir))
 	{
 		Velocity.Y = 0.0f;
 		return;

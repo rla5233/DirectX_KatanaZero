@@ -40,6 +40,7 @@ public:
 
 	// 충돌 체크 함수
 	bool IsOnGround(EEngineDir _Dir);
+	bool IsOnGroundBoundary(EEngineDir _Dir);
 	bool IsOnPlatForm(EEngineDir _Dir);
 	bool IsOnGP_Boundary(EEngineDir _Dir);
 	bool IsOnStairs(EEngineDir _Dir);
@@ -58,6 +59,8 @@ public:
 	void OnGroundPosAdjust(EEngineDir _Dir);
 	void UpStairPosAdjust(EEngineDir _Dir);
 	void OnCliffPosAdjust(EEngineDir _Dir);
+	void OnPlatFormPosAdjust(EEngineDir _Dir);
+	void OnGP_BoundaryPosAdjust(EEngineDir _Dir);
 
 
 protected:

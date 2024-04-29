@@ -161,6 +161,7 @@ void AEnemyBase::HitFall(float _DeltaTime)
 	if (true == IsColWall(Dir) || true == IsColHeadToWall(Dir))
 	{
 		Velocity.X = 0.0f;
+		DirChange();
 	}
 
 	// 위치 업데이트
@@ -181,6 +182,30 @@ void AEnemyBase::HitFall(float _DeltaTime)
 
 void AEnemyBase::DeadStart()
 {
+	EEngineDir Dir = Body->GetDir();
+	if (true == IsOnGround(Dir))
+	{
+		OnGroundPosAdjust(Dir);
+	}
+
+	if (true == IsOnStairs(Dir))
+	{
+		if (true == IsStairsUp())
+		{
+			UpStairPosAdjust(Dir);
+		}
+	}
+
+	if (true == IsOnPlatForm(Dir))
+	{
+		OnPlatFormPosAdjust(Dir);
+	}
+
+	if (true == IsOnGP_Boundary(Dir))
+	{
+		OnGP_BoundaryPosAdjust(Dir);
+	}
+
 	DeadCol->SetActive(false);
 }
 
