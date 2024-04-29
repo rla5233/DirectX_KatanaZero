@@ -67,7 +67,7 @@ void ACeilLaser::StateInit()
 			GetBody()->SetSprite(ImgRes::compo_ceil_laser_on); 
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_idle);
 			Laser->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
-			Laser->SetScale({ 4.0f, 210.0f, 1.0f });
+			Laser->SetScale({ 4.0f, 210.0f + AddScaleOnLaserY, 1.0f });
 			Laser->SetActive(true);
 			HitCol->SetActive(true);
 		}
@@ -75,7 +75,7 @@ void ACeilLaser::StateInit()
 
 	State.SetStartFunction(CeilLaserState::shoot, [=]
 		{	
-			Laser->SetScale({ 10.0f, 210.0f, 1.0f });
+			Laser->SetScale({ 10.0f, 210.0f + AddScaleOnLaserY, 1.0f });
 			Laser->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_attack); 
 		}
@@ -111,9 +111,21 @@ void ACeilLaser::StateInit()
 
 	State.SetUpdateFunction(CeilLaserState::off, [=](float _DeltaTime) {});
 
-	// State End
-
+	// State EndS
 
 }
 
+
+void ACeilLaser::AddLaserScaleY(float _ScaleY)
+{
+	Laser->AddScale({ 0.0f, _ScaleY, 0.0f });
+	HitCol->AddScale({ 0.0f, _ScaleY, 0.0f });
+	AddScaleOnLaserY = _ScaleY;
+}
+
+void ACeilLaser::AddLaserPositionY(float _PosY)
+{
+	Laser->AddPosition({ 0.0f, _PosY, 0.0f });
+	HitCol->AddPosition({ 0.0f, _PosY + 148.0f, 0.0f});
+}
 

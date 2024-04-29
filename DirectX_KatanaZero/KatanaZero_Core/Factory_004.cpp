@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "DefaultPlayer.h"
 #include "Up_HUD.h"
+#include "CeilLaser.h"
 #include "Grunt.h"
 #include "Fan.h"
 #include "Go.h"
@@ -48,6 +49,10 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 	SpawnEnemy<AGrunt>("Grunt", { 480.0f, 638.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 	SpawnEnemy<AGrunt>("Grunt", { 690.0f, 638.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
 
+	ACeilLaser* NewCeilLaser = SpawnRecComponent<ACeilLaser>("CeilLaser", { 945.0f, 1145.0f, 0.0f }, EEngineDir::Left, "On").get();
+	NewCeilLaser->AddLaserPositionY(-288.0f);
+	NewCeilLaser->AddLaserScaleY(288.0f);
+
 	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, "Idle", EUpdateOrder::Fan);
 }
 
@@ -70,6 +75,10 @@ void AFactory_004::LevelReStart()
 	AllEnemy.reserve(TotalEnemy);
 	SpawnEnemy<AGrunt>("Grunt", { 480.0f, 638.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 	SpawnEnemy<AGrunt>("Grunt", { 690.0f, 638.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
+
+	ACeilLaser* NewCeilLaser = SpawnRecComponent<ACeilLaser>("CeilLaser", { 945.0f, 1145.0f, 0.0f }, EEngineDir::Left, "On").get();
+	NewCeilLaser->AddLaserPositionY(-288.0f);
+	NewCeilLaser->AddLaserScaleY(288.0f);
 
 	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, "Idle", EUpdateOrder::Fan);
 }

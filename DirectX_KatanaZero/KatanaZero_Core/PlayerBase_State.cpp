@@ -62,6 +62,7 @@ void APlayerBase::StateInit()
 	State.SetEndFunction(PlayerState::attack,			[=] { AttackCol->SetActive(false); });
 	State.SetEndFunction(PlayerState::wallslide,		[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
 	State.SetEndFunction(PlayerState::roll,				[=] { IsInvincibleValue = false; });
+	State.SetEndFunction(PlayerState::flip,				[=] { IsInvincibleValue = false; });
 	State.SetEndFunction(PlayerState::kickdoor,			[=] { IsColDoorValue = false; });
 }
 
@@ -749,6 +750,7 @@ void APlayerBase::FlipStart()
 	}
 
 	Velocity.Y = 600.0f;
+	IsInvincibleValue = true;
 }
 
 void APlayerBase::Flip(float _DeltaTime)
@@ -848,7 +850,7 @@ void APlayerBase::Dead(float _DeltaTime)
 		Velocity = { 0.0f, 0.0f, 0.0f };
 	}
 
-	if (true == IsColWall(Dir) || true == IsColHeadToWall(Dir))
+	if (true == IsColWall(Dir) || true == IsColHeadToWall(Dir) || true == IsColBackToWall(Dir))
 	{
 		Velocity.X = 0.0f;
 	}

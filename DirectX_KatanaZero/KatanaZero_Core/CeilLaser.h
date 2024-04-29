@@ -16,6 +16,9 @@ public:
 	ACeilLaser& operator=(const ACeilLaser& _Other) = delete;
 	ACeilLaser& operator=(ACeilLaser&& _Other) noexcept = delete;
 
+	void AddLaserScaleY(float _ScaleY);
+	void AddLaserPositionY(float _PosY);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -27,6 +30,8 @@ protected:
 private:
 	USpriteRenderer* Laser = nullptr;
 	UCollision* HitCol = nullptr;
+
+	float AddScaleOnLaserY = 0.0f;
 
 };
 

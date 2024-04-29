@@ -49,6 +49,7 @@ public:
 	bool IsColHeadToWall(EEngineDir _Dir);
 	bool IsColHeadToCeil(EEngineDir _Dir);
 	bool IsColBotToWall(EEngineDir _Dir);
+	bool IsColBackToWall(EEngineDir _Dir);
 
 	bool IsStairsUp() const
 	{
