@@ -603,7 +603,7 @@ void APlayerBase::AttackStart()
 
 	// 콜리전 설정
 	AttackCol->SetPosition(AttackDir * 50.0f);
-	AttackCol->AddPosition({ 0.0f, 40.0f, 0.0f });
+	AttackCol->AddPosition({ 0.0f, 30.0f, 0.0f });
 	AttackCol->SetRotationDeg({ 0.0f, 0.0f, Deg });
 	AttackCol->SetActive(true);
 }

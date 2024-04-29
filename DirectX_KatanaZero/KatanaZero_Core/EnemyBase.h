@@ -43,6 +43,11 @@ public:
 		State.ChangeState(_State);
 	}
 
+	std::string GetCurState()
+	{
+		return State.GetCurStateName();
+	}
+
 	inline void SetPatrolTime(float _WalkTime, float _StopTime)
 	{
 		PatrolWalkTime = _WalkTime;
@@ -68,7 +73,7 @@ protected:
 	UCollision* BodyCol = nullptr;
 	UCollision* DeadCol = nullptr;
 
-private:
+protected:
 	// Renderer
 	USpriteRenderer* Body = nullptr;
 
@@ -87,7 +92,7 @@ private:
 
 	// Chase
 	int FloorNum = -1;
-	std::shared_ptr<AStair> TargetStair = nullptr;
+	AStair* TargetStair = nullptr;
 	std::shared_ptr<AUpMark> ChaseMark = nullptr;
 
 	// 수정 (삭제 필요)
@@ -158,5 +163,7 @@ private:
 
 private:
 	void FloorNumUpdate();
+	void ColCheckUpdate();
+	void DownStairGravityUpdate(float _DeltaTime);
 };
 

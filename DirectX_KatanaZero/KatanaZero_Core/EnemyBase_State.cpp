@@ -277,9 +277,15 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 	Recording(_DeltaTime);
 	FloorNumUpdate();
 	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
+
+	// 속도 업데이트
+	DownStairGravityUpdate(_DeltaTime);
 	
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
+
+	// 충돌 보정
+	ColCheckUpdate();
 
 	// State Change Check
 	if (true == ChaseTurnCheck() && true == ChaseSameFloorCheck())
@@ -297,67 +303,101 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 	// Player 와 다른 층에 있을 경우
 	if (false == ChaseSameFloorCheck())
 	{
-		TargetStair = FindStair();
-		FVector StairPos = TargetStair->GetActorLocation();
-		FVector CurPos = GetActorLocation();
-
-		float DirX = StairPos.X - CurPos.X;
-		EEngineDir Dir = Body->GetDir();
-		switch (Dir)
+		TargetStair = FindStair().get();
+		
+		if (true == IsOnStairs(Body->GetDir()))
 		{
-		case EEngineDir::Left:
-			if (0.0f < DirX)
+			AStair* Target = TargetStair;
+			AStair* Partner = Target->GetPartnerStair();
+
+			FVector PartnerStairPos = Partner->GetActorLocation();
+			FVector TargetStairPos = Target->GetActorLocation();
+			
+			float TargetDiff = UContentsMath::GetVectorNorm(TargetStairPos - GetActorLocation());
+			float PartnerDiff = UContentsMath::GetVectorNorm(PartnerStairPos - GetActorLocation());
+
+			if (TargetDiff > PartnerDiff)
 			{
-				State.ChangeState(EnemyState::chase_turn);
-				return;
+				Target = Partner;
 			}
-			break;
-		case EEngineDir::Right:
-			if (0.0f > DirX)
-			{
-				State.ChangeState(EnemyState::chase_turn);
-				return;
-			}
-			break;
-		}
 
-		if (2.0f > abs(DirX))
-		{
-			CurPos.X = StairPos.X;
-			SetActorLocation(CurPos);
+			TargetStairPos = Target->GetActorLocation();
+			FVector CurPos = GetActorLocation();
 
-			FVector PartnerStairPos = TargetStair->GetPartnerStair()->GetActorLocation();
-			FVector DirVec = PartnerStairPos - CurPos;
-
-			EStairType StairType = TargetStair->GetStairType();
+			EStairType StairType = Target->GetStairType();
 			switch (StairType)
 			{
 			case EStairType::Up:
-				State.ChangeState(EnemyState::chase_stair_up);
-				return;
-			case EStairType::Down:
-				switch (Body->GetDir())
-				{
-				case EEngineDir::Left:
-					if (0.0f < DirVec.X)
-					{
-						State.ChangeState(EnemyState::chase_stair_turn);
-						return;
-					}
-					break;
-				case EEngineDir::Right:
-					if (0.0f > DirVec.X)
-					{
-						State.ChangeState(EnemyState::chase_stair_turn);
-						return;
-					}
-					break;
-				}
-
 				State.ChangeState(EnemyState::chase_stair_down);
-				return;
+				break;
+			case EStairType::Down:
+				State.ChangeState(EnemyState::chase_stair_up);
+				break;
 			}
 		}
+		else 
+		{
+			FVector StairPos = TargetStair->GetActorLocation();
+			FVector CurPos = GetActorLocation();
+
+			float DirX = StairPos.X - CurPos.X;
+			EEngineDir Dir = Body->GetDir();
+			switch (Dir)
+			{
+			case EEngineDir::Left:
+				if (0.0f < DirX)
+				{
+					State.ChangeState(EnemyState::chase_turn);
+					return;
+				}
+				break;
+			case EEngineDir::Right:
+				if (0.0f > DirX)
+				{
+					State.ChangeState(EnemyState::chase_turn);
+					return;
+				}
+				break;
+			}
+
+			if (2.0f > abs(DirX))
+			{
+				CurPos.X = StairPos.X;
+				SetActorLocation(CurPos);
+
+				FVector PartnerStairPos = TargetStair->GetPartnerStair()->GetActorLocation();
+				FVector DirVec = PartnerStairPos - CurPos;
+
+				EStairType StairType = TargetStair->GetStairType();
+				switch (StairType)
+				{
+				case EStairType::Up:
+					State.ChangeState(EnemyState::chase_stair_up);
+					return;
+				case EStairType::Down:
+					switch (Body->GetDir())
+					{
+					case EEngineDir::Left:
+						if (0.0f < DirVec.X)
+						{
+							State.ChangeState(EnemyState::chase_stair_turn);
+							return;
+						}
+						break;
+					case EEngineDir::Right:
+						if (0.0f > DirVec.X)
+						{
+							State.ChangeState(EnemyState::chase_stair_turn);
+							return;
+						}
+						break;
+					}
+
+					State.ChangeState(EnemyState::chase_stair_down);
+					return;
+				}
+			}
+		}		
 	}
 }
 

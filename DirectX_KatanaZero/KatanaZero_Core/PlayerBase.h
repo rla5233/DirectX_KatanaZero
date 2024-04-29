@@ -136,7 +136,7 @@ private:
 	int FloorNum = 0;
 	bool IsPlayValue = false;
 	bool IsColDoorValue = false;
-	bool IsInvincibleValue = false;
+	bool IsInvincibleValue = true;
 	EEnemyType HitEnemy = EEnemyType::Default;
 
 	// FSM

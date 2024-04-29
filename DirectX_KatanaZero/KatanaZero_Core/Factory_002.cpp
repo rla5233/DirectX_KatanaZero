@@ -50,7 +50,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	AllStair.resize(2);
 	AStair* UpStair = CreateStair({ 768.0f, 110.0f, 0.0f }, EStairType::Up, 0).get();
-	AStair* DownStair = CreateStair({ 1057.0f, 397.0f, 0.0f }, EStairType::Down, 1).get();
+	AStair* DownStair = CreateStair({ 1057.0f, 398.0f, 0.0f }, EStairType::Down, 1).get();
 	UpStair->SetPartnerStair(DownStair);
 	DownStair->SetPartnerStair(UpStair);
 }

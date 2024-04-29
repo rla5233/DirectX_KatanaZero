@@ -90,7 +90,7 @@ void URecordingObject::SetRewindStart()
 {
 	Actor->InputOff();
 	Mode = EReplayMode::Rewind;
-	ReplaySpeed = 4;
+	ReplaySpeed = 8;
 	CurIndex = static_cast<int>(AllRecordInfo.size()) - 1;
 }
 

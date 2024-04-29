@@ -182,6 +182,59 @@ void AEnemyBase::FloorNumUpdate()
 	FloorNum = PlayLevel->FloorCheck(GetActorLocation().Y);
 }
 
+void AEnemyBase::ColCheckUpdate()
+{
+	EEngineDir Dir = Body->GetDir();
+
+	// OnGround
+	if (true == IsOnGround(Dir))
+	{
+		RendererFB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		OnGroundPosAdjust(Dir);
+	}
+
+	// OnStairs
+	if (true == IsOnStairs(Dir))
+	{
+		if (true == IsStairsUp())
+		{
+			UpStairPosAdjust(Dir);
+		}
+		else
+		{
+			RendererFB->SetPlusColor({ 0.0f, 0.0f, 0.0f });
+			RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		}
+	}
+
+	// Platform
+	if (true == IsOnPlatForm(Dir))
+	{
+		RendererFB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+	}
+
+	// GP_Boundary
+	if (true == IsOnGP_Boundary(Dir))
+	{
+		RendererFB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+		RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
+	}
+}
+
+void AEnemyBase::DownStairGravityUpdate(float _DeltaTime)
+{
+	EEngineDir Dir = Body->GetDir();
+	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir) || true == IsOnStairs(Dir) || true == IsOnGP_Boundary(Dir))
+	{
+		Velocity.Y = 0.0f;
+		return;
+	}
+
+	Velocity.Y += Const::down_stair_gravity * _DeltaTime;
+}
+
 bool AEnemyBase::PlayerChaseCheck()
 {
 	bool Result = false;

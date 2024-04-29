@@ -28,6 +28,16 @@ void AGrunt::BeginPlay()
 void AGrunt::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	{
+		std::string Msg = std::format("Grunt_State : {}\n", GetCurState());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Grunt_Floor : {}\n", FloorNum);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 void AGrunt::CollisionInit()
@@ -35,7 +45,7 @@ void AGrunt::CollisionInit()
 	Super::CollisionInit();
 
 	FVector BodyPos = { 0.0f, 40.0f, 0.0f };
-	FVector BodyScale = { 50.0f, 60.0f, 1.0f };
+	FVector BodyScale = { 50.0f, 80.0f, 1.0f };
 	SetBodyInfo(BodyPos, BodyScale);
 
 	BodyCol->SetPosition(BodyPos);
@@ -105,6 +115,7 @@ void AGrunt::HitFallStart()
 	Super::HitFallStart();
 
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_hitfall);
+	GetBody()->AddPosition({ 0.0f, -10.0f, 0.0f });
 }
 
 void AGrunt::DeadStart()
