@@ -7,9 +7,11 @@
 AGangSter::AGangSter()
 {
 	Spark = CreateDefaultSubObject<USpriteRenderer>("Gangster_Attack_Effect");
-	Bullet.Renderer = CreateDefaultSubObject<USpriteRenderer>("Gangster_Bullet");
-
 	Spark->SetupAttachment(GetRoot());
+
+	Bullet.Renderer = CreateDefaultSubObject<USpriteRenderer>("Gangster_Bullet");
+	Bullet.Collision = CreateDefaultSubObject<UCollision>("Gangster_Bullet");
+	Bullet.Collision->SetupAttachment(Bullet.Renderer);
 }
 
 AGangSter::~AGangSter()
@@ -38,7 +40,7 @@ void AGangSter::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	Bullet.PosUpdate(_DeltaTime);
+	BulletUpdate(_DeltaTime);
 }
 
 void AGangSter::CollisionInit()
@@ -52,6 +54,10 @@ void AGangSter::CollisionInit()
 	BodyCol->SetScale(BodyScale);
 
 	SetBodyInfo(BodyPos, BodyScale);
+
+	Bullet.Collision->SetCollisionGroup(EColOrder::EnemyAttack);
+	Bullet.Collision->SetCollisionType(ECollisionType::RotRect);
+	Bullet.Collision->SetScale({ 2.0f, 2.0f, 1.0f });
 }
 
 void AGangSter::CreateAnimation()
@@ -241,7 +247,8 @@ void AGangSter::SetAttackEffect()
 void AGangSter::SetBullet()
 {
 	Bullet.Renderer->SetActive(true);
-	Bullet.Velocity = AttackDir * 100.0f;
+	//Bullet.Velocity = AttackDir * 1500.0f;
+	Bullet.Velocity = AttackDir * 500.0f;
 
 	FVector GangSterPos = GetActorLocation();
 	EEngineDir Dir = GetBody()->GetDir();
@@ -256,15 +263,24 @@ void AGangSter::SetBullet()
 		break;
 	}
 
+	float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
+	Bullet.Renderer->SetRotationDeg({ 0.0f, 0.0f, Deg });
 
 }
 
-void UBullet::PosUpdate(float _DeltaTime)
+void AGangSter::BulletUpdate(float _DeltaTime)
 {
-	if (false == Renderer->IsActive())
+	if (false == Bullet.Renderer->IsActive())
 	{
 		return;
 	}
 
-	Renderer->AddPosition(Velocity * _DeltaTime);
+	Bullet.Renderer->AddPosition(Bullet.Velocity * _DeltaTime);
+
+
+	Bullet.Collision->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+		{
+
+		}
+	);
 }

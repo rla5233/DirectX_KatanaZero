@@ -4,10 +4,8 @@
 class UBullet
 {
 public:
-	void PosUpdate(float _DeltaTime);
-
-public:
 	USpriteRenderer* Renderer = nullptr;
+	UCollision* Collision = nullptr;
 	FVector Velocity = FVector::Zero;
 };
 
@@ -72,5 +70,6 @@ private:
 	void SetAttackEffect();
 	void SetBullet();
 
+	void BulletUpdate(float _DeltaTime);
 };
 
