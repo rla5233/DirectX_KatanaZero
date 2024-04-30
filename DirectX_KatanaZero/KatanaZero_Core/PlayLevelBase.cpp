@@ -33,6 +33,7 @@ void APlayLevelBase::BeginPlay()
 	USpawnManager::SetGameMode(this);
 
 	StateInit();
+	GrayScaleEffect = GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
 }
 
 void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
@@ -44,6 +45,7 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 
+	GrayScaleEffect->Active(false);
 	State.ChangeState(PlayLevelState::intro);
 }
 
@@ -292,7 +294,7 @@ void APlayLevelBase::StateInit()
 
 			Aim->StateChange(MouseAimState::replay);
 
-			GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
+			GrayScaleEffect->Active(true);
 			ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
 			InputOn();
 		}

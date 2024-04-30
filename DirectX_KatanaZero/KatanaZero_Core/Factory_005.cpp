@@ -172,13 +172,16 @@ void AFactory_005::LevelReEnd()
 void AFactory_005::ChangeStage()
 {
 	Super::ChangeStage();
+
+	GEngine->ChangeLevel("TitleLevel");
 }
 
 void AFactory_005::ClearStart()
 {
 	Super::ClearStart();
 
-	Go->SetRepeatPos({ -550.0f, -80.0f, 0.0f });
+	Go->SetRepeatPos({ -500.0f, -80.0f, 0.0f });
+	Go->SetArrowDir(EEngineDir::Left);
 	Go->StateChange("Repeat");
 }
 

@@ -47,6 +47,8 @@ public:
 		Arrow->SetActive(false);
 	};
 
+	void SetArrowDir(EEngineDir _Dir);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

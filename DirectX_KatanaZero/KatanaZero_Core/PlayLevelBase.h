@@ -3,6 +3,7 @@
 
 #include "SpawnManager.h"
 
+class UGrayScaleEffect;
 class AMainCamera;
 class AColMapObject;
 class ARecMapCompoBase;
@@ -119,6 +120,8 @@ protected:
 	std::vector<float> FloorY;
 	std::vector<std::vector<std::shared_ptr<AStair>>> AllStair;
 	std::vector<std::vector<std::shared_ptr<ADoor>>> AllDoor;
+
+	std::shared_ptr<UGrayScaleEffect> GrayScaleEffect = nullptr;
 
 // FSM
 protected:

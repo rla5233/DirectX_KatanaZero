@@ -11,6 +11,63 @@ AGo::~AGo()
 {
 }
 
+void AGo::StateInit()
+{
+	// State Create
+	State.CreateState(GoState::repeat);
+	State.CreateState(GoState::outro);
+
+	// State Start
+	State.SetStartFunction(GoState::repeat, [=]
+		{
+			EEngineDir Dir = Arrow->GetDir();
+			switch (Dir)
+			{
+			case EEngineDir::Left:
+				Velocity.X = -MaxSpeed;
+				break;
+			case EEngineDir::Right:
+				Velocity.X = MaxSpeed;
+				break;
+			}
+
+			SetActorLocation(RepeatPos);
+		}
+	);
+
+	State.SetStartFunction(GoState::outro, [=] { Off(); });
+
+	// State Update
+	State.SetUpdateFunction(GoState::repeat, [=](float _DeltaTime)
+		{
+			EEngineDir Dir = Arrow->GetDir();
+			switch (Dir)
+			{
+			case EEngineDir::Left:
+				Velocity += { MaxSpeed * _DeltaTime, 0.0f, 0.0f };
+				if (-1.0f < Velocity.X)
+				{
+					SetActorLocation(RepeatPos);
+					Velocity.X = -MaxSpeed;
+				}
+				break;
+			case EEngineDir::Right:
+				Velocity += { -MaxSpeed * _DeltaTime, 0.0f, 0.0f };
+				if (1.0f > Velocity.X)
+				{
+					SetActorLocation(RepeatPos);
+					Velocity.X = MaxSpeed;
+				}
+				break;
+			}
+
+			AddActorLocation(Velocity * _DeltaTime);
+		}
+	);
+
+	State.SetUpdateFunction(GoState::outro, [=](float _DeltaTime) {});
+}
+
 void AGo::BeginPlay()
 {
 	Super::BeginPlay();
@@ -32,9 +89,13 @@ void AGo::Init()
 
 	Go->SetAutoSize(2.0f, true);
 	Arrow->SetAutoSize(2.0f, true);
-	Arrow->SetDir(EEngineDir::Left);
+	SetArrowDir(EEngineDir::Right);
+}
 
-	Arrow->SetPosition({ 0.0f, -40.0f, 0.0f });
+
+void AGo::SetArrowDir(EEngineDir _Dir)
+{
+	Arrow->SetDir(_Dir);
 }
 
 void AGo::SetActorLocation(const FVector& _Pos)
@@ -60,34 +121,3 @@ void AGo::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 }
 
-void AGo::StateInit()
-{
-	// State Create
-	State.CreateState(GoState::repeat);
-	State.CreateState(GoState::outro);
-
-	// State Start
-	State.SetStartFunction(GoState::repeat, [=]
-		{ 
-			Velocity.X = MaxSpeed;
-			SetActorLocation(RepeatPos);
-		}
-	);
-
-	State.SetStartFunction(GoState::outro, [=] { Off(); });
-
-	// State Update
-	State.SetUpdateFunction(GoState::repeat, [=](float _DeltaTime)
-		{
-			Velocity += { -MaxSpeed * _DeltaTime, 0.0f, 0.0f };
-			AddActorLocation(Velocity * _DeltaTime);
-			if (1.0f > abs(Velocity.X))
-			{
-				SetActorLocation(RepeatPos);
-				Velocity.X = MaxSpeed;
-			}
-		}
-	);
-
-	State.SetUpdateFunction(GoState::outro, [=](float _DeltaTime) {});
-}
