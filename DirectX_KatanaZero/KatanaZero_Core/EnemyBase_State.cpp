@@ -22,23 +22,24 @@ void AEnemyBase::StateInit()
 	State.CreateState(EnemyState::chase_stair_turn);
 	State.CreateState(EnemyState::chase_attack);
 
+	State.CreateState(EnemyState::none);
 	State.CreateState(EnemyState::replay);
 	State.CreateState(EnemyState::restart);
 
 	// State Start 함수 세팅
-	State.SetStartFunction(EnemyState::idle,				std::bind(&AEnemyBase::IdleStart, this));
-	State.SetStartFunction(EnemyState::hitfall,				std::bind(&AEnemyBase::HitFallStart, this));
-	State.SetStartFunction(EnemyState::dead,				std::bind(&AEnemyBase::DeadStart, this));
-	State.SetStartFunction(EnemyState::patrol_walk,			std::bind(&AEnemyBase::PatrolWalkStart, this));
-	State.SetStartFunction(EnemyState::patrol_turn,			std::bind(&AEnemyBase::PatrolTurnStart, this));
-	State.SetStartFunction(EnemyState::patrol_stop,			std::bind(&AEnemyBase::PatrolStopStart, this));
-	State.SetStartFunction(EnemyState::chase_run,			std::bind(&AEnemyBase::ChaseRunStart, this));
-	State.SetStartFunction(EnemyState::chase_stop,			std::bind(&AEnemyBase::ChaseStopStart, this));
-	State.SetStartFunction(EnemyState::chase_turn,			std::bind(&AEnemyBase::ChaseTurnStart, this));
-	State.SetStartFunction(EnemyState::chase_stair_up,		std::bind(&AEnemyBase::ChaseStairUpStart, this));
-	State.SetStartFunction(EnemyState::chase_stair_down,	std::bind(&AEnemyBase::ChaseStairDownStart, this));
-	State.SetStartFunction(EnemyState::chase_stair_turn,	std::bind(&AEnemyBase::ChaseStairTurnStart, this));
-	State.SetStartFunction(EnemyState::chase_attack,		std::bind(&AEnemyBase::ChaseAttackStart, this));
+	State.SetStartFunction(EnemyState::idle, std::bind(&AEnemyBase::IdleStart, this));
+	State.SetStartFunction(EnemyState::hitfall, std::bind(&AEnemyBase::HitFallStart, this));
+	State.SetStartFunction(EnemyState::dead, std::bind(&AEnemyBase::DeadStart, this));
+	State.SetStartFunction(EnemyState::patrol_walk, std::bind(&AEnemyBase::PatrolWalkStart, this));
+	State.SetStartFunction(EnemyState::patrol_turn, std::bind(&AEnemyBase::PatrolTurnStart, this));
+	State.SetStartFunction(EnemyState::patrol_stop, std::bind(&AEnemyBase::PatrolStopStart, this));
+	State.SetStartFunction(EnemyState::chase_run, std::bind(&AEnemyBase::ChaseRunStart, this));
+	State.SetStartFunction(EnemyState::chase_stop, std::bind(&AEnemyBase::ChaseStopStart, this));
+	State.SetStartFunction(EnemyState::chase_turn, std::bind(&AEnemyBase::ChaseTurnStart, this));
+	State.SetStartFunction(EnemyState::chase_stair_up, std::bind(&AEnemyBase::ChaseStairUpStart, this));
+	State.SetStartFunction(EnemyState::chase_stair_down, std::bind(&AEnemyBase::ChaseStairDownStart, this));
+	State.SetStartFunction(EnemyState::chase_stair_turn, std::bind(&AEnemyBase::ChaseStairTurnStart, this));
+	State.SetStartFunction(EnemyState::chase_attack, std::bind(&AEnemyBase::ChaseAttackStart, this));
 
 	// Sub
 	State.SetStartFunction(EnemyState::replay, [=]
@@ -66,36 +67,53 @@ void AEnemyBase::StateInit()
 		}
 	);
 
-	// State Update 함수 세팅
-	State.SetUpdateFunction(EnemyState::idle,				std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::hitfall,			std::bind(&AEnemyBase::HitFall, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::dead,				std::bind(&AEnemyBase::Dead, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::patrol_walk,		std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::patrol_turn,		std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::patrol_stop,		std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::chase_run,			std::bind(&AEnemyBase::ChaseRun, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::chase_stop,			std::bind(&AEnemyBase::ChaseStop, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::chase_turn,			std::bind(&AEnemyBase::ChaseTurn, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::chase_stair_up,		std::bind(&AEnemyBase::ChaseStairUp, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::chase_stair_down,	std::bind(&AEnemyBase::ChaseStairDown, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::chase_stair_turn,	std::bind(&AEnemyBase::ChaseStairTurn, this, std::placeholders::_1));
-	State.SetUpdateFunction(EnemyState::chase_attack,		std::bind(&AEnemyBase::ChaseAttack, this, std::placeholders::_1));
-
-	State.SetUpdateFunction(EnemyState::replay, [=](float _DeltaTime) 
-		{ 
-			Replaying(_DeltaTime); 
+	State.SetStartFunction(EnemyState::none, [=]
+		{
+			BodyCol->SetActive(false);
 		}
 	);
 
-	State.SetUpdateFunction(EnemyState::restart, [=](float _DeltaTime) 
-		{ 
-			Replaying(_DeltaTime); 
+	// State Update 함수 세팅
+	State.SetUpdateFunction(EnemyState::idle, std::bind(&AEnemyBase::Idle, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::hitfall, std::bind(&AEnemyBase::HitFall, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::dead, std::bind(&AEnemyBase::Dead, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::patrol_walk, std::bind(&AEnemyBase::PatrolWalk, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::patrol_turn, std::bind(&AEnemyBase::PatrolTurn, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::patrol_stop, std::bind(&AEnemyBase::PatrolStop, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase_run, std::bind(&AEnemyBase::ChaseRun, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase_stop, std::bind(&AEnemyBase::ChaseStop, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase_turn, std::bind(&AEnemyBase::ChaseTurn, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase_stair_up, std::bind(&AEnemyBase::ChaseStairUp, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase_stair_down, std::bind(&AEnemyBase::ChaseStairDown, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase_stair_turn, std::bind(&AEnemyBase::ChaseStairTurn, this, std::placeholders::_1));
+	State.SetUpdateFunction(EnemyState::chase_attack, std::bind(&AEnemyBase::ChaseAttack, this, std::placeholders::_1));
+
+	State.SetUpdateFunction(EnemyState::replay, [=](float _DeltaTime)
+		{
+			Replaying(_DeltaTime);
+		}
+	);
+
+	State.SetUpdateFunction(EnemyState::restart, [=](float _DeltaTime)
+		{
+			Replaying(_DeltaTime);
+		}
+	);
+
+	State.SetUpdateFunction(EnemyState::none, [=](float _DeltaTime)
+		{
+			Recording(_DeltaTime);
 		}
 	);
 
 	// State End 함수 세팅
-	State.SetEndFunction(EnemyState::chase_run,				std::bind(&AEnemyBase::ChaseRunEnd, this));
-	State.SetEndFunction(EnemyState::chase_stop,			std::bind(&AEnemyBase::ChaseStopEnd, this));
+	State.SetEndFunction(EnemyState::chase_run, std::bind(&AEnemyBase::ChaseRunEnd, this));
+	State.SetEndFunction(EnemyState::chase_stop, std::bind(&AEnemyBase::ChaseStopEnd, this));
+	State.SetEndFunction(EnemyState::none, [=] 
+		{
+			BodyCol->SetActive(true);
+		}
+	);
 }
 
 void AEnemyBase::IdleStart()

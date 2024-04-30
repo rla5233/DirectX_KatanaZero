@@ -3,8 +3,10 @@
 
 AUpMark::AUpMark()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 	Body = CreateDefaultSubObject<USpriteRenderer>("Mark");
-	SetRoot(Body);
+	Body->SetupAttachment(Root);
+	SetRoot(Root);
 }
 
 AUpMark::~AUpMark()

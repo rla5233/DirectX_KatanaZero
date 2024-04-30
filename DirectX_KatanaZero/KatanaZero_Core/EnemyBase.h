@@ -57,6 +57,9 @@ public:
 	void SetBodyDir(EEngineDir _Dir);
 	void SetVelocityByDir(const FVector& _Vel);
 
+	void ChaseMarkOff();
+	void ChaseMarkOn();
+
 	void HitByPlayer(FVector _AttDir);
 	void HitByDoor(EEngineDir _Dir);
 

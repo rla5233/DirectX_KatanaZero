@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Scientist.h"
 
+#include "Factory_005.h"
+
 AScientist::AScientist()
 {
 	BodyCol = CreateDefaultSubObject<UCollision>("Scientist_BodyCol");
@@ -48,6 +50,11 @@ void AScientist::StateInit()
 		{
 			BodyCol->SetActive(false);
 			GetBody()->ChangeAnimation(Anim::compo_scientist_explode);
+
+			// 갱스터 활성화
+			AFactory_005* PlayLevel = dynamic_cast<AFactory_005*>(GetWorld()->GetGameMode().get());
+			PlayLevel->ExtraGangsterOn();
+
 		}
 	);
 

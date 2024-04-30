@@ -346,6 +346,7 @@ namespace EnemyState
 
 	const std::string_view turn				= "Turn";
 
+	const std::string_view none				= "None";
 	const std::string_view replay			= "Replay";
 	const std::string_view restart			= "Restart";
 }

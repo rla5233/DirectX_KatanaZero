@@ -259,7 +259,7 @@ void AGangSter::SetAttackEffect()
 void AGangSter::SetBullet()
 {
 	Bullet.Renderer->SetActive(true);
-	Bullet.Velocity = AttackDir * 1500.0f;
+	Bullet.Velocity = AttackDir * 1750.0f;
 
 	FVector GangSterPos = GetActorLocation();
 	EEngineDir Dir = GetBody()->GetDir();
@@ -290,7 +290,7 @@ void AGangSter::BulletUpdate(float _DeltaTime)
 	Bullet.Collision->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 		{
 			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-			//Player->HitByEnemy();
+			Player->HitByEnemy();
 			Bullet.Renderer->SetActive(false);
 		}
 	);

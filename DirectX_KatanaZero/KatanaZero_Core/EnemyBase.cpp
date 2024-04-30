@@ -139,6 +139,16 @@ void AEnemyBase::SetVelocityByDir(const FVector& _Vel)
 	}
 }
 
+void AEnemyBase::ChaseMarkOff()
+{
+	ChaseMark->SetActive(false);
+}
+
+void AEnemyBase::ChaseMarkOn()
+{
+	ChaseMark->SetActive(true);
+}
+
 void AEnemyBase::HitByPlayer(FVector _AttDir)
 {
 	HitDir = _AttDir;

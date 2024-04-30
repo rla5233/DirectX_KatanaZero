@@ -32,7 +32,7 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 	Super::LevelStart(_PrevLevel);
 
 	TotalPlayTime = 100.0f;
-	TotalEnemy = 6;
+	TotalEnemy = 9;
 	FloorY = { 414.0f, 701.0f };
 
 	MainCamera->SetActorLocation({ 665.0f, 392.0f, -100.0f });
@@ -41,8 +41,7 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 	ColMap->SetBGSprite(ImgRes::factory_background5, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
-	//Player->SetActorLocation({ -5.0f, 127.0f, 0.0f });
-	Player->SetActorLocation({ -5.0f, 701.0f, 0.0f });
+	Player->SetActorLocation({ -5.0f, 127.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
 
 	AllEnemy.reserve(TotalEnemy);
@@ -53,7 +52,10 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1111.0f, 704.0f, 0.0f }, EEngineDir::Right, 5.0f, 4.0f, EnemyState::patrol_walk);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1633.0f, 704.0f, 0.0f }, EEngineDir::Left, 5.0f, 5.0f, EnemyState::patrol_stop);
 
-
+	ExtraGangster.reserve(3);
+	ExtraGangster.push_back(SpawnEnemy<AGangSter>("Gangster", { 75.0f, 127.0f, 0.0f }, EEngineDir::Right, EnemyState::none).get());
+	ExtraGangster.push_back(SpawnEnemy<AGangSter>("Gangster", { 145.0f, 127.0f, 0.0f }, EEngineDir::Right, EnemyState::none).get());
+	ExtraGangster.push_back(SpawnEnemy<AGangSter>("Gangster", { 215.0f, 127.0f, 0.0f }, EEngineDir::Right, EnemyState::none).get());
 
 	AllRecComponent.reserve(10);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 657.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
@@ -102,13 +104,15 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 void AFactory_005::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	ExtraGangster.clear();
 }
 
 void AFactory_005::LevelReStart()
 {
 	Super::LevelReStart();
 
-	TotalEnemy = 6;
+	TotalEnemy = 9;
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ 207.0f, 127.0f, 0.0f });
@@ -123,7 +127,11 @@ void AFactory_005::LevelReStart()
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 247.0f, 704.0f, 0.0f }, EEngineDir::Right, 4.5f, 5.0f, EnemyState::patrol_walk);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1111.0f, 704.0f, 0.0f }, EEngineDir::Right, 5.0f, 4.0f, EnemyState::patrol_walk);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1633.0f, 704.0f, 0.0f }, EEngineDir::Left, 5.0f, 5.0f, EnemyState::patrol_stop);
-
+	
+	ExtraGangster.reserve(3);
+	ExtraGangster.push_back(SpawnEnemy<AGangSter>("Gangster", { 75.0f, 127.0f, 0.0f }, EEngineDir::Right, EnemyState::none).get());
+	ExtraGangster.push_back(SpawnEnemy<AGangSter>("Gangster", { 145.0f, 127.0f, 0.0f }, EEngineDir::Right, EnemyState::none).get());
+	ExtraGangster.push_back(SpawnEnemy<AGangSter>("Gangster", { 215.0f, 127.0f, 0.0f }, EEngineDir::Right, EnemyState::none).get());
 
 	AllRecComponent.reserve(10);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 657.0f, 634.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);
@@ -154,6 +162,13 @@ void AFactory_005::LevelReStart()
 	}
 }
 
+void AFactory_005::LevelReEnd()
+{
+	Super::LevelReEnd();
+
+	ExtraGangster.clear();
+}
+
 void AFactory_005::ChangeStage()
 {
 	Super::ChangeStage();
@@ -165,6 +180,14 @@ void AFactory_005::ClearStart()
 
 	Go->SetRepeatPos({ 500.0f, 200.0f, 0.0f });
 	Go->StateChange("Repeat");
+}
+
+void AFactory_005::ExtraGangsterOn()
+{
+	for (size_t i = 0; i < ExtraGangster.size(); i++)
+	{
+		ExtraGangster[i]->StateChange(EnemyState::chase_run);
+	}
 }
 
 void AFactory_005::Tick(float _DeltaTime)

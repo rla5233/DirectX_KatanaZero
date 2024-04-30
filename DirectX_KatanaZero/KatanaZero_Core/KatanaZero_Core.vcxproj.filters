@@ -229,7 +229,7 @@
       <Filter>Level\000.Object\Map\Component</Filter>
     </ClInclude>
     <ClInclude Include="Scientist.h">
-      <Filter>Level\000.Object\Map\Component</Filter>
+      <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -381,7 +381,7 @@
       <Filter>Level\000.Object\Map\Component</Filter>
     </ClCompile>
     <ClCompile Include="Scientist.cpp">
-      <Filter>Level\000.Object\Map\Component</Filter>
+      <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
