@@ -39,7 +39,7 @@ private:
 	UBullet Bullet;
 
 	FVector AttackDir = FVector::Zero;
-	float AttackRange = 650.0f;
+	float AttackRange = 600.0f;
 
 //FSM
 protected:
