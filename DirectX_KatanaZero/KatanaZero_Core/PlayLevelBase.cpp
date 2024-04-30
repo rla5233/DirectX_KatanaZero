@@ -33,7 +33,10 @@ void APlayLevelBase::BeginPlay()
 	USpawnManager::SetGameMode(this);
 
 	StateInit();
+	
 	GrayScaleEffect = GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
+
+	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 }
 
 void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
@@ -42,7 +45,6 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 
 	MainCamera = GetWorld()->SpawnActor<AMainCamera>("ContentsMainCamera");
 
-	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 
 	GrayScaleEffect->Active(false);
@@ -53,26 +55,10 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
-	Aim->Destroy();
 	ColMap->Destroy();
 	Player->Destroy();
 	Player->SetIsPlayValue(false);
 	MainCamera->Destroy();
-	
-	if (nullptr != HUD)
-	{
-		HUD->Destroy();
-	}
-
-	if (nullptr != Go)
-	{
-		Go->Destroy();
-	}
-
-	if (nullptr != ReplayUI)
-	{
-		ReplayUI->Destroy();
-	}
 
 	for (size_t i = 0; i < AllEnemy.size(); i++)
 	{
@@ -109,18 +95,19 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 		AllStair[i].clear();
 	}
 
-	Aim			= nullptr;
 	ColMap		= nullptr;
 	Player		= nullptr;
-	HUD			= nullptr;
-	Go			= nullptr;
 	MainCamera	= nullptr;
-	ReplayUI	= nullptr;
 
 	AllDoor.clear();
 	AllStair.clear();
 	AllEnemy.clear();
 	AllRecComponent.clear();
+
+	// UI
+	HUD->Off();
+	Go->Off();
+	ReplayUI->Off();
 }
 
 void APlayLevelBase::LevelReEnd()
@@ -274,6 +261,8 @@ void APlayLevelBase::StateInit()
 			{
 				AllRecComponent[i]->SetRecordingActive(true);
 			}
+
+			Aim->StateChange(MouseAimState::play);
 		}
 	);
 
@@ -295,7 +284,12 @@ void APlayLevelBase::StateInit()
 			Aim->StateChange(MouseAimState::replay);
 
 			GrayScaleEffect->Active(true);
-			ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
+
+			if (nullptr == ReplayUI)
+			{
+				ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
+			}
+			ReplayUI->On();
 			InputOn();
 		}
 	);

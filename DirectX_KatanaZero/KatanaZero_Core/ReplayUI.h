@@ -23,6 +23,9 @@ public:
 		State.ChangeState(_State);
 	}
 
+	void On();
+	void Off();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

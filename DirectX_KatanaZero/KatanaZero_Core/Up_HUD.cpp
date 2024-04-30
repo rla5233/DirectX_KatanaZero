@@ -219,12 +219,6 @@ void AUp_HUD::BatteryPartUpdate(float _AbilityTime)
 	}
 }
 
-void AUp_HUD::Destroy()
-{
-	Off();
-	AActor::Destroy();
-}
-
 void AUp_HUD::On()
 {
 	Bar->SetActive(true);

@@ -29,12 +29,6 @@ public:
 		State.ChangeState(_State);
 	}
 
-	void Destroy()
-	{
-		Off();
-		AActor::Destroy();
-	}
-
 	void On()
 	{
 		Go->SetActive(true);
