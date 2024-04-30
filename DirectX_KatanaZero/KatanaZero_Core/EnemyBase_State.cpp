@@ -94,6 +94,7 @@ void AEnemyBase::StateInit()
 	);
 
 	// State End 함수 세팅
+	State.SetEndFunction(EnemyState::chase_run,				std::bind(&AEnemyBase::ChaseRunEnd, this));
 }
 
 void AEnemyBase::IdleStart()
@@ -304,7 +305,7 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 {
 	Recording(_DeltaTime);
 	FloorNumUpdate();
-	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
+	ChaseMarkUpdate();
 
 	// 속도 업데이트
 	DownStairGravityUpdate(_DeltaTime);
@@ -443,7 +444,7 @@ void AEnemyBase::ChaseStop(float _DeltaTime)
 {
 	Recording(_DeltaTime);
 	FloorNumUpdate();
-	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
+	ChaseMarkUpdate();
 
 	// State Change Check
 	if (true == PlayerChaseCheck())
@@ -483,7 +484,7 @@ void AEnemyBase::ChaseStairUpStart()
 void AEnemyBase::ChaseStairUp(float _DeltaTime)
 {
 	Recording(_DeltaTime);
-	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
+	ChaseMarkUpdate();
 
 	// 위치 업데에트
 	PosUpdate(_DeltaTime);
@@ -515,7 +516,7 @@ void AEnemyBase::ChaseStairDownStart()
 void AEnemyBase::ChaseStairDown(float _DeltaTime)
 {
 	Recording(_DeltaTime);
-	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
+	ChaseMarkUpdate();
 
 	// 위치 업데에트
 	PosUpdate(_DeltaTime);

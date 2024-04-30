@@ -129,6 +129,7 @@ protected:
 
 	virtual void ChaseRunStart();
 	void ChaseRun(float _DeltaTime);
+	virtual void ChaseRunEnd() {};
 
 	virtual void ChaseStopStart();
 	void ChaseStop(float _DeltaTime);
@@ -154,6 +155,7 @@ protected:
 
 	bool ChaseTurnCheck();
 	bool ChaseSameFloorCheck();
+	virtual void ChaseMarkUpdate();
 	AStair* FindStair();
 
 	virtual bool AttackRangeCheck();

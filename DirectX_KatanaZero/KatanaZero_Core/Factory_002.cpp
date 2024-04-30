@@ -43,7 +43,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, EnemyState::patrol_walk);
-	SpawnEnemy<AGrunt>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
+	SpawnEnemy<AGangSter>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 	SpawnEnemy<AGangSter>("GangSter", { 540.0f, 400.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
 
 	AllRecComponent.reserve(1);
@@ -77,7 +77,7 @@ void AFactory_002::LevelReStart()
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, EnemyState::patrol_walk);
-	SpawnEnemy<AGrunt>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
+	SpawnEnemy<AGangSter>("Grunt", { 340.0f, 400.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
 	SpawnEnemy<AGangSter>("GangSter", { 540.0f, 400.0f, 0.0f }, EEngineDir::Left, EnemyState::idle);
 
 	AllRecComponent.reserve(1);

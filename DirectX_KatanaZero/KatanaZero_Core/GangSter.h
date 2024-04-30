@@ -33,5 +33,17 @@ protected:
 
 	void DeadStart() override;
 
+	void ChaseRunStart() override;
+	void ChaseRunEnd() override;
+	void ChaseStopStart() override;
+	void ChaseTurnStart() override;
+
+	void ChaseStairUpStart() override;
+	void ChaseStairDownStart() override;
+	void ChaseStairTurnStart() override;
+
+protected:
+	void ChaseMarkUpdate() override;
+
 };
 

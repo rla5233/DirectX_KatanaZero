@@ -320,6 +320,12 @@ bool AEnemyBase::ChaseSameFloorCheck()
 	return Result;
 }
 
+
+void AEnemyBase::ChaseMarkUpdate()
+{
+	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 100.0f, 0.0f));
+}
+
 AStair* AEnemyBase::FindStair()
 {
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
