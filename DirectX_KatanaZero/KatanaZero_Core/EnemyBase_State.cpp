@@ -95,6 +95,7 @@ void AEnemyBase::StateInit()
 
 	// State End 함수 세팅
 	State.SetEndFunction(EnemyState::chase_run,				std::bind(&AEnemyBase::ChaseRunEnd, this));
+	State.SetEndFunction(EnemyState::chase_stop,			std::bind(&AEnemyBase::ChaseStopEnd, this));
 }
 
 void AEnemyBase::IdleStart()
@@ -325,6 +326,12 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 
 	if (true == AttackRangeCheck())
 	{
+		if (false == CanAttack)
+		{
+			State.ChangeState(EnemyState::chase_stop);
+			return;
+		}
+
 		State.ChangeState(EnemyState::chase_attack);
 		return;
 	}
@@ -447,7 +454,7 @@ void AEnemyBase::ChaseStop(float _DeltaTime)
 	ChaseMarkUpdate();
 
 	// State Change Check
-	if (true == PlayerChaseCheck())
+	if (true == PlayerChaseCheck() && true == CanAttack)
 	{
 		State.ChangeState(EnemyState::chase_run);
 		return;
@@ -559,6 +566,4 @@ void AEnemyBase::ChaseAttackStart()
 void AEnemyBase::ChaseAttack(float _DeltaTime)
 {
 	Recording(_DeltaTime);
-
-
 }

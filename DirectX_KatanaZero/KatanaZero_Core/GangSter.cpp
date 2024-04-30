@@ -2,6 +2,7 @@
 #include "GangSter.h"
 
 #include "PlayLevelBase.h"
+#include "PlayerBase.h"
 #include "UpMark.h"
 
 AGangSter::AGangSter()
@@ -123,7 +124,15 @@ void AGangSter::ChaseStopStart()
 {
 	Super::ChaseStopStart();
 
+	GetBody()->AddPosition({ 0.0f, 2.0f, 0.0f });
 	GetBody()->ChangeAnimation(Anim::enemy_gangster_idle);
+}
+
+void AGangSter::ChaseStopEnd()
+{
+	Super::ChaseStopEnd();
+
+	GetBody()->AddPosition({ 0.0f, -2.0f, 0.0f });
 }
 
 void AGangSter::ChaseTurnStart()
@@ -162,6 +171,9 @@ void AGangSter::ChaseAttackStart()
 {
 	Super::ChaseAttackStart();
 	
+	CanAttack = false;
+	AttackDelayTimeCount = Const::enmey_gangster_attack_delay;
+
 	GetBody()->AnimationReset();
 	GetBody()->AddPosition({ 0.0f, 2.0f, 0.0f });
 	GetBody()->ChangeAnimation(Anim::enemy_gangster_idle);
@@ -247,8 +259,7 @@ void AGangSter::SetAttackEffect()
 void AGangSter::SetBullet()
 {
 	Bullet.Renderer->SetActive(true);
-	//Bullet.Velocity = AttackDir * 1500.0f;
-	Bullet.Velocity = AttackDir * 500.0f;
+	Bullet.Velocity = AttackDir * 1500.0f;
 
 	FVector GangSterPos = GetActorLocation();
 	EEngineDir Dir = GetBody()->GetDir();
@@ -265,7 +276,6 @@ void AGangSter::SetBullet()
 
 	float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
 	Bullet.Renderer->SetRotationDeg({ 0.0f, 0.0f, Deg });
-
 }
 
 void AGangSter::BulletUpdate(float _DeltaTime)
@@ -277,10 +287,25 @@ void AGangSter::BulletUpdate(float _DeltaTime)
 
 	Bullet.Renderer->AddPosition(Bullet.Velocity * _DeltaTime);
 
-
 	Bullet.Collision->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 		{
+			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+			//Player->HitByEnemy();
+			Bullet.Renderer->SetActive(false);
+		}
+	);
 
+	Bullet.Collision->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
+		{
+			Bullet.Velocity *= -1.0f;
+		}
+	);
+
+	Bullet.Collision->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
+		{
+			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
+			Enemy->HitByPlayer(Bullet.Velocity.Normalize2DReturn());
+			Bullet.Renderer->SetActive(false);
 		}
 	);
 }

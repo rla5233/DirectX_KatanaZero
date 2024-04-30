@@ -249,6 +249,9 @@ namespace Const
 	const float enemy_patrol_walk_speed				= 100.0f;
 	const float enemy_run_speed						= 350.0f;
 	
+	const float enemy_grunt_attack_delay			= 1.0f;
+	const float enmey_gangster_attack_delay			= 3.0f;
+
 	// Replay
 	const float recording_delay						= 1 / 60.0f;
 

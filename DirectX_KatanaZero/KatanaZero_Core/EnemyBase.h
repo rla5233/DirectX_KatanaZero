@@ -94,6 +94,9 @@ protected:
 	int FloorNum = -1;
 	AStair* TargetStair = nullptr;
 	std::shared_ptr<AUpMark> ChaseMark = nullptr;
+	bool CanAttack = false;
+	float AttackDelayTimeCount = 0.0f;
+	
 
 	// 수정 (삭제 필요)
 	USpriteRenderer* RendererFT = nullptr;
@@ -133,6 +136,7 @@ protected:
 
 	virtual void ChaseStopStart();
 	void ChaseStop(float _DeltaTime);
+	virtual void ChaseStopEnd() {};
 
 	virtual void ChaseTurnStart();
 	void ChaseTurn(float _DeltaTime);
@@ -167,6 +171,7 @@ private:
 	void BloodEffectUpdate(float _DeltaTime);
 
 private:
+	void AttackDelayUpdate(float _DeltaTime);
 	void FloorNumUpdate();
 	void ColCheckUpdate();
 	void DownStairGravityUpdate(float _DeltaTime);

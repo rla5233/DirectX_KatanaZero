@@ -225,6 +225,17 @@ void AEnemyBase::ColCheckUpdate()
 	}
 }
 
+void AEnemyBase::AttackDelayUpdate(float _DeltaTime)
+{
+	if (0.0f < AttackDelayTimeCount)
+	{
+		AttackDelayTimeCount -= _DeltaTime;
+		return;
+	}
+	
+	CanAttack = true;
+}
+
 void AEnemyBase::DownStairGravityUpdate(float _DeltaTime)
 {
 	EEngineDir Dir = Body->GetDir();
@@ -354,6 +365,7 @@ void AEnemyBase::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-	
+	AttackDelayUpdate(_DeltaTime);
+
 	DebugingUpdate();
 }

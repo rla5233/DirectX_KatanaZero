@@ -38,7 +38,7 @@ private:
 	UBullet Bullet;
 
 	FVector AttackDir = FVector::Zero;
-	float AttackRange = 450.0f;
+	float AttackRange = 650.0f;
 
 //FSM
 protected:
@@ -51,6 +51,7 @@ protected:
 	void ChaseRunStart() override;
 	void ChaseRunEnd() override;
 	void ChaseStopStart() override;
+	void ChaseStopEnd() override;
 	void ChaseTurnStart() override;
 
 	void ChaseStairUpStart() override;
