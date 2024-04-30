@@ -1,6 +1,16 @@
 #pragma once
 #include "EnemyBase.h"
 
+class UBullet
+{
+public:
+	void PosUpdate(float _DeltaTime);
+
+public:
+	USpriteRenderer* Renderer = nullptr;
+	FVector Velocity = FVector::Zero;
+};
+
 // ¼³¸í : Àû GangSter
 class AGangSter : public AEnemyBase
 {
@@ -27,7 +37,9 @@ private:
 
 private:
 	USpriteRenderer* Spark = nullptr;
+	UBullet Bullet;
 
+	FVector AttackDir = FVector::Zero;
 	float AttackRange = 450.0f;
 
 //FSM
@@ -58,6 +70,7 @@ protected:
 // Effect
 private:
 	void SetAttackEffect();
+	void SetBullet();
 
 };
 

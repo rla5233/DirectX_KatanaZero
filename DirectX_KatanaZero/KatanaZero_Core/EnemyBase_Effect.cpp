@@ -59,7 +59,7 @@ void AEnemyBase::CreateBloodEffect(float _DeltaTime)
 
 	float Rad = Deg * UEngineMath::DToR;
 	VelDir = { cosf(Rad), sinf(Rad), 0.0f };
-	Blood[BloodIdx].BloodEffect::Velocity = VelDir * 150.0f;
+	Blood[BloodIdx].UBloodEffect::Velocity = VelDir * 150.0f;
 	Blood[BloodIdx].Renderer->SetPosition(GetActorLocation() + FVector(0.0f, 50.0f, 0.0f));
 	Blood[BloodIdx].Renderer->AddPosition(VelDir * 40.0f);
 

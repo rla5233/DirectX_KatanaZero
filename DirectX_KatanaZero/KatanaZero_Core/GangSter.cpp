@@ -7,6 +7,7 @@
 AGangSter::AGangSter()
 {
 	Spark = CreateDefaultSubObject<USpriteRenderer>("Gangster_Attack_Effect");
+	Bullet.Renderer = CreateDefaultSubObject<USpriteRenderer>("Gangster_Bullet");
 
 	Spark->SetupAttachment(GetRoot());
 }
@@ -25,12 +26,19 @@ void AGangSter::BeginPlay()
 	Spark->SetAutoSize(2.0f, true);
 	Spark->SetOrder(ERenderOrder::EffectFront);
 
+	Bullet.Renderer->SetActive(false);
+	Bullet.Renderer->SetAutoSize(1.0f, true);
+	Bullet.Renderer->SetOrder(ERenderOrder::EffectFront);
+	Bullet.Renderer->SetSprite(ImgRes::compo_bullet);
+
 	CreateAnimation();
 }
 
 void AGangSter::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	Bullet.PosUpdate(_DeltaTime);
 }
 
 void AGangSter::CollisionInit()
@@ -66,10 +74,6 @@ void AGangSter::CreateAnimation()
 	Spark->SetFrameCallback(Anim::effect_gun_spark1, 8, [=] { Spark->SetActive(false); });
 	Spark->SetFrameCallback(Anim::effect_gun_spark2, 8, [=] { Spark->SetActive(false); });
 	Spark->SetFrameCallback(Anim::effect_gun_spark3, 8, [=] { Spark->SetActive(false); });
-
-
-
-
 }
 
 void AGangSter::IdleStart()
@@ -157,6 +161,7 @@ void AGangSter::ChaseAttackStart()
 	GetBody()->ChangeAnimation(Anim::enemy_gangster_idle);
 
 	SetAttackEffect();
+	SetBullet();
 
 	DelayCallBack(1.0f, [=] 
 		{
@@ -187,6 +192,7 @@ bool AGangSter::AttackRangeCheck()
 
 	if (AttackRange >= DiffLen && PlayerFloorNum == FloorNum)
 	{
+		AttackDir = DiffVec.Normalize2DReturn();
 		Result = true;
 	}
 
@@ -230,5 +236,35 @@ void AGangSter::SetAttackEffect()
 		Spark->SetPosition({ 90.0f, 51.0f, 0.0f });
 		break;
 	}
+}
 
+void AGangSter::SetBullet()
+{
+	Bullet.Renderer->SetActive(true);
+	Bullet.Velocity = AttackDir * 100.0f;
+
+	FVector GangSterPos = GetActorLocation();
+	EEngineDir Dir = GetBody()->GetDir();
+
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Bullet.Renderer->SetPosition(GangSterPos + FVector(-70.0f, 45.0f, 0.0f));
+		break;
+	case EEngineDir::Right:
+		Bullet.Renderer->SetPosition(GangSterPos + FVector(70.0f, 45.0f, 0.0f));
+		break;
+	}
+
+
+}
+
+void UBullet::PosUpdate(float _DeltaTime)
+{
+	if (false == Renderer->IsActive())
+	{
+		return;
+	}
+
+	Renderer->AddPosition(Velocity * _DeltaTime);
 }

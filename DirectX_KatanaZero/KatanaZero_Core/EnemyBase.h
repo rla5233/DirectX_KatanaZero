@@ -4,7 +4,7 @@
 #include "PhysicsObject.h"
 #include "RecordingObject.h"
 
-class BloodEffect
+class UBloodEffect
 {
 public:
 	USpriteRenderer* Renderer = nullptr;
@@ -78,7 +78,7 @@ protected:
 	USpriteRenderer* Body = nullptr;
 
 	// Blood Effect
-	std::vector<BloodEffect> Blood;
+	std::vector<UBloodEffect> Blood;
 	static const int BloodSize;
 	float BloodTimeCount = 0.0f;
 	int BloodIdx = 0;

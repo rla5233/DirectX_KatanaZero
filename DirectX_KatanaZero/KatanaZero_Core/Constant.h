@@ -97,7 +97,7 @@ namespace ImgRes
 
 	const std::string_view effect_collar_explode	= "spr_collar_explode";
 
-	// MapComponent
+	// Component
 	const std::string_view compo_door				= "spr_door";
 	const std::string_view compo_ceil_laser_on		= "spr_laser_on_0.png";
 	const std::string_view compo_ceil_laser_off		= "spr_laser_off_0.png";
@@ -113,6 +113,8 @@ namespace ImgRes
 
 	const std::string_view compo_scientist_chair	= "spr_scientist_chair";
 	const std::string_view compo_scientist_explode	= "spr_scientist_explode";
+
+	const std::string_view compo_bullet				= "spr_bullet_0.png";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -202,7 +204,7 @@ namespace Anim
 
 	const std::string_view effect_collar_explode	= "spr_collar_explode";
 
-	// MapComponent
+	// Component
 	const std::string_view compo_door_idle			= "door_idle";
 	const std::string_view compo_door_open			= "door_open";
 	const std::string_view compo_ceil_laser_idle	= "spr_laser_col_idle";

@@ -23,7 +23,7 @@ AEnemyBase::AEnemyBase()
 	for (int i = 0; i < BloodSize; i++)
 	{
 		USpriteRenderer* NewRenderer = CreateDefaultSubObject<USpriteRenderer>("Blood");
-		BloodEffect NewBloodEffect = BloodEffect();
+		UBloodEffect NewBloodEffect = UBloodEffect();
 		NewBloodEffect.Renderer = NewRenderer;
 		Blood.push_back(NewBloodEffect);
 	}
