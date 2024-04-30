@@ -25,6 +25,9 @@ protected:
 private:
 	void CreateAnimation();
 
+private:
+	USpriteRenderer* Spark = nullptr;
+
 	float AttackRange = 450.0f;
 
 //FSM
@@ -51,6 +54,10 @@ protected:
 
 protected:
 	void ChaseMarkUpdate() override;
+
+// Effect
+private:
+	void SetAttackEffect();
 
 };
 

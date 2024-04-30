@@ -6,6 +6,9 @@
 
 AGangSter::AGangSter()
 {
+	Spark = CreateDefaultSubObject<USpriteRenderer>("Gangster_Attack_Effect");
+
+	Spark->SetupAttachment(GetRoot());
 }
 
 AGangSter::~AGangSter()
@@ -17,13 +20,17 @@ void AGangSter::BeginPlay()
 	Super::BeginPlay();
 
 	CollisionInit();
+
+	Spark->SetActive(false);
+	Spark->SetAutoSize(2.0f, true);
+	Spark->SetOrder(ERenderOrder::EffectFront);
+
 	CreateAnimation();
 }
 
 void AGangSter::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
 }
 
 void AGangSter::CollisionInit()
@@ -52,6 +59,17 @@ void AGangSter::CreateAnimation()
 			GetBody()->AddPosition({ 0.0f, -2.0f, 0.0f });
 		}
 	);
+
+	Spark->CreateAnimation(Anim::effect_gun_spark1, ImgRes::effect_gun_spark1, 0.06f, false);
+	Spark->CreateAnimation(Anim::effect_gun_spark2, ImgRes::effect_gun_spark2, 0.06f, false);
+	Spark->CreateAnimation(Anim::effect_gun_spark3, ImgRes::effect_gun_spark3, 0.06f, false);
+	Spark->SetFrameCallback(Anim::effect_gun_spark1, 8, [=] { Spark->SetActive(false); });
+	Spark->SetFrameCallback(Anim::effect_gun_spark2, 8, [=] { Spark->SetActive(false); });
+	Spark->SetFrameCallback(Anim::effect_gun_spark3, 8, [=] { Spark->SetActive(false); });
+
+
+
+
 }
 
 void AGangSter::IdleStart()
@@ -138,6 +156,8 @@ void AGangSter::ChaseAttackStart()
 	GetBody()->AddPosition({ 0.0f, 2.0f, 0.0f });
 	GetBody()->ChangeAnimation(Anim::enemy_gangster_idle);
 
+	SetAttackEffect();
+
 	DelayCallBack(1.0f, [=] 
 		{
 			GetBody()->AddPosition({ 0.0f, -2.0f, 0.0f });
@@ -173,4 +193,39 @@ bool AGangSter::AttackRangeCheck()
 void AGangSter::ChaseMarkUpdate()
 {
 	ChaseMark->SetActorLocation(GetActorLocation() + FVector(0.0f, 105.0f, 0.0f));
+}
+
+void AGangSter::SetAttackEffect()
+{
+	Spark->SetActive(true);
+	Spark->AnimationReset();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 3);
+
+	switch (RandomValue)
+	{
+	case 1:
+		Spark->ChangeAnimation(Anim::effect_gun_spark1);
+		break;
+	case 2:
+		Spark->ChangeAnimation(Anim::effect_gun_spark2);
+		break;
+	case 3:
+		Spark->ChangeAnimation(Anim::effect_gun_spark3);
+		break;
+	}
+
+	EEngineDir Dir = GetBody()->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Spark->SetDir(EEngineDir::Left);
+		Spark->SetPosition({ -90.0f, 51.0f, 0.0f });
+		break;
+	case EEngineDir::Right:
+		Spark->SetDir(EEngineDir::Right);
+		Spark->SetPosition({ 90.0f, 51.0f, 0.0f });
+		break;
+	}
+
 }
