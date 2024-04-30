@@ -7,6 +7,7 @@ public:
 	USpriteRenderer* Renderer = nullptr;
 	UCollision* Collision = nullptr;
 	FVector Velocity = FVector::Zero;
+	bool IsReflect = false;
 };
 
 // ¼³¸í : Àû GangSter

@@ -258,6 +258,7 @@ void AGangSter::SetAttackEffect()
 
 void AGangSter::SetBullet()
 {
+	Bullet.IsReflect = false;
 	Bullet.Renderer->SetActive(true);
 	Bullet.Velocity = AttackDir * 1750.0f;
 
@@ -298,14 +299,18 @@ void AGangSter::BulletUpdate(float _DeltaTime)
 	Bullet.Collision->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
 		{
 			Bullet.Velocity *= -1.0f;
+			Bullet.IsReflect = true;
 		}
 	);
 
 	Bullet.Collision->CollisionEnter(EColOrder::Enemy, [=](std::shared_ptr<UCollision> _Other)
 		{
-			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
-			Enemy->HitByPlayer(Bullet.Velocity.Normalize2DReturn());
-			Bullet.Renderer->SetActive(false);
+			if (true == Bullet.IsReflect)
+			{
+				AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
+				Enemy->HitByPlayer(Bullet.Velocity.Normalize2DReturn());
+				Bullet.Renderer->SetActive(false);
+			}
 		}
 	);
 }
