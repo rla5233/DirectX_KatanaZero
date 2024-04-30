@@ -131,6 +131,8 @@ private:
 
 	UEngineTime MainTimer;
 
+	std::string WindowIconPath;
+
 	UEngineGraphicDevice EngineDevice;
 
 	UserCore* UserCorePtr = nullptr;

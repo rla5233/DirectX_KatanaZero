@@ -161,7 +161,10 @@ void AGangSter::ChaseAttackStart()
 	DelayCallBack(1.0f, [=] 
 		{
 			GetBody()->AddPosition({ 0.0f, -2.0f, 0.0f });
-			StateChange(EnemyState::chase_run);
+			if (EnemyState::chase_attack == GetCurState())
+			{
+				StateChange(EnemyState::chase_run);
+			}
 		}
 	);
 }
