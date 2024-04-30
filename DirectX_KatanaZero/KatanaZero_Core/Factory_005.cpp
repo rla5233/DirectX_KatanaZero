@@ -178,7 +178,7 @@ void AFactory_005::ClearStart()
 {
 	Super::ClearStart();
 
-	Go->SetRepeatPos({ 500.0f, 200.0f, 0.0f });
+	Go->SetRepeatPos({ -550.0f, -80.0f, 0.0f });
 	Go->StateChange("Repeat");
 }
 

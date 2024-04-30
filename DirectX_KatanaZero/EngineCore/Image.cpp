@@ -357,3 +357,13 @@ bool UImage::IsCurAnimationEnd()
 {
 	return CurAnimation->IsEnd;
 }
+
+void UImage::SetDir(EEngineDir _Dir)
+{
+	Dir = _Dir;
+
+	if (nullptr != CurInfo.Texture)
+	{
+		SetSpriteInfo(CurInfo);
+	}
+}

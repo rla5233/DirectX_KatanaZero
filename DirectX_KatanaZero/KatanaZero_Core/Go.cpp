@@ -32,6 +32,7 @@ void AGo::Init()
 
 	Go->SetAutoSize(2.0f, true);
 	Arrow->SetAutoSize(2.0f, true);
+	Arrow->SetDir(EEngineDir::Left);
 
 	Arrow->SetPosition({ 0.0f, -40.0f, 0.0f });
 }

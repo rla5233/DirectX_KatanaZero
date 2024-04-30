@@ -77,6 +77,13 @@ public:
 		ColorData.MulColor = _Color;
 	}
 
+	void SetDir(EEngineDir _Dir);
+
+	inline EEngineDir GetDir() const
+	{
+		return Dir;
+	}
+
 protected:
 	void MaterialSettingEnd() override;
 	void Tick(float _DetaTime) override;
