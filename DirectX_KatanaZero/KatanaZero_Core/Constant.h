@@ -41,6 +41,7 @@ namespace ImgRes
 	const std::string_view enemy_gangster_turn		= "gangster_turn";
 	const std::string_view enemy_gangster_hitfall	= "gangster_hitfall";
 	const std::string_view enemy_gangster_dead		= "gangster_dead";
+	const std::string_view enemy_gangster_shoot		= "spr_gangsteridle_0.png";
 
 	// UI
 	const std::string_view ui_cursor				= "spr_cursor_0.png";

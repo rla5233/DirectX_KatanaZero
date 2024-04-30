@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "GangSter.h"
 
+#include "PlayLevelBase.h"
 #include "UpMark.h"
 
 AGangSter::AGangSter()
@@ -71,7 +72,7 @@ void AGangSter::DeadStart()
 {
 	Super::DeadStart();
 
-	GetBody()->AddPosition({ 0.0f, 12.0f, 0.0f });
+	GetBody()->AddPosition({ 0.0f, 2.0f, 0.0f });
 	GetBody()->ChangeAnimation(Anim::enemy_gangster_dead);
 }
 
@@ -127,6 +128,46 @@ void AGangSter::ChaseStairTurnStart()
 	DirChange();
 	GetBody()->AddPosition({ 0.0f, 2.0f, 0.0f });
 	GetBody()->ChangeAnimation(Anim::enemy_gangster_turn);
+}
+
+void AGangSter::ChaseAttackStart()
+{
+	Super::ChaseAttackStart();
+	
+	GetBody()->AnimationReset();
+	GetBody()->AddPosition({ 0.0f, 2.0f, 0.0f });
+	GetBody()->ChangeAnimation(Anim::enemy_gangster_idle);
+
+	DelayCallBack(1.0f, [=] 
+		{
+			GetBody()->AddPosition({ 0.0f, -2.0f, 0.0f });
+			StateChange(EnemyState::chase_run);
+		}
+	);
+}
+
+void AGangSter::ChaseAttack(float _DeltaTime)
+{
+	Super::ChaseAttack(_DeltaTime);
+}
+
+bool AGangSter::AttackRangeCheck()
+{
+	bool Result = false;
+
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+	int PlayerFloorNum = PlayLevel->GetPlayerFloorNum();
+
+	FVector DiffVec = PlayerPos - GetActorLocation();
+	float DiffLen = UContentsMath::GetVectorNorm(DiffVec);
+
+	if (AttackRange >= DiffLen && PlayerFloorNum == FloorNum)
+	{
+		Result = true;
+	}
+
+	return Result;
 }
 
 void AGangSter::ChaseMarkUpdate()

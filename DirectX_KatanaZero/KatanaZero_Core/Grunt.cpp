@@ -214,6 +214,12 @@ void AGrunt::ChaseAttack(float _DeltaTime)
 			Player->HitByEnemy();
 		}
 	);
+
+	if (true == Body->IsCurAnimationEnd())
+	{
+		StateChange(EnemyState::chase_run);
+		return;
+	}
 }
 
 bool AGrunt::AttackRangeCheck()

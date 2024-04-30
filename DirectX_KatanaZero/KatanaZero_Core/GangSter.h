@@ -25,6 +25,8 @@ protected:
 private:
 	void CreateAnimation();
 
+	float AttackRange = 450.0f;
+
 //FSM
 protected:
 	void IdleStart() override;
@@ -41,6 +43,11 @@ protected:
 	void ChaseStairUpStart() override;
 	void ChaseStairDownStart() override;
 	void ChaseStairTurnStart() override;
+
+	void ChaseAttackStart() override;
+	void ChaseAttack(float _DeltaTime) override;
+
+	bool AttackRangeCheck() override;
 
 protected:
 	void ChaseMarkUpdate() override;

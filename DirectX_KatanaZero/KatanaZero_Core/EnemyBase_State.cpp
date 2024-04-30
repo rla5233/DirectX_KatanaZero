@@ -340,7 +340,7 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 			return;
 		}
 		
-		if (true == IsOnStairs(Body->GetDir()))
+		if (true == IsOnStairs(Body->GetDir()) && false == IsOnGroundBoundary(Body->GetDir()))
 		{
 			AStair* Target = TargetStair;
 			AStair* Partner = Target->GetPartnerStair();
@@ -560,9 +560,5 @@ void AEnemyBase::ChaseAttack(float _DeltaTime)
 {
 	Recording(_DeltaTime);
 
-	if (true == Body->IsCurAnimationEnd())
-	{
-		State.ChangeState(EnemyState::chase_run);
-		return;
-	}
+
 }
