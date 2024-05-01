@@ -345,6 +345,20 @@ void APlayLevelBase::StateInit()
 
 	State.SetStartFunction(PlayLevelState::transition_on, [=] 
 		{
+			Player->SetReplayMode(EReplayMode::Stop);
+
+			for (size_t i = 0; i < AllEnemy.size(); i++)
+			{
+				AllEnemy[i]->SetReplayMode(EReplayMode::Stop);
+			}
+
+			for (size_t i = 0; i < AllRecComponent.size(); i++)
+			{
+				AllRecComponent[i]->SetReplayMode(EReplayMode::Stop);
+			}
+
+			ReplayUI->Off();
+
 			DiaTransition->StateChange(DiaTransitionState::on);
 		}
 	);

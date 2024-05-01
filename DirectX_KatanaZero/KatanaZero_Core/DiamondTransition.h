@@ -34,11 +34,11 @@ protected:
 
 private:
 	std::vector<std::vector<UImage*>> AllRenderer;
-	//const int Width = 40;
-	//const int Height = 23;
+	const int Width = 40;
+	const int Height = 23;
 	
-	const int Width = 20;
-	const int Height = 12;
+	//const int Width = 20;
+	//const int Height = 12;
 	
 	bool IsTransitionEndValue = false;
 	float TimeCount = 0.0f;

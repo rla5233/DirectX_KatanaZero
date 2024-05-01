@@ -264,8 +264,7 @@ namespace Const
 	const float effect_roll_cloud_delay				= 0.02f;
 	const float effect_wallslide_cloud_delay		= 0.04f;
 	const float effect_blood_splatter_delay			= 0.01f;
-	const float effect_dia_transition_delay			= 0.0001f;
-
+	const float effect_dia_transition_delay			= 0.005f;
 }
 
 //// State ////

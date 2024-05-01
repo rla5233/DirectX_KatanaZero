@@ -28,8 +28,8 @@ void ADiamondTransition::BeginPlay()
 			AllRenderer[y][x]->SetAutoSize(2.0f, true);
 			AllRenderer[y][x]->AddToViewPort(EWidgetOrder::Top);
 
-			AllRenderer[y][x]->CreateAnimation(Anim::effect_dia_transition_on, ImgRes::effect_dia_transition, 0.0001f, false, 0, 42);
-			AllRenderer[y][x]->CreateAnimation(Anim::effect_dia_transition_off, ImgRes::effect_dia_transition, 0.0001f, false, 43, 85);
+			AllRenderer[y][x]->CreateAnimation(Anim::effect_dia_transition_on, ImgRes::effect_dia_transition, 0.01f, false, 0, 42);
+			AllRenderer[y][x]->CreateAnimation(Anim::effect_dia_transition_off, ImgRes::effect_dia_transition, 0.01f, false, 43, 85);
 			AllRenderer[y][x]->CreateAnimation(Anim::effect_dia_transition_idle, ImgRes::effect_dia_transition, 0.01f, false, 40, 40);
 			AllRenderer[y][x]->SetFrameCallback(Anim::effect_dia_transition_off, 43, [=] {	AllRenderer[y][x]->SetActive(false); });
 

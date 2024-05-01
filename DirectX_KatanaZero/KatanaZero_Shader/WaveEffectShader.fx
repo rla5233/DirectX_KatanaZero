@@ -31,20 +31,12 @@ UWavePSOuput UWave_PS(UWaveVSOuput _Input)
     
     float2 TexPos = _Input.TEXCOORD.xy;
     
-    float POWER = 0.04f; // 谅快 如甸覆
-    float VERTICAL_SPREAD = 5.0f; // vertically
-    float ANIM_SPEED = 0.4f;
+    float POWER = 0.06f;            // 谅快 如甸覆
+    float VERTICAL_SPREAD = 4.0f;   // vertically
+    float ANIM_SPEED = 0.6f;
     
     float y = (TexPos.y + AccTime * ANIM_SPEED) * VERTICAL_SPREAD;
-    
-    TexPos.x += (
-    //sin(y)                            // 硅版率 奴 如甸覆
-    +sin(y * 10.0f) * 0.2f
-    //+ sin(y * 50.0f) * 0.03f          // 儡 林抚
-    )
-    * POWER
-    * sin(TexPos.y * 3.14f);
-    
+    TexPos.x += (sin(y * 10.0f) * 0.2f) * POWER * sin(TexPos.y * 3.14f); // 硅版率 奴 如甸覆 & 儡 林抚
 
     Out.COLOR.rgba = Image.Sample(Image_Sampler, TexPos).rgba;
     return Out;
