@@ -83,14 +83,7 @@ void ADiamondTransition::StateInit()
 			CameraPos.Z = 0.0f;
 			SetActorLocation(CameraPos);
 
-			for (size_t y = 0; y < Height; y++)
-			{
-				for (size_t x = 0; x < Width; x++)
-				{
-					AllRenderer[y][x]->SetActive(true);
-					AllRenderer[y][x]->ChangeAnimation(Anim::effect_dia_transition_on);
-				}
-			}
+			X = Width - 1;
 		}
 	);
 
@@ -100,14 +93,7 @@ void ADiamondTransition::StateInit()
 			CameraPos.Z = 0.0f;
 			SetActorLocation(CameraPos);
 
-			for (size_t y = 0; y < Height; y++)
-			{
-				for (size_t x = 0; x < Width; x++)
-				{
-					AllRenderer[y][x]->SetActive(true);
-					AllRenderer[y][x]->ChangeAnimation(Anim::effect_dia_transition_off);
-				}
-			}
+			X = Width - 1;
 		}
 	);
 
@@ -115,11 +101,39 @@ void ADiamondTransition::StateInit()
 	State.SetUpdateFunction(DiaTransitionState::none, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(DiaTransitionState::on, [=](float _DeltaTime)
 		{
+			if (0.0f < TimeCount || 0 > X)
+			{
+				TimeCount -= _DeltaTime;
+				return;
+			}
+
+			for (size_t y = 0; y < Height; y++)
+			{
+				AllRenderer[y][X]->SetActive(true);
+				AllRenderer[y][X]->ChangeAnimation(Anim::effect_dia_transition_on);
+			}
+
+			TimeCount = Const::effect_dia_transition_delay;
+			--X;
 		}
 	);
 
 	State.SetUpdateFunction(DiaTransitionState::off, [=](float _DeltaTime)
 		{
+			if (0.0f < TimeCount || 0 > X)
+			{
+				TimeCount -= _DeltaTime;
+				return;
+			}
+
+			for (size_t y = 0; y < Height; y++)
+			{
+				AllRenderer[y][X]->SetActive(true);
+				AllRenderer[y][X]->ChangeAnimation(Anim::effect_dia_transition_off);
+			}
+
+			TimeCount = Const::effect_dia_transition_delay;
+			--X;
 		}
 	);
 }

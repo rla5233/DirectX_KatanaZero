@@ -38,6 +38,7 @@ void APlayLevelBase::BeginPlay()
 	GrayScaleEffect = GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
+	
 	DiaTransition = GetWorld()->SpawnActor<ADiamondTransition>("DiaTransition");
 }
 
