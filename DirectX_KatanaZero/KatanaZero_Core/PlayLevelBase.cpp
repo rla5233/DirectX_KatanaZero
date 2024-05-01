@@ -407,8 +407,8 @@ void APlayLevelBase::StateInit()
 			if (true == IsDown(VK_RBUTTON))
 			{
 				InputOff();
-
-				ChangeStage();
+				State.ChangeState(PlayLevelState::transition_on);
+				return;
 			}
 		}
 	);
@@ -428,7 +428,11 @@ void APlayLevelBase::StateInit()
 
 	State.SetUpdateFunction(PlayLevelState::transition_on, [=](float _DeltaTime) 
 		{
-
+			if (true == DiaTransition->IsTransitionEnd())
+			{
+				ChangeStage();
+				return;
+			}			
 		}
 	);
 	

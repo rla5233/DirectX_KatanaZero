@@ -37,14 +37,14 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 
 	FloorY = { 637.0f, 925.0f };
 
-	MainCamera->SetActorLocation({ 665.0f, 395.0f, -100.0f });
-
 	ColMap->SetColMapSprite(ImgRes::factory_colmap4, 1.0f, true);
 	ColMap->SetBGSprite(ImgRes::factory_background4, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -50.0f, 222.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
+
+	MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnEnemy<AGrunt>("Grunt", { 480.0f, 638.0f, 0.0f }, EEngineDir::Right, EnemyState::idle);
@@ -56,6 +56,8 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 	NewCeilLaser->AddLaserScaleY(288.0f);
 
 	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, FanState::idle, EUpdateOrder::Fan);
+
+	State.ChangeState(PlayLevelState::transition_off);
 }
 
 void AFactory_004::LevelEnd(ULevel* _NextLevel)

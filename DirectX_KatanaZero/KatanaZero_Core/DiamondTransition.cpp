@@ -65,10 +65,6 @@ void ADiamondTransition::StateInit()
 	State.SetStartFunction(DiaTransitionState::none, [=] {});
 	State.SetStartFunction(DiaTransitionState::on, [=]
 		{
-			FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
-			CameraPos.Z = 0.0f;
-			SetActorLocation(CameraPos);
-
 			X = Width - 1;
 			IsTransitionEndValue = false;
 		}
@@ -76,10 +72,6 @@ void ADiamondTransition::StateInit()
 
 	State.SetStartFunction(DiaTransitionState::off, [=]
 		{
-			FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
-			CameraPos.Z = 0.0f;
-			SetActorLocation(CameraPos);
-
 			for (size_t y = 0; y < Height; y++)
 			{
 				for (size_t x = 0; x < Width; x++)
@@ -112,6 +104,7 @@ void ADiamondTransition::StateInit()
 
 			for (size_t y = 0; y < Height; y++)
 			{
+				AllRenderer[y][X]->SetActive(true);
 				AllRenderer[y][X]->ChangeAnimation(Anim::effect_dia_transition_on);
 			}
 
