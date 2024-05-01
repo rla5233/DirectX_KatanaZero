@@ -47,11 +47,9 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 	Super::LevelStart(_PrevLevel);
 
 	MainCamera = GetWorld()->SpawnActor<AMainCamera>("ContentsMainCamera");
-
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 
 	GrayScaleEffect->Active(false);
-	State.ChangeState(PlayLevelState::intro);
 }
 
 void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
@@ -228,6 +226,8 @@ void APlayLevelBase::StateInit()
 	State.CreateState(PlayLevelState::replay);
 	State.CreateState(PlayLevelState::player_dead);
 	State.CreateState(PlayLevelState::restart);
+	State.CreateState(PlayLevelState::transition_on);
+	State.CreateState(PlayLevelState::transition_off);
 
 	// State Start 함수 세팅
 	State.SetStartFunction(PlayLevelState::intro, [=] {});
@@ -338,6 +338,19 @@ void APlayLevelBase::StateInit()
 		}
 	);
 
+	State.SetStartFunction(PlayLevelState::transition_on, [=] 
+		{
+			DiaTransition->StateChange(DiaTransitionState::on);
+		}
+	);
+
+	State.SetStartFunction(PlayLevelState::transition_off, [=] 
+		{
+			DiaTransition->StateChange(DiaTransitionState::off);
+		}
+	);
+
+
 	// State Update 함수 세팅
 	State.SetUpdateFunction(PlayLevelState::outro, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(PlayLevelState::player_dead, [=](float _DeltaTime) 
@@ -409,6 +422,26 @@ void APlayLevelBase::StateInit()
 				LevelReEnd();
 				LevelReStart();
 				State.ChangeState(PlayLevelState::play);
+			}
+		}
+	);
+
+	State.SetUpdateFunction(PlayLevelState::transition_on, [=](float _DeltaTime) 
+		{
+
+		}
+	);
+	
+	State.SetUpdateFunction(PlayLevelState::transition_off, [=](float _DeltaTime) 
+		{
+			if (true == DiaTransition->IsTransitionEnd())
+			{
+				State.ChangeState(PlayLevelState::intro);
+
+				Player->StateChange(PlayerState::none);
+				Player->SubStateChange(PlayerSubState::intro);
+
+				return;
 			}
 		}
 	);

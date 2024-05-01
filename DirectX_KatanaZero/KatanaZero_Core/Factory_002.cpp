@@ -32,14 +32,14 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	TotalEnemy = 3;
 	FloorY = { 397.0f };
 
-	MainCamera->SetActorLocation({ 665.0f, 392.0f, -100.0f });
-
 	ColMap->SetColMapSprite(ImgRes::factory_colmap2, 1.0f, true);
 	ColMap->SetBGSprite(ImgRes::factory_background2, 1.0f, true);
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -20.0f, 111.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
+
+	MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 1075.0f, 400.0f, 0.0f }, EEngineDir::Left, 3.5f, 5.0f, EnemyState::patrol_walk);
@@ -56,6 +56,8 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	AStair* DownStair = CreateStair({ 1057.0f, 398.0f, 0.0f }, EStairType::Down, 1).get();
 	UpStair->SetPartnerStair(DownStair);
 	DownStair->SetPartnerStair(UpStair);
+
+	State.ChangeState(PlayLevelState::transition_off);
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

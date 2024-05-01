@@ -207,6 +207,7 @@ namespace Anim
 	
 	const std::string_view effect_dia_transition_on		= "spr_transition_on";
 	const std::string_view effect_dia_transition_off	= "spr_transition_off";
+	const std::string_view effect_dia_transition_idle	= "spr_transition_idle";
 
 	// Component
 	const std::string_view compo_door_idle			= "door_idle";
@@ -309,6 +310,8 @@ namespace TitleLevelState
 
 namespace PlayLevelState
 {
+	const std::string_view transition_on	= "Transition_On";
+	const std::string_view transition_off	= "Transition_Off";
 	const std::string_view intro			= "Intro";
 	const std::string_view play				= "Play";
 	const std::string_view clear			= "Clear";
