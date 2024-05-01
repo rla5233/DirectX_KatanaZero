@@ -17,6 +17,7 @@
 #include "Go.h"
 
 #include "GrayScaleEffect.h"
+#include "WaveEffect.h"
 #include "DiamondTransition.h"
 
 APlayLevelBase::APlayLevelBase()
@@ -36,6 +37,7 @@ void APlayLevelBase::BeginPlay()
 	StateInit();
 	
 	GrayScaleEffect = GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
+	WavaEffect = GetWorld()->GetLastTarget()->AddEffect<UWaveEffect>();
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	
@@ -50,6 +52,7 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 
 	GrayScaleEffect->Active(false);
+	WavaEffect->Active(false);
 }
 
 void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
@@ -335,6 +338,8 @@ void APlayLevelBase::StateInit()
 			{
 				AllRecComponent[i]->StateChange(RecCompoState::restart);
 			}
+
+			WavaEffect->Active(true);
 		}
 	);
 
@@ -416,6 +421,7 @@ void APlayLevelBase::StateInit()
 	State.SetUpdateFunction(PlayLevelState::restart, [=](float _DeltaTime) 
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+			WavaEffect->Update(_DeltaTime);
 
 			if (Player->IsRewindEnd())
 			{
@@ -423,6 +429,9 @@ void APlayLevelBase::StateInit()
 				LevelReStart();
 				
 				State.ChangeState(PlayLevelState::play);
+				WavaEffect->Active(false);
+				WavaEffect->ResetTime();
+				return;
 			}
 		}
 	);

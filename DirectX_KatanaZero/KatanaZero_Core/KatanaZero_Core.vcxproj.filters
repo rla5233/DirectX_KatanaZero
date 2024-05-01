@@ -82,20 +82,20 @@
     <Filter Include="Level\000.Object\Enemy">
       <UniqueIdentifier>{45ff3278-ad39-47cf-8b3c-8b3e2d8dceb9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Base\Player\Component">
-      <UniqueIdentifier>{f034dcea-c079-4069-ac05-51a7d586a66f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Base\Player\Component\Actor">
-      <UniqueIdentifier>{a720947a-0118-4fa0-9d5e-9067fd43de03}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Base\Player\Component\Image">
-      <UniqueIdentifier>{4950cc03-8c1f-41ae-ab9c-fe14e2d01bd3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\000.Object\Map\Component">
       <UniqueIdentifier>{7b315559-a7bf-4a3c-8237-57db1289da8e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Level\000.Object\Enemy\Component">
       <UniqueIdentifier>{78836ffc-9bfa-4e7d-89cb-b7e44dd6702b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\Component">
+      <UniqueIdentifier>{f034dcea-c079-4069-ac05-51a7d586a66f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\Component\Actor">
+      <UniqueIdentifier>{a720947a-0118-4fa0-9d5e-9067fd43de03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\Component\Image">
+      <UniqueIdentifier>{4950cc03-8c1f-41ae-ab9c-fe14e2d01bd3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -202,19 +202,19 @@
       <Filter>Level\000.Object\UI</Filter>
     </ClInclude>
     <ClInclude Include="LerpObject.h">
-      <Filter>Object\Base\Player\Component\Actor</Filter>
+      <Filter>Object\Base\Component\Actor</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsObject.h">
-      <Filter>Object\Base\Player\Component\Actor</Filter>
+      <Filter>Object\Base\Component\Actor</Filter>
     </ClInclude>
     <ClInclude Include="PixelColObject.h">
-      <Filter>Object\Base\Player\Component\Actor</Filter>
+      <Filter>Object\Base\Component\Actor</Filter>
     </ClInclude>
     <ClInclude Include="RecordingObject.h">
-      <Filter>Object\Base\Player\Component\Actor</Filter>
+      <Filter>Object\Base\Component\Actor</Filter>
     </ClInclude>
     <ClInclude Include="FadeObject.h">
-      <Filter>Object\Base\Player\Component\Image</Filter>
+      <Filter>Object\Base\Component\Image</Filter>
     </ClInclude>
     <ClInclude Include="FadeImage.h">
       <Filter>Object\Rendering</Filter>
@@ -232,6 +232,9 @@
       <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClInclude>
     <ClInclude Include="DiamondTransition.h">
+      <Filter>Object\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveEffect.h">
       <Filter>Object\Effect</Filter>
     </ClInclude>
   </ItemGroup>
@@ -351,19 +354,19 @@
       <Filter>Level\000.Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="LerpObject.cpp">
-      <Filter>Object\Base\Player\Component\Actor</Filter>
+      <Filter>Object\Base\Component\Actor</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsObject.cpp">
-      <Filter>Object\Base\Player\Component\Actor</Filter>
+      <Filter>Object\Base\Component\Actor</Filter>
     </ClCompile>
     <ClCompile Include="PixelColObject.cpp">
-      <Filter>Object\Base\Player\Component\Actor</Filter>
+      <Filter>Object\Base\Component\Actor</Filter>
     </ClCompile>
     <ClCompile Include="RecordingObject.cpp">
-      <Filter>Object\Base\Player\Component\Actor</Filter>
+      <Filter>Object\Base\Component\Actor</Filter>
     </ClCompile>
     <ClCompile Include="FadeObject.cpp">
-      <Filter>Object\Base\Player\Component\Image</Filter>
+      <Filter>Object\Base\Component\Image</Filter>
     </ClCompile>
     <ClCompile Include="FadeImage.cpp">
       <Filter>Object\Rendering</Filter>
@@ -387,6 +390,9 @@
       <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClCompile>
     <ClCompile Include="DiamondTransition.cpp">
+      <Filter>Object\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveEffect.cpp">
       <Filter>Object\Effect</Filter>
     </ClCompile>
   </ItemGroup>

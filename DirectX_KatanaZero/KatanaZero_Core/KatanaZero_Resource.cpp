@@ -9,15 +9,12 @@ void UKatanaZero_Core::CreateRes()
 		Mat->SetPixelShader("GrayScaleEffectShader.fx");
 		Mat->SetVertexShader("GrayScaleEffectShader.fx");
 	}
-	 
-	
-	//std::shared_ptr<UEngineMaterial> Blur = UEngineMaterial::Create("MyBlur");
-	//if (Blur != nullptr)
-	//{
-	//	Blur->SetPixelShader("BlurEffectShader.fx");
-	//	Blur->SetVertexShader("BlurEffectShader.fx");
-	//	
-	//}
+
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Wave");
+		Mat->SetPixelShader("WaveEffectShader.fx");
+		Mat->SetVertexShader("WaveEffectShader.fx");
+	}
 }
 
 void UKatanaZero_Core::ResLoad()

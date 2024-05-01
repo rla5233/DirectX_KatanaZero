@@ -12,6 +12,9 @@
     <FxCompile Include="GrayScaleEffectShader.fx">
       <Filter>Effect</Filter>
     </FxCompile>
+    <FxCompile Include="WaveEffectShader.fx">
+      <Filter>Effect</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="KZ_ShaderBase.hlsli">

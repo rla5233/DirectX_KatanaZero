@@ -3,7 +3,6 @@
 
 #include "SpawnManager.h"
 
-class UGrayScaleEffect;
 class AMainCamera;
 class AColMapObject;
 class ARecMapCompoBase;
@@ -16,6 +15,9 @@ class AUp_HUD;
 class AStair;
 class ADoor;
 class AGo;
+
+class UGrayScaleEffect;
+class UWaveEffect;
 
 
 // 설명 : PlayLevel 기본 클래스
@@ -122,6 +124,7 @@ protected:
 	std::vector<std::vector<std::shared_ptr<ADoor>>> AllDoor;
 
 	std::shared_ptr<UGrayScaleEffect> GrayScaleEffect = nullptr;
+	std::shared_ptr<UWaveEffect> WavaEffect = nullptr;
 	std::shared_ptr<ADiamondTransition> DiaTransition = nullptr;
 
 // FSM
