@@ -96,6 +96,7 @@ namespace ImgRes
 	const std::string_view effect_grunt_attack		= "grunt_attack_effect";
 
 	const std::string_view effect_collar_explode	= "spr_collar_explode";
+	const std::string_view effect_dia_transition	= "spr_transition";
 
 	// Component
 	const std::string_view compo_door				= "spr_door";
@@ -203,6 +204,9 @@ namespace Anim
 	const std::string_view effect_grunt_attack		= "grunt_attack_effect";
 
 	const std::string_view effect_collar_explode	= "spr_collar_explode";
+	
+	const std::string_view effect_dia_transition_on		= "spr_transition_on";
+	const std::string_view effect_dia_transition_off	= "spr_transition_off";
 
 	// Component
 	const std::string_view compo_door_idle			= "door_idle";
@@ -427,4 +431,10 @@ namespace ScientistState
 {
 	const std::string_view idle				= "Idle";
 	const std::string_view explode			= "Explode";
+}
+
+namespace DiaTransitionState
+{
+	const std::string_view on				= "On";
+	const std::string_view off				= "Off";
 }

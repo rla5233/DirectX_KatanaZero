@@ -231,6 +231,9 @@
     <ClInclude Include="Scientist.h">
       <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClInclude>
+    <ClInclude Include="DiamondTransition.h">
+      <Filter>Object\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -382,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="Scientist.cpp">
       <Filter>Level\002.FactoryLevel\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DiamondTransition.cpp">
+      <Filter>Object\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
