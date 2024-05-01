@@ -57,6 +57,8 @@ void APlayerBase::Intro(float _DeltaTime)
 
 void APlayerBase::PlayStart()
 {
+	InputOn();
+	IsPlayValue = true;
 }
 
 void APlayerBase::Play(float _DeltaTime)

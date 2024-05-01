@@ -325,6 +325,7 @@ namespace PlayLevelState
 // Object
 namespace TitleScreenState
 {
+	const std::string_view none				= "None";
 	const std::string_view begin			= "Begin";
 	const std::string_view newgame			= "NewGame";
 	const std::string_view exit				= "Exit";

@@ -33,9 +33,11 @@ void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
 
 	Screen->Destroy();
 	Menu->Destroy();
+	MainCamera->Destroy();
 
 	Screen = nullptr;
 	Menu = nullptr;
+	MainCamera = nullptr;
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
@@ -56,6 +58,7 @@ void ATitleGameMode::StateInit()
 	State.SetStartFunction(TitleLevelState::title, [=]
 		{
 			MainCamera = GetWorld()->SpawnActor<AMainCamera>("MainCamera");
+			EnterTitleTimeWeight = 2.0f;
 			
 			FVector CameraStartPos = { 0.0f, 0.0f, -100.0f };
 			FVector CameraTargetPos = { 0.0f, -360.0f, -100.0f };

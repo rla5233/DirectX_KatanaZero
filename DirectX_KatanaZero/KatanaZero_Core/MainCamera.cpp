@@ -16,13 +16,11 @@ void AMainCamera::BeginPlay()
 	SetMainCamera();
 
 	ULerpObject::SetActor(MainCamera);
-
 }
 
 void AMainCamera::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
 }
 
 void AMainCamera::PlayLevelChaseActor(std::shared_ptr<UEngineTexture> _MapTex, const FVector& _ActorPos)

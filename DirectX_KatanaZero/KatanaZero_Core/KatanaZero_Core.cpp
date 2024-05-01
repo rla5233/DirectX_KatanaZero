@@ -41,7 +41,7 @@ void UKatanaZero_Core::Initialize()
 	
 	//GEngine->ChangeLevel("Factory_004");
 	
-	GEngine->ChangeLevel("Factory_005");
+	//GEngine->ChangeLevel("Factory_005");
 
 
 #ifdef DEBUG

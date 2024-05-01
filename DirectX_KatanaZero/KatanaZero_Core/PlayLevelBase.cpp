@@ -421,6 +421,7 @@ void APlayLevelBase::StateInit()
 			{
 				LevelReEnd();
 				LevelReStart();
+				
 				State.ChangeState(PlayLevelState::play);
 			}
 		}

@@ -98,11 +98,13 @@ void ATitleScreen::SettingTransform()
 void ATitleScreen::StateInit()
 {
 	// State Create
+	State.CreateState(TitleScreenState::none);
 	State.CreateState(TitleScreenState::begin);
 	State.CreateState(TitleScreenState::exit);
 	State.CreateState(TitleScreenState::newgame);
 
 	// State Start
+	State.SetStartFunction(TitleScreenState::none, [=] {});
 	State.SetStartFunction(TitleScreenState::begin, [=]
 		{
 			Plants->CreateAnimation(Anim::plants, ImgRes::title_plant, 0.1f, true);
@@ -127,6 +129,7 @@ void ATitleScreen::StateInit()
 	);
 
 	// State Update
+	State.SetUpdateFunction(TitleScreenState::none, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(TitleScreenState::begin, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(TitleScreenState::exit, [=](float _DeltaTime)
 		{
@@ -148,6 +151,8 @@ void ATitleScreen::StateInit()
 			if (false == IsLerpMove())
 			{
 				GEngine->ChangeLevel("Factory_002");
+				State.ChangeState(TitleScreenState::none);
+				return;
 			}
 		}
 	);
