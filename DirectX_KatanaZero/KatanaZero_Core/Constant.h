@@ -435,6 +435,7 @@ namespace ScientistState
 
 namespace DiaTransitionState
 {
+	const std::string_view none				= "None";
 	const std::string_view on				= "On";
 	const std::string_view off				= "Off";
 }

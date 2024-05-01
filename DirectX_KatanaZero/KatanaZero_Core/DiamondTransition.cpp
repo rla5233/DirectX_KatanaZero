@@ -4,14 +4,13 @@
 ADiamondTransition::ADiamondTransition()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-
 	FVector WinScale = GEngine->EngineWindow.GetWindowScale();
 
-	AllRenderer.resize(23);
-	for (size_t y = 0; y < 23; y++)
+	AllRenderer.resize(Height);
+	for (size_t y = 0; y < Height; y++)
 	{
-		AllRenderer[y].resize(40);
-		for (size_t x = 0; x < 40; x++)
+		AllRenderer[y].resize(Width);
+		for (size_t x = 0; x < Width; x++)
 		{
 			AllRenderer[y][x] = CreateDefaultSubObject<USpriteRenderer>("Transition");
 			
@@ -19,13 +18,14 @@ ADiamondTransition::ADiamondTransition()
 			AllRenderer[y][x]->SetAutoSize(2.0f, true);
 			AllRenderer[y][x]->SetOrder(ERenderOrder::UI);
 
-			AllRenderer[y][x]->CreateAnimation(Anim::effect_dia_transition_on, ImgRes::effect_dia_transition, 0, 42, 0.01f, false);
-			AllRenderer[y][x]->CreateAnimation(Anim::effect_dia_transition_off, ImgRes::effect_dia_transition, 43, 85, 0.01f, false);
+			AllRenderer[y][x]->CreateAnimation(Anim::effect_dia_transition_on, ImgRes::effect_dia_transition, 0.01f, false, 0, 42);
+			AllRenderer[y][x]->CreateAnimation(Anim::effect_dia_transition_off, ImgRes::effect_dia_transition, 0.01f, false, 43, 85);
+			AllRenderer[y][x]->SetLastFrameCallback(Anim::effect_dia_transition_off, [=] {	AllRenderer[y][x]->SetActive(false); });
 			
 			//Position
 			FVector NewPos = FVector::Zero;
 			NewPos.X = (32.0f * x) + 16.0f - WinScale.hX();
-			NewPos.Y = 32.0f * (y - 11);
+			NewPos.Y = WinScale.hY() + 8 - (32.0f * y);
 			AllRenderer[y][x]->SetPosition(NewPos);
 			AllRenderer[y][x]->SetActive(false);
 		}
@@ -43,20 +43,83 @@ void ADiamondTransition::BeginPlay()
 	Super::BeginPlay();
 
 	StateInit();
+	State.ChangeState(DiaTransitionState::none);
 }
 
 void ADiamondTransition::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	State.Update(_DeltaTime);
+
 	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
+		if (DiaTransitionState::on != State.GetCurStateName())
+		{
+			State.ChangeState(DiaTransitionState::on);
+			return;
+		}
 
+		if (DiaTransitionState::off != State.GetCurStateName())
+		{
+			State.ChangeState(DiaTransitionState::off);
+			return;
+		}
 	}
 }
 
 void ADiamondTransition::StateInit()
 {
-	// Create State
-	State.CreateState();
+	// State Create 
+	State.CreateState(DiaTransitionState::none);
+	State.CreateState(DiaTransitionState::on);
+	State.CreateState(DiaTransitionState::off);
+
+	// State Start
+	State.SetStartFunction(DiaTransitionState::none, [=] {});
+	State.SetStartFunction(DiaTransitionState::on, [=]
+		{
+			FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
+			CameraPos.Z = 0.0f;
+			SetActorLocation(CameraPos);
+
+			for (size_t y = 0; y < Height; y++)
+			{
+				for (size_t x = 0; x < Width; x++)
+				{
+					AllRenderer[y][x]->SetActive(true);
+					AllRenderer[y][x]->ChangeAnimation(Anim::effect_dia_transition_on);
+				}
+			}
+		}
+	);
+
+	State.SetStartFunction(DiaTransitionState::off, [=]
+		{
+			FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
+			CameraPos.Z = 0.0f;
+			SetActorLocation(CameraPos);
+
+			for (size_t y = 0; y < Height; y++)
+			{
+				for (size_t x = 0; x < Width; x++)
+				{
+					AllRenderer[y][x]->SetActive(true);
+					AllRenderer[y][x]->ChangeAnimation(Anim::effect_dia_transition_off);
+				}
+			}
+		}
+	);
+
+	// State Update
+	State.SetUpdateFunction(DiaTransitionState::none, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(DiaTransitionState::on, [=](float _DeltaTime)
+		{
+		}
+	);
+
+	State.SetUpdateFunction(DiaTransitionState::off, [=](float _DeltaTime)
+		{
+		}
+	);
 }

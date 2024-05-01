@@ -25,6 +25,9 @@ protected:
 private:
 	std::vector<std::vector<USpriteRenderer*>> AllRenderer;
 
+	const int Width = 40;
+	const int Height = 23;
+
 private:
 	UStateManager State;
 

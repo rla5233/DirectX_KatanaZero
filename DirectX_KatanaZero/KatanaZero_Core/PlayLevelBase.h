@@ -7,6 +7,7 @@ class UGrayScaleEffect;
 class AMainCamera;
 class AColMapObject;
 class ARecMapCompoBase;
+class ADiamondTransition;
 class ADefaultPlayer;
 class AEnemyBase;
 class AMouseAim;
@@ -122,6 +123,7 @@ protected:
 	std::vector<std::vector<std::shared_ptr<ADoor>>> AllDoor;
 
 	std::shared_ptr<UGrayScaleEffect> GrayScaleEffect = nullptr;
+	std::shared_ptr<ADiamondTransition> DiaTransition = nullptr;
 
 // FSM
 protected:

@@ -17,6 +17,7 @@
 #include "Go.h"
 
 #include "GrayScaleEffect.h"
+#include "DiamondTransition.h"
 
 APlayLevelBase::APlayLevelBase()
 {
@@ -37,6 +38,7 @@ void APlayLevelBase::BeginPlay()
 	GrayScaleEffect = GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
+	DiaTransition = GetWorld()->SpawnActor<ADiamondTransition>("DiaTransition");
 }
 
 void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
