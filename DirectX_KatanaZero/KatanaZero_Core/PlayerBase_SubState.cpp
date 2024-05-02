@@ -139,7 +139,7 @@ void APlayerBase::AbilityCheck()
 		return;
 	}
 
-	if (true == IsAbilityInputUp() || false == IsAbilityValue)
+	if (true == IsAbilityInputUp())
 	{
 		IsAbilityValue = false;
 		GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1.0f);
@@ -166,6 +166,11 @@ void APlayerBase::AbilityUpdate(float _DeltaTime)
 		{
 			AbilityTime = 0.0f;
 			IsAbilityValue = false;
+
+			GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1.0f);
+			GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, 1.0f);
+			GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, 1.0f);
+			GEngine->SetOrderTimeScale(EUpdateOrder::Fan, 1.0f);
 		}
 
 		APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());

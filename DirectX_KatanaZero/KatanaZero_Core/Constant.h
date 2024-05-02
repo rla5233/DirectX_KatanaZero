@@ -98,6 +98,8 @@ namespace ImgRes
 	const std::string_view effect_collar_explode	= "spr_collar_explode";
 	const std::string_view effect_dia_transition	= "spr_transition";
 
+	const std::string_view effect_hit_laser			= "spr_slash_laser.png";
+
 	// Component
 	const std::string_view compo_door				= "spr_door";
 	const std::string_view compo_ceil_laser_on		= "spr_laser_on_0.png";
@@ -265,6 +267,7 @@ namespace Const
 	const float effect_wallslide_cloud_delay		= 0.04f;
 	const float effect_blood_splatter_delay			= 0.01f;
 	const float effect_dia_transition_delay			= 0.005f;
+	const float effect_hit_laser_dealy				= 0.5f;
 }
 
 //// State ////

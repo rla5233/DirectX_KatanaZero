@@ -97,6 +97,9 @@
     <Filter Include="Object\Base\Component\Image">
       <UniqueIdentifier>{4950cc03-8c1f-41ae-ab9c-fe14e2d01bd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\000.Object\Component">
+      <UniqueIdentifier>{2920fe78-6253-4e1c-9403-2e3c09387b33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -239,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="KZEffect.h">
       <Filter>Object\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="HitLaser.h">
+      <Filter>Level\000.Object\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -400,6 +406,9 @@
     </ClCompile>
     <ClCompile Include="KZEffect.cpp">
       <Filter>Object\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="HitLaser.cpp">
+      <Filter>Level\000.Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
