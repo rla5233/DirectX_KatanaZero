@@ -54,27 +54,34 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	UCamera* MainCamera = nullptr;
-	UEngineTexture* MapTex = nullptr;
-	APlayerBase* Player = nullptr;
-
-private:
 	inline void SetMainCamera()
 	{
 		MainCamera = GetWorld()->GetMainCamera().get();
 	}
 
 	FVector MapRangeCheck(const FVector& _Pos);
+
+private:
+	UCamera* MainCamera = nullptr;
+	UEngineTexture* MapTex = nullptr;
+	APlayerBase* Player = nullptr;
 	
+	float TitleInTimeWeight = 2.0f;
+
 private:
 	UStateManager State;	
 	void StateInit();
 	
+	void TitleInStart();
+	void TitleIn(float _DeltaTime);
+
 	void ChasePlayerStart();
 	void ChasePlayer(float _DeltaTime);
 
 	void ShakingStart();
 	void Shaking(float _DeltaTime);
+
+	
 
 };
 

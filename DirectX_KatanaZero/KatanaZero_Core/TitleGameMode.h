@@ -1,6 +1,5 @@
 #pragma once
 #include <EngineCore/StateManager.h>
-#include "LerpObject.h"
 
 class ATitleScreen;
 class AMainCamera;
@@ -40,7 +39,5 @@ private:
 	std::shared_ptr<AMainCamera> MainCamera = nullptr;
 	std::shared_ptr<ATitleScreen> Screen = nullptr;
 	std::shared_ptr<ATitleMenu> Menu = nullptr;
-	
-	float EnterTitleTimeWeight = 2.0f;
 };
 

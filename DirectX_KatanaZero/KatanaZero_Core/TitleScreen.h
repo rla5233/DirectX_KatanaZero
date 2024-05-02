@@ -37,8 +37,8 @@ private:
 	void StateInit();
 
 	void SetTitleEndAim();
-
-	float TitleEndWeightTime = 0.01f;
+	
+	float TitleOutTimeWeight = 0.01f;
 
 private:
 	USpriteRenderer* BackGround = nullptr;

@@ -57,14 +57,9 @@ void ATitleGameMode::StateInit()
 	// State Start
 	State.SetStartFunction(TitleLevelState::title, [=]
 		{
-			MainCamera = GetWorld()->SpawnActor<AMainCamera>("MainCamera");
-			EnterTitleTimeWeight = 2.0f;
-			
-			FVector CameraStartPos = { 0.0f, 0.0f, -100.0f };
-			FVector CameraTargetPos = { 0.0f, -360.0f, -100.0f };
-			MainCamera->SetLerpMovePos(CameraStartPos, CameraTargetPos);
-
 			Screen = GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
+			MainCamera = GetWorld()->SpawnActor<AMainCamera>("MainCamera");
+			MainCamera->StateChange(MainCameraState::title_in);
 		}
 	);
 
@@ -74,9 +69,6 @@ void ATitleGameMode::StateInit()
 	// State Update
 	State.SetUpdateFunction(TitleLevelState::title, [=] (float _DeltaTime)
 		{
-			MainCamera->LerpMoveUpdate(_DeltaTime, EnterTitleTimeWeight);
-			EnterTitleTimeWeight -= 2.0f * _DeltaTime;
-
 			if (false == MainCamera->IsLerpMove())
 			{
 				Menu = GetWorld()->SpawnActor<ATitleMenu>("TitleMenu");

@@ -450,6 +450,7 @@ namespace DiaTransitionState
 
 namespace MainCameraState
 {
+	const std::string_view title_in			= "Title_In";
 	const std::string_view chaseplayer		= "ChasePlayer";
 	const std::string_view shaking			= "Shaking";
 }

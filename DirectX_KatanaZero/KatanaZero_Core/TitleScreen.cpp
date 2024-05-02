@@ -133,8 +133,8 @@ void ATitleScreen::StateInit()
 	State.SetUpdateFunction(TitleScreenState::begin, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(TitleScreenState::exit, [=](float _DeltaTime)
 		{
-			LerpMoveUpdate(_DeltaTime, TitleEndWeightTime);
-			TitleEndWeightTime += 0.8f * _DeltaTime;
+			LerpMoveUpdate(_DeltaTime, TitleOutTimeWeight);
+			TitleOutTimeWeight += 0.8f * _DeltaTime;
 
 			if (false == IsLerpMove())
 			{
@@ -145,8 +145,8 @@ void ATitleScreen::StateInit()
 
 	State.SetUpdateFunction(TitleScreenState::newgame, [=](float _DeltaTime)
 		{
-			LerpMoveUpdate(_DeltaTime, TitleEndWeightTime);
-			TitleEndWeightTime += 0.8f * _DeltaTime;
+			LerpMoveUpdate(_DeltaTime, TitleOutTimeWeight);
+			TitleOutTimeWeight += 0.8f * _DeltaTime;
 
 			if (false == IsLerpMove())
 			{
