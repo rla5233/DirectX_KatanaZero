@@ -2,6 +2,7 @@
 #include "EnemyBase.h"
 
 #include "PlayLevelBase.h"
+#include "MainCamera.h"
 #include "HitLaser.h"
 #include "UpMark.h"
 #include "Stair.h"
@@ -166,6 +167,8 @@ void AEnemyBase::HitFallStart()
 	NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
 	NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });
 	NewHitLaser->SetVelocity(HitDir * 10000.0f);
+
+	PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::shaking);
 }
 
 void AEnemyBase::HitFall(float _DeltaTime)

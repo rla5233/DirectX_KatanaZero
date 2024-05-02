@@ -23,11 +23,6 @@ public:
 	{
 		State.ChangeState(_State);
 	}
-	
-	inline UCamera* GetMainCamera() const
-	{
-		return MainCamera;
-	}
 
 	inline void SetActorLocation(const FVector& _Pos)
 	{
@@ -36,7 +31,7 @@ public:
 
 	inline FVector GetActorLocation()
 	{
-		MainCamera->GetActorLocation();
+		return MainCamera->GetActorLocation();
 	}
 
 	inline void AddActorLocation(const FVector& _Pos)
@@ -68,6 +63,8 @@ private:
 	{
 		MainCamera = GetWorld()->GetMainCamera().get();
 	}
+
+	FVector MapRangeCheck(const FVector& _Pos);
 	
 private:
 	UStateManager State;	
@@ -75,5 +72,9 @@ private:
 	
 	void ChasePlayerStart();
 	void ChasePlayer(float _DeltaTime);
+
+	void ShakingStart();
+	void Shaking(float _DeltaTime);
+
 };
 

@@ -47,6 +47,11 @@ public:
 		return ColMap;
 	}
 
+	inline AMainCamera* GetKZMainCamera() const
+	{
+		return MainCamera.get();
+	}
+
 	inline float GetTotalPlayTime() const
 	{
 		return TotalPlayTime;

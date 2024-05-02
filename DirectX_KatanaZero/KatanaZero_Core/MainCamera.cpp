@@ -25,12 +25,15 @@ void AMainCamera::StateInit()
 {
 	// State Create
 	State.CreateState(MainCameraState::chaseplayer);
+	State.CreateState(MainCameraState::shaking);
 
 	// State Start
 	State.SetStartFunction(MainCameraState::chaseplayer,	std::bind(&AMainCamera::ChasePlayerStart, this));
+	State.SetStartFunction(MainCameraState::shaking,		std::bind(&AMainCamera::ShakingStart, this));
 
 	// State Update
 	State.SetUpdateFunction(MainCameraState::chaseplayer,	std::bind(&AMainCamera::ChasePlayer, this, std::placeholders::_1));
+	State.SetUpdateFunction(MainCameraState::shaking,		std::bind(&AMainCamera::Shaking, this, std::placeholders::_1));
 
 }
 
@@ -41,7 +44,43 @@ void AMainCamera::ChasePlayerStart()
 
 void AMainCamera::ChasePlayer(float _DeltaTime)
 {
-	FVector Result = Player->GetActorLocation();
+	FVector CurPos = Player->GetActorLocation();
+	FVector NextPos = MapRangeCheck(CurPos);
+	SetActorLocation(NextPos);
+}
+
+void AMainCamera::ShakingStart()
+{
+	DelayCallBack(0.2f, [=]
+		{
+			State.ChangeState(MainCameraState::chaseplayer);
+			return;
+		}
+	);
+}
+
+void AMainCamera::Shaking(float _DeltaTime)
+{
+	ChasePlayer(_DeltaTime);
+	FVector CurPos = GetActorLocation();
+	
+	CurPos.X += UEngineRandom::MainRandom.RandomFloat(-20.0f, 20.0f);
+	CurPos.Y += UEngineRandom::MainRandom.RandomFloat(-10.0f, 10.0f);
+
+	FVector NextPos = MapRangeCheck(CurPos);
+	SetActorLocation(NextPos);
+}
+
+void AMainCamera::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
+}
+
+FVector AMainCamera::MapRangeCheck(const FVector& _Pos)
+{
+	FVector Result = _Pos;
 
 	FVector WinScale = GEngine->EngineWindow.GetWindowScale();
 	FVector TexScale = MapTex->GetScale();
@@ -67,12 +106,6 @@ void AMainCamera::ChasePlayer(float _DeltaTime)
 	}
 
 	Result.Z = -100.0f;
-	SetActorLocation(Result);
-}
 
-void AMainCamera::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-
-	State.Update(_DeltaTime);
+	return	Result;
 }
