@@ -28,7 +28,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-	TotalPlayTime = 10.0f;
+	TotalPlayTime = 5.0f;
 	TotalEnemy = 3;
 	FloorY = { 397.0f };
 

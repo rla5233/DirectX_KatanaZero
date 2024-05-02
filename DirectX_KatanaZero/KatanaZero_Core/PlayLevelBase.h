@@ -141,18 +141,45 @@ protected:
 	std::shared_ptr<UWaveEffect> WaveEffect = nullptr;
 	std::shared_ptr<ADiamondTransition> DiaTransition = nullptr;
 
+// 디버깅 관련
+private:
+	void Debug();
+	void DebugMessageFunction();
+
 // FSM
 protected:
 	UStateManager State;
 	void StateInit();
 
-	// Go 위치 지정
-	virtual void ClearStart();
+	void IntroStart();
+	void Intro(float _DeltaTime);
 
-// 디버깅 관련
-private:
-	void Debug();
-	void DebugMessageFunction();
+	void BeginPlayEffectStart();
+	void BeginPlayEffect(float _DeltaTime);
+
+	void PlayStart();
+	void Play(float _DeltaTime);
+
+	virtual void ClearStart();
+	void Clear(float _DeltaTime);
+
+	void OutroStart();
+	void Outro(float _DeltaTime);
+
+	void ReplayStart();
+	void Replay(float _DeltaTime);
+
+	void PlayerDeadStart();
+	void PlayerDead(float _DeltaTime);
+
+	void RestartStart();
+	void Restart(float _DeltaTime);
+
+	void TransitionOnStart();
+	void TransitionOn(float _DeltaTime);
+
+	void TransitionOffStart();
+	void TransitionOff(float _DeltaTime);
 
 };
 

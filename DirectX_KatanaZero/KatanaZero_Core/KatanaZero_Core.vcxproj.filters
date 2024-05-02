@@ -416,5 +416,8 @@
     <ClCompile Include="ContentsHelper.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
+    <ClCompile Include="PlayLevelBase_State.cpp">
+      <Filter>Object\Base\Level</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -457,6 +457,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayLevelBase_State.cpp" />
     <ClCompile Include="ReplayUI.cpp">
       <SubType>
       </SubType>
