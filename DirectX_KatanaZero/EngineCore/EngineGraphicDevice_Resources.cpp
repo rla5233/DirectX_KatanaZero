@@ -403,6 +403,13 @@ void MaterialInit()
 	}
 
 	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Widget2DImage");
+		Mat->SetPixelShader("WidgetImageShader.fx");
+		Mat->SetVertexShader("WidgetImageShader.fx");
+	}
+
+
+	{
 		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImageInstancing");
 		Mat->SetPixelShader("ImageShaderInstanced.fx");
 		Mat->SetVertexShader("ImageShaderInstanced.fx");

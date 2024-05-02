@@ -56,7 +56,7 @@ void UIAnimation::Update(float _DeltaTime)
 UImage::UImage() 
 {
 	SetMesh("Rect");
-	SetMaterial("2DImage");
+	SetMaterial("Widget2DImage");
 }
 
 UImage::~UImage() 
@@ -148,6 +148,15 @@ void UImage::SetSpriteInfo(const FSpriteInfo& _Info)
 		float4 Scale = Transform.WorldScale;
 		Scale.X = -abs(Scale.X) * 0.5f;
 		Scale.Y = abs(Scale.Y) * 0.5f;
+		Scale.Z = 0.0f;
+		CuttingDataValue.PivotMat.Position(Scale);
+		break;
+	}
+	case EPivot::RIGHTTOP:
+	{
+		float4 Scale = Transform.WorldScale;
+		Scale.X = -abs(Scale.X) * 0.5f;
+		Scale.Y = -abs(Scale.Y) * 0.5f;
 		Scale.Z = 0.0f;
 		CuttingDataValue.PivotMat.Position(Scale);
 		break;

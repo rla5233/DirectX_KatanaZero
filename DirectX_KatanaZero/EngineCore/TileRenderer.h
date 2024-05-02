@@ -43,5 +43,6 @@ protected:
 	FCuttingData CuttingDataValue;
 	std::shared_ptr<UEngineSprite> TileSprite;
 	float4 TileSize = {64, 64};
+	FVertexUV VertexUVValue;
 };
 

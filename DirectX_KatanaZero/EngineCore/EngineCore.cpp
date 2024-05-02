@@ -102,6 +102,8 @@ void UEngineCore::EngineFrameUpdate()
 {
 	float DeltaTime = MainTimer.TimeCheck();
 
+	UEngineSound::Update();
+
 	DeltaTime *= GlobalTimeScale;
 
 	UEngineInput::KeyCheckTick(DeltaTime);

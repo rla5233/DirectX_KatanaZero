@@ -148,6 +148,7 @@
     </FxCompile>
     <FxCompile Include="ImageShaderInstanced.fx" />
     <FxCompile Include="TargetCopyShader.fx" />
+    <FxCompile Include="WidgetImageShader.fx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineShaderBase.hlsli" />

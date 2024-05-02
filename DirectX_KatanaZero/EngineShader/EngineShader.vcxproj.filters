@@ -36,6 +36,9 @@
     <FxCompile Include="ImageShaderInstanced.fx">
       <Filter>2D</Filter>
     </FxCompile>
+    <FxCompile Include="WidgetImageShader.fx">
+      <Filter>2D</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineTexture.hlsli">
