@@ -312,6 +312,7 @@ namespace PlayLevelState
 	const std::string_view transition_on	= "Transition_On";
 	const std::string_view transition_off	= "Transition_Off";
 	const std::string_view intro			= "Intro";
+	const std::string_view beginplay_effect	= "BeginPlay_Effect";
 	const std::string_view play				= "Play";
 	const std::string_view clear			= "Clear";
 	const std::string_view outro			= "Outro";

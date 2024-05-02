@@ -35,11 +35,7 @@ void APlayerBase::SubStateInit()
 	SubState.SetEndFunction(PlayerSubState::intro, [=]
 		{
 			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-			PlayLevel->StateChange(PlayLevelState::play);
-			Body->AnimationReset();
-			State.ChangeState(PlayerState::idle);
-			IsPlayValue = true;
-			InputOn();
+			PlayLevel->StateChange(PlayLevelState::beginplay_effect);
 		}
 	);
 }

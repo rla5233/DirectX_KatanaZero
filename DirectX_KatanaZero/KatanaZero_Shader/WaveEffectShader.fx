@@ -31,13 +31,28 @@ UWavePSOuput UWave_PS(UWaveVSOuput _Input)
     
     float2 TexPos = _Input.TEXCOORD.xy;
     
-    float POWER = 0.06f;            // 谅快 如甸覆
-    float VERTICAL_SPREAD = 4.0f;   // vertically
-    float ANIM_SPEED = 0.6f;
+    float POWER;          
+    float VERTICAL_SPREAD; 
+    float ANIM_SPEED;
+    float PosY = 0.0f;
     
+    if (0.0f == Temp0)
+    {
+        POWER = 0.1f; // 谅快 如甸覆
+        VERTICAL_SPREAD = 40.0f; // vertically
+        ANIM_SPEED = 2.0f;
+        PosY += AccTime * 0.5f;
+    }
+    else if(1.0f == Temp0)
+    {
+        POWER = 0.06f; // 谅快 如甸覆
+        VERTICAL_SPREAD = 3.0f; // vertically
+        ANIM_SPEED = 0.6f;
+    }
+       
     float y = (TexPos.y + AccTime * ANIM_SPEED) * VERTICAL_SPREAD;
     TexPos.x += (sin(y * 10.0f) * 0.2f) * POWER * sin(TexPos.y * 3.14f); // 硅版率 奴 如甸覆 & 儡 林抚
-
+    TexPos.y += PosY;
     Out.COLOR.rgba = Image.Sample(Image_Sampler, TexPos).rgba;
     return Out;
 }

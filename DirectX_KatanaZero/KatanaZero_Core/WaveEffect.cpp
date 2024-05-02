@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "WaveEffect.h"
 
+
 UWaveEffect::UWaveEffect()
 {
 }
@@ -23,7 +24,7 @@ void UWaveEffect::Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget)
 	CopyTarget->Copy(EffectTarget);
 	EffectTarget->Clear();
 	EffectTarget->Setting();
-
+	
 	Resources->SettingTexture("Image", CopyTarget->GetTexture(), "POINT");
 	Render(0.0f);
 }

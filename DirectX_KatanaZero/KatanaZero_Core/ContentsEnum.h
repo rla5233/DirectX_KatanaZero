@@ -105,3 +105,9 @@ enum class EStairType
 	Up,
 	Down
 };
+
+enum class EWaveEffectType
+{
+	BeginPlay,
+	Restart
+};

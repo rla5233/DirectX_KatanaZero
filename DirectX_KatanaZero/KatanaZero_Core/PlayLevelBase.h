@@ -132,7 +132,7 @@ protected:
 
 	// Effect
 	std::shared_ptr<UGrayScaleEffect> GrayScaleEffect = nullptr;
-	std::shared_ptr<UWaveEffect> WavaEffect = nullptr;
+	std::shared_ptr<UWaveEffect> WaveEffect = nullptr;
 	std::shared_ptr<ADiamondTransition> DiaTransition = nullptr;
 
 // FSM

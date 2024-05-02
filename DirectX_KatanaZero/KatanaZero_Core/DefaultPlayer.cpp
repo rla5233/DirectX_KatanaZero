@@ -204,7 +204,7 @@ void ADefaultPlayer::Intro(float _DeltaTime)
 		{
 			GetBody()->ChangeAnimation(Anim::player_idle);
 			StateChange(PlayerState::idle);
-			SubStateChange(PlayerSubState::play);
+			SubStateChange(PlayerSubState::none);
 			return;
 		}
 		break;

@@ -37,7 +37,7 @@ void APlayLevelBase::BeginPlay()
 	StateInit();
 	
 	GrayScaleEffect = GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
-	WavaEffect = GetWorld()->GetLastTarget()->AddEffect<UWaveEffect>();
+	WaveEffect = GetWorld()->GetLastTarget()->AddEffect<UWaveEffect>();
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	
@@ -52,7 +52,7 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 	ColMap = GetWorld()->SpawnActor<AColMapObject>("ColMap");
 
 	GrayScaleEffect->Active(false);
-	WavaEffect->Active(false);
+	WaveEffect->Active(false);
 }
 
 void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
@@ -233,6 +233,7 @@ void APlayLevelBase::StateInit()
 {
 	// State 생성
 	State.CreateState(PlayLevelState::intro);
+	State.CreateState(PlayLevelState::beginplay_effect);
 	State.CreateState(PlayLevelState::play);
 	State.CreateState(PlayLevelState::clear);
 	State.CreateState(PlayLevelState::outro);
@@ -245,7 +246,7 @@ void APlayLevelBase::StateInit()
 	// State Start 함수 세팅
 	State.SetStartFunction(PlayLevelState::intro, [=] {});
 	State.SetStartFunction(PlayLevelState::clear, std::bind(&APlayLevelBase::ClearStart, this));
-	State.SetStartFunction(PlayLevelState::outro, [=] 
+	State.SetStartFunction(PlayLevelState::outro, [=]
 		{
 			Player->SubStateChange(PlayerSubState::outro);
 			HUD->StateChange(HudState::outro);
@@ -257,6 +258,28 @@ void APlayLevelBase::StateInit()
 			GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, 1.0f);
 		}
 	);
+
+	State.SetStartFunction(PlayLevelState::beginplay_effect, [=]
+		{
+			WaveEffect->SetEffectType(EWaveEffectType::BeginPlay);
+			WaveEffect->Active(true);
+
+			DelayCallBack(0.2f, [=]
+				{
+					WaveEffect->ResetTime();
+					WaveEffect->Active(false);
+
+					Player->SubStateChange(PlayerSubState::play);
+					Player->SetIsPlayValue(true);
+					Player->InputOn();
+
+					State.ChangeState(PlayLevelState::play); 
+					return;
+				}
+			);
+		}
+	);
+
 	State.SetStartFunction(PlayLevelState::play, [=]
 		{
 			if (nullptr == HUD)
@@ -349,7 +372,8 @@ void APlayLevelBase::StateInit()
 				AllRecComponent[i]->StateChange(RecCompoState::restart);
 			}
 
-			WavaEffect->Active(true);
+			WaveEffect->SetEffectType(EWaveEffectType::Restart);
+			WaveEffect->Active(true);
 		}
 	);
 
@@ -394,6 +418,12 @@ void APlayLevelBase::StateInit()
 	State.SetUpdateFunction(PlayLevelState::intro, [=](float _DeltaTime)
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+		}
+	);
+
+	State.SetUpdateFunction(PlayLevelState::beginplay_effect, [=](float _DeltaTime)
+		{
+			WaveEffect->Update(_DeltaTime);
 		}
 	);
 
@@ -445,16 +475,17 @@ void APlayLevelBase::StateInit()
 	State.SetUpdateFunction(PlayLevelState::restart, [=](float _DeltaTime) 
 		{
 			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
-			WavaEffect->Update(_DeltaTime);
+			WaveEffect->Update(_DeltaTime);
 
 			if (Player->IsRewindEnd())
 			{
 				LevelReEnd();
 				LevelReStart();
 				
-				State.ChangeState(PlayLevelState::play);
-				WavaEffect->Active(false);
-				WavaEffect->ResetTime();
+				WaveEffect->Active(false);
+				WaveEffect->ResetTime();
+				
+				State.ChangeState(PlayLevelState::beginplay_effect);
 				return;
 			}
 		}

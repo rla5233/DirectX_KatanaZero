@@ -237,6 +237,9 @@
     <ClInclude Include="WaveEffect.h">
       <Filter>Object\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="KZEffect.h">
+      <Filter>Object\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -394,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="WaveEffect.cpp">
       <Filter>Object\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="KZEffect.cpp">
+      <Filter>Object\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

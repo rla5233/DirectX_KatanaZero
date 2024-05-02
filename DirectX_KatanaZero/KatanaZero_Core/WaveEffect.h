@@ -1,7 +1,8 @@
 #pragma once
+#include "KZEffect.h"
 
 // 설명 : Wave 효과
-class UWaveEffect : public UEffect
+class UWaveEffect : public UKZEffect
 {
 public:
 	// constrcuter destructer
@@ -13,6 +14,11 @@ public:
 	UWaveEffect(UWaveEffect&& _Other) noexcept = delete;
 	UWaveEffect& operator=(const UWaveEffect& _Other) = delete;
 	UWaveEffect& operator=(UWaveEffect&& _Other) noexcept = delete;
+
+	void SetEffectType(EWaveEffectType _WaveType)
+	{
+		SetTemp0(static_cast<float>(_WaveType));
+	}
 
 protected:
 	void Init() override;
