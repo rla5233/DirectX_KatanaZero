@@ -1,7 +1,9 @@
 #include "PreCompile.h"
 #include "CeilGun.h"
 
+#include "PlayLevelBase.h"
 #include "PlayerBase.h"
+#include "MainCamera.h"
 
 ACeilGun::ACeilGun()
 {
@@ -109,6 +111,9 @@ void ACeilGun::StateInit()
 
 	State.SetStartFunction(CeilGunState::shoot, [=]
 		{
+			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+			PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::shaking);
+
 			Laser->SetActive(false);
 			SetRandomSparkAnim();
 			SetRandomSmokeAnim();

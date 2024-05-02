@@ -1,7 +1,9 @@
 #include "PreCompile.h"
 #include "CeilLaser.h"
 
+#include "PlayLevelBase.h"
 #include "PlayerBase.h"
+#include "MainCamera.h"
 
 ACeilLaser::ACeilLaser()
 {
@@ -75,6 +77,9 @@ void ACeilLaser::StateInit()
 
 	State.SetStartFunction(CeilLaserState::shoot, [=]
 		{	
+			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+			PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::shaking);
+
 			Laser->SetScale({ 10.0f, 210.0f + AddScaleOnLaserY, 1.0f });
 			Laser->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_attack); 
@@ -95,7 +100,7 @@ void ACeilLaser::StateInit()
 			HitCol->CollisionStay(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 				{
 					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-					Player->HitByEnemy();
+					Player->HitByEnemy(EEnemyType::CeilLaser);
 					State.ChangeState(CeilLaserState::shoot);
 					return;
 				}

@@ -57,6 +57,7 @@ enum class EEnemyType
 {
 	Default,
 	CeilGun,
+	CeilLaser,
 	TimeOut,
 	Fan
 };

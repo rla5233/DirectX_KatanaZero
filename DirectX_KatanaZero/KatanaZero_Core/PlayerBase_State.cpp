@@ -819,6 +819,9 @@ void APlayerBase::DeadStart()
 			NewHitLaser->SetVelocity(HitDir * 10000.0f);
 		}
 		break;
+	case EEnemyType::CeilLaser:
+		UContentsHelper::ResetTimeScale();
+		break;	
 	case EEnemyType::CeilGun:
 		Velocity.X = 0.0f;
 		UContentsHelper::ResetTimeScale();
