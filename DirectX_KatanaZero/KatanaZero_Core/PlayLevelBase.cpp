@@ -300,14 +300,7 @@ void APlayLevelBase::StateInit()
 
 			Aim->StateChange(MouseAimState::play);
 
-			DelayCallBack(TotalPlayTime, [=]
-				{
-					if (PlayLevelState::play == State.GetCurStateName())
-					{
-						Player->HitByEnemy(EEnemyType::TimeOut);
-					}
-				}
-			);
+			PlayTimeCount = TotalPlayTime;
 		}
 	);
 
@@ -431,6 +424,12 @@ void APlayLevelBase::StateInit()
 
 	State.SetUpdateFunction(PlayLevelState::play, [=](float _DeltaTime)
 		{
+			if (0.0f > PlayTimeCount)
+			{
+				Player->HitByEnemy(EEnemyType::TimeOut);
+				return;
+			}	
+
 			if (true == IsStageClear())
 			{
 				State.ChangeState(PlayLevelState::clear);
@@ -441,6 +440,8 @@ void APlayLevelBase::StateInit()
 			{
 				State.ChangeState(PlayLevelState::restart);
 			}
+
+			PlayTimeCount -= _DeltaTime;
 		}
 	);
 

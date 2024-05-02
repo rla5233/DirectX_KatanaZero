@@ -124,6 +124,7 @@ protected:
 	bool BrightnessDownEnd = false;
 	bool BrightnessUpEnd = false;
 	float TotalPlayTime = 0.0f;
+	float PlayTimeCount = 0.0f;
 	int TotalEnemy = 0;
 
 	std::vector<float> FloorY;
