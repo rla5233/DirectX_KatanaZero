@@ -144,6 +144,16 @@ void APlayLevelBase::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	Debug();
+
+	if (UEngineInput::IsPress('1'))
+	{
+		BrightnessDown(_DeltaTime);
+	}
+	
+	if (UEngineInput::IsPress('2'))
+	{
+		BrightnessUp(_DeltaTime);
+	}
 }
 
 bool APlayLevelBase::IsStageClear()
@@ -618,6 +628,72 @@ bool APlayLevelBase::IsReplayEnd() const
 bool APlayLevelBase::IsRewindEnd() const
 {
 	return Player->IsRewindEnd();
+}
+
+void APlayLevelBase::BrightnessUp(float _DeltaTime)
+{
+	Brightness.X += _DeltaTime;
+	Brightness.Y += _DeltaTime;
+	Brightness.Z += _DeltaTime;
+
+	EnemyBrightness.X += _DeltaTime;
+	EnemyBrightness.Y += _DeltaTime;
+	EnemyBrightness.Z += _DeltaTime;
+
+	if (1.0f < Brightness.X && 1.0f < Brightness.Y && 1.0f < Brightness.Z)
+	{
+		Brightness = float4::One;
+	}
+
+	if (1.0f < EnemyBrightness.X && 1.0f < EnemyBrightness.Y && 1.0f < EnemyBrightness.Z)
+	{
+		EnemyBrightness = float4::One;
+	}
+
+	ColMap->GetBackGround()->SetMulColor(Brightness);
+
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->GetBody()->SetMulColor(Brightness);
+	}
+
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->GetBody()->SetMulColor(EnemyBrightness);
+	}
+}
+
+void APlayLevelBase::BrightnessDown(float _DeltaTime)
+{
+	Brightness.X -= _DeltaTime;
+	Brightness.Y -= _DeltaTime;
+	Brightness.Z -= _DeltaTime;
+
+	if (0.2f > Brightness.X && 0.2f > Brightness.Y && 0.2f > Brightness.Z)
+	{
+		Brightness = { 0.2f, 0.2f, 0.2f };
+	}
+
+	ColMap->GetBackGround()->SetMulColor(Brightness);
+
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->GetBody()->SetMulColor(Brightness);
+	}
+
+	EnemyBrightness.X -= _DeltaTime;
+	EnemyBrightness.Y -= _DeltaTime;
+	EnemyBrightness.Z -= _DeltaTime;
+
+	if (0.5f > EnemyBrightness.X && 0.5f > EnemyBrightness.Y && 0.5f > EnemyBrightness.Z)
+	{
+		EnemyBrightness = { 0.5f, 0.5f, 0.5f };
+	}
+
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->GetBody()->SetMulColor(EnemyBrightness);
+	}
 }
 
 void APlayLevelBase::BatterPartUpdate(float _AbilityTime)

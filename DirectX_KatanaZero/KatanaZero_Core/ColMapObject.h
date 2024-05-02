@@ -70,6 +70,11 @@ public:
 		BackGround->SetScale(_Scale);
 	}
 
+	USpriteRenderer* GetBackGround() const
+	{
+		return BackGround;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

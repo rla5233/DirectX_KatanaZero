@@ -82,6 +82,9 @@ public:
 	bool IsReplayEnd() const;
 	bool IsRewindEnd() const;
 
+	void BrightnessUp(float _DeltaTime);
+	void BrightnessDown(float _DeltaTime);
+
 	void BatterPartUpdate(float _AbilityTime);
 
 	int FloorCheck(float _PosY);
@@ -116,6 +119,8 @@ protected:
 	std::shared_ptr<AReplayUI> ReplayUI = nullptr;
 
 	// Stage Info.
+	float4 Brightness = float4::One;
+	float4 EnemyBrightness = float4::One;
 	float TotalPlayTime = 0.0f;
 	int TotalEnemy = 0;
 
@@ -123,6 +128,7 @@ protected:
 	std::vector<std::vector<std::shared_ptr<AStair>>> AllStair;
 	std::vector<std::vector<std::shared_ptr<ADoor>>> AllDoor;
 
+	// Effect
 	std::shared_ptr<UGrayScaleEffect> GrayScaleEffect = nullptr;
 	std::shared_ptr<UWaveEffect> WavaEffect = nullptr;
 	std::shared_ptr<ADiamondTransition> DiaTransition = nullptr;

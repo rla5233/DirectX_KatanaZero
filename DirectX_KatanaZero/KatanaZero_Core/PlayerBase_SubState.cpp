@@ -174,6 +174,7 @@ void APlayerBase::AbilityUpdate(float _DeltaTime)
 
 		APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 		PlayLevel->BatterPartUpdate(AbilityTime);
+		PlayLevel->BrightnessDown(15.0f * _DeltaTime);
 		return;
 	}
 
@@ -188,6 +189,7 @@ void APlayerBase::AbilityUpdate(float _DeltaTime)
 
 		APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 		PlayLevel->BatterPartUpdate(AbilityTime);
+		PlayLevel->BrightnessUp(2.0f * _DeltaTime);
 		return;
 	}
 }
