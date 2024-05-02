@@ -819,7 +819,8 @@ void APlayerBase::DeadStart()
 			NewHitLaser->SetVelocity(HitDir * 10000.0f);
 		}
 		break;
-	case EEnemyType::CeilLaser:
+	case EEnemyType::NoHitLaser:
+	case EEnemyType::Fan:
 		UContentsHelper::ResetTimeScale();
 		break;	
 	case EEnemyType::CeilGun:
@@ -893,8 +894,3 @@ void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 	HitEnemy = _EnemyType;
 	State.ChangeState(PlayerState::dead);
 }
-
-
-
-
-
