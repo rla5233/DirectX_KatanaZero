@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "MainCamera.h"
 
+#include "PlayerBase.h"
+
 AMainCamera::AMainCamera()
 {
 }
@@ -14,21 +16,35 @@ void AMainCamera::BeginPlay()
 	Super::BeginPlay();
 
 	SetMainCamera();
-
 	ULerpObject::SetActor(MainCamera);
+
+	StateInit();
 }
 
-void AMainCamera::Tick(float _DeltaTime)
+void AMainCamera::StateInit()
 {
-	Super::Tick(_DeltaTime);
+	// State Create
+	State.CreateState(MainCameraState::chaseplayer);
+
+	// State Start
+	State.SetStartFunction(MainCameraState::chaseplayer,	std::bind(&AMainCamera::ChasePlayerStart, this));
+
+	// State Update
+	State.SetUpdateFunction(MainCameraState::chaseplayer,	std::bind(&AMainCamera::ChasePlayer, this, std::placeholders::_1));
+
 }
 
-void AMainCamera::PlayLevelChaseActor(std::shared_ptr<UEngineTexture> _MapTex, const FVector& _ActorPos)
+void AMainCamera::ChasePlayerStart()
 {
-	FVector Result = _ActorPos;
+	ChasePlayer(0.0f);
+}
+
+void AMainCamera::ChasePlayer(float _DeltaTime)
+{
+	FVector Result = Player->GetActorLocation();
 
 	FVector WinScale = GEngine->EngineWindow.GetWindowScale();
-	FVector TexScale = _MapTex->GetScale();
+	FVector TexScale = MapTex->GetScale();
 
 	if (0.0f > Result.X - WinScale.hX())
 	{
@@ -52,4 +68,11 @@ void AMainCamera::PlayLevelChaseActor(std::shared_ptr<UEngineTexture> _MapTex, c
 
 	Result.Z = -100.0f;
 	SetActorLocation(Result);
+}
+
+void AMainCamera::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
 }

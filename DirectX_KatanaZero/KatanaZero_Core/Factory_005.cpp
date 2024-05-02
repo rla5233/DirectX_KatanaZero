@@ -42,7 +42,9 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 	Player->SetActorLocation({ -5.0f, 127.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
 
-	MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+	MainCamera->SetPlayer(Player.get());
+	MainCamera->SetMapTex(ColMap->GetMapTex().get());
+	MainCamera->StateChange(MainCameraState::chaseplayer);
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 580.0f, 130.0f, 0.0f }, EEngineDir::Right, 3.5f, 5.0f, EnemyState::patrol_walk);
@@ -121,6 +123,7 @@ void AFactory_005::LevelReStart()
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
 	Player->DirChange(EEngineDir::Right);
+	MainCamera->SetPlayer(Player.get());
 
 	AllEnemy.reserve(TotalEnemy);
 	SpawnPatrolEnemy<AGrunt>("Grunt", { 580.0f, 130.0f, 0.0f }, EEngineDir::Right, 3.5f, 5.0f, EnemyState::patrol_walk);

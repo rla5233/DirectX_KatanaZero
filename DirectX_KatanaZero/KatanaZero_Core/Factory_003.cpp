@@ -42,7 +42,9 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 	Player->SetActorLocation({ 10.0f, 259.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
 
-	MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
+	MainCamera->SetPlayer(Player.get());
+	MainCamera->SetMapTex(ColMap->GetMapTex().get());
+	MainCamera->StateChange(MainCameraState::chaseplayer);
 
 	AllRecComponent.reserve(10);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f}, EEngineDir::Left, CeilLaserState::on);
@@ -83,6 +85,7 @@ void AFactory_003::LevelReStart()
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
 	Player->DirChange(EEngineDir::Right);
+	MainCamera->SetPlayer(Player.get());
 
 	AllRecComponent.reserve(10);
 	SpawnRecComponent<ACeilLaser>("CeilLaser", { 368.0f, 478.0f, 0.0f }, EEngineDir::Left, CeilLaserState::on);

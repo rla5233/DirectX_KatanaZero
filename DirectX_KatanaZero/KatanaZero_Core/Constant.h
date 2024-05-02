@@ -447,3 +447,9 @@ namespace DiaTransitionState
 	const std::string_view on				= "On";
 	const std::string_view off				= "Off";
 }
+
+namespace MainCameraState
+{
+	const std::string_view chaseplayer		= "ChasePlayer";
+	const std::string_view shaking			= "Shaking";
+}

@@ -1,5 +1,8 @@
 #pragma once
+#include <EngineCore/StateManager.h>
 #include "LerpObject.h"
+
+class APlayerBase;
 
 // ¼³¸í : ÄÜÅÙÃ÷ ¸ÞÀÎ Ä«¸Þ¶ó
 class AMainCamera : public AActor, public ULerpObject
@@ -16,27 +19,40 @@ public:
 	AMainCamera& operator=(const AMainCamera& _Other) = delete;
 	AMainCamera& operator=(AMainCamera&& _Other) noexcept = delete;
 
-	UCamera* GetMainCamera() const
+	inline void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
+	
+	inline UCamera* GetMainCamera() const
 	{
 		return MainCamera;
 	}
 
-	void SetActorLocation(const FVector& _Pos)
+	inline void SetActorLocation(const FVector& _Pos)
 	{
 		MainCamera->SetActorLocation(_Pos);
 	}
 
-	FVector GetActorLocation()
+	inline FVector GetActorLocation()
 	{
 		MainCamera->GetActorLocation();
 	}
 
-	void AddActorLocation(const FVector& _Pos)
+	inline void AddActorLocation(const FVector& _Pos)
 	{
 		MainCamera->AddActorLocation(_Pos);
 	}
 
-	void PlayLevelChaseActor(std::shared_ptr<UEngineTexture> _MapTex, const FVector& _ActorPos);
+	inline void SetMapTex(UEngineTexture* _MapTex)
+	{
+		MapTex = _MapTex;
+	}
+
+	inline void SetPlayer(APlayerBase* _Player)
+	{
+		Player = _Player;
+	}
 
 protected:
 	void BeginPlay() override;
@@ -44,10 +60,20 @@ protected:
 
 private:
 	UCamera* MainCamera = nullptr;
+	UEngineTexture* MapTex = nullptr;
+	APlayerBase* Player = nullptr;
 
-	void SetMainCamera()
+private:
+	inline void SetMainCamera()
 	{
 		MainCamera = GetWorld()->GetMainCamera().get();
 	}
+	
+private:
+	UStateManager State;	
+	void StateInit();
+	
+	void ChasePlayerStart();
+	void ChasePlayer(float _DeltaTime);
 };
 

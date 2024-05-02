@@ -302,7 +302,10 @@ void APlayLevelBase::StateInit()
 
 			DelayCallBack(TotalPlayTime, [=]
 				{
-					Player->HitByEnemy(EEnemyType::TimeOut);
+					if (PlayLevelState::play == State.GetCurStateName())
+					{
+						Player->HitByEnemy(EEnemyType::TimeOut);
+					}
 				}
 			);
 		}
@@ -418,11 +421,7 @@ void APlayLevelBase::StateInit()
 		}
 	);
 
-	State.SetUpdateFunction(PlayLevelState::intro, [=](float _DeltaTime)
-		{
-			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
-		}
-	);
+	State.SetUpdateFunction(PlayLevelState::intro, [=](float _DeltaTime) {});
 
 	State.SetUpdateFunction(PlayLevelState::beginplay_effect, [=](float _DeltaTime)
 		{
@@ -432,7 +431,6 @@ void APlayLevelBase::StateInit()
 
 	State.SetUpdateFunction(PlayLevelState::play, [=](float _DeltaTime)
 		{
-			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			if (true == IsStageClear())
 			{
 				State.ChangeState(PlayLevelState::clear);
@@ -448,7 +446,6 @@ void APlayLevelBase::StateInit()
 
 	State.SetUpdateFunction(PlayLevelState::clear, [=](float _DeltaTime)
 		{
-			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			if (true == IsRelayStart())
 			{
 				State.ChangeState(PlayLevelState::outro);
@@ -464,8 +461,6 @@ void APlayLevelBase::StateInit()
 
 	State.SetUpdateFunction(PlayLevelState::replay, [=](float _DeltaTime)
 		{
-			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
-
 			if (true == IsDown(VK_RBUTTON))
 			{
 				InputOff();
@@ -477,7 +472,6 @@ void APlayLevelBase::StateInit()
 
 	State.SetUpdateFunction(PlayLevelState::restart, [=](float _DeltaTime) 
 		{
-			MainCamera->PlayLevelChaseActor(ColMap->GetMapTex(), Player->GetActorLocation());
 			WaveEffect->Update(_DeltaTime);
 
 			if (Player->IsRewindEnd())
