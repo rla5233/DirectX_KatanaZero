@@ -632,6 +632,11 @@ bool APlayLevelBase::IsRewindEnd() const
 
 void APlayLevelBase::BrightnessUp(float _DeltaTime)
 {
+	if (true == BrightnessUpEnd)
+	{
+		return;
+	}
+
 	Brightness.X += _DeltaTime;
 	Brightness.Y += _DeltaTime;
 	Brightness.Z += _DeltaTime;
@@ -639,10 +644,12 @@ void APlayLevelBase::BrightnessUp(float _DeltaTime)
 	EnemyBrightness.X += _DeltaTime;
 	EnemyBrightness.Y += _DeltaTime;
 	EnemyBrightness.Z += _DeltaTime;
+	BrightnessDownEnd = false;
 
 	if (1.0f < Brightness.X && 1.0f < Brightness.Y && 1.0f < Brightness.Z)
 	{
 		Brightness = float4::One;
+		BrightnessUpEnd = true;
 	}
 
 	if (1.0f < EnemyBrightness.X && 1.0f < EnemyBrightness.Y && 1.0f < EnemyBrightness.Z)
@@ -665,13 +672,20 @@ void APlayLevelBase::BrightnessUp(float _DeltaTime)
 
 void APlayLevelBase::BrightnessDown(float _DeltaTime)
 {
+	if (true == BrightnessDownEnd)
+	{
+		return;
+	}
+
 	Brightness.X -= _DeltaTime;
 	Brightness.Y -= _DeltaTime;
 	Brightness.Z -= _DeltaTime;
+	BrightnessUpEnd = false;
 
 	if (0.2f > Brightness.X && 0.2f > Brightness.Y && 0.2f > Brightness.Z)
 	{
 		Brightness = { 0.2f, 0.2f, 0.2f };
+		BrightnessDownEnd = true;
 	}
 
 	ColMap->GetBackGround()->SetMulColor(Brightness);

@@ -121,6 +121,8 @@ protected:
 	// Stage Info.
 	float4 Brightness = float4::One;
 	float4 EnemyBrightness = float4::One;
+	bool BrightnessDownEnd = false;
+	bool BrightnessUpEnd = false;
 	float TotalPlayTime = 0.0f;
 	int TotalEnemy = 0;
 
