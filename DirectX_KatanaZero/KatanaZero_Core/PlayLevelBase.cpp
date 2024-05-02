@@ -299,6 +299,12 @@ void APlayLevelBase::StateInit()
 			}
 
 			Aim->StateChange(MouseAimState::play);
+
+			DelayCallBack(TotalPlayTime, [=]
+				{
+					Player->HitByEnemy(EEnemyType::TimeOut);
+				}
+			);
 		}
 	);
 
