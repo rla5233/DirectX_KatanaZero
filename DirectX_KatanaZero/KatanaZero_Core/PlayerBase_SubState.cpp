@@ -131,21 +131,14 @@ void APlayerBase::AbilityCheck()
 	if (true == IsAbilityInputDown())
 	{
 		IsAbilityValue = true;
-		float TimeScale = Const::player_ability_timescale;
-		GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
-		GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
-		GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
-		GEngine->SetOrderTimeScale(EUpdateOrder::Fan, 0.05f);
+		UContentsHelper::SetAbilityTimeScale();
 		return;
 	}
 
 	if (true == IsAbilityInputUp())
 	{
 		IsAbilityValue = false;
-		GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1.0f);
-		GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, 1.0f);
-		GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, 1.0f);
-		GEngine->SetOrderTimeScale(EUpdateOrder::Fan, 1.0f);
+		UContentsHelper::ResetTimeScale();
 		return;
 	}
 }
@@ -159,6 +152,7 @@ void APlayerBase::AbilityUpdate(float _DeltaTime)
 
 	if (true == IsAbilityInputPress() && true == IsAbilityValue)
 	{
+		UContentsHelper::SetAbilityTimeScale();
 		float TimeScale = Const::player_ability_timescale;
 		AbilityTime -= _DeltaTime * (1 / TimeScale);
 
@@ -166,11 +160,7 @@ void APlayerBase::AbilityUpdate(float _DeltaTime)
 		{
 			AbilityTime = 0.0f;
 			IsAbilityValue = false;
-
-			GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1.0f);
-			GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, 1.0f);
-			GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, 1.0f);
-			GEngine->SetOrderTimeScale(EUpdateOrder::Fan, 1.0f);
+			UContentsHelper::ResetTimeScale();
 		}
 
 		APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());

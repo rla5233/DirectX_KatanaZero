@@ -22,6 +22,7 @@
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineRenderTarget.h>
 
+#include "ContentsHelper.h"
 #include "ContentsMath.h"
 #include "ContentsEnum.h"
 #include "Constant.h"

@@ -163,16 +163,10 @@ void AEnemyBase::HitFallStart()
 
 	float Deg = UContentsMath::GetAngleToX_2D(HitDir);
 	std::shared_ptr<AHitLaser> NewHitLaser = GetWorld()->SpawnActor<AHitLaser>("HitLaser");
-	NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f));
+	NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
 	NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });
 	NewHitLaser->SetVelocity(HitDir * 10000.0f);
-
-	float TimeScale = Const::effect_hit_laser_dealy;
-	GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
-	GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
-	GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
-	GEngine->SetOrderTimeScale(EUpdateOrder::Fan, TimeScale);
-	}
+}
 
 void AEnemyBase::HitFall(float _DeltaTime)
 {

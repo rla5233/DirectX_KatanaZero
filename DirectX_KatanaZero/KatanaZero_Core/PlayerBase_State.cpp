@@ -2,6 +2,7 @@
 #include "PlayerBase.h"
 
 #include "PlayLevelBase.h"
+#include "HitLaser.h"
 
 // State √ ±‚»≠
 void APlayerBase::StateInit()
@@ -809,13 +810,23 @@ void APlayerBase::DeadStart()
 	switch (HitEnemy)
 	{
 	case EEnemyType::Default:
+		{
+			FVector HitDir = Velocity.Normalize2DReturn();
+			float Deg = UContentsMath::GetAngleToX_2D(HitDir);
+			std::shared_ptr<AHitLaser> NewHitLaser = GetWorld()->SpawnActor<AHitLaser>("HitLaser");
+			NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
+			NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });
+			NewHitLaser->SetVelocity(HitDir * 10000.0f);
+		}
 		break;
 	case EEnemyType::CeilGun:
 		Velocity.X = 0.0f;
+		UContentsHelper::ResetTimeScale();
 		break;
 	case EEnemyType::TimeOut:
 		Velocity.X = 0.0f;
 		Velocity.Y = 0.0f;
+		UContentsHelper::ResetTimeScale();
 		break;
 	}
 
@@ -831,11 +842,6 @@ void APlayerBase::DeadStart()
 	IsAbilityValue = false;
 
 	InputOff();
-	float TimeScale = 1.0f;
-	GEngine->SetOrderTimeScale(EUpdateOrder::Player, TimeScale);
-	GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, TimeScale);
-	GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, TimeScale);
-	GEngine->SetOrderTimeScale(EUpdateOrder::Fan, TimeScale);
 }
 
 void APlayerBase::Dead(float _DeltaTime)

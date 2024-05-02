@@ -246,6 +246,9 @@
     <ClInclude Include="HitLaser.h">
       <Filter>Level\000.Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsHelper.h">
+      <Filter>Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -409,6 +412,9 @@
     </ClCompile>
     <ClCompile Include="HitLaser.cpp">
       <Filter>Level\000.Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsHelper.cpp">
+      <Filter>Helper</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

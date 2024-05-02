@@ -252,10 +252,7 @@ void APlayLevelBase::StateInit()
 			HUD->StateChange(HudState::outro);
 			Go->StateChange(GoState::outro);
 			GetWorld()->SpawnActor<AOutroMsg>("OutroMsg");
-
-			GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1.0f);
-			GEngine->SetOrderTimeScale(EUpdateOrder::Enemy, 1.0f);
-			GEngine->SetOrderTimeScale(EUpdateOrder::RecComponent, 1.0f);
+			UContentsHelper::ResetTimeScale();
 		}
 	);
 
