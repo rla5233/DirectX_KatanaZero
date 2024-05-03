@@ -8,6 +8,7 @@
 #include "OutroMsg.h"
 #include "Up_HUD.h"
 #include "Door.h"
+#include "Msg.h"
 #include "Go.h"
 
 #include "GrayScaleEffect.h"
@@ -175,7 +176,8 @@ void APlayLevelBase::OutroStart()
 	Player->SubStateChange(PlayerSubState::outro);
 	HUD->StateChange(HudState::outro);
 	Go->StateChange(GoState::outro);
-	GetWorld()->SpawnActor<AOutroMsg>("OutroMsg");
+	OutroMsg->On();
+	OutroMsg->StateChange(OutroMsgState::fade_in);
 	UContentsHelper::ResetTimeScale();
 }
 
@@ -230,12 +232,16 @@ void APlayLevelBase::PlayerDeadStart()
 	{
 		AllRecComponent[i]->SetRecordingActive(false);
 	}
+
+	SingleMsg->GetBody()->SetSprite(ImgRes::ui_playerdead_msg_0);
+	SingleMsg->On();
 }
 
 void APlayLevelBase::PlayerDead(float _DeltaTime)
 {
 	if (UEngineInput::IsDown('R'))
 	{
+		SingleMsg->Off();
 		State.ChangeState(PlayLevelState::restart);
 		return;
 	}

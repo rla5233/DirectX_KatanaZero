@@ -15,6 +15,21 @@ public:
 	AMsg& operator=(const AMsg& _Other) = delete;
 	AMsg& operator=(AMsg&& _Other) noexcept = delete;
 
+	inline UImage* GetBody() const
+	{
+		return Body;
+	}
+
+	inline void On()
+	{
+		Body->SetActive(true);
+	}
+
+	inline void Off()
+	{
+		Body->SetActive(false);
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

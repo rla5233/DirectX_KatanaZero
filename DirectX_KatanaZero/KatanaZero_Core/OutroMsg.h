@@ -18,6 +18,14 @@ public:
 	AOutroMsg& operator=(const AOutroMsg& _Other) = delete;
 	AOutroMsg& operator=(AOutroMsg&& _Other) noexcept = delete;
 
+	inline void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
+
+	void On();
+	void Off();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

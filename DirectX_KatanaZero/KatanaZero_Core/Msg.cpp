@@ -12,6 +12,10 @@ AMsg::~AMsg()
 void AMsg::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Body = CreateWidget<UImage>(GetWorld(), "Msg");
+	Body->AddToViewPort(EWidgetOrder::Top);
+	Body->SetAutoSize(1.0f, true);
 }
 
 void AMsg::Tick(float _DeltaTime)

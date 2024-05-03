@@ -75,7 +75,7 @@ namespace ImgRes
 	const std::string_view ui_replay_x16			= "spr_replay_x16.png";
 
 	const std::string_view ui_outro_msg				= "spr_outro_0.png";
-	const std::string_view ui_restart_msg_0			= "spr_restart_0.png";
+	const std::string_view ui_playerdead_msg_0		= "spr_restart_0.png";
 
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";
@@ -149,6 +149,9 @@ namespace ImgRes
 	// HeadHunterLevel
 	const std::string_view headhunter_background1	= "spr_background_headhunter1.png";
 	const std::string_view headhunter_background2	= "spr_background_headhunter2.png";
+
+	// etc.
+	const std::string_view black_point = "spr_black.png";
 }
 
 namespace Anim
@@ -429,6 +432,7 @@ namespace PanicSwitchState
 
 namespace OutroMsgState
 {
+	const std::string_view none				= "None";
 	const std::string_view fade_in			= "FadeIn";
 	const std::string_view fade_out			= "FadeOut";
 	const std::string_view wait				= "Wait";

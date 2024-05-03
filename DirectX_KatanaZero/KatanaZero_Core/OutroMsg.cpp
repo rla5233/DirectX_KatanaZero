@@ -24,7 +24,9 @@ void AOutroMsg::BeginPlay()
 	Body->AddToViewPort(EWidgetOrder::Top);
 
 	StateInit();
-	State.ChangeState(OutroMsgState::fade_in);
+	Off();
+
+	State.ChangeState(OutroMsgState::none);
 }
 
 void AOutroMsg::Tick(float _DeltaTime)
@@ -37,11 +39,13 @@ void AOutroMsg::Tick(float _DeltaTime)
 void AOutroMsg::StateInit()
 {
 	// State Create
+	State.CreateState(OutroMsgState::none);
 	State.CreateState(OutroMsgState::fade_in);
 	State.CreateState(OutroMsgState::fade_out);
 	State.CreateState(OutroMsgState::wait);
 
 	// State Start
+	State.SetStartFunction(OutroMsgState::none, [=] {});
 	State.SetStartFunction(OutroMsgState::fade_in, [=] { Body->SetFadeIn(); });
 	State.SetStartFunction(OutroMsgState::fade_out, [=] { Body->SetFadeOut(); });
 	State.SetStartFunction(OutroMsgState::wait, [=]
@@ -57,6 +61,7 @@ void AOutroMsg::StateInit()
 	);
 	
 	// State Update
+	State.SetUpdateFunction(OutroMsgState::none, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(OutroMsgState::wait, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(OutroMsgState::fade_in, [=](float _DeltaTime) 
 		{
@@ -76,8 +81,19 @@ void AOutroMsg::StateInit()
 			if (false == Body->IsFade())
 			{
 				Body->SetActive(false);
-				Destroy();
 			}
 		}
 	);
+}
+
+void AOutroMsg::On()
+{
+	SetActive(true);
+	Body->SetActive(true);
+}
+
+void AOutroMsg::Off()
+{
+	SetActive(false);
+	Body->SetActive(false);
 }

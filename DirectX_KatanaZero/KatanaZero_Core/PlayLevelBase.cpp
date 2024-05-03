@@ -12,6 +12,8 @@
 #include "Up_HUD.h"
 #include "Stair.h"
 #include "Door.h"
+#include "OutroMsg.h"
+#include "Msg.h"
 #include "Go.h"
 
 #include "GrayScaleEffect.h"
@@ -40,6 +42,9 @@ void APlayLevelBase::BeginPlay()
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
 	
 	DiaTransition = GetWorld()->SpawnActor<ADiamondTransition>("DiaTransition");
+
+	SingleMsg = GetWorld()->SpawnActor<AMsg>("SingleMsg");
+	OutroMsg = GetWorld()->SpawnActor<AOutroMsg>("OutroMsg");
 }
 
 void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
@@ -73,7 +78,6 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 		AllRecComponent[i]->Destroy();
 		AllRecComponent[i] = nullptr;
 	}
-
 
 	for (size_t i = 0; i < AllDoor.size(); i++)
 	{
