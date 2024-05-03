@@ -22,6 +22,7 @@ enum class ERenderOrder
 	BackGround,
 	MapComponent_Back,
 	EffectBack,
+	AfterImage,
 	Enemy,
 	Player,
 	Player2,

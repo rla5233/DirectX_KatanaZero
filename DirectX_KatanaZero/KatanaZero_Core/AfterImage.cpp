@@ -19,20 +19,21 @@ void AAfterImage::SetBodyInfo(USpriteRenderer* _Renderer)
 {
 	USpriteRenderer* ParentRenderer = _Renderer;
 	
-	Body->SetSpriteInfo(ParentRenderer->GetCurInfo());
-	Body->SetPosition(ParentRenderer->GetLocalPosition());
 	Body->SetRotationDeg(ParentRenderer->GetLocalRotation());
-	Body->SetDir(ParentRenderer->GetDir());
+	Body->SetPosition(ParentRenderer->GetLocalPosition());
+	Body->SetSpriteInfo(ParentRenderer->GetCurInfo());
 	Body->SetActive(ParentRenderer->IsActive());
-	
+	Body->SetDir(ParentRenderer->GetDir());
+
+	Body->SetSamplering(ETextureSampling::LINEAR);
 }
 
 void AAfterImage::BeginPlay()
 {
 	Super::BeginPlay();
 
+	Body->SetOrder(ERenderOrder::AfterImage);
 	Body->SetAutoSize(2.0f, true); 
-	Body->SetOrder(ERenderOrder::EffectBack);
 	Body->SetPivot(EPivot::BOT);
 }
 

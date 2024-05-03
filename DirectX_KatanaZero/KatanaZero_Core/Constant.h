@@ -230,7 +230,7 @@ namespace Const
 {
 	// Player
 	const float default_gravity						= -2000.0f;
-	const float jump_gravity						= -1100.0f;
+	const float jump_gravity						= -1800.0f;
 	const float down_stair_gravity					= -15000.0f;
 
 	const float player_max_speedx					= 425.0f;

@@ -214,6 +214,7 @@ void APlayerBase::RunStart()
 {
 	SetMaxRunVel();
 	SetCroudEffect(5);
+	SetAfterImageTimeWeight(14.0f);
 }
 
 void APlayerBase::Run(float _DeltaTime)
@@ -233,6 +234,9 @@ void APlayerBase::Run(float _DeltaTime)
 
 	// 충돌 보정
 	ColCheckUpdate();
+
+	// Effect
+	CreateAfterImage(_DeltaTime);
 
 	// StateChange Check
 	if (true == IsAttackInputDown())
@@ -388,6 +392,7 @@ void APlayerBase::RollStart()
 		break;
 	}	
 
+	SetAfterImageTimeWeight(7.0f);
 	CroudTimeCount = Const::effect_roll_cloud_delay;
 	IsInvincibleValue = true;
 }
@@ -450,6 +455,7 @@ void APlayerBase::Roll(float _DeltaTime)
 void APlayerBase::JumpStart()
 {
 	Velocity.Y = Const::player_jump_speedy;
+	SetAfterImageTimeWeight(5.0f);
 	SetJumpEffect();
 }
 
@@ -479,6 +485,12 @@ void APlayerBase::Jump(float _DeltaTime)
 	
 	// 충돌 체크
 	ColCheckUpdate();
+
+	// Effect
+	if (75.0f < Velocity.Y)
+	{
+		CreateAfterImage(_DeltaTime);
+	}
 
 	// StateChange Check
 	if (true == IsAttackInputDown())
@@ -601,6 +613,7 @@ void APlayerBase::AttackStart()
 	CanAttack = false;
 
 	// 이펙트 설정
+	SetAfterImageTimeWeight(6.0f);
 	float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
 	SetAttackEffect(Deg);
 
@@ -616,7 +629,16 @@ void APlayerBase::Attack(float _DeltaTime)
 	// Collision Check
 	AttackCollisionCheck();
 
+	// 속도 업데이트
 	FallGravityUpdate(_DeltaTime);
+
+	if (4 < Body->GetCurAnimationFrame())
+	{
+		if (50.0f < abs(Velocity.X))
+		{
+			Velocity.X *= 0.99f;
+		}
+	}	
 
 	if (true == IsColHeadToCeil(Body->GetDir()))
 	{
@@ -644,9 +666,13 @@ void APlayerBase::Attack(float _DeltaTime)
 	// 충돌 체크
 	ColCheckUpdate();
 
+	// Effect
+	CreateAfterImage(_DeltaTime);
+
 	// StateChange Check
 	if (true == Body->IsCurAnimationEnd())
 	{
+		Velocity.X *= 0.6f;
 		State.ChangeState(PlayerState::fall);
 		return;
 	}
@@ -753,6 +779,7 @@ void APlayerBase::FlipStart()
 
 	Velocity.Y = 600.0f;
 	IsInvincibleValue = true;
+	SetAfterImageTimeWeight(7.0f);
 }
 
 void APlayerBase::Flip(float _DeltaTime)
@@ -771,6 +798,9 @@ void APlayerBase::Flip(float _DeltaTime)
 
 	// 충돌 체크
 	ColCheckUpdate();
+
+	// Effect
+	CreateAfterImage(_DeltaTime);
 
 	// StateChange Check
 	if (true == IsAttackInputDown())

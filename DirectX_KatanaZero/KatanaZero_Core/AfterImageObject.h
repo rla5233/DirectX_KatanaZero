@@ -15,7 +15,7 @@ public:
 	UAfterImageObject& operator=(UAfterImageObject&& _Other) noexcept = delete;
 
 	void CreateAfterImage(float _DeltaTime);
-	void SetUpdateTimeWeight(float _TimeWeight)
+	void SetAfterImageTimeWeight(float _TimeWeight)
 	{
 		UpdateTimeWeight = _TimeWeight;
 	}
@@ -31,6 +31,6 @@ private:
 
 	float DelayTime = 1.0f / 60.0f;
 	float TimeCount = 0.0f;
-	float UpdateTimeWeight = 5.0f;
+	float UpdateTimeWeight = 1.0f;
 };
 
