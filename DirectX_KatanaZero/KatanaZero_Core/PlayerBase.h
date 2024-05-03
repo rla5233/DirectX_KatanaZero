@@ -87,6 +87,11 @@ public:
 		return FloorNum;
 	}
 
+	inline EEnemyType GetHitEnemyType() const
+	{
+		return HitEnemy;
+	}
+
 	void DirChange(EEngineDir _Dir);
 
 	void HitByEnemy(EEnemyType _EnemyType = EEnemyType::Default);

@@ -854,7 +854,7 @@ void APlayerBase::DeadStart()
 			NewHitLaser->SetVelocity(HitDir * 10000.0f);
 		}
 		break;
-	case EEnemyType::NoHitLaser:
+	case EEnemyType::CeilLaser:
 	case EEnemyType::Fan:
 		UContentsHelper::ResetTimeScale();
 		break;	

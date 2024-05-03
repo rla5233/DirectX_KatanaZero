@@ -231,13 +231,20 @@ void APlayLevelBase::PlayerDeadStart()
 		AllRecComponent[i]->SetRecordingActive(false);
 	}
 
-	//FailedMsg->GetBody()->SetSprite(ImgRes::ui_playerdead_msg_0);
-	FailedMsg->On();
+	EEnemyType EnemyType = Player->GetHitEnemyType();
+	switch (EnemyType)
+	{
+	case EEnemyType::TimeOut:
+		break;
+	default:
+		FailedMsg->StateChange(FailedMsgState::hit_end);
+		break;
+	}
 }
 
 void APlayLevelBase::PlayerDead(float _DeltaTime)
 {
-	if (UEngineInput::IsDown('R'))
+	if (UEngineInput::IsDown(VK_LBUTTON))
 	{
 		FailedMsg->Off();
 		State.ChangeState(PlayLevelState::restart);

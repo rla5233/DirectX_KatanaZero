@@ -461,3 +461,9 @@ namespace MainCameraState
 	const std::string_view chaseplayer		= "ChasePlayer";
 	const std::string_view shaking			= "Shaking";
 }
+
+namespace FailedMsgState
+{
+	const std::string_view hit_end			= "HitEnd";
+	const std::string_view time_out			= "Time_Out";
+}
