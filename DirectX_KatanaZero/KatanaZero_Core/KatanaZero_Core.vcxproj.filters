@@ -255,6 +255,9 @@
     <ClInclude Include="AfterImageObject.h">
       <Filter>Object\Base\Component\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Msg.h">
+      <Filter>Level\000.Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -430,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="AfterImageObject.cpp">
       <Filter>Object\Base\Component\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Msg.cpp">
+      <Filter>Level\000.Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
