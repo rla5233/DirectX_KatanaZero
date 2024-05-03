@@ -45,7 +45,7 @@ void APlayLevelBase::BeginPlay()
 	DiaTransition = GetWorld()->SpawnActor<ADiamondTransition>("DiaTransition");
 
 	ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
-	SingleMsg = GetWorld()->SpawnActor<AFailedMsg>("FailedMsg");
+	FailedMsg = GetWorld()->SpawnActor<AFailedMsg>("FailedMsg");
 	OutroMsg = GetWorld()->SpawnActor<AOutroMsg>("OutroMsg");
 }
 

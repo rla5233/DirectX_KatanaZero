@@ -1,4 +1,5 @@
 #pragma once
+#include <EngineCore/StateManager.h>
 
 // 설명 : Msg 클래스
 class AFailedMsg : public AActor
@@ -15,10 +16,6 @@ public:
 	AFailedMsg& operator=(const AFailedMsg& _Other) = delete;
 	AFailedMsg& operator=(AFailedMsg&& _Other) noexcept = delete;
 
-	inline UImage* GetBody() const
-	{
-		return Body;
-	}
 
 	void On();
 	void Off();
@@ -29,6 +26,10 @@ protected:
 
 private:
 	UImage* Body = nullptr;
+
+private:
+	UStateManager State;
+	void StateInit();
 
 };
 

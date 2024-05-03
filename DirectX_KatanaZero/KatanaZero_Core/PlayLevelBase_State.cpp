@@ -231,15 +231,15 @@ void APlayLevelBase::PlayerDeadStart()
 		AllRecComponent[i]->SetRecordingActive(false);
 	}
 
-	SingleMsg->GetBody()->SetSprite(ImgRes::ui_playerdead_msg_0);
-	SingleMsg->On();
+	//FailedMsg->GetBody()->SetSprite(ImgRes::ui_playerdead_msg_0);
+	FailedMsg->On();
 }
 
 void APlayLevelBase::PlayerDead(float _DeltaTime)
 {
 	if (UEngineInput::IsDown('R'))
 	{
-		SingleMsg->Off();
+		FailedMsg->Off();
 		State.ChangeState(PlayLevelState::restart);
 		return;
 	}

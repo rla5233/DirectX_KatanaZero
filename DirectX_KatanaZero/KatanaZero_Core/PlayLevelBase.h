@@ -128,7 +128,7 @@ protected:
 
 	// Msg
 	std::shared_ptr<AOutroMsg> OutroMsg = nullptr;
-	std::shared_ptr<AFailedMsg> SingleMsg = nullptr;
+	std::shared_ptr<AFailedMsg> FailedMsg = nullptr;
 
 	// Stage Info.
 	float4 Brightness = float4::One;

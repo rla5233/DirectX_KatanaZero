@@ -13,7 +13,9 @@ void AFailedMsg::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Body = CreateWidget<UImage>(GetWorld(), "Msg");
+	StateInit();
+
+	Body = CreateWidget<UImage>(GetWorld(), "FailedMsg");
 	Body->AddToViewPort(EWidgetOrder::Top);
 	Body->SetAutoSize(1.0f, true);
 }
@@ -21,6 +23,10 @@ void AFailedMsg::BeginPlay()
 void AFailedMsg::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+}
+
+void AFailedMsg::StateInit()
+{
 }
 
 void AFailedMsg::On()
