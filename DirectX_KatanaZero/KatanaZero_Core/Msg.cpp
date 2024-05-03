@@ -22,3 +22,15 @@ void AMsg::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
+
+void AMsg::On()
+{
+	Body->SetActive(true);
+	SetActive(true);
+}
+
+void AMsg::Off()
+{
+	Body->SetActive(false);
+	SetActive(false);
+}

@@ -20,15 +20,8 @@ public:
 		return Body;
 	}
 
-	inline void On()
-	{
-		Body->SetActive(true);
-	}
-
-	inline void Off()
-	{
-		Body->SetActive(false);
-	}
+	void On();
+	void Off();
 
 protected:
 	void BeginPlay() override;

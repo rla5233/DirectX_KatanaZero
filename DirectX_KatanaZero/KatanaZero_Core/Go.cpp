@@ -121,3 +121,17 @@ void AGo::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 }
 
+void AGo::On()
+{
+	Go->SetActive(true);
+	Arrow->SetActive(true);
+	SetActive(true);
+};
+
+void AGo::Off()
+{
+	Go->SetActive(false);
+	Arrow->SetActive(false);
+	SetActive(false);
+};
+

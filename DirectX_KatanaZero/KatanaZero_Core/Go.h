@@ -29,17 +29,8 @@ public:
 		State.ChangeState(_State);
 	}
 
-	void On()
-	{
-		Go->SetActive(true);
-		Arrow->SetActive(true);
-	};
-
-	void Off()
-	{
-		Go->SetActive(false);
-		Arrow->SetActive(false);
-	};
+	void On();
+	void Off();
 
 	void SetArrowDir(EEngineDir _Dir);
 

@@ -15,19 +15,19 @@ AReplayUI::~AReplayUI()
 
 void AReplayUI::On()
 {
-	SetActive(true);
 	Mouse->SetActive(true);
 	LeftTopText->SetActive(true);
 	RightBottomText->SetActive(true);
+	SetActive(true);
 }
 
 void AReplayUI::Off()
 {
-	SetActive(false);
 	Mouse->SetActive(false);
 	LeftTopText->SetActive(false);
 	Speed->SetActive(false);
 	RightBottomText->SetActive(false);
+	SetActive(false);
 }
 
 void AReplayUI::BeginPlay()
