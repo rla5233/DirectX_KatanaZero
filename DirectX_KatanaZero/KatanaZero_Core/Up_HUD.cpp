@@ -239,6 +239,8 @@ void AUp_HUD::On()
 	ItemIcon->SetActive(true);
 	L_ClickIcon->SetActive(true);
 	R_ClickIcon->SetActive(true);
+	
+	SetActive(true);
 }
 
 void AUp_HUD::Off()
@@ -261,6 +263,8 @@ void AUp_HUD::Off()
 	ItemIcon->SetActive(false);
 	L_ClickIcon->SetActive(false);
 	R_ClickIcon->SetActive(false);
+
+	SetActive(false);
 }
 
 void AUp_HUD::Reset()
