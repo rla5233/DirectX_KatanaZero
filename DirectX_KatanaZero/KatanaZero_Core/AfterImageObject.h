@@ -14,10 +14,23 @@ public:
 	UAfterImageObject& operator=(const UAfterImageObject& _Other) = delete;
 	UAfterImageObject& operator=(UAfterImageObject&& _Other) noexcept = delete;
 
+	void CreateAfterImage(float _DeltaTime);
+	void SetUpdateTimeWeight(float _TimeWeight)
+	{
+		UpdateTimeWeight = _TimeWeight;
+	}
+
 protected:
+	void SetTargetRenderer(USpriteRenderer* _TargetRenderer)
+	{
+		TargetRenderer = _TargetRenderer;
+	}
 
 private:
-	USpriteRenderer* AfterImageRenderer = nullptr;
+	USpriteRenderer* TargetRenderer = nullptr;
 
+	float DelayTime = 1.0f / 60.0f;
+	float TimeCount = 0.0f;
+	float UpdateTimeWeight = 5.0f;
 };
 

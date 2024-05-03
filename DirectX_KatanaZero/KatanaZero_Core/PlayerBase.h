@@ -3,6 +3,7 @@
 #include "PixelColObject.h"
 #include "PhysicsObject.h"
 #include "RecordingObject.h"
+#include "AfterImageObject.h"
 
 class CloudEffect
 {
@@ -16,7 +17,8 @@ class APlayerBase :
 	public AActor, 
 	public UPixelColObject,
 	public UPhysicsObject,
-	public URecordingObject
+	public URecordingObject,
+	public UAfterImageObject
 {
 	GENERATED_BODY(AActor)
 public:

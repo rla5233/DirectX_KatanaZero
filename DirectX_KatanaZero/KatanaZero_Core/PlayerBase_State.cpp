@@ -415,6 +415,7 @@ void APlayerBase::Roll(float _DeltaTime)
 
 	// 이펙트 생성
 	CreateRollCroudEffect(_DeltaTime);
+	CreateAfterImage(_DeltaTime);
 
 	// StateChange Check
 	if (true == IsAttackInputDown())

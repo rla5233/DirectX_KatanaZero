@@ -58,6 +58,7 @@ void APlayerBase::BeginPlay()
 	UPixelColObject::SetActor(this);
 	URecordingObject::SetActor(this);
 	UPhysicsObject::SetActor(this);
+	UAfterImageObject::SetTargetRenderer(Body);
 
 	RendererInit();
 	CollisionInit();

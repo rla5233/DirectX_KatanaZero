@@ -24,20 +24,23 @@ void AAfterImage::SetBodyInfo(USpriteRenderer* _Renderer)
 	Body->SetRotationDeg(ParentRenderer->GetLocalRotation());
 	Body->SetDir(ParentRenderer->GetDir());
 	Body->SetActive(ParentRenderer->IsActive());
+	
 }
 
 void AAfterImage::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Body->SetAutoSize(2.0f, true);
+	Body->SetAutoSize(2.0f, true); 
+	Body->SetOrder(ERenderOrder::EffectBack);
+	Body->SetPivot(EPivot::BOT);
 }
 
 void AAfterImage::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	Alpha -= _DeltaTime;
+	Alpha -= TimeWeight * _DeltaTime;
 	Body->SetMulColor({ 1.0f, 1.0f, 1.0f, Alpha });
 
 	if (0.0f > Alpha)

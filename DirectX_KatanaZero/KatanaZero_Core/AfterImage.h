@@ -16,6 +16,10 @@ public:
 	AAfterImage& operator=(AAfterImage&& _Other) noexcept = delete;
 
 	void SetBodyInfo(USpriteRenderer* _Renderer);
+	void SetTimeWeight(float _TimeWeight)
+	{
+		TimeWeight = _TimeWeight;
+	}
 
 protected:
 	void BeginPlay() override;
@@ -25,5 +29,6 @@ private:
 	USpriteRenderer* Body = nullptr;
 
 	float Alpha = 1.0f;
+	float TimeWeight = 1.0f;
 };
 
