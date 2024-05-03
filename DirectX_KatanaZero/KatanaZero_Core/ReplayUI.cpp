@@ -19,6 +19,7 @@ AReplayUI::~AReplayUI()
 
 void AReplayUI::On()
 {
+	SetActive(true);
 	Mouse->SetActive(true);
 	LeftTopText->SetActive(true);
 	RightBottomText->SetActive(true);
@@ -26,6 +27,7 @@ void AReplayUI::On()
 
 void AReplayUI::Off()
 {
+	SetActive(false);
 	Mouse->SetActive(false);
 	LeftTopText->SetActive(false);
 	Speed->SetActive(false);

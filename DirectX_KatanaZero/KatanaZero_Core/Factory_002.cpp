@@ -95,7 +95,8 @@ void AFactory_002::ChangeStage()
 {
 	Super::ChangeStage();
 
-	GEngine->ChangeLevel("Factory_003");
+	//GEngine->ChangeLevel("Factory_003");
+	GEngine->ChangeLevel("TitleLevel");
 }
 
 void AFactory_002::ClearStart()
