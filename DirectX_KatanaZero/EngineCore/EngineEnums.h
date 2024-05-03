@@ -20,6 +20,8 @@ enum class ETextureSampling
 	NONE,
 	LINEAR,
 	POINT,
+	LINEARCLAMP,
+	POINTCLAMP,
 };
 
 enum class EPivot

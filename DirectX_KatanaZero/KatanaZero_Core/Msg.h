@@ -1,8 +1,9 @@
 #pragma once
 
 // 설명 : Msg 클래스
-class AMsg
+class AMsg : public AActor
 {
+	GENERATED_BODY(AActor)
 public:
 	// constrcuter destructer
 	AMsg();
@@ -15,8 +16,11 @@ public:
 	AMsg& operator=(AMsg&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
+	UImage* Body = nullptr;
 
 };
 

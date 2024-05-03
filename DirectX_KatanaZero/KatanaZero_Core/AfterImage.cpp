@@ -25,7 +25,7 @@ void AAfterImage::SetBodyInfo(USpriteRenderer* _Renderer)
 	Body->SetActive(ParentRenderer->IsActive());
 	Body->SetDir(ParentRenderer->GetDir());
 
-	Body->SetSamplering(ETextureSampling::LINEAR);
+	Body->SetSamplering(ETextureSampling::LINEARCLAMP);
 }
 
 void AAfterImage::BeginPlay()

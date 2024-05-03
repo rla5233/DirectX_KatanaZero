@@ -30,8 +30,13 @@ void URenderer::Tick(float _DeltaTime)
 void URenderer::SetOrder(int _Order)
 {
 	// UTickObject::SetOrder(_Order);
+	
 
 	int PrevOrder = GetOrder();
+
+	if (_Order == PrevOrder) {
+		return;
+	}
 
 	Super::SetOrder(_Order);
 
@@ -47,7 +52,7 @@ void URenderer::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
 	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
 }
 
-void URenderer::MaterialSettingEnd()
+void URenderer::MaterialSettingEnd() 
 {
 	if (true == Resources->IsConstantBuffer("FTransform"))
 	{

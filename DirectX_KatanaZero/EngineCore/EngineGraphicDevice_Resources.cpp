@@ -310,6 +310,36 @@ void SettingInit()
 		UEngineSampler::Create("LINEAR", Desc);
 	}
 
+
+	{
+		D3D11_SAMPLER_DESC Desc = {};
+
+		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		Desc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT;
+		Desc.MipLODBias = 0.0f; // 보간하지 않는다.
+		Desc.MaxAnisotropy = 1;
+		Desc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_ALWAYS;
+		Desc.MinLOD = -FLT_MAX;
+		Desc.MaxLOD = FLT_MAX;
+		UEngineSampler::Create("POINTCLAMP", Desc);
+	}
+
+
+	{
+		D3D11_SAMPLER_DESC Desc = {};
+
+		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		Desc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		Desc.MipLODBias = 0.0f; // 보간하지 않는다.
+		Desc.MaxAnisotropy = 1;
+		Desc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_ALWAYS;
+		Desc.MinLOD = -FLT_MAX;
+		Desc.MaxLOD = FLT_MAX;
+		UEngineSampler::Create("LINEARCLAMP", Desc);
+	}
+
+
+
 	{
 		D3D11_BLEND_DESC Desc = {};
 
