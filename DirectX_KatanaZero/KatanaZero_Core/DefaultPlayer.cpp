@@ -16,9 +16,7 @@ void ADefaultPlayer::BeginPlay()
 	Super::BeginPlay();
 
 	CreateAnimation();
-
 	SetAfterImageColor(Const::player_afterimage_color);
-
 	StateChange(PlayerState::none);
 	SubStateChange(PlayerSubState::none);
 }

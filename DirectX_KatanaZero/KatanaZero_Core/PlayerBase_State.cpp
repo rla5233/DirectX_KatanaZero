@@ -41,7 +41,6 @@ void APlayerBase::StateInit()
 	State.SetStartFunction(PlayerState::kickdoor,		std::bind(&APlayerBase::KickDoorStart, this));
 	State.SetStartFunction(PlayerState::dead,			std::bind(&APlayerBase::DeadStart, this));
 
-
 	// State Update 함수 세팅
 	State.SetUpdateFunction(PlayerState::none,			[=](float _DeltaTime) {});
 	State.SetUpdateFunction(PlayerState::idle,			std::bind(&APlayerBase::Idle, this, std::placeholders::_1));

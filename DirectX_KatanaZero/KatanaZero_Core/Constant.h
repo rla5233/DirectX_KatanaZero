@@ -73,7 +73,9 @@ namespace ImgRes
 	const std::string_view ui_replay_x4				= "spr_replay_x4.png";
 	const std::string_view ui_replay_x8				= "spr_replay_x8.png";
 	const std::string_view ui_replay_x16			= "spr_replay_x16.png";
+
 	const std::string_view ui_outro_msg				= "spr_outro_0.png";
+	const std::string_view ui_restart_msg_0			= "spr_restart_0.png";
 
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";
