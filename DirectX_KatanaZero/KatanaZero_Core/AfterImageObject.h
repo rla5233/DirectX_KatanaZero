@@ -20,6 +20,11 @@ public:
 		UpdateTimeWeight = _TimeWeight;
 	}
 
+	void SetAfterImageAlphaWeight(float _AlphaWeight)
+	{
+		AlphaWeight = _AlphaWeight;
+	}
+
 protected:
 	void SetTargetRenderer(USpriteRenderer* _TargetRenderer)
 	{
@@ -32,5 +37,6 @@ private:
 	float DelayTime = 1.0f / 60.0f;
 	float TimeCount = 0.0f;
 	float UpdateTimeWeight = 1.0f;
+	float AlphaWeight = 0.0f;
 };
 

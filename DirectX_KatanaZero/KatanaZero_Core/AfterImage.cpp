@@ -41,10 +41,18 @@ void AAfterImage::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	Alpha -= TimeWeight * _DeltaTime;
-	Body->SetMulColor({ 1.0f, 1.0f, 1.0f, Alpha });
+	Color.A -= TimeWeight * _DeltaTime;
 
-	if (0.0f > Alpha)
+	float NextAlpha = Color.A - AlphaWeight;
+	if (0.1f > NextAlpha)
+	{
+		NextAlpha = 0.1f;
+	}
+
+	Body->SetPlusColor({ Color.R, Color.G, Color.B });
+	Body->SetMulColor({ 1.0f, 1.0f, 1.0f, NextAlpha });
+
+	if (0.0f > Color.A)
 	{
 		Destroy();
 	}

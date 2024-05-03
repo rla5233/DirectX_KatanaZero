@@ -21,6 +21,11 @@ public:
 		TimeWeight = _TimeWeight;
 	}
 
+	void SetAlphaWeight(float _AlphaWeight)
+	{
+		AlphaWeight = _AlphaWeight;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime);
@@ -28,7 +33,8 @@ protected:
 private:
 	USpriteRenderer* Body = nullptr;
 
-	float Alpha = 1.0f;
+	float4 Color = { 0.426f, 0.502f, 0.752f, 1.0f };
+	float AlphaWeight = 0.0f;
 	float TimeWeight = 1.0f;
 };
 

@@ -22,6 +22,7 @@ void UAfterImageObject::CreateAfterImage(float _DeltaTime)
 	AAfterImage* NewAfterImage = TargetRenderer->GetWorld()->SpawnActor<AAfterImage>("AfterImage").get();
 	NewAfterImage->SetActorLocation(TargetRenderer->GetWorldPosition());
 	NewAfterImage->SetTimeWeight(UpdateTimeWeight);
+	NewAfterImage->SetAlphaWeight(AlphaWeight);
 	NewAfterImage->SetBodyInfo(TargetRenderer);
 
 	TimeCount = DelayTime;

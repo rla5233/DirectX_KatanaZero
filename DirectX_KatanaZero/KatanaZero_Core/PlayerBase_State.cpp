@@ -215,6 +215,7 @@ void APlayerBase::RunStart()
 	SetMaxRunVel();
 	SetCroudEffect(5);
 	SetAfterImageTimeWeight(14.0f);
+	SetAfterImageAlphaWeight(0.5f);
 }
 
 void APlayerBase::Run(float _DeltaTime)
@@ -393,6 +394,7 @@ void APlayerBase::RollStart()
 	}	
 
 	SetAfterImageTimeWeight(7.0f);
+	SetAfterImageAlphaWeight(0.0f);
 	CroudTimeCount = Const::effect_roll_cloud_delay;
 	IsInvincibleValue = true;
 }
@@ -456,6 +458,7 @@ void APlayerBase::JumpStart()
 {
 	Velocity.Y = Const::player_jump_speedy;
 	SetAfterImageTimeWeight(5.0f);
+	SetAfterImageAlphaWeight(0.25f);
 	SetJumpEffect();
 }
 
@@ -614,6 +617,7 @@ void APlayerBase::AttackStart()
 
 	// ¿Ã∆Â∆Æ º≥¡§
 	SetAfterImageTimeWeight(6.0f);
+	SetAfterImageAlphaWeight(0.25f);
 	float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
 	SetAttackEffect(Deg);
 
@@ -780,6 +784,7 @@ void APlayerBase::FlipStart()
 	Velocity.Y = 600.0f;
 	IsInvincibleValue = true;
 	SetAfterImageTimeWeight(7.0f);
+	SetAfterImageAlphaWeight(0.0f);
 }
 
 void APlayerBase::Flip(float _DeltaTime)
