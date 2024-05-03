@@ -7,7 +7,7 @@ struct FSpriteRendererInfo
 public:
 	FSpriteInfo SpriteInfo;
 	FVector Position = FVector::Zero;
-	FVector Rocation = FVector::Zero;
+	FVector Rotation = FVector::Zero;
 	EEngineDir Dir = EEngineDir::MAX;
 	bool IsActive = false;
 };

@@ -62,7 +62,7 @@ void URecordingObject::Recording(float _DeltaTime)
 	{
 		NewRecInfo.SpriteRendererData[AllRenderer[i]].SpriteInfo = AllRenderer[i]->GetCurInfo();
 		NewRecInfo.SpriteRendererData[AllRenderer[i]].Position = AllRenderer[i]->GetLocalPosition();
-		NewRecInfo.SpriteRendererData[AllRenderer[i]].Rocation = AllRenderer[i]->GetLocalRotation();
+		NewRecInfo.SpriteRendererData[AllRenderer[i]].Rotation = AllRenderer[i]->GetLocalRotation();
 		NewRecInfo.SpriteRendererData[AllRenderer[i]].Dir = AllRenderer[i]->GetDir();
 		NewRecInfo.SpriteRendererData[AllRenderer[i]].IsActive = AllRenderer[i]->IsActive();
 	}
@@ -115,7 +115,7 @@ void URecordingObject::Replaying(float _DeltaTime)
 
 		AllRenderer[i]->SetCurInfo(CurSpriteInfo.SpriteInfo);
 		AllRenderer[i]->SetPosition(CurSpriteInfo.Position);
-		AllRenderer[i]->SetRotationDeg(CurSpriteInfo.Rocation);
+		AllRenderer[i]->SetRotationDeg(CurSpriteInfo.Rotation);
 		AllRenderer[i]->SetDir(CurSpriteInfo.Dir);
 		AllRenderer[i]->SetActive(true);
 	}

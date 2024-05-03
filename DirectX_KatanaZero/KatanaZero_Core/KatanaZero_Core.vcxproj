@@ -171,6 +171,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AfterImage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="AfterImageObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CeilGun.h">
       <SubType>
       </SubType>
@@ -366,6 +374,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AfterImage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="AfterImageObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CeilGun.cpp">
       <SubType>
       </SubType>

@@ -249,6 +249,12 @@
     <ClInclude Include="ContentsHelper.h">
       <Filter>Helper</Filter>
     </ClInclude>
+    <ClInclude Include="AfterImage.h">
+      <Filter>Object\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="AfterImageObject.h">
+      <Filter>Object\Base\Component\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -418,6 +424,12 @@
     </ClCompile>
     <ClCompile Include="PlayLevelBase_State.cpp">
       <Filter>Object\Base\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="AfterImage.cpp">
+      <Filter>Object\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="AfterImageObject.cpp">
+      <Filter>Object\Base\Component\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
