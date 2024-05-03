@@ -12,9 +12,10 @@
 #include "Up_HUD.h"
 #include "Stair.h"
 #include "Door.h"
-#include "OutroMsg.h"
-#include "Msg.h"
 #include "Go.h"
+
+#include "OutroMsg.h"
+#include "FailedMsg.h"
 
 #include "GrayScaleEffect.h"
 #include "WaveEffect.h"
@@ -44,7 +45,7 @@ void APlayLevelBase::BeginPlay()
 	DiaTransition = GetWorld()->SpawnActor<ADiamondTransition>("DiaTransition");
 
 	ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
-	SingleMsg = GetWorld()->SpawnActor<AMsg>("SingleMsg");
+	SingleMsg = GetWorld()->SpawnActor<AFailedMsg>("FailedMsg");
 	OutroMsg = GetWorld()->SpawnActor<AOutroMsg>("OutroMsg");
 }
 

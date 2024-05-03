@@ -8,8 +8,9 @@
 #include "OutroMsg.h"
 #include "Up_HUD.h"
 #include "Door.h"
-#include "Msg.h"
 #include "Go.h"
+
+#include "FailedMsg.h"
 
 #include "GrayScaleEffect.h"
 #include "WaveEffect.h"

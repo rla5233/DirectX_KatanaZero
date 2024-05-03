@@ -1,19 +1,19 @@
 #pragma once
 
 // 설명 : Msg 클래스
-class AMsg : public AActor
+class AFailedMsg : public AActor
 {
 	GENERATED_BODY(AActor)
 public:
 	// constrcuter destructer
-	AMsg();
-	~AMsg();
+	AFailedMsg();
+	~AFailedMsg();
 
 	// delete Function
-	AMsg(const AMsg& _Other) = delete;
-	AMsg(AMsg&& _Other) noexcept = delete;
-	AMsg& operator=(const AMsg& _Other) = delete;
-	AMsg& operator=(AMsg&& _Other) noexcept = delete;
+	AFailedMsg(const AFailedMsg& _Other) = delete;
+	AFailedMsg(AFailedMsg&& _Other) noexcept = delete;
+	AFailedMsg& operator=(const AFailedMsg& _Other) = delete;
+	AFailedMsg& operator=(AFailedMsg&& _Other) noexcept = delete;
 
 	inline UImage* GetBody() const
 	{

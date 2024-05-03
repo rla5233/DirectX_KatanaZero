@@ -14,9 +14,10 @@ class AReplayUI;
 class AUp_HUD;
 class AStair;
 class ADoor;
-class AOutroMsg;
-class AMsg;
 class AGo;
+
+class AOutroMsg;
+class AFailedMsg;
 
 class UGrayScaleEffect;
 class UWaveEffect;
@@ -127,7 +128,7 @@ protected:
 
 	// Msg
 	std::shared_ptr<AOutroMsg> OutroMsg = nullptr;
-	std::shared_ptr<AMsg> SingleMsg = nullptr;
+	std::shared_ptr<AFailedMsg> SingleMsg = nullptr;
 
 	// Stage Info.
 	float4 Brightness = float4::One;

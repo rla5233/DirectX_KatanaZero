@@ -256,7 +256,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Msg.h">
+    <ClInclude Include="FailedMsg.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -465,7 +465,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Msg.cpp">
+    <ClCompile Include="FailedMsg.cpp">
       <SubType>
       </SubType>
     </ClCompile>

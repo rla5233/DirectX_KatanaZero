@@ -100,6 +100,9 @@
     <Filter Include="Level\000.Object\Component">
       <UniqueIdentifier>{2920fe78-6253-4e1c-9403-2e3c09387b33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\000.Object\UI\Msg">
+      <UniqueIdentifier>{716e8b29-9fc6-4b6e-8651-6032fb7f21f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -201,9 +204,6 @@
     <ClInclude Include="CeilGun.h">
       <Filter>Level\000.Object\Map\Component</Filter>
     </ClInclude>
-    <ClInclude Include="OutroMsg.h">
-      <Filter>Level\000.Object\UI</Filter>
-    </ClInclude>
     <ClInclude Include="LerpObject.h">
       <Filter>Object\Base\Component\Actor</Filter>
     </ClInclude>
@@ -255,8 +255,11 @@
     <ClInclude Include="AfterImageObject.h">
       <Filter>Object\Base\Component\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Msg.h">
-      <Filter>Level\000.Object\UI</Filter>
+    <ClInclude Include="FailedMsg.h">
+      <Filter>Level\000.Object\UI\Msg</Filter>
+    </ClInclude>
+    <ClInclude Include="OutroMsg.h">
+      <Filter>Level\000.Object\UI\Msg</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -371,9 +374,6 @@
     <ClCompile Include="PlayerBase_SubState.cpp">
       <Filter>Object\Base\Player</Filter>
     </ClCompile>
-    <ClCompile Include="OutroMsg.cpp">
-      <Filter>Level\000.Object\UI</Filter>
-    </ClCompile>
     <ClCompile Include="LerpObject.cpp">
       <Filter>Object\Base\Component\Actor</Filter>
     </ClCompile>
@@ -434,8 +434,11 @@
     <ClCompile Include="AfterImageObject.cpp">
       <Filter>Object\Base\Component\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Msg.cpp">
-      <Filter>Level\000.Object\UI</Filter>
+    <ClCompile Include="FailedMsg.cpp">
+      <Filter>Level\000.Object\UI\Msg</Filter>
+    </ClCompile>
+    <ClCompile Include="OutroMsg.cpp">
+      <Filter>Level\000.Object\UI\Msg</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

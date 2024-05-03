@@ -1,15 +1,15 @@
 #include "PreCompile.h"
-#include "Msg.h"
+#include "FailedMsg.h"
 
-AMsg::AMsg()
+AFailedMsg::AFailedMsg()
 {
 }
 
-AMsg::~AMsg()
+AFailedMsg::~AFailedMsg()
 {
 }
 
-void AMsg::BeginPlay()
+void AFailedMsg::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -18,18 +18,18 @@ void AMsg::BeginPlay()
 	Body->SetAutoSize(1.0f, true);
 }
 
-void AMsg::Tick(float _DeltaTime)
+void AFailedMsg::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
 
-void AMsg::On()
+void AFailedMsg::On()
 {
 	Body->SetActive(true);
 	SetActive(true);
 }
 
-void AMsg::Off()
+void AFailedMsg::Off()
 {
 	Body->SetActive(false);
 	SetActive(false);
