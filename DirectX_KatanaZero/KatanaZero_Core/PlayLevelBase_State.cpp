@@ -201,12 +201,8 @@ void APlayLevelBase::ReplayStart()
 		AllRecComponent[i]->StateChange(RecCompoState::replay);
 	}
 
-	if (nullptr == ReplayUI)
-	{
-		ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
-	}
-
 	ReplayUI->On();	
+	ReplayUI->StateChange(ReplayUIState::play);
 
 	GrayScaleEffect->Active(true);
 	InputOn();

@@ -35,7 +35,7 @@ private:
 	void ImageInit();
 
 private:
-	USpriteRenderer* Mouse = nullptr;
+	UImage* Mouse = nullptr;
 	UImage* LeftTopText = nullptr;
 	UImage* Speed = nullptr;
 	UImage* RightBottomText = nullptr;
@@ -49,7 +49,6 @@ private:
 	
 	void StateInit();
 
-	void MousePosUpdate();
 	void SetFastSpeedImage();
 	void SetRewindSpeedImage();
 };

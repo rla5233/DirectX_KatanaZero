@@ -6,10 +6,6 @@
 AReplayUI::AReplayUI()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-
-	Mouse = CreateDefaultSubObject<USpriteRenderer>("Mouse");
-	Mouse->SetupAttachment(Root);
-
 	SetRoot(Root);
 }
 
@@ -38,13 +34,11 @@ void AReplayUI::BeginPlay()
 {
 	Super::BeginPlay();
 
+	PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	ImageInit();
 	StateInit();
 	InputOn();
-
-	PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-
-	State.ChangeState(ReplayUIState::play);
+	Off();
 }
 
 void AReplayUI::Tick(float _DeltaTime)
@@ -56,6 +50,7 @@ void AReplayUI::Tick(float _DeltaTime)
 
 void AReplayUI::ImageInit()
 {
+	Mouse = CreateWidget<UImage>(GetWorld(), "Mouse");
 	RightBottomText = CreateWidget<UImage>(GetWorld(), "RightBottom_Text");
 	LeftTopText = CreateWidget<UImage>(GetWorld(), "LeftTop_Text");
 	Speed = CreateWidget<UImage>(GetWorld(), "Speed");
@@ -65,7 +60,7 @@ void AReplayUI::ImageInit()
 	Mouse->ChangeAnimation(Anim::ui_replay_right_click);
 	RightBottomText->SetSprite(ImgRes::ui_replay_RB_text);
 
-	Mouse->SetOrder(ERenderOrder::UI);
+	Mouse->AddToViewPort(EWidgetOrder::Mid);
 	RightBottomText->AddToViewPort(EWidgetOrder::Mid);
 	LeftTopText->AddToViewPort(EWidgetOrder::Mid);
 	Speed->AddToViewPort(EWidgetOrder::Mid);
@@ -75,6 +70,7 @@ void AReplayUI::ImageInit()
 	LeftTopText->SetAutoSize(1.0f, true);
 	Speed->SetAutoSize(1.0f, true);
 
+	Mouse->SetPosition({ 500.0f, -305.0f, 0.0f });
 	RightBottomText->SetPosition({ 500.0f, -340.0f, 0.0f });
 }
 
@@ -85,7 +81,6 @@ void AReplayUI::StateInit()
 	State.CreateState(ReplayUIState::stop);
 	State.CreateState(ReplayUIState::rewind);
 	State.CreateState(ReplayUIState::fastplay);
-
 
 	// State Start
 	State.SetStartFunction(ReplayUIState::play, [=]
@@ -133,9 +128,6 @@ void AReplayUI::StateInit()
 	// State Update
 	State.SetUpdateFunction(ReplayUIState::play, [=](float _DeltaTime)
 		{
-
-			MousePosUpdate();
-
 			// State Change Check
 			if (true == IsDown(VK_SPACE) || true == PlayLevel->IsReplayEnd())
 			{
@@ -159,8 +151,6 @@ void AReplayUI::StateInit()
 
 	State.SetUpdateFunction(ReplayUIState::stop, [=](float _DeltaTime)
 		{
-			MousePosUpdate();
-
 			// State Change Check
 			if (true == IsDown(VK_SPACE) && false == PlayLevel->IsReplayEnd())
 			{
@@ -186,8 +176,6 @@ void AReplayUI::StateInit()
 
 	State.SetUpdateFunction(ReplayUIState::rewind, [=](float _DeltaTime)
 		{	
-			MousePosUpdate();
-
 			// State Change Check
 			if (true == IsDown(VK_SPACE) || true == PlayLevel->IsRewindEnd())
 			{
@@ -212,8 +200,6 @@ void AReplayUI::StateInit()
 
 	State.SetUpdateFunction(ReplayUIState::fastplay, [=](float _DeltaTime)
 		{
-			MousePosUpdate();
-
 			// State Change Check
 			if (true == IsDown(VK_SPACE) || true == PlayLevel->IsReplayEnd())
 			{
@@ -235,15 +221,6 @@ void AReplayUI::StateInit()
 			}
 		}
 	);
-}
-
-void AReplayUI::MousePosUpdate()
-{
-	FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
-	CameraPos.X += 500.0f;
-	CameraPos.Y += -305.0f;
-	CameraPos.Z = 0.0f;
-	Mouse->SetPosition(CameraPos);
 }
 
 void AReplayUI::SetFastSpeedImage()

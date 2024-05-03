@@ -43,6 +43,7 @@ void APlayLevelBase::BeginPlay()
 	
 	DiaTransition = GetWorld()->SpawnActor<ADiamondTransition>("DiaTransition");
 
+	ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
 	SingleMsg = GetWorld()->SpawnActor<AMsg>("SingleMsg");
 	OutroMsg = GetWorld()->SpawnActor<AOutroMsg>("OutroMsg");
 }
