@@ -14,16 +14,22 @@ public:
 	UAfterImageObject& operator=(const UAfterImageObject& _Other) = delete;
 	UAfterImageObject& operator=(UAfterImageObject&& _Other) noexcept = delete;
 
-	void CreateAfterImage(float _DeltaTime);
-	void SetAfterImageTimeWeight(float _TimeWeight)
+	inline void SetAfterImageTimeWeight(float _TimeWeight)
 	{
 		UpdateTimeWeight = _TimeWeight;
 	}
 
-	void SetAfterImageAlphaWeight(float _AlphaWeight)
+	inline void SetAfterImageAlphaWeight(float _AlphaWeight)
 	{
 		AlphaWeight = _AlphaWeight;
 	}
+
+	inline void SetAfterImageColor(const float4& _Color)
+	{
+		Color = _Color;
+	}
+
+	void CreateAfterImage(float _DeltaTime);
 
 protected:
 	void SetTargetRenderer(USpriteRenderer* _TargetRenderer)
@@ -34,6 +40,7 @@ protected:
 private:
 	USpriteRenderer* TargetRenderer = nullptr;
 
+	float4 Color = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float DelayTime = 1.0f / 60.0f;
 	float TimeCount = 0.0f;
 	float UpdateTimeWeight = 1.0f;

@@ -24,6 +24,7 @@ void UAfterImageObject::CreateAfterImage(float _DeltaTime)
 	NewAfterImage->SetTimeWeight(UpdateTimeWeight);
 	NewAfterImage->SetAlphaWeight(AlphaWeight);
 	NewAfterImage->SetBodyInfo(TargetRenderer);
+	NewAfterImage->SetColor(Color);
 
 	TimeCount = DelayTime;
 }

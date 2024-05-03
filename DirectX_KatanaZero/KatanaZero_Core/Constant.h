@@ -259,10 +259,12 @@ namespace Const
 	const float enemy_grunt_attack_delay			= 1.0f;
 	const float enmey_gangster_attack_delay			= 3.0f;
 
-	// Replay
-	const float recording_delay						= 1 / 60.0f;
+	// Effect
+	const float4 player_afterimage_color = { 0.426f, 0.502f, 0.752f, 1.0f };
 
 	// Delay
+	const float recording_delay						= 1 / 60.0f;
+	
 	const float effect_roll_cloud_delay				= 0.02f;
 	const float effect_wallslide_cloud_delay		= 0.04f;
 	const float effect_blood_splatter_delay			= 0.01f;
