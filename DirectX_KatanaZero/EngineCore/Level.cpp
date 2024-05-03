@@ -12,7 +12,7 @@
 
 bool ULevel::IsActorConstructer = true;
 
-ULevel::ULevel() 
+ULevel::ULevel()
 {
 	// MainCamera = std::make_shared<UCamera>();
 
@@ -27,7 +27,7 @@ ULevel::ULevel()
 	LastTarget->CreateTexture(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, Scale, float4::Zero);
 }
 
-ULevel::~ULevel() 
+ULevel::~ULevel()
 {
 	MainCamera = nullptr;
 	UICamera = nullptr;
@@ -55,6 +55,11 @@ void ULevel::Tick(float _DeltaTime)
 
 		for (std::shared_ptr<AActor> Actor : GroupActors)
 		{
+			if (false == Actor->IsActive())
+			{
+				continue;
+			}
+
 			Actor->Tick(_DeltaTime * TimeScale);
 		}
 	}
@@ -65,7 +70,7 @@ void ULevel::Render(float _DeltaTime)
 	MainCamera->ViewPortSetting();
 
 	GEngine->GetEngineDevice().BackBufferRenderTarget->Setting();
-	
+
 	MainCamera->CameraTarget->Clear();
 	MainCamera->CameraTarget->Setting();
 	MainCamera->CameraTransformUpdate();
@@ -244,7 +249,7 @@ void ULevel::Destroy()
 		std::list<std::shared_ptr<AActor>>::iterator StartIter = GroupActors.begin();
 		std::list<std::shared_ptr<AActor>>::iterator EndIter = GroupActors.end();
 
-		for ( ; StartIter != EndIter; )
+		for (; StartIter != EndIter; )
 		{
 			std::shared_ptr<AActor> CurActor = *StartIter;
 
@@ -268,7 +273,7 @@ void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
 		MsgBoxAssert("만들지 않은 액터를 추가하려고 했습니다.");
 		return;
 	}
-	
+
 	_Actor->SetWorld(this);
 	_Actor->BeginPlay();
 
