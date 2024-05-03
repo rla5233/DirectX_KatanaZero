@@ -42,9 +42,8 @@ void ADiamondTransition::BeginPlay()
 		}
 	}
 
-
+	SetActive(false);
 	StateInit();
-	State.ChangeState(DiaTransitionState::none);
 }
 
 void ADiamondTransition::Tick(float _DeltaTime)
@@ -57,16 +56,15 @@ void ADiamondTransition::Tick(float _DeltaTime)
 void ADiamondTransition::StateInit()
 {
 	// State Create 
-	State.CreateState(DiaTransitionState::none);
 	State.CreateState(DiaTransitionState::on);
 	State.CreateState(DiaTransitionState::off);
 
 	// State Start
-	State.SetStartFunction(DiaTransitionState::none, [=] {});
 	State.SetStartFunction(DiaTransitionState::on, [=]
 		{
 			X = Width - 1;
 			IsTransitionEndValue = false;
+			SetActive(true);
 		}
 	);
 
@@ -83,16 +81,16 @@ void ADiamondTransition::StateInit()
 
 			X = Width - 1;
 			IsTransitionEndValue = false;
+			SetActive(true);
 		}
 	);
 
 	// State Update
-	State.SetUpdateFunction(DiaTransitionState::none, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(DiaTransitionState::on, [=](float _DeltaTime)
 		{
 			if (0 > X)
 			{
-				State.ChangeState(DiaTransitionState::none);
+				SetActive(false);
 				return;
 			}
 
@@ -115,9 +113,14 @@ void ADiamondTransition::StateInit()
 
 	State.SetUpdateFunction(DiaTransitionState::off, [=](float _DeltaTime)
 		{
-			if (0 > X)
+			if (-1 == X)
 			{
-				State.ChangeState(DiaTransitionState::none);
+				DelayCallBack(0.5f, [=] 
+					{ 
+						SetActive(false);
+						IsTransitionEndValue = true; 
+					}
+				);				
 				return;
 			}
 
@@ -144,11 +147,4 @@ void ADiamondTransition::StateInit()
 			DelayCallBack(0.5f, [=] { IsTransitionEndValue = true; });
 		}
 	);
-
-	State.SetEndFunction(DiaTransitionState::off, [=] 
-		{
-			DelayCallBack(0.5f, [=] { IsTransitionEndValue = true; });
-		}
-	);
-
 }

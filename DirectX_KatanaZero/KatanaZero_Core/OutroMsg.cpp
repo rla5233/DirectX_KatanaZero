@@ -25,8 +25,6 @@ void AOutroMsg::BeginPlay()
 
 	StateInit();
 	Off();
-
-	State.ChangeState(OutroMsgState::none);
 }
 
 void AOutroMsg::Tick(float _DeltaTime)
@@ -39,13 +37,11 @@ void AOutroMsg::Tick(float _DeltaTime)
 void AOutroMsg::StateInit()
 {
 	// State Create
-	State.CreateState(OutroMsgState::none);
 	State.CreateState(OutroMsgState::fade_in);
 	State.CreateState(OutroMsgState::fade_out);
 	State.CreateState(OutroMsgState::wait);
 
 	// State Start
-	State.SetStartFunction(OutroMsgState::none, [=] {});
 	State.SetStartFunction(OutroMsgState::fade_in, [=] { Body->SetFadeIn(); });
 	State.SetStartFunction(OutroMsgState::fade_out, [=] { Body->SetFadeOut(); });
 	State.SetStartFunction(OutroMsgState::wait, [=]
@@ -61,7 +57,6 @@ void AOutroMsg::StateInit()
 	);
 	
 	// State Update
-	State.SetUpdateFunction(OutroMsgState::none, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(OutroMsgState::wait, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(OutroMsgState::fade_in, [=](float _DeltaTime) 
 		{

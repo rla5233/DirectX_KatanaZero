@@ -432,7 +432,6 @@ namespace PanicSwitchState
 
 namespace OutroMsgState
 {
-	const std::string_view none				= "None";
 	const std::string_view fade_in			= "FadeIn";
 	const std::string_view fade_out			= "FadeOut";
 	const std::string_view wait				= "Wait";
@@ -451,7 +450,6 @@ namespace ScientistState
 
 namespace DiaTransitionState
 {
-	const std::string_view none				= "None";
 	const std::string_view on				= "On";
 	const std::string_view off				= "Off";
 }

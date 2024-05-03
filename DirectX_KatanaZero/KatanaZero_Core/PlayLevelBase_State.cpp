@@ -176,6 +176,7 @@ void APlayLevelBase::OutroStart()
 	Player->SubStateChange(PlayerSubState::outro);
 	HUD->StateChange(HudState::outro);
 	Go->StateChange(GoState::outro);
+
 	OutroMsg->On();
 	OutroMsg->StateChange(OutroMsgState::fade_in);
 	UContentsHelper::ResetTimeScale();
