@@ -32,7 +32,7 @@ public:
 		ColMap->SetPosition({ SpriteScale.hX(), SpriteScale.hY(), 0.0f });
 	}
 
-	void SetColMapSpriteScale(const FVector& _Scale)
+	inline void SetColMapSpriteScale(const FVector& _Scale)
 	{
 		ColMap->SetScale(_Scale);
 	}
@@ -65,12 +65,12 @@ public:
 		BackGround->SetPosition({ SpriteScale.hX(), SpriteScale.hY(), 0.0f });
 	}
 
-	void SetBGSpriteScale(const FVector& _Scale)
+	inline void SetBGSpriteScale(const FVector& _Scale)
 	{
 		BackGround->SetScale(_Scale);
 	}
 
-	USpriteRenderer* GetBackGround() const
+	inline USpriteRenderer* GetBackGround() const
 	{
 		return BackGround;
 	}

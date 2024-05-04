@@ -326,9 +326,9 @@ namespace PlayerSubState
 // Level
 namespace TitleLevelState
 {
-	const std::string_view title = "Title";
-	const std::string_view wait = "Wait";
-	const std::string_view exit = "Exit";
+	const std::string_view title			= "Title";
+	const std::string_view wait				= "Wait";
+	const std::string_view exit				= "Exit";
 }
 
 namespace PlayLevelState
@@ -336,7 +336,8 @@ namespace PlayLevelState
 	const std::string_view transition_on	= "Transition_On";
 	const std::string_view transition_off	= "Transition_Off";
 	const std::string_view intro			= "Intro";
-	const std::string_view beginplay_effect	= "BeginPlay_Effect";
+	const std::string_view intro_effect		= "Intro_Effect";
+	const std::string_view intro_big_effect	= "Intro_Big_Effect";
 	const std::string_view play				= "Play";
 	const std::string_view clear			= "Clear";
 	const std::string_view outro			= "Outro";

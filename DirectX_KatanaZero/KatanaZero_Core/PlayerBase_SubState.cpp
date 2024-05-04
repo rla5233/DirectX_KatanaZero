@@ -32,12 +32,7 @@ void APlayerBase::SubStateInit()
 	SubState.SetUpdateFunction(PlayerSubState::restart, std::bind(&APlayerBase::ReStart, this, std::placeholders::_1));
 
 	// State End
-	SubState.SetEndFunction(PlayerSubState::intro, [=]
-		{
-			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-			PlayLevel->StateChange(PlayLevelState::beginplay_effect);
-		}
-	);
+	SubState.SetEndFunction(PlayerSubState::intro,		std::bind(&APlayerBase::IntroEnd, this));
 }
 
 // 
@@ -49,6 +44,12 @@ void APlayerBase::IntroStart()
 
 void APlayerBase::Intro(float _DeltaTime)
 {
+}
+
+void APlayerBase::IntroEnd()
+{
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	PlayLevel->StateChange(PlayLevelState::intro_big_effect);
 }
 
 void APlayerBase::PlayStart()

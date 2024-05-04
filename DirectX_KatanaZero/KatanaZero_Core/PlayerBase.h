@@ -211,6 +211,7 @@ protected:
 	// Sub State
 	virtual void IntroStart();
 	virtual void Intro(float _DeltaTime);
+	void IntroEnd();
 
 	void PlayStart();
 	void Play(float _DeltaTime);

@@ -20,7 +20,8 @@ void APlayLevelBase::StateInit()
 {
 	// State 생성
 	State.CreateState(PlayLevelState::intro);
-	State.CreateState(PlayLevelState::beginplay_effect);
+	State.CreateState(PlayLevelState::intro_effect);
+	State.CreateState(PlayLevelState::intro_big_effect);
 	State.CreateState(PlayLevelState::play);
 	State.CreateState(PlayLevelState::clear);
 	State.CreateState(PlayLevelState::outro);
@@ -32,7 +33,8 @@ void APlayLevelBase::StateInit()
 
 	// State Start 함수 세팅
 	State.SetStartFunction(PlayLevelState::intro,				std::bind(&APlayLevelBase::IntroStart, this));
-	State.SetStartFunction(PlayLevelState::beginplay_effect,	std::bind(&APlayLevelBase::BeginPlayEffectStart, this));
+	State.SetStartFunction(PlayLevelState::intro_effect,		std::bind(&APlayLevelBase::IntroEffectStart, this));
+	State.SetStartFunction(PlayLevelState::intro_big_effect,	std::bind(&APlayLevelBase::IntroBigEffectStart, this));
 	State.SetStartFunction(PlayLevelState::play,				std::bind(&APlayLevelBase::PlayStart, this));
 	State.SetStartFunction(PlayLevelState::clear,				std::bind(&APlayLevelBase::ClearStart, this));
 	State.SetStartFunction(PlayLevelState::outro,				std::bind(&APlayLevelBase::OutroStart, this));
@@ -45,7 +47,8 @@ void APlayLevelBase::StateInit()
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction(PlayLevelState::intro,				std::bind(&APlayLevelBase::Intro, this, std::placeholders::_1));
-	State.SetUpdateFunction(PlayLevelState::beginplay_effect,	std::bind(&APlayLevelBase::BeginPlayEffect, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayLevelState::intro_effect,		std::bind(&APlayLevelBase::IntroEffect, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayLevelState::intro_big_effect,	std::bind(&APlayLevelBase::IntroBigEffect, this, std::placeholders::_1));
 	State.SetUpdateFunction(PlayLevelState::play,				std::bind(&APlayLevelBase::Play, this, std::placeholders::_1));
 	State.SetUpdateFunction(PlayLevelState::clear,				std::bind(&APlayLevelBase::Clear, this, std::placeholders::_1));
 	State.SetUpdateFunction(PlayLevelState::outro,				std::bind(&APlayLevelBase::Outro, this, std::placeholders::_1));
@@ -66,9 +69,9 @@ void APlayLevelBase::Intro(float _DeltaTime)
 {
 }
 
-void APlayLevelBase::BeginPlayEffectStart()
+void APlayLevelBase::IntroEffectStart()
 {
-	WaveEffect->SetEffectType(EWaveEffectType::BeginPlay);
+	WaveEffect->SetEffectType(EWaveEffectType::Intro);
 	WaveEffect->Active(true);
 
 	DelayCallBack(0.2f, [=]
@@ -85,7 +88,31 @@ void APlayLevelBase::BeginPlayEffectStart()
 	);
 }
 
-void APlayLevelBase::BeginPlayEffect(float _DeltaTime)
+void APlayLevelBase::IntroEffect(float _DeltaTime)
+{
+	WaveEffect->Update(_DeltaTime);
+}
+
+void APlayLevelBase::IntroBigEffectStart()
+{
+	WaveEffect->SetEffectType(EWaveEffectType::Intro);
+	WaveEffect->Active(true);
+
+	DelayCallBack(1.0f, [=]
+		{
+			WaveEffect->ResetTime();
+			WaveEffect->Active(false);
+
+			Player->SubStateChange(PlayerSubState::play);
+			Player->SetIsPlayValue(true);
+			Player->InputOn();
+
+			State.ChangeState(PlayLevelState::play);
+		}
+	);
+}
+
+void APlayLevelBase::IntroBigEffect(float _DeltaTime)
 {
 	WaveEffect->Update(_DeltaTime);
 }
@@ -292,7 +319,7 @@ void APlayLevelBase::Restart(float _DeltaTime)
 		WaveEffect->Active(false);
 		WaveEffect->ResetTime();
 
-		State.ChangeState(PlayLevelState::beginplay_effect);
+		State.ChangeState(PlayLevelState::intro_effect);
 		return;
 	}
 }

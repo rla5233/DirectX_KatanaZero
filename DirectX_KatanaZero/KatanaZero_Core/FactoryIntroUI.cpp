@@ -2,6 +2,9 @@
 #include "FactoryIntroUI.h"
 
 #include "KZImage.h"
+#include "PlayLevelBase.h"
+#include "PlayerBase.h"
+#include "DefaultPlayer.h"
 
 AFactoryIntroUI::AFactoryIntroUI()
 {
@@ -227,7 +230,11 @@ void AFactoryIntroUI::StartWaitingAnim(float _DeltaTime)
 {
 	if (UEngineInput::IsDown(VK_LBUTTON))
 	{
-
+		APlayLevelBase* PlayerLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+		APlayerBase* Player = PlayerLevel->GetDefaultPlayer();
+		Player->StateChange(PlayerState::idle);
+		Player->SubStateChange(PlayerSubState::none);
+		Off();
 	}
 }
 

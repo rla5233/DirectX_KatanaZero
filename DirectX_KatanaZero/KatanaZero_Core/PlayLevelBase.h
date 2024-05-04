@@ -55,6 +55,11 @@ public:
 		return MainCamera.get();
 	}
 
+	inline ADefaultPlayer* GetDefaultPlayer() const
+	{
+		return Player.get();
+	}
+
 	inline float GetTotalPlayTime() const
 	{
 		return TotalPlayTime;
@@ -161,8 +166,11 @@ protected:
 	void IntroStart();
 	void Intro(float _DeltaTime);
 
-	void BeginPlayEffectStart();
-	void BeginPlayEffect(float _DeltaTime);
+	void IntroEffectStart();
+	void IntroEffect(float _DeltaTime);
+
+	void IntroBigEffectStart();
+	void IntroBigEffect(float _DeltaTime);
 
 	void PlayStart();
 	void Play(float _DeltaTime);

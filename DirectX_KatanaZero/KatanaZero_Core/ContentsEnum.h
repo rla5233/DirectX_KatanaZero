@@ -110,7 +110,7 @@ enum class EStairType
 
 enum class EWaveEffectType
 {
-	BeginPlay,
+	Intro,
 	Restart
 };
 
