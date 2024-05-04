@@ -53,6 +53,7 @@ private:
 	UKZImage* StageName1 = nullptr;
 	UKZImage* StageNameBackGround = nullptr;
 	FVector StageNameUIPos = { 0.0f, 35.0f, 0.0f };
+	float NameMoveTimeWeight = 3.0f;
 
 	UImage* StartMsg = nullptr;
 	UImage* StartMouse = nullptr;

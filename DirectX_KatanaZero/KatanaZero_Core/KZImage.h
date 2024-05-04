@@ -23,7 +23,7 @@ public:
 	UKZImage& operator=(const UKZImage& _Other) = delete;
 	UKZImage& operator=(UKZImage&& _Other) noexcept = delete;
 
-	void SetPosition(const FVector& _Pos);
+	void SetPosition(const FVector& _Pos) override;
 
 	void SetSortType(ESortType _SortType);
 

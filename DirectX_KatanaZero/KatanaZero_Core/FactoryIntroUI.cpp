@@ -67,13 +67,11 @@ void AFactoryIntroUI::ImageInit()
 	StageName0 = CreateWidget<UKZImage>(GetWorld(), "StageName0");
 	StageName0->SetSprite(ImgRes::ui_stagename0);
 	StageName0->AddToViewPort(EWidgetOrder::Mid);
-	StageName0->SetPosition(StageNameUIPos);
 	StageName0->SetAutoSize(1.0f, true);
 
 	StageName1 = CreateWidget<UKZImage>(GetWorld(), "StageName1");
 	StageName1->SetSprite(ImgRes::ui_stagename1);
 	StageName1->AddToViewPort(EWidgetOrder::Top);
-	StageName1->SetPosition(StageNameUIPos);
 	StageName1->SetAutoSize(1.0f, true);
 
 	// Start Msg
@@ -161,17 +159,20 @@ void AFactoryIntroUI::SongBackGroundAnim(float _DeltaTime)
 
 		PlayingSong0->SetFadeIn();
 		PlayingSong0->SetFadeTimeWeight(2.0f);
+		PlayingSong0->SetLerpMovePos(SongUIPos - FVector(3.0f, 0.0f, 0.0f), SongUIPos);
 		PlayingSong0->SetPosition(SongUIPos);
 		PlayingSong0->SetActive(true);
 
 		PlayingSong1->SetFadeIn();
 		PlayingSong1->SetFadeTimeWeight(2.0f);
+		PlayingSong1->SetLerpMovePos(SongUIPos + FVector(5.0f, 0.0f, 0.0f), SongUIPos);
 		PlayingSong1->SetPosition(SongUIPos);
 		PlayingSong1->SetActive(true);
 
 		PlayingSongUnderLine->SetActive(true);
 		
 		PlayingSongTitle->SetFadeIn();
+		PlayingSongTitle->SetLerpMovePos(SongUIPos - FVector(8.0f, 0.0f, 0.0f), SongUIPos);
 		PlayingSongTitle->SetActive(true);
 		PlayingSongTitle->SetPosition(SongUIPos);
 
@@ -203,20 +204,28 @@ void AFactoryIntroUI::PlayingSongTitleAnim(float _DeltaTime)
 		StageNameBackGround->SetActive(true);
 
 		StageName0->SetFadeIn();
-		StageName0->SetFadeTimeWeight(5.0f);
+		StageName0->SetFadeTimeWeight(2.0f);
+		StageName0->SetLerpMovePos(StageNameUIPos - FVector(500.0f, 0.0f, 0.0f), StageNameUIPos);
 		StageName0->SetActive(true);
 
 		StageName1->SetFadeIn();
-		StageName1->SetFadeTimeWeight(5.0f);
+		StageName1->SetFadeTimeWeight(2.0f);
+		StageName1->SetLerpMovePos(StageNameUIPos + FVector(500.0f, 0.0f, 0.0f), StageNameUIPos);
 		StageName1->SetActive(true);
 
+		NameMoveTimeWeight = 3.0f;
 		Order = EFactoryIntroOrder::StageName;
 	}
 }
 
 void AFactoryIntroUI::StageNameAnim(float _DeltaTime)
 {
-	if (false == StageNameBackGround->IsFade())
+	NameMoveTimeWeight -= 4.52f * _DeltaTime;
+
+	StageName0->SetLerpTimeWeight(NameMoveTimeWeight);
+	StageName1->SetLerpTimeWeight(NameMoveTimeWeight);
+
+	if (false == StageName0->IsLerpMove() && false == StageName1->IsLerpMove())
 	{
 		StartMsg->SetActive(true);
 

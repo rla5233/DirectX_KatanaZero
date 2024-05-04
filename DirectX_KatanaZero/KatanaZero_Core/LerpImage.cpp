@@ -15,7 +15,7 @@ void ULerpImage::LerpMoveUpdate(float _DeltaTime)
 	{
 		MoveTime += _DeltaTime * TimeWeight;
 		FVector NextPos = FVector::LerpClamp(StartPos, TargetPos, MoveTime);
-		Image->SetPosition(NextPos);
+		SetPosition(NextPos);
 
 		if (1.0f <= MoveTime)
 		{

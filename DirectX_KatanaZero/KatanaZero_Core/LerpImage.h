@@ -37,16 +37,10 @@ public:
 	}
 
 protected:
-	inline void SetImage(UImage* _Image)
-	{
-		Image = _Image;
-	}
-
 	void LerpMoveUpdate(float _DeltaTime);
+	virtual void SetPosition(const FVector& _Pos) {};
 
 private:
-	UImage* Image = nullptr;
-
 	FVector StartPos = FVector::Zero;
 	FVector TargetPos = FVector::Zero;
 	float MoveTime = 0.0f;
