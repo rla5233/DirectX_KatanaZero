@@ -171,6 +171,7 @@ void AFactoryIntroUI::SongBackGroundAnim(float _DeltaTime)
 
 		PlayingSongUnderLine->SetActive(true);
 		
+		PlayingSongTitle->SetFadeIn();
 		PlayingSongTitle->SetActive(true);
 		PlayingSongTitle->SetPosition(SongUIPos);
 
