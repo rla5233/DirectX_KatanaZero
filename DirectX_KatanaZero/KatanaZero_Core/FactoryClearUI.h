@@ -4,21 +4,27 @@
 class UKZImage;
 
 // Ό³Έν : Factory Clear UI
-class FactoryClearUI : public AActor
+class UFactoryClearUI : public AActor
 {
 	GENERATED_BODY(AActor)
 public:
 	// constructor destructor
-	FactoryClearUI();
-	~FactoryClearUI();
+	UFactoryClearUI();
+	~UFactoryClearUI();
 	
 	// delete Function
-	FactoryClearUI(const FactoryClearUI& _Other) = delete;
-	FactoryClearUI(FactoryClearUI&& _Other) noexcept = delete;
-	FactoryClearUI& operator=(const FactoryClearUI& _Other) = delete;
-	FactoryClearUI& operator=(FactoryClearUI&& _Other) noexcept = delete;
+	UFactoryClearUI(const UFactoryClearUI& _Other) = delete;
+	UFactoryClearUI(UFactoryClearUI&& _Other) noexcept = delete;
+	UFactoryClearUI& operator=(const UFactoryClearUI& _Other) = delete;
+	UFactoryClearUI& operator=(UFactoryClearUI&& _Other) noexcept = delete;
 
+	inline void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
 
+	void On();
+	void Off();
 
 protected:
 	void BeginPlay() override;
@@ -27,9 +33,26 @@ protected:
 	void ImageInit();
 
 private:
+	void FactoryClearStart(float _DeltaTime);
+	void FactoryClearEnd(float _DeltaTime);
+
+
+private:
 	UKZImage* ClearText0 = nullptr;
 	UKZImage* ClearText1 = nullptr;
-	UKZImage* ClearTextBackGround = nullptr;
+	UKZImage* ClearBackGround = nullptr;
+
+	FVector ClearUIPos = { 0.0f, 35.0f, 0.0f };
+	float ClearMoveTimeWeight = 3.0f;
+
+	FVector TextVelocity = FVector::Zero;
+
+	EFactoryClearOrder Order = EFactoryClearOrder::None;
+
+// FSM
+private:
+	UStateManager State;
+	void StateInit();
 
 };
 

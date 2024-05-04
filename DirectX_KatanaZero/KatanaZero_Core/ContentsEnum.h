@@ -124,3 +124,10 @@ enum class EFactoryIntroOrder
 	StageName,
 	StartWaiting
 };
+
+enum class EFactoryClearOrder
+{
+	None,
+	FactoryClearStart,
+	FactoryClearEnd
+};

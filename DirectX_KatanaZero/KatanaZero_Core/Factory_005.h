@@ -2,6 +2,7 @@
 #include "PlayLevelBase.h"
 
 class AGangSter;
+class UFactoryClearUI;
 
 // 설명 : Factory 5번째 스테이지
 class AFactory_005 : public APlayLevelBase
@@ -35,6 +36,7 @@ protected:
 
 private:
 	std::vector<AGangSter*> ExtraGangster;
+	std::shared_ptr<UFactoryClearUI> ClearUI = nullptr;
 
 // FSM	
 protected:

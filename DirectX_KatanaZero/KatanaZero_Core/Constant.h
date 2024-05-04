@@ -86,6 +86,9 @@ namespace ImgRes
 	const std::string_view ui_stagename0			= "spr_stagename0.png";
 	const std::string_view ui_stagename1			= "spr_stagename1.png";
 
+	const std::string_view ui_stage_clear0			= "spr_stage_clear_0.png";
+	const std::string_view ui_stage_clear1			= "spr_stage_clear_1.png";
+
 	const std::string_view ui_startmsg_0			= "spr_startmsg_0.png";
 	const std::string_view ui_start_leftclick		= "spr_left_click";
 
@@ -486,4 +489,9 @@ namespace FailedMsgState
 namespace FactoryIntroUIState
 {
 	const std::string_view intro			= "Intro";
+}
+
+namespace FactoryClearUIState
+{
+	const std::string_view clear			= "Clear";
 }

@@ -14,6 +14,8 @@
 #include "Door.h"
 #include "Go.h"
 
+#include "FactoryClearUI.h"
+
 AFactory_005::AFactory_005()
 {
 }
@@ -102,7 +104,14 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 		DownStair->SetPartnerStair(UpStair);
 	}
 
+	ClearUI = GetWorld()->SpawnActor<UFactoryClearUI>("ClearUI");
 	State.ChangeState(PlayLevelState::transition_off);
+
+	DelayCallBack(3.0f, [=] 
+		{ 	
+			ClearUI->StateChange(FactoryClearUIState::clear); 
+		}
+	);
 }
 
 void AFactory_005::LevelEnd(ULevel* _NextLevel)
@@ -185,6 +194,7 @@ void AFactory_005::ClearStart()
 {
 	Super::ClearStart();
 
+	ClearUI->StateChange(FactoryClearUIState::clear);
 	Go->SetRepeatPos({ -500.0f, -80.0f, 0.0f });
 	Go->SetArrowDir(EEngineDir::Left);
 	Go->StateChange("Repeat");

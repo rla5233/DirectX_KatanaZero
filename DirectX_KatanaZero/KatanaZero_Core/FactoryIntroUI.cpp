@@ -129,10 +129,8 @@ void AFactoryIntroUI::StateInit()
 			default:
 				break;
 			}
-			
 		}
 	);
-
 }
 
 void AFactoryIntroUI::Tick(float _DeltaTime)
