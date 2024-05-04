@@ -1,18 +1,18 @@
 #pragma once
 
 // 설명 : Fade 기능
-class UFadeObject
+class UFadeImage
 {
 public:
 	// constrcuter destructer
-	UFadeObject();
-	~UFadeObject();
+	UFadeImage();
+	~UFadeImage();
 
 	// delete Function
-	UFadeObject(const UFadeObject& _Other) = delete;
-	UFadeObject(UFadeObject&& _Other) noexcept = delete;
-	UFadeObject& operator=(const UFadeObject& _Other) = delete;
-	UFadeObject& operator=(UFadeObject&& _Other) noexcept = delete;
+	UFadeImage(const UFadeImage& _Other) = delete;
+	UFadeImage(UFadeImage&& _Other) noexcept = delete;
+	UFadeImage& operator=(const UFadeImage& _Other) = delete;
+	UFadeImage& operator=(UFadeImage&& _Other) noexcept = delete;
 
 	void SetFadeIn(float _Start = 0.0f, float _Target = 1.0f);
 	void SetFadeOut(float _Start = 1.0f, float _Target = 0.0f);

@@ -1,23 +1,15 @@
 #include "PreCompile.h"
-#include "FadeObject.h"
+#include "FadeImage.h"
 
-UFadeObject::UFadeObject()
+UFadeImage::UFadeImage()
 {
 }
 
-UFadeObject::~UFadeObject()
+UFadeImage::~UFadeImage()
 {
 }
 
-void UFadeObject::SetFadeIn(float _Start, float _Target)
-{
-	FadeTime = 0.0f;
-	StartFade = _Start;
-	TargetFade = _Target;
-	IsFadeValue = true;
-}
-
-void UFadeObject::SetFadeOut(float _Start, float _Target)
+void UFadeImage::SetFadeIn(float _Start, float _Target)
 {
 	FadeTime = 0.0f;
 	StartFade = _Start;
@@ -25,7 +17,15 @@ void UFadeObject::SetFadeOut(float _Start, float _Target)
 	IsFadeValue = true;
 }
 
-void UFadeObject::FadeUpdate(float _DeltaTime)
+void UFadeImage::SetFadeOut(float _Start, float _Target)
+{
+	FadeTime = 0.0f;
+	StartFade = _Start;
+	TargetFade = _Target;
+	IsFadeValue = true;
+}
+
+void UFadeImage::FadeUpdate(float _DeltaTime)
 {
 	if (true == IsFadeValue)
 	{

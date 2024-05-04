@@ -222,7 +222,7 @@
     <ClInclude Include="RecordingObject.h">
       <Filter>Object\Base\Component\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="FadeObject.h">
+    <ClInclude Include="FadeImage.h">
       <Filter>Object\Base\Component\Image</Filter>
     </ClInclude>
     <ClInclude Include="KZImage.h">
@@ -395,7 +395,7 @@
     <ClCompile Include="RecordingObject.cpp">
       <Filter>Object\Base\Component\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="FadeObject.cpp">
+    <ClCompile Include="FadeImage.cpp">
       <Filter>Object\Base\Component\Image</Filter>
     </ClCompile>
     <ClCompile Include="KZImage.cpp">

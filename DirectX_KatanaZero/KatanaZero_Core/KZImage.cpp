@@ -3,7 +3,7 @@
 
 UKZImage::UKZImage()
 {
-	UFadeObject::SetImage(this);
+	UFadeImage::SetImage(this);
 }
 
 UKZImage::~UKZImage()

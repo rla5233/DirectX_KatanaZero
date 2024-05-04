@@ -1,5 +1,5 @@
 #pragma once
-#include "FadeObject.h"
+#include "FadeImage.h"
 
 enum class ESortType
 {
@@ -8,7 +8,7 @@ enum class ESortType
 };
 
 // Ό³Έν :
-class UKZImage : public UImage, public UFadeObject
+class UKZImage : public UImage, public UFadeImage
 {
 	GENERATED_BODY(UImage);
 public:
