@@ -276,6 +276,9 @@
     <ClInclude Include="ShakeImage.h">
       <Filter>Object\Base\Component\Image</Filter>
     </ClInclude>
+    <ClInclude Include="FactoryClearUI.h">
+      <Filter>Level\002.FactoryLevel\Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -463,6 +466,9 @@
     </ClCompile>
     <ClCompile Include="ShakeImage.cpp">
       <Filter>Object\Base\Component\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryClearUI.cpp">
+      <Filter>Level\002.FactoryLevel\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
