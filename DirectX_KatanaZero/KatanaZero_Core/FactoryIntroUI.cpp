@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "FactoryIntroUI.h"
 
+#include "KZImage.h"
+
 AFactoryIntroUI::AFactoryIntroUI()
 {
 }
@@ -21,16 +23,17 @@ void AFactoryIntroUI::BeginPlay()
 
 void AFactoryIntroUI::ImageInit()
 {
-	SongBackGround = CreateWidget<UImage>(GetWorld(), "SongBackGround");
+	SongBackGround = CreateWidget<UKZImage>(GetWorld(), "SongBackGround");
 	SongBackGround->SetSprite(ImgRes::ui_songtitle_background);
 	SongBackGround->AddToViewPort(EWidgetOrder::Bottom);
 	SongBackGround->SetScale({ 0.0f, 95.0f, 0.0f });
+	SongBackGround->SetSortType(ESortType::Left);
 
-	PlayingSong0 = CreateWidget<UImage>(GetWorld(), "PlayingSong_Text0");
+	PlayingSong0 = CreateWidget<UKZImage>(GetWorld(), "PlayingSong_Text0");
 	PlayingSong0->SetSprite(ImgRes::ui_playingsong_0);
 	PlayingSong0->AddToViewPort(EWidgetOrder::Mid);
 	PlayingSong0->SetAutoSize(1.0f, true);
-
+	PlayingSong0->SetSortType(ESortType::Left);
 }
 
 void AFactoryIntroUI::StateInit()
@@ -84,14 +87,14 @@ void AFactoryIntroUI::SongBackGroundAnim(float _DeltaTime)
 	
 	SongBackGround->SetScale({ NextScaleX, 95.0f, 0.0f });
 	SongBackGround->SetPosition(SongUIPos);
-	SongBackGround->AddPosition({ NextScaleX * (0.5f), 0.0f, 0.0f });
 
 	if (TargetTime < TimeCount)
 	{
 		SongBackGround->SetScale({ 365.0f, 95.0f, 0.0f });
 		SongBackGround->SetPosition(SongUIPos);
-		SongBackGround->AddPosition({ NextScaleX * (0.5f), 0.0f, 0.0f });	
 
+		PlayingSong0->SetFadeIn();
+		PlayingSong0->SetFadeTimeWeight(2.0f);
 		PlayingSong0->SetActive(true);
 		TimeCount = 0.0f;
 		Order = EFactoryIntroOrder::SongText;;
@@ -100,7 +103,8 @@ void AFactoryIntroUI::SongBackGroundAnim(float _DeltaTime)
 
 void AFactoryIntroUI::SongTextAnim(float _DeltaTime)
 {
-
+	PlayingSong0->SetPosition(SongUIPos);
+	
 }
 
 void AFactoryIntroUI::On()

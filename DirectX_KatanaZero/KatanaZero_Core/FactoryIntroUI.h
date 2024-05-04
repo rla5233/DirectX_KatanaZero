@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore/StateManager.h>	
 
+class UKZImage;
+
 // 설명 : Factory 인트로 UI
 class AFactoryIntroUI : public AActor
 {
@@ -37,9 +39,9 @@ private:
 	float TimeCount = 0.0f;
 
 private:
-	UImage* SongBackGround = nullptr;
-	UImage* PlayingSong0 = nullptr;
-	UImage* PlayingSong1 = nullptr;
+	UKZImage* SongBackGround = nullptr;
+	UKZImage* PlayingSong0 = nullptr;
+	UKZImage* PlayingSong1 = nullptr;
 	FVector SongUIPos = { 240.0f, -270.0f, 0.0f };
 
 

@@ -29,7 +29,7 @@ void UFadeObject::FadeUpdate(float _DeltaTime)
 {
 	if (true == IsFadeValue)
 	{
-		FadeTime += _DeltaTime;
+		FadeTime += TimeWeight * _DeltaTime;
 
 		float NextAlpha = UContentsMath::LerpClampf(StartFade, TargetFade, FadeTime);
 		Image->SetMulColor({ 1.0f, 1.0f, 1.0f, NextAlpha });

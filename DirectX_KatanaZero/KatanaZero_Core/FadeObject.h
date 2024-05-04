@@ -22,6 +22,17 @@ public:
 		return IsFadeValue;
 	}
 
+	inline void SetFadeTimeWeight(float _Value)
+	{
+		if (0.0f >= _Value)
+		{
+			MsgBoxAssert("잘못된 값을 설정하였습니다.")
+			return;
+		}
+
+		TimeWeight = _Value;
+	}
+
 protected:
 	void SetImage(UImage* _Image)
 	{
@@ -36,6 +47,7 @@ private:
 	float StartFade = 0.0f;
 	float TargetFade = 0.0f;
 	float FadeTime = 0.0f;
+	float TimeWeight = 1.0f;
 	bool IsFadeValue = false;
 };
 

@@ -1,6 +1,12 @@
 #pragma once
 #include "FadeObject.h"
 
+enum class ESortType
+{
+	None,
+	Left
+};
+
 // Ό³Έν :
 class UKZImage : public UImage, public UFadeObject
 {
@@ -16,11 +22,16 @@ public:
 	UKZImage& operator=(const UKZImage& _Other) = delete;
 	UKZImage& operator=(UKZImage&& _Other) noexcept = delete;
 
+	void SetPosition(const FVector& _Pos);
+
+	void SetSortType(ESortType _SortType);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DelatTime) override;
 
 private:
+	ESortType SortType = ESortType::None;
 
 };
 
