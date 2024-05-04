@@ -34,7 +34,8 @@ protected:
 
 private:
 	void SongBackGroundAnim(float _DeltaTime);
-	void SongTextAnim(float _DeltaTime);
+	void PlayingSongTextAnim(float _DeltaTime);
+	void PlayingSongTitleAnim(float _DeltaTime);
 
 	float TimeCount = 0.0f;
 
@@ -42,8 +43,12 @@ private:
 	UKZImage* SongBackGround = nullptr;
 	UKZImage* PlayingSong0 = nullptr;
 	UKZImage* PlayingSong1 = nullptr;
+	UKZImage* PlayingSongUnderLine = nullptr;
+	UKZImage* PlayingSongTitle = nullptr;
 	FVector SongUIPos = { 240.0f, -270.0f, 0.0f };
 
+	UKZImage* StageName0 = nullptr;
+	UKZImage* StageName1 = nullptr;
 
 	EFactoryIntroOrder Order = EFactoryIntroOrder::None;
 

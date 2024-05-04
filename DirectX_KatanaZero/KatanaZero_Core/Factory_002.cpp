@@ -67,7 +67,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	State.ChangeState(PlayLevelState::transition_off);
 
 	// 6 ~ 7ÃÊ »çÀÌ
-	DelayCallBack(3.0f, [=]
+	DelayCallBack(5.5f, [=]
 		{
 			IntroUI->StateChange(FactoryIntroUIState::intro);
 		}

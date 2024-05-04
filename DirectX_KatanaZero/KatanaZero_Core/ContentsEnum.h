@@ -118,5 +118,6 @@ enum class EFactoryIntroOrder
 {
 	None,
 	SongBackGround,
-	SongText,
+	PlayingSongText,
+	PlayingSongTitle,
 };
