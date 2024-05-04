@@ -1,5 +1,7 @@
 #pragma once
 
+class UKZImage;
+
 // 설명 : Lerp 기능
 class ULerpImage
 {
@@ -37,10 +39,17 @@ public:
 	}
 
 protected:
+	inline void SetImage(UKZImage* _Image)
+	{
+		Image = _Image;
+	}
+	
 	void LerpMoveUpdate(float _DeltaTime);
-	virtual void SetPosition(const FVector& _Pos) {};
+
 
 private:
+	UKZImage* Image = nullptr;
+
 	FVector StartPos = FVector::Zero;
 	FVector TargetPos = FVector::Zero;
 	float MoveTime = 0.0f;

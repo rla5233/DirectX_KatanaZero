@@ -1,6 +1,7 @@
 #pragma once
 #include "FadeImage.h"
 #include "LerpImage.h"
+#include "ShakeImage.h"
 
 enum class ESortType
 {
@@ -9,7 +10,11 @@ enum class ESortType
 };
 
 // Ό³Έν :
-class UKZImage : public UImage, public UFadeImage, public ULerpImage
+class UKZImage : 
+	public UImage, 
+	public UFadeImage, 
+	public ULerpImage,
+	public UShakeImage
 {
 	GENERATED_BODY(UImage);
 public:
@@ -23,7 +28,7 @@ public:
 	UKZImage& operator=(const UKZImage& _Other) = delete;
 	UKZImage& operator=(UKZImage&& _Other) noexcept = delete;
 
-	void SetPosition(const FVector& _Pos) override;
+	void SetPosition(const FVector& _Pos);
 
 	void SetSortType(ESortType _SortType);
 

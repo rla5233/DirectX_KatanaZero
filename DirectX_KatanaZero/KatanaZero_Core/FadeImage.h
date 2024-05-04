@@ -1,5 +1,7 @@
 #pragma once
 
+class UKZImage;
+
 // 설명 : Fade 기능
 class UFadeImage
 {
@@ -34,7 +36,7 @@ public:
 	}
 
 protected:
-	inline void SetImage(UImage* _Image)
+	inline void SetImage(UKZImage* _Image)
 	{
 		Image = _Image;
 	}
@@ -42,7 +44,7 @@ protected:
 	void FadeUpdate(float _DeltaTime);
 
 private:
-	UImage* Image = nullptr;
+	UKZImage* Image = nullptr;
 
 	float StartFade = 0.0f;
 	float TargetFade = 0.0f;

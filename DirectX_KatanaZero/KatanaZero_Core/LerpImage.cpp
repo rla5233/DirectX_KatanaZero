@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "LerpImage.h"
 
+#include "KZImage.h"
+
 ULerpImage::ULerpImage()
 {
 }
@@ -15,7 +17,7 @@ void ULerpImage::LerpMoveUpdate(float _DeltaTime)
 	{
 		MoveTime += _DeltaTime * TimeWeight;
 		FVector NextPos = FVector::LerpClamp(StartPos, TargetPos, MoveTime);
-		SetPosition(NextPos);
+		Image->SetPosition(NextPos);
 
 		if (1.0f <= MoveTime)
 		{

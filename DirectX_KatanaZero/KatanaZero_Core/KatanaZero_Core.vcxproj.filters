@@ -273,6 +273,9 @@
     <ClInclude Include="LerpImage.h">
       <Filter>Object\Base\Component\Image</Filter>
     </ClInclude>
+    <ClInclude Include="ShakeImage.h">
+      <Filter>Object\Base\Component\Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -456,6 +459,9 @@
       <Filter>Level\002.FactoryLevel\Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="LerpImage.cpp">
+      <Filter>Object\Base\Component\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="ShakeImage.cpp">
       <Filter>Object\Base\Component\Image</Filter>
     </ClCompile>
   </ItemGroup>

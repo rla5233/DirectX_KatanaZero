@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "FadeImage.h"
 
+#include "KZImage.h"
+
 UFadeImage::UFadeImage()
 {
 }

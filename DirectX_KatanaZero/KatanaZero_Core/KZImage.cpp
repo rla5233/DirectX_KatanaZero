@@ -4,6 +4,8 @@
 UKZImage::UKZImage()
 {
 	UFadeImage::SetImage(this);
+	ULerpImage::SetImage(this);
+	UShakeImage::SetImage(this);
 }
 
 UKZImage::~UKZImage()
