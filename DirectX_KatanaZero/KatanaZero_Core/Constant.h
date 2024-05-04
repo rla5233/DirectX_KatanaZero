@@ -26,6 +26,7 @@ namespace ImgRes
 	const std::string_view player_flip				= "player_flip";
 	const std::string_view player_kick_door			= "player_kick_door";
 	const std::string_view player_dead				= "player_dead";
+	const std::string_view player_headphones		= "player_headphones";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -171,6 +172,7 @@ namespace Anim
 	const std::string_view player_flip				= "player_flip";
 	const std::string_view player_kick_door			= "player_kick_door";
 	const std::string_view player_dead				= "player_dead";
+	const std::string_view player_headphones		= "player_headphones";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";

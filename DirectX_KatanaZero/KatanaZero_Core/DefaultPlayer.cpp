@@ -57,8 +57,14 @@ void ADefaultPlayer::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::player_flip, ImgRes::player_flip, 0.02f, false);
 	GetBody()->CreateAnimation(Anim::player_kick_door, ImgRes::player_kick_door, 0.06f, false);
 	GetBody()->CreateAnimation(Anim::player_dead, ImgRes::player_dead, 0.05f, false);
+	GetBody()->CreateAnimation(Anim::player_headphones, ImgRes::player_headphones, 0.1f, false);
 
-	GetBody()->SetFrameCallback(Anim::player_kick_door, 9, [=] { StateChange(PlayerState::idle); });
+	GetBody()->SetFrameCallback(Anim::player_kick_door, 9, [=] 
+		{ 
+			StateChange(PlayerState::idle); 
+		}
+	);
+
 	GetBody()->SetFrameCallback(Anim::player_kick_door, 4, [=] 
 		{ 
 			FrontCol->CollisionStay(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
@@ -202,13 +208,37 @@ void ADefaultPlayer::Intro(float _DeltaTime)
 	case EIntroOrder::RunToIdle:
 		if (true == GetBody()->IsCurAnimationEnd())
 		{
-			GetBody()->ChangeAnimation(Anim::player_idle);
-			StateChange(PlayerState::idle);
-			SubStateChange(PlayerSubState::none);
-			return;
+			if (false == IsMusicOnValue)
+			{
+				GetBody()->ChangeAnimation(Anim::player_idle);
+				StateChange(PlayerState::idle);
+				SubStateChange(PlayerSubState::none);
+				return;
+			}
+			else
+			{
+				DelayCallBack(0.5f, [=]
+					{
+						GetBody()->ChangeAnimation(Anim::player_headphones);
+						DelayCallBack(3.5f, [=]
+							{
+								GetBody()->ChangeAnimation(Anim::player_idle);
+								StateChange(PlayerState::idle);
+								SubStateChange(PlayerSubState::none);
+							}
+						);						
+					}
+				);
+
+				SetIntroOrder(EIntroOrder::MusicOn);
+			}
 		}
 		break;
 	case EIntroOrder::MusicOn:
+		if (true == GetBody()->IsCurAnimationEnd())
+		{
+			GetBody()->ChangeAnimation(Anim::player_idle);
+		}
 		break;
 	}
 }

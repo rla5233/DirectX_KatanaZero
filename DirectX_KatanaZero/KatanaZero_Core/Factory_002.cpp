@@ -38,6 +38,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -20.0f, 111.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
+	Player->SetIsMusicOnValue(true);
 
 	MainCamera->SetPlayer(Player.get());
 	MainCamera->SetMapTex(ColMap->GetMapTex().get());

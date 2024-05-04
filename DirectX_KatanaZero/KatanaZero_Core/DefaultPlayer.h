@@ -16,6 +16,11 @@ public:
 	ADefaultPlayer& operator=(const ADefaultPlayer& _Other) = delete;
 	ADefaultPlayer& operator=(ADefaultPlayer&& _Other) noexcept = delete;
 
+	inline void SetIsMusicOnValue(bool _Value)
+	{
+		IsMusicOnValue = _Value;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -24,6 +29,9 @@ protected:
 
 private:
 	void CreateAnimation();
+	
+private:
+	bool IsMusicOnValue = false;
 
 // FSM
 protected:
