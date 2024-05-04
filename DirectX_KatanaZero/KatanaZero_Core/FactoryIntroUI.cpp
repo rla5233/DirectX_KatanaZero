@@ -206,11 +206,17 @@ void AFactoryIntroUI::PlayingSongTitleAnim(float _DeltaTime)
 		StageName0->SetFadeIn();
 		StageName0->SetFadeTimeWeight(2.0f);
 		StageName0->SetLerpMovePos(StageNameUIPos - FVector(500.0f, 0.0f, 0.0f), StageNameUIPos);
+		StageName0->SetShakeRefPosition(StageNameUIPos - FVector(500.0f, 0.0f, 0.0f));
+		StageName0->SetShakeRange({ -1.0f, 1.0f, -1.0f, 1.0f });
+		StageName0->SetShakeActive(true);
 		StageName0->SetActive(true);
 
 		StageName1->SetFadeIn();
 		StageName1->SetFadeTimeWeight(2.0f);
 		StageName1->SetLerpMovePos(StageNameUIPos + FVector(500.0f, 0.0f, 0.0f), StageNameUIPos);
+		StageName1->SetShakeRefPosition(StageNameUIPos + FVector(500.0f, 0.0f, 0.0f));
+		StageName1->SetShakeRange({ -1.0f, 1.0f, -1.0f, 1.0f });
+		StageName1->SetShakeActive(true);
 		StageName1->SetActive(true);
 
 		NameMoveTimeWeight = 3.0f;
@@ -227,6 +233,9 @@ void AFactoryIntroUI::StageNameAnim(float _DeltaTime)
 
 	if (false == StageName0->IsLerpMove() && false == StageName1->IsLerpMove())
 	{
+		StageName0->SetShakeRefPosition(StageNameUIPos);
+		StageName1->SetShakeRefPosition(StageNameUIPos);
+
 		StartMsg->SetActive(true);
 
 		StartMouse->ChangeAnimation(Anim::ui_start_leftclick);

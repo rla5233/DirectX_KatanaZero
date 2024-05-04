@@ -53,4 +53,5 @@ void UKZImage::Tick(float _DelatTime)
 
 	FadeUpdate(_DelatTime);
 	LerpMoveUpdate(_DelatTime);
+	ShakeUpdate(_DelatTime);
 }
