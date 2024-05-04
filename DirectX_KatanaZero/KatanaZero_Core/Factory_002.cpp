@@ -25,7 +25,7 @@ void AFactory_002::BeginPlay()
 {
 	Super::BeginPlay();
 
-	IntroUI = GetWorld()->SpawnActor<AFactoryIntroUI>("IntroUI");
+	//IntroUI = GetWorld()->SpawnActor<AFactoryIntroUI>("IntroUI");
 }
 
 void AFactory_002::LevelStart(ULevel* _PrevLevel)
@@ -69,7 +69,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	// 6 ~ 7ÃÊ »çÀÌ
 	DelayCallBack(3.0f, [=]
 		{
-			IntroUI->StateChange(FactoryIntroUIState::intro);
+			//IntroUI->StateChange(FactoryIntroUIState::intro);
 		}
 	);
 }

@@ -81,6 +81,7 @@ void AFactoryIntroUI::SongBackGroundAnim(float _DeltaTime)
 	float TargetTime = 1.0f;
 	float Idx = 4.0f;
 	float NextScaleX = -365.0f / powf(TargetTime, Idx) * powf(TimeCount - TargetTime, Idx) + 365.0f;
+	
 	SongBackGround->SetScale({ NextScaleX, 95.0f, 0.0f });
 	SongBackGround->SetPosition(SongUIPos);
 	SongBackGround->AddPosition({ NextScaleX * (0.5f), 0.0f, 0.0f });
@@ -90,12 +91,16 @@ void AFactoryIntroUI::SongBackGroundAnim(float _DeltaTime)
 		SongBackGround->SetScale({ 365.0f, 95.0f, 0.0f });
 		SongBackGround->SetPosition(SongUIPos);
 		SongBackGround->AddPosition({ NextScaleX * (0.5f), 0.0f, 0.0f });	
+
+		PlayingSong0->SetActive(true);
+		TimeCount = 0.0f;
 		Order = EFactoryIntroOrder::SongText;;
 	}
 }
 
 void AFactoryIntroUI::SongTextAnim(float _DeltaTime)
 {
+
 }
 
 void AFactoryIntroUI::On()

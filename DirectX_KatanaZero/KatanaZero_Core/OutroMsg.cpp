@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "OutroMsg.h"
 
-#include "FadeImage.h"
+#include "KZImage.h"
 #include "PlayLevelBase.h"
 
 AOutroMsg::AOutroMsg()
@@ -17,7 +17,7 @@ void AOutroMsg::BeginPlay()
 	Super::BeginPlay();
 
 	FVector WinScale = GEngine->EngineWindow.GetWindowScale();
-	Body = CreateWidget<UFadeImage>(GetWorld(), "OutroMsg");
+	Body = CreateWidget<UKZImage>(GetWorld(), "OutroMsg");
 	Body->SetSprite(ImgRes::ui_outro_msg);
 	Body->SetScale({ WinScale.X, WinScale.Y, 1.0f });
 	Body->SetPosition({ 0.0f, 0.0f, 0.0f });
@@ -60,8 +60,6 @@ void AOutroMsg::StateInit()
 	State.SetUpdateFunction(OutroMsgState::wait, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(OutroMsgState::fade_in, [=](float _DeltaTime) 
 		{
-			Body->FadeUpdate(_DeltaTime);
-
 			if (false == Body->IsFade())
 			{
 				State.ChangeState(OutroMsgState::wait);
@@ -71,8 +69,6 @@ void AOutroMsg::StateInit()
 
 	State.SetUpdateFunction(OutroMsgState::fade_out, [=](float _DeltaTime) 
 		{
-			Body->FadeUpdate(_DeltaTime);
-
 			if (false == Body->IsFade())
 			{
 				Body->SetActive(false);

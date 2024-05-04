@@ -17,8 +17,6 @@ public:
 	void SetFadeIn(float _Start = 0.0f, float _Target = 1.0f);
 	void SetFadeOut(float _Start = 1.0f, float _Target = 0.0f);
 
-	void FadeUpdate(float _DeltaTime, float _TimeWeight = 1.0f);
-
 	inline bool IsFade() const
 	{
 		return IsFadeValue;
@@ -29,6 +27,8 @@ protected:
 	{
 		Image = _Image;
 	}
+
+	void FadeUpdate(float _DeltaTime);
 
 private:
 	UImage* Image = nullptr;

@@ -25,11 +25,11 @@ void UFadeObject::SetFadeOut(float _Start, float _Target)
 	IsFadeValue = true;
 }
 
-void UFadeObject::FadeUpdate(float _DeltaTime, float _TimeWeight)
+void UFadeObject::FadeUpdate(float _DeltaTime)
 {
 	if (true == IsFadeValue)
 	{
-		FadeTime += _DeltaTime * _TimeWeight;
+		FadeTime += _DeltaTime;
 
 		float NextAlpha = UContentsMath::LerpClampf(StartFade, TargetFade, FadeTime);
 		Image->SetMulColor({ 1.0f, 1.0f, 1.0f, NextAlpha });

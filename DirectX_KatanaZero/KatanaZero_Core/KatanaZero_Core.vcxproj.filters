@@ -225,7 +225,7 @@
     <ClInclude Include="FadeObject.h">
       <Filter>Object\Base\Component\Image</Filter>
     </ClInclude>
-    <ClInclude Include="FadeImage.h">
+    <ClInclude Include="KZImage.h">
       <Filter>Object\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="UpMark.h">
@@ -398,7 +398,7 @@
     <ClCompile Include="FadeObject.cpp">
       <Filter>Object\Base\Component\Image</Filter>
     </ClCompile>
-    <ClCompile Include="FadeImage.cpp">
+    <ClCompile Include="KZImage.cpp">
       <Filter>Object\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBase_State.cpp">

@@ -224,7 +224,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="FadeImage.h">
+    <ClInclude Include="KZImage.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -436,7 +436,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="FadeImage.cpp">
+    <ClCompile Include="KZImage.cpp">
       <SubType>
       </SubType>
     </ClCompile>
