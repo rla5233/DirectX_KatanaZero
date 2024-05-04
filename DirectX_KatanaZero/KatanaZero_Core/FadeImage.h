@@ -22,7 +22,7 @@ public:
 		return IsFadeValue;
 	}
 
-	inline void SetFadeTimeWeight(float _Value)
+	void SetFadeTimeWeight(float _Value)
 	{
 		if (0.0f >= _Value)
 		{
@@ -34,7 +34,7 @@ public:
 	}
 
 protected:
-	void SetImage(UImage* _Image)
+	inline void SetImage(UImage* _Image)
 	{
 		Image = _Image;
 	}

@@ -270,6 +270,9 @@
     <ClInclude Include="FactoryIntroUI.h">
       <Filter>Level\002.FactoryLevel\Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="LerpImage.h">
+      <Filter>Object\Base\Component\Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -451,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="FactoryIntroUI.cpp">
       <Filter>Level\002.FactoryLevel\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="LerpImage.cpp">
+      <Filter>Object\Base\Component\Image</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

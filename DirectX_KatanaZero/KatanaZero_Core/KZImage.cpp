@@ -4,6 +4,7 @@
 UKZImage::UKZImage()
 {
 	UFadeImage::SetImage(this);
+	ULerpImage::SetImage(this);
 }
 
 UKZImage::~UKZImage()
@@ -50,4 +51,5 @@ void UKZImage::Tick(float _DelatTime)
 	Super::Tick(_DelatTime);
 
 	FadeUpdate(_DelatTime);
+	LerpMoveUpdate(_DelatTime);
 }
