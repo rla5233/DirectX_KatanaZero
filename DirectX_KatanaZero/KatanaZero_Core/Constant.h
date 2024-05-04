@@ -83,6 +83,11 @@ namespace ImgRes
 	const std::string_view ui_playingsong_1			= "spr_playingsong_1.png";
 	const std::string_view ui_playingsong_title		= "spr_playingsong_title.png";
 	const std::string_view ui_playingsong_underline	= "spr_playingsong_underline.png";
+	const std::string_view ui_stagename0			= "spr_stagename0.png";
+	const std::string_view ui_stagename1			= "spr_stagename1.png";
+
+	const std::string_view ui_startmsg_0			= "spr_startmsg_0.png";
+	const std::string_view ui_start_leftclick		= "spr_left_click";
 
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";
@@ -197,6 +202,7 @@ namespace Anim
 
 	// UI
 	const std::string_view ui_replay_right_click	= "spr_right_click";
+	const std::string_view ui_start_leftclick = "spr_left_click";
 
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";

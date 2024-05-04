@@ -15,8 +15,7 @@ void UKZImage::SetPosition(const FVector& _Pos)
 	switch (SortType)
 	{
 	case ESortType::Left:
-		UImage::SetPosition(_Pos);
-		AddPosition({ GetLocalScale().hX(), 0.0f, 0.0f });
+		UImage::SetPosition({ _Pos.X + GetLocalScale().hX(), _Pos.Y, _Pos.Z });
 		break;
 	default:
 		UImage::SetPosition(_Pos);

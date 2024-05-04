@@ -120,4 +120,6 @@ enum class EFactoryIntroOrder
 	SongBackGround,
 	PlayingSongText,
 	PlayingSongTitle,
+	StageName,
+	StartWaiting
 };

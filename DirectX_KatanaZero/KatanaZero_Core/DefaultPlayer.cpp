@@ -220,13 +220,13 @@ void ADefaultPlayer::Intro(float _DeltaTime)
 				DelayCallBack(0.5f, [=]
 					{
 						GetBody()->ChangeAnimation(Anim::player_headphones);
-						DelayCallBack(3.5f, [=]
-							{
-								GetBody()->ChangeAnimation(Anim::player_idle);
-								StateChange(PlayerState::idle);
-								SubStateChange(PlayerSubState::none);
-							}
-						);						
+						//DelayCallBack(3.5f, [=]
+						//	{
+						//		GetBody()->ChangeAnimation(Anim::player_idle);
+						//		StateChange(PlayerState::idle);
+						//		SubStateChange(PlayerSubState::none);
+						//	}
+						//);						
 					}
 				);
 
