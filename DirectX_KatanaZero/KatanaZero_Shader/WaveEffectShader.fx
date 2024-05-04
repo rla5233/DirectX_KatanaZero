@@ -31,22 +31,29 @@ UWavePSOuput UWave_PS(UWaveVSOuput _Input)
     
     float2 TexPos = _Input.TEXCOORD.xy;
     
-    float POWER;          
-    float VERTICAL_SPREAD; 
-    float ANIM_SPEED;
+    float POWER;                // 谅快 如甸覆           
+    float VERTICAL_SPREAD;      // vertically
+    float ANIM_SPEED;           // 加档
     float PosY = 0.0f;
     
     if (0.0f == Temp0)
     {
-        POWER = 0.1f; // 谅快 如甸覆
-        VERTICAL_SPREAD = 40.0f; // vertically
-        ANIM_SPEED = 2.0f;
-        PosY += AccTime * 0.5f;
+        POWER = 0.1f; 
+        VERTICAL_SPREAD = 40.0f; 
+        ANIM_SPEED = 1.0f;
+        PosY += AccTime * 0.8f;
     }
     else if(1.0f == Temp0)
     {
-        POWER = 0.06f; // 谅快 如甸覆
-        VERTICAL_SPREAD = 3.0f; // vertically
+        POWER = 0.1f;
+        VERTICAL_SPREAD = 40.0f;
+        ANIM_SPEED = 2.0f;
+        PosY += AccTime * 3.5f;
+    }
+    else if (2.0f == Temp0)
+    {
+        POWER = 0.06f;
+        VERTICAL_SPREAD = 3.0f;
         ANIM_SPEED = 0.6f;
     }
        

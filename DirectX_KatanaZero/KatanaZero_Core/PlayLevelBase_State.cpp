@@ -95,10 +95,10 @@ void APlayLevelBase::IntroEffect(float _DeltaTime)
 
 void APlayLevelBase::IntroBigEffectStart()
 {
-	WaveEffect->SetEffectType(EWaveEffectType::Intro);
+	WaveEffect->SetEffectType(EWaveEffectType::IntroBig);
 	WaveEffect->Active(true);
 
-	DelayCallBack(1.0f, [=]
+	DelayCallBack(0.5f, [=]
 		{
 			WaveEffect->ResetTime();
 			WaveEffect->Active(false);
