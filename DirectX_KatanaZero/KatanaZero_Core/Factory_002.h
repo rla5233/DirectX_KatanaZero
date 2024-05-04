@@ -1,6 +1,8 @@
 #pragma once
 #include "PlayLevelBase.h"
 
+class AFactoryIntroUI;
+
 // 설명 : Factory 2번째 스테이지
 class AFactory_002 : public APlayLevelBase
 {
@@ -27,6 +29,9 @@ protected:
 
 protected:
 	void ChangeStage() override;
+
+private:
+	std::shared_ptr<AFactoryIntroUI> IntroUI = nullptr;
 
 // FSM	
 protected:

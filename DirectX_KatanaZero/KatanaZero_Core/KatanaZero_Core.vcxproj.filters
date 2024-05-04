@@ -103,6 +103,12 @@
     <Filter Include="Level\000.Object\UI\Msg">
       <UniqueIdentifier>{716e8b29-9fc6-4b6e-8651-6032fb7f21f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\002.FactoryLevel\Object\Component">
+      <UniqueIdentifier>{0fedae2d-0ab9-45c6-9704-86a992924045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\002.FactoryLevel\Object\UI">
+      <UniqueIdentifier>{cb827274-bac7-4a76-a3d1-0f6a1b49ce2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -222,17 +228,11 @@
     <ClInclude Include="FadeImage.h">
       <Filter>Object\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Fan.h">
-      <Filter>Level\002.FactoryLevel\Object</Filter>
-    </ClInclude>
     <ClInclude Include="UpMark.h">
       <Filter>Level\000.Object\Enemy\Component</Filter>
     </ClInclude>
     <ClInclude Include="Stair.h">
       <Filter>Level\000.Object\Map\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Scientist.h">
-      <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClInclude>
     <ClInclude Include="DiamondTransition.h">
       <Filter>Object\Effect</Filter>
@@ -260,6 +260,15 @@
     </ClInclude>
     <ClInclude Include="OutroMsg.h">
       <Filter>Level\000.Object\UI\Msg</Filter>
+    </ClInclude>
+    <ClInclude Include="Fan.h">
+      <Filter>Level\002.FactoryLevel\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Scientist.h">
+      <Filter>Level\002.FactoryLevel\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryIntroUI.h">
+      <Filter>Level\002.FactoryLevel\Object\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -392,9 +401,6 @@
     <ClCompile Include="FadeImage.cpp">
       <Filter>Object\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Fan.cpp">
-      <Filter>Level\002.FactoryLevel\Object</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyBase_State.cpp">
       <Filter>Object\Base\Enemy</Filter>
     </ClCompile>
@@ -406,9 +412,6 @@
     </ClCompile>
     <ClCompile Include="Stair.cpp">
       <Filter>Level\000.Object\Map\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Scientist.cpp">
-      <Filter>Level\002.FactoryLevel\Object</Filter>
     </ClCompile>
     <ClCompile Include="DiamondTransition.cpp">
       <Filter>Object\Effect</Filter>
@@ -439,6 +442,15 @@
     </ClCompile>
     <ClCompile Include="OutroMsg.cpp">
       <Filter>Level\000.Object\UI\Msg</Filter>
+    </ClCompile>
+    <ClCompile Include="Fan.cpp">
+      <Filter>Level\002.FactoryLevel\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Scientist.cpp">
+      <Filter>Level\002.FactoryLevel\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryIntroUI.cpp">
+      <Filter>Level\002.FactoryLevel\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

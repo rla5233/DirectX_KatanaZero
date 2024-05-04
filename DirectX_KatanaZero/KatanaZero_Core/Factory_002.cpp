@@ -11,6 +11,8 @@
 #include "Door.h"
 #include "Go.h"
 
+#include "FactoryIntroUI.h"
+
 AFactory_002::AFactory_002()
 {
 }
@@ -22,6 +24,8 @@ AFactory_002::~AFactory_002()
 void AFactory_002::BeginPlay()
 {
 	Super::BeginPlay();
+
+	IntroUI = GetWorld()->SpawnActor<AFactoryIntroUI>("IntroUI");
 }
 
 void AFactory_002::LevelStart(ULevel* _PrevLevel)
@@ -61,6 +65,13 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	DownStair->SetPartnerStair(UpStair);
 
 	State.ChangeState(PlayLevelState::transition_off);
+
+	// 6 ~ 7ÃÊ »çÀÌ
+	DelayCallBack(3.0f, [=]
+		{
+			IntroUI->StateChange(FactoryIntroUIState::intro);
+		}
+	);
 }
 
 void AFactory_002::LevelEnd(ULevel* _NextLevel)

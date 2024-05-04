@@ -113,3 +113,10 @@ enum class EWaveEffectType
 	BeginPlay,
 	Restart
 };
+
+enum class EFactoryIntroOrder
+{
+	None,
+	SongBackGround,
+	SongText,
+};

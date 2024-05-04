@@ -78,6 +78,10 @@ namespace ImgRes
 	const std::string_view ui_outro_msg				= "spr_outro_0.png";
 	const std::string_view ui_playerdead_msg_0		= "spr_restart_0.png";
 
+	const std::string_view ui_songtitle_background	= "spr_songtitle_background.png";
+	const std::string_view ui_playingsong_0			= "spr_playingsong_0.png";
+	const std::string_view ui_playingsong_1			= "spr_playingsong_1.png";
+
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";
 	const std::string_view effect_player_dustcloud	= "player_dustcloud";
@@ -468,4 +472,9 @@ namespace FailedMsgState
 {
 	const std::string_view hit_end			= "HitEnd";
 	const std::string_view time_out			= "Time_Out";
+}
+
+namespace FactoryIntroUIState
+{
+	const std::string_view intro			= "Intro";
 }
