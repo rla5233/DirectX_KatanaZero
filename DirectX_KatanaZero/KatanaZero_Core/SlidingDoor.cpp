@@ -23,11 +23,16 @@ void ASlidingDoor::RendererInit()
 {
 	GetBody()->SetOrder(ERenderOrder::MapComponent_Back);
 	GetBody()->SetAutoSize(2.0f, true);
+
+	DoorLED->SetOrder(ERenderOrder::MapComponent_Back);
+	DoorLED->SetPosition({ -1.0f, 96.0f, 0.0f });
+	DoorLED->SetAutoSize(2.0f, true);
 }
 
 void ASlidingDoor::CreateAnimation()
 {
 	GetBody()->CreateAnimation(Anim::compo_sliding_door_close, ImgRes::compo_sliding_door_close, 0.04f, false);
+	DoorLED->CreateAnimation(Anim::compo_sliding_door_redled, ImgRes::compo_sliding_door_redled, 0.08f, false);
 }
 
 void ASlidingDoor::StateInit()
@@ -41,6 +46,7 @@ void ASlidingDoor::StateInit()
 	State.SetStartFunction(SlidingDoorState::close, [=] 
 		{
 			GetBody()->ChangeAnimation(Anim::compo_sliding_door_close);
+			DoorLED->ChangeAnimation(Anim::compo_sliding_door_redled);
 			SetActive(true);
 		}
 	);

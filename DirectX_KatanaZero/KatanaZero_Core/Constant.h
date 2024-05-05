@@ -137,7 +137,8 @@ namespace ImgRes
 
 	const std::string_view compo_bullet				= "spr_bullet_0.png";
 
-	const std::string_view compo_sliding_door_close = "spr_sliding_door_close";
+	const std::string_view compo_sliding_door_close		= "spr_sliding_door_close";
+	const std::string_view compo_sliding_door_redled	= "spr_sliding_door_redled";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -249,7 +250,8 @@ namespace Anim
 	const std::string_view compo_scientist_chair	= "spr_scientist_chair";
 	const std::string_view compo_scientist_explode	= "spr_scientist_explode";
 
-	const std::string_view compo_sliding_door_close	= "spr_sliding_door_close";
+	const std::string_view compo_sliding_door_close		= "spr_sliding_door_close";
+	const std::string_view compo_sliding_door_redled	= "spr_sliding_door_redled";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";
