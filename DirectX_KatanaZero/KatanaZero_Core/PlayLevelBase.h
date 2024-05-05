@@ -6,7 +6,6 @@
 class AMainCamera;
 class AColMapObject;
 class ARecMapCompoBase;
-class ADiamondTransition;
 class ADefaultPlayer;
 class AEnemyBase;
 class AMouseAim;
@@ -19,6 +18,7 @@ class AGo;
 class AOutroMsg;
 class AFailedMsg;
 
+class ADiamondTransition;
 class UGrayScaleEffect;
 class UWaveEffect;
 

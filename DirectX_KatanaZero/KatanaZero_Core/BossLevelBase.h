@@ -1,23 +1,55 @@
 #pragma once
+#include <EngineCore/StateManager.h>
 
-// 설명 :
-class BossLevelBase
+class ADefaultPlayer;
+class AColMapObject;
+class AMainCamera;
+class AMouseAim;
+class AUp_HUD;
+
+class ADiamondTransition;
+class UWaveEffect;
+
+// 설명 : BossLevel 기본 클래스
+class ABossLevelBase : public AGameMode
 {
+	GENERATED_BODY(AGameMode)	
 public:
 	// constructor destructor
-	BossLevelBase();
-	~BossLevelBase();
+	ABossLevelBase();
+	~ABossLevelBase();
 	
 	// delete Function
-	BossLevelBase(const BossLevelBase& _Other) = delete;
-	BossLevelBase(BossLevelBase&& _Other) noexcept = delete;
-	BossLevelBase& operator=(const BossLevelBase& _Other) = delete;
-	BossLevelBase& operator=(BossLevelBase&& _Other) noexcept = delete;
-
+	ABossLevelBase(const ABossLevelBase& _Other) = delete;
+	ABossLevelBase(ABossLevelBase&& _Other) noexcept = delete;
+	ABossLevelBase& operator=(const ABossLevelBase& _Other) = delete;
+	ABossLevelBase& operator=(ABossLevelBase&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
+
+protected:
+	// Object
+	std::shared_ptr<AMainCamera> MainCamera = nullptr;
+	std::shared_ptr<AMouseAim> Aim = nullptr;
+	std::shared_ptr<AColMapObject> ColMap = nullptr;
+
+	std::shared_ptr<ADefaultPlayer> Player = nullptr;
+
+	// UI
+	std::shared_ptr<AUp_HUD> HUD = nullptr;
+	
+	// Effect
+	std::shared_ptr<UWaveEffect> WaveEffect = nullptr;
+	std::shared_ptr<ADiamondTransition> DiaTransition = nullptr;
 
 private:
+	UStateManager State;
+	void StateInit();
 
 };
 
