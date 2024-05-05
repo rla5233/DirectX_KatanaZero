@@ -16,12 +16,6 @@
     <Filter Include="Object">
       <UniqueIdentifier>{9598be85-ff47-456d-a21a-3d908a551096}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\098.HeadHunterLevel">
-      <UniqueIdentifier>{54fcdd53-2bd8-410e-af77-90fe40b38d46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\098.HeadHunterLevel\GameMode">
-      <UniqueIdentifier>{e6378640-d467-47bc-84ea-2165fe8f8052}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\000.Object">
       <UniqueIdentifier>{1cc1d72d-2c21-425e-a0ab-e33ae4fa47c5}</UniqueIdentifier>
     </Filter>
@@ -109,6 +103,21 @@
     <Filter Include="Level\002.FactoryLevel\Object\UI">
       <UniqueIdentifier>{cb827274-bac7-4a76-a3d1-0f6a1b49ce2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\003.HeadHunterLevel">
+      <UniqueIdentifier>{54fcdd53-2bd8-410e-af77-90fe40b38d46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\003.HeadHunterLevel\GameMode">
+      <UniqueIdentifier>{e6378640-d467-47bc-84ea-2165fe8f8052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\003.HeadHunterLevel\Object">
+      <UniqueIdentifier>{30a37d90-1001-40cc-9edf-c407bfb79ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\Level\PlayLevel">
+      <UniqueIdentifier>{b0b470b4-a347-4767-a5dd-6287b902f159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\Level\BossLevel">
+      <UniqueIdentifier>{d2bb9987-a318-4bf8-a1e9-a30463b5501b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -142,10 +151,10 @@
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="HeadHunter_Phase1.h">
-      <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
+      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="HeadHunter_Phase2.h">
-      <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
+      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBase.h">
       <Filter>Object\Base\Player</Filter>
@@ -159,9 +168,6 @@
     <ClInclude Include="EnemyBase.h">
       <Filter>Object\Base\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PlayLevelBase.h">
-      <Filter>Object\Base\Level</Filter>
-    </ClInclude>
     <ClInclude Include="ContentsMath.h">
       <Filter>Helper</Filter>
     </ClInclude>
@@ -174,7 +180,7 @@
     <ClInclude Include="RecMapCompoBase.h">
       <Filter>Object\Base\MapCompo</Filter>
     </ClInclude>
-    <ClInclude Include="SpawnManager.h">
+    <ClInclude Include="PlayLevelSpawnManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="GangSter.h">
@@ -279,6 +285,12 @@
     <ClInclude Include="FactoryClearUI.h">
       <Filter>Level\002.FactoryLevel\Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="PlayLevelBase.h">
+      <Filter>Object\Base\Level\PlayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="BossLevelBase.h">
+      <Filter>Object\Base\Level\BossLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -309,10 +321,10 @@
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="HeadHunter_Phase1.cpp">
-      <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
+      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="HeadHunter_Phase2.cpp">
-      <Filter>Level\098.HeadHunterLevel\GameMode</Filter>
+      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBase.cpp">
       <Filter>Object\Base\Player</Filter>
@@ -332,9 +344,6 @@
     <ClCompile Include="EnemyBase.cpp">
       <Filter>Object\Base\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="PlayLevelBase.cpp">
-      <Filter>Object\Base\Level</Filter>
-    </ClCompile>
     <ClCompile Include="ContentsMath.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
@@ -350,7 +359,7 @@
     <ClCompile Include="RecMapCompoBase.cpp">
       <Filter>Object\Base\MapCompo</Filter>
     </ClCompile>
-    <ClCompile Include="SpawnManager.cpp">
+    <ClCompile Include="PlayLevelSpawnManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="GangSter.cpp">
@@ -437,9 +446,6 @@
     <ClCompile Include="ContentsHelper.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
-    <ClCompile Include="PlayLevelBase_State.cpp">
-      <Filter>Object\Base\Level</Filter>
-    </ClCompile>
     <ClCompile Include="AfterImage.cpp">
       <Filter>Object\Effect</Filter>
     </ClCompile>
@@ -469,6 +475,15 @@
     </ClCompile>
     <ClCompile Include="FactoryClearUI.cpp">
       <Filter>Level\002.FactoryLevel\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevelBase.cpp">
+      <Filter>Object\Base\Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevelBase_State.cpp">
+      <Filter>Object\Base\Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="BossLevelBase.cpp">
+      <Filter>Object\Base\Level\BossLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

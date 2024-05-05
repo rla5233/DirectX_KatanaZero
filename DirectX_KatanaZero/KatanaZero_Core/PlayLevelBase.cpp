@@ -33,7 +33,7 @@ void APlayLevelBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	USpawnManager::SetGameMode(this);
+	UPlayLevelSpawnManager::SetGameMode(this);
 
 	StateInit();
 	

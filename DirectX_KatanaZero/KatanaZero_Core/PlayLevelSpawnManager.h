@@ -4,19 +4,19 @@ class AEnemyBase;
 class ARecMapCompoBase;
 class AStair;
 
-// 설명 : 적 스폰 매니저
-class USpawnManager
+// 설명 : 적 스폰 매니저 (PlayLevel)
+class UPlayLevelSpawnManager
 {
 public:
 	// constrcuter destructer
-	USpawnManager();
-	~USpawnManager();
+	UPlayLevelSpawnManager();
+	~UPlayLevelSpawnManager();
 
 	// delete Function
-	USpawnManager(const USpawnManager& _Other) = delete;
-	USpawnManager(USpawnManager&& _Other) noexcept = delete;
-	USpawnManager& operator=(const USpawnManager& _Other) = delete;
-	USpawnManager& operator=(USpawnManager&& _Other) noexcept = delete;
+	UPlayLevelSpawnManager(const UPlayLevelSpawnManager& _Other) = delete;
+	UPlayLevelSpawnManager(UPlayLevelSpawnManager&& _Other) noexcept = delete;
+	UPlayLevelSpawnManager& operator=(const UPlayLevelSpawnManager& _Other) = delete;
+	UPlayLevelSpawnManager& operator=(UPlayLevelSpawnManager&& _Other) noexcept = delete;
 
 	// Enemy 스폰 함수
 	template<typename EnemyType>

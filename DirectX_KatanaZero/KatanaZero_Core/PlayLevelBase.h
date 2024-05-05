@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineCore/StateManager.h>
 
-#include "SpawnManager.h"
+#include "PlayLevelSpawnManager.h"
 
 class AMainCamera;
 class AColMapObject;
@@ -24,9 +24,9 @@ class UWaveEffect;
 
 
 // 설명 : PlayLevel 기본 클래스
-class APlayLevelBase : public AGameMode, public USpawnManager
+class APlayLevelBase : public AGameMode, public UPlayLevelSpawnManager
 {
-	friend USpawnManager;
+	friend UPlayLevelSpawnManager;
 
 	GENERATED_BODY(AGameMode)
 public:
