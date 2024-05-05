@@ -1,6 +1,8 @@
 #pragma once
 #include "HeadHunterLevel.h"
 
+class ASlidingDoor;
+
 // 설명 : HeadHunter 1페이즈
 class AHeadHunter_Phase1 : public AHeadHunterLevel
 {
@@ -26,6 +28,8 @@ protected:
 	void LevelReStart() override;
 
 private:
+	std::vector<std::shared_ptr<ASlidingDoor>> AllSlidingDoor;
+	const int DoorNum = 1;
 
 };
 

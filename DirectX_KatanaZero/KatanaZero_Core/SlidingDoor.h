@@ -21,6 +21,13 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void RendererInit();
+	void CreateAnimation();
+
+	void StateInit() override;
+	
+private:
+	USpriteRenderer* DoorLED = nullptr;
 
 };
 

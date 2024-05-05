@@ -4,6 +4,7 @@
 #include "DefaultPlayer.h"
 #include "ColMapObject.h"
 #include "MainCamera.h"
+#include "SlidingDoor.h"
 
 AHeadHunter_Phase1::AHeadHunter_Phase1()
 {
@@ -35,6 +36,13 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 
 	MainCamera->SetActorLocation({ 672.0f, 360.0f, -100.0f });
 	MainCamera->StateChange(MainCameraState::stop);
+
+	AllSlidingDoor.reserve(DoorNum);
+	for (int i = 0; i < DoorNum; i++)
+	{
+		AllSlidingDoor.push_back(GetWorld()->SpawnActor<ASlidingDoor>("SlidingDoor"));
+		AllSlidingDoor[i]->SetActive(false);
+	}
 
 	State.ChangeState(BossLevelState::transition_off);
 }

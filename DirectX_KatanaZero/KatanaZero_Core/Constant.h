@@ -136,6 +136,8 @@ namespace ImgRes
 
 	const std::string_view compo_bullet				= "spr_bullet_0.png";
 
+	const std::string_view compo_sliding_door_close = "spr_sliding_door_close";
+
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
 	const std::string_view title_black				= "spr_title_black.png";
@@ -245,6 +247,8 @@ namespace Anim
 	const std::string_view compo_scientist_chair	= "spr_scientist_chair";
 	const std::string_view compo_scientist_explode	= "spr_scientist_explode";
 
+	const std::string_view compo_sliding_door_close	= "spr_sliding_door_close";
+
 	// TitleLevel
 	const std::string_view plants					= "plants";
 }
@@ -325,7 +329,6 @@ namespace PlayerSubState
 	const std::string_view outro			= "Outro";
 	const std::string_view restart			= "Restart";
 }
-
 
 // Level
 namespace TitleLevelState
@@ -507,4 +510,9 @@ namespace FactoryIntroUIState
 namespace FactoryClearUIState
 {
 	const std::string_view clear			= "Clear";
+}
+
+namespace SlidingDoorState
+{
+	const std::string_view close			= "Close";
 }

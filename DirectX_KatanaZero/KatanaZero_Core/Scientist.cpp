@@ -54,7 +54,6 @@ void AScientist::StateInit()
 			// 갱스터 활성화
 			AFactory_005* PlayLevel = dynamic_cast<AFactory_005*>(GetWorld()->GetGameMode().get());
 			PlayLevel->ExtraGangsterOn();
-
 		}
 	);
 
