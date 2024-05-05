@@ -4,6 +4,7 @@
 class ADefaultPlayer;
 class AColMapObject;
 class AMainCamera;
+class AFailedMsg;
 class AMouseAim;
 class AUp_HUD;
 
@@ -42,10 +43,19 @@ protected:
 
 	// UI
 	std::shared_ptr<AUp_HUD> HUD = nullptr;
+
+	// Msg
+	std::shared_ptr<AFailedMsg> FailedMsg = nullptr;
 	
 	// Effect
 	std::shared_ptr<UWaveEffect> WaveEffect = nullptr;
 	std::shared_ptr<ADiamondTransition> DiaTransition = nullptr;
+
+
+	// Stage Info.
+	float TotalPlayTime = 0.0f;
+	float PlayTimeCount = 0.0f;
+
 
 private:
 	UStateManager State;

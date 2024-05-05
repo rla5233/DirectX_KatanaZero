@@ -24,7 +24,6 @@
 APlayLevelBase::APlayLevelBase()
 {
 }
-
 APlayLevelBase::~APlayLevelBase()
 {
 }
@@ -39,10 +38,9 @@ void APlayLevelBase::BeginPlay()
 	
 	GrayScaleEffect = GetWorld()->GetLastTarget()->AddEffect<UGrayScaleEffect>();
 	WaveEffect = GetWorld()->GetLastTarget()->AddEffect<UWaveEffect>();
+	DiaTransition = GetWorld()->SpawnActor<ADiamondTransition>("DiaTransition");
 
 	Aim = GetWorld()->SpawnActor<AMouseAim>("MouseAim");
-	
-	DiaTransition = GetWorld()->SpawnActor<ADiamondTransition>("DiaTransition");
 
 	ReplayUI = GetWorld()->SpawnActor<AReplayUI>("Replay_UI");
 	FailedMsg = GetWorld()->SpawnActor<AFailedMsg>("FailedMsg");

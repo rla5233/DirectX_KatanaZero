@@ -24,16 +24,19 @@ void AMainCamera::BeginPlay()
 void AMainCamera::StateInit()
 {
 	// State Create
+	State.CreateState(MainCameraState::stop);
 	State.CreateState(MainCameraState::title_in);
 	State.CreateState(MainCameraState::chaseplayer);
 	State.CreateState(MainCameraState::shaking);
 
 	// State Start
+	State.SetStartFunction(MainCameraState::stop, [=] {});
 	State.SetStartFunction(MainCameraState::title_in,		std::bind(&AMainCamera::TitleInStart, this));
 	State.SetStartFunction(MainCameraState::chaseplayer,	std::bind(&AMainCamera::ChasePlayerStart, this));
 	State.SetStartFunction(MainCameraState::shaking,		std::bind(&AMainCamera::ShakingStart, this));
 
 	// State Update
+	State.SetUpdateFunction(MainCameraState::stop, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(MainCameraState::title_in,		std::bind(&AMainCamera::TitleIn, this, std::placeholders::_1));
 	State.SetUpdateFunction(MainCameraState::chaseplayer,	std::bind(&AMainCamera::ChasePlayer, this, std::placeholders::_1));
 	State.SetUpdateFunction(MainCameraState::shaking,		std::bind(&AMainCamera::Shaking, this, std::placeholders::_1));

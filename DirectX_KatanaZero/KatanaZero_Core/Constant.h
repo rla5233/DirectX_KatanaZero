@@ -150,7 +150,6 @@ namespace ImgRes
 	const std::string_view title_menu_white_bar		= "spr_menu_white_bar.png";
 
 	// FactoryLevel
-	const std::string_view factory_background1		= "spr_background_factory_1.png";
 	const std::string_view factory_background2		= "spr_background_factory_2.png";
 	const std::string_view factory_background3		= "spr_background_factory_3.png";
 	const std::string_view factory_background4	 	= "spr_background_factory_4.png";
@@ -164,6 +163,8 @@ namespace ImgRes
 	// HeadHunterLevel
 	const std::string_view headhunter_background1	= "spr_background_headhunter1.png";
 	const std::string_view headhunter_background2	= "spr_background_headhunter2.png";
+
+	const std::string_view headhunter_colmap1	= "spr_colmap_headhunter1.png";
 
 	// etc.
 	const std::string_view black_point = "spr_black.png";
@@ -475,6 +476,7 @@ namespace DiaTransitionState
 
 namespace MainCameraState
 {
+	const std::string_view stop				= "Stop";
 	const std::string_view title_in			= "Title_In";
 	const std::string_view chaseplayer		= "ChasePlayer";
 	const std::string_view shaking			= "Shaking";

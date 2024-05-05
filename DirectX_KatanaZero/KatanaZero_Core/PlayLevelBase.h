@@ -135,6 +135,11 @@ protected:
 	std::shared_ptr<AOutroMsg> OutroMsg = nullptr;
 	std::shared_ptr<AFailedMsg> FailedMsg = nullptr;
 
+	// Effect
+	std::shared_ptr<UGrayScaleEffect> GrayScaleEffect = nullptr;
+	std::shared_ptr<UWaveEffect> WaveEffect = nullptr;
+	std::shared_ptr<ADiamondTransition> DiaTransition = nullptr;
+
 	// Stage Info.
 	float4 Brightness = float4::One;
 	float4 EnemyBrightness = float4::One;
@@ -148,10 +153,6 @@ protected:
 	std::vector<std::vector<std::shared_ptr<AStair>>> AllStair;
 	std::vector<std::vector<std::shared_ptr<ADoor>>> AllDoor;
 
-	// Effect
-	std::shared_ptr<UGrayScaleEffect> GrayScaleEffect = nullptr;
-	std::shared_ptr<UWaveEffect> WaveEffect = nullptr;
-	std::shared_ptr<ADiamondTransition> DiaTransition = nullptr;
 
 // µð¹ö±ë °ü·Ã
 private:

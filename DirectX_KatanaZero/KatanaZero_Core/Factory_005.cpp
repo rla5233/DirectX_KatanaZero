@@ -181,7 +181,7 @@ void AFactory_005::ChangeStage()
 {
 	Super::ChangeStage();
 
-	GEngine->ChangeLevel("TitleLevel");
+	GEngine->ChangeLevel("HeadHunter_Phase1");
 }
 
 void AFactory_005::ClearStart()

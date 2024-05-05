@@ -1,9 +1,10 @@
 #pragma once
+#include "BossLevelBase.h"
 
-// 설명 :
-class AHeadHunter_Phase1 : public AGameMode
+// 설명 : HeadHunter 1페이즈
+class AHeadHunter_Phase1 : public ABossLevelBase
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(ABossLevelBase)
 public:
 	// constrcuter destructer
 	AHeadHunter_Phase1();
@@ -15,9 +16,12 @@ public:
 	AHeadHunter_Phase1& operator=(const AHeadHunter_Phase1& _Other) = delete;
 	AHeadHunter_Phase1& operator=(AHeadHunter_Phase1&& _Other) noexcept = delete;
 
-	protected:
-		void BeginPlay()override;
-		void Tick(float _DeltaTime) override;
+protected:
+	void BeginPlay()override;
+	void Tick(float _DeltaTime) override;
+
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
 
 private:
 
