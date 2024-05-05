@@ -480,6 +480,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="HeadHunter_Effect.cpp" />
     <ClCompile Include="HeadHunter_State.cpp" />
     <ClCompile Include="HeadHunter_SubState.cpp" />
     <ClCompile Include="KZImage.cpp">

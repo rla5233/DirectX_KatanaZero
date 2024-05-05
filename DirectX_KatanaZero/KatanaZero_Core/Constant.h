@@ -121,6 +121,7 @@ namespace ImgRes
 	const std::string_view effect_dia_transition	= "spr_transition";
 
 	const std::string_view effect_hit_laser			= "spr_slash_laser.png";
+	const std::string_view effect_laser				= "spr_laser_effect";
 
 	// Component
 	const std::string_view compo_door				= "spr_door";
@@ -201,6 +202,7 @@ namespace Anim
 	// HeadHunter
 	const std::string_view headhunter_idle			= "headhunter_idle";
 	const std::string_view headhunter_takeup_rifle	= "headhunter_takeup_rifle";
+	const std::string_view headhunter_putback_rifle	= "headhunter_putback_rifle";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -246,6 +248,8 @@ namespace Anim
 	const std::string_view effect_dia_transition_on		= "spr_transition_on";
 	const std::string_view effect_dia_transition_off	= "spr_transition_off";
 	const std::string_view effect_dia_transition_idle	= "spr_transition_idle";
+
+	const std::string_view effect_laser				= "spr_laser_effect";
 
 	// Component
 	const std::string_view compo_door_idle			= "door_idle";

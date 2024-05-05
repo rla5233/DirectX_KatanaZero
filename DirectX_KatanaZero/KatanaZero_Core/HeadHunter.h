@@ -50,7 +50,10 @@ private:
 
 private:
 	USpriteRenderer* Body = nullptr;
+	USpriteRenderer* LaserEffect = nullptr;
+	float LaserAlpha = 1.0f;
 	
+	int PatternOrder = 0;
 
 // FSM
 private:
@@ -74,6 +77,13 @@ private:
 
 	void PlayStart();
 	void Play(float _DeltaTime);
+
+// Effect
+private:
+	void SetRifle1LaserEffect();
+	void Rifle1LaserEffectUpdate1(float _DeltaTime);
+	void Rifle1LaserEffectUpdate2(float _DeltaTime);
+	void Rifle1LaserEffectUpdate3(float _DeltaTime);
 
 };
 

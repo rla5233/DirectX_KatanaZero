@@ -41,8 +41,26 @@ void AHeadHunter::PatternRifle1Start()
 		Body->AddPosition({ 6.0f, 0.0f, 0.0f });
 		break;
 	}
+
+	PatternOrder = 0;
 }
 
 void AHeadHunter::PatternRifle1(float _DeltaTime)
 {
+	switch (PatternOrder)
+	{
+	case 0:
+		break;
+	case 1:
+		Rifle1LaserEffectUpdate1(_DeltaTime);
+		break;
+	case 2:
+		Rifle1LaserEffectUpdate2(_DeltaTime);
+		break;
+	case 3:
+		Rifle1LaserEffectUpdate3(_DeltaTime);
+		break;
+	default:
+		break;
+	}
 }

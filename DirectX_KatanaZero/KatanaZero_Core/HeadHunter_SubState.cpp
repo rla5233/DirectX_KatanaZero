@@ -32,4 +32,6 @@ void AHeadHunter::PlayStart()
 
 void AHeadHunter::Play(float _DeltaTime)
 {
+
 }
+
