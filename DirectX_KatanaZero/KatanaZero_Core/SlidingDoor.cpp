@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "SlidingDoor.h"
 
+#include "Cloud.h"
+
 ASlidingDoor::ASlidingDoor()
 {
 	DoorLED = CreateDefaultSubObject<USpriteRenderer>("SlidingDoor_LED");
@@ -32,6 +34,13 @@ void ASlidingDoor::RendererInit()
 void ASlidingDoor::CreateAnimation()
 {
 	GetBody()->CreateAnimation(Anim::compo_sliding_door_close, ImgRes::compo_sliding_door_close, 0.04f, false);
+	GetBody()->SetLastFrameCallback(Anim::compo_sliding_door_close, [=]
+		{
+			ACloud* NewCloude = GetWorld()->SpawnActor<ACloud>("Cloud").get();
+			NewCloude->SetActorLocation(GetActorLocation() - FVector(0.0f, 80.0f, 0.0f));
+		}
+	);
+	
 	DoorLED->CreateAnimation(Anim::compo_sliding_door_redled, ImgRes::compo_sliding_door_redled, 0.08f, false);
 }
 
