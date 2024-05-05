@@ -36,9 +36,11 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	Player->SetIntroRunTime(0.9f);
 	Player->SetIntroType(EIntroType::HeadHunterBegin);
 
+	HeadHunter = GetWorld()->SpawnActor<AHeadHunter>("HeadHunter");
 	HeadHunter->SetActorLocation({ 980.0f, 175.0f, 0.0f });
 	HeadHunter->SetDir(EEngineDir::Left);
 	HeadHunter->StateChange(HeadHunterState::idle);
+	HeadHunter->SubStateChange(HeadHunterSubState::wait);
 
 	MainCamera->SetActorLocation({ 672.0f, 360.0f, -100.0f });
 	MainCamera->StateChange(MainCameraState::stop);
@@ -57,10 +59,16 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 
 	State.ChangeState(BossLevelState::transition_off);
 
-	DelayCallBack(6.0f, [=]
+	DelayCallBack(5.0f, [=]
 		{
 			Player->StateChange(PlayerState::idle);
 			Player->SubStateChange(PlayerSubState::none);
+
+			DelayCallBack(0.8f, [=]
+				{
+					HeadHunter->SubStateChange(HeadHunterSubState::play);
+				}
+			);
 		}
 	);
 }
@@ -79,6 +87,14 @@ void AHeadHunter_Phase1::LevelReStart()
 	Player->SubStateChange(PlayerSubState::play);
 	Player->StateChange(PlayerState::idle);
 	Player->DirChange(EEngineDir::Right);
+
+	HeadHunter->StateChange(HeadHunterState::idle);
+	HeadHunter->SubStateChange(HeadHunterSubState::wait);
+	DelayCallBack(0.5f, [=]
+		{
+			HeadHunter->SubStateChange(HeadHunterSubState::play);
+		}
+	);
 }
 
 void AHeadHunter_Phase1::Tick(float _DeltaTime)

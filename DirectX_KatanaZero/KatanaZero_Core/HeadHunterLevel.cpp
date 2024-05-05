@@ -19,8 +19,6 @@ void AHeadHunterLevel::BeginPlay()
 void AHeadHunterLevel::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
-
-	HeadHunter = GetWorld()->SpawnActor<AHeadHunter>("HeadHunter");
 }
 
 void AHeadHunterLevel::LevelEnd(ULevel* _NextLevel)

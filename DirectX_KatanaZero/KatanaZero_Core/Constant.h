@@ -31,6 +31,7 @@ namespace ImgRes
 
 	// HeadHunter
 	const std::string_view headhunter_idle			= "headhunter_idle";
+	const std::string_view headhunter_takeup_rifle	= "headhunter_takeup_rifle";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -199,6 +200,7 @@ namespace Anim
 
 	// HeadHunter
 	const std::string_view headhunter_idle			= "headhunter_idle";
+	const std::string_view headhunter_takeup_rifle	= "headhunter_takeup_rifle";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -344,6 +346,13 @@ namespace PlayerSubState
 namespace HeadHunterState
 {
 	const std::string_view idle				= "Idle";
+	const std::string_view pattern_rifle1	= "Pattern_Rifle1";
+}
+
+namespace HeadHunterSubState
+{
+	const std::string_view wait				= "Wait";
+	const std::string_view play				= "Play";
 }
 
 // Level

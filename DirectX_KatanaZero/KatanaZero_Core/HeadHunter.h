@@ -29,6 +29,11 @@ public:
 		State.ChangeState(_State);
 	}
 
+	inline void SubStateChange(std::string_view _State)
+	{
+		SubState.ChangeState(_State);
+	}
+
 	inline void SetDir(EEngineDir _Dir)
 	{
 		Body->SetDir(_Dir);
@@ -54,6 +59,21 @@ private:
 
 	void IdleStart();
 	void Idle(float _DeltaTime);
+
+	void PatternRifle1Start();
+	void PatternRifle1(float _DeltaTime);
+
+
+// Sub FSM
+private:
+	UStateManager SubState;
+	void SubStateInit();
+
+	void WaitStart();
+	void Wait(float _DeltaTime);
+
+	void PlayStart();
+	void Play(float _DeltaTime);
 
 };
 
