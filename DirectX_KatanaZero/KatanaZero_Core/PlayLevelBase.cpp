@@ -146,16 +146,6 @@ void APlayLevelBase::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	Debug();
-
-	if (UEngineInput::IsPress('1'))
-	{
-		BrightnessDown(_DeltaTime);
-	}
-	
-	if (UEngineInput::IsPress('2'))
-	{
-		BrightnessUp(_DeltaTime);
-	}
 }
 
 bool APlayLevelBase::IsStageClear()

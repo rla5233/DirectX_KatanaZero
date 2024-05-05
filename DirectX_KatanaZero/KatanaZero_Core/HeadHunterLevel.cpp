@@ -24,6 +24,11 @@ void AHeadHunterLevel::LevelEnd(ULevel* _NextLevel)
 	Super::LevelEnd(_NextLevel);
 }
 
+bool AHeadHunterLevel::IsStageClear()
+{
+	return false;
+}
+
 void AHeadHunterLevel::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);

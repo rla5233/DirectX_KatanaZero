@@ -2,7 +2,6 @@
 #include "PixelColObject.h"
 
 #include "PlayLevelBase.h"
-#include "BossLevelBase.h"
 #include "ColMapObject.h"
 
 UPixelColObject::UPixelColObject()
@@ -27,14 +26,6 @@ void UPixelColObject::SetMapTex()
 	if (nullptr != PlayLevel)
 	{
 		MapTex = PlayLevel->GetColMap()->GetMapTex();
-		return;
-	}
-
-	ABossLevelBase* BossLevel = dynamic_cast<ABossLevelBase*>(Actor->GetWorld()->GetGameMode().get());
-
-	if (nullptr != BossLevel)
-	{
-		MapTex = BossLevel->GetColMap()->GetMapTex();
 		return;
 	}
 }

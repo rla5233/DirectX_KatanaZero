@@ -70,6 +70,11 @@ public:
 		BackGround->SetScale(_Scale);
 	}
 
+	inline void SetBGSpritePosition(const FVector& _Pos)
+	{
+		BackGround->SetPosition(_Pos);
+	}
+
 	inline USpriteRenderer* GetBackGround() const
 	{
 		return BackGround;
