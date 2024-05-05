@@ -49,6 +49,9 @@ void APlayerBase::Intro(float _DeltaTime)
 void APlayerBase::IntroEnd()
 {
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	
+	if (nullptr != PlayLevel)
+	{
 	PlayLevel->StateChange(PlayLevelState::intro_big_effect);
 }
 
