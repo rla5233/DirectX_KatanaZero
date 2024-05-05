@@ -21,9 +21,9 @@ public:
 		IntroRunTime = _Time;
 	}
 
-	inline void SetIsMusicOnValue(bool _Value)
+	inline void SetIntroType(EIntroType _Value)
 	{
-		IsMusicOnValue = _Value;
+		IntroType = _Value;
 	}
 
 protected:
@@ -37,7 +37,8 @@ private:
 	
 private:
 	float IntroRunTime = 0.5f;
-	bool IsMusicOnValue = false;
+
+	EIntroType IntroType = EIntroType::Default;
 
 // FSM
 protected:

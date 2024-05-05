@@ -33,6 +33,7 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	Player->SetActorLocation({ 20.f, 175.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
 	Player->SetIntroRunTime(0.9f);
+	Player->SetIntroType(EIntroType::HeadHunterBegin);
 
 	MainCamera->SetActorLocation({ 672.0f, 360.0f, -100.0f });
 	MainCamera->StateChange(MainCameraState::stop);
@@ -44,7 +45,19 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 		AllSlidingDoor[i]->SetActive(false);
 	}
 
+	AllSlidingDoor[0]->SetActorLocation({ 113.0f, 256.0f, 0.0f });
+	AllSlidingDoor[1]->SetActorLocation({ 145.0f, 256.0f, 0.0f });
+	AllSlidingDoor[2]->SetActorLocation({ 1201.0f, 256.0f, 0.0f });
+	AllSlidingDoor[3]->SetActorLocation({ 1233.0f, 256.0f, 0.0f });
+
 	State.ChangeState(BossLevelState::transition_off);
+
+	DelayCallBack(6.0f, [=]
+		{
+			Player->StateChange(PlayerState::idle);
+			Player->SubStateChange(PlayerSubState::none);
+		}
+	);
 }
 
 void AHeadHunter_Phase1::LevelEnd(ULevel* _NextLevel)
@@ -66,9 +79,14 @@ void AHeadHunter_Phase1::LevelReStart()
 void AHeadHunter_Phase1::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+}
 
-
-
+void AHeadHunter_Phase1::AllSlidingDoorClose()
+{
+	for (size_t i = 0; i < AllSlidingDoor.size(); i++)
+	{
+		AllSlidingDoor[i]->StateChange(SlidingDoorState::close);
+	}
 }
 
 

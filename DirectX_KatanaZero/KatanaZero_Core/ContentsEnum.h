@@ -88,6 +88,7 @@ enum class EIntroOrder
 	Run,
 	RunToIdle,
 	MusicOn,
+	MusicOff
 };
 
 enum class EOutroType
@@ -130,4 +131,11 @@ enum class EFactoryClearOrder
 	None,
 	FactoryClearStart,
 	FactoryClearEnd
+};
+
+enum class EIntroType
+{
+	Default,
+	FactoryBegin,
+	HeadHunterBegin
 };

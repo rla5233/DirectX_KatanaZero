@@ -27,7 +27,7 @@ void ASlidingDoor::RendererInit()
 
 void ASlidingDoor::CreateAnimation()
 {
-	GetBody()->CreateAnimation(Anim::compo_sliding_door_close, ImgRes::compo_sliding_door_close, 0.1f, false);
+	GetBody()->CreateAnimation(Anim::compo_sliding_door_close, ImgRes::compo_sliding_door_close, 0.04f, false);
 }
 
 void ASlidingDoor::StateInit()
@@ -41,6 +41,7 @@ void ASlidingDoor::StateInit()
 	State.SetStartFunction(SlidingDoorState::close, [=] 
 		{
 			GetBody()->ChangeAnimation(Anim::compo_sliding_door_close);
+			SetActive(true);
 		}
 	);
 

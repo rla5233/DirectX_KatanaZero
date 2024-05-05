@@ -42,7 +42,7 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ -20.0f, 111.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
-	Player->SetIsMusicOnValue(true);
+	Player->SetIntroType(EIntroType::FactoryBegin);
 
 	MainCamera->SetPlayer(Player.get());
 	MainCamera->SetMapTex(ColMap->GetMapTex().get());
@@ -66,7 +66,6 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 
 	State.ChangeState(PlayLevelState::transition_off);
 
-	// 6 ~ 7ÃÊ »çÀÌ
 	DelayCallBack(5.5f, [=]
 		{
 			IntroUI->StateChange(FactoryIntroUIState::intro);

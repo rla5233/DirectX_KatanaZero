@@ -2,6 +2,7 @@
 #include "DefaultPlayer.h"
 
 #include "PlayLevelBase.h"
+#include "HeadHunter_Phase1.h"
 #include "Door.h"
 
 ADefaultPlayer::ADefaultPlayer()
@@ -59,6 +60,7 @@ void ADefaultPlayer::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::player_kick_door, ImgRes::player_kick_door, 0.06f, false);
 	GetBody()->CreateAnimation(Anim::player_dead, ImgRes::player_dead, 0.05f, false);
 	GetBody()->CreateAnimation(Anim::player_headphones, ImgRes::player_headphones, 0.1f, false);
+	GetBody()->CreateAnimation(Anim::player_remove_headphones, ImgRes::player_remove_headphones, 0.1f, false);
 
 	GetBody()->SetFrameCallback(Anim::player_kick_door, 9, [=] 
 		{ 
@@ -209,26 +211,42 @@ void ADefaultPlayer::Intro(float _DeltaTime)
 	case EIntroOrder::RunToIdle:
 		if (true == GetBody()->IsCurAnimationEnd())
 		{
-			if (false == IsMusicOnValue)
+			switch (IntroType)
 			{
+			case EIntroType::Default:
 				GetBody()->ChangeAnimation(Anim::player_idle);
 				StateChange(PlayerState::idle);
 				SubStateChange(PlayerSubState::none);
-				return;
-			}
-			else
-			{
+				break;
+			case EIntroType::FactoryBegin:
 				DelayCallBack(0.5f, [=]
 					{
-						GetBody()->ChangeAnimation(Anim::player_headphones);					
+						GetBody()->ChangeAnimation(Anim::player_headphones);
+					}
+				);
+				SetIntroOrder(EIntroOrder::MusicOn);
+				break;
+			case EIntroType::HeadHunterBegin:
+				DelayCallBack(0.5f, [=]
+					{
+						GetBody()->ChangeAnimation(Anim::player_remove_headphones);
 					}
 				);
 
-				SetIntroOrder(EIntroOrder::MusicOn);
+				AHeadHunter_Phase1* PlayLevel = dynamic_cast<AHeadHunter_Phase1*>(GetWorld()->GetGameMode().get());
+				PlayLevel->AllSlidingDoorClose();
+				SetIntroOrder(EIntroOrder::MusicOff);
+				break;
 			}
 		}
 		break;
 	case EIntroOrder::MusicOn:
+		if (true == GetBody()->IsCurAnimationEnd())
+		{
+			GetBody()->ChangeAnimation(Anim::player_idle);
+		}
+		break;
+	case EIntroOrder::MusicOff:
 		if (true == GetBody()->IsCurAnimationEnd())
 		{
 			GetBody()->ChangeAnimation(Anim::player_idle);

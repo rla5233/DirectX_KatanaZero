@@ -18,6 +18,8 @@ public:
 	AHeadHunter_Phase1& operator=(const AHeadHunter_Phase1& _Other) = delete;
 	AHeadHunter_Phase1& operator=(AHeadHunter_Phase1&& _Other) noexcept = delete;
 
+	void AllSlidingDoorClose();
+
 protected:
 	void BeginPlay()override;
 	void Tick(float _DeltaTime) override;
@@ -29,7 +31,7 @@ protected:
 
 private:
 	std::vector<std::shared_ptr<ASlidingDoor>> AllSlidingDoor;
-	const int DoorNum = 1;
+	const int DoorNum = 4;
 
 };
 
