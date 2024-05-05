@@ -24,6 +24,7 @@ enum class ERenderOrder
 	EffectBack,
 	AfterImage,
 	Enemy,
+	HeadHunter,
 	Player,
 	Player2,
 	EffectFront,

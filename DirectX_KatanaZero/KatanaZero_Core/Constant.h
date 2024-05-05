@@ -29,6 +29,9 @@ namespace ImgRes
 	const std::string_view player_headphones		= "player_headphones";
 	const std::string_view player_remove_headphones	= "player_remove_headphones";
 
+	// HeadHunter
+	const std::string_view headhunter_idle			= "headhunter_idle";
+
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
 	const std::string_view enemy_grunt_attack		= "grunt_attack";
@@ -194,6 +197,9 @@ namespace Anim
 	const std::string_view player_headphones		= "player_headphones";
 	const std::string_view player_remove_headphones = "player_remove_headphones";
 
+	// HeadHunter
+	const std::string_view headhunter_idle			= "headhunter_idle";
+
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
 	const std::string_view enemy_grunt_attack		= "grunt_attack";
@@ -332,6 +338,12 @@ namespace PlayerSubState
 	const std::string_view replay			= "Replay";
 	const std::string_view outro			= "Outro";
 	const std::string_view restart			= "Restart";
+}
+
+// HeadHunter
+namespace HeadHunterState
+{
+	const std::string_view idle				= "Idle";
 }
 
 // Level

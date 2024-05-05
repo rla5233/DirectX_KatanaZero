@@ -38,7 +38,6 @@ public:
 		return (p1 * (1.0f - d1)) + (p2 * d1);
 	}
 
-
 protected:
 
 private:

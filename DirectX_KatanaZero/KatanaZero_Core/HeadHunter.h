@@ -24,6 +24,16 @@ public:
 	AHeadHunter& operator=(const AHeadHunter& _Other) = delete;
 	AHeadHunter& operator=(AHeadHunter&& _Other) noexcept = delete;
 
+	inline void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
+
+	inline void SetDir(EEngineDir _Dir)
+	{
+		Body->SetDir(_Dir);
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -33,13 +43,17 @@ private:
 	void CollisionInit();
 	void CreateAnimation();
 
-
-
+private:
+	USpriteRenderer* Body = nullptr;
+	
 
 // FSM
 private:
 	UStateManager State;
 	void StateInit();
+
+	void IdleStart();
+	void Idle(float _DeltaTime);
 
 };
 

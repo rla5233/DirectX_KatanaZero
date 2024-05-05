@@ -1,6 +1,8 @@
 #pragma once
 #include "PlayLevelBase.h"
 
+class AHeadHunter;
+
 // Ό³Έν : HeadHunter Level
 class AHeadHunterLevel : public APlayLevelBase
 {
@@ -26,7 +28,8 @@ protected:
 protected:
 	bool IsStageClear() override;
 
-private:
+protected:
+	std::shared_ptr<AHeadHunter> HeadHunter = nullptr;
 
 };
 

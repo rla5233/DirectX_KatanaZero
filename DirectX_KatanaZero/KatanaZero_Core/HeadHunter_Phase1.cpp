@@ -3,8 +3,9 @@
 
 #include "DefaultPlayer.h"
 #include "ColMapObject.h"
-#include "MainCamera.h"
 #include "SlidingDoor.h"
+#include "MainCamera.h"
+#include "HeadHunter.h"
 
 AHeadHunter_Phase1::AHeadHunter_Phase1()
 {
@@ -34,6 +35,10 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	Player->DirChange(EEngineDir::Right);
 	Player->SetIntroRunTime(0.9f);
 	Player->SetIntroType(EIntroType::HeadHunterBegin);
+
+	HeadHunter->SetActorLocation({ 980.0f, 175.0f, 0.0f });
+	HeadHunter->SetDir(EEngineDir::Left);
+	HeadHunter->StateChange(HeadHunterState::idle);
 
 	MainCamera->SetActorLocation({ 672.0f, 360.0f, -100.0f });
 	MainCamera->StateChange(MainCameraState::stop);
