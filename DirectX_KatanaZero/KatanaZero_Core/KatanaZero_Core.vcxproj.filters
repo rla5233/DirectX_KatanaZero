@@ -115,6 +115,12 @@
     <Filter Include="Level\003.HeadHunterLevel\GameMode\Phase">
       <UniqueIdentifier>{2337de55-003e-4588-a501-c7efefb0d634}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\003.HeadHunterLevel\Object\HeadHunter">
+      <UniqueIdentifier>{ebd5787d-68cb-45e1-9eda-065469ccd44e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\003.HeadHunterLevel\Object\Component">
+      <UniqueIdentifier>{545ff453-049f-4153-86a6-a7c25cae0abe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -288,11 +294,14 @@
     <ClInclude Include="HeadHunterLevel.h">
       <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClInclude>
-    <ClInclude Include="SlidingDoor.h">
-      <Filter>Level\003.HeadHunterLevel\Object</Filter>
+    <ClInclude Include="HeadHunter.h">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
     </ClInclude>
     <ClInclude Include="Cloud.h">
-      <Filter>Level\003.HeadHunterLevel\Object</Filter>
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SlidingDoor.h">
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -488,11 +497,17 @@
     <ClCompile Include="HeadHunterLevel.cpp">
       <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClCompile>
-    <ClCompile Include="SlidingDoor.cpp">
-      <Filter>Level\003.HeadHunterLevel\Object</Filter>
+    <ClCompile Include="HeadHunter.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
     </ClCompile>
     <ClCompile Include="Cloud.cpp">
-      <Filter>Level\003.HeadHunterLevel\Object</Filter>
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SlidingDoor.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunter_State.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
