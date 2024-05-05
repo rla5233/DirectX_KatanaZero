@@ -74,6 +74,7 @@ void AGo::BeginPlay()
 	
 	Init();
 	StateInit();
+	Off();
 }
 
 void AGo::Init()

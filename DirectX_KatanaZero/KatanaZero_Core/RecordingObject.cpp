@@ -14,14 +14,14 @@ URecordingObject::~URecordingObject()
 void URecordingObject::SetRecordingSize()
 {
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(Actor->GetWorld()->GetGameMode().get());
-	
+
 #ifdef _DEBUG
 	if (nullptr == PlayLevel)
 	{
 		MsgBoxAssert("레벨이 설정되지 않았거나 잘못된 레벨입니다.")
 	}
 #endif // _DEBUG
-	
+
 	float TotalPlayTime = PlayLevel->GetTotalPlayTime();
 	MaxSize = static_cast<int>(TotalPlayTime * (1 / Const::recording_delay)) + 10;
 	AllRecordInfo.reserve(MaxSize);

@@ -1,10 +1,10 @@
 #pragma once
-#include "BossLevelBase.h"
+#include "PlayLevelBase.h"
 
 // 설명 : HeadHunter 1페이즈
-class AHeadHunter_Phase1 : public ABossLevelBase
+class AHeadHunter_Phase1 : public APlayLevelBase
 {
-	GENERATED_BODY(ABossLevelBase)
+	GENERATED_BODY(APlayLevelBase)
 public:
 	// constrcuter destructer
 	AHeadHunter_Phase1();

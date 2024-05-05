@@ -2,6 +2,7 @@
 #include "PixelColObject.h"
 
 #include "PlayLevelBase.h"
+#include "BossLevelBase.h"
 #include "ColMapObject.h"
 
 UPixelColObject::UPixelColObject()
@@ -21,8 +22,21 @@ void UPixelColObject::SetBodyInfo(const FVector& _BodyPos, const FVector& _BodyS
 
 void UPixelColObject::SetMapTex()
 {
-	APlayLevelBase* Level = dynamic_cast<APlayLevelBase*>(Actor->GetWorld()->GetGameMode().get());
-	MapTex = Level->GetColMap()->GetMapTex();
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(Actor->GetWorld()->GetGameMode().get());
+
+	if (nullptr != PlayLevel)
+	{
+		MapTex = PlayLevel->GetColMap()->GetMapTex();
+		return;
+	}
+
+	ABossLevelBase* BossLevel = dynamic_cast<ABossLevelBase*>(Actor->GetWorld()->GetGameMode().get());
+
+	if (nullptr != BossLevel)
+	{
+		MapTex = BossLevel->GetColMap()->GetMapTex();
+		return;
+	}
 }
 
 bool UPixelColObject::IsOnGround(EEngineDir _Dir)

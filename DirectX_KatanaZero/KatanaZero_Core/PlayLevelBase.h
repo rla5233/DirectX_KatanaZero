@@ -40,7 +40,7 @@ public:
 	APlayLevelBase& operator=(const APlayLevelBase& _Other) = delete;
 	APlayLevelBase& operator=(APlayLevelBase&& _Other) noexcept = delete;
 
-	void StateChange(std::string_view _State)
+	inline void StateChange(std::string_view _State)
 	{
 		State.ChangeState(_State);
 	}
@@ -112,7 +112,7 @@ protected:
 	virtual void LevelReStart() {};
 	virtual void LevelReEnd();
 
-	bool IsStageClear();
+	virtual bool IsStageClear();
 	bool IsRelayStart();
 	virtual void ChangeStage() {};
 

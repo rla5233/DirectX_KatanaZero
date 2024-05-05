@@ -350,6 +350,17 @@ namespace PlayLevelState
 	const std::string_view restart			= "Restart";
 }
 
+namespace BossLevelState
+{
+	const std::string_view transition_on	= "Transition_On";
+	const std::string_view transition_off	= "Transition_Off";
+	const std::string_view intro			= "Intro";
+	const std::string_view intro_effect		= "Intro_Effect";
+	const std::string_view intro_big_effect	= "Intro_Big_Effect";
+	const std::string_view play				= "Play";
+	const std::string_view player_dead		= "PlayerDead";
+	const std::string_view restart			= "Restart";
+}
 
 // Object
 namespace TitleScreenState

@@ -112,11 +112,8 @@
     <Filter Include="Level\003.HeadHunterLevel\Object">
       <UniqueIdentifier>{30a37d90-1001-40cc-9edf-c407bfb79ac8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Base\Level\PlayLevel">
-      <UniqueIdentifier>{b0b470b4-a347-4767-a5dd-6287b902f159}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Base\Level\BossLevel">
-      <UniqueIdentifier>{d2bb9987-a318-4bf8-a1e9-a30463b5501b}</UniqueIdentifier>
+    <Filter Include="Level\003.HeadHunterLevel\GameMode\Phase">
+      <UniqueIdentifier>{2337de55-003e-4588-a501-c7efefb0d634}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -149,15 +146,6 @@
     </ClInclude>
     <ClInclude Include="Factory_005.h">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
-    </ClInclude>
-    <ClInclude Include="HeadHunter_Phase1.h">
-      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
-    </ClInclude>
-    <ClInclude Include="HeadHunter_Phase2.h">
-      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerBase.h">
-      <Filter>Object\Base\Player</Filter>
     </ClInclude>
     <ClInclude Include="ColMapObject.h">
       <Filter>Level\000.Object\Map</Filter>
@@ -285,11 +273,20 @@
     <ClInclude Include="FactoryClearUI.h">
       <Filter>Level\002.FactoryLevel\Object\UI</Filter>
     </ClInclude>
-    <ClInclude Include="PlayLevelBase.h">
-      <Filter>Object\Base\Level\PlayLevel</Filter>
+    <ClInclude Include="PlayerBase.h">
+      <Filter>Object\Base\Player</Filter>
     </ClInclude>
-    <ClInclude Include="BossLevelBase.h">
-      <Filter>Object\Base\Level\BossLevel</Filter>
+    <ClInclude Include="PlayLevelBase.h">
+      <Filter>Object\Base\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunter_Phase1.h">
+      <Filter>Level\003.HeadHunterLevel\GameMode\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunter_Phase2.h">
+      <Filter>Level\003.HeadHunterLevel\GameMode\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterLevel.h">
+      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -320,21 +317,6 @@
     <ClCompile Include="Factory_005.cpp">
       <Filter>Level\002.FactoryLevel\GameMode</Filter>
     </ClCompile>
-    <ClCompile Include="HeadHunter_Phase1.cpp">
-      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
-    </ClCompile>
-    <ClCompile Include="HeadHunter_Phase2.cpp">
-      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBase.cpp">
-      <Filter>Object\Base\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBase_State.cpp">
-      <Filter>Object\Base\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBase_Input.cpp">
-      <Filter>Object\Base\Player</Filter>
-    </ClCompile>
     <ClCompile Include="ColMapObject.cpp">
       <Filter>Level\000.Object\Map</Filter>
     </ClCompile>
@@ -349,9 +331,6 @@
     </ClCompile>
     <ClCompile Include="Grunt.cpp">
       <Filter>Level\000.Object\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBase_Effect.cpp">
-      <Filter>Object\Base\Player</Filter>
     </ClCompile>
     <ClCompile Include="Door.cpp">
       <Filter>Level\000.Object\Map\Component</Filter>
@@ -397,9 +376,6 @@
     </ClCompile>
     <ClCompile Include="CeilGun.cpp">
       <Filter>Level\000.Object\Map\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBase_SubState.cpp">
-      <Filter>Object\Base\Player</Filter>
     </ClCompile>
     <ClCompile Include="LerpObject.cpp">
       <Filter>Object\Base\Component\Actor</Filter>
@@ -476,17 +452,35 @@
     <ClCompile Include="FactoryClearUI.cpp">
       <Filter>Level\002.FactoryLevel\Object\UI</Filter>
     </ClCompile>
-    <ClCompile Include="PlayLevelBase.cpp">
-      <Filter>Object\Base\Level\PlayLevel</Filter>
+    <ClCompile Include="PlayerBase.cpp">
+      <Filter>Object\Base\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBase_Effect.cpp">
+      <Filter>Object\Base\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBase_Input.cpp">
+      <Filter>Object\Base\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBase_State.cpp">
+      <Filter>Object\Base\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBase_SubState.cpp">
+      <Filter>Object\Base\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayLevelBase_State.cpp">
-      <Filter>Object\Base\Level\PlayLevel</Filter>
+      <Filter>Object\Base\Level</Filter>
     </ClCompile>
-    <ClCompile Include="BossLevelBase.cpp">
-      <Filter>Object\Base\Level\BossLevel</Filter>
+    <ClCompile Include="PlayLevelBase.cpp">
+      <Filter>Object\Base\Level</Filter>
     </ClCompile>
-    <ClCompile Include="BossLevelBase_State.cpp">
-      <Filter>Object\Base\Level\BossLevel</Filter>
+    <ClCompile Include="HeadHunter_Phase1.cpp">
+      <Filter>Level\003.HeadHunterLevel\GameMode\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunter_Phase2.cpp">
+      <Filter>Level\003.HeadHunterLevel\GameMode\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterLevel.cpp">
+      <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
