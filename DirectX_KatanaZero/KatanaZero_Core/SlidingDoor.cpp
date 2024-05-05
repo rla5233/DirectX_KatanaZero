@@ -36,8 +36,16 @@ void ASlidingDoor::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::compo_sliding_door_close, ImgRes::compo_sliding_door_close, 0.04f, false);
 	GetBody()->SetLastFrameCallback(Anim::compo_sliding_door_close, [=]
 		{
-			ACloud* NewCloude = GetWorld()->SpawnActor<ACloud>("Cloud").get();
-			NewCloude->SetActorLocation(GetActorLocation() - FVector(0.0f, 80.0f, 0.0f));
+			for (int i = 0; i < 10; i++)
+			{
+				ACloud* NewCloud = GetWorld()->SpawnActor<ACloud>("Cloud").get();
+				NewCloud->SetActorLocation(GetActorLocation() - FVector(0.0f, 80.0f, 0.0f));
+			
+				float SpeedX = UEngineRandom::MainRandom.RandomFloat(-140.0f, 140.0f);
+				float SpeedY = UEngineRandom::MainRandom.RandomFloat(10.0f, 150.0f);
+
+				NewCloud->SetVelocity({ SpeedX, SpeedY, 0.0f });
+			}			
 		}
 	);
 	
