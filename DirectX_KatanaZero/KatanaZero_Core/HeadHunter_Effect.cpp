@@ -45,14 +45,14 @@ void AHeadHunter::Rifle1LaserEffectUpdate1(float _DeltaTime)
 
 void AHeadHunter::Rifle1LaserEffectUpdate2(float _DeltaTime)
 {
-	LaserAlpha -= 6.0f * _DeltaTime;
+	LaserAlpha -= 9.0f * _DeltaTime;
 
 	if (0.0f > LaserAlpha)
 	{
 		LaserAlpha = 0.0f;
 		PatternOrder = -1;
 		LaserEffect->SetActive(false);
-		DelayCallBack(0.2f, [=]
+		DelayCallBack(0.04f, [=]
 			{
 				LaserAlpha = 1.0f;
 				LaserEffect->SetActive(true);
@@ -69,7 +69,9 @@ void AHeadHunter::Rifle1LaserEffectUpdate2(float _DeltaTime)
 					break;
 				}
 
-				DelayCallBack(0.3f, [=]
+				LaserCol->SetActive(true);
+
+				DelayCallBack(0.1f, [=]
 					{
 						PatternOrder = 3;
 					}
@@ -94,6 +96,7 @@ void AHeadHunter::Rifle1LaserEffectUpdate3(float _DeltaTime)
 	FVector CurScale = LaserEffect->GetLocalScale();
 	if (0.0f > CurScale.Y)
 	{
+		LaserCol->SetActive(false);
 		LaserEffect->SetActive(false);
 		Body->ChangeAnimation(Anim::headhunter_putback_rifle);
 		return;

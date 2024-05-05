@@ -58,6 +58,7 @@ enum class EEnemyPatrol
 enum class EEnemyType
 {
 	Default,
+	HeadHunterLaser,
 	CeilLaser,
 	CeilGun,
 	TimeOut,

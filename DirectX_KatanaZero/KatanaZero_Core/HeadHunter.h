@@ -47,12 +47,23 @@ private:
 	void RendererInit();
 	void CollisionInit();
 	void CreateAnimation();
+	
+private:
+	void LaserColCheck();
 
 private:
+	// Renderer
 	USpriteRenderer* Body = nullptr;
 	USpriteRenderer* LaserEffect = nullptr;
 	float LaserAlpha = 1.0f;
 	
+
+	// Collision
+	UCollision* BodyCol = nullptr;
+	UCollision* LaserCol = nullptr;
+
+
+
 	int PatternOrder = 0;
 
 // FSM

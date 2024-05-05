@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "HeadHunter.h"
 
+#include "PlayerBase.h"
+
 AHeadHunter::AHeadHunter()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -10,6 +12,9 @@ AHeadHunter::AHeadHunter()
 
 	LaserEffect = CreateDefaultSubObject<USpriteRenderer>("LaserEffect");
 	LaserEffect->SetupAttachment(Root);
+
+	LaserCol = CreateDefaultSubObject<UCollision>("LaserCol");
+	LaserCol->SetupAttachment(LaserEffect);
 
 	SetRoot(Root);
 }
@@ -45,6 +50,9 @@ void AHeadHunter::RendererInit()
 
 void AHeadHunter::CollisionInit()
 {
+	LaserCol->SetCollisionGroup(EColOrder::EnemyAttack);
+	LaserCol->SetCollisionType(ECollisionType::RotRect);
+	LaserCol->SetActive(false);
 }
 
 void AHeadHunter::CreateAnimation()
@@ -76,4 +84,14 @@ void AHeadHunter::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 	SubState.Update(_DeltaTime);
+}
+
+void AHeadHunter::LaserColCheck()
+{
+	LaserCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
+		{
+			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+			Player->HitByEnemy(EEnemyType::HeadHunterLaser);
+		}
+	);
 }

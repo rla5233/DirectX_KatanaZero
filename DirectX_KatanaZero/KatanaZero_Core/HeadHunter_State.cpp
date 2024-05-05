@@ -59,6 +59,7 @@ void AHeadHunter::PatternRifle1(float _DeltaTime)
 		break;
 	case 3:
 		Rifle1LaserEffectUpdate3(_DeltaTime);
+		LaserColCheck();
 		break;
 	default:
 		break;
