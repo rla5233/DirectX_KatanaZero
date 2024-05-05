@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "SlidingDoor.h"
 
+#include "HeadHunterLevel.h"
+#include "MainCamera.h"
 #include "Cloud.h"
 
 ASlidingDoor::ASlidingDoor()
@@ -45,7 +47,15 @@ void ASlidingDoor::CreateAnimation()
 				float SpeedY = UEngineRandom::MainRandom.RandomFloat(10.0f, 150.0f);
 
 				NewCloud->SetVelocity({ SpeedX, SpeedY, 0.0f });
-			}			
+			}		
+
+			AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+			AMainCamera* MainCamera = PlayLevel->GetKZMainCamera();
+
+			if (MainCameraState::ret_shaking != MainCamera->GetCurState())
+			{
+				MainCamera->StateChange(MainCameraState::ret_shaking);
+			}
 		}
 	);
 	

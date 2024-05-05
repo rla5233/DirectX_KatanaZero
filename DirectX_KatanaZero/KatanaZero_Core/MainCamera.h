@@ -24,6 +24,11 @@ public:
 		State.ChangeState(_State);
 	}
 
+	inline std::string GetCurState() const
+	{
+		return State.GetCurStateName();
+	}
+
 	inline void SetActorLocation(const FVector& _Pos)
 	{
 		MainCamera->SetActorLocation(_Pos);
@@ -49,6 +54,11 @@ public:
 		Player = _Player;
 	}
 
+	inline void SetRetShakePos(const FVector& _Pos)
+	{
+		RetShakePos = _Pos;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -65,6 +75,8 @@ private:
 	UCamera* MainCamera = nullptr;
 	UEngineTexture* MapTex = nullptr;
 	APlayerBase* Player = nullptr;
+
+	FVector RetShakePos = FVector::Zero;
 	
 	float TitleInTimeWeight = 2.0f;
 
@@ -79,9 +91,10 @@ private:
 	void ChasePlayer(float _DeltaTime);
 
 	void ShakingStart();
-	void Shaking(float _DeltaTime);
+	void Shaking(float _DeltaTime);	
 
-	
+	void RetShakingStart();
+	void RetShaking(float _DeltaTime);
 
 };
 

@@ -28,18 +28,21 @@ void AMainCamera::StateInit()
 	State.CreateState(MainCameraState::title_in);
 	State.CreateState(MainCameraState::chaseplayer);
 	State.CreateState(MainCameraState::shaking);
+	State.CreateState(MainCameraState::ret_shaking);
 
 	// State Start
 	State.SetStartFunction(MainCameraState::stop, [=] {});
 	State.SetStartFunction(MainCameraState::title_in,		std::bind(&AMainCamera::TitleInStart, this));
 	State.SetStartFunction(MainCameraState::chaseplayer,	std::bind(&AMainCamera::ChasePlayerStart, this));
 	State.SetStartFunction(MainCameraState::shaking,		std::bind(&AMainCamera::ShakingStart, this));
+	State.SetStartFunction(MainCameraState::ret_shaking,	std::bind(&AMainCamera::RetShakingStart, this));
 
 	// State Update
 	State.SetUpdateFunction(MainCameraState::stop, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(MainCameraState::title_in,		std::bind(&AMainCamera::TitleIn, this, std::placeholders::_1));
 	State.SetUpdateFunction(MainCameraState::chaseplayer,	std::bind(&AMainCamera::ChasePlayer, this, std::placeholders::_1));
 	State.SetUpdateFunction(MainCameraState::shaking,		std::bind(&AMainCamera::Shaking, this, std::placeholders::_1));
+	State.SetUpdateFunction(MainCameraState::ret_shaking,		std::bind(&AMainCamera::RetShaking, this, std::placeholders::_1));
 
 }
 
@@ -88,6 +91,28 @@ void AMainCamera::Shaking(float _DeltaTime)
 	CurPos.Y += UEngineRandom::MainRandom.RandomFloat(-10.0f, 10.0f);
 
 	FVector NextPos = MapRangeCheck(CurPos);
+	SetActorLocation(NextPos);
+}
+
+void AMainCamera::RetShakingStart()
+{
+	RetShakePos = GetActorLocation();
+
+	DelayCallBack(0.3f, [=]
+		{
+			SetActorLocation(RetShakePos);
+			State.ChangeState(MainCameraState::stop);
+		}
+	);
+}
+
+void AMainCamera::RetShaking(float _DeltaTime)
+{
+	FVector NextPos = RetShakePos;
+	
+	NextPos.X += UEngineRandom::MainRandom.RandomFloat(-15.0f, 15.0f);
+	NextPos.Y += UEngineRandom::MainRandom.RandomFloat(-15.0f, 15.0f);
+
 	SetActorLocation(NextPos);
 }
 
