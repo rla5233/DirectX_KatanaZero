@@ -106,12 +106,6 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 
 	ClearUI = GetWorld()->SpawnActor<UFactoryClearUI>("ClearUI");
 	State.ChangeState(PlayLevelState::transition_off);
-
-	DelayCallBack(3.0f, [=] 
-		{ 	
-			ClearUI->StateChange(FactoryClearUIState::clear); 
-		}
-	);
 }
 
 void AFactory_005::LevelEnd(ULevel* _NextLevel)

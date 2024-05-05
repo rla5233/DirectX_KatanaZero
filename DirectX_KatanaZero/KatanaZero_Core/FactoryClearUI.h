@@ -43,9 +43,7 @@ private:
 	UKZImage* ClearBackGround = nullptr;
 
 	FVector ClearUIPos = { 0.0f, 35.0f, 0.0f };
-	float ClearMoveTimeWeight = 3.0f;
-
-	FVector TextVelocity = FVector::Zero;
+	float ClearMoveTimeWeight = 1.0f;
 
 	EFactoryClearOrder Order = EFactoryClearOrder::None;
 

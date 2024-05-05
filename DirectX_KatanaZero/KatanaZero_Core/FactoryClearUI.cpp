@@ -112,14 +112,23 @@ void UFactoryClearUI::FactoryClearStart(float _DeltaTime)
 
 		DelayCallBack(3.0f, [=]
 			{
+				ClearMoveTimeWeight = 0.1f;
+
 				ClearText0->SetFadeOut();
 				ClearText0->SetFadeTimeWeight(1.0f);
-				ClearText0->SetShakeRefPosition(ClearUIPos - FVector(500.0f, 0.0f, 0.0f));
+				ClearText0->SetLerpMovePos(ClearUIPos, ClearUIPos - FVector(500.0f, 0.0f, 0.0f));
+				ClearText0->SetLerpTimeWeight(ClearMoveTimeWeight);
+				ClearText0->SetShakeRefPosition(ClearUIPos);
 				ClearText0->SetShakeRange({ -1.0f, 1.0f, -1.0f, 1.0f });
 				ClearText0->SetShakeActive(true);
 
-
-
+				ClearText1->SetFadeOut();
+				ClearText1->SetFadeTimeWeight(1.0f);
+				ClearText1->SetLerpMovePos(ClearUIPos, ClearUIPos + FVector(500.0f, 0.0f, 0.0f));
+				ClearText1->SetLerpTimeWeight(ClearMoveTimeWeight);
+				ClearText1->SetShakeRefPosition(ClearUIPos);
+				ClearText1->SetShakeRange({ -1.0f, 1.0f, -1.0f, 1.0f });
+				ClearText1->SetShakeActive(true);
 
 				ClearBackGround->SetFadeOut(0.5f, 0.0f);
 
@@ -131,7 +140,16 @@ void UFactoryClearUI::FactoryClearStart(float _DeltaTime)
 
 void UFactoryClearUI::FactoryClearEnd(float _DeltaTime)
 {
+	ClearMoveTimeWeight += 4.52f * _DeltaTime;
 
+	ClearText0->SetLerpTimeWeight(ClearMoveTimeWeight);
+	ClearText1->SetLerpTimeWeight(ClearMoveTimeWeight);
+
+	if (false == ClearText0->IsLerpMove() && false == ClearText1->IsLerpMove())
+	{
+		Order = EFactoryClearOrder::None;
+		Off();
+	}
 }
 
 void UFactoryClearUI::On()
