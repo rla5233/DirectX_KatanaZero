@@ -288,6 +288,9 @@
     <ClInclude Include="HeadHunterLevel.h">
       <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="SlidingDoor.h">
+      <Filter>Level\003.HeadHunterLevel\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -481,6 +484,9 @@
     </ClCompile>
     <ClCompile Include="HeadHunterLevel.cpp">
       <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="SlidingDoor.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

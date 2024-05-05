@@ -188,7 +188,7 @@ void ADefaultPlayer::IntroStart()
 	Super::IntroStart();
 
 	GetBody()->ChangeAnimation(Anim::player_run);
-	DelayCallBack(0.5f, [=]
+	DelayCallBack(IntroRunTime, [=]
 		{
 			Velocity = FVector::Zero;
 			GetBody()->ChangeAnimation(Anim::player_run_to_idle);

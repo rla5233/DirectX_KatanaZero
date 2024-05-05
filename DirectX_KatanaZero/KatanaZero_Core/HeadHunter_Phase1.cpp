@@ -29,8 +29,9 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	ColMap->SetBGSpritePosition({ 672.0f, 360.0f, 0.0f });
 	
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
-	Player->SetActorLocation({ 100.f, 175.0f, 0.0f });
+	Player->SetActorLocation({ 20.f, 175.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
+	Player->SetIntroRunTime(0.9f);
 
 	MainCamera->SetActorLocation({ 672.0f, 360.0f, -100.0f });
 	MainCamera->StateChange(MainCameraState::stop);
@@ -41,7 +42,17 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 void AHeadHunter_Phase1::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+}
 
+void AHeadHunter_Phase1::LevelReStart()
+{
+	Super::LevelReStart();
+
+	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
+	Player->SetActorLocation({ 402.f, 175.0f, 0.0f });
+	Player->SubStateChange(PlayerSubState::play);
+	Player->StateChange(PlayerState::idle);
+	Player->DirChange(EEngineDir::Right);
 }
 
 void AHeadHunter_Phase1::Tick(float _DeltaTime)

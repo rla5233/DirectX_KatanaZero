@@ -16,6 +16,11 @@ public:
 	ADefaultPlayer& operator=(const ADefaultPlayer& _Other) = delete;
 	ADefaultPlayer& operator=(ADefaultPlayer&& _Other) noexcept = delete;
 
+	inline void SetIntroRunTime(float _Time)
+	{
+		IntroRunTime = _Time;
+	}
+
 	inline void SetIsMusicOnValue(bool _Value)
 	{
 		IsMusicOnValue = _Value;
@@ -31,6 +36,7 @@ private:
 	void CreateAnimation();
 	
 private:
+	float IntroRunTime = 0.5f;
 	bool IsMusicOnValue = false;
 
 // FSM

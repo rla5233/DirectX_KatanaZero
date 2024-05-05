@@ -23,6 +23,8 @@ protected:
 	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
 
+	void LevelReStart() override;
+
 private:
 
 };
