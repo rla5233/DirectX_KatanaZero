@@ -44,6 +44,8 @@ public:
 		return Body;
 	}
 
+	void HitByPlayer(FVector _AttDir);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

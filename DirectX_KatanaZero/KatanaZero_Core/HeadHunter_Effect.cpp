@@ -1,6 +1,9 @@
 #include "PreCompile.h"
 #include "HeadHunter.h"
 
+#include "HeadHunterLevel.h"
+#include "MainCamera.h"
+
 void AHeadHunter::SetRifle1LaserEffect()
 {
 	LaserEffect->SetSprite(ImgRes::compo_bullet);
@@ -70,6 +73,9 @@ void AHeadHunter::Rifle1LaserEffectUpdate2(float _DeltaTime)
 				}
 
 				LaserCol->SetActive(true);
+
+				AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+				PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 
 				DelayCallBack(0.1f, [=]
 					{

@@ -72,6 +72,7 @@ enum class EColOrder
 	PlayerAttack,
 	Enemy,
 	DeadEnemy,
+	HeadHunter,
 	EnemyAttack,
 	Door,
 	Stair,

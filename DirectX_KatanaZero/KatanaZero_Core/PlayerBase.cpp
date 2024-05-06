@@ -3,8 +3,9 @@
 
 #include "PlayLevelBase.h"
 #include "ColMapObject.h"
-#include "MouseAim.h"
+#include "HeadHunter.h"
 #include "EnemyBase.h"
+#include "MouseAim.h"
 #include "Door.h"
 
 const int APlayerBase::CloudSize = 20;
@@ -126,6 +127,13 @@ void APlayerBase::AttackCollisionCheck()
 		{
 			AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
 			Enemy->HitByPlayer(AttackDir);
+		}
+	);
+
+	AttackCol->CollisionEnter(EColOrder::HeadHunter, [=](std::shared_ptr<UCollision> _Other)
+		{
+			AHeadHunter* HeadHunter = dynamic_cast<AHeadHunter*>(_Other->GetActor());
+			HeadHunter->HitByPlayer(AttackDir);
 		}
 	);
 }
@@ -362,7 +370,7 @@ void APlayerBase::IdleToRunVelUpdate(float _DeltaTime)
 		break;
 	}
 
-	// max speedx üũ
+	// max speedx 
 	if (Const::player_max_speedx < std::abs(Velocity.X))
 	{
 		SetMaxRunVel();

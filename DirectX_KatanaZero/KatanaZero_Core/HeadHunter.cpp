@@ -16,6 +16,9 @@ AHeadHunter::AHeadHunter()
 	LaserCol = CreateDefaultSubObject<UCollision>("LaserCol");
 	LaserCol->SetupAttachment(LaserEffect);
 
+	BodyCol = CreateDefaultSubObject<UCollision>("BodyCol");
+	BodyCol->SetupAttachment(Root);
+
 	SetRoot(Root);
 }
 
@@ -55,6 +58,16 @@ void AHeadHunter::CollisionInit()
 	LaserCol->SetCollisionGroup(EColOrder::EnemyAttack);
 	LaserCol->SetCollisionType(ECollisionType::RotRect);
 	LaserCol->SetActive(false);
+
+	BodyCol->SetCollisionGroup(EColOrder::HeadHunter);
+	BodyCol->SetCollisionType(ECollisionType::Rect);
+
+	FVector BodyPos = { 0.0f, 45.0f, 0.0f };
+	FVector BodyScale = { 50.0f, 90.0f, 1.0f };
+	SetBodyInfo(BodyPos, BodyScale);
+
+	BodyCol->SetPosition(BodyPos);
+	BodyCol->SetScale(BodyScale);
 }
 
 void AHeadHunter::CreateAnimation()
@@ -76,8 +89,6 @@ void AHeadHunter::CreateAnimation()
 	);
 
 	LaserEffect->CreateAnimation(Anim::effect_laser, ImgRes::effect_laser, 0.1f, true);
-
-
 }
 
 void AHeadHunter::Tick(float _DeltaTime)
@@ -96,4 +107,9 @@ void AHeadHunter::LaserColCheck()
 			Player->HitByEnemy(EEnemyType::HeadHunterLaser);
 		}
 	);
+}
+
+void AHeadHunter::HitByPlayer(FVector _AttDir)
+{
+	int a = 0;
 }
