@@ -10,23 +10,27 @@ void AHeadHunter::StateInit()
 	State.CreateState(HeadHunterState::none);
 	State.CreateState(HeadHunterState::idle);
 	State.CreateState(HeadHunterState::hitfly);
+	State.CreateState(HeadHunterState::recover);
 
 	State.CreateState(HeadHunterState::pattern_rifle1);
 
 	// State Start
-	State.SetStartFunction(HeadHunterState::none, [=] {});
+	State.SetStartFunction(HeadHunterState::none,				[=] {});
 	State.SetStartFunction(HeadHunterState::idle,				std::bind(&AHeadHunter::IdleStart, this));
 	State.SetStartFunction(HeadHunterState::hitfly,				std::bind(&AHeadHunter::HitFlyStart, this));
+	State.SetStartFunction(HeadHunterState::recover,			std::bind(&AHeadHunter::RecoverStart, this));
 	State.SetStartFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunter::PatternRifle1Start, this));
 
 	// State Update
-	State.SetUpdateFunction(HeadHunterState::none, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(HeadHunterState::none,				[=](float _DeltaTime) {});
 	State.SetUpdateFunction(HeadHunterState::idle,				std::bind(&AHeadHunter::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::hitfly,			std::bind(&AHeadHunter::HitFly, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::recover,			std::bind(&AHeadHunter::Recover, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,	std::bind(&AHeadHunter::PatternRifle1, this, std::placeholders::_1));
 
 	// State End
-	State.SetEndFunction(HeadHunterState::pattern_rifle1, [=] { Body->SetPosition(FVector::Zero); });
+	State.SetEndFunction(HeadHunterState::pattern_rifle1,		[=] { Body->SetPosition(FVector::Zero); });
+	State.SetEndFunction(HeadHunterState::recover,				[=] { Body->SetPosition(FVector::Zero); });
 }
 
 void AHeadHunter::IdleStart()
@@ -37,6 +41,8 @@ void AHeadHunter::IdleStart()
 
 void AHeadHunter::Idle(float _DeltaTime)
 {
+	// 충돌 체크
+	ColCheckUpdate();
 }
 
 void AHeadHunter::HitFlyStart()
@@ -50,12 +56,24 @@ void AHeadHunter::HitFlyStart()
 		Body->SetDir(EEngineDir::Right);
 	}
 
+	EEngineDir Dir = Body->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Body->SetPosition({ -50.0f, 0.0f ,0.0f });
+		break;
+	case EEngineDir::Right:
+		Body->SetPosition({ 50.0f, 0.0f ,0.0f });
+		break;
+	}
+
 	SetVelocity(HitDir * 800.0f);
 	BodyCol->SetActive(false);
 
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 
+	LaserEffect->SetActive(false);
 	Body->ChangeAnimation(Anim::headhunter_hitfly);
 }
 
@@ -72,21 +90,41 @@ void AHeadHunter::HitFly(float _DeltaTime)
 		AddActorLocation({ 0.0f, -10.0f, 0.0f });
 	}
 
-	if (true == IsColWall(Dir) || true == IsColHeadToWall(Dir))
+	if (true == IsColWall(Dir) 
+		|| true == IsColHeadToWall(Dir) 
+		|| true == IsColBackToWall(Dir))
 	{
+
+		bool a = IsColBackToWall(Dir);
 		Velocity.X = 0.0f;
 	}
 
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
+	// 충돌 체크
+	ColCheckUpdate();
+
 	// State Change Check
-	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir)
-		|| true == IsOnGP_Boundary(Dir) || true == IsOnStairs(Dir))
+	if (true == IsOnGround(Dir))
 	{
-		State.ChangeState(HeadHunterState::idle);
+		State.ChangeState(HeadHunterState::recover);
 		return;
 	}
+}
+
+void AHeadHunter::RecoverStart()
+{
+	DelayCallBack(1.0f, [=] 
+		{
+			Body->ChangeAnimation(Anim::headhunter_recover);
+			SetRecoverEffect();
+		}
+	);
+}
+
+void AHeadHunter::Recover(float _DletaTime)
+{
 }
 
 void AHeadHunter::PatternRifle1Start()

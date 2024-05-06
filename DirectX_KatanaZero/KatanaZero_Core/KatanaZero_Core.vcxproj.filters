@@ -121,6 +121,9 @@
     <Filter Include="Level\003.HeadHunterLevel\Object\Component">
       <UniqueIdentifier>{545ff453-049f-4153-86a6-a7c25cae0abe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\003.HeadHunterLevel\Object\HeadHunter\Componenet">
+      <UniqueIdentifier>{27c0281c-9085-4274-bac3-b7755a5eb353}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">
@@ -302,6 +305,9 @@
     </ClInclude>
     <ClInclude Include="SlidingDoor.h">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterEffect.h">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter\Componenet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +520,9 @@
     </ClCompile>
     <ClCompile Include="HeadHunter_Effect.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterEffect.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter\Componenet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include "RecordingObject.h"
 #include "PhysicsObject.h"
 #include "PixelColObject.h"
+#include "HeadHunterEffect.h"
 
 // Ό³Έν : HeadHunter
 class AHeadHunter : 
@@ -51,12 +52,15 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void CreateRecoverEffect();
+
 	void RendererInit();
 	void CollisionInit();
 	void CreateAnimation();
 	
 private:
 	void LaserColCheck();
+	void ColCheckUpdate();
 
 private:
 	// Renderer
@@ -64,6 +68,9 @@ private:
 	USpriteRenderer* LaserEffect = nullptr;
 	float LaserAlpha = 1.0f;
 	
+	std::vector<URecoverEffect> AllRecoverEffect;
+
+
 	// Collision
 	UCollision* BodyCol = nullptr;
 	UCollision* LaserCol = nullptr;
@@ -83,6 +90,9 @@ private:
 
 	void HitFlyStart();
 	void HitFly(float _DeltaTime);
+
+	void RecoverStart();
+	void Recover(float _DletaTime);
 
 	void PatternRifle1Start();
 	void PatternRifle1(float _DeltaTime);
@@ -108,6 +118,8 @@ private:
 	void Rifle1LaserEffectUpdate1(float _DeltaTime);
 	void Rifle1LaserEffectUpdate2(float _DeltaTime);
 	void Rifle1LaserEffectUpdate3(float _DeltaTime);
+
+	void SetRecoverEffect();
 
 };
 
