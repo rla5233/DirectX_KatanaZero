@@ -74,10 +74,14 @@ void AHeadHunterPhase1::ExitDoor(float _DletaTime)
 
 void AHeadHunterPhase1::RollStart()
 {
-	SetVelocityByDir({ 600.0f, 0.0f, 0.0f });
+	SetVelocityByDir({ 650.0f, 0.0f, 0.0f });
 
 	Body->ChangeAnimation(Anim::headhunter_roll);
 	CroudTimeCount = Const::effect_roll_cloud_delay;
+
+	SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });
+	SetAfterImageAlphaWeight(0.6f);
+	SetAfterImageTimeWeight(6.0f);
 }
 
 void AHeadHunterPhase1::Roll(float _DeltaTime)
@@ -90,4 +94,8 @@ void AHeadHunterPhase1::Roll(float _DeltaTime)
 
 	// Effect
 	CreateRollCroudEffect(_DeltaTime);
+	if (1 <= Body->GetCurAnimationFrame())
+	{
+		CreateAfterImage(_DeltaTime);
+	}
 }

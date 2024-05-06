@@ -5,13 +5,15 @@
 #include "PhysicsObject.h"
 #include "PixelColObject.h"
 #include "HeadHunterEffect.h"
+#include "AfterImageObject.h"
 
 // Ό³Έν : HeadHunter
 class AHeadHunterBase : 
 	public AActor,
 	public URecordingObject,
 	public UPhysicsObject,
-	public UPixelColObject
+	public UPixelColObject,
+	public UAfterImageObject
 {
 	GENERATED_BODY(AActor)
 public:

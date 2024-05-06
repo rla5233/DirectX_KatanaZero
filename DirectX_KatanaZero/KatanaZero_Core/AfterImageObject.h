@@ -24,7 +24,7 @@ public:
 		AlphaWeight = _AlphaWeight;
 	}
 
-	inline void SetAfterImageColor(const float4& _Color)
+	inline void SetAfterImagePlusColor(const float4& _Color)
 	{
 		Color = _Color;
 	}

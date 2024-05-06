@@ -71,6 +71,7 @@ void AHeadHunterBase::BeginPlay()
 	URecordingObject::SetActor(this);
 	UPhysicsObject::SetActor(this);
 	UPixelColObject::SetActor(this);
+	UAfterImageObject::SetTargetRenderer(Body);
 
 	RendererInit();
 	CollisionInit();
