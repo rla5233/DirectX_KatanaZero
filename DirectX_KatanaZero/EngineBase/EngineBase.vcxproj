@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EngineClient.h" />
     <ClInclude Include="EngineDebug.h">
       <SubType>
       </SubType>
@@ -187,6 +188,8 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineNet.h" />
+    <ClInclude Include="EngineNetHeader.h" />
     <ClInclude Include="EnginePath.h">
       <SubType>
       </SubType>
@@ -199,6 +202,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineServer.h" />
     <ClInclude Include="EngineString.h">
       <SubType>
       </SubType>
@@ -212,6 +216,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="NetStartUpHelper.h" />
     <ClInclude Include="PathObject.h">
       <SubType>
       </SubType>
@@ -231,6 +236,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EngineClient.cpp" />
     <ClCompile Include="EngineDebug.cpp">
       <SubType>
       </SubType>
@@ -247,6 +253,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineNet.cpp" />
     <ClCompile Include="EnginePath.cpp">
       <SubType>
       </SubType>
@@ -259,6 +266,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineServer.cpp" />
     <ClCompile Include="EngineString.cpp">
       <SubType>
       </SubType>
@@ -272,6 +280,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="NetStartUpHelper.cpp" />
     <ClCompile Include="PathObject.cpp">
       <SubType>
       </SubType>

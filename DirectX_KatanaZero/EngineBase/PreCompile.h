@@ -1,7 +1,7 @@
 #pragma once
 
-// #include <WS2tcpip.h> //서버용
-// #include <WinSock2.h> //서버용
+#include <WS2tcpip.h> //서버용
+#include <WinSock2.h> //서버용
 #include <Windows.h>
 #include <assert.h>
 #include <string>

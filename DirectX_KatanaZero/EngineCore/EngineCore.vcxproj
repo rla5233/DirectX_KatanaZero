@@ -238,6 +238,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineNetWindow.h" />
     <ClInclude Include="EngineOption.h">
       <SubType>
       </SubType>
@@ -419,6 +420,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineNetWindow.cpp" />
     <ClCompile Include="EngineOption.cpp">
       <SubType>
       </SubType>

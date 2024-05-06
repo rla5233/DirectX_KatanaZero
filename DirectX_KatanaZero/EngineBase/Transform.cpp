@@ -146,14 +146,14 @@ bool FTransform::RotRectToPoint(const FTransform& _Left, const FTransform& _Righ
 }
 
 
-FTransform::FTransform()
+FTransform::FTransform() 
 	: LocalScale(FVector::One)
 	, LocalRotation(FVector::Zero)
 	, LocalPosition(FVector::Zero)
 {
 }
 
-FTransform::~FTransform()
+FTransform::~FTransform() 
 {
 }
 
@@ -164,7 +164,7 @@ bool FTransform::Collision(ECollisionType _ThisType, ECollisionType _OtherType, 
 		MsgBoxAssert("아직 충돌 함수를 만들지 않은 충돌입니다");
 	}
 
-	return CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)](*this, _Other);
+	return CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)](*this,_Other);
 }
 
 

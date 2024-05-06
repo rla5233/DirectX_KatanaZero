@@ -26,7 +26,7 @@ public:
 
 	bool IsExists();
 
-	std::string GetFileName() const;
+	std::string GetFileName() const ;
 	std::string GetExtension() const;
 
 	bool IsRoot();

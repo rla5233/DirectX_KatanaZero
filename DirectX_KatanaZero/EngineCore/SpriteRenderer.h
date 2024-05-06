@@ -120,7 +120,7 @@ public:
 	{
 		if (nullptr == CurAnimation)
 		{
-			MsgBoxAssert("애니메이션이 지정되지않았습니다.")
+			MsgBoxAssert("애니메이션이 지정되지 않았습니다.")
 		}
 
 		return CurAnimation->CurFrame;

@@ -46,12 +46,12 @@ void UEngineShader::AutoCompile(UEngineDirectory _Dir)
 	}
 }
 
-UEngineShader::UEngineShader()
+UEngineShader::UEngineShader() 
 {
 	Resources = std::make_shared<UEngineShaderResources>();
 }
 
-UEngineShader::~UEngineShader()
+UEngineShader::~UEngineShader() 
 {
 	if (nullptr != ErrorCodeBlob)
 	{

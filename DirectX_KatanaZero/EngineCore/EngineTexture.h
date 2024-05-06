@@ -152,4 +152,3 @@ private:
 	void Reset(EShaderType _Type, UINT _Slot);
 };
 
- 
