@@ -199,6 +199,7 @@ void APlayLevelBase::DebugMessageFunction()
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }
+//
 
 void APlayLevelBase::SetReplay()
 {
@@ -364,7 +365,7 @@ void APlayLevelBase::BrightnessUp(float _DeltaTime)
 
 	for (size_t i = 0; i < AllRecComponent.size(); i++)
 	{
-		AllRecComponent[i]->GetBody()->SetMulColor(Brightness);
+		AllRecComponent[i]->SetAllMulColor(Brightness);
 	}
 
 	for (size_t i = 0; i < AllEnemy.size(); i++)
@@ -395,7 +396,7 @@ void APlayLevelBase::BrightnessDown(float _DeltaTime)
 
 	for (size_t i = 0; i < AllRecComponent.size(); i++)
 	{
-		AllRecComponent[i]->GetBody()->SetMulColor(Brightness);
+		AllRecComponent[i]->SetAllMulColor(Brightness);
 	}
 
 	EnemyBrightness.X -= _DeltaTime;
@@ -507,4 +508,9 @@ FVector APlayLevelBase::GetPlayerLocation() const
 int APlayLevelBase::GetPlayerFloorNum() const
 {
 	return Player->GetFloorNum();
+}
+
+void APlayLevelBase::PushRecMapCompo(std::shared_ptr<ARecMapCompoBase> _RecCompo)
+{
+	AllRecComponent.push_back(_RecCompo);
 }

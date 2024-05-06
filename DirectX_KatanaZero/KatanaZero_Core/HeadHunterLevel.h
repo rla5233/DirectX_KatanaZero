@@ -28,6 +28,9 @@ protected:
 protected:
 	bool IsStageClear() override;
 
+	//void BrightnessUp(float _DeltaTime) override;
+	//void BrightnessDown(float _DeltaTime) override;
+
 protected:
 	std::shared_ptr<AHeadHunter> HeadHunter = nullptr;
 

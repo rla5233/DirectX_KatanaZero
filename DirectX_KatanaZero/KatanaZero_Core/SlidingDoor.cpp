@@ -80,11 +80,18 @@ void ASlidingDoor::StateInit()
 
 	// State Update
 	State.SetUpdateFunction(SlidingDoorState::close, [=](float _DeltaTime) {});
-
 }
 
 void ASlidingDoor::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	State.Update(_DeltaTime);
+}
+
+void ASlidingDoor::SetAllMulColor(const float4& _MulColor)
+{
+	Super::SetAllMulColor(_MulColor);
+
+	DoorLED->SetMulColor(_MulColor);
 }

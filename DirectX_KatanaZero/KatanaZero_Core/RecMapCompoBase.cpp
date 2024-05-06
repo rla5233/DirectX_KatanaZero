@@ -63,3 +63,8 @@ void ARecMapCompoBase::StateInit()
 	// State End
 
 }
+
+void ARecMapCompoBase::SetAllMulColor(const float4& _MulColor)
+{
+	Body->SetMulColor(_MulColor);
+}

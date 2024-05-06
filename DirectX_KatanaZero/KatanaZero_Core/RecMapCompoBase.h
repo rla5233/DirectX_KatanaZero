@@ -32,6 +32,8 @@ public:
 	{
 		State.ChangeState(_State);
 	}
+	
+	virtual void SetAllMulColor(const float4& _MulColor);
 
 protected:
 	void BeginPlay() override;

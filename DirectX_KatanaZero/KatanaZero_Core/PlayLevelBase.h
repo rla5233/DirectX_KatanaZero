@@ -95,8 +95,8 @@ public:
 	bool IsReplayEnd() const;
 	bool IsRewindEnd() const;
 
-	void BrightnessUp(float _DeltaTime);
-	void BrightnessDown(float _DeltaTime);
+	virtual void BrightnessUp(float _DeltaTime);
+	virtual void BrightnessDown(float _DeltaTime);
 
 	void BatterPartUpdate(float _AbilityTime);
 
@@ -115,6 +115,8 @@ protected:
 	virtual bool IsStageClear();
 	bool IsRelayStart();
 	virtual void ChangeStage() {};
+
+	void PushRecMapCompo(std::shared_ptr<ARecMapCompoBase> _RecCompo);
 
 protected:
 	// Object

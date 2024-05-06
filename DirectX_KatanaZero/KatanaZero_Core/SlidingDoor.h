@@ -20,6 +20,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void SetAllMulColor(const float4& _MulColor) override;
+
 private:
 	void RendererInit();
 	void CreateAnimation();

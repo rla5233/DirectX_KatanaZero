@@ -36,7 +36,7 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	Player->SetIntroRunTime(0.9f);
 	Player->SetIntroType(EIntroType::HeadHunterBegin);
 
-	HeadHunter = GetWorld()->SpawnActor<AHeadHunter>("HeadHunter");
+	HeadHunter = GetWorld()->SpawnActor<AHeadHunter>("HeadHunter", EUpdateOrder::Enemy);
 	HeadHunter->SetActorLocation({ 980.0f, 175.0f, 0.0f });
 	HeadHunter->SetDir(EEngineDir::Left);
 	HeadHunter->StateChange(HeadHunterState::idle);
@@ -48,8 +48,9 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	AllSlidingDoor.reserve(DoorNum);
 	for (int i = 0; i < DoorNum; i++)
 	{
-		AllSlidingDoor.push_back(GetWorld()->SpawnActor<ASlidingDoor>("SlidingDoor"));
+		AllSlidingDoor.push_back(GetWorld()->SpawnActor<ASlidingDoor>("SlidingDoor", EUpdateOrder::RecComponent));
 		AllSlidingDoor[i]->SetActive(false);
+		PushRecMapCompo(AllSlidingDoor[i]);
 	}
 
 	AllSlidingDoor[0]->SetActorLocation({ 113.0f, 256.0f, 0.0f });

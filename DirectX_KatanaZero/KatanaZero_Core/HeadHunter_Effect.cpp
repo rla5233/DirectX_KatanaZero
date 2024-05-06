@@ -4,7 +4,7 @@
 void AHeadHunter::SetRifle1LaserEffect()
 {
 	LaserEffect->SetSprite(ImgRes::compo_bullet);
-	LaserEffect->SetScale({ 0.0f, 2.0f, 0.0f });
+	LaserEffect->SetScale({ 0.0f, 2.0f, 1.0f });
 	
 	switch (Body->GetDir())
 	{
