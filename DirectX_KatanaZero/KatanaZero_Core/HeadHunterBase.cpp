@@ -149,6 +149,16 @@ void AHeadHunterBase::Tick(float _DeltaTime)
 		std::string Msg = std::format("HeadHunter : {}\n", State.GetCurStateName());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+
+	{
+		std::string Msg = std::format("HeadBodyCol : {}\n", BodyCol->GetLocalScale().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("HeadLaserCol : {}\n", LaserCol->GetLocalScale().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 void AHeadHunterBase::LaserColCheck()

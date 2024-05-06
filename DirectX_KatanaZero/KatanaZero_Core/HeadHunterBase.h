@@ -62,7 +62,7 @@ private:
 	void LaserColCheck();
 	void ColCheckUpdate();
 
-private:
+protected:
 	// Renderer
 	USpriteRenderer* Body = nullptr;
 	USpriteRenderer* LaserEffect = nullptr;
@@ -81,9 +81,9 @@ private:
 	int PatternOrder = 0;
 
 // FSM
-private:
+protected:
 	UStateManager State;
-	void StateInit();
+	virtual void StateInit();
 
 	void IdleStart();
 	void Idle(float _DeltaTime);
@@ -91,11 +91,8 @@ private:
 	void HitFlyStart();
 	void HitFly(float _DeltaTime);
 
-	void RecoverStart();
+	virtual void RecoverStart();
 	void Recover(float _DletaTime);
-
-	void ExitDoorStart();
-	void ExitDoor(float _DletaTime);
 
 	void PatternRifle1Start();
 	void PatternRifle1(float _DeltaTime);

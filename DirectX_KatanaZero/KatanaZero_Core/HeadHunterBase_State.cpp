@@ -12,8 +12,6 @@ void AHeadHunterBase::StateInit()
 	State.CreateState(HeadHunterState::idle);
 	State.CreateState(HeadHunterState::hitfly);
 	State.CreateState(HeadHunterState::recover);
-	State.CreateState(HeadHunterState::exitdoor);
-
 	State.CreateState(HeadHunterState::pattern_rifle1);
 
 	// State Start
@@ -21,7 +19,6 @@ void AHeadHunterBase::StateInit()
 	State.SetStartFunction(HeadHunterState::idle,				std::bind(&AHeadHunterBase::IdleStart, this));
 	State.SetStartFunction(HeadHunterState::hitfly,				std::bind(&AHeadHunterBase::HitFlyStart, this));
 	State.SetStartFunction(HeadHunterState::recover,			std::bind(&AHeadHunterBase::RecoverStart, this));
-	State.SetStartFunction(HeadHunterState::exitdoor,			std::bind(&AHeadHunterBase::ExitDoorStart, this));
 	State.SetStartFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunterBase::PatternRifle1Start, this));
 
 	// State Update
@@ -29,7 +26,6 @@ void AHeadHunterBase::StateInit()
 	State.SetUpdateFunction(HeadHunterState::idle,				std::bind(&AHeadHunterBase::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::hitfly,			std::bind(&AHeadHunterBase::HitFly, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::recover,			std::bind(&AHeadHunterBase::Recover, this, std::placeholders::_1));
-	State.SetUpdateFunction(HeadHunterState::exitdoor,			std::bind(&AHeadHunterBase::ExitDoor, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,	std::bind(&AHeadHunterBase::PatternRifle1, this, std::placeholders::_1));
 
 	// State End
@@ -126,39 +122,11 @@ void AHeadHunterBase::RecoverStart()
 		}
 	);
 
-	DelayCallBack(3.0f, [=]
-		{
-			State.ChangeState(HeadHunterState::exitdoor);
-		}
-	);
+
 }
 
 void AHeadHunterBase::Recover(float _DletaTime)
 {
-}
-
-void AHeadHunterBase::ExitDoorStart()
-{
-	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
-	FVector NextPos = PlayLevel->FindExitDoor();
-	SetActorLocation(NextPos);
-
-	FVector PlayerPos = PlayLevel->GetPlayerLocation();
-	if (PlayerPos.X < NextPos.X)
-	{
-		Body->SetDir(EEngineDir::Left);
-	}
-	else
-	{
-		Body->SetDir(EEngineDir::Right);
-	}
-
-	Body->ChangeAnimation(Anim::headhunter_exit_door);
-}
-
-void AHeadHunterBase::ExitDoor(float _DletaTime)
-{
-	
 }
 
 void AHeadHunterBase::PatternRifle1Start()
