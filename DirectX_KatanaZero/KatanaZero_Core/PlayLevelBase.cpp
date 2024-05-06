@@ -144,8 +144,6 @@ void APlayLevelBase::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-
-	Debug();
 }
 
 bool APlayLevelBase::IsStageClear()
@@ -180,26 +178,6 @@ bool APlayLevelBase::IsRelayStart()
 
 	return Result;
 }
-
-// µð¹ö±ë °ü·Ã
-void APlayLevelBase::Debug()
-{
-	DebugMessageFunction();
-}
-
-void APlayLevelBase::DebugMessageFunction()
-{
-	{
-		std::string Msg = std::format("Player_Pos : {}\n", Player->GetActorLocation().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Player_State : {}\n", Player->GetCurMainState());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-}
-//
 
 void APlayLevelBase::SetReplay()
 {

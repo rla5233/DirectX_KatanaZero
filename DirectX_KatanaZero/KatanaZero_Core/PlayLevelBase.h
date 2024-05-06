@@ -155,12 +155,6 @@ protected:
 	std::vector<std::vector<std::shared_ptr<AStair>>> AllStair;
 	std::vector<std::vector<std::shared_ptr<ADoor>>> AllDoor;
 
-
-// µð¹ö±ë °ü·Ã
-private:
-	void Debug();
-	void DebugMessageFunction();
-
 // FSM
 protected:
 	UStateManager State;

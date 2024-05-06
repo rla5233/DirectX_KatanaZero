@@ -496,4 +496,24 @@ void APlayerBase::DebugUpdate()
 	Front_Bot->SetPosition(GetFBFromActor());
 	Back_Top->SetPosition(GetBTFromActor());
 	Back_Bot->SetPosition(GetBBFromActor());
+
+	{
+		std::string Msg = std::format("Player_Pos : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("PlayerBodyCol : {}\n", BodyCol->GetWorldScale().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player_Invincible : {}\n", IsInvincibleValue);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player_State : {}\n", GetCurMainState());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
