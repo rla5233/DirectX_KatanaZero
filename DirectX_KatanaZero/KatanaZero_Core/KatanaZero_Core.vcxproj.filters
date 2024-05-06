@@ -539,5 +539,8 @@
     <ClCompile Include="HeadHunterPhase1_Effect.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
     </ClCompile>
+    <ClCompile Include="HeadHunterPhase1_Patterncpp.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

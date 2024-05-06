@@ -11,19 +11,19 @@ void AHeadHunterPhase1::StateInit()
 	State.CreateState(HeadHunterState::roll);
 	State.CreateState(HeadHunterState::exitdoor);
 	State.CreateState(HeadHunterState::pattern_rifle1);
-	State.CreateState(HeadHunterState::pattern_airrifle);
+	State.CreateState(HeadHunterState::pattern_airrifle1);
 
 	// State Start
 	State.SetStartFunction(HeadHunterState::roll,				std::bind(&AHeadHunterPhase1::RollStart, this));
 	State.SetStartFunction(HeadHunterState::exitdoor,			std::bind(&AHeadHunterPhase1::ExitDoorStart, this));
 	State.SetStartFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunterPhase1::PatternRifle1Start, this));
-	State.SetStartFunction(HeadHunterState::pattern_airrifle,	std::bind(&AHeadHunterPhase1::PatternAirRifleStart, this));
+	State.SetStartFunction(HeadHunterState::pattern_airrifle1,	std::bind(&AHeadHunterPhase1::PatternAirRifle1Start, this));
 
 	// State Update
 	State.SetUpdateFunction(HeadHunterState::roll,				std::bind(&AHeadHunterPhase1::Roll, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::exitdoor,			std::bind(&AHeadHunterPhase1::ExitDoor, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,	std::bind(&AHeadHunterPhase1::PatternRifle1, this, std::placeholders::_1));
-	State.SetUpdateFunction(HeadHunterState::pattern_airrifle,	std::bind(&AHeadHunterPhase1::PatternAirRifle, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::pattern_airrifle1,	std::bind(&AHeadHunterPhase1::PatternAirRifle1, this, std::placeholders::_1));
 	
 	// State End
 	State.SetEndFunction(HeadHunterState::roll,					[=] { BodyCol->SetActive(true); });
@@ -40,7 +40,7 @@ void AHeadHunterPhase1::IdleStart()
 {
 	Super::IdleStart();
 
-	PatternDelayTimeCount = 1.0f;
+	PatternDelayTimeCount = 0.5f;
 }
 
 void AHeadHunterPhase1::Idle(float _DeltaTime)
@@ -64,16 +64,16 @@ void AHeadHunterPhase1::Idle(float _DeltaTime)
 
 	if (350.0f < abs(CurPos.X - PlayerPos.X))
 	{
-		State.ChangeState(HeadHunterState::pattern_rifle1);
-		return;
+		//State.ChangeState(HeadHunterState::pattern_rifle1);
+		//return;
 	}
 
-
-	if (UEngineInput::IsDown(VK_SPACE))
+	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
-		//State.ChangeState(HeadHunterState::prejump);
+		State.ChangeState(HeadHunterState::pattern_airrifle1);
 		return;
 	}
+
 }
 
 void AHeadHunterPhase1::RecoverStart()
@@ -175,87 +175,39 @@ void AHeadHunterPhase1::PatternRifle1(float _DeltaTime)
 	switch (PatternOrder)
 	{
 	case 0:
-		if (true == Body->IsCurAnimationEnd())
-		{
-			SetRifle1LaserEffect();
-			--Pattern1Count;
-			PatternOrder = 1;
-		}
+		Rifle1LaserUpdate(_DeltaTime);
 		break;
 	case 1:
-		Rifle1LaserEffectUpdate1(_DeltaTime);
+		Rifle1LaserUpdate1(_DeltaTime);
 		break;
 	case 2:
-		Rifle1LaserEffectUpdate2(_DeltaTime);
+		Rifle1LaserUpdate2(_DeltaTime);
 		break;
 	case 3:
-		Rifle1LaserEffectUpdate3(_DeltaTime);
-		LaserColCheck();
+		Rifle1LaserUpdate3(_DeltaTime);
 		break;
 	default:
 		break;
 	}
 }
 
-void AHeadHunterPhase1::PatternAirRifleStart()
+void AHeadHunterPhase1::PatternAirRifle1Start()
 {
+	Body->ChangeAnimation(Anim::headhunter_prejump);
+	PatternOrder = 0;
 }
 
-void AHeadHunterPhase1::PatternAirRifle(float _DeltaTime)
+void AHeadHunterPhase1::PatternAirRifle1(float _DeltaTime)
 {
+	switch (PatternOrder)
+	{
+	case 0:
+		AirRifle1Update(_DeltaTime);
+		break;
+	case 1:
+		AirRifle1Update1(_DeltaTime);
+		break;
+	default:
+		break;
+	}
 }
-
-
-
-
-/// <summary>
-/// 
-/// </summary>
-//void AHeadHunterBase::PreJumpStart()
-//{
-//	Body->ChangeAnimation(Anim::headhunter_prejump);
-//}
-//
-//void AHeadHunterBase::PreJump(float _DeltaTime)
-//{
-//
-//}
-//
-//void AHeadHunterBase::JumpStart()
-//{
-//	Velocity = { 500.0f, 1000.0f, 0.0f };
-//
-//	if (0.0f < Velocity.X)
-//	{
-//		Body->SetDir(EEngineDir::Left);
-//	}
-//	else
-//	{
-//		Body->SetDir(EEngineDir::Right);
-//	}
-//
-//	Body->ChangeAnimation(Anim::headhunter_jump);
-//
-//	SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });
-//	SetAfterImageAlphaWeight(0.6f);
-//	SetAfterImageTimeWeight(6.0f);
-//}
-//
-//void AHeadHunterBase::Jump(float _DeltaTime)
-//{
-//	// 속도 업데이트
-//	ApplyGravity(_DeltaTime);
-//
-//	// 위치 업데이트
-//	PosUpdate(_DeltaTime);
-//
-//	// Effect
-//	CreateAfterImage(_DeltaTime);
-//
-//	// State Check
-//	if (true == IsColBackToWall(Body->GetDir()))
-//	{
-//		Velocity = FVector::Zero;
-//		return;
-//	}
-//}

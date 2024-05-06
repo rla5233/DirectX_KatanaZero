@@ -38,6 +38,7 @@ namespace ImgRes
 	const std::string_view headhunter_roll			= "headhunter_roll";
 	const std::string_view headhunter_prejump		= "headhunter_prejump";
 	const std::string_view headhunter_jump			= "headhunter_jump";
+	const std::string_view headhunter_wall_idle		= "headhunter_wallidle";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -216,6 +217,7 @@ namespace Anim
 	const std::string_view headhunter_roll			= "headhunter_roll";
 	const std::string_view headhunter_prejump		= "headhunter_prejump";
 	const std::string_view headhunter_jump			= "headhunter_jump";
+	const std::string_view headhunter_wall_idle		= "headhunter_wallidle";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -368,10 +370,8 @@ namespace HeadHunterState
 	const std::string_view recover			= "Recover";
 	const std::string_view roll				= "Roll";
 	const std::string_view exitdoor			= "ExitDoor";
-	const std::string_view prejump			= "PreJump";
-	const std::string_view jump				= "Jump";
 	const std::string_view pattern_rifle1	= "Pattern_Rifle1";
-	const std::string_view pattern_airrifle	= "Pattern_AirRifle";
+	const std::string_view pattern_airrifle1	= "Pattern_AirRifle1";
 }
 
 namespace HeadHunterSubState

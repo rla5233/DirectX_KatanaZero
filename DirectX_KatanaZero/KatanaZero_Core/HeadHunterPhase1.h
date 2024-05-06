@@ -48,8 +48,8 @@ private:
 	void PatternRifle1Start();
 	void PatternRifle1(float _DeltaTime);
 
-	void PatternAirRifleStart();
-	void PatternAirRifle(float _DeltaTime);
+	void PatternAirRifle1Start();
+	void PatternAirRifle1(float _DeltaTime);
 
 // Sub FSM
 private:
@@ -61,11 +61,17 @@ private:
 	void CreateRollCroudEffect(float _DeltaTime);
 	void CroudEffectUpdate(float _DeltaTime);
 
+	// Pattern_Rifle1
 	void SetRifle1LaserEffect();
-	void Rifle1LaserEffectUpdate1(float _DeltaTime);
-	void Rifle1LaserEffectUpdate2(float _DeltaTime);
-	void Rifle1LaserEffectUpdate3(float _DeltaTime);
+	void Rifle1LaserUpdate(float _DeltaTime);
+	void Rifle1LaserUpdate1(float _DeltaTime);
+	void Rifle1LaserUpdate2(float _DeltaTime);
+	void Rifle1LaserUpdate3(float _DeltaTime);
 
+	// Pattern_AirRifle1
+	void AirRifle1Update(float _DeltaTime);
+	void AirRifle1Update1(float _DeltaTime);
+	void AirRifle1Update2(float _DeltaTime);
 
 };
 

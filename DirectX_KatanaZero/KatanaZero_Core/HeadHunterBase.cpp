@@ -119,6 +119,7 @@ void AHeadHunterBase::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_exit_door, ImgRes::headhunter_exit_door, 0.08f, false);
 	Body->CreateAnimation(Anim::headhunter_prejump, ImgRes::headhunter_prejump, 0.08f, false);
 	Body->CreateAnimation(Anim::headhunter_jump, ImgRes::headhunter_jump, 0.0f, false);
+	Body->CreateAnimation(Anim::headhunter_wall_idle, ImgRes::headhunter_wall_idle, 0.1f, false);
 	Body->CreateAnimation(
 		Anim::headhunter_roll, 
 		ImgRes::headhunter_roll, 
