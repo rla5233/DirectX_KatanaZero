@@ -1,9 +1,9 @@
 #include "PreCompile.h"
-#include "HeadHunter.h"
+#include "HeadHunterBase.h"
 
 #include "PlayerBase.h"
 
-AHeadHunter::AHeadHunter()
+AHeadHunterBase::AHeadHunterBase()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
@@ -24,7 +24,7 @@ AHeadHunter::AHeadHunter()
 	SetRoot(Root);
 }
 
-void AHeadHunter::CreateRecoverEffect()
+void AHeadHunterBase::CreateRecoverEffect()
 {
 	AllRecoverEffect.reserve(20);
 	for (size_t i = 0; i < AllRecoverEffect.capacity(); i++)
@@ -42,16 +42,16 @@ void AHeadHunter::CreateRecoverEffect()
 		NewRecoverEffect.Spark->CreateAnimation(Anim::effect_gun_spark1, ImgRes::effect_gun_spark1, 0.06f, false);
 		NewRecoverEffect.Spark->CreateAnimation(Anim::effect_gun_spark2, ImgRes::effect_gun_spark2, 0.06f, false);
 		NewRecoverEffect.Spark->CreateAnimation(Anim::effect_gun_spark3, ImgRes::effect_gun_spark3, 0.06f, false);
-		NewRecoverEffect.Spark->SetLastFrameCallback(Anim::effect_gun_spark1, [=] { NewRecoverEffect.Spark->SetActive(false); });
-		NewRecoverEffect.Spark->SetLastFrameCallback(Anim::effect_gun_spark2, [=] { NewRecoverEffect.Spark->SetActive(false); });
-		NewRecoverEffect.Spark->SetLastFrameCallback(Anim::effect_gun_spark3, [=] { NewRecoverEffect.Spark->SetActive(false); });
+		NewRecoverEffect.Spark->SetFrameCallback(Anim::effect_gun_spark1, 8, [=] { NewRecoverEffect.Spark->SetActive(false); });
+		NewRecoverEffect.Spark->SetFrameCallback(Anim::effect_gun_spark2, 8, [=] { NewRecoverEffect.Spark->SetActive(false); });
+		NewRecoverEffect.Spark->SetFrameCallback(Anim::effect_gun_spark3, 8, [=] { NewRecoverEffect.Spark->SetActive(false); });
 
 		NewRecoverEffect.Smoke->CreateAnimation(Anim::effect_gun_smoke1, ImgRes::effect_gun_smoke1, 0.04f, false);
 		NewRecoverEffect.Smoke->CreateAnimation(Anim::effect_gun_smoke2, ImgRes::effect_gun_smoke2, 0.04f, false);
 		NewRecoverEffect.Smoke->CreateAnimation(Anim::effect_gun_smoke3, ImgRes::effect_gun_smoke3, 0.04f, false);
-		NewRecoverEffect.Smoke->SetLastFrameCallback(Anim::effect_gun_smoke1, [=] { NewRecoverEffect.Smoke->SetActive(false); });
-		NewRecoverEffect.Smoke->SetLastFrameCallback(Anim::effect_gun_smoke2, [=] { NewRecoverEffect.Smoke->SetActive(false); });
-		NewRecoverEffect.Smoke->SetLastFrameCallback(Anim::effect_gun_smoke3, [=] { NewRecoverEffect.Smoke->SetActive(false); });
+		NewRecoverEffect.Smoke->SetFrameCallback(Anim::effect_gun_smoke1, 10, [=] { NewRecoverEffect.Smoke->SetActive(false); });
+		NewRecoverEffect.Smoke->SetFrameCallback(Anim::effect_gun_smoke2, 12, [=] { NewRecoverEffect.Smoke->SetActive(false); });
+		NewRecoverEffect.Smoke->SetFrameCallback(Anim::effect_gun_smoke3, 11, [=] { NewRecoverEffect.Smoke->SetActive(false); });
 
 		NewRecoverEffect.Spark->SetActive(false);
 		NewRecoverEffect.Smoke->SetActive(false);
@@ -60,11 +60,11 @@ void AHeadHunter::CreateRecoverEffect()
 	}
 }
 
-AHeadHunter::~AHeadHunter()
+AHeadHunterBase::~AHeadHunterBase()
 {
 }
 
-void AHeadHunter::BeginPlay()
+void AHeadHunterBase::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -81,7 +81,7 @@ void AHeadHunter::BeginPlay()
 	SetRecordingSize();
 }
 
-void AHeadHunter::RendererInit()
+void AHeadHunterBase::RendererInit()
 {
 	Body->SetOrder(ERenderOrder::HeadHunter);
 	Body->SetAutoSize(2.0f, true);
@@ -91,7 +91,7 @@ void AHeadHunter::RendererInit()
 	LaserEffect->SetActive(false);
 }
 
-void AHeadHunter::CollisionInit()
+void AHeadHunterBase::CollisionInit()
 {
 	LaserCol->SetCollisionGroup(EColOrder::EnemyAttack);
 	LaserCol->SetCollisionType(ECollisionType::RotRect);
@@ -108,13 +108,14 @@ void AHeadHunter::CollisionInit()
 	BodyCol->SetScale(BodyScale);
 }
 
-void AHeadHunter::CreateAnimation()
+void AHeadHunterBase::CreateAnimation()
 {
 	Body->CreateAnimation(Anim::headhunter_idle, ImgRes::headhunter_idle, 0.1f, true);
 	Body->CreateAnimation(Anim::headhunter_takeup_rifle, ImgRes::headhunter_takeup_rifle, 0.05f, false);
 	Body->CreateAnimation(Anim::headhunter_putback_rifle, ImgRes::headhunter_takeup_rifle, 0.05f, false, 7, 0);
 	Body->CreateAnimation(Anim::headhunter_hitfly, ImgRes::headhunter_hitfly, 0.04f, false);
 	Body->CreateAnimation(Anim::headhunter_recover, ImgRes::headhunter_recover, 0.04f, false);
+	Body->CreateAnimation(Anim::headhunter_exit_door, ImgRes::headhunter_exit_door, 0.08f, false);
 
 	Body->SetLastFrameCallback(Anim::headhunter_takeup_rifle, [=]
 		{
@@ -128,10 +129,16 @@ void AHeadHunter::CreateAnimation()
 		}
 	);
 
+	Body->SetLastFrameCallback(Anim::headhunter_exit_door, [=]
+		{
+			State.ChangeState(HeadHunterState::idle);
+		}
+	);
+
 	LaserEffect->CreateAnimation(Anim::effect_laser, ImgRes::effect_laser, 0.1f, true);
 }
 
-void AHeadHunter::Tick(float _DeltaTime)
+void AHeadHunterBase::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
@@ -144,7 +151,7 @@ void AHeadHunter::Tick(float _DeltaTime)
 	}
 }
 
-void AHeadHunter::LaserColCheck()
+void AHeadHunterBase::LaserColCheck()
 {
 	LaserCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
 		{
@@ -154,7 +161,7 @@ void AHeadHunter::LaserColCheck()
 	);
 }
 
-void AHeadHunter::ColCheckUpdate()
+void AHeadHunterBase::ColCheckUpdate()
 {
 	EEngineDir Dir = Body->GetDir();
 
@@ -165,7 +172,7 @@ void AHeadHunter::ColCheckUpdate()
 	}
 }
 
-void AHeadHunter::HitByPlayer(FVector _AttDir)
+void AHeadHunterBase::HitByPlayer(FVector _AttDir)
 {
 	HitDir = _AttDir;
 	State.ChangeState(HeadHunterState::hitfly);

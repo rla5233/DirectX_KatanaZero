@@ -1,7 +1,7 @@
 #pragma once
 #include "PlayLevelBase.h"
 
-class AHeadHunter;
+class AHeadHunterBase;
 
 // Ό³Έν : HeadHunter Level
 class AHeadHunterLevel : public APlayLevelBase
@@ -17,6 +17,8 @@ public:
 	AHeadHunterLevel(AHeadHunterLevel&& _Other) noexcept = delete;
 	AHeadHunterLevel& operator=(const AHeadHunterLevel& _Other) = delete;
 	AHeadHunterLevel& operator=(AHeadHunterLevel&& _Other) noexcept = delete;
+
+	virtual FVector FindExitDoor() = 0;
 
 protected:
 	void BeginPlay() override;
@@ -34,7 +36,7 @@ protected:
 	void BrightnessDown(float _DeltaTime) override;
 
 protected:
-	std::shared_ptr<AHeadHunter> HeadHunter = nullptr;
+	std::shared_ptr<AHeadHunterBase> HeadHunter = nullptr;
 
 // FSM
 protected:

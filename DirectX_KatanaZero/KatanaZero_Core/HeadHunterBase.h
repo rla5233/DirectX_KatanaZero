@@ -7,7 +7,7 @@
 #include "HeadHunterEffect.h"
 
 // Ό³Έν : HeadHunter
-class AHeadHunter : 
+class AHeadHunterBase : 
 	public AActor,
 	public URecordingObject,
 	public UPhysicsObject,
@@ -16,14 +16,14 @@ class AHeadHunter :
 	GENERATED_BODY(AActor)
 public:
 	// constructor destructor
-	AHeadHunter();
-	~AHeadHunter();
+	AHeadHunterBase();
+	~AHeadHunterBase();
 	
 	// delete Function
-	AHeadHunter(const AHeadHunter& _Other) = delete;
-	AHeadHunter(AHeadHunter&& _Other) noexcept = delete;
-	AHeadHunter& operator=(const AHeadHunter& _Other) = delete;
-	AHeadHunter& operator=(AHeadHunter&& _Other) noexcept = delete;
+	AHeadHunterBase(const AHeadHunterBase& _Other) = delete;
+	AHeadHunterBase(AHeadHunterBase&& _Other) noexcept = delete;
+	AHeadHunterBase& operator=(const AHeadHunterBase& _Other) = delete;
+	AHeadHunterBase& operator=(AHeadHunterBase&& _Other) noexcept = delete;
 
 	inline void StateChange(std::string_view _State)
 	{
@@ -93,6 +93,9 @@ private:
 
 	void RecoverStart();
 	void Recover(float _DletaTime);
+
+	void ExitDoorStart();
+	void ExitDoor(float _DletaTime);
 
 	void PatternRifle1Start();
 	void PatternRifle1(float _DeltaTime);

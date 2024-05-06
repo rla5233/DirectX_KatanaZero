@@ -1,10 +1,10 @@
 #include "PreCompile.h"
-#include "HeadHunter.h"
+#include "HeadHunterBase.h"
 
 #include "HeadHunterLevel.h"
 #include "MainCamera.h"
 
-void AHeadHunter::SetRifle1LaserEffect()
+void AHeadHunterBase::SetRifle1LaserEffect()
 {
 	LaserEffect->SetSprite(ImgRes::compo_bullet);
 	LaserEffect->SetScale({ 0.0f, 2.0f, 1.0f });
@@ -25,7 +25,7 @@ void AHeadHunter::SetRifle1LaserEffect()
 	DelayCallBack(0.5f, [=] { PatternOrder = 2; });
 }
 
-void AHeadHunter::Rifle1LaserEffectUpdate1(float _DeltaTime)
+void AHeadHunterBase::Rifle1LaserEffectUpdate1(float _DeltaTime)
 {
 	FVector CurScale = LaserEffect->GetLocalScale();
 	if (1280.0f < CurScale.X)
@@ -46,7 +46,7 @@ void AHeadHunter::Rifle1LaserEffectUpdate1(float _DeltaTime)
 	}
 }
 
-void AHeadHunter::Rifle1LaserEffectUpdate2(float _DeltaTime)
+void AHeadHunterBase::Rifle1LaserEffectUpdate2(float _DeltaTime)
 {
 	LaserAlpha -= 9.0f * _DeltaTime;
 
@@ -89,7 +89,7 @@ void AHeadHunter::Rifle1LaserEffectUpdate2(float _DeltaTime)
 	LaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, LaserAlpha });
 }
 
-void AHeadHunter::Rifle1LaserEffectUpdate3(float _DeltaTime)
+void AHeadHunterBase::Rifle1LaserEffectUpdate3(float _DeltaTime)
 {
 	if (false == LaserEffect->IsActive())
 	{
@@ -109,7 +109,7 @@ void AHeadHunter::Rifle1LaserEffectUpdate3(float _DeltaTime)
 	}
 }
 
-void AHeadHunter::SetRecoverEffect()
+void AHeadHunterBase::SetRecoverEffect()
 {
 	FVector CurPos = GetActorLocation();
 

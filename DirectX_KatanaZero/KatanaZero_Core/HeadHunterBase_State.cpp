@@ -1,51 +1,55 @@
 #include "PreCompile.h"
-#include "HeadHunter.h"
+#include "HeadHunterBase.h"
 
+#include "HeadHunterLevel.h"
 #include "PlayLevelBase.h"
 #include "MainCamera.h"
 
-void AHeadHunter::StateInit()
+void AHeadHunterBase::StateInit()
 {
 	// State Create
 	State.CreateState(HeadHunterState::none);
 	State.CreateState(HeadHunterState::idle);
 	State.CreateState(HeadHunterState::hitfly);
 	State.CreateState(HeadHunterState::recover);
+	State.CreateState(HeadHunterState::exitdoor);
 
 	State.CreateState(HeadHunterState::pattern_rifle1);
 
 	// State Start
 	State.SetStartFunction(HeadHunterState::none,				[=] {});
-	State.SetStartFunction(HeadHunterState::idle,				std::bind(&AHeadHunter::IdleStart, this));
-	State.SetStartFunction(HeadHunterState::hitfly,				std::bind(&AHeadHunter::HitFlyStart, this));
-	State.SetStartFunction(HeadHunterState::recover,			std::bind(&AHeadHunter::RecoverStart, this));
-	State.SetStartFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunter::PatternRifle1Start, this));
+	State.SetStartFunction(HeadHunterState::idle,				std::bind(&AHeadHunterBase::IdleStart, this));
+	State.SetStartFunction(HeadHunterState::hitfly,				std::bind(&AHeadHunterBase::HitFlyStart, this));
+	State.SetStartFunction(HeadHunterState::recover,			std::bind(&AHeadHunterBase::RecoverStart, this));
+	State.SetStartFunction(HeadHunterState::exitdoor,			std::bind(&AHeadHunterBase::ExitDoorStart, this));
+	State.SetStartFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunterBase::PatternRifle1Start, this));
 
 	// State Update
 	State.SetUpdateFunction(HeadHunterState::none,				[=](float _DeltaTime) {});
-	State.SetUpdateFunction(HeadHunterState::idle,				std::bind(&AHeadHunter::Idle, this, std::placeholders::_1));
-	State.SetUpdateFunction(HeadHunterState::hitfly,			std::bind(&AHeadHunter::HitFly, this, std::placeholders::_1));
-	State.SetUpdateFunction(HeadHunterState::recover,			std::bind(&AHeadHunter::Recover, this, std::placeholders::_1));
-	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,	std::bind(&AHeadHunter::PatternRifle1, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::idle,				std::bind(&AHeadHunterBase::Idle, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::hitfly,			std::bind(&AHeadHunterBase::HitFly, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::recover,			std::bind(&AHeadHunterBase::Recover, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::exitdoor,			std::bind(&AHeadHunterBase::ExitDoor, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,	std::bind(&AHeadHunterBase::PatternRifle1, this, std::placeholders::_1));
 
 	// State End
 	State.SetEndFunction(HeadHunterState::pattern_rifle1,		[=] { Body->SetPosition(FVector::Zero); });
 	State.SetEndFunction(HeadHunterState::recover,				[=] { Body->SetPosition(FVector::Zero); });
 }
 
-void AHeadHunter::IdleStart()
+void AHeadHunterBase::IdleStart()
 {
 	Body->ChangeAnimation(Anim::headhunter_idle);
 	BodyCol->SetActive(true);
 }
 
-void AHeadHunter::Idle(float _DeltaTime)
+void AHeadHunterBase::Idle(float _DeltaTime)
 {
 	// 충돌 체크
 	ColCheckUpdate();
 }
 
-void AHeadHunter::HitFlyStart()
+void AHeadHunterBase::HitFlyStart()
 {
 	if (0.0f < HitDir.X)
 	{
@@ -77,7 +81,7 @@ void AHeadHunter::HitFlyStart()
 	Body->ChangeAnimation(Anim::headhunter_hitfly);
 }
 
-void AHeadHunter::HitFly(float _DeltaTime)
+void AHeadHunterBase::HitFly(float _DeltaTime)
 {
 	EEngineDir Dir = Body->GetDir();
 
@@ -113,7 +117,7 @@ void AHeadHunter::HitFly(float _DeltaTime)
 	}
 }
 
-void AHeadHunter::RecoverStart()
+void AHeadHunterBase::RecoverStart()
 {
 	DelayCallBack(1.0f, [=] 
 		{
@@ -121,13 +125,43 @@ void AHeadHunter::RecoverStart()
 			SetRecoverEffect();
 		}
 	);
+
+	DelayCallBack(3.0f, [=]
+		{
+			State.ChangeState(HeadHunterState::exitdoor);
+		}
+	);
 }
 
-void AHeadHunter::Recover(float _DletaTime)
+void AHeadHunterBase::Recover(float _DletaTime)
 {
 }
 
-void AHeadHunter::PatternRifle1Start()
+void AHeadHunterBase::ExitDoorStart()
+{
+	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+	FVector NextPos = PlayLevel->FindExitDoor();
+	SetActorLocation(NextPos);
+
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+	if (PlayerPos.X < NextPos.X)
+	{
+		Body->SetDir(EEngineDir::Left);
+	}
+	else
+	{
+		Body->SetDir(EEngineDir::Right);
+	}
+
+	Body->ChangeAnimation(Anim::headhunter_exit_door);
+}
+
+void AHeadHunterBase::ExitDoor(float _DletaTime)
+{
+	
+}
+
+void AHeadHunterBase::PatternRifle1Start()
 {
 	Body->ChangeAnimation(Anim::headhunter_takeup_rifle);
 
@@ -144,7 +178,7 @@ void AHeadHunter::PatternRifle1Start()
 	PatternOrder = 0;
 }
 
-void AHeadHunter::PatternRifle1(float _DeltaTime)
+void AHeadHunterBase::PatternRifle1(float _DeltaTime)
 {
 	switch (PatternOrder)
 	{
@@ -164,3 +198,5 @@ void AHeadHunter::PatternRifle1(float _DeltaTime)
 		break;
 	}
 }
+
+

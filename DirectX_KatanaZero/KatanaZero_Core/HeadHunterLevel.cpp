@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "HeadHunterLevel.h"
 
-#include "HeadHunter.h"
+#include "HeadHunterBase.h"
 
 AHeadHunterLevel::AHeadHunterLevel()
 {

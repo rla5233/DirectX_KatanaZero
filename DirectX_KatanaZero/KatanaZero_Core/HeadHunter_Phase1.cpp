@@ -5,7 +5,9 @@
 #include "ColMapObject.h"
 #include "SlidingDoor.h"
 #include "MainCamera.h"
-#include "HeadHunter.h"
+
+#include "HeadHunterBase.h"
+#include "HeadHunterPhase1.h"
 
 AHeadHunter_Phase1::AHeadHunter_Phase1()
 {
@@ -36,7 +38,7 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	Player->SetIntroRunTime(0.9f);
 	Player->SetIntroType(EIntroType::HeadHunterBegin);
 
-	HeadHunter = GetWorld()->SpawnActor<AHeadHunter>("HeadHunter", EUpdateOrder::Enemy);
+	HeadHunter = GetWorld()->SpawnActor<AHeadHunterPhase1>("HeadHunter", EUpdateOrder::Enemy);
 	HeadHunter->SetActorLocation({ 980.0f, 175.0f, 0.0f });
 	HeadHunter->SetDir(EEngineDir::Left);
 	HeadHunter->StateChange(HeadHunterState::idle);
@@ -45,8 +47,8 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	MainCamera->SetActorLocation({ 672.0f, 360.0f, -100.0f });
 	MainCamera->StateChange(MainCameraState::stop);
 
-	AllSlidingDoor.reserve(DoorNum);
-	for (int i = 0; i < DoorNum; i++)
+	AllSlidingDoor.reserve(SlidingDoorNum);
+	for (int i = 0; i < SlidingDoorNum; i++)
 	{
 		AllSlidingDoor.push_back(GetWorld()->SpawnActor<ASlidingDoor>("SlidingDoor", EUpdateOrder::RecComponent));
 		AllSlidingDoor[i]->SetActive(false);
@@ -91,14 +93,14 @@ void AHeadHunter_Phase1::LevelReStart()
 	Player->StateChange(PlayerState::idle);
 	Player->DirChange(EEngineDir::Right);
 
-	HeadHunter = GetWorld()->SpawnActor<AHeadHunter>("HeadHunter", EUpdateOrder::Enemy);
+	HeadHunter = GetWorld()->SpawnActor<AHeadHunterPhase1>("HeadHunter", EUpdateOrder::Enemy);
 	HeadHunter->SetActorLocation({ 980.0f, 175.0f, 0.0f });
 	HeadHunter->SetDir(EEngineDir::Left);
 	HeadHunter->StateChange(HeadHunterState::idle);
 	HeadHunter->SubStateChange(HeadHunterSubState::play);
 
-	AllSlidingDoor.reserve(DoorNum);
-	for (int i = 0; i < DoorNum; i++)
+	AllSlidingDoor.reserve(SlidingDoorNum);
+	for (int i = 0; i < SlidingDoorNum; i++)
 	{
 		AllSlidingDoor.push_back(GetWorld()->SpawnActor<ASlidingDoor>("SlidingDoor", EUpdateOrder::RecComponent));
 		AllSlidingDoor[i]->StateChange(SlidingDoorState::closed);
@@ -121,6 +123,19 @@ void AHeadHunter_Phase1::LevelReEnd()
 void AHeadHunter_Phase1::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+}
+
+FVector AHeadHunter_Phase1::FindExitDoor()
+{
+	float CurPlayerPosX = Player->GetActorLocation().X;
+	
+	float Door0 = abs(DoorPosX[0] - CurPlayerPosX);
+	float Door3 = abs(DoorPosX[3] - CurPlayerPosX);
+
+	FVector Door0_Pos = { DoorPosX[0], 175.0f, 0.0f };
+	FVector Door3_Pos = { DoorPosX[3], 175.0f, 0.0f };
+
+	return Door0 < Door3 ? Door3_Pos : Door0_Pos;
 }
 
 void AHeadHunter_Phase1::AllSlidingDoorClose()

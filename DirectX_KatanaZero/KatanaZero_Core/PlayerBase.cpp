@@ -3,7 +3,7 @@
 
 #include "PlayLevelBase.h"
 #include "ColMapObject.h"
-#include "HeadHunter.h"
+#include "HeadHunterBase.h"
 #include "EnemyBase.h"
 #include "MouseAim.h"
 #include "Door.h"
@@ -132,7 +132,7 @@ void APlayerBase::AttackCollisionCheck()
 
 	AttackCol->CollisionEnter(EColOrder::HeadHunter, [=](std::shared_ptr<UCollision> _Other)
 		{
-			AHeadHunter* HeadHunter = dynamic_cast<AHeadHunter*>(_Other->GetActor());
+			AHeadHunterBase* HeadHunter = dynamic_cast<AHeadHunterBase*>(_Other->GetActor());
 			HeadHunter->HitByPlayer(AttackDir);
 		}
 	);

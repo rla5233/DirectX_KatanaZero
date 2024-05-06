@@ -115,14 +115,17 @@
     <Filter Include="Level\003.HeadHunterLevel\GameMode\Phase">
       <UniqueIdentifier>{2337de55-003e-4588-a501-c7efefb0d634}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\003.HeadHunterLevel\Object\HeadHunter">
-      <UniqueIdentifier>{ebd5787d-68cb-45e1-9eda-065469ccd44e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\003.HeadHunterLevel\Object\Component">
       <UniqueIdentifier>{545ff453-049f-4153-86a6-a7c25cae0abe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\003.HeadHunterLevel\Object\HeadHunter\Componenet">
+    <Filter Include="Object\Base\HeadHunter">
+      <UniqueIdentifier>{10849a47-767c-46d8-ad7d-658f1fb164c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Base\HeadHunter\Componenet">
       <UniqueIdentifier>{27c0281c-9085-4274-bac3-b7755a5eb353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\003.HeadHunterLevel\Object\HeadHunter">
+      <UniqueIdentifier>{552cf086-65fc-4922-a6ce-7bed2f90426e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +300,6 @@
     <ClInclude Include="HeadHunterLevel.h">
       <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClInclude>
-    <ClInclude Include="HeadHunter.h">
-      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
-    </ClInclude>
     <ClInclude Include="Cloud.h">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClInclude>
@@ -307,7 +307,13 @@
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="HeadHunterEffect.h">
-      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter\Componenet</Filter>
+      <Filter>Object\Base\HeadHunter\Componenet</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterBase.h">
+      <Filter>Object\Base\HeadHunter</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunterPhase1.h">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -503,26 +509,29 @@
     <ClCompile Include="HeadHunterLevel.cpp">
       <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
     </ClCompile>
-    <ClCompile Include="HeadHunter.cpp">
-      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
-    </ClCompile>
     <ClCompile Include="Cloud.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="SlidingDoor.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="HeadHunter_State.cpp">
-      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
-    </ClCompile>
-    <ClCompile Include="HeadHunter_SubState.cpp">
-      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
-    </ClCompile>
-    <ClCompile Include="HeadHunter_Effect.cpp">
-      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
-    </ClCompile>
     <ClCompile Include="HeadHunterEffect.cpp">
-      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter\Componenet</Filter>
+      <Filter>Object\Base\HeadHunter\Componenet</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterBase.cpp">
+      <Filter>Object\Base\HeadHunter</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterBase_Effect.cpp">
+      <Filter>Object\Base\HeadHunter</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterBase_State.cpp">
+      <Filter>Object\Base\HeadHunter</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterBase_SubState.cpp">
+      <Filter>Object\Base\HeadHunter</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterPhase1.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

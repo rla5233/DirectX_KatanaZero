@@ -15,6 +15,8 @@ public:
 	AHeadHunter_Phase2& operator=(const AHeadHunter_Phase2& _Other) = delete;
 	AHeadHunter_Phase2& operator=(AHeadHunter_Phase2&& _Other) noexcept = delete;
 
+	FVector FindExitDoor() { return FVector::Zero; }
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

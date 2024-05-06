@@ -18,6 +18,8 @@ public:
 	AHeadHunter_Phase1& operator=(const AHeadHunter_Phase1& _Other) = delete;
 	AHeadHunter_Phase1& operator=(AHeadHunter_Phase1&& _Other) noexcept = delete;
 
+	FVector FindExitDoor() override;
+
 	void AllSlidingDoorClose();
 
 protected:
@@ -32,7 +34,9 @@ protected:
 
 private:
 	std::vector<std::shared_ptr<ASlidingDoor>> AllSlidingDoor;
-	const int DoorNum = 4;
+	const int SlidingDoorNum = 4;
+
+	std::vector<float> DoorPosX = { 222.0f, 504.0f, 860.0f, 1126.0f };
 
 };
 

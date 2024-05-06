@@ -232,11 +232,15 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="HeadHunter.h">
+    <ClInclude Include="HeadHunterBase.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="HeadHunterLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HeadHunterPhase1.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -476,7 +480,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="HeadHunter.cpp">
+    <ClCompile Include="HeadHunterBase.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -484,9 +488,13 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="HeadHunter_Effect.cpp" />
-    <ClCompile Include="HeadHunter_State.cpp" />
-    <ClCompile Include="HeadHunter_SubState.cpp" />
+    <ClCompile Include="HeadHunterBase_Effect.cpp" />
+    <ClCompile Include="HeadHunterBase_State.cpp" />
+    <ClCompile Include="HeadHunterBase_SubState.cpp" />
+    <ClCompile Include="HeadHunterPhase1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="KZImage.cpp">
       <SubType>
       </SubType>
