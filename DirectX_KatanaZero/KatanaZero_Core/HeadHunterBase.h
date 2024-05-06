@@ -53,18 +53,19 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	virtual void CreateAnimation();
+
 private:
 	void CreateRecoverEffect();
 
 	void RendererInit();
 	void CollisionInit();
-	void CreateAnimation();
 	
 private:
-	void LaserColCheck();
 	void ColCheckUpdate();
 
 protected:
+	void LaserColCheck();
 	void SetVelocityByDir(const FVector& _Vel);
 	void AddVelocityByDir(const FVector& _Vel);
 
@@ -91,7 +92,7 @@ protected:
 	UStateManager State;
 	virtual void StateInit();
 
-	void IdleStart();
+	virtual void IdleStart();
 	virtual void Idle(float _DeltaTime);
 
 	void HitFlyStart();
@@ -99,10 +100,6 @@ protected:
 
 	virtual void RecoverStart();
 	void Recover(float _DletaTime);
-
-	void PatternRifle1Start();
-	void PatternRifle1(float _DeltaTime);
-
 
 // Sub FSM
 protected:
@@ -120,11 +117,6 @@ protected:
 
 // Effect
 private:
-	void SetRifle1LaserEffect();
-	void Rifle1LaserEffectUpdate1(float _DeltaTime);
-	void Rifle1LaserEffectUpdate2(float _DeltaTime);
-	void Rifle1LaserEffectUpdate3(float _DeltaTime);
-
 	void SetRecoverEffect();
 
 };

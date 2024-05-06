@@ -36,6 +36,8 @@ namespace ImgRes
 	const std::string_view headhunter_recover		= "headhunter_recover";
 	const std::string_view headhunter_exit_door		= "headhunter_exit_door";
 	const std::string_view headhunter_roll			= "headhunter_roll";
+	const std::string_view headhunter_prejump		= "headhunter_prejump";
+	const std::string_view headhunter_jump			= "headhunter_jump";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -178,10 +180,10 @@ namespace ImgRes
 	const std::string_view headhunter_background1	= "spr_background_headhunter1.png";
 	const std::string_view headhunter_background2	= "spr_background_headhunter2.png";
 
-	const std::string_view headhunter_colmap1	= "spr_colmap_headhunter1.png";
+	const std::string_view headhunter_colmap1		= "spr_colmap_headhunter1.png";
 
 	// etc.
-	const std::string_view black_point = "spr_black.png";
+	const std::string_view black_point				= "spr_black.png";
 }
 
 namespace Anim
@@ -212,6 +214,8 @@ namespace Anim
 	const std::string_view headhunter_recover		= "headhunter_recover";
 	const std::string_view headhunter_exit_door		= "headhunter_exit_door";
 	const std::string_view headhunter_roll			= "headhunter_roll";
+	const std::string_view headhunter_prejump		= "headhunter_prejump";
+	const std::string_view headhunter_jump			= "headhunter_jump";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -230,7 +234,7 @@ namespace Anim
 
 	// UI
 	const std::string_view ui_replay_right_click	= "spr_right_click";
-	const std::string_view ui_start_leftclick = "spr_left_click";
+	const std::string_view ui_start_leftclick		= "spr_left_click";
 
 	// Effect
 	const std::string_view effect_player_slash		= "player_slash";
@@ -364,7 +368,10 @@ namespace HeadHunterState
 	const std::string_view recover			= "Recover";
 	const std::string_view roll				= "Roll";
 	const std::string_view exitdoor			= "ExitDoor";
+	const std::string_view prejump			= "PreJump";
+	const std::string_view jump				= "Jump";
 	const std::string_view pattern_rifle1	= "Pattern_Rifle1";
+	const std::string_view pattern_airrifle	= "Pattern_AirRifle";
 }
 
 namespace HeadHunterSubState

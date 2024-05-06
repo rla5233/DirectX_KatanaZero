@@ -117,6 +117,8 @@ void AHeadHunterBase::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_hitfly, ImgRes::headhunter_hitfly, 0.04f, false);
 	Body->CreateAnimation(Anim::headhunter_recover, ImgRes::headhunter_recover, 0.04f, false);
 	Body->CreateAnimation(Anim::headhunter_exit_door, ImgRes::headhunter_exit_door, 0.08f, false);
+	Body->CreateAnimation(Anim::headhunter_prejump, ImgRes::headhunter_prejump, 0.08f, false);
+	Body->CreateAnimation(Anim::headhunter_jump, ImgRes::headhunter_jump, 0.0f, false);
 	Body->CreateAnimation(
 		Anim::headhunter_roll, 
 		ImgRes::headhunter_roll, 
@@ -124,35 +126,10 @@ void AHeadHunterBase::CreateAnimation()
 		{ 0, 1, 2, 3, 4, 5, 6 },
 		false);
 
-	Body->SetLastFrameCallback(Anim::headhunter_takeup_rifle, [=]
-		{
-			SetRifle1LaserEffect();
-		}
-	);
-
-	Body->SetLastFrameCallback(Anim::headhunter_putback_rifle, [=]
-		{
-			State.ChangeState(HeadHunterState::idle);
-		}
-	);
-
-	Body->SetLastFrameCallback(Anim::headhunter_exit_door, [=]
-		{
-			State.ChangeState(HeadHunterState::idle);
-		}
-	);
-
-	Body->SetLastFrameCallback(Anim::headhunter_exit_door, [=]
-		{
-			State.ChangeState(HeadHunterState::idle);
-		}
-	);
-
-	Body->SetLastFrameCallback(Anim::headhunter_roll, [=]
-		{
-			State.ChangeState(HeadHunterState::idle);
-		}
-	);
+	Body->SetLastFrameCallback(Anim::headhunter_putback_rifle,	[=] { State.ChangeState(HeadHunterState::idle); });
+	Body->SetLastFrameCallback(Anim::headhunter_exit_door,		[=] { State.ChangeState(HeadHunterState::idle); });
+	Body->SetLastFrameCallback(Anim::headhunter_exit_door,		[=] { State.ChangeState(HeadHunterState::idle); });
+	Body->SetLastFrameCallback(Anim::headhunter_roll,			[=] { State.ChangeState(HeadHunterState::idle); });
 
 	LaserEffect->CreateAnimation(Anim::effect_laser, ImgRes::effect_laser, 0.1f, true);
 }
@@ -163,6 +140,11 @@ void AHeadHunterBase::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 	SubState.Update(_DeltaTime);
+
+	{
+		std::string Msg = std::format("HeadHunter : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 
 	{
 		std::string Msg = std::format("HeadHunter : {}\n", State.GetCurStateName());
