@@ -24,10 +24,15 @@ protected:
 
 // FSM
 private:
+	void Idle(float _DeltaTime) override;
+
 	void RecoverStart() override;
 
 	void ExitDoorStart();
 	void ExitDoor(float _DletaTime);
+
+	void RollStart();
+	void Roll(float _DeltaTime);
 
 };
 

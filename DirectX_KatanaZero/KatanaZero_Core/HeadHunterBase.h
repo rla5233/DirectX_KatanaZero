@@ -63,6 +63,10 @@ private:
 	void ColCheckUpdate();
 
 protected:
+	void SetVelocityByDir(const FVector& _Vel);
+	void AddVelocityByDir(const FVector& _Vel);
+
+protected:
 	// Renderer
 	USpriteRenderer* Body = nullptr;
 	USpriteRenderer* LaserEffect = nullptr;
@@ -86,7 +90,7 @@ protected:
 	virtual void StateInit();
 
 	void IdleStart();
-	void Idle(float _DeltaTime);
+	virtual void Idle(float _DeltaTime);
 
 	void HitFlyStart();
 	void HitFly(float _DeltaTime);

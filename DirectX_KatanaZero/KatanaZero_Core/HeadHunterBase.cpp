@@ -116,6 +116,12 @@ void AHeadHunterBase::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_hitfly, ImgRes::headhunter_hitfly, 0.04f, false);
 	Body->CreateAnimation(Anim::headhunter_recover, ImgRes::headhunter_recover, 0.04f, false);
 	Body->CreateAnimation(Anim::headhunter_exit_door, ImgRes::headhunter_exit_door, 0.08f, false);
+	Body->CreateAnimation(
+		Anim::headhunter_roll, 
+		ImgRes::headhunter_roll, 
+		{ 0.05f, 0.05f, 0.05f, 0.05f, 0.08f, 0.05f, 0.05f },
+		{ 0, 1, 2, 3, 4, 5, 6 },
+		false);
 
 	Body->SetLastFrameCallback(Anim::headhunter_takeup_rifle, [=]
 		{
@@ -130,6 +136,18 @@ void AHeadHunterBase::CreateAnimation()
 	);
 
 	Body->SetLastFrameCallback(Anim::headhunter_exit_door, [=]
+		{
+			State.ChangeState(HeadHunterState::idle);
+		}
+	);
+
+	Body->SetLastFrameCallback(Anim::headhunter_exit_door, [=]
+		{
+			State.ChangeState(HeadHunterState::idle);
+		}
+	);
+
+	Body->SetLastFrameCallback(Anim::headhunter_roll, [=]
 		{
 			State.ChangeState(HeadHunterState::idle);
 		}
@@ -179,6 +197,34 @@ void AHeadHunterBase::ColCheckUpdate()
 	if (true == IsOnGround(Dir))
 	{
 		OnGroundPosAdjust(Dir);
+	}
+}
+
+void AHeadHunterBase::SetVelocityByDir(const FVector& _Vel)
+{
+	EEngineDir Dir = Body->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity = { -_Vel.X, _Vel.Y, _Vel.Z };
+		break;
+	case EEngineDir::Right:
+		Velocity = { _Vel.X, _Vel.Y, _Vel.Z };
+		break;
+	}
+}
+
+void AHeadHunterBase::AddVelocityByDir(const FVector& _Vel)
+{
+	EEngineDir Dir = Body->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Velocity += { -_Vel.X, _Vel.Y, _Vel.Z };
+		break;
+	case EEngineDir::Right:
+		Velocity += { _Vel.X, _Vel.Y, _Vel.Z };
+		break;
 	}
 }
 

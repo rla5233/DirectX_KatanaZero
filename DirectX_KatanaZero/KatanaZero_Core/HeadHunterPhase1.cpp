@@ -26,14 +26,28 @@ void AHeadHunterPhase1::StateInit()
 	Super::StateInit();
 
 	// State Create
+	State.CreateState(HeadHunterState::roll);
 	State.CreateState(HeadHunterState::exitdoor);
 
 	// State Start
-	State.SetStartFunction(HeadHunterState::exitdoor, std::bind(&AHeadHunterPhase1::ExitDoorStart, this));
+	State.SetStartFunction(HeadHunterState::roll,		std::bind(&AHeadHunterPhase1::RollStart, this));
+	State.SetStartFunction(HeadHunterState::exitdoor,	std::bind(&AHeadHunterPhase1::ExitDoorStart, this));
 
 	// State Update
-	State.SetUpdateFunction(HeadHunterState::exitdoor, std::bind(&AHeadHunterPhase1::ExitDoor, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::roll,		std::bind(&AHeadHunterPhase1::Roll, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::exitdoor,	std::bind(&AHeadHunterPhase1::ExitDoor, this, std::placeholders::_1));
 
+}
+
+void AHeadHunterPhase1::Idle(float _DeltaTime)
+{
+	Super::Idle(_DeltaTime);
+
+	if (UEngineInput::IsDown(VK_SPACE))
+	{
+		State.ChangeState(HeadHunterState::roll);
+		return;
+	}
 }
 
 void AHeadHunterPhase1::RecoverStart()
@@ -74,5 +88,22 @@ void AHeadHunterPhase1::ExitDoorStart()
 
 void AHeadHunterPhase1::ExitDoor(float _DletaTime)
 {
+}
+
+void AHeadHunterPhase1::RollStart()
+{
+	Body->ChangeAnimation(Anim::headhunter_roll);
+
+	SetVelocityByDir({ 600.0f, 0.0f, 0.0f });
+}
+
+void AHeadHunterPhase1::Roll(float _DeltaTime)
+{
+	FVector Vel = { -400.0f * _DeltaTime, 0.0f, 0.0f };
+	AddVelocityByDir(Vel);
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
 
 }
