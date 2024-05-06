@@ -39,6 +39,11 @@ public:
 		Body->SetDir(_Dir);
 	}
 
+	inline USpriteRenderer* GetBody() const
+	{
+		return Body;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

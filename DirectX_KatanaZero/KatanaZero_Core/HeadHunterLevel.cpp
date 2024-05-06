@@ -31,6 +31,30 @@ bool AHeadHunterLevel::IsStageClear()
 	return false;
 }
 
+void AHeadHunterLevel::BrightnessUp(float _DeltaTime)
+{
+	Super::BrightnessUp(_DeltaTime);
+
+	if (true == BrightnessUpEnd)
+	{
+		return;
+	}
+
+	HeadHunter->GetBody()->SetMulColor(EnemyBrightness);
+}
+
+void AHeadHunterLevel::BrightnessDown(float _DeltaTime)
+{
+	Super::BrightnessDown(_DeltaTime);
+
+	if (true == BrightnessDownEnd)
+	{
+		return;
+	}
+
+	HeadHunter->GetBody()->SetMulColor(EnemyBrightness);
+}
+
 void AHeadHunterLevel::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
