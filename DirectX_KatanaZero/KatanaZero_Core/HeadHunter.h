@@ -57,11 +57,9 @@ private:
 	USpriteRenderer* LaserEffect = nullptr;
 	float LaserAlpha = 1.0f;
 	
-
 	// Collision
 	UCollision* BodyCol = nullptr;
 	UCollision* LaserCol = nullptr;
-
 
 
 	int PatternOrder = 0;
@@ -88,6 +86,9 @@ private:
 
 	void PlayStart();
 	void Play(float _DeltaTime);
+
+	void RestartStart();
+	void Restart(float _DeltaTime);
 
 // Effect
 private:

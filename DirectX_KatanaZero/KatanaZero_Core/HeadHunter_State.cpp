@@ -4,14 +4,17 @@
 void AHeadHunter::StateInit()
 {
 	// State Create
+	State.CreateState(HeadHunterState::none);
 	State.CreateState(HeadHunterState::idle);
 	State.CreateState(HeadHunterState::pattern_rifle1);
 
 	// State Start
+	State.SetStartFunction(HeadHunterState::none, [=] {});
 	State.SetStartFunction(HeadHunterState::idle,				std::bind(&AHeadHunter::IdleStart, this));
 	State.SetStartFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunter::PatternRifle1Start, this));
 
 	// State Update
+	State.SetUpdateFunction(HeadHunterState::none, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(HeadHunterState::idle,				std::bind(&AHeadHunter::Idle, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,	std::bind(&AHeadHunter::PatternRifle1, this, std::placeholders::_1));
 

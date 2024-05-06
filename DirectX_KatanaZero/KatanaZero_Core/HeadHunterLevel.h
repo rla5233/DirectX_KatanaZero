@@ -31,5 +31,11 @@ protected:
 protected:
 	std::shared_ptr<AHeadHunter> HeadHunter = nullptr;
 
+// FSM
+protected:
+	void PlayStart() override;
+	void PlayerDeadStart() override;
+	void RestartStart() override;
+
 };
 

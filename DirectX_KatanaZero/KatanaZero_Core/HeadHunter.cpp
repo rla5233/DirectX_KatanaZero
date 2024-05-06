@@ -36,6 +36,8 @@ void AHeadHunter::BeginPlay()
 	CreateAnimation();
 	StateInit();
 	SubStateInit();
+
+	SetRecordingSize();
 }
 
 void AHeadHunter::RendererInit()

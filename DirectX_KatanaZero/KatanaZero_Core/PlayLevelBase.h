@@ -173,7 +173,7 @@ protected:
 	void IntroBigEffectStart();
 	void IntroBigEffect(float _DeltaTime);
 
-	void PlayStart();
+	virtual void PlayStart();
 	void Play(float _DeltaTime);
 
 	virtual void ClearStart();
@@ -185,10 +185,10 @@ protected:
 	void ReplayStart();
 	void Replay(float _DeltaTime);
 
-	void PlayerDeadStart();
+	virtual void PlayerDeadStart();
 	void PlayerDead(float _DeltaTime);
 
-	void RestartStart();
+	virtual void RestartStart();
 	void Restart(float _DeltaTime);
 
 	void TransitionOnStart();
