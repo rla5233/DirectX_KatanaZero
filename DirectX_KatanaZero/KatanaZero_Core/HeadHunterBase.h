@@ -61,11 +61,9 @@ private:
 	void RendererInit();
 	void CollisionInit();
 	
-private:
-	void ColCheckUpdate();
-
 protected:
 	void LaserColCheck();
+	void ColCheckUpdate();
 	void SetVelocityByDir(const FVector& _Vel);
 	void AddVelocityByDir(const FVector& _Vel);
 

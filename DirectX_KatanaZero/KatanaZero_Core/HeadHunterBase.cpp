@@ -120,6 +120,8 @@ void AHeadHunterBase::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_prejump, ImgRes::headhunter_prejump, 0.08f, false);
 	Body->CreateAnimation(Anim::headhunter_jump, ImgRes::headhunter_jump, 0.0f, false);
 	Body->CreateAnimation(Anim::headhunter_wall_idle, ImgRes::headhunter_wall_idle, 0.1f, false);
+	Body->CreateAnimation(Anim::headhunter_wall_jump, ImgRes::headhunter_wall_jump, 0.11f, false);
+	Body->CreateAnimation(Anim::headhunter_land , ImgRes::headhunter_land, 0.04f, false);
 	Body->CreateAnimation(
 		Anim::headhunter_roll, 
 		ImgRes::headhunter_roll, 
@@ -129,8 +131,8 @@ void AHeadHunterBase::CreateAnimation()
 
 	Body->SetLastFrameCallback(Anim::headhunter_putback_rifle,	[=] { State.ChangeState(HeadHunterState::idle); });
 	Body->SetLastFrameCallback(Anim::headhunter_exit_door,		[=] { State.ChangeState(HeadHunterState::idle); });
-	Body->SetLastFrameCallback(Anim::headhunter_exit_door,		[=] { State.ChangeState(HeadHunterState::idle); });
 	Body->SetLastFrameCallback(Anim::headhunter_roll,			[=] { State.ChangeState(HeadHunterState::idle); });
+	Body->SetLastFrameCallback(Anim::headhunter_land,			[=] { State.ChangeState(HeadHunterState::idle); });
 
 	LaserEffect->CreateAnimation(Anim::effect_laser, ImgRes::effect_laser, 0.1f, true);
 }
@@ -181,6 +183,12 @@ void AHeadHunterBase::ColCheckUpdate()
 	if (true == IsOnGround(Dir))
 	{
 		OnGroundPosAdjust(Dir);
+	}
+
+	// CeilCol
+	if (true == IsColHeadToCeil(Dir))
+	{
+		CeilColPosAdjust(Dir);
 	}
 }
 

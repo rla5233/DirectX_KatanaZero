@@ -62,7 +62,7 @@ public:
 	void OnCliffPosAdjust(EEngineDir _Dir);
 	void OnPlatFormPosAdjust(EEngineDir _Dir);
 	void OnGP_BoundaryPosAdjust(EEngineDir _Dir);
-
+	void CeilColPosAdjust(EEngineDir _Dir);
 
 protected:
 	inline void SetActor(AActor* _Actor)

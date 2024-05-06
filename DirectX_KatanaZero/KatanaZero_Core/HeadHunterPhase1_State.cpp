@@ -207,6 +207,12 @@ void AHeadHunterPhase1::PatternAirRifle1(float _DeltaTime)
 	case 1:
 		AirRifle1Update1(_DeltaTime);
 		break;
+	case 2:
+		AirRifle1Update2(_DeltaTime);
+		break;
+	case 3:
+		AirRifle1Update3(_DeltaTime);
+		break;
 	default:
 		break;
 	}

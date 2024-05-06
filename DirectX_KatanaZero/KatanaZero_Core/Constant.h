@@ -39,6 +39,8 @@ namespace ImgRes
 	const std::string_view headhunter_prejump		= "headhunter_prejump";
 	const std::string_view headhunter_jump			= "headhunter_jump";
 	const std::string_view headhunter_wall_idle		= "headhunter_wallidle";
+	const std::string_view headhunter_wall_jump		= "headhunter_walljump";
+	const std::string_view headhunter_land			= "headhunter_land";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -218,6 +220,8 @@ namespace Anim
 	const std::string_view headhunter_prejump		= "headhunter_prejump";
 	const std::string_view headhunter_jump			= "headhunter_jump";
 	const std::string_view headhunter_wall_idle		= "headhunter_wallidle";
+	const std::string_view headhunter_wall_jump		= "headhunter_walljump";
+	const std::string_view headhunter_land			= "headhunter_land";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";

@@ -383,6 +383,14 @@ void UPixelColObject::OnGP_BoundaryPosAdjust(EEngineDir _Dir)
 	}
 }
 
+void UPixelColObject::CeilColPosAdjust(EEngineDir _Dir)
+{
+	while (true == IsColHeadToCeil(_Dir))
+	{
+		Actor->AddActorLocation({ 0.0f, -1.0f, 0.0f });
+	}
+}
+
 void UPixelColObject::CalFourPoint(EEngineDir _Dir)
 {
 	FrontTop = Actor->GetActorLocation() + BodyPos;

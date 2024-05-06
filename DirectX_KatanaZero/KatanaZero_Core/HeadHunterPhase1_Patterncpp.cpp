@@ -128,6 +128,7 @@ void AHeadHunterPhase1::AirRifle1Update(float _DeltaTime)
 {
 	if (true == Body->IsCurAnimationEnd())
 	{
+		// 속도 공식 필요
 		Velocity = { 500.0f, 1000.0f, 0.0f };
 
 		if (0.0f < Velocity.X)
@@ -165,12 +166,40 @@ void AHeadHunterPhase1::AirRifle1Update1(float _DeltaTime)
 	{
 		Body->ChangeAnimation(Anim::headhunter_wall_idle);
 		Velocity = FVector::Zero;
-		PatternOrder = -2;
+		PatternOrder = 2;
 		return;
 	}
 }
 
 void AHeadHunterPhase1::AirRifle1Update2(float _DeltaTime)
 {
+	if (true == Body->IsCurAnimationEnd())
+	{
+		// 속도 공식 필요
+		SetVelocityByDir({ 700.0f, 800.0f, 0.0f });
 
+		Body->ChangeAnimation(Anim::headhunter_wall_jump);
+		PatternOrder = 3;
+	}
+}
+
+void AHeadHunterPhase1::AirRifle1Update3(float _DeltaTime)
+{
+	// 속도 업데이트
+	ApplyGravity(_DeltaTime);
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// 충돌 체크
+	ColCheckUpdate();
+
+	// Effect
+	CreateAfterImage(_DeltaTime);
+
+	if (true == IsOnGround(Body->GetDir()))
+	{
+		Body->ChangeAnimation(Anim::headhunter_land);
+		PatternOrder = -1;
+	}
 }
