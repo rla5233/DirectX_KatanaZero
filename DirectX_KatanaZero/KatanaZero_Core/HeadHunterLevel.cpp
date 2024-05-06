@@ -24,6 +24,17 @@ void AHeadHunterLevel::LevelStart(ULevel* _PrevLevel)
 void AHeadHunterLevel::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	HeadHunter->Destroy();
+	HeadHunter = nullptr;
+}
+
+void AHeadHunterLevel::LevelReEnd()
+{
+	Super::LevelReEnd();
+
+	HeadHunter->Destroy();
+	HeadHunter = nullptr;
 }
 
 bool AHeadHunterLevel::IsStageClear()

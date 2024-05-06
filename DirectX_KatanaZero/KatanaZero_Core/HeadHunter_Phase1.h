@@ -28,6 +28,7 @@ protected:
 	void LevelEnd(ULevel* _NextLevel) override;
 
 	void LevelReStart() override;
+	void LevelReEnd() override;
 
 private:
 	std::vector<std::shared_ptr<ASlidingDoor>> AllSlidingDoor;

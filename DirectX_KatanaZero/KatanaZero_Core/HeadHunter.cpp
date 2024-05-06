@@ -60,7 +60,7 @@ void AHeadHunter::CollisionInit()
 	LaserCol->SetActive(false);
 
 	BodyCol->SetCollisionGroup(EColOrder::HeadHunter);
-	BodyCol->SetCollisionType(ECollisionType::Rect);
+	BodyCol->SetCollisionType(ECollisionType::RotRect);
 
 	FVector BodyPos = { 0.0f, 45.0f, 0.0f };
 	FVector BodyScale = { 50.0f, 90.0f, 1.0f };
@@ -75,6 +75,7 @@ void AHeadHunter::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_idle, ImgRes::headhunter_idle, 0.1f, true);
 	Body->CreateAnimation(Anim::headhunter_takeup_rifle, ImgRes::headhunter_takeup_rifle, 0.05f, false);
 	Body->CreateAnimation(Anim::headhunter_putback_rifle, ImgRes::headhunter_takeup_rifle, 0.05f, false, 7, 0);
+	Body->CreateAnimation(Anim::headhunter_hitfly, ImgRes::headhunter_hitfly, 0.05f, false);
 
 	Body->SetLastFrameCallback(Anim::headhunter_takeup_rifle, [=]
 		{
@@ -97,6 +98,11 @@ void AHeadHunter::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 	SubState.Update(_DeltaTime);
+
+	{
+		std::string Msg = std::format("HeadHunter : {}\n", State.GetCurStateName());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 void AHeadHunter::LaserColCheck()
@@ -111,5 +117,6 @@ void AHeadHunter::LaserColCheck()
 
 void AHeadHunter::HitByPlayer(FVector _AttDir)
 {
-	int a = 0;
+	HitDir = _AttDir;
+	State.ChangeState(HeadHunterState::hitfly);
 }

@@ -69,6 +69,8 @@ private:
 	UCollision* LaserCol = nullptr;
 
 
+	// Info.
+	FVector HitDir = FVector::Zero;
 	int PatternOrder = 0;
 
 // FSM
@@ -78,6 +80,9 @@ private:
 
 	void IdleStart();
 	void Idle(float _DeltaTime);
+
+	void HitFlyStart();
+	void HitFly(float _DeltaTime);
 
 	void PatternRifle1Start();
 	void PatternRifle1(float _DeltaTime);

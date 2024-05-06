@@ -25,6 +25,8 @@ protected:
 	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
 
+	void LevelReEnd() override;
+
 protected:
 	bool IsStageClear() override;
 

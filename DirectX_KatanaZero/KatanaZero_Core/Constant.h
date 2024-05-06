@@ -32,6 +32,7 @@ namespace ImgRes
 	// HeadHunter
 	const std::string_view headhunter_idle			= "headhunter_idle";
 	const std::string_view headhunter_takeup_rifle	= "headhunter_takeup_rifle";
+	const std::string_view headhunter_hitfly		= "headhunter_hitfly";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -143,6 +144,7 @@ namespace ImgRes
 	const std::string_view compo_bullet				= "spr_bullet_0.png";
 
 	const std::string_view compo_sliding_door_close		= "spr_sliding_door_close";
+	const std::string_view compo_sliding_door_closed	= "spr_sliding_door.png";
 	const std::string_view compo_sliding_door_redled	= "spr_sliding_door_redled";
 
 	// TitleLevel
@@ -203,6 +205,7 @@ namespace Anim
 	const std::string_view headhunter_idle			= "headhunter_idle";
 	const std::string_view headhunter_takeup_rifle	= "headhunter_takeup_rifle";
 	const std::string_view headhunter_putback_rifle	= "headhunter_putback_rifle";
+	const std::string_view headhunter_hitfly		= "headhunter_hitfly";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -351,6 +354,7 @@ namespace HeadHunterState
 {
 	const std::string_view none				= "None";
 	const std::string_view idle				= "Idle";
+	const std::string_view hitfly			= "HitFly";
 	const std::string_view pattern_rifle1	= "Pattern_Rifle1";
 }
 
@@ -547,4 +551,5 @@ namespace FactoryClearUIState
 namespace SlidingDoorState
 {
 	const std::string_view close			= "Close";
+	const std::string_view closed			= "Closed";
 }

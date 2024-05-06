@@ -68,8 +68,16 @@ void ASlidingDoor::StateInit()
 
 	// State Create
 	State.CreateState(SlidingDoorState::close);
+	State.CreateState(SlidingDoorState::closed);
 
 	// State Start
+	State.SetStartFunction(SlidingDoorState::closed, [=] 
+		{
+			GetBody()->SetSprite(ImgRes::compo_sliding_door_closed);
+			DoorLED->ChangeAnimation(Anim::compo_sliding_door_redled);
+		}
+	);
+
 	State.SetStartFunction(SlidingDoorState::close, [=] 
 		{
 			GetBody()->ChangeAnimation(Anim::compo_sliding_door_close);
@@ -80,6 +88,8 @@ void ASlidingDoor::StateInit()
 
 	// State Update
 	State.SetUpdateFunction(SlidingDoorState::close, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(SlidingDoorState::closed, [=](float _DeltaTime) {});
+
 }
 
 void ASlidingDoor::Tick(float _DeltaTime)
