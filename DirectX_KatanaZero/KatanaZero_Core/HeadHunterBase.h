@@ -103,7 +103,7 @@ protected:
 
 
 // Sub FSM
-private:
+protected:
 	UStateManager SubState;
 	void SubStateInit();
 
@@ -111,7 +111,7 @@ private:
 	void Wait(float _DeltaTime);
 
 	void PlayStart();
-	void Play(float _DeltaTime);
+	virtual void Play(float _DeltaTime);
 
 	void RestartStart();
 	void Restart(float _DeltaTime);

@@ -22,6 +22,12 @@ protected:
 
 	void StateInit() override;
 
+private:
+	std::vector<UCloudEffect> Cloud;
+	float CroudTimeCount = 0.0f;
+	const int CloudSize = 15;
+	int CloudIdx = 0;
+
 // FSM
 private:
 	void Idle(float _DeltaTime) override;
@@ -33,6 +39,17 @@ private:
 
 	void RollStart();
 	void Roll(float _DeltaTime);
+
+// Sub FSM
+private:
+	void Play(float _DeltaTime) override;
+
+
+// Effect
+private:
+	void CreateRollCroudEffect(float _DeltaTime);
+	void CroudEffectUpdate(float _DeltaTime);
+
 
 };
 

@@ -21,3 +21,11 @@ public:
 	USpriteRenderer* Smoke = nullptr;
 };
 
+
+// Ό³Έν : HeadHunter CloudEffect
+class UCloudEffect
+{
+public:
+	USpriteRenderer* Renderer = nullptr;
+	FVector Velocity = FVector::Zero;
+};
