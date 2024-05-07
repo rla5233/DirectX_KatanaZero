@@ -20,9 +20,9 @@ public:
 
 	virtual FVector FindExitDoor() = 0;
 	
-	inline float GetMidPosX() const
+	inline float GetRefPosX(int _idx) const
 	{
-		return MidPosX;
+		return RefPosX[_idx];
 	}
 
 protected:
@@ -42,7 +42,7 @@ protected:
 
 protected:
 	std::shared_ptr<AHeadHunterBase> HeadHunter = nullptr;
-	float MidPosX = 0.0f;
+	std::vector<float> RefPosX;
 
 // FSM
 protected:

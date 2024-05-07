@@ -129,7 +129,7 @@ void AHeadHunterPhase1::AirRifle1Update(float _DeltaTime)
 	if (true == Body->IsCurAnimationEnd())
 	{
 		AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
-		float MidPosX = PlayLevel->GetMidPosX();
+		float MidPosX = PlayLevel->GetRefPosX(1);
 		float CurPosX = GetActorLocation().X;	
 
 		// 속도 설정

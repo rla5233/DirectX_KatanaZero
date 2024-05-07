@@ -21,7 +21,7 @@ void AHeadHunter_Phase1::BeginPlay()
 {
 	Super::BeginPlay();	
 
-	MidPosX = 690.0f;
+	RefPosX = { 350.0f, 690.0f, 1030.0f };
 }
 
 void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
