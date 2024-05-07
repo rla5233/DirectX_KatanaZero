@@ -481,7 +481,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="HeadHunterPhase1_Effect.cpp" />
-    <ClCompile Include="HeadHunterPhase1_Patterncpp.cpp" />
+    <ClCompile Include="HeadHunterPhase1_Pattern.cpp" />
     <ClCompile Include="HeadHunterPhase1_State.cpp" />
     <ClCompile Include="HeadHunterBase.cpp">
       <SubType>

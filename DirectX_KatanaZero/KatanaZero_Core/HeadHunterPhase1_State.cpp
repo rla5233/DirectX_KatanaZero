@@ -70,7 +70,8 @@ void AHeadHunterPhase1::Idle(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
-		State.ChangeState(HeadHunterState::pattern_airrifle1);
+		State.ChangeState(HeadHunterState::roll);
+		//State.ChangeState(HeadHunterState::pattern_airrifle1);
 		return;
 	}
 
@@ -122,7 +123,21 @@ void AHeadHunterPhase1::ExitDoor(float _DletaTime)
 
 void AHeadHunterPhase1::RollStart()
 {
-	SetVelocityByDir({ 650.0f, 0.0f, 0.0f });
+	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+	float MidPosX = PlayLevel->GetRefPosX(1);
+	float CurPosX = GetActorLocation().X;
+
+	// 속도 설정
+	if (MidPosX < CurPosX)
+	{
+		Body->SetDir(EEngineDir::Left);
+		Velocity = { -650.0f, 0.0f, 0.0f };
+	}
+	else
+	{
+		Body->SetDir(EEngineDir::Right);
+		Velocity = { 650.0f, 0.0f, 0.0f };
+	}
 
 	Body->ChangeAnimation(Anim::headhunter_roll);
 	CroudTimeCount = Const::effect_roll_cloud_delay;
@@ -130,8 +145,10 @@ void AHeadHunterPhase1::RollStart()
 	SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });
 	SetAfterImageAlphaWeight(0.6f);
 	SetAfterImageTimeWeight(6.0f);
-	
+
 	BodyCol->SetActive(false);
+
+	PatternOrder = 0;
 }
 
 void AHeadHunterPhase1::Roll(float _DeltaTime)
