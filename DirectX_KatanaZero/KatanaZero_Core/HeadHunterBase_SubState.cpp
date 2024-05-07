@@ -41,6 +41,7 @@ void AHeadHunterBase::Play(float _DeltaTime)
 void AHeadHunterBase::RestartStart()
 {
 	SetRewindStart();
+	LaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.0f });
 	State.ChangeState(HeadHunterState::none);
 }
 
