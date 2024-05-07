@@ -61,18 +61,34 @@ void AHeadHunterPhase1::Idle(float _DeltaTime)
 	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
 	FVector PlayerPos = PlayLevel->GetPlayerLocation();
 	FVector CurPos = GetActorLocation();
+	
+	float DiffX = CurPos.X - PlayerPos.X;
+	float LeftFirstPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::leftfirst);
+	float RightFirstPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::rightfirst);
 
-	if (350.0f < abs(CurPos.X - PlayerPos.X))
-	{
-		State.ChangeState(HeadHunterState::pattern_rifle1);
-		return;
-	}
-	else
-	{
-
-
-
-	}
+	//if (350.0f < abs(DiffX))
+	//{
+	//	State.ChangeState(HeadHunterState::pattern_rifle1);
+	//	return;
+	//}
+	//else if (350.0f >= abs(DiffX) && 100.0f >= abs(DiffX))
+	//{
+	//	if (LeftFirstPos > CurPos.X || RightFirstPos < CurPos.X)
+	//	{
+	//		State.ChangeState(HeadHunterState::roll);
+	//		return;
+	//	}
+	//	else
+	//	{
+	//		State.ChangeState(HeadHunterState::pattern_airrifle1);
+	//		return;
+	//	}
+	//}
+	//else
+	//{
+	//	State.ChangeState(HeadHunterState::roll);
+	//	return;
+	//}
 
 
 	if (true == UEngineInput::IsDown(VK_SPACE))
