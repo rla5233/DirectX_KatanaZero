@@ -16,7 +16,10 @@ ATitleGameMode::~ATitleGameMode()
 void ATitleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	TitleBGM = UEngineSound::SoundPlay(SoundRes::bgm_title);
+	TitleBGM.Loop();
+
 	StateInit();
 }
 
@@ -38,6 +41,8 @@ void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
 	Screen = nullptr;
 	Menu = nullptr;
 	MainCamera = nullptr;
+
+	TitleBGM.Off();
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
@@ -60,6 +65,7 @@ void ATitleGameMode::StateInit()
 			Screen = GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
 			MainCamera = GetWorld()->SpawnActor<AMainCamera>("MainCamera");
 			MainCamera->StateChange(MainCameraState::title_in);
+			TitleBGM.On();
 		}
 	);
 
@@ -88,9 +94,13 @@ void ATitleGameMode::InputCheck(int _Input)
 	{
 	case 0:
 		Screen->StateChange(TitleScreenState::newgame);
+		UEngineSound::SoundPlay(SoundRes::title_menu_select).SetVolume(0.25f);
+		UEngineSound::SoundPlay(SoundRes::title_menu_transition);
 		break;
 	case 4:
 		Screen->StateChange(TitleScreenState::exit);
+		UEngineSound::SoundPlay(SoundRes::title_menu_select).SetVolume(0.25f);
+		UEngineSound::SoundPlay(SoundRes::title_menu_transition);
 		break;
 	default:
 		break;

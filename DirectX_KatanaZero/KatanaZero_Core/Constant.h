@@ -288,6 +288,14 @@ namespace Anim
 	const std::string_view plants					= "plants";
 }
 
+namespace SoundRes
+{
+	const std::string_view bgm_title				= "song_title_bgm.ogg";
+	const std::string_view title_menu_beep			= "sound_menu_beep.wav";
+	const std::string_view title_menu_select		= "sound_menu_select.wav";
+	const std::string_view title_menu_transition	= "sound_ui_transition.wav";
+}
+
 namespace Const
 {
 	// Player

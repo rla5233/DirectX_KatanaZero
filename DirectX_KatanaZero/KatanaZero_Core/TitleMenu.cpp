@@ -117,6 +117,10 @@ void ATitleMenu::InputCheck()
 		{
 			CurMenuIdx = 0;
 		}
+		else
+		{
+			UEngineSound::SoundPlay(SoundRes::title_menu_beep).SetVolume(0.25f);
+		}
 	}
 
 	if (true == IsDown('S') || true == IsDown(VK_DOWN))
@@ -125,6 +129,10 @@ void ATitleMenu::InputCheck()
 		if (MenuNum <= CurMenuIdx)
 		{
 			CurMenuIdx = MenuNum - 1;
+		}
+		else
+		{
+			UEngineSound::SoundPlay(SoundRes::title_menu_beep).SetVolume(0.25f);
 		}
 	}
 

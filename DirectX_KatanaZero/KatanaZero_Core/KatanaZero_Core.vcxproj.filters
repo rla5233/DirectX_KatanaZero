@@ -315,6 +315,9 @@
     <ClInclude Include="HeadHunterPhase1.h">
       <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -541,6 +544,9 @@
     </ClCompile>
     <ClCompile Include="HeadHunterPhase1_Pattern.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\HeadHunter</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

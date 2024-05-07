@@ -39,5 +39,7 @@ private:
 	std::shared_ptr<AMainCamera> MainCamera = nullptr;
 	std::shared_ptr<ATitleScreen> Screen = nullptr;
 	std::shared_ptr<ATitleMenu> Menu = nullptr;
+
+	UEngineSoundPlayer TitleBGM;
 };
 

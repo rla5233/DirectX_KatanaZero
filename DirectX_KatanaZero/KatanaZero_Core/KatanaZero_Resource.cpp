@@ -165,4 +165,15 @@ void UKatanaZero_Core::ResLoad()
 		}
 	}
 
+	// Sound ·Îµå
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("KatanaZero_Resources");
+		Dir.Move("Sound");
+		std::vector<UEngineFile> AllFiles = Dir.GetAllFile({ ".wav", ".mp3", ".ogg" }, true);
+		for (UEngineFile& File : AllFiles)
+		{
+			UEngineSound::Load(File.GetFullPath());
+		}
+	}
 }
