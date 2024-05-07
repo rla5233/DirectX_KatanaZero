@@ -80,6 +80,7 @@ public:
 
 	bool IsCloseDoor(float _StartX, float _EndX, int _FloorNum);
 	AStair* FindStair(EStairType _StairType, int _FloorNum) const;
+	bool IsPlayerDead() const;
 	FVector GetPlayerLocation() const;
 	int GetPlayerFloorNum() const;
 

@@ -354,9 +354,10 @@ void AEnemyBase::ChaseRun(float _DeltaTime)
 		return;
 	}
 
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	if (true == AttackRangeCheck())
 	{
-		if (false == CanAttack)
+		if (false == CanAttack || true == PlayLevel->IsPlayerDead())
 		{
 			State.ChangeState(EnemyState::chase_stop);
 			return;
@@ -484,7 +485,8 @@ void AEnemyBase::ChaseStop(float _DeltaTime)
 	ChaseMarkUpdate();
 
 	// State Change Check
-	if (true == PlayerChaseCheck() && true == CanAttack)
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+	if (true == PlayerChaseCheck() && true == CanAttack && false == PlayLevel->IsPlayerDead())
 	{
 		State.ChangeState(EnemyState::chase_run);
 		return;

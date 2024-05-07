@@ -478,6 +478,11 @@ AStair* APlayLevelBase::FindStair(EStairType _StairType, int _FloorNum) const
 	return Result;
 }
 
+bool APlayLevelBase::IsPlayerDead() const
+{
+	return PlayerState::dead == Player->GetCurMainState();
+}
+
 FVector APlayLevelBase::GetPlayerLocation() const
 {
 	return Player->GetActorLocation();
