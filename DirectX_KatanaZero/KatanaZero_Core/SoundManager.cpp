@@ -1,12 +1,25 @@
 #include "PreCompile.h"
 #include "SoundManager.h"
 
+USoundManager* USoundManager::Inst = nullptr;
+
 USoundManager::USoundManager()
 {
+	SetFactoryBGM();
+
 }
 
 USoundManager::~USoundManager()
 {
+	delete Inst;
+}
+
+void USoundManager::SetFactoryBGM()
+{
+	FactoryBGM = UEngineSound::SoundPlay(SoundRes::bgm_factory);
+	FactoryBGM.SetVolume(0.75f);
+	FactoryBGM.Loop();
+	FactoryBGM.Off();
 }
 
 UEngineSoundPlayer USoundManager::SoundPlay_PlayerRun()
@@ -33,3 +46,5 @@ UEngineSoundPlayer USoundManager::SoundPlay_PlayerRun()
 	Result.SetVolume(0.5f);
 	return Result;
 }
+
+

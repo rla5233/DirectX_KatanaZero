@@ -251,6 +251,7 @@ void AFactoryIntroUI::StartWaitingAnim(float _DeltaTime)
 		APlayerBase* Player = PlayerLevel->GetDefaultPlayer();
 		Player->StateChange(PlayerState::idle);
 		Player->SubStateChange(PlayerSubState::none);
+		UEngineSound::SoundPlay(SoundRes::stage_start).SetVolume(0.75f);
 		Off();
 	}
 }

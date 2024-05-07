@@ -3,7 +3,7 @@
 // Ό³Έν :
 class USoundManager
 {
-public:
+private:
 	// constrcuter destructer
 	USoundManager();
 	~USoundManager();
@@ -14,12 +14,30 @@ public:
 	USoundManager& operator=(const USoundManager& _Other) = delete;
 	USoundManager& operator=(USoundManager&& _Other) noexcept = delete;
 
+public:
+	static USoundManager* GetInst()
+	{
+		if (nullptr == Inst)
+		{
+			Inst = new USoundManager();
+		}
+
+		return Inst;
+	}
+	
 	static UEngineSoundPlayer SoundPlay_PlayerRun();
 
-
-protected:
+	UEngineSoundPlayer GetFactoryBGM()
+	{
+		return FactoryBGM;
+	}
 
 private:
+	void SetFactoryBGM();
 
+private:
+	static USoundManager* Inst;
+
+	UEngineSoundPlayer FactoryBGM;
 };
 
