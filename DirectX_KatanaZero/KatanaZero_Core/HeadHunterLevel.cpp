@@ -92,3 +92,27 @@ void AHeadHunterLevel::RestartStart()
 	HeadHunter->StateChange(HeadHunterState::none);
 	HeadHunter->SubStateChange(HeadHunterSubState::restart);
 }
+
+float AHeadHunterLevel::GetRefPosX(std::string_view _Key)
+{
+	std::string Key = UEngineString::ToUpper(_Key);
+
+	if (false == RefPosX.contains(Key))
+	{
+		MsgBoxAssert("올바르지 않은 Key 값입니다.");
+	}
+
+	return RefPosX[Key];
+}
+
+void AHeadHunterLevel::AddRefPosX(std::string_view _Key, float _PosX)
+{
+	std::string Key = UEngineString::ToUpper(_Key);
+
+	if (true == RefPosX.contains(Key))
+	{
+		MsgBoxAssert("이미 존재하는 Key 값입니다.");
+	}
+
+	RefPosX[Key] = _PosX;
+}

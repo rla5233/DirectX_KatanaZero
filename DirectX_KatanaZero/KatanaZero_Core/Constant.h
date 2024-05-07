@@ -573,3 +573,11 @@ namespace SlidingDoorState
 	const std::string_view close			= "Close";
 	const std::string_view closed			= "Closed";
 }
+
+// Info.
+namespace HH_Phase1_RefPos
+{
+	const std::string_view leftfirst		= "LeftFirst";
+	const std::string_view mid				= "Mid";
+	const std::string_view rightfirst		= "RightFirst";
+}

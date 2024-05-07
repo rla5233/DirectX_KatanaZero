@@ -20,10 +20,8 @@ public:
 
 	virtual FVector FindExitDoor() = 0;
 	
-	inline float GetRefPosX(int _idx) const
-	{
-		return RefPosX[_idx];
-	}
+	float GetRefPosX(std::string_view _Key);
+	void AddRefPosX(std::string_view _Key, float _PosX);
 
 protected:
 	void BeginPlay() override;
@@ -42,7 +40,9 @@ protected:
 
 protected:
 	std::shared_ptr<AHeadHunterBase> HeadHunter = nullptr;
-	std::vector<float> RefPosX;
+	
+private:
+	std::map<std::string, float> RefPosX;
 
 // FSM
 protected:

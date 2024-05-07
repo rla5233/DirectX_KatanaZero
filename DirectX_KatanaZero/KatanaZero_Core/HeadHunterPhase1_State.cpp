@@ -64,9 +64,16 @@ void AHeadHunterPhase1::Idle(float _DeltaTime)
 
 	if (350.0f < abs(CurPos.X - PlayerPos.X))
 	{
-		//State.ChangeState(HeadHunterState::pattern_rifle1);
-		//return;
+		State.ChangeState(HeadHunterState::pattern_rifle1);
+		return;
 	}
+	else
+	{
+
+
+
+	}
+
 
 	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
@@ -124,7 +131,7 @@ void AHeadHunterPhase1::ExitDoor(float _DletaTime)
 void AHeadHunterPhase1::RollStart()
 {
 	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
-	float MidPosX = PlayLevel->GetRefPosX(1);
+	float MidPosX = PlayLevel->GetRefPosX(HH_Phase1_RefPos::mid);
 	float CurPosX = GetActorLocation().X;
 
 	// 속도 설정
