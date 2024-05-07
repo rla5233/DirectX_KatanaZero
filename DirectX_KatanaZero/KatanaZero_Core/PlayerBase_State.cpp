@@ -852,7 +852,6 @@ void APlayerBase::DeadStart()
 		DelayCallBack(0.105f, [=] 
 			{ 
 				Velocity.X *= 4.0f; 
-				//Velocity.Y *= 1.0f; 
 			}
 		);
 

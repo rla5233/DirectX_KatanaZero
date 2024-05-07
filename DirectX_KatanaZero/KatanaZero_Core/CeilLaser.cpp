@@ -100,9 +100,12 @@ void ACeilLaser::StateInit()
 			HitCol->CollisionStay(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 				{
 					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-					Player->HitByEnemy(FVector::Zero, EEnemyType::CeilLaser);
-					State.ChangeState(CeilLaserState::shoot);
-					return;
+					if (false == Player->IsDead())
+					{
+						Player->HitByEnemy(FVector::Zero, EEnemyType::CeilLaser);
+						State.ChangeState(CeilLaserState::shoot);
+						return;
+					}
 				}
 			);
 		}
