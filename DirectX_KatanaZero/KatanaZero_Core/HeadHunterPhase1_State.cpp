@@ -198,6 +198,18 @@ void AHeadHunterPhase1::PatternRifle1(float _DeltaTime)
 void AHeadHunterPhase1::PatternAirRifle1Start()
 {
 	Body->ChangeAnimation(Anim::headhunter_prejump);
+
+	EEngineDir Dir = Body->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Body->SetPosition({ -11.0f, 0.0f, 0.0f });
+		break;
+	case EEngineDir::Right:
+		Body->SetPosition({ 11.0f, 0.0f, 0.0f });
+		break;
+	}
+
 	PatternOrder = 0;
 }
 

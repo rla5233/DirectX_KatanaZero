@@ -142,6 +142,9 @@ void AHeadHunterPhase1::AirRifle1Update(float _DeltaTime)
 			Velocity = { -500.0f, 1000.0f, 0.0f };
 		}
 
+		// 위치 설정
+		AddActorLocation({ 0.0f, 2.0f, 0.0f });
+
 		// 렌더러 설정
 		if (0.0f < Velocity.X)
 		{
@@ -152,6 +155,7 @@ void AHeadHunterPhase1::AirRifle1Update(float _DeltaTime)
 			Body->SetDir(EEngineDir::Right);
 		}
 
+		Body->SetPosition(FVector::Zero);
 		Body->ChangeAnimation(Anim::headhunter_jump);
 
 		SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });

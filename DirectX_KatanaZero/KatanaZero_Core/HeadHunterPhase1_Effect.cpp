@@ -96,15 +96,14 @@ void AHeadHunterPhase1::SetAirRifle1LaserEffect()
 	case EEngineDir::Left:
 		Deg = 175.0f;
 		LaserEffect->SetRotationDeg({ 0.0f, 0.0f, Deg });
-		
 		Deg *= UEngineMath::DToR;
 		LaserEffect->SetPosition({ 690.0f * cosf(Deg), 690.0f * sinf(Deg) + 60, 0.0f});
-	
-
 		break;
 	case EEngineDir::Right:
-		LaserEffect->SetRotationDeg({ 0.0f, 0.0f, 270.0f });
-		LaserEffect->SetPosition({ 41.0f, 56.0f ,0.0f });
+		Deg = 5.0f;
+		LaserEffect->SetRotationDeg({ 0.0f, 0.0f, Deg });
+		Deg *= UEngineMath::DToR;
+		LaserEffect->SetPosition({ 690.0f * cosf(Deg), 690.0f * sinf(Deg) + 60, 0.0f });
 		break;
 	}
 }
@@ -119,10 +118,11 @@ void AHeadHunterPhase1::AirRifle1LaserEffectUpdate(float _DeltaTime)
 		LaserEffect->AddRotationDeg({ 0.0f, 0.0f, 400.0f * _DeltaTime });
 		Deg = LaserEffect->GetWorldRotation().Z * UEngineMath::DToR;
 		LaserEffect->SetPosition({ 690.0f * cosf(Deg), 690.0f * sinf(Deg) + 60, 0.0f });
-
 		break;
 	case EEngineDir::Right:
-		//LaserEffect->SetPosition({ 41.0f, 56.0f ,0.0f });
+		LaserEffect->AddRotationDeg({ 0.0f, 0.0f, -400.0f * _DeltaTime });
+		Deg = LaserEffect->GetWorldRotation().Z * UEngineMath::DToR;
+		LaserEffect->SetPosition({ 690.0f * cosf(Deg), 690.0f * sinf(Deg) + 60, 0.0f });
 		break;
 	}
 }
