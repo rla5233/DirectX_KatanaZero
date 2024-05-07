@@ -17,7 +17,7 @@ USoundManager::~USoundManager()
 void USoundManager::SetFactoryBGM()
 {
 	FactoryBGM = UEngineSound::SoundPlay(SoundRes::bgm_factory);
-	FactoryBGM.SetVolume(0.75f);
+	FactoryBGM.SetVolume(0.6f);
 	FactoryBGM.Loop();
 	FactoryBGM.Off();
 }
@@ -40,6 +40,28 @@ UEngineSoundPlayer USoundManager::SoundPlay_PlayerRun()
 		break;
 	case 4:
 		Result = UEngineSound::SoundPlay(SoundRes::player_run_4);
+		break;
+	}
+
+	Result.SetVolume(0.5f);
+	return Result;
+}
+
+UEngineSoundPlayer USoundManager::SoundPlay_PlayerSlash()
+{
+	UEngineSoundPlayer Result = UEngineSoundPlayer();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 3);
+	switch (RandomValue)
+	{
+	case 1:
+		Result = UEngineSound::SoundPlay(SoundRes::player_slash_1);
+		break;
+	case 2:
+		Result = UEngineSound::SoundPlay(SoundRes::player_slash_2);
+		break;
+	case 3:
+		Result = UEngineSound::SoundPlay(SoundRes::player_slash_3);
 		break;
 	}
 

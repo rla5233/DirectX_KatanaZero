@@ -579,6 +579,8 @@ void APlayerBase::Fall(float _DeltaTime)
 	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir()) || true == IsOnCliff(Body->GetDir())
  	||  true == IsOnStairs(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
 	{
+		UEngineSound::SoundPlay(SoundRes::player_land).SetVolume(0.25f);
+
 		SetLandEffect();
 		if (true == IsRunInputPress())
 		{

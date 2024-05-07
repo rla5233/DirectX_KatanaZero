@@ -297,6 +297,11 @@ namespace SoundRes
 	const std::string_view player_run_4				= "sound_player_running_4.wav";
 	const std::string_view player_prerun			= "sound_player_prerun.wav";
 	const std::string_view player_roll				= "sound_player_roll.wav";
+	const std::string_view player_jump				= "sound_player_jump.wav";
+	const std::string_view player_land				= "sound_player_land.wav";
+	const std::string_view player_slash_1			= "sound_player_slash_1.wav";
+	const std::string_view player_slash_2			= "sound_player_slash_2.wav";
+	const std::string_view player_slash_3			= "sound_player_slash_3.wav";
 	const std::string_view player_headphone			= "sound_playerheadphones.wav";
 	const std::string_view player_casette_play		= "sound_playercasette_play.wav";
 	const std::string_view player_casette_rewind	= "sound_playercasette_rewind.wav";

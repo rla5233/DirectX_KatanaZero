@@ -24,13 +24,15 @@ public:
 
 		return Inst;
 	}
-	
-	static UEngineSoundPlayer SoundPlay_PlayerRun();
 
 	UEngineSoundPlayer GetFactoryBGM()
 	{
 		return FactoryBGM;
 	}
+
+public:
+	static UEngineSoundPlayer SoundPlay_PlayerRun();
+	static UEngineSoundPlayer SoundPlay_PlayerSlash();
 
 private:
 	void SetFactoryBGM();
