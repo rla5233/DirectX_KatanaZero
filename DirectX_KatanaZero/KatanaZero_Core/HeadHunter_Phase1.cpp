@@ -22,7 +22,9 @@ void AHeadHunter_Phase1::BeginPlay()
 	Super::BeginPlay();	
 
 	AddRefPosX(HH_Phase1_RefPos::leftfirst, 350.0f);
+	AddRefPosX(HH_Phase1_RefPos::leftsecond, 580.0f);
 	AddRefPosX(HH_Phase1_RefPos::mid, 690.0f);
+	AddRefPosX(HH_Phase1_RefPos::rightsecond, 800.0f);
 	AddRefPosX(HH_Phase1_RefPos::rightfirst, 1030.0f);
 }
 

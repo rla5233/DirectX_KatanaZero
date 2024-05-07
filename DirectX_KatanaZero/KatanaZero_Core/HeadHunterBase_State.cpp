@@ -132,8 +132,6 @@ void AHeadHunterBase::RecoverStart()
 			SetRecoverEffect();
 		}
 	);
-
-
 }
 
 void AHeadHunterBase::Recover(float _DletaTime)

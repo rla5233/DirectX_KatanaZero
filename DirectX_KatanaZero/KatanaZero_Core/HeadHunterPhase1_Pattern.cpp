@@ -5,6 +5,100 @@
 #include "MainCamera.h"
 
 
+void AHeadHunterPhase1::PatternCheck()
+{
+	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+	FVector CurPos = GetActorLocation();
+
+	float DiffX = CurPos.X - PlayerPos.X;
+	float LeftFirstPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::leftfirst);
+	float LeftSecondPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::leftsecond);
+	float RightSecondPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::rightsecond);
+	float RightFirstPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::rightfirst);
+
+	// Pattern Check
+	if (LeftSecondPos < CurPos.X && RightSecondPos > CurPos.X)
+	{
+		if (150.0f >= abs(DiffX))
+		{
+			State.ChangeState(HeadHunterState::roll);
+			
+			// Reverse
+			Velocity.X *= -1.0f;
+			EEngineDir Dir = Body->GetDir();
+			switch (Dir)
+			{
+			case EEngineDir::Left:
+				Body->SetDir(EEngineDir::Right);
+				break;
+			case EEngineDir::Right:
+				Body->SetDir(EEngineDir::Left);
+				break;
+			}
+
+			return;
+		}
+		else
+		{
+			State.ChangeState(HeadHunterState::pattern_rifle1);
+			return;
+		}
+	}
+
+	if (500.0f < abs(DiffX))
+	{
+		State.ChangeState(HeadHunterState::pattern_rifle1);
+		return;
+	}
+	
+	if (500.0f >= abs(DiffX) && 90.0f < abs(DiffX))
+	{
+		if (LeftFirstPos > CurPos.X || RightFirstPos < CurPos.X)
+		{
+			State.ChangeState(HeadHunterState::roll);
+			return;
+		}
+		else
+		{
+			int Prob = UEngineRandom::MainRandom.RandomInt(1, 100);
+
+			if (2 <= RollCount || Prob <= 50)
+			{
+				State.ChangeState(HeadHunterState::pattern_airrifle1);
+				return;
+			}
+			else
+			{
+				State.ChangeState(HeadHunterState::roll);
+				return;
+			}
+		}
+	}
+
+	if (90.0f >= abs(DiffX))
+	{
+		if (LeftFirstPos <= CurPos.X && RightFirstPos >= CurPos.X)
+		{
+			int Prob = UEngineRandom::MainRandom.RandomInt(1, 100);
+
+			if (2 <= RollCount || Prob <= 50)
+			{
+				State.ChangeState(HeadHunterState::pattern_airrifle1);
+				return;
+			}
+			else
+			{
+				State.ChangeState(HeadHunterState::roll);
+				return;
+			}
+		}
+
+		State.ChangeState(HeadHunterState::roll);
+		return;
+	}
+}
+
 // Pattern_Rifle1
 void AHeadHunterPhase1::Rifle1LaserUpdate(float _DeltaTime)
 {
@@ -216,6 +310,7 @@ void AHeadHunterPhase1::AirRifle1Update3(float _DeltaTime)
 
 	// 충돌 체크
 	ColCheckUpdate();
+	LaserColCheck();
 
 	// Effect
 	CreateAfterImage(_DeltaTime);

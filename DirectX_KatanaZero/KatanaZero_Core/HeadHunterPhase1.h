@@ -29,6 +29,8 @@ private:
 	const int CloudSize = 15;
 	int CloudIdx = 0;
 
+	int RollCount = 0;
+
 	float PatternDelayTimeCount = 0.0f;
 	int Pattern1Count = 0;
 
@@ -55,7 +57,6 @@ private:
 private:
 	void Play(float _DeltaTime) override;
 
-
 // Effect
 private:
 	void CreateRollCroudEffect(float _DeltaTime);
@@ -68,6 +69,8 @@ private:
 
 // Pattern
 private:
+	void PatternCheck();
+
 	// Pattern_Rifle1
 	void Rifle1LaserUpdate(float _DeltaTime);
 	void Rifle1LaserUpdate1(float _DeltaTime);

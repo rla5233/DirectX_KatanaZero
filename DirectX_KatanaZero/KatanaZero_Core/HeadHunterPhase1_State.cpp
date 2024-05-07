@@ -28,6 +28,7 @@ void AHeadHunterPhase1::StateInit()
 	// State End
 	State.SetEndFunction(HeadHunterState::roll,					[=] { BodyCol->SetActive(true); });
 	State.SetEndFunction(HeadHunterState::pattern_rifle1,		[=] { Body->SetPosition(FVector::Zero); });
+	State.SetEndFunction(HeadHunterState::pattern_airrifle1,	[=] { BodyCol->SetActive(true); });
 
 }
 
@@ -40,7 +41,7 @@ void AHeadHunterPhase1::IdleStart()
 {
 	Super::IdleStart();
 
-	PatternDelayTimeCount = 0.5f;
+	PatternDelayTimeCount = 0.015f;
 }
 
 void AHeadHunterPhase1::Idle(float _DeltaTime)
@@ -58,51 +59,15 @@ void AHeadHunterPhase1::Idle(float _DeltaTime)
 		return;
 	}
 
-	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
-	FVector PlayerPos = PlayLevel->GetPlayerLocation();
-	FVector CurPos = GetActorLocation();
-	
-	float DiffX = CurPos.X - PlayerPos.X;
-	float LeftFirstPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::leftfirst);
-	float RightFirstPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::rightfirst);
-
-	//if (350.0f < abs(DiffX))
-	//{
-	//	State.ChangeState(HeadHunterState::pattern_rifle1);
-	//	return;
-	//}
-	//else if (350.0f >= abs(DiffX) && 100.0f >= abs(DiffX))
-	//{
-	//	if (LeftFirstPos > CurPos.X || RightFirstPos < CurPos.X)
-	//	{
-	//		State.ChangeState(HeadHunterState::roll);
-	//		return;
-	//	}
-	//	else
-	//	{
-	//		State.ChangeState(HeadHunterState::pattern_airrifle1);
-	//		return;
-	//	}
-	//}
-	//else
-	//{
-	//	State.ChangeState(HeadHunterState::roll);
-	//	return;
-	//}
-
-
-	if (true == UEngineInput::IsDown(VK_SPACE))
-	{
-		State.ChangeState(HeadHunterState::roll);
-		//State.ChangeState(HeadHunterState::pattern_airrifle1);
-		return;
-	}
-
+	PatternCheck();
 }
 
 void AHeadHunterPhase1::RecoverStart()
 {
 	Super::RecoverStart();
+
+	LaserCol->SetActive(false);
+	LaserEffect->SetActive(false);
 
 	DelayCallBack(3.0f, [=]
 		{
@@ -128,16 +93,7 @@ void AHeadHunterPhase1::ExitDoorStart()
 	}
 
 	Body->ChangeAnimation(Anim::headhunter_exit_door);
-
-	DelayCallBack(0.6f, [=]
-		{
-			if (HeadHunterState::idle == State.GetCurStateName())
-			{
-				State.ChangeState(HeadHunterState::pattern_rifle1);
-				return;
-			}
-		}
-	);
+	RollCount = 0;
 }
 
 void AHeadHunterPhase1::ExitDoor(float _DletaTime)
@@ -171,6 +127,7 @@ void AHeadHunterPhase1::RollStart()
 
 	BodyCol->SetActive(false);
 
+	++RollCount;
 	PatternOrder = 0;
 }
 
@@ -198,18 +155,23 @@ void AHeadHunterPhase1::Roll(float _DeltaTime)
 
 void AHeadHunterPhase1::PatternRifle1Start()
 {
-	Body->ChangeAnimation(Anim::headhunter_takeup_rifle);
+	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+	FVector CurPos = GetActorLocation();
 
-	switch (Body->GetDir())
+	if (PlayerPos.X < CurPos.X)
 	{
-	case EEngineDir::Left:
+		Body->SetDir(EEngineDir::Left);
 		Body->AddPosition({ -6.0f, 0.0f, 0.0f });
-		break;
-	case EEngineDir::Right:
+	}
+	else
+	{
+		Body->SetDir(EEngineDir::Right);
 		Body->AddPosition({ 6.0f, 0.0f, 0.0f });
-		break;
 	}
 
+	Body->ChangeAnimation(Anim::headhunter_takeup_rifle);
+	RollCount = 0;
 	Pattern1Count = 3;
 	PatternOrder = 0;
 }
@@ -250,6 +212,8 @@ void AHeadHunterPhase1::PatternAirRifle1Start()
 		break;
 	}
 
+	BodyCol->SetActive(false);
+	RollCount = 0;
 	PatternOrder = 0;
 }
 

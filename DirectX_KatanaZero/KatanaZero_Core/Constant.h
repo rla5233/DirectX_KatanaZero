@@ -627,6 +627,8 @@ namespace SlidingDoorState
 namespace HH_Phase1_RefPos
 {
 	const std::string_view leftfirst		= "LeftFirst";
+	const std::string_view leftsecond		= "LeftSecond";
 	const std::string_view mid				= "Mid";
 	const std::string_view rightfirst		= "RightFirst";
+	const std::string_view rightsecond		= "RightSecond";
 }
