@@ -70,9 +70,9 @@ public:
 	// 충돌이 끝났을때 1번
 	bool CollisionExit(int _TargetGroup, std::function<void(std::shared_ptr<UCollision>)> _Function = nullptr);
 
-	bool Collision(int _TargetGroup, 
-		std::function<void(std::shared_ptr<UCollision>)> _Enter = nullptr, 
-		std::function<void(std::shared_ptr<UCollision>)> _Stay = nullptr, 
+	bool Collision(int _TargetGroup,
+		std::function<void(std::shared_ptr<UCollision>)> _Enter = nullptr,
+		std::function<void(std::shared_ptr<UCollision>)> _Stay = nullptr,
 		std::function<void(std::shared_ptr<UCollision>)> _Exit = nullptr);
 
 	void SetCollisionType(ECollisionType _CollisionType)
@@ -87,6 +87,14 @@ public:
 	}
 
 	void SetOrder(int _Order) override;
+
+	void SetActive(bool _Value) override
+	{
+		Super::SetActive(_Value);
+		FirstCheck.clear();
+		OtherCheck.clear();
+		ExitCheck.clear();
+	}
 
 protected:
 	void BeginPlay() override;
