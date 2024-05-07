@@ -60,9 +60,15 @@ private:
 private:
 	void CreateRollCroudEffect(float _DeltaTime);
 	void CroudEffectUpdate(float _DeltaTime);
-
-	// Pattern_Rifle1
+	
 	void SetRifle1LaserEffect();
+
+	void SetAirRifle1LaserEffect();
+	void AirRifle1LaserEffectUpdate(float _DeltaTime);
+
+// Pattern
+private:
+	// Pattern_Rifle1
 	void Rifle1LaserUpdate(float _DeltaTime);
 	void Rifle1LaserUpdate1(float _DeltaTime);
 	void Rifle1LaserUpdate2(float _DeltaTime);

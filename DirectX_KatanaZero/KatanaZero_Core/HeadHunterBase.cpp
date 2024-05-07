@@ -5,7 +5,7 @@
 
 AHeadHunterBase::AHeadHunterBase()
 {
-	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+	UDefaultSceneComponent* Root= CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
 	Body = CreateDefaultSubObject<USpriteRenderer>("HeadHunter_Body");
 	Body->SetupAttachment(Root);

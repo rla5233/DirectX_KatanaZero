@@ -197,6 +197,20 @@ void AHeadHunterPhase1::AirRifle1Update3(float _DeltaTime)
 	// Effect
 	CreateAfterImage(_DeltaTime);
 
+	if (1 == Body->GetCurAnimationFrame())
+	{
+		SetAirRifle1LaserEffect();
+	}
+	else if (1 < Body->GetCurAnimationFrame() && 6 > Body->GetCurAnimationFrame())
+	{
+		AirRifle1LaserEffectUpdate(_DeltaTime);
+	}
+	else if (6 == Body->GetCurAnimationFrame())
+	{
+		LaserEffect->SetActive(false);
+		LaserCol->SetActive(false);
+	}
+
 	if (true == IsOnGround(Body->GetDir()))
 	{
 		Body->ChangeAnimation(Anim::headhunter_land);
