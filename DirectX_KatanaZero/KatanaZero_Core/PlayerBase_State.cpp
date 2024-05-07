@@ -876,7 +876,6 @@ void APlayerBase::DeadStart()
 	AddActorLocation({ 0.0f, 10.0f, 0.0f });
 
 	FrontCol->SetActive(false);
-	BodyCol->SetActive(false);
 
 	SetRecordingActive(false);
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
@@ -909,6 +908,12 @@ void APlayerBase::Dead(float _DeltaTime)
 		Velocity.Y *= -1.0f;
 	}
 
+	BodyCol->CollisionEnter(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
+		{
+			Velocity.X = 0.0f;
+		}
+	);
+
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
@@ -925,7 +930,8 @@ void APlayerBase::KickDoor(float _DeltaTime)
 
 void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 {
-	if (true == IsInvincibleValue && EEnemyType::Fan != _EnemyType)
+	if ((true == IsInvincibleValue && EEnemyType::Fan != _EnemyType)
+	||	PlayerState::dead == State.GetCurStateName())
 	{
 		return;
 	}
