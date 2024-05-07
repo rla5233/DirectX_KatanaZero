@@ -89,5 +89,6 @@ void AHeadHunterLevel::RestartStart()
 {
 	Super::RestartStart();
 
+	HeadHunter->StateChange(HeadHunterState::none);
 	HeadHunter->SubStateChange(HeadHunterSubState::restart);
 }

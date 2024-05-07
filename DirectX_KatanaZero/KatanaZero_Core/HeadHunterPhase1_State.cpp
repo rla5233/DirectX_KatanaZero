@@ -107,7 +107,11 @@ void AHeadHunterPhase1::ExitDoorStart()
 
 	DelayCallBack(0.6f, [=]
 		{
-			State.ChangeState(HeadHunterState::pattern_rifle1);
+			if (HeadHunterState::idle == State.GetCurStateName())
+			{
+				State.ChangeState(HeadHunterState::pattern_rifle1);
+				return;
+			}
 		}
 	);
 }
