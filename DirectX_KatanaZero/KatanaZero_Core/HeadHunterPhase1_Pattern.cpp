@@ -18,6 +18,8 @@ void AHeadHunterPhase1::PatternCheck()
 	float RightFirstPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::rightfirst);
 
 	// Pattern Check
+
+	// 중앙 위치 패턴
 	if (LeftSecondPos < CurPos.X && RightSecondPos > CurPos.X)
 	{
 		if (150.0f >= abs(DiffX))
@@ -46,6 +48,8 @@ void AHeadHunterPhase1::PatternCheck()
 		}
 	}
 
+
+	// 플레이어와의 거리 계산 패턴
 	if (500.0f < abs(DiffX))
 	{
 		State.ChangeState(HeadHunterState::pattern_rifle1);
@@ -203,13 +207,19 @@ void AHeadHunterPhase1::Rifle1LaserUpdate3(float _DeltaTime)
 		AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
 		FVector PlayerPos = PlayLevel->GetPlayerLocation();
 		FVector CurPos = GetActorLocation();
-		if (350.0f < abs(CurPos.X - PlayerPos.X))
+		float DiffX = abs(CurPos.X - PlayerPos.X);
+		if (350.0f < DiffX)
 		{
 			DelayCallBack(0.06f, [=] { PatternOrder = 0; });
 		}
 		else
 		{
-			// 패턴 추가
+			if (150.0f > DiffX)
+			{
+				State.ChangeState(HeadHunterState::roll);
+				return;
+			}
+
 			Body->ChangeAnimation(Anim::headhunter_putback_rifle);
 			PatternOrder = -1;
 			return;
