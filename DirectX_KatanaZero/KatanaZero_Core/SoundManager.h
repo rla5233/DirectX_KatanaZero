@@ -14,7 +14,7 @@ public:
 	USoundManager& operator=(const USoundManager& _Other) = delete;
 	USoundManager& operator=(USoundManager&& _Other) noexcept = delete;
 
-
+	static UEngineSoundPlayer SoundPlay_PlayerRun();
 
 
 protected:

@@ -26,3 +26,4 @@
 #include "ContentsMath.h"
 #include "ContentsEnum.h"
 #include "Constant.h"
+#include "SoundManager.h"

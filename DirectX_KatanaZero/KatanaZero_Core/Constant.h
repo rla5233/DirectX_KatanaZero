@@ -290,10 +290,23 @@ namespace Anim
 
 namespace SoundRes
 {
+	// Player
+	const std::string_view player_run_1				= "sound_player_running_1.wav";
+	const std::string_view player_run_2				= "sound_player_running_2.wav";
+	const std::string_view player_run_3				= "sound_player_running_3.wav";
+	const std::string_view player_run_4				= "sound_player_running_4.wav";
+	const std::string_view player_headphone			= "sound_playerheadphones.wav";
+	const std::string_view player_casette_play		= "sound_playercasette_play.wav";
+	const std::string_view player_casette_rewind	= "sound_playercasette_rewind.wav";
+
+	// UI
 	const std::string_view bgm_title				= "song_title_bgm.ogg";
 	const std::string_view title_menu_beep			= "sound_menu_beep.wav";
 	const std::string_view title_menu_select		= "sound_menu_select.wav";
 	const std::string_view title_menu_transition	= "sound_ui_transition.wav";
+	const std::string_view transition_on			= "sound_transition_on.wav";
+	const std::string_view transition_off			= "sound_transition_off.wav";
+
 }
 
 namespace Const

@@ -67,6 +67,8 @@ void ADiamondTransition::StateInit()
 			X = Width - 1;
 			IsTransitionEndValue = false;
 			SetActive(true);
+
+			UEngineSound::SoundPlay(SoundRes::transition_on).SetVolume(0.5f);
 		}
 	);
 
@@ -84,6 +86,8 @@ void ADiamondTransition::StateInit()
 			X = Width - 1;
 			IsTransitionEndValue = false;
 			SetActive(true);
+
+			UEngineSound::SoundPlay(SoundRes::transition_off).SetVolume(0.5f);
 		}
 	);
 

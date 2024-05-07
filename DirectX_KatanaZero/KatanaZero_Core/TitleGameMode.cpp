@@ -19,6 +19,7 @@ void ATitleGameMode::BeginPlay()
 
 	TitleBGM = UEngineSound::SoundPlay(SoundRes::bgm_title);
 	TitleBGM.Loop();
+	TitleBGM.Off();
 
 	StateInit();
 }
