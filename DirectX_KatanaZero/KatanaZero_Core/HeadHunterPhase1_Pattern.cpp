@@ -8,6 +8,12 @@
 void AHeadHunterPhase1::PatternCheck()
 {
 	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+	
+	if (true == PlayLevel->IsPlayerDead())
+	{
+		return;
+	}
+
 	FVector PlayerPos = PlayLevel->GetPlayerLocation();
 	FVector CurPos = GetActorLocation();
 
