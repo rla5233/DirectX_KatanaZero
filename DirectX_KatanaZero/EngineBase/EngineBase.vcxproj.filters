@@ -93,6 +93,12 @@
     <ClInclude Include="NetStartUpHelper.h">
       <Filter>Net</Filter>
     </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPSession.h">
+      <Filter>Net</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -153,6 +159,12 @@
       <Filter>Net</Filter>
     </ClCompile>
     <ClCompile Include="NetStartUpHelper.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPSession.cpp">
       <Filter>Net</Filter>
     </ClCompile>
   </ItemGroup>

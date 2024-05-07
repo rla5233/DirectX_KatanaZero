@@ -13,10 +13,32 @@ UEngineNetWindow::~UEngineNetWindow()
 
 void UEngineNetWindow::OnGui(ULevel* Level, float _Delta)
 {
+	if (NetType != ENetType::None)
+	{
+		switch (NetType)
+		{
+		case ENetType::Server:
+		{
+			ImGui::Text("Server");
+			break;
+		}
+		case ENetType::Client:
+		{
+			ImGui::Text("Client");
+			break;
+		}
+		default:
+			break;
+		}
+
+		return;
+	}
+
 	if (true == ImGui::Button("ServerOpen"))
 	{
 		if (nullptr != ServerOpenFunction)
 		{
+			NetType = ENetType::Server;
 			ServerOpenFunction();
 		}
 	}
@@ -28,6 +50,7 @@ void UEngineNetWindow::OnGui(ULevel* Level, float _Delta)
 	{
 		if (nullptr != ServerOpenFunction)
 		{
+			NetType = ENetType::Client;
 			ClientConnectFunction(IP, PORT);
 		}
 	}

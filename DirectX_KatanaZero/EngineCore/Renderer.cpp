@@ -3,6 +3,7 @@
 #include "EngineInputLayOut.h"
 #include "EngineShaderResources.h"
 #include "Camera.h"
+#include "EngineCore.h"
 
 URenderer::URenderer()
 {
@@ -18,7 +19,14 @@ void URenderer::BeginPlay()
 	Super::BeginPlay();
 
 	// ÇØÁà¾ß ÇÑ´Ù
-	GetWorld()->PushRenderer(shared_from_this());
+	if (nullptr != GetWorld())
+	{
+		GetWorld()->PushRenderer(shared_from_this());
+	}
+	else if (nullptr != UEngineCore::GetCurCreateLevel())
+	{
+		UEngineCore::GetCurCreateLevel()->PushRenderer(shared_from_this());
+	}
 }
 
 void URenderer::Tick(float _DeltaTime)

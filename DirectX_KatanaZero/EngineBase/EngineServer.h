@@ -1,5 +1,7 @@
 #pragma once
 #include "EngineNet.h"
+#include "EngineThread.h"
+#include "TCPSession.h"
 
 // 설명 :
 class UEngineServer : public UEngineNet
@@ -20,5 +22,12 @@ protected:
 
 private:
 	int Port;
+	UEngineThread AcceptThread;
+	UTCPSession AcceptSession;
+
+	// std::shared_ptr 쓰레드에 안전합니다.
+	std::list<std::shared_ptr<USession>> Sessions;
+
+	static void AcceptThreadFunction(UEngineServer* _Server, SOCKET _AcceptSocket);
 };
 

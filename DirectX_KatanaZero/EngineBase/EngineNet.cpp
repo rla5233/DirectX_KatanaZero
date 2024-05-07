@@ -5,9 +5,11 @@
 UEngineNet::UEngineNet() 
 {
 	UNetStartUpHelper::NetStartUp();
+	IsActiveValue = true;
 }
 
 UEngineNet::~UEngineNet() 
 {
+	IsActiveValue = false;
 }
 

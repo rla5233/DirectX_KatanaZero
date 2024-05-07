@@ -22,7 +22,7 @@ APlayerBase::APlayerBase()
 
 	AttackCol	= CreateDefaultSubObject<UCollision>("Player_Attack");
 	BodyCol		= CreateDefaultSubObject<UCollision>("Player_Body");
-	FrontCol = CreateDefaultSubObject<UCollision>("Player_Front");
+	FrontCol	= CreateDefaultSubObject<UCollision>("Player_Front");
 
 	AttackEffect = CreateDefaultSubObject<USpriteRenderer>("Player_Effect");
 	JumpLandEffect = CreateDefaultSubObject<USpriteRenderer>("Player_Effect");

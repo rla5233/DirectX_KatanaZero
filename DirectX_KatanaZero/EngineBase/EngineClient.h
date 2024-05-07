@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineNet.h"
+#include "TCPSession.h"
 
 // Ό³Έν :
 class UEngineClient : public UEngineNet
@@ -16,9 +17,10 @@ public:
 	UEngineClient& operator=(UEngineClient&& _Other) noexcept = delete;
 
 protected:
-	void ServerOpen();
+	void ServerOpen(int _Port, int _BackLog) override;
+	void Connect(std::string _Ip, int _Port) override;
 
 private:
-
+	UTCPSession Session;
 };
 

@@ -3,11 +3,11 @@
 #include "EngineDebug3D.h"
 #include "EngineCore.h"
 
-UCollision::UCollision() 
+UCollision::UCollision()
 {
 }
 
-UCollision::~UCollision() 
+UCollision::~UCollision()
 {
 }
 
@@ -19,7 +19,14 @@ void UCollision::BeginPlay()
 
 	Super::BeginPlay();
 
-	GetWorld()->PushCollision(shared_from_this());
+	if (nullptr != GetWorld())
+	{
+		GetWorld()->PushCollision(shared_from_this());
+	}
+	else if (nullptr != UEngineCore::GetCurCreateLevel())
+	{
+		UEngineCore::GetCurCreateLevel()->PushCollision(shared_from_this());
+	}
 }
 
 void UCollision::SetCollisionGroup(int _Index)
@@ -87,7 +94,7 @@ bool UCollision::Collision(int _TargetGroup,
 					_Enter(OtherCollision);
 				}
 			}
-						
+
 			if (true == OtherCheck.contains(CollisionPtr))
 			{
 				if (nullptr != _Stay)
@@ -96,7 +103,7 @@ bool UCollision::Collision(int _TargetGroup,
 				}
 			}
 		}
-		else if(true == OtherCheck.contains(CollisionPtr) || true == ExitCheck.contains(CollisionPtr))
+		else if (true == OtherCheck.contains(CollisionPtr) || true == ExitCheck.contains(CollisionPtr))
 		{
 			OtherCheck.erase(CollisionPtr);
 
@@ -174,7 +181,7 @@ void UCollision::Tick(float _Delta)
 		Trans.World = Trans.ScaleMat * Trans.PositionMat * PScale * PPos;
 		Trans.WVP = Trans.World * Trans.View * Trans.Projection;
 
-		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Trans, float4::Red);
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Trans, float4::Black);
 		break;
 	}
 	case ECollisionType::CirCle:
@@ -184,7 +191,7 @@ void UCollision::Tick(float _Delta)
 		break;
 	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:
-		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Red);
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Black);
 		break;
 	case ECollisionType::Max:
 		break;

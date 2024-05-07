@@ -13,6 +13,8 @@
 
 #include "EngineVertexBuffer.h"
 
+ULevel* UEngineCore::CurCreateLevel;
+
 UEngineCore::UEngineCore() 
 {
 }
@@ -110,6 +112,21 @@ void UEngineCore::EngineFrameUpdate()
 
 	GEngine->EngineWindow.CalculateMouseUpdate(DeltaTime);
 
+	for (size_t i = 0; i < DestroyLevelName.size(); i++)
+	{
+		std::string UpperName = UEngineString::ToUpper(DestroyLevelName[i]);
+
+		std::shared_ptr<ULevel> Level = Levels[UpperName];
+
+		Levels.erase(DestroyLevelName[i]);
+
+		if (Level == CurLevel)
+		{
+			CurLevel = nullptr;
+		}
+	}
+	DestroyLevelName.clear();
+
 	if (nullptr != NextLevel)
 	{
 		if (nullptr != CurLevel)
@@ -153,9 +170,11 @@ std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string_view _Name, std:
 	}
 
 	std::shared_ptr<ULevel> Level = std::make_shared<ULevel>();
+	CurCreateLevel = Level.get();
 	Level->SetGameMode(GameModePtr);
 	Level->SetName(_Name);
 	Level->PushActor(_GameMode);
 	Levels[UpperName] = Level;
+	CurCreateLevel = nullptr;
 	return Level;
 }

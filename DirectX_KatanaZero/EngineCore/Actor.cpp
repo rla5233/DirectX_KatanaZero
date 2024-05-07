@@ -62,7 +62,7 @@ void AActor::PushComponent(std::shared_ptr<UActorComponent> _Component, std::str
 
 	_Component->SetActor(this);
 	_Component->SetName(_Name);
-	//_Component->BeginPlay();
+	_Component->BeginPlay();
 
 	Components.push_back(_Component);
 

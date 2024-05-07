@@ -92,11 +92,25 @@ public:
 			return;
 		}
 
+
+
 		std::shared_ptr<GameModeType> NewGameMode = std::make_shared<GameModeType>();
+		std::shared_ptr<ULevel> Level = NewLevelCreate(_Name, NewGameMode);
 
 		NewGameMode->SetOrder(INT_MIN);
 
-		std::shared_ptr<ULevel> Level = NewLevelCreate(_Name, NewGameMode);
+	}
+
+	void DestroyLevel(std::string_view _Name)
+	{
+		std::string UpperName = UEngineString::ToUpper(_Name);
+
+		if (false == Levels.contains(UpperName))
+		{
+			MsgBoxAssert(std::string(_Name) + "존재하지 않는 레벨을 파괴할수는 없습니다");
+		}
+
+		DestroyLevelName.push_back(UpperName);
 	}
 
 	FEngineOption GetEngineOption()
@@ -124,9 +138,16 @@ public:
 
 	UThreadPool JobWorker;
 
+	static ULevel* GetCurCreateLevel()
+	{
+		return CurCreateLevel;
+	}
+
 protected:
 
 private:
+	static ULevel* CurCreateLevel;
+
 	FEngineOption EngineOption;
 
 	UEngineTime MainTimer;
@@ -140,7 +161,7 @@ private:
 	std::map <std::string, std::shared_ptr<ULevel>> Levels;
 	std::shared_ptr<ULevel> NextLevel = nullptr;
 	std::shared_ptr<ULevel> CurLevel = nullptr;
-
+	std::vector<std::string> DestroyLevelName;
 	void EngineOptionInit();
 
 	void EngineStart(HINSTANCE _Inst);

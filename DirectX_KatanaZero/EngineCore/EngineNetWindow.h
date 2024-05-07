@@ -3,6 +3,13 @@
 #include "EngineEditorWindow.h"
 #include <vector>
 
+enum class ENetType
+{
+	None,
+	Server,
+	Client
+};
+
 // Ό³Έν :
 class UEngineNet;
 class UEngineNetWindow : public UEngineEditorWindow
@@ -37,6 +44,7 @@ private:
 
 	std::string IP = "127.0.0.1";
 	int PORT = 30000;
-	
+
+	ENetType NetType = ENetType::None;
 };
 

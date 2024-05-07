@@ -24,11 +24,23 @@ public:
 
 	virtual void ServerOpen(int _Port, int _BackLog)	{	}
 
-	// virtual void Connect();
+	// std::string _Ip 어떤 컴퓨터에 접속할거냐.
+	// int _Port 그 컴퓨터에 켜져있는 어떤 프로그램에 접속할거냐.
+	virtual void Connect(std::string _Ip, int _Port) {};
+
+	std::atomic_bool& IsActive()
+	{
+		return IsActiveValue;
+	}
+
+	void End()
+	{
+		IsActiveValue = false;
+	}
 
 protected:
 
 private:
-
+	std::atomic_bool IsActiveValue = true;
 };
 
