@@ -206,6 +206,7 @@ void AEnemyBase::HitFall(float _DeltaTime)
 	if (true == IsOnGround(Dir) || true == IsOnPlatForm(Dir)
 		|| true == IsOnGP_Boundary(Dir) || true == IsOnStairs(Dir))
 	{
+		UEngineSound::SoundPlay(SoundRes::enemy_hitfloor).SetVolume(0.5f);
 		State.ChangeState(EnemyState::dead);
 		return;
 	}

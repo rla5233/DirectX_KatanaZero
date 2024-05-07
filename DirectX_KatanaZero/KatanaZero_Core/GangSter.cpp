@@ -69,11 +69,8 @@ void AGangSter::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::enemy_gangster_hitfall, ImgRes::enemy_gangster_hitfall, 0.06f, false);
 	GetBody()->CreateAnimation(Anim::enemy_gangster_dead, ImgRes::enemy_gangster_dead, 0.06f, false);
 
-	GetBody()->SetFrameCallback(Anim::enemy_gangster_turn, 6, [=]
-		{
-			GetBody()->AddPosition({ 0.0f, -2.0f, 0.0f });
-		}
-	);
+	GetBody()->SetFrameCallback(Anim::enemy_gangster_turn, 6,	[=] { GetBody()->AddPosition({ 0.0f, -2.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::enemy_gangster_dead, 11,	[=] { UEngineSound::SoundPlay(SoundRes::enemy_chest_ground).SetVolume(0.5f); });
 
 	Spark->CreateAnimation(Anim::effect_gun_spark1, ImgRes::effect_gun_spark1, 0.06f, false);
 	Spark->CreateAnimation(Anim::effect_gun_spark2, ImgRes::effect_gun_spark2, 0.06f, false);

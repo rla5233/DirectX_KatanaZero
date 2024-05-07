@@ -327,6 +327,8 @@ namespace SoundRes
 	const std::string_view enemy_bloodsplat2		= "sound_enemy_bloodsplat2.wav";
 	const std::string_view enemy_bloodsplat3		= "sound_enemy_bloodsplat3.wav";
 	const std::string_view enemy_bloodsplat4		= "sound_enemy_bloodsplat4.wav";
+	const std::string_view enemy_hitfloor			= "sound_enemy_hitfloor.wav";
+	const std::string_view enemy_chest_ground		= "sound_enemy_chest_ground.wav";
 	const std::string_view door_open				= "sound_door_open.wav";
 		
 	// BGM

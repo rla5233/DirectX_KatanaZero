@@ -75,23 +75,10 @@ void AGrunt::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::enemy_grunt_dead, ImgRes::enemy_grunt_dead, 0.08f, false);
 	GetBody()->CreateAnimation(Anim::enemy_grunt_attack, ImgRes::enemy_grunt_attack, 0.07f, false);
 	
-	GetBody()->SetFrameCallback(Anim::enemy_grunt_turn, 8, [=]
-		{
-			DirChange();
-		}
-	);
-	
-	GetBody()->SetFrameCallback(Anim::enemy_grunt_attack, 2, [=]
-		{
-			SetAttackEffect(AttackDeg);
-		}
-	);
-
-	GetBody()->SetFrameCallback(Anim::enemy_grunt_attack, 4, [=]
-		{
-			SetAttackCollision(AttackDir, AttackDeg);
-		}
-	);
+	GetBody()->SetFrameCallback(Anim::enemy_grunt_turn, 8,		[=] { DirChange(); });
+	GetBody()->SetFrameCallback(Anim::enemy_grunt_attack, 2,	[=] { SetAttackEffect(AttackDeg); });
+	GetBody()->SetFrameCallback(Anim::enemy_grunt_attack, 4,	[=] { SetAttackCollision(AttackDir, AttackDeg); });
+	GetBody()->SetFrameCallback(Anim::enemy_grunt_dead, 13,		[=] { UEngineSound::SoundPlay(SoundRes::enemy_chest_ground).SetVolume(0.5f); });
 
 	AttackEffect->CreateAnimation(Anim::effect_grunt_attack, ImgRes::effect_grunt_attack, 0.08f, false);
 	AttackEffect->SetLastFrameCallback(Anim::effect_grunt_attack, [=] 
