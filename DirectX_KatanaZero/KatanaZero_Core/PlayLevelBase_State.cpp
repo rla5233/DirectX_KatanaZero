@@ -305,6 +305,8 @@ void APlayLevelBase::RestartStart()
 
 	WaveEffect->SetEffectType(EWaveEffectType::Restart);
 	WaveEffect->Active(true);
+
+	UEngineSound::SoundPlay(SoundRes::stage_restart).SetVolume(0.75f);
 }
 
 void APlayLevelBase::Restart(float _DeltaTime)
@@ -319,6 +321,7 @@ void APlayLevelBase::Restart(float _DeltaTime)
 		WaveEffect->Active(false);
 		WaveEffect->ResetTime();
 
+		UEngineSound::SoundPlay(SoundRes::stage_restartend).SetVolume(0.75f);
 		State.ChangeState(PlayLevelState::intro_effect);
 		return;
 	}

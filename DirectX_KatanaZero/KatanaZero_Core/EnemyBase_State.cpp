@@ -169,6 +169,7 @@ void AEnemyBase::HitFallStart()
 	NewHitLaser->SetVelocity(HitDir * 10000.0f);
 
 	PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::shaking);
+	USoundManager::SoundPlay_EnemyBloodSplat();
 }
 
 void AEnemyBase::HitFall(float _DeltaTime)

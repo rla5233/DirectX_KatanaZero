@@ -152,6 +152,7 @@ void AEnemyBase::ChaseMarkOn()
 void AEnemyBase::HitByPlayer(FVector _AttDir)
 {
 	HitDir = _AttDir;
+	USoundManager::SoundPlay_EnemyDeadSword();
 	State.ChangeState(EnemyState::hitfall);
 }
 

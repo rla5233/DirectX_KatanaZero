@@ -5,21 +5,30 @@ USoundManager* USoundManager::Inst = nullptr;
 
 USoundManager::USoundManager()
 {
-	SetFactoryBGM();
-
+	FactoryBGMInit();
+	SlomoSoundInit();
 }
 
 USoundManager::~USoundManager()
 {
-	delete Inst;
 }
 
-void USoundManager::SetFactoryBGM()
+void USoundManager::FactoryBGMInit()
 {
 	FactoryBGM = UEngineSound::SoundPlay(SoundRes::bgm_factory);
 	FactoryBGM.SetVolume(0.6f);
 	FactoryBGM.Loop();
 	FactoryBGM.Off();
+}
+
+void USoundManager::SlomoSoundInit()
+{
+	SlomoStart = UEngineSound::SoundPlay(SoundRes::slomo_start);
+	SlomoStart.SetVolume(0.6f);
+	SlomoStart.Off();
+
+	SlomoEnd = UEngineSound::SoundPlay(SoundRes::slomo_end);
+	SlomoEnd.Off();
 }
 
 UEngineSoundPlayer USoundManager::SoundPlay_PlayerRun()
@@ -65,7 +74,51 @@ UEngineSoundPlayer USoundManager::SoundPlay_PlayerSlash()
 		break;
 	}
 
-	Result.SetVolume(0.5f);
+	Result.SetVolume(0.75f);
+	return Result;
+}
+
+UEngineSoundPlayer USoundManager::SoundPlay_EnemyDeadSword()
+{
+	UEngineSoundPlayer Result = UEngineSoundPlayer();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 2);
+	switch (RandomValue)
+	{
+	case 1:
+		Result = UEngineSound::SoundPlay(SoundRes::enemy_dead_sword1);
+		break;
+	case 2:
+		Result = UEngineSound::SoundPlay(SoundRes::enemy_dead_sword2);
+		break;
+	}
+
+	Result.SetVolume(0.75f);
+	return Result;
+}
+
+UEngineSoundPlayer USoundManager::SoundPlay_EnemyBloodSplat()
+{
+	UEngineSoundPlayer Result = UEngineSoundPlayer();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 4);
+	switch (RandomValue)
+	{
+	case 1:
+		Result = UEngineSound::SoundPlay(SoundRes::enemy_bloodsplat1);
+		break;
+	case 2:
+		Result = UEngineSound::SoundPlay(SoundRes::enemy_bloodsplat2);
+		break;
+	case 3:
+		Result = UEngineSound::SoundPlay(SoundRes::enemy_bloodsplat3);
+		break;
+	case 4:
+		Result = UEngineSound::SoundPlay(SoundRes::enemy_bloodsplat4);
+		break;
+	}
+
+	Result.SetVolume(0.75f);
 	return Result;
 }
 

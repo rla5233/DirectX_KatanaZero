@@ -579,7 +579,7 @@ void APlayerBase::Fall(float _DeltaTime)
 	if (true == IsOnGround(Body->GetDir()) || true == IsOnPlatForm(Body->GetDir()) || true == IsOnCliff(Body->GetDir())
  	||  true == IsOnStairs(Body->GetDir()) || true == IsOnGP_Boundary(Body->GetDir()))
 	{
-		UEngineSound::SoundPlay(SoundRes::player_land).SetVolume(0.25f);
+		UEngineSound::SoundPlay(SoundRes::player_land).SetVolume(0.5f);
 
 		SetLandEffect();
 		if (true == IsRunInputPress())
@@ -854,6 +854,7 @@ void APlayerBase::DeadStart()
 			NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
 			NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });
 			NewHitLaser->SetVelocity(HitDir * 10000.0f);
+			UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
 		}
 		break;
 	case EEnemyType::HeadHunterLaser:

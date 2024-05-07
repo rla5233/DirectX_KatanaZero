@@ -91,7 +91,7 @@ void ADefaultPlayer::CreateAnimation()
 	GetBody()->SetFrameCallback(Anim::player_roll, 16,			[=] { USoundManager::GetInst()->GetFactoryBGM().On(); });
 	GetBody()->SetFrameCallback(Anim::player_roll, 1,			[=] { UEngineSound::SoundPlay(SoundRes::player_roll).SetVolume(0.25f); });
 	GetBody()->SetFrameCallback(Anim::player_run, 1,			[=] { USoundManager::SoundPlay_PlayerRun(); });
-	GetBody()->SetFrameCallback(Anim::player_jump, 0,			[=] { UEngineSound::SoundPlay(SoundRes::player_jump).SetVolume(0.25f); });
+	GetBody()->SetFrameCallback(Anim::player_jump, 0,			[=] { UEngineSound::SoundPlay(SoundRes::player_jump).SetVolume(0.5f); });
 	GetBody()->SetFrameCallback(Anim::player_attack, 2,			[=] { USoundManager::SoundPlay_PlayerSlash(); });
 
 
@@ -200,6 +200,7 @@ void ADefaultPlayer::DeadStart()
 	Super::DeadStart();
 
 	GetBody()->ChangeAnimation(Anim::player_dead);
+	UEngineSound::SoundPlay(SoundRes::player_die).SetVolume(0.75f);
 }
 
 void ADefaultPlayer::IntroStart()

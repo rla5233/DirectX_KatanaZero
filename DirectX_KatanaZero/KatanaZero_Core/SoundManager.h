@@ -25,21 +25,45 @@ public:
 		return Inst;
 	}
 
+	static void DestoryInstance()
+	{
+		if (nullptr != Inst)
+		{
+			delete Inst;
+			Inst = nullptr;
+		}
+	}
+
 	UEngineSoundPlayer GetFactoryBGM()
 	{
 		return FactoryBGM;
 	}
 
+	UEngineSoundPlayer GetSlomoStart()
+	{
+		return SlomoStart;
+	}
+
+	UEngineSoundPlayer GetSlomoEnd()
+	{
+		return SlomoEnd;
+	}
+
 public:
 	static UEngineSoundPlayer SoundPlay_PlayerRun();
 	static UEngineSoundPlayer SoundPlay_PlayerSlash();
+	static UEngineSoundPlayer SoundPlay_EnemyDeadSword();
+	static UEngineSoundPlayer SoundPlay_EnemyBloodSplat();
 
 private:
-	void SetFactoryBGM();
+	void FactoryBGMInit();
+	void SlomoSoundInit();
 
 private:
 	static USoundManager* Inst;
 
 	UEngineSoundPlayer FactoryBGM;
+	UEngineSoundPlayer SlomoStart;
+	UEngineSoundPlayer SlomoEnd;
 };
 

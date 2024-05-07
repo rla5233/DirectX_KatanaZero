@@ -86,6 +86,7 @@ void ADoor::StateInit()
 			HitCol->SetActive(true);
 			GetBody()->ChangeAnimation(Anim::compo_door_open);
 			DelayCallBack(0.25f, [=] { State.ChangeState(DoorState::opened); });
+			UEngineSound::SoundPlay(SoundRes::door_open);
 		}
 	);
 

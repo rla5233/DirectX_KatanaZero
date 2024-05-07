@@ -133,6 +133,12 @@ void APlayerBase::AbilityCheck()
 	{
 		IsAbilityValue = true;
 		UContentsHelper::SetAbilityTimeScale();
+
+		USoundManager::GetInst()->GetSlomoStart().On();
+		USoundManager::GetInst()->GetSlomoStart().Replay();
+
+		USoundManager::GetInst()->GetSlomoEnd().Off();
+		UEngineSound::Update();
 		return;
 	}
 
@@ -140,6 +146,12 @@ void APlayerBase::AbilityCheck()
 	{
 		IsAbilityValue = false;
 		UContentsHelper::ResetTimeScale();
+
+		USoundManager::GetInst()->GetSlomoEnd().On();
+		USoundManager::GetInst()->GetSlomoEnd().Replay();
+
+		USoundManager::GetInst()->GetSlomoStart().Off();
+		UEngineSound::Update();
 		return;
 	}
 }

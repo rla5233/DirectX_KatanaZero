@@ -299,12 +299,14 @@ namespace SoundRes
 	const std::string_view player_roll				= "sound_player_roll.wav";
 	const std::string_view player_jump				= "sound_player_jump.wav";
 	const std::string_view player_land				= "sound_player_land.wav";
+	const std::string_view player_die				= "sound_player_die.wav";
 	const std::string_view player_slash_1			= "sound_player_slash_1.wav";
 	const std::string_view player_slash_2			= "sound_player_slash_2.wav";
 	const std::string_view player_slash_3			= "sound_player_slash_3.wav";
 	const std::string_view player_headphone			= "sound_playerheadphones.wav";
 	const std::string_view player_casette_play		= "sound_playercasette_play.wav";
 	const std::string_view player_casette_rewind	= "sound_playercasette_rewind.wav";
+	const std::string_view player_punch_hit			= "sound_enemy_punch_hit.wav";
 
 	// UI
 	const std::string_view title_menu_beep			= "sound_menu_beep.wav";
@@ -315,7 +317,18 @@ namespace SoundRes
 
 	// Sound
 	const std::string_view stage_start				= "sound_stage_start.wav";
-
+	const std::string_view stage_restart			= "sound_rewind.wav";
+	const std::string_view stage_restartend			= "sound_tv_thump.wav";
+	const std::string_view slomo_start				= "sound_slomo_start.ogg";
+	const std::string_view slomo_end				= "sound_slomo_end.wav";
+	const std::string_view enemy_dead_sword1		= "sound_enemy_death_sword_01.wav";
+	const std::string_view enemy_dead_sword2		= "sound_enemy_death_sword_02.wav";
+	const std::string_view enemy_bloodsplat1		= "sound_enemy_bloodsplat.wav";
+	const std::string_view enemy_bloodsplat2		= "sound_enemy_bloodsplat2.wav";
+	const std::string_view enemy_bloodsplat3		= "sound_enemy_bloodsplat3.wav";
+	const std::string_view enemy_bloodsplat4		= "sound_enemy_bloodsplat4.wav";
+	const std::string_view door_open				= "sound_door_open.wav";
+		
 	// BGM
 	const std::string_view bgm_title				= "song_title_bgm.ogg";
 	const std::string_view bgm_factory				= "song_youwillneverknow.ogg";
