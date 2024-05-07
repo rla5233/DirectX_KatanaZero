@@ -62,6 +62,11 @@ public:
 		return IsAbilityValue;
 	}
 
+	inline bool IsDead() const
+	{
+		return PlayerState::dead == State.GetCurStateName();
+	}
+
 	inline EIntroOrder GetIntroOrder() const
 	{
 		return IntroOrder;
@@ -94,7 +99,7 @@ public:
 
 	void DirChange(EEngineDir _Dir);
 
-	void HitByEnemy(EEnemyType _EnemyType = EEnemyType::Default);
+	void HitByEnemy(FVector _HitDir, EEnemyType _EnemyType = EEnemyType::Default);
 
 	// 수정 (삭제 필요)
 	void DebugUpdate();
@@ -146,6 +151,7 @@ private:
 	bool IsColDoorValue = false;
 	bool IsInvincibleValue = false;
 	EEnemyType HitEnemy = EEnemyType::Default;
+	FVector HitDir = FVector::Zero;
 
 	// FSM
 	UStateManager State;	

@@ -147,7 +147,7 @@ void APlayLevelBase::Play(float _DeltaTime)
 {
 	if (0.0f > PlayTimeCount)
 	{
-		Player->HitByEnemy(EEnemyType::TimeOut);
+		Player->HitByEnemy(FVector::Zero, EEnemyType::TimeOut);
 		return;
 	}
 
@@ -180,7 +180,7 @@ void APlayLevelBase::Clear(float _DeltaTime)
 {
 	if (0.0f > PlayTimeCount)
 	{
-		Player->HitByEnemy(EEnemyType::TimeOut);
+		Player->HitByEnemy(FVector::Zero, EEnemyType::TimeOut);
 		return;
 	}
 

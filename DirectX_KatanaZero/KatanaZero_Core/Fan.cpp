@@ -77,7 +77,7 @@ void AFan::StateInit()
 			BodyCol->CollisionEnter(EColOrder::PlayerFront, [=](std::shared_ptr<UCollision> _Other)
 				{
 					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-					Player->HitByEnemy(EEnemyType::Fan);
+					Player->HitByEnemy(FVector::Zero, EEnemyType::Fan);
 				}
 			);
 			

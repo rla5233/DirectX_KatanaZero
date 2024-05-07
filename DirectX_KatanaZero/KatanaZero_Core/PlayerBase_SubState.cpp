@@ -98,6 +98,7 @@ void APlayerBase::Outro(float _DeltaTime)
 void APlayerBase::ReStartStart()
 {
 	SetRewindStart();
+	BodyCol->SetActive(false);
 	State.ChangeState(PlayerState::none);
 }
 

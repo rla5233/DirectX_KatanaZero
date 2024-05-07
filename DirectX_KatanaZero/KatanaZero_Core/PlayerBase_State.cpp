@@ -847,15 +847,23 @@ void APlayerBase::DeadStart()
 	switch (HitEnemy)
 	{
 	case EEnemyType::Default:
-		{
-			FVector HitDir = Velocity.Normalize2DReturn();
-			float Deg = UContentsMath::GetAngleToX_2D(HitDir);
-			std::shared_ptr<AHitLaser> NewHitLaser = GetWorld()->SpawnActor<AHitLaser>("HitLaser");
-			NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
-			NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });
-			NewHitLaser->SetVelocity(HitDir * 10000.0f);
-			UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
-		}
+	{
+		Velocity *= 0.75f;
+		DelayCallBack(0.105f, [=] 
+			{ 
+				Velocity.X *= 4.0f; 
+				//Velocity.Y *= 1.0f; 
+			}
+		);
+
+		HitDir.Normalize2D();
+		float Deg = UContentsMath::GetAngleToX_2D(HitDir);
+		std::shared_ptr<AHitLaser> NewHitLaser = GetWorld()->SpawnActor<AHitLaser>("HitLaser");
+		NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
+		NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });
+		NewHitLaser->SetVelocity(HitDir * 10000.0f);
+		UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
+	}
 		break;
 	case EEnemyType::HeadHunterLaser:
 	case EEnemyType::CeilLaser:
@@ -928,7 +936,7 @@ void APlayerBase::KickDoor(float _DeltaTime)
 {
 }
 
-void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
+void APlayerBase::HitByEnemy(FVector _HitDir, EEnemyType _EnemyType)
 {
 	if ((true == IsInvincibleValue && EEnemyType::Fan != _EnemyType)
 	||	PlayerState::dead == State.GetCurStateName())
@@ -937,5 +945,18 @@ void APlayerBase::HitByEnemy(EEnemyType _EnemyType)
 	}
 
 	HitEnemy = _EnemyType;
+	HitDir = _HitDir;
+	if (false == HitDir.IsZeroVector2D())
+	{
+		if (0.0f < HitDir.X)
+		{
+			Body->SetDir(EEngineDir::Left);
+		}
+		else
+		{
+			Body->SetDir(EEngineDir::Right);
+		}
+	}
+
 	State.ChangeState(PlayerState::dead);
 }

@@ -129,7 +129,7 @@ void ACeilGun::StateInit()
 			HitCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 				{
 					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-					Player->HitByEnemy(EEnemyType::CeilGun);
+					Player->HitByEnemy(FVector::Zero, EEnemyType::CeilGun);
 					State.ChangeState(CeilGunState::shoot);
 					return;
 				}

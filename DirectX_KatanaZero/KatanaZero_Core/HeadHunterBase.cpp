@@ -170,7 +170,9 @@ void AHeadHunterBase::LaserColCheck()
 	LaserCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
 		{
 			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-			Player->HitByEnemy(EEnemyType::HeadHunterLaser);
+			FVector PlayerPos = Player->GetActorLocation();
+			FVector CurPos = GetActorLocation();
+			Player->HitByEnemy(PlayerPos - CurPos, EEnemyType::HeadHunterLaser);
 		}
 	);
 }

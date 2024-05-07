@@ -288,7 +288,7 @@ void AGangSter::BulletUpdate(float _DeltaTime)
 	Bullet.Collision->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 		{
 			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-			Player->HitByEnemy();
+			Player->HitByEnemy(Bullet.Velocity);
 			Bullet.Renderer->SetActive(false);
 		}
 	);

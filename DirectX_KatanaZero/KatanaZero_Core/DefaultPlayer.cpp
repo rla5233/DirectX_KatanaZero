@@ -58,7 +58,6 @@ void ADefaultPlayer::CreateAnimation()
 	GetBody()->CreateAnimation(Anim::player_wall_slide, ImgRes::player_wall_slide, 0.02f, false);
 	GetBody()->CreateAnimation(Anim::player_flip, ImgRes::player_flip, 0.02f, false);
 	GetBody()->CreateAnimation(Anim::player_kick_door, ImgRes::player_kick_door, 0.06f, false);
-	GetBody()->CreateAnimation(Anim::player_dead, ImgRes::player_dead, 0.05f, false);
 	GetBody()->CreateAnimation(Anim::player_remove_headphones, ImgRes::player_remove_headphones, 0.1f, false);
 	GetBody()->CreateAnimation
 	(
@@ -66,6 +65,14 @@ void ADefaultPlayer::CreateAnimation()
 		ImgRes::player_headphones, 
 		{ 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 1.95f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f },
 		{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 },
+		false
+	);
+
+	GetBody()->CreateAnimation(
+		Anim::player_dead, 
+		ImgRes::player_dead, 
+		{ 0.2f, 0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.02f },
+		{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 },
 		false
 	);
 
