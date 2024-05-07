@@ -19,6 +19,11 @@ public:
 	AHeadHunterLevel& operator=(AHeadHunterLevel&& _Other) noexcept = delete;
 
 	virtual FVector FindExitDoor() = 0;
+	
+	inline float GetMidPosX() const
+	{
+		return MidPosX;
+	}
 
 protected:
 	void BeginPlay() override;
@@ -37,6 +42,7 @@ protected:
 
 protected:
 	std::shared_ptr<AHeadHunterBase> HeadHunter = nullptr;
+	float MidPosX = 0.0f;
 
 // FSM
 protected:

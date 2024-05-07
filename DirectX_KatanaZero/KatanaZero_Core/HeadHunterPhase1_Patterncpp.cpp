@@ -128,9 +128,21 @@ void AHeadHunterPhase1::AirRifle1Update(float _DeltaTime)
 {
 	if (true == Body->IsCurAnimationEnd())
 	{
-		// 속도 공식 필요
-		Velocity = { 500.0f, 1000.0f, 0.0f };
+		AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+		float MidPosX = PlayLevel->GetMidPosX();
+		float CurPosX = GetActorLocation().X;	
 
+		// 속도 설정
+		if (MidPosX < CurPosX)
+		{
+			Velocity = { 500.0f, 1000.0f, 0.0f };
+		}
+		else
+		{
+			Velocity = { -500.0f, 1000.0f, 0.0f };
+		}
+
+		// 렌더러 설정
 		if (0.0f < Velocity.X)
 		{
 			Body->SetDir(EEngineDir::Left);
@@ -167,6 +179,13 @@ void AHeadHunterPhase1::AirRifle1Update1(float _DeltaTime)
 		Body->ChangeAnimation(Anim::headhunter_wall_idle);
 		Velocity = FVector::Zero;
 		PatternOrder = 2;
+		return;
+	}
+
+	if (true == IsOnGround(Body->GetDir()))
+	{
+		State.ChangeState(HeadHunterState::idle);
+		PatternOrder = -1;
 		return;
 	}
 }

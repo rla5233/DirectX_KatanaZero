@@ -65,6 +65,7 @@ void AHeadHunterPhase1::SetRifle1LaserEffect()
 {
 	LaserEffect->SetSprite(ImgRes::compo_bullet);
 	LaserEffect->SetScale({ 0.0f, 2.0f, 1.0f });
+	LaserEffect->SetRotationDeg(FVector::Zero);
 
 	switch (Body->GetDir())
 	{
@@ -87,6 +88,7 @@ void AHeadHunterPhase1::SetAirRifle1LaserEffect()
 	LaserEffect->ChangeAnimation(Anim::effect_laser);
 	LaserEffect->SetScale({ 1280.0f, 14.0f, 1.0f });
 	LaserEffect->SetActive(true);
+	LaserCol->SetActive(true);
 	float Deg = 0.0f;
 
 	switch (Body->GetDir())
