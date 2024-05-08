@@ -81,6 +81,7 @@ enum class EColOrder
 
 enum class EReplayMode
 {
+	Restart,
 	Rewind,
 	Stop,
 	Play

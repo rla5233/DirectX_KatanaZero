@@ -103,6 +103,7 @@ protected:
 private:
 	void DecreaseIndex();
 	void IncreaseIndex();
+	void RestartIndexUpdate(float _DeltaTime);
 
 private:
 	AActor* Actor = nullptr;

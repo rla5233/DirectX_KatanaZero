@@ -397,7 +397,8 @@ namespace Const
 
 	// Delay
 	const float recording_delay						= 1 / 60.0f;
-	
+	const float restart_speed_delay					= 1.0f;
+
 	const float effect_roll_cloud_delay				= 0.02f;
 	const float effect_wallslide_cloud_delay		= 0.04f;
 	const float effect_blood_splatter_delay			= 0.01f;

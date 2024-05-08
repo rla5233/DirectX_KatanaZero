@@ -86,9 +86,10 @@ void URecordingObject::SetReplayStart()
 void URecordingObject::SetRewindStart()
 {
 	Actor->InputOff();
-	Mode = EReplayMode::Rewind;
+	Mode = EReplayMode::Restart;
 	ReplaySpeed = 4;
 	CurIndex = static_cast<int>(AllRecordInfo.size()) - 1;
+	TimeCount = Const::restart_speed_delay;
 }
 
 void URecordingObject::Replaying(float _DeltaTime)
@@ -122,6 +123,9 @@ void URecordingObject::Replaying(float _DeltaTime)
 
 	switch (Mode)
 	{
+	case EReplayMode::Restart:
+		RestartIndexUpdate(_DeltaTime);
+		break;
 	case EReplayMode::Rewind:
 		DecreaseIndex();
 		break;
@@ -163,4 +167,23 @@ void URecordingObject::IncreaseIndex()
 	{
 		CurIndex = static_cast<int>(AllRecordInfo.size()) - 1;
 	}
+}
+
+void URecordingObject::RestartIndexUpdate(float _DeltaTime)
+{
+	CurIndex -= ReplaySpeed;
+
+	if (0 > CurIndex)
+	{
+		CurIndex = 0;
+	}
+
+	if (0.0f < TimeCount)
+	{
+		TimeCount -= _DeltaTime;
+		return;
+	}
+
+	++ReplaySpeed;
+	TimeCount = Const::restart_speed_delay;
 }
