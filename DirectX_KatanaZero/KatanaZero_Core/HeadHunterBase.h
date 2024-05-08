@@ -47,6 +47,11 @@ public:
 		return Body;
 	}
 
+	inline bool IsDead() const
+	{
+		return IsDeadValue;
+	}
+
 	void HitByPlayer(FVector _AttDir);
 
 protected:
@@ -82,6 +87,7 @@ protected:
 	// Info.
 	FVector HitDir = FVector::Zero;
 	int PatternOrder = 0;
+	bool IsDeadValue = false;
 	int Hp = 0;
 
 // FSM

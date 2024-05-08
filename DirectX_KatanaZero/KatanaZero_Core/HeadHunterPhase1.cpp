@@ -36,7 +36,7 @@ void AHeadHunterPhase1::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Hp = 3;
+	Hp = 1;
 }
 
 void AHeadHunterPhase1::Tick(float _DeltaTime)

@@ -2,6 +2,7 @@
 #include "HeadHunterPhase1.h"
 
 #include "HeadHunterLevel.h"
+#include "HeadHunter_Phase1.h"
 
 void AHeadHunterPhase1::StateInit()
 {
@@ -69,16 +70,20 @@ void AHeadHunterPhase1::RecoverStart()
 	LaserCol->SetActive(false);
 	LaserEffect->SetActive(false);
 
-	DelayCallBack(3.0f, [=]
+	DelayCallBack(1.5f, [=]
 		{
 			if (0 < Hp)
 			{
-				State.ChangeState(HeadHunterState::exitdoor);
-				return;
+				DelayCallBack(1.5f, [=]
+					{
+						State.ChangeState(HeadHunterState::exitdoor);
+						return;
+					}
+				);
 			}
 			else
 			{
-
+				IsDeadValue = true;
 			}
 		}
 	);

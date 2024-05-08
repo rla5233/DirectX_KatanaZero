@@ -1,10 +1,11 @@
 #pragma once
 #include <EngineCore/StateManager.h>
+#include "RecMapCompoBase.h"
 
 // Ό³Έν : HeadHunter Phase1 Mine
-class AMine : public AActor
+class AMine : public ARecMapCompoBase
 {
-	GENERATED_BODY(AActor);
+	GENERATED_BODY(ARecMapCompoBase);
 public:
 	// constrcuter destructer
 	AMine();
@@ -25,12 +26,13 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-
+private:
+	void RendererInit();
+	void CreateAnimation();
 
 // FSM
 private:
-	UStateManager State;
-	void StateInit();
+	void StateInit() override;
 
 };
 

@@ -2,6 +2,7 @@
 #include "HeadHunterLevel.h"
 
 class ASlidingDoor;
+class AMine;
 
 // 설명 : HeadHunter 1페이즈
 class AHeadHunter_Phase1 : public AHeadHunterLevel
@@ -21,6 +22,7 @@ public:
 	FVector FindExitDoor() override;
 
 	void AllSlidingDoorClose();
+	void AllMineOn();
 
 protected:
 	void BeginPlay()override;
@@ -32,11 +34,22 @@ protected:
 	void LevelReStart() override;
 	void LevelReEnd() override;
 
+	bool IsStageClear() override;
+	void ChangeStage() override {};
+
 private:
 	std::vector<std::shared_ptr<ASlidingDoor>> AllSlidingDoor;
 	const int SlidingDoorNum = 4;
 
+	std::vector<std::shared_ptr<AMine>> AllMine;
+	const float MineInterVal = 40.0f;
+	const int MineNum = 32;
+
 	std::vector<float> DoorPosX = { 222.0f, 504.0f, 860.0f, 1126.0f };
+
+// FSM
+private:
+	void ClearStart() override;
 
 };
 

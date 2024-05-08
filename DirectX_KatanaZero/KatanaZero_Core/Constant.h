@@ -155,6 +155,8 @@ namespace ImgRes
 	const std::string_view compo_sliding_door_closed	= "spr_sliding_door.png";
 	const std::string_view compo_sliding_door_redled	= "spr_sliding_door_redled";
 
+	const std::string_view compo_ground_mine			= "spr_mine";
+
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
 	const std::string_view title_black				= "spr_title_black.png";
@@ -283,6 +285,8 @@ namespace Anim
 
 	const std::string_view compo_sliding_door_close		= "spr_sliding_door_close";
 	const std::string_view compo_sliding_door_redled	= "spr_sliding_door_redled";
+
+	const std::string_view compo_ground_mine		= "spr_mine";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";
@@ -623,6 +627,13 @@ namespace SlidingDoorState
 {
 	const std::string_view close			= "Close";
 	const std::string_view closed			= "Closed";
+}
+
+namespace MineState
+{
+	const std::string_view none				= "None";
+	const std::string_view on				= "On";
+	const std::string_view explode			= "Explode";
 }
 
 // Info.

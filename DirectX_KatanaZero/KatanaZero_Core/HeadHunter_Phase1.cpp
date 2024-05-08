@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "SlidingDoor.h"
 #include "MainCamera.h"
+#include "Mine.h"
 
 #include "HeadHunterBase.h"
 #include "HeadHunterPhase1.h"
@@ -66,6 +67,13 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	AllSlidingDoor[2]->SetActorLocation({ 1201.0f, 256.0f, 0.0f });
 	AllSlidingDoor[3]->SetActorLocation({ 1233.0f, 256.0f, 0.0f });
 
+	AllMine.reserve(MineNum);
+	for (int i = 0; i < MineNum; i++)
+	{
+		AllMine.push_back(GetWorld()->SpawnActor<AMine>("GroundMine", EUpdateOrder::RecComponent));
+		AllMine[i]->SetActorLocation({ 53.0f + MineInterVal * i, 182.0f, 0.0f });
+	}
+
 	State.ChangeState(BossLevelState::transition_off);
 
 	DelayCallBack(5.0f, [=]
@@ -126,6 +134,16 @@ void AHeadHunter_Phase1::LevelReEnd()
 	AllSlidingDoor.clear();
 }
 
+bool AHeadHunter_Phase1::IsStageClear()
+{
+	return HeadHunter->IsDead();
+}
+
+void AHeadHunter_Phase1::ClearStart()
+{
+	AllMineOn();
+}
+
 void AHeadHunter_Phase1::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -149,6 +167,14 @@ void AHeadHunter_Phase1::AllSlidingDoorClose()
 	for (size_t i = 0; i < AllSlidingDoor.size(); i++)
 	{
 		AllSlidingDoor[i]->StateChange(SlidingDoorState::close);
+	}
+}
+
+void AHeadHunter_Phase1::AllMineOn()
+{
+	for (size_t i = 0; i < AllMine.size(); i++)
+	{
+		AllMine[i]->StateChange(MineState::on);
 	}
 }
 
