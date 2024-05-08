@@ -36,7 +36,7 @@ protected:
 	void LevelReEnd() override;
 
 	bool IsStageClear() override;
-	void ChangeStage() override {};
+	void ChangeStage() override;
 
 private:
 	std::vector<std::shared_ptr<ASlidingDoor>> AllSlidingDoor;
@@ -52,6 +52,7 @@ private:
 
 // FSM
 private:
-	void ClearStart();
+	void ClearStart() override;
+	void Clear(float _DeltaTime) override;
 };
 

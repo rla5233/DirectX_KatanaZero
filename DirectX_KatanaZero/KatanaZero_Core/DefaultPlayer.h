@@ -34,6 +34,7 @@ protected:
 
 private:
 	void CreateAnimation();
+	void SoundSetting();
 	
 private:
 	float IntroRunTime = 0.5f;
@@ -57,6 +58,7 @@ protected:
 	void FlipStart() override;
 	void KickDoorStart() override;
 	void DeadStart() override;	
+	void OnlyFallStart() override;
 
 protected:
 	// Sub State

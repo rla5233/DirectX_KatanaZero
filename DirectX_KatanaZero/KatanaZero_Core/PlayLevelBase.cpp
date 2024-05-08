@@ -112,7 +112,12 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 
 	// UI
 	HUD->Off();
-	Go->Off();
+
+	if (nullptr != Go)
+	{
+		Go->Off();
+	}
+
 	ReplayUI->Off();
 }
 
@@ -160,6 +165,11 @@ bool APlayLevelBase::IsStageClear()
 
 bool APlayLevelBase::IsRelayStart()
 {
+	if (true == Player->IsDead())
+	{
+		return false;
+	}
+
 	bool Result = false;
 
 	std::shared_ptr<UEngineTexture> MapTex = ColMap->GetMapTex();

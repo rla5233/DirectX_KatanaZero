@@ -411,6 +411,8 @@ namespace PlayerState
 	const std::string_view flip				= "Flip";
 	const std::string_view kickdoor			= "KickDoor";
 	const std::string_view dead				= "Dead";
+
+	const std::string_view onlyfall			= "OnlyFall";
 }
 
 namespace PlayerSubState

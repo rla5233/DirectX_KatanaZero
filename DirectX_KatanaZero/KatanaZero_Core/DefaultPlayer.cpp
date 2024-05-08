@@ -18,6 +18,7 @@ void ADefaultPlayer::BeginPlay()
 	Super::BeginPlay();
 
 	CreateAnimation();
+	SoundSetting();
 	SetAfterImagePlusColor(Const::player_afterimage_color);
 	StateChange(PlayerState::none);
 	SubStateChange(PlayerSubState::none);
@@ -78,8 +79,8 @@ void ADefaultPlayer::CreateAnimation()
 
 	GetBody()->SetFrameCallback(Anim::player_kick_door, 9, [=] { StateChange(PlayerState::idle); });
 
-	GetBody()->SetFrameCallback(Anim::player_kick_door, 4, [=] 
-		{ 
+	GetBody()->SetFrameCallback(Anim::player_kick_door, 4, [=]
+		{
 			FrontCol->CollisionStay(EColOrder::Door, [=](std::shared_ptr<UCollision> _Other)
 				{
 					ADoor* Door = dynamic_cast<ADoor*>(_Other->GetActor());
@@ -88,20 +89,21 @@ void ADefaultPlayer::CreateAnimation()
 			);
 		}
 	);
-	
+}
+
+void ADefaultPlayer::SoundSetting()
+{
 	// Sound Setting
-	GetBody()->SetFrameCallback(Anim::player_idle_to_run, 3,	[=] { UEngineSound::SoundPlay(SoundRes::player_prerun).SetVolume(0.25f); });
-	GetBody()->SetFrameCallback(Anim::player_headphones, 16,	[=] { USoundManager::GetInst()->GetFactoryBGM().On(); });
-	GetBody()->SetFrameCallback(Anim::player_headphones, 2,		[=] { UEngineSound::SoundPlay(SoundRes::player_headphone).SetVolume(0.5f); });
-	GetBody()->SetFrameCallback(Anim::player_headphones, 12,	[=] { UEngineSound::SoundPlay(SoundRes::player_casette_rewind).SetVolume(0.5f); });
-	GetBody()->SetFrameCallback(Anim::player_headphones, 15,	[=] { UEngineSound::SoundPlay(SoundRes::player_casette_play).SetVolume(0.5f); });
-	GetBody()->SetFrameCallback(Anim::player_roll, 16,			[=] { USoundManager::GetInst()->GetFactoryBGM().On(); });
-	GetBody()->SetFrameCallback(Anim::player_roll, 1,			[=] { UEngineSound::SoundPlay(SoundRes::player_roll).SetVolume(0.25f); });
-	GetBody()->SetFrameCallback(Anim::player_run, 1,			[=] { USoundManager::SoundPlay_PlayerRun(); });
-	GetBody()->SetFrameCallback(Anim::player_jump, 0,			[=] { UEngineSound::SoundPlay(SoundRes::player_jump).SetVolume(0.5f); });
-	GetBody()->SetFrameCallback(Anim::player_attack, 2,			[=] { USoundManager::SoundPlay_PlayerSlash(); });
-
-
+	GetBody()->SetFrameCallback(Anim::player_idle_to_run, 3, [=] { UEngineSound::SoundPlay(SoundRes::player_prerun).SetVolume(0.25f); });
+	GetBody()->SetFrameCallback(Anim::player_headphones, 16, [=] { USoundManager::GetInst()->GetFactoryBGM().On(); });
+	GetBody()->SetFrameCallback(Anim::player_headphones, 2, [=] { UEngineSound::SoundPlay(SoundRes::player_headphone).SetVolume(0.5f); });
+	GetBody()->SetFrameCallback(Anim::player_headphones, 12, [=] { UEngineSound::SoundPlay(SoundRes::player_casette_rewind).SetVolume(0.5f); });
+	GetBody()->SetFrameCallback(Anim::player_headphones, 15, [=] { UEngineSound::SoundPlay(SoundRes::player_casette_play).SetVolume(0.5f); });
+	GetBody()->SetFrameCallback(Anim::player_roll, 16, [=] { USoundManager::GetInst()->GetFactoryBGM().On(); });
+	GetBody()->SetFrameCallback(Anim::player_roll, 1, [=] { UEngineSound::SoundPlay(SoundRes::player_roll).SetVolume(0.25f); });
+	GetBody()->SetFrameCallback(Anim::player_run, 1, [=] { USoundManager::SoundPlay_PlayerRun(); });
+	GetBody()->SetFrameCallback(Anim::player_jump, 0, [=] { UEngineSound::SoundPlay(SoundRes::player_jump).SetVolume(0.5f); });
+	GetBody()->SetFrameCallback(Anim::player_attack, 2, [=] { USoundManager::SoundPlay_PlayerSlash(); });
 }
 
 void ADefaultPlayer::Tick(float _DeltaTime)
@@ -208,6 +210,13 @@ void ADefaultPlayer::DeadStart()
 
 	GetBody()->ChangeAnimation(Anim::player_dead);
 	UEngineSound::SoundPlay(SoundRes::player_die).SetVolume(0.75f);
+}
+
+void ADefaultPlayer::OnlyFallStart()
+{
+	Super::OnlyFallStart();
+
+	GetBody()->ChangeAnimation(Anim::player_fall);
 }
 
 void ADefaultPlayer::IntroStart()

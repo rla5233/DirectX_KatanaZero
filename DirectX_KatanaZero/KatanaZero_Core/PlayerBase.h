@@ -159,13 +159,6 @@ private:
 	EEnemyType HitEnemy = EEnemyType::Default;
 	FVector HitDir = FVector::Zero;
 
-	// FSM
-	UStateManager State;	
-	void StateInit();	
-
-	UStateManager SubState;
-	void SubStateInit();
-
 	EIntroOrder IntroOrder = EIntroOrder::Run;
 	EOutroType OutroType = EOutroType::Run;
 
@@ -173,6 +166,14 @@ private:
 	void AttackDelayTimeUpdate(float _DeltaTime);
 	void AbilityUpdate(float _DeltaTime);
 	void AbilityCheck();
+
+protected:
+	// FSM
+	UStateManager State;
+	virtual void StateInit();
+
+	UStateManager SubState;
+	void SubStateInit();
 
 // FSM
 protected:
@@ -219,6 +220,9 @@ protected:
 	virtual void DeadStart();
 	void Dead(float _DeltaTime);
 		
+	virtual void OnlyFallStart();
+	void OnlyFall(float _DeltaTime);
+
 protected:
 	// Sub State
 	virtual void IntroStart();

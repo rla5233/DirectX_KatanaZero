@@ -7,6 +7,7 @@
 #include "MainCamera.h"
 #include "UnderBlack.h"
 #include "Mine.h"
+#include "Up_HUD.h"
 
 #include "HeadHunterBase.h"
 #include "HeadHunterPhase1.h"
@@ -160,9 +161,48 @@ bool AHeadHunter_Phase1::IsStageClear()
 	return HeadHunter->IsDead();
 }
 
+void AHeadHunter_Phase1::ChangeStage()
+{
+	Super::ChangeStage();
+
+	GEngine->ChangeLevel("HeadHunter_Phase2");
+}
+
 void AHeadHunter_Phase1::ClearStart()
 {
 	AllMineOn();
+}
+
+void AHeadHunter_Phase1::Clear(float _DeltaTime)
+{
+	if (0.0f > PlayTimeCount)
+	{
+		Player->HitByEnemy(FVector::Zero, EEnemyType::TimeOut);
+		return;
+	}
+
+	if (-500.0f > Player->GetActorLocation().Y)
+	{
+		HUD->StateChange(HudState::outro);
+		State.ChangeState(PlayLevelState::transition_on);
+		return;
+	}
+
+	if (UEngineInput::IsDown('R'))
+	{
+		State.ChangeState(PlayLevelState::restart);
+		return;
+	}
+
+	if (0.0f > Player->GetVelocity().Y
+		&& false == Player->IsDead()
+		&& true == UnderBlack->GetBody()->IsActive())
+	{
+		Player->StateChange(PlayerState::onlyfall);
+		return;
+	}
+
+	PlayTimeCount -= _DeltaTime;
 }
 
 void AHeadHunter_Phase1::Tick(float _DeltaTime)

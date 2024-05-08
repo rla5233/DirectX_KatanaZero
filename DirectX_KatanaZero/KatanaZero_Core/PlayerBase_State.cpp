@@ -23,6 +23,7 @@ void APlayerBase::StateInit()
 	State.CreateState(PlayerState::flip);
 	State.CreateState(PlayerState::kickdoor);
 	State.CreateState(PlayerState::dead);
+	State.CreateState(PlayerState::onlyfall);
 
 	// State Start 함수 세팅
 	State.SetStartFunction(PlayerState::none,			[=] {});
@@ -40,6 +41,7 @@ void APlayerBase::StateInit()
 	State.SetStartFunction(PlayerState::flip,			std::bind(&APlayerBase::FlipStart, this));
 	State.SetStartFunction(PlayerState::kickdoor,		std::bind(&APlayerBase::KickDoorStart, this));
 	State.SetStartFunction(PlayerState::dead,			std::bind(&APlayerBase::DeadStart, this));
+	State.SetStartFunction(PlayerState::onlyfall,		std::bind(&APlayerBase::OnlyFallStart, this));
 
 	// State Update 함수 세팅
 	State.SetUpdateFunction(PlayerState::none,			[=](float _DeltaTime) {});
@@ -57,6 +59,7 @@ void APlayerBase::StateInit()
 	State.SetUpdateFunction(PlayerState::flip,			std::bind(&APlayerBase::Flip, this, std::placeholders::_1));
 	State.SetUpdateFunction(PlayerState::kickdoor,		std::bind(&APlayerBase::KickDoor, this, std::placeholders::_1));
 	State.SetUpdateFunction(PlayerState::dead,			std::bind(&APlayerBase::Dead, this, std::placeholders::_1));
+	State.SetUpdateFunction(PlayerState::onlyfall,		std::bind(&APlayerBase::OnlyFall, this, std::placeholders::_1));
 
 	// State End 함수 세팅
 	State.SetEndFunction(PlayerState::attack,			[=] { AttackCol->SetActive(false); });
@@ -933,6 +936,29 @@ void APlayerBase::KickDoorStart()
 
 void APlayerBase::KickDoor(float _DeltaTime)
 {
+}
+
+void APlayerBase::OnlyFallStart()
+{
+}
+
+void APlayerBase::OnlyFall(float _DeltaTime)
+{
+	// 속도 업데이트
+	FallGravityUpdate(_DeltaTime);
+
+	if (true == IsRunInputPress())
+	{
+		FallVelXUpdate(_DeltaTime);
+	}
+
+	if (true == IsDirChangeKeyDown() || true == IsColHeadToWall(Body->GetDir()))
+	{
+		Velocity.X = 0.0f;
+	}
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
 }
 
 void APlayerBase::HitByEnemy(FVector _HitDir, EEnemyType _EnemyType)

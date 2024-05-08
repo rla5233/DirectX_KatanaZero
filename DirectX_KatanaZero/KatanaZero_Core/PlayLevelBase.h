@@ -174,7 +174,7 @@ protected:
 	void Play(float _DeltaTime);
 
 	virtual void ClearStart();
-	void Clear(float _DeltaTime);
+	virtual void Clear(float _DeltaTime);
 
 	void OutroStart();
 	void Outro(float _DeltaTime);
