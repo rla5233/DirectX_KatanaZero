@@ -311,6 +311,7 @@ void APlayLevelBase::RestartStart()
 
 void APlayLevelBase::Restart(float _DeltaTime)
 {
+	BrightnessUp(_DeltaTime);
 	WaveEffect->Update(_DeltaTime);
 
 	if (Player->IsRewindEnd())
