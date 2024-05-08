@@ -75,7 +75,7 @@ void AHeadHunterLevel::PlayStart()
 {
 	Super::PlayStart();
 
-	HeadHunter->SetRecordingActive(true);
+	//HeadHunter->SetRecordingActive(true);
 }
 
 void AHeadHunterLevel::PlayerDeadStart()
@@ -91,6 +91,11 @@ void AHeadHunterLevel::RestartStart()
 
 	HeadHunter->StateChange(HeadHunterState::none);
 	HeadHunter->SubStateChange(HeadHunterSubState::restart);
+}
+
+FVector AHeadHunterLevel::FindExitDoor()
+{
+	return FVector();
 }
 
 float AHeadHunterLevel::GetRefPosX(std::string_view _Key)

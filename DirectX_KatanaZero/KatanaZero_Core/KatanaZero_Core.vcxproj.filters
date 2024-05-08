@@ -112,9 +112,6 @@
     <Filter Include="Level\003.HeadHunterLevel\Object">
       <UniqueIdentifier>{30a37d90-1001-40cc-9edf-c407bfb79ac8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\003.HeadHunterLevel\GameMode\Phase">
-      <UniqueIdentifier>{2337de55-003e-4588-a501-c7efefb0d634}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\003.HeadHunterLevel\Object\Component">
       <UniqueIdentifier>{545ff453-049f-4153-86a6-a7c25cae0abe}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,12 @@
     </Filter>
     <Filter Include="Level\003.HeadHunterLevel\Object\HeadHunter">
       <UniqueIdentifier>{552cf086-65fc-4922-a6ce-7bed2f90426e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\003.HeadHunterLevel\GameMode\Phase1">
+      <UniqueIdentifier>{2337de55-003e-4588-a501-c7efefb0d634}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\003.HeadHunterLevel\GameMode\Phase2">
+      <UniqueIdentifier>{bb056fa4-b79c-4c8a-8d15-ad26a53d221a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -292,10 +295,7 @@
       <Filter>Object\Base\Level</Filter>
     </ClInclude>
     <ClInclude Include="HeadHunter_Phase1.h">
-      <Filter>Level\003.HeadHunterLevel\GameMode\Phase</Filter>
-    </ClInclude>
-    <ClInclude Include="HeadHunter_Phase2.h">
-      <Filter>Level\003.HeadHunterLevel\GameMode\Phase</Filter>
+      <Filter>Level\003.HeadHunterLevel\GameMode\Phase1</Filter>
     </ClInclude>
     <ClInclude Include="HeadHunterLevel.h">
       <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
@@ -323,6 +323,9 @@
     </ClInclude>
     <ClInclude Include="UnderBlack.h">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadHunter_Phase2.h">
+      <Filter>Level\003.HeadHunterLevel\GameMode\Phase2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -510,10 +513,7 @@
       <Filter>Object\Base\Level</Filter>
     </ClCompile>
     <ClCompile Include="HeadHunter_Phase1.cpp">
-      <Filter>Level\003.HeadHunterLevel\GameMode\Phase</Filter>
-    </ClCompile>
-    <ClCompile Include="HeadHunter_Phase2.cpp">
-      <Filter>Level\003.HeadHunterLevel\GameMode\Phase</Filter>
+      <Filter>Level\003.HeadHunterLevel\GameMode\Phase1</Filter>
     </ClCompile>
     <ClCompile Include="HeadHunterLevel.cpp">
       <Filter>Level\003.HeadHunterLevel\GameMode</Filter>
@@ -559,6 +559,9 @@
     </ClCompile>
     <ClCompile Include="UnderBlack.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunter_Phase2.cpp">
+      <Filter>Level\003.HeadHunterLevel\GameMode\Phase2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

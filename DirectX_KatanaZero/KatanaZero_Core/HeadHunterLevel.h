@@ -18,7 +18,7 @@ public:
 	AHeadHunterLevel& operator=(const AHeadHunterLevel& _Other) = delete;
 	AHeadHunterLevel& operator=(AHeadHunterLevel&& _Other) noexcept = delete;
 
-	virtual FVector FindExitDoor() = 0;
+	virtual FVector FindExitDoor();
 	
 	float GetRefPosX(std::string_view _Key);
 	void AddRefPosX(std::string_view _Key, float _PosX);

@@ -188,6 +188,7 @@ namespace ImgRes
 	const std::string_view headhunter_under_black	= "spr_under_headhunter1.png";
 
 	const std::string_view headhunter_colmap1		= "spr_colmap_headhunter1.png";
+	const std::string_view headhunter_colmap2		= "spr_colmap_headhunter2.png";
 
 	// etc.
 	const std::string_view black_point				= "spr_black.png";
