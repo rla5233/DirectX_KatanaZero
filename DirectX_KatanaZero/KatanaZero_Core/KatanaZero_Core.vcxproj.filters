@@ -321,6 +321,9 @@
     <ClInclude Include="Mine.h">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="UnderBlack.h">
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -552,6 +555,9 @@
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Mine.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UnderBlack.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClCompile>
   </ItemGroup>

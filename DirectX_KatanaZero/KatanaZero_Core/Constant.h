@@ -131,6 +131,7 @@ namespace ImgRes
 
 	const std::string_view effect_hit_laser			= "spr_slash_laser.png";
 	const std::string_view effect_laser				= "spr_laser_effect";
+	const std::string_view effect_explosion			= "spr_explosion";
 
 	// Component
 	const std::string_view compo_door				= "spr_door";
@@ -184,6 +185,7 @@ namespace ImgRes
 	// HeadHunterLevel
 	const std::string_view headhunter_background1	= "spr_background_headhunter1.png";
 	const std::string_view headhunter_background2	= "spr_background_headhunter2.png";
+	const std::string_view headhunter_under_black	= "spr_under_headhunter1.png";
 
 	const std::string_view headhunter_colmap1		= "spr_colmap_headhunter1.png";
 
@@ -271,6 +273,7 @@ namespace Anim
 	const std::string_view effect_dia_transition_idle	= "spr_transition_idle";
 
 	const std::string_view effect_laser				= "spr_laser_effect";
+	const std::string_view effect_explosion			= "spr_explosion";
 
 	// Component
 	const std::string_view compo_door_idle			= "door_idle";
@@ -634,6 +637,12 @@ namespace MineState
 	const std::string_view none				= "None";
 	const std::string_view on				= "On";
 	const std::string_view explode			= "Explode";
+}
+
+namespace UnderBlackState
+{
+	const std::string_view none				= "None";
+	const std::string_view on				= "On";
 }
 
 // Info.

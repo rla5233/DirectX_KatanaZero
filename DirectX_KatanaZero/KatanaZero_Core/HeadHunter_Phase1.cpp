@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "SlidingDoor.h"
 #include "MainCamera.h"
+#include "UnderBlack.h"
 #include "Mine.h"
 
 #include "HeadHunterBase.h"
@@ -75,6 +76,11 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 		PushRecMapCompo(AllMine[i]);
 	}
 
+	UnderBlack = GetWorld()->SpawnActor<AUnderBlack>("UnderBlack", EUpdateOrder::RecComponent);
+	UnderBlack->SetActorLocation({ 672.0f, 150.0f, 0.0f });
+	UnderBlack->StateChange(UnderBlackState::none);
+	PushRecMapCompo(UnderBlack);
+
 	State.ChangeState(BossLevelState::transition_off);
 
 	DelayCallBack(5.0f, [=]
@@ -134,6 +140,11 @@ void AHeadHunter_Phase1::LevelReStart()
 		AllMine[i]->SetActorLocation({ 53.0f + MineInterVal * i, 182.0f, 0.0f });
 		PushRecMapCompo(AllMine[i]);
 	}
+
+	UnderBlack = GetWorld()->SpawnActor<AUnderBlack>("UnderBlack", EUpdateOrder::RecComponent);
+	UnderBlack->SetActorLocation({ 672.0f, 150.0f, 0.0f });
+	UnderBlack->StateChange(UnderBlackState::none);
+	PushRecMapCompo(UnderBlack);
 }
 
 void AHeadHunter_Phase1::LevelReEnd()
@@ -185,6 +196,30 @@ void AHeadHunter_Phase1::AllMineOn()
 	for (size_t i = 0; i < AllMine.size(); i++)
 	{
 		AllMine[i]->StateChange(MineState::on);
+		float Inter = 0.022f * i;
+		DelayCallBack(1.0f + Inter, [=] 
+			{ 
+				if (PlayLevelState::restart == State.GetCurStateName())
+				{
+					return;
+				}
+
+				if (0 == i)
+				{
+					GEngine->SetGlobalTimeScale(0.1f);
+				}
+				else if(1 == i)
+				{
+					GEngine->SetGlobalTimeScale(1.0f);
+				}
+				else if (16 == i)
+				{
+					UnderBlack->StateChange(UnderBlackState::on);
+				}
+
+				AllMine[i]->StateChange(MineState::explode); 
+			}
+		);
 	}
 }
 

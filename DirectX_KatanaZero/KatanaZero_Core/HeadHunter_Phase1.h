@@ -2,6 +2,7 @@
 #include "HeadHunterLevel.h"
 
 class ASlidingDoor;
+class AUnderBlack;
 class AMine;
 
 // 설명 : HeadHunter 1페이즈
@@ -47,9 +48,10 @@ private:
 
 	std::vector<float> DoorPosX = { 222.0f, 504.0f, 860.0f, 1126.0f };
 
+	std::shared_ptr<AUnderBlack> UnderBlack = nullptr;
+
 // FSM
 private:
-	void ClearStart() override;
-
+	void ClearStart();
 };
 

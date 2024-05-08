@@ -30,6 +30,10 @@ private:
 	void RendererInit();
 	void CreateAnimation();
 
+private:
+	std::vector<USpriteRenderer*> Explosion;
+	const int ExplosionNum = 5;
+
 // FSM
 private:
 	void StateInit() override;
