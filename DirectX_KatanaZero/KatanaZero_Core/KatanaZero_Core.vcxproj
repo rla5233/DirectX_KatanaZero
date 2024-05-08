@@ -518,6 +518,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="HeadHunterPhase2_State.cpp" />
     <ClCompile Include="KZImage.cpp">
       <SubType>
       </SubType>

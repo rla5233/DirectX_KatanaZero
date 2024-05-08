@@ -21,7 +21,6 @@ protected:
 	void Tick(float _DeltaTime);
 
 	void StateInit() override;
-	void CreateAnimation() override;
 
 private:
 	std::vector<UCloudEffect> Cloud;
@@ -55,6 +54,7 @@ private:
 
 // Sub FSM
 private:
+	void PlayStart() override;
 	void Play(float _DeltaTime) override;
 
 // Effect

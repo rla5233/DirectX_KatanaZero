@@ -112,7 +112,7 @@ protected:
 	void WaitStart();
 	void Wait(float _DeltaTime);
 
-	void PlayStart();
+	virtual void PlayStart();
 	virtual void Play(float _DeltaTime);
 
 	void RestartStart();

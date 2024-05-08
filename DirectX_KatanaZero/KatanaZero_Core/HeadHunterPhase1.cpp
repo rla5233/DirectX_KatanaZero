@@ -44,6 +44,13 @@ void AHeadHunterPhase1::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
+
+// Sub State
+void AHeadHunterPhase1::PlayStart()
+{
+	State.ChangeState(HeadHunterState::pattern_rifle1);
+}
+
 void AHeadHunterPhase1::Play(float _DeltaTime)
 {
 	Super::Play(_DeltaTime);

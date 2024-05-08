@@ -30,7 +30,6 @@ void AHeadHunterBase::Wait(float _DeltaTime)
 
 void AHeadHunterBase::PlayStart()
 {
-	State.ChangeState(HeadHunterState::pattern_rifle1);
 }
 
 void AHeadHunterBase::Play(float _DeltaTime)

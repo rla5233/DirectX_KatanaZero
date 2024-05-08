@@ -33,11 +33,6 @@ void AHeadHunterPhase1::StateInit()
 
 }
 
-void AHeadHunterPhase1::CreateAnimation()
-{
-	Super::CreateAnimation();
-}
-
 void AHeadHunterPhase1::IdleStart()
 {
 	Super::IdleStart();
