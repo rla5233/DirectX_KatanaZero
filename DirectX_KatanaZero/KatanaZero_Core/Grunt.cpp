@@ -188,6 +188,7 @@ void AGrunt::ChaseAttackStart()
 
 	GetBody()->AnimationReset();
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_attack);
+	UEngineSound::SoundPlay(SoundRes::enemy_punch).SetVolume(0.75f);
 }
 
 void AGrunt::ChaseAttack(float _DeltaTime)

@@ -877,9 +877,10 @@ void APlayerBase::DeadStart()
 		UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
 	}
 		break;
+	case EEnemyType::Fan:
 	case EEnemyType::HeadHunterLaser:
 	case EEnemyType::CeilLaser:
-	case EEnemyType::Fan:
+		UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
 		UContentsHelper::ResetTimeScale();
 		break;	
 	case EEnemyType::CeilGun:

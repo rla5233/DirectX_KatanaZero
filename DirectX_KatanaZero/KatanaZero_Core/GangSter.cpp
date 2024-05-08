@@ -187,6 +187,8 @@ void AGangSter::ChaseAttackStart()
 			}
 		}
 	);
+
+	USoundManager::SoundPlay_GunFire();
 }
 
 void AGangSter::ChaseAttack(float _DeltaTime)

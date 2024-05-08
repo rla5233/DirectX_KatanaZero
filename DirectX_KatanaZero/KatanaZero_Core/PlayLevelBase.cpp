@@ -296,6 +296,8 @@ void APlayLevelBase::PanicSwitchOn()
 			continue;
 		}
 	}
+
+	UEngineSound::SoundPlay(SoundRes::pull_switch);
 }
 
 void APlayLevelBase::PanicSwitchOff()
@@ -326,6 +328,8 @@ void APlayLevelBase::PanicSwitchOff()
 			continue;
 		}
 	}
+
+	UEngineSound::SoundPlay(SoundRes::pull_switch);
 }
 
 bool APlayLevelBase::IsReplayEnd() const

@@ -342,12 +342,14 @@ namespace SoundRes
 	const std::string_view enemy_bloodsplat4		= "sound_enemy_bloodsplat4.wav";
 	const std::string_view enemy_hitfloor			= "sound_enemy_hitfloor.wav";
 	const std::string_view enemy_chest_ground		= "sound_enemy_chest_ground.wav";
+	const std::string_view enemy_punch				= "sound_enemy_punch.wav";
 	const std::string_view door_open				= "sound_door_open.wav";
 	const std::string_view ceil_laser_shoot			= "sound_laser_explosion.wav";
 	const std::string_view gun_fire1				= "sound_gun_fire_1.wav";
 	const std::string_view gun_fire2				= "sound_gun_fire_2.wav";
 	const std::string_view ceil_laser_on			= "sound_lasers_on.wav";
 	const std::string_view ceil_laser_off			= "sound_lasers_off.wav";
+	const std::string_view pull_switch				= "sound_pull_switch.wav";
 		
 	// BGM
 	const std::string_view bgm_title				= "song_title_bgm.ogg";
@@ -398,7 +400,7 @@ namespace Const
 	const float effect_wallslide_cloud_delay		= 0.04f;
 	const float effect_blood_splatter_delay			= 0.01f;
 	const float effect_dia_transition_delay			= 0.005f;
-	const float effect_hit_laser_dealy				= 0.5f;
+	const float effect_hit_laser_dealy				= 0.1f;
 }
 
 //// State ////
