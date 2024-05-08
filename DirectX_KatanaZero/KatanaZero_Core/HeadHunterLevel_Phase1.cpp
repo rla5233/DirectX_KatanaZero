@@ -1,5 +1,5 @@
 #include "PreCompile.h"
-#include "HeadHunter_Phase1.h"
+#include "HeadHunterLevel_Phase1.h"
 
 #include "DefaultPlayer.h"
 #include "ColMapObject.h"
@@ -12,15 +12,15 @@
 #include "HeadHunterBase.h"
 #include "HeadHunterPhase1.h"
 
-AHeadHunter_Phase1::AHeadHunter_Phase1()
+AHeadHunterLevel_Phase1::AHeadHunterLevel_Phase1()
 {
 }
 
-AHeadHunter_Phase1::~AHeadHunter_Phase1()
+AHeadHunterLevel_Phase1::~AHeadHunterLevel_Phase1()
 {
 }
 
-void AHeadHunter_Phase1::BeginPlay()
+void AHeadHunterLevel_Phase1::BeginPlay()
 {
 	Super::BeginPlay();	
 
@@ -31,7 +31,7 @@ void AHeadHunter_Phase1::BeginPlay()
 	AddRefPosX(HH_Phase1_RefPos::rightfirst, 1030.0f);
 }
 
-void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
+void AHeadHunterLevel_Phase1::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
@@ -99,14 +99,14 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	);
 }
 
-void AHeadHunter_Phase1::LevelEnd(ULevel* _NextLevel)
+void AHeadHunterLevel_Phase1::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
 	AllSlidingDoor.clear();
 }
 
-void AHeadHunter_Phase1::LevelReStart()
+void AHeadHunterLevel_Phase1::LevelReStart()
 {
 	Super::LevelReStart();
 
@@ -149,7 +149,7 @@ void AHeadHunter_Phase1::LevelReStart()
 	PushRecMapCompo(UnderBlack);
 }
 
-void AHeadHunter_Phase1::LevelReEnd()
+void AHeadHunterLevel_Phase1::LevelReEnd()
 {
 	Super::LevelReEnd();
 
@@ -157,24 +157,24 @@ void AHeadHunter_Phase1::LevelReEnd()
 	AllMine.clear();
 }
 
-bool AHeadHunter_Phase1::IsStageClear()
+bool AHeadHunterLevel_Phase1::IsStageClear()
 {
 	return HeadHunter->IsDead();
 }
 
-void AHeadHunter_Phase1::ChangeStage()
+void AHeadHunterLevel_Phase1::ChangeStage()
 {
 	Super::ChangeStage();
 
 	GEngine->ChangeLevel("HeadHunter_Phase2");
 }
 
-void AHeadHunter_Phase1::ClearStart()
+void AHeadHunterLevel_Phase1::ClearStart()
 {
 	AllMineOn();
 }
 
-void AHeadHunter_Phase1::Clear(float _DeltaTime)
+void AHeadHunterLevel_Phase1::Clear(float _DeltaTime)
 {
 	if (0.0f > PlayTimeCount)
 	{
@@ -206,12 +206,12 @@ void AHeadHunter_Phase1::Clear(float _DeltaTime)
 	PlayTimeCount -= _DeltaTime;
 }
 
-void AHeadHunter_Phase1::Tick(float _DeltaTime)
+void AHeadHunterLevel_Phase1::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
 
-FVector AHeadHunter_Phase1::FindExitDoor()
+FVector AHeadHunterLevel_Phase1::FindExitDoor()
 {
 	float CurPlayerPosX = Player->GetActorLocation().X;
 	
@@ -224,7 +224,7 @@ FVector AHeadHunter_Phase1::FindExitDoor()
 	return Door0 < Door3 ? Door3_Pos : Door0_Pos;
 }
 
-void AHeadHunter_Phase1::AllSlidingDoorClose()
+void AHeadHunterLevel_Phase1::AllSlidingDoorClose()
 {
 	for (size_t i = 0; i < AllSlidingDoor.size(); i++)
 	{
@@ -234,7 +234,7 @@ void AHeadHunter_Phase1::AllSlidingDoorClose()
 	UEngineSound::SoundPlay(SoundRes::blastdoor_close);
 }
 
-void AHeadHunter_Phase1::AllMineOn()
+void AHeadHunterLevel_Phase1::AllMineOn()
 {
 	for (size_t i = 0; i < AllMine.size(); i++)
 	{

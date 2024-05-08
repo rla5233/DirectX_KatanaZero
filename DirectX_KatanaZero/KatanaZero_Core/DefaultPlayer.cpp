@@ -2,7 +2,7 @@
 #include "DefaultPlayer.h"
 
 #include "PlayLevelBase.h"
-#include "HeadHunter_Phase1.h"
+#include "HeadHunterLevel_Phase1.h"
 #include "Door.h"
 
 ADefaultPlayer::ADefaultPlayer()
@@ -282,7 +282,7 @@ void ADefaultPlayer::Intro(float _DeltaTime)
 					}
 				);
 
-				AHeadHunter_Phase1* PlayLevel = dynamic_cast<AHeadHunter_Phase1*>(GetWorld()->GetGameMode().get());
+				AHeadHunterLevel_Phase1* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase1*>(GetWorld()->GetGameMode().get());
 				PlayLevel->AllSlidingDoorClose();
 				SetIntroOrder(EIntroOrder::MusicOff);
 				break;

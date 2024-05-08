@@ -1,5 +1,5 @@
 #include "PreCompile.h"
-#include "HeadHunter_Phase2.h"
+#include "HeadHunterLevel_Phase2.h"
 
 #include "DefaultPlayer.h"
 #include "ColMapObject.h"
@@ -7,20 +7,20 @@
 
 #include "HeadHunterPhase1.h"
 
-AHeadHunter_Phase2::AHeadHunter_Phase2()
+AHeadHunterLevel_Phase2::AHeadHunterLevel_Phase2()
 {
 }
 
-AHeadHunter_Phase2::~AHeadHunter_Phase2()
+AHeadHunterLevel_Phase2::~AHeadHunterLevel_Phase2()
 {
 }
 
-void AHeadHunter_Phase2::BeginPlay()
+void AHeadHunterLevel_Phase2::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-void AHeadHunter_Phase2::LevelStart(ULevel* _PrevLevel)
+void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
@@ -43,22 +43,22 @@ void AHeadHunter_Phase2::LevelStart(ULevel* _PrevLevel)
 	State.ChangeState(BossLevelState::transition_off);
 }
 
-void AHeadHunter_Phase2::LevelEnd(ULevel* _NextLevel)
+void AHeadHunterLevel_Phase2::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 }
 
-void AHeadHunter_Phase2::LevelReStart()
+void AHeadHunterLevel_Phase2::LevelReStart()
 {
 	Super::LevelReStart();
 }
 
-void AHeadHunter_Phase2::LevelReEnd()
+void AHeadHunterLevel_Phase2::LevelReEnd()
 {
 	Super::LevelReEnd();
 }
 
-void AHeadHunter_Phase2::Tick(float _DeltaTime)
+void AHeadHunterLevel_Phase2::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }

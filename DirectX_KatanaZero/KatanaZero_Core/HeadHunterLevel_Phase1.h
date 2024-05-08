@@ -6,19 +6,19 @@ class AUnderBlack;
 class AMine;
 
 // 설명 : HeadHunter 1페이즈
-class AHeadHunter_Phase1 : public AHeadHunterLevel
+class AHeadHunterLevel_Phase1 : public AHeadHunterLevel
 {
 	GENERATED_BODY(AHeadHunterLevel)
 public:
 	// constrcuter destructer
-	AHeadHunter_Phase1();
-	~AHeadHunter_Phase1();
+	AHeadHunterLevel_Phase1();
+	~AHeadHunterLevel_Phase1();
 
 	// delete Function
-	AHeadHunter_Phase1(const AHeadHunter_Phase1& _Other) = delete;
-	AHeadHunter_Phase1(AHeadHunter_Phase1&& _Other) noexcept = delete;
-	AHeadHunter_Phase1& operator=(const AHeadHunter_Phase1& _Other) = delete;
-	AHeadHunter_Phase1& operator=(AHeadHunter_Phase1&& _Other) noexcept = delete;
+	AHeadHunterLevel_Phase1(const AHeadHunterLevel_Phase1& _Other) = delete;
+	AHeadHunterLevel_Phase1(AHeadHunterLevel_Phase1&& _Other) noexcept = delete;
+	AHeadHunterLevel_Phase1& operator=(const AHeadHunterLevel_Phase1& _Other) = delete;
+	AHeadHunterLevel_Phase1& operator=(AHeadHunterLevel_Phase1&& _Other) noexcept = delete;
 
 	FVector FindExitDoor() override;
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "HeadHunterBase.h"
 
-// 설명 :
+// 설명 : Phase1 HeadHunter
 class AHeadHunterPhase1 : public AHeadHunterBase
 {
 	GENERATED_BODY(AHeadHunterBase)

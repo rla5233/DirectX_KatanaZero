@@ -9,8 +9,8 @@
 #include "Factory_004.h"
 #include "Factory_005.h"
 
-#include "HeadHunter_Phase1.h"
-#include "HeadHunter_Phase2.h"
+#include "HeadHunterLevel_Phase1.h"
+#include "HeadHunterLevel_Phase2.h"
 
 //#define DEBUG
 
@@ -32,8 +32,8 @@ void UKatanaZero_Core::Initialize()
 	GEngine->CreateLevel<AFactory_003>("Factory_003");
 	GEngine->CreateLevel<AFactory_004>("Factory_004");
 	GEngine->CreateLevel<AFactory_005>("Factory_005");
-	GEngine->CreateLevel<AHeadHunter_Phase1>("HeadHunter_Phase1");
-	GEngine->CreateLevel<AHeadHunter_Phase2>("HeadHunter_Phase2");
+	GEngine->CreateLevel<AHeadHunterLevel_Phase1>("HeadHunter_Phase1");
+	GEngine->CreateLevel<AHeadHunterLevel_Phase2>("HeadHunter_Phase2");
 	
 	GEngine->ChangeLevel("TitleLevel");
 	
