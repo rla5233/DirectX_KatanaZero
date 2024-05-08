@@ -326,7 +326,7 @@ namespace SoundRes
 	const std::string_view transition_on			= "sound_transition_on.wav";
 	const std::string_view transition_off			= "sound_transition_off.wav";
 	const std::string_view replay_play				= "sound_replay_play.wav";
-	const std::string_view replay_fastplay				= "sound_replay_fastplay.wav";
+	const std::string_view replay_fastplay			= "sound_replay_fastplay.wav";
 
 	// Sound
 	const std::string_view stage_start				= "sound_stage_start.wav";
@@ -350,11 +350,12 @@ namespace SoundRes
 	const std::string_view ceil_laser_on			= "sound_lasers_on.wav";
 	const std::string_view ceil_laser_off			= "sound_lasers_off.wav";
 	const std::string_view pull_switch				= "sound_pull_switch.wav";
+	const std::string_view blastdoor_close			= "sound_blastdoor_close.wav";
 		
 	// BGM
 	const std::string_view bgm_title				= "song_title_bgm.ogg";
 	const std::string_view bgm_factory				= "song_youwillneverknow.ogg";
-
+	const std::string_view bgm_headhunter1			= "song_bossbattle.ogg";
 }
 
 namespace Const

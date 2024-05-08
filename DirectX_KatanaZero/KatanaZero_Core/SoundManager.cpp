@@ -9,6 +9,7 @@ USoundManager::USoundManager()
 	SlomoSoundInit();
 	ReplaySoundInit();
 	PlayerSoundInit();
+	HeadHunterSoundInit();
 }
 
 USoundManager::~USoundManager()
@@ -53,6 +54,16 @@ void USoundManager::PlayerSoundInit()
 	Player_WallSlide.SetVolume(0.5f);
 	Player_WallSlide.Loop();
 	Player_WallSlide.Off();
+}
+
+void USoundManager::HeadHunterSoundInit()
+{
+	HeadHunterBGM1 = UEngineSound::SoundPlay(SoundRes::bgm_headhunter1);
+	HeadHunterBGM1.SetVolume(0.6f);
+	HeadHunterBGM1.Loop();
+	HeadHunterBGM1.Off();
+
+
 }
 
 UEngineSoundPlayer USoundManager::SoundPlay_PlayerRun()

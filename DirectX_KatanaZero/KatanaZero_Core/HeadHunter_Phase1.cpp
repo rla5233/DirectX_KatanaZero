@@ -88,6 +88,7 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 		{
 			Player->StateChange(PlayerState::idle);
 			Player->SubStateChange(PlayerSubState::none);
+			USoundManager::GetInst()->GetHeadHunterBGM1().On();
 
 			DelayCallBack(0.8f, [=]
 				{
@@ -229,6 +230,8 @@ void AHeadHunter_Phase1::AllSlidingDoorClose()
 	{
 		AllSlidingDoor[i]->StateChange(SlidingDoorState::close);
 	}
+
+	UEngineSound::SoundPlay(SoundRes::blastdoor_close);
 }
 
 void AHeadHunter_Phase1::AllMineOn()

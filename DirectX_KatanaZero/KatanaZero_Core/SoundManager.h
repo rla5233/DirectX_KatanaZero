@@ -64,6 +64,11 @@ public:
 		return Player_WallSlide;
 	}
 
+	UEngineSoundPlayer GetHeadHunterBGM1()
+	{
+		return HeadHunterBGM1;
+	}
+
 public:
 	static UEngineSoundPlayer SoundPlay_PlayerRun();
 	static UEngineSoundPlayer SoundPlay_PlayerSlash();
@@ -77,6 +82,7 @@ private:
 	void SlomoSoundInit();
 	void ReplaySoundInit();
 	void PlayerSoundInit();
+	void HeadHunterSoundInit();
 
 private:
 	static USoundManager* Inst;
@@ -87,5 +93,6 @@ private:
 	UEngineSoundPlayer Replay_Play;
 	UEngineSoundPlayer Replay_FastPlay;
 	UEngineSoundPlayer Player_WallSlide;
+	UEngineSoundPlayer HeadHunterBGM1;
 };
 
