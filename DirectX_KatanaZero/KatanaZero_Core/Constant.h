@@ -314,6 +314,10 @@ namespace SoundRes
 	const std::string_view player_casette_play		= "sound_playercasette_play.wav";
 	const std::string_view player_casette_rewind	= "sound_playercasette_rewind.wav";
 	const std::string_view player_punch_hit			= "sound_enemy_punch_hit.wav";
+	const std::string_view player_wall_slide		= "sound_player_wallslide.wav";
+	const std::string_view player_wall_kick1		= "sound_player_wallkick_1.wav";
+	const std::string_view player_wall_kick2		= "sound_player_wallkick_2.wav";
+	const std::string_view player_wall_kick3		= "sound_player_wallkick_3.wav";
 
 	// UI
 	const std::string_view title_menu_beep			= "sound_menu_beep.wav";

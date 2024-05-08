@@ -63,10 +63,15 @@ void APlayerBase::StateInit()
 
 	// State End 함수 세팅
 	State.SetEndFunction(PlayerState::attack,			[=] { AttackCol->SetActive(false); });
-	State.SetEndFunction(PlayerState::wallslide,		[=] { Body->SetPosition({ 0.0f, 0.0f ,0.0f }); });
 	State.SetEndFunction(PlayerState::roll,				[=] { IsInvincibleValue = false; });
 	State.SetEndFunction(PlayerState::flip,				[=] { IsInvincibleValue = false; });
 	State.SetEndFunction(PlayerState::kickdoor,			[=] { IsColDoorValue = false; });
+	State.SetEndFunction(PlayerState::wallslide, [=]
+		{
+			Body->SetPosition({ 0.0f, 0.0f ,0.0f });
+			USoundManager::GetInst()->GetPlayerWallSlide().Off();
+		}
+	);
 }
 
 // 기본
@@ -727,6 +732,11 @@ void APlayerBase::WallSlide(float _DeltaTime)
 	if (100.0f < abs(Velocity.Y))
 	{
 		CreateWallSlideCroudEffect(_DeltaTime);
+		USoundManager::GetInst()->GetPlayerWallSlide().On();
+	}
+	else
+	{
+		USoundManager::GetInst()->GetPlayerWallSlide().Off();
 	}
 
 	// StateChange Check

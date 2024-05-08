@@ -59,17 +59,24 @@ public:
 		return Replay_FastPlay;
 	}
 
+	UEngineSoundPlayer GetPlayerWallSlide()
+	{
+		return Player_WallSlide;
+	}
+
 public:
 	static UEngineSoundPlayer SoundPlay_PlayerRun();
 	static UEngineSoundPlayer SoundPlay_PlayerSlash();
 	static UEngineSoundPlayer SoundPlay_EnemyDeadSword();
 	static UEngineSoundPlayer SoundPlay_EnemyBloodSplat();
 	static UEngineSoundPlayer SoundPlay_GunFire();
+	static UEngineSoundPlayer SoundPlay_WallKick();
 
 private:
 	void FactoryBGMInit();
 	void SlomoSoundInit();
 	void ReplaySoundInit();
+	void PlayerSoundInit();
 
 private:
 	static USoundManager* Inst;
@@ -79,5 +86,6 @@ private:
 	UEngineSoundPlayer SlomoEnd;
 	UEngineSoundPlayer Replay_Play;
 	UEngineSoundPlayer Replay_FastPlay;
+	UEngineSoundPlayer Player_WallSlide;
 };
 

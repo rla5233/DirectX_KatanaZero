@@ -8,6 +8,7 @@ USoundManager::USoundManager()
 	FactoryBGMInit();
 	SlomoSoundInit();
 	ReplaySoundInit();
+	PlayerSoundInit();
 }
 
 USoundManager::~USoundManager()
@@ -44,6 +45,14 @@ void USoundManager::ReplaySoundInit()
 	Replay_FastPlay.Loop();
 	Replay_FastPlay.Off();
 
+}
+
+void USoundManager::PlayerSoundInit()
+{
+	Player_WallSlide = UEngineSound::SoundPlay(SoundRes::player_wall_slide);
+	Player_WallSlide.SetVolume(0.5f);
+	Player_WallSlide.Loop();
+	Player_WallSlide.Off();
 }
 
 UEngineSoundPlayer USoundManager::SoundPlay_PlayerRun()
@@ -149,6 +158,28 @@ UEngineSoundPlayer USoundManager::SoundPlay_GunFire()
 		break;
 	case 2:
 		Result = UEngineSound::SoundPlay(SoundRes::gun_fire1);
+		break;
+	}
+
+	Result.SetVolume(0.75f);
+	return Result;
+}
+
+UEngineSoundPlayer USoundManager::SoundPlay_WallKick()
+{
+	UEngineSoundPlayer Result = UEngineSoundPlayer();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 3);
+	switch (RandomValue)
+	{
+	case 1:
+		Result = UEngineSound::SoundPlay(SoundRes::player_wall_kick1);
+		break;
+	case 2:
+		Result = UEngineSound::SoundPlay(SoundRes::player_wall_kick1);
+		break;
+	case 3:
+		Result = UEngineSound::SoundPlay(SoundRes::player_wall_kick1);
 		break;
 	}
 
