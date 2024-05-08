@@ -194,6 +194,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineProtocol.h" />
     <ClInclude Include="EngineRandom.h">
       <SubType>
       </SubType>
@@ -216,6 +217,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="NetObject.h" />
     <ClInclude Include="NetStartUpHelper.h" />
     <ClInclude Include="PathObject.h">
       <SubType>
@@ -260,6 +262,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineProtocol.cpp" />
     <ClCompile Include="EngineRandom.cpp">
       <SubType>
       </SubType>
@@ -282,6 +285,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="NetObject.cpp" />
     <ClCompile Include="NetStartUpHelper.cpp" />
     <ClCompile Include="PathObject.cpp">
       <SubType>

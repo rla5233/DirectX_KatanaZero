@@ -1,5 +1,6 @@
 #pragma once
 #include "Session.h"
+#include "EngineSerializer.h"
 
 // 설명 :
 class UTCPSession : public USession
@@ -12,6 +13,10 @@ public:
 
 	void Create() override;
 	void Bind(int _Port) override;
+
+	void Send(UEngineSerializer& _Ser);
+
+	void Send(void* Data, int Size);
 	// 주소 지정
 	
 

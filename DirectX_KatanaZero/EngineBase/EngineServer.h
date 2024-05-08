@@ -17,6 +17,8 @@ public:
 	UEngineServer& operator=(const UEngineServer& _Other) = delete;
 	UEngineServer& operator=(UEngineServer&& _Other) noexcept = delete;
 
+	void Send(std::shared_ptr<UEngineProtocol> _Protocol) override;
+
 protected:
 	void ServerOpen(int _Port, int _BackLog = 512) override;
 

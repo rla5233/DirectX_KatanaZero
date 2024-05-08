@@ -21,3 +21,10 @@ void UEngineClient::Connect(std::string _Ip, int _Port)
 	Session.SetAdd(_Ip, _Port);
 	Session.Connect();
 }
+
+void UEngineClient::Send(std::shared_ptr<UEngineProtocol> _Protocol)
+{
+	_Protocol;
+
+	// Session.Send();
+}

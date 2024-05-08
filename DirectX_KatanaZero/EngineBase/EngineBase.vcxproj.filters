@@ -28,6 +28,12 @@
     <Filter Include="Net">
       <UniqueIdentifier>{9855d42f-d627-4f77-9693-b7de93d983e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Net\Base">
+      <UniqueIdentifier>{ecf1d184-c719-4b5f-a13e-42e9d2a6ccce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Net\Protocol">
+      <UniqueIdentifier>{76a5efc6-1dab-46f7-b9b6-e6fd4568d38e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h">
@@ -78,26 +84,32 @@
     <ClInclude Include="ThreadPool.h">
       <Filter>Thread</Filter>
     </ClInclude>
+    <ClInclude Include="NetObject.h">
+      <Filter>Net\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineProtocol.h">
+      <Filter>Net\Protocol</Filter>
+    </ClInclude>
     <ClInclude Include="EngineClient.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="EngineNet.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="EngineNetHeader.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="EngineServer.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="NetStartUpHelper.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="Session.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="TCPSession.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,23 +161,29 @@
     <ClCompile Include="ThreadPool.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
+    <ClCompile Include="NetObject.cpp">
+      <Filter>Net\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineProtocol.cpp">
+      <Filter>Net\Protocol</Filter>
+    </ClCompile>
     <ClCompile Include="EngineClient.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="EngineNet.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="EngineServer.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="NetStartUpHelper.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="Session.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="TCPSession.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

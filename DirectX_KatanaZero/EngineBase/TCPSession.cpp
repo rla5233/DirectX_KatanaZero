@@ -43,3 +43,13 @@ void UTCPSession::Bind(int _Port)
 	}
 
 }
+
+void UTCPSession::Send(UEngineSerializer& _Ser)
+{
+	Send(_Ser.DataPtr(), _Ser.WriteSize());
+}
+
+void UTCPSession::Send(void* Data, int Size)
+{
+	send(Socket, reinterpret_cast<char*>(Data), Size, 0);
+}

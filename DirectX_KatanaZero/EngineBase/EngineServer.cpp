@@ -48,3 +48,8 @@ void UEngineServer::ServerOpen(int _Port, int _BackLog /*= 512*/)
 	AcceptThread.SetName("AcceptThread");
 	AcceptThread.Start(std::bind(AcceptThreadFunction, this, AcceptSession.GetSocket()));
 }
+
+void UEngineServer::Send(std::shared_ptr<UEngineProtocol> _Protocol)
+{
+	// 다른 모든 접속자에게 이 프로토콜을 다 보낸다.
+}

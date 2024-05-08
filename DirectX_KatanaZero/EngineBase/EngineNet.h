@@ -3,6 +3,7 @@
 
 // 설명 : 내가 뭔지는 중요하지 않다. 
 
+class UEngineProtocol;
 class UEngineNet
 {
 public:
@@ -37,6 +38,8 @@ public:
 	{
 		IsActiveValue = false;
 	}
+
+	virtual void Send(std::shared_ptr<UEngineProtocol> _Protocol) {};
 
 protected:
 

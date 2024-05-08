@@ -108,6 +108,11 @@ bool UWidget::Render(float _DeltaTime)
 
 	for (std::shared_ptr<UWidget> ChildWidget : ChildWidgets)
 	{
+		if (false == ChildWidget->IsActive())
+		{
+			continue;
+		}
+
 		ChildWidget->Render(_DeltaTime);
 	}
 
