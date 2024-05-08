@@ -89,7 +89,7 @@ void URecordingObject::SetRewindStart()
 	Mode = EReplayMode::Restart;
 	ReplaySpeed = 4;
 	CurIndex = static_cast<int>(AllRecordInfo.size()) - 1;
-	TimeCount = Const::restart_speed_delay;
+	RestartTimeCount = Const::restart_speed_delay;
 }
 
 void URecordingObject::Replaying(float _DeltaTime)
@@ -178,12 +178,16 @@ void URecordingObject::RestartIndexUpdate(float _DeltaTime)
 		CurIndex = 0;
 	}
 
-	if (0.0f < TimeCount)
+	if (0.0f < RestartTimeCount)
 	{
-		TimeCount -= _DeltaTime;
+		RestartTimeCount -= _DeltaTime;
 		return;
 	}
 
-	++ReplaySpeed;
-	TimeCount = Const::restart_speed_delay;
+	ReplaySpeed *= 2;
+	if (16 < ReplaySpeed)
+	{
+		ReplaySpeed = 64;
+	}
+	RestartTimeCount = Const::restart_speed_delay;
 }

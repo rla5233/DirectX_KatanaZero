@@ -115,6 +115,7 @@ private:
 	int MaxSize = 0;
 	int CurIndex = 0;
 	float TimeCount = Const::recording_delay;
+	float RestartTimeCount = Const::restart_speed_delay;
 
 	std::vector<URecordInfo> AllRecordInfo;
 };
