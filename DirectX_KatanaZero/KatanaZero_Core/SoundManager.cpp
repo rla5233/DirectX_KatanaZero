@@ -137,4 +137,23 @@ UEngineSoundPlayer USoundManager::SoundPlay_EnemyBloodSplat()
 	return Result;
 }
 
+UEngineSoundPlayer USoundManager::SoundPlay_GunFire()
+{
+	UEngineSoundPlayer Result = UEngineSoundPlayer();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 2);
+	switch (RandomValue)
+	{
+	case 1:
+		Result = UEngineSound::SoundPlay(SoundRes::gun_fire1);
+		break;
+	case 2:
+		Result = UEngineSound::SoundPlay(SoundRes::gun_fire1);
+		break;
+	}
+
+	Result.SetVolume(0.75f);
+	return Result;
+}
+
 

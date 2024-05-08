@@ -112,6 +112,7 @@ void AReplayUI::StateInit()
 			PlayLevel->SetRewind();
 
 			SpeedIdx = 0;
+			USoundManager::GetInst()->GetReplayFastPlay().On();
 		}
 	);
 

@@ -66,6 +66,7 @@ void AFactory_003::LevelStart(ULevel* _PrevLevel)
 
 	SpawnRecComponent<APanicSwitch>("PanicSwitch", { 1765.0f, 335.0f, 0.0f}, EEngineDir::Right, PanicSwitchState::on);
 
+	USoundManager::GetInst()->GetFactoryBGM().On();
 	State.ChangeState(PlayLevelState::transition_off);
 }
 

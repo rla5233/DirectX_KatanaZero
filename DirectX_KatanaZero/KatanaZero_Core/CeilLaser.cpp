@@ -83,6 +83,7 @@ void ACeilLaser::StateInit()
 			Laser->SetScale({ 10.0f, 210.0f + AddScaleOnLaserY, 1.0f });
 			Laser->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
 			Laser->ChangeAnimation(Anim::compo_ceil_laser_attack); 
+			UEngineSound::SoundPlay(SoundRes::ceil_laser_shoot);
 		}
 	);
 

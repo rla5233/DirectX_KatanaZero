@@ -64,6 +64,7 @@ public:
 	static UEngineSoundPlayer SoundPlay_PlayerSlash();
 	static UEngineSoundPlayer SoundPlay_EnemyDeadSword();
 	static UEngineSoundPlayer SoundPlay_EnemyBloodSplat();
+	static UEngineSoundPlayer SoundPlay_GunFire();
 
 private:
 	void FactoryBGMInit();
@@ -78,6 +79,5 @@ private:
 	UEngineSoundPlayer SlomoEnd;
 	UEngineSoundPlayer Replay_Play;
 	UEngineSoundPlayer Replay_FastPlay;
-	//UEngineSoundPlayer SlomoEnd;
 };
 

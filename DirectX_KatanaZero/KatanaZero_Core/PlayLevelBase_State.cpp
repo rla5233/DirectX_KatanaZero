@@ -107,6 +107,7 @@ void APlayLevelBase::IntroBigEffectStart()
 			Player->SetIsPlayValue(true);
 			Player->InputOn();
 
+			UEngineSound::SoundPlay(SoundRes::stage_restartend).SetVolume(0.75f);
 			State.ChangeState(PlayLevelState::play);
 		}
 	);

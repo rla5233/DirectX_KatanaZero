@@ -119,6 +119,7 @@ void ACeilGun::StateInit()
 			SetRandomSmokeAnim();
 
 			DelayCallBack(0.4f, [=] { State.ChangeState(CeilGunState::on); });
+			USoundManager::SoundPlay_GunFire();
 		}
 	);
 

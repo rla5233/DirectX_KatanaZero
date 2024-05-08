@@ -270,6 +270,8 @@ void APlayLevelBase::IncreaseReplaySpeed()
 
 void APlayLevelBase::PanicSwitchOn()
 {
+	bool IsLaserOnSound = false;
+
 	for (size_t i = 0; i < AllRecComponent.size(); i++)
 	{
 		ACeilLaser* Laser = dynamic_cast<ACeilLaser*>(AllRecComponent[i].get());
@@ -277,6 +279,12 @@ void APlayLevelBase::PanicSwitchOn()
 		if (nullptr != Laser)
 		{
 			Laser->StateChange(CeilLaserState::on);
+
+			if (false == IsLaserOnSound)
+			{
+				UEngineSound::SoundPlay(SoundRes::ceil_laser_on);
+				IsLaserOnSound = true;
+			}
 			continue;
 		}
 
@@ -292,6 +300,8 @@ void APlayLevelBase::PanicSwitchOn()
 
 void APlayLevelBase::PanicSwitchOff()
 {
+	bool IsLaserOffSound = false;
+
 	for (size_t i = 0; i < AllRecComponent.size(); i++)
 	{
 		ACeilLaser* Laser = dynamic_cast<ACeilLaser*>(AllRecComponent[i].get());
@@ -299,6 +309,12 @@ void APlayLevelBase::PanicSwitchOff()
 		if (nullptr != Laser)
 		{
 			Laser->StateChange(CeilLaserState::off);
+			
+			if (false == IsLaserOffSound)
+			{
+				UEngineSound::SoundPlay(SoundRes::ceil_laser_off);
+				IsLaserOffSound = true;
+			}
 			continue;
 		}
 
