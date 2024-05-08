@@ -206,6 +206,7 @@ void AHeadHunter_Phase1::AllMineOn()
 
 				if (0 == i)
 				{
+					Player->SetJumpSpeedWeight(1.75f);
 					GEngine->SetGlobalTimeScale(0.1f);
 				}
 				else if(1 == i)

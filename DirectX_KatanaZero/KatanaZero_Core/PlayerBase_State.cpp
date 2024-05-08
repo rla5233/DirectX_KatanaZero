@@ -455,7 +455,7 @@ void APlayerBase::Roll(float _DeltaTime)
 // มกวม
 void APlayerBase::JumpStart()
 {
-	Velocity.Y = Const::player_jump_speedy;
+	Velocity.Y = JumpSpeedWeight * Const::player_jump_speedy;
 	SetAfterImageTimeWeight(5.0f);
 	SetAfterImageAlphaWeight(0.25f);
 	SetJumpEffect();

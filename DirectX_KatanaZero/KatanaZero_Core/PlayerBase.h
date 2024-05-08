@@ -57,6 +57,11 @@ public:
 		IsPlayValue = _PlayValue;
 	}
 
+	inline void SetJumpSpeedWeight(float _Weight)
+	{
+		JumpSpeedWeight = _Weight;
+	}
+
 	inline bool IsAbilityOn() const
 	{
 		return IsAbilityValue;
@@ -147,6 +152,7 @@ private:
 	
 	// etc.
 	int FloorNum = 0;
+	float JumpSpeedWeight = 1.0f;
 	bool IsPlayValue = false;
 	bool IsColDoorValue = false;
 	bool IsInvincibleValue = false;
