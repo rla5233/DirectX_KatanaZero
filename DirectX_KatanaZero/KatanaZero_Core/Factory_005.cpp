@@ -105,6 +105,7 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 	}
 
 	ClearUI = GetWorld()->SpawnActor<UFactoryClearUI>("ClearUI");
+	USoundManager::GetInst()->GetFactoryBGM().On();
 	State.ChangeState(PlayLevelState::transition_off);
 }
 

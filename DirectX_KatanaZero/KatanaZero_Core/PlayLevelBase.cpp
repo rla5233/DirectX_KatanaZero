@@ -357,6 +357,7 @@ void APlayLevelBase::BrightnessUp(float _DeltaTime)
 	if (1.0f < Brightness.X && 1.0f < Brightness.Y && 1.0f < Brightness.Z)
 	{
 		Brightness = float4::One;
+		PlayerBrightness = { 1.0f, 1.0f, 1.0f };
 		BrightnessUpEnd = true;
 	}
 
@@ -372,10 +373,23 @@ void APlayLevelBase::BrightnessUp(float _DeltaTime)
 		AllRecComponent[i]->SetAllMulColor(Brightness);
 	}
 
+	// Enemy
 	for (size_t i = 0; i < AllEnemy.size(); i++)
 	{
 		AllEnemy[i]->GetBody()->SetMulColor(EnemyBrightness);
 	}
+
+	// Player
+	PlayerBrightness.Y -= PlayerBrightWeight * _DeltaTime;
+	PlayerBrightness.Z -= PlayerBrightWeight * _DeltaTime;
+
+	if (1.0f > PlayerBrightness.Y && 1.0f > PlayerBrightness.Z)
+	{
+		PlayerBrightness.Y = 1.0f;
+		PlayerBrightness.Z = 1.0f;
+	}
+
+	Player->GetBody()->SetMulColor(PlayerBrightness);
 }
 
 void APlayLevelBase::BrightnessDown(float _DeltaTime)
@@ -393,6 +407,7 @@ void APlayLevelBase::BrightnessDown(float _DeltaTime)
 	if (0.2f > Brightness.X && 0.2f > Brightness.Y && 0.2f > Brightness.Z)
 	{
 		Brightness = { 0.2f, 0.2f, 0.2f };
+		PlayerBrightness = { 1.0f, 6.0f, 6.0f };
 		BrightnessDownEnd = true;
 	}
 
@@ -403,6 +418,7 @@ void APlayLevelBase::BrightnessDown(float _DeltaTime)
 		AllRecComponent[i]->SetAllMulColor(Brightness);
 	}
 
+	// Enemy
 	EnemyBrightness.X -= _DeltaTime;
 	EnemyBrightness.Y -= _DeltaTime;
 	EnemyBrightness.Z -= _DeltaTime;
@@ -416,6 +432,18 @@ void APlayLevelBase::BrightnessDown(float _DeltaTime)
 	{
 		AllEnemy[i]->GetBody()->SetMulColor(EnemyBrightness);
 	}
+
+	// Player
+	PlayerBrightness.Y += PlayerBrightWeight * _DeltaTime;
+	PlayerBrightness.Z += PlayerBrightWeight * _DeltaTime;
+
+	if (6.0f < PlayerBrightness.Y && 6.0f < PlayerBrightness.Z)
+	{
+		PlayerBrightness.Y = 6.0f;
+		PlayerBrightness.Z = 6.0f;
+	}
+
+	Player->GetBody()->SetMulColor(PlayerBrightness);
 }
 
 void APlayLevelBase::BatterPartUpdate(float _AbilityTime)

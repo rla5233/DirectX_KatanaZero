@@ -146,6 +146,8 @@ protected:
 	// Stage Info.
 	float4 Brightness = float4::One;
 	float4 EnemyBrightness = float4::One;
+	float4 PlayerBrightness = float4::One;
+	float PlayerBrightWeight = 6.0f;
 	bool BrightnessDownEnd = false;
 	bool BrightnessUpEnd = false;
 	float TotalPlayTime = 0.0f;

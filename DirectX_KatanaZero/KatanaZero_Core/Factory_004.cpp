@@ -59,6 +59,7 @@ void AFactory_004::LevelStart(ULevel* _PrevLevel)
 
 	Fan = SpawnRecComponent<AFan>("Fan", { 1376.0f, 1039.0f, 0.0f }, EEngineDir::Right, FanState::idle, EUpdateOrder::Fan);
 
+	USoundManager::GetInst()->GetFactoryBGM().On();
 	State.ChangeState(PlayLevelState::transition_off);
 }
 
