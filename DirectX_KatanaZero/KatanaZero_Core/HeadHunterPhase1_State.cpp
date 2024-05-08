@@ -71,7 +71,15 @@ void AHeadHunterPhase1::RecoverStart()
 
 	DelayCallBack(3.0f, [=]
 		{
-			State.ChangeState(HeadHunterState::exitdoor);
+			if (0 < Hp)
+			{
+				State.ChangeState(HeadHunterState::exitdoor);
+				return;
+			}
+			else
+			{
+
+			}
 		}
 	);
 }

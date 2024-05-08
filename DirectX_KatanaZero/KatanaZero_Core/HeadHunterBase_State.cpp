@@ -86,6 +86,7 @@ void AHeadHunterBase::HitFlyStart()
 
 	LaserEffect->SetActive(false);
 	Body->ChangeAnimation(Anim::headhunter_hitfly);
+	--Hp;
 }
 
 void AHeadHunterBase::HitFly(float _DeltaTime)

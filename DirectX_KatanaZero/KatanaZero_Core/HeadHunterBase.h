@@ -75,15 +75,14 @@ protected:
 	
 	std::vector<URecoverEffect> AllRecoverEffect;
 
-
 	// Collision
 	UCollision* BodyCol = nullptr;
 	UCollision* LaserCol = nullptr;
 
-
 	// Info.
 	FVector HitDir = FVector::Zero;
 	int PatternOrder = 0;
+	int Hp = 0;
 
 // FSM
 protected:

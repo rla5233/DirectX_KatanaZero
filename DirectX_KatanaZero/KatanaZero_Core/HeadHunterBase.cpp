@@ -155,12 +155,7 @@ void AHeadHunterBase::Tick(float _DeltaTime)
 	}
 
 	{
-		std::string Msg = std::format("HeadBodyCol : {}\n", BodyCol->GetWorldScale().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("HeadLaserCol : {}\n", LaserCol->GetWorldScale().ToString());
+		std::string Msg = std::format("Head_Hp : {}\n", Hp);
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "PhysicsObject.h"
 
-// 설명 : Cloud 효과
+// 설명 : SlidingDoor Cloud 효과
 class ACloud : public AActor, public UPhysicsObject
 {
 	GENERATED_BODY(AActor)
