@@ -37,9 +37,9 @@ void UKatanaZero_Core::Initialize()
 	
 	GEngine->ChangeLevel("TitleLevel");
 	
-	GEngine->ChangeLevel("Factory_002");
+	//GEngine->ChangeLevel("Factory_002");
 
-	//GEngine->ChangeLevel("Factory_003");
+	GEngine->ChangeLevel("Factory_003");
 	
 	//GEngine->ChangeLevel("Factory_004");
 	
@@ -47,5 +47,5 @@ void UKatanaZero_Core::Initialize()
 	
 	//GEngine->ChangeLevel("HeadHunter_Phase1");
  
-	GEngine->ChangeLevel("HeadHunter_Phase2");
+	//GEngine->ChangeLevel("HeadHunter_Phase2");
 }

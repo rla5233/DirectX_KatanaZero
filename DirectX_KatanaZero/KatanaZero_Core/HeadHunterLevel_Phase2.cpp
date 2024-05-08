@@ -31,7 +31,7 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 	ColMap->SetBGSpritePosition({ 672.0f, 425.0f, 0.0f });
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
-	Player->SetActorLocation({ 380.0f, 680.0f, 0.0f });
+	Player->SetActorLocation({ 380.0f, 750.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
 	Player->SetIntroType(EIntroType::HeadHunter2);
 
@@ -70,15 +70,16 @@ void AHeadHunterLevel_Phase2::LevelReStart()
 	Super::LevelReStart();
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
-	Player->SetActorLocation({ 380.0f, 680.0f, 0.0f });
+	Player->SetActorLocation({ 380.0f, 160.0f, 0.0f });
+	Player->SubStateChange(PlayerSubState::play);
+	Player->StateChange(PlayerState::idle);
 	Player->DirChange(EEngineDir::Right);
-	Player->SetIntroType(EIntroType::HeadHunter2);
 
 	HeadHunter = GetWorld()->SpawnActor<AHeadHunterPhase2>("HeadHunter", EUpdateOrder::Enemy);
 	HeadHunter->SetActorLocation({ 980.0f, 175.0f, 0.0f });
 	HeadHunter->SetDir(EEngineDir::Left);
 	HeadHunter->StateChange(HeadHunterState::idle);
-	HeadHunter->SubStateChange(HeadHunterSubState::wait);
+	HeadHunter->SubStateChange(HeadHunterSubState::play);
 }
 
 void AHeadHunterLevel_Phase2::LevelReEnd()
