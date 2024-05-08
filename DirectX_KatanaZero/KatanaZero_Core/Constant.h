@@ -314,6 +314,8 @@ namespace SoundRes
 	const std::string_view title_menu_transition	= "sound_ui_transition.wav";
 	const std::string_view transition_on			= "sound_transition_on.wav";
 	const std::string_view transition_off			= "sound_transition_off.wav";
+	const std::string_view replay_play				= "sound_replay_play.wav";
+	const std::string_view replay_fastplay				= "sound_replay_fastplay.wav";
 
 	// Sound
 	const std::string_view stage_start				= "sound_stage_start.wav";

@@ -49,6 +49,16 @@ public:
 		return SlomoEnd;
 	}
 
+	UEngineSoundPlayer GetReplayPlay()
+	{
+		return Replay_Play;
+	}
+	
+	UEngineSoundPlayer GetReplayFastPlay()
+	{
+		return Replay_FastPlay;
+	}
+
 public:
 	static UEngineSoundPlayer SoundPlay_PlayerRun();
 	static UEngineSoundPlayer SoundPlay_PlayerSlash();
@@ -58,6 +68,7 @@ public:
 private:
 	void FactoryBGMInit();
 	void SlomoSoundInit();
+	void ReplaySoundInit();
 
 private:
 	static USoundManager* Inst;
@@ -65,5 +76,8 @@ private:
 	UEngineSoundPlayer FactoryBGM;
 	UEngineSoundPlayer SlomoStart;
 	UEngineSoundPlayer SlomoEnd;
+	UEngineSoundPlayer Replay_Play;
+	UEngineSoundPlayer Replay_FastPlay;
+	//UEngineSoundPlayer SlomoEnd;
 };
 

@@ -7,6 +7,7 @@ USoundManager::USoundManager()
 {
 	FactoryBGMInit();
 	SlomoSoundInit();
+	ReplaySoundInit();
 }
 
 USoundManager::~USoundManager()
@@ -29,6 +30,20 @@ void USoundManager::SlomoSoundInit()
 
 	SlomoEnd = UEngineSound::SoundPlay(SoundRes::slomo_end);
 	SlomoEnd.Off();
+}
+
+void USoundManager::ReplaySoundInit()
+{
+	Replay_Play = UEngineSound::SoundPlay(SoundRes::replay_play);
+	Replay_Play.SetVolume(1.0f);
+	Replay_Play.Loop();
+	Replay_Play.Off();
+
+	Replay_FastPlay = UEngineSound::SoundPlay(SoundRes::replay_fastplay);
+	Replay_FastPlay.SetVolume(1.0f);
+	Replay_FastPlay.Loop();
+	Replay_FastPlay.Off();
+
 }
 
 UEngineSoundPlayer USoundManager::SoundPlay_PlayerRun()
