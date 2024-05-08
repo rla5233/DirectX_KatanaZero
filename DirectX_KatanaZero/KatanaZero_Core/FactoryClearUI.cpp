@@ -73,6 +73,9 @@ void UFactoryClearUI::StateInit()
 			
 			ClearMoveTimeWeight = 3.0f;
 			Order = EFactoryClearOrder::FactoryClearStart;
+			UEngineSound::SoundPlay(SoundRes::stage_start);
+			USoundManager::GetInst()->GetFactoryBGM().Off();
+			USoundManager::GetInst()->GetFactoryBGM().Replay();
 			On();
 		}
 	);
