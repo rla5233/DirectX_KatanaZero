@@ -31,10 +31,9 @@ void AHeadHunter_Phase2::LevelStart(ULevel* _PrevLevel)
 	ColMap->SetBGSpritePosition({ 672.0f, 425.0f, 0.0f });
 
 	Player = GetWorld()->SpawnActor<ADefaultPlayer>("Player", EUpdateOrder::Player);
-	Player->SetActorLocation({ 20.f, 175.0f, 0.0f });
+	Player->SetActorLocation({ 380.0f, 680.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
-	Player->SetIntroRunTime(0.9f);
-	Player->SetIntroType(EIntroType::Default);
+	Player->SetIntroType(EIntroType::HeadHunter2);
 
 
 	MainCamera->SetActorLocation({ 672.0f, 360.0f, -100.0f });

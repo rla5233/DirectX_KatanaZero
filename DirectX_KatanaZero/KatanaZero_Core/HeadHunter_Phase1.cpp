@@ -45,7 +45,7 @@ void AHeadHunter_Phase1::LevelStart(ULevel* _PrevLevel)
 	Player->SetActorLocation({ 20.f, 175.0f, 0.0f });
 	Player->DirChange(EEngineDir::Right);
 	Player->SetIntroRunTime(0.9f);
-	Player->SetIntroType(EIntroType::HeadHunterBegin);
+	Player->SetIntroType(EIntroType::HeadHunter1);
 
 	HeadHunter = GetWorld()->SpawnActor<AHeadHunterPhase1>("HeadHunter", EUpdateOrder::Enemy);
 	HeadHunter->SetActorLocation({ 980.0f, 175.0f, 0.0f });

@@ -88,8 +88,11 @@ enum class EReplayMode
 
 enum class EIntroOrder
 {
+	None,
 	Run,
 	RunToIdle,
+	Fall,
+	PreCrouch,
 	MusicOn,
 	MusicOff
 };
@@ -140,5 +143,6 @@ enum class EIntroType
 {
 	Default,
 	FactoryBegin,
-	HeadHunterBegin
+	HeadHunter1,
+	HeadHunter2
 };

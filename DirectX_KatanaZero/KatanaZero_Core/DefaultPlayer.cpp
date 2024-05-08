@@ -227,14 +227,25 @@ void ADefaultPlayer::IntroStart()
 {
 	Super::IntroStart();
 
-	GetBody()->ChangeAnimation(Anim::player_run);
-	DelayCallBack(IntroRunTime, [=]
-		{
-			Velocity = FVector::Zero;
-			GetBody()->ChangeAnimation(Anim::player_run_to_idle);
-			SetIntroOrder(EIntroOrder::RunToIdle);
-		}
-	);
+	switch (IntroType)
+	{
+	case EIntroType::HeadHunter2:
+		GetBody()->ChangeAnimation(Anim::player_fall);
+		Velocity.X = 0.0f;
+		Velocity.Y = (-0.8f) * Const::player_fall_max_speedy;
+		SetIntroOrder(EIntroOrder::Fall);
+		break;
+	default:
+		GetBody()->ChangeAnimation(Anim::player_run);
+		DelayCallBack(IntroRunTime, [=]
+			{
+				Velocity = FVector::Zero;
+				GetBody()->ChangeAnimation(Anim::player_run_to_idle);
+				SetIntroOrder(EIntroOrder::RunToIdle);
+			}
+		);
+		break;
+	}	
 }
 
 void ADefaultPlayer::Intro(float _DeltaTime)
@@ -264,7 +275,7 @@ void ADefaultPlayer::Intro(float _DeltaTime)
 				);
 				SetIntroOrder(EIntroOrder::MusicOn);
 				break;
-			case EIntroType::HeadHunterBegin:
+			case EIntroType::HeadHunter1:
 				DelayCallBack(0.5f, [=]
 					{
 						GetBody()->ChangeAnimation(Anim::player_remove_headphones);
@@ -278,12 +289,23 @@ void ADefaultPlayer::Intro(float _DeltaTime)
 			}
 		}
 		break;
-	case EIntroOrder::MusicOn:
-		if (true == GetBody()->IsCurAnimationEnd())
+	case EIntroOrder::Fall:
+		PosUpdate(_DeltaTime);
+		if (true == IsOnGround(GetBody()->GetDir()))
 		{
-			GetBody()->ChangeAnimation(Anim::player_idle);
+			GetBody()->ChangeAnimation(Anim::player_postcrouch);
+			OnGroundPosAdjust(GetBody()->GetDir());
+			SetIntroOrder(EIntroOrder::None);
+			DelayCallBack(0.5f, [=] 
+				{
+					GetBody()->ChangeAnimation(Anim::player_precrouch);
+					SetIntroOrder(EIntroOrder::PreCrouch);
+				}
+			);
 		}
 		break;
+	case EIntroOrder::PreCrouch:
+	case EIntroOrder::MusicOn:
 	case EIntroOrder::MusicOff:
 		if (true == GetBody()->IsCurAnimationEnd())
 		{

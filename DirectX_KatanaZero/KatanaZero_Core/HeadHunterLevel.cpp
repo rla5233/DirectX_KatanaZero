@@ -75,7 +75,7 @@ void AHeadHunterLevel::PlayStart()
 {
 	Super::PlayStart();
 
-	//HeadHunter->SetRecordingActive(true);
+	HeadHunter->SetRecordingActive(true);
 }
 
 void AHeadHunterLevel::PlayerDeadStart()
