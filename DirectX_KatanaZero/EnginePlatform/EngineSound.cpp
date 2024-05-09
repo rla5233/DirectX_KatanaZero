@@ -24,6 +24,11 @@ void UEngineSoundPlayer::SetVolume(float _Volume)
 	Control->setVolume(_Volume * UEngineSound::GlobalVolume);
 }
 
+UEngineSoundPlayer UEngineSoundPlayer::Replay()
+{
+	*this = UEngineSound::SoundPlay(Name);
+	return *this;
+}
 
 // FMOD와 관련된 사운드를 로드할수 있는 권한.
 FMOD::System* SoundSystem = nullptr;
@@ -108,6 +113,7 @@ UEngineSoundPlayer UEngineSound::SoundPlay(std::string_view _Name)
 	std::shared_ptr <UEngineSound> FindSound = FindRes(UpperName);
 
 	UEngineSoundPlayer Result;
+	Result.Name = _Name;
 	SoundSystem->playSound(FindSound->SoundHandle, nullptr, false, &Result.Control);
 	Result.Control->setLoopCount(0);
 	Result.SetVolume(1.0f);

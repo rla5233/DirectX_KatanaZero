@@ -20,6 +20,7 @@ void USoundManager::FactoryBGMInit()
 {
 	FactoryBGM = UEngineSound::SoundPlay(SoundRes::bgm_factory);
 	FactoryBGM.SetVolume(0.6f);
+	FactoryBGM.SetVolume(0.0f);
 	FactoryBGM.Loop();
 	FactoryBGM.Off();
 }

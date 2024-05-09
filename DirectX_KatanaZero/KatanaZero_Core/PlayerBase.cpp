@@ -516,4 +516,9 @@ void APlayerBase::DebugUpdate()
 		std::string Msg = std::format("Player_State : {}\n", GetCurMainState());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+
+	{
+		std::string Msg = std::format("Player_Ability : {}\n", IsAbilityValue);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }

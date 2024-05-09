@@ -143,26 +143,25 @@ void APlayerBase::AbilityCheck()
 	if (true == IsAbilityInputDown())
 	{
 		IsAbilityValue = true;
-		UContentsHelper::SetAbilityTimeScale();
-
-		USoundManager::GetInst()->GetSlomoStart().On();
-		USoundManager::GetInst()->GetSlomoStart().Replay();
-
+		
+		USoundManager::GetInst()->SetSlomoStart(USoundManager::GetInst()->GetSlomoStart().Replay());
 		USoundManager::GetInst()->GetSlomoEnd().Off();
-		UEngineSound::Update();
+		
+		UContentsHelper::SetAbilityTimeScale();
 		return;
 	}
 
 	if (true == IsAbilityInputUp())
 	{
-		IsAbilityValue = false;
-		UContentsHelper::ResetTimeScale();
-
-		USoundManager::GetInst()->GetSlomoEnd().On();
-		USoundManager::GetInst()->GetSlomoEnd().Replay();
-
+		if (true == IsAbilityValue)
+		{
+			USoundManager::GetInst()->SetSlomoEnd(USoundManager::GetInst()->GetSlomoEnd().Replay());
+		}	
+		
 		USoundManager::GetInst()->GetSlomoStart().Off();
-		UEngineSound::Update();
+		IsAbilityValue = false;
+		
+		UContentsHelper::ResetTimeScale();
 		return;
 	}
 }
@@ -191,6 +190,11 @@ void APlayerBase::AbilityUpdate(float _DeltaTime)
 		PlayLevel->BatterPartUpdate(AbilityTime);
 		PlayLevel->BrightnessDown(15.0f * _DeltaTime);
 		return;
+	}
+	else if (true == IsAbilityInputPress() && false == IsAbilityValue && 0.0f == AbilityTime)
+	{
+		USoundManager::GetInst()->SetSlomoEnd(USoundManager::GetInst()->GetSlomoEnd().Replay());
+		USoundManager::GetInst()->GetSlomoStart().Off();
 	}
 
 	if (false == IsAbilityValue)

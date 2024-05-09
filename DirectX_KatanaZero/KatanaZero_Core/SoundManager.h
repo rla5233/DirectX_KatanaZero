@@ -44,9 +44,19 @@ public:
 		return SlomoStart;
 	}
 
+	void SetSlomoStart(UEngineSoundPlayer _Sound)
+	{
+		SlomoStart = _Sound;
+	}
+
 	UEngineSoundPlayer GetSlomoEnd()
 	{
 		return SlomoEnd;
+	}
+
+	void SetSlomoEnd(UEngineSoundPlayer _Sound)
+	{
+		SlomoEnd = _Sound;
 	}
 
 	UEngineSoundPlayer GetReplayPlay()
