@@ -174,6 +174,16 @@ void AHeadHunterLevel_Phase1::ChangeStage()
 void AHeadHunterLevel_Phase1::ClearStart()
 {
 	AllMineOn();
+
+	float inter = 0.1f;
+	for (int i = 0; i < 8; i++)
+	{
+		DelayCallBack(1.0f + inter * i, [=]
+			{
+				UEngineSound::SoundPlay(SoundRes::hh_explosion);
+			}
+		);
+	}
 }
 
 void AHeadHunterLevel_Phase1::Clear(float _DeltaTime)
