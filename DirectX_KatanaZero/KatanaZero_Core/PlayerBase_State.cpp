@@ -860,22 +860,7 @@ void APlayerBase::DeadStart()
 	switch (HitEnemy)
 	{
 	case EEnemyType::Default:
-	{
-		Velocity *= 0.75f;
-		DelayCallBack(0.105f, [=] 
-			{ 
-				Velocity.X *= 4.0f; 
-			}
-		);
-
-		HitDir.Normalize2D();
-		float Deg = UContentsMath::GetAngleToX_2D(HitDir);
-		std::shared_ptr<AHitLaser> NewHitLaser = GetWorld()->SpawnActor<AHitLaser>("HitLaser");
-		NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
-		NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });
-		NewHitLaser->SetVelocity(HitDir * 10000.0f);
-		UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
-	}
+		SetHitLaser(EHitLaserType::Default);
 		break;
 	case EEnemyType::Fan:
 	case EEnemyType::HeadHunterLaser:
@@ -883,6 +868,9 @@ void APlayerBase::DeadStart()
 		UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
 		UContentsHelper::ResetTimeScale();
 		break;	
+	case EEnemyType::HeadHunterDash:
+		SetHitLaser(EHitLaserType::HeadHunterDash);
+		break;
 	case EEnemyType::CeilGun:
 		Velocity.X = 0.0f;
 		UContentsHelper::ResetTimeScale();
@@ -970,6 +958,25 @@ void APlayerBase::OnlyFall(float _DeltaTime)
 
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
+}
+
+void APlayerBase::SetHitLaser(EHitLaserType _Type)
+{
+	Velocity *= 0.75f;
+	DelayCallBack(0.105f, [=]
+		{
+			Velocity.X *= 4.0f;
+		}
+	);
+
+	HitDir.Normalize2D();
+	float Deg = UContentsMath::GetAngleToX_2D(HitDir);
+	std::shared_ptr<AHitLaser> NewHitLaser = GetWorld()->SpawnActor<AHitLaser>("HitLaser");
+	NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
+	NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });
+	NewHitLaser->SetVelocity(HitDir * 10000.0f);
+	NewHitLaser->SetHitLaserType(_Type);
+	UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
 }
 
 void APlayerBase::HitByEnemy(FVector _HitDir, EEnemyType _EnemyType)

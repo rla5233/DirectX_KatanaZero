@@ -16,6 +16,11 @@ public:
 	AHitLaser& operator=(const AHitLaser& _Other) = delete;
 	AHitLaser& operator=(AHitLaser&& _Other) noexcept = delete;
 
+	inline void SetHitLaserType(EHitLaserType _Type)
+	{
+		Type = _Type;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -23,5 +28,7 @@ protected:
 private:
 	USpriteRenderer* Body = nullptr;
 
+	EHitLaserType Type = EHitLaserType::Default;
+	int Order = 0;
 };
 

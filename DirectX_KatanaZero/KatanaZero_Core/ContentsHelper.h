@@ -1,4 +1,5 @@
 #pragma once
+#include "ContentsEnum.h"
 
 // Ό³Έν :
 class UContentsHelper
@@ -16,7 +17,7 @@ public:
 
 	static void ResetTimeScale();
 	static void SetAbilityTimeScale();
-	static void SetHitLaserTimeScale();
+	static void SetHitLaserTimeScale(EHitLaserType _Type);
 
 protected:
 

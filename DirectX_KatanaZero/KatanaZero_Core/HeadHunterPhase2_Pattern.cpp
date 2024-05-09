@@ -102,7 +102,7 @@ void AHeadHunterPhase2::SwordDashUpdate(float _DeltaTime)
 		Body->AnimationReset();
 		Body->SetSprite(ImgRes::headhunter_dash);
 
-		SetVelocityByDir({ 10000.0f, 0.0f, 0.0f });
+		SetVelocityByDir({ 15000.0f, 0.0f, 0.0f });
 		BodyCol->SetActive(false);
 		DashLaser->SetActive(false);
 		DashAttack->SetActive(true);
@@ -157,7 +157,7 @@ void AHeadHunterPhase2::SwordDashUpdate1(float _DeltaTime)
 				break;
 			}
 
-			Player->HitByEnemy(AttackDir);
+			Player->HitByEnemy(AttackDir, EEnemyType::HeadHunterDash);
 		}
 	);
 }

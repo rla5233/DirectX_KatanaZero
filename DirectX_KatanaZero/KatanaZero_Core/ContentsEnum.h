@@ -60,6 +60,7 @@ enum class EEnemyType
 {
 	Default,
 	HeadHunterLaser,
+	HeadHunterDash,
 	CeilLaser,
 	CeilGun,
 	TimeOut,
@@ -147,4 +148,10 @@ enum class EIntroType
 	FactoryBegin,
 	HeadHunter1,
 	HeadHunter2
+};
+
+enum class EHitLaserType
+{
+	Default,
+	HeadHunterDash
 };

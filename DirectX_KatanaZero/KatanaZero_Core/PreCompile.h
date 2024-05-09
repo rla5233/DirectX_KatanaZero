@@ -25,5 +25,5 @@
 #include "ContentsHelper.h"
 #include "ContentsMath.h"
 #include "ContentsEnum.h"
-#include "Constant.h"
 #include "SoundManager.h"
+#include "Constant.h"

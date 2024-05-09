@@ -276,6 +276,7 @@ private:
 protected:
 	void SetMaxRunVel();
 	void SetAttackDir();
+	void SetHitLaser(EHitLaserType _Type);
 
 // FSM Update
 protected:
