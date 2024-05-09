@@ -16,25 +16,12 @@ void AHeadHunterPhase2::GunShoot1Update(float _DeltaTime)
 			{
 				if (HeadHunterState::pattern_gunshoot1 != State.GetCurStateName())
 				{
-					int a = 0;
-
 					return;
 				}
 
 				Body->AnimationReset();
 				Body->ChangeAnimation(Anim::headhunter_shoot_gun);
-
-				EEngineDir Dir = Body->GetDir();
-				switch (Dir)
-				{
-				case EEngineDir::Left:
-					Body->SetPosition({ -39.0f, 0.0f, 0.0f });
-					break;
-				case EEngineDir::Right:
-					Body->SetPosition({ 39.0f, 0.0f, 0.0f });
-					break;
-				}
-
+				AdjustBodyPosByDir({ 39.0f, 0.0f, 0.0f });
 				PatternOrder = 1;
 			}
 		);
@@ -90,16 +77,7 @@ void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 
 		if (0 >= GunShootCount)
 		{
-			switch (GetBody()->GetDir())
-			{
-			case EEngineDir::Left:
-				GetBody()->SetPosition({ -12.0f, 0.0f, 0.0f });
-				break;
-			case EEngineDir::Right:
-				GetBody()->SetPosition({ 12.0f, 0.0f, 0.0f });
-				break;
-			}
-
+			AdjustBodyPosByDir({ 12.0f, 0.0f, 0.0f });
 			GetBody()->ChangeAnimation(Anim::headhunter_putback_gun);
 			PatternOrder = -1;
 			return;

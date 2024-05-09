@@ -23,12 +23,17 @@ protected:
 	void CreateAnimation() override;
 	void StateInit() override;
 
+private:
+	void AdjustBodyPosByDir(const FVector _Pos);
 
 private:
+	// Effect
+	USpriteRenderer* DashLaser = nullptr;
+
+	// Info.
 	bool IsGunShoot = false;
 	bool ReGunShoot = false;
 	int GunShootCount = 3;
-
 
 	float PatternDelayTimeCount = 0.0f;
 	
@@ -40,6 +45,9 @@ private:
 
 	void PatternGunShoot1Start();
 	void PatternGunShoot1(float _DeltaTime);
+
+	void PatternSwordDashStart();
+	void PatternSwordDash(float _DeltaTime);
 
 // Effect
 private:

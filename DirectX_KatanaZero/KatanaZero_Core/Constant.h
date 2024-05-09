@@ -43,6 +43,7 @@ namespace ImgRes
 	const std::string_view headhunter_land			= "headhunter_land";
 	const std::string_view headhunter_takeout_gun	= "headhunter_takeoutgun";
 	const std::string_view headhunter_shoot_gun		= "headhunter_gunshoot";
+	const std::string_view headhunter_predash		= "headhunter_predash";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -133,6 +134,7 @@ namespace ImgRes
 
 	const std::string_view effect_hit_laser			= "spr_slash_laser.png";
 	const std::string_view effect_laser				= "spr_laser_effect";
+	const std::string_view effect_dash_laser		= "spr_dash_laser.png";
 	const std::string_view effect_explosion			= "spr_explosion";
 
 	// Component
@@ -234,6 +236,7 @@ namespace Anim
 	const std::string_view headhunter_takeout_gun	= "headhunter_takeoutgun";
 	const std::string_view headhunter_shoot_gun		= "headhunter_gunshoot";
 	const std::string_view headhunter_putback_gun	= "headhunter_putbackgun";
+	const std::string_view headhunter_predash		= "headhunter_predash";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -476,6 +479,7 @@ namespace HeadHunterState
 	
 	// Phase2
 	const std::string_view pattern_gunshoot1	= "Pattern_GunShoot1";
+	const std::string_view sword_dash			= "Sword_Dash";
 }
 
 namespace HeadHunterSubState
@@ -706,5 +710,7 @@ namespace HH_Phase1_RefPos
 
 namespace HH_Phase2_RefPos
 {
-	const std::string_view mid = "Mid";
+	const std::string_view leftwall			= "LeftWall";
+	const std::string_view mid				= "Mid";
+	const std::string_view rightwall		= "RightWall";
 }
