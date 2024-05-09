@@ -122,6 +122,9 @@ void AHeadHunterPhase2::PatternSwordDash(float _DeltaTime)
 	case 1:
 		SwordDashUpdate1(_DeltaTime);
 		break;
+	case 2:
+		SwordDashUpdate2(_DeltaTime);
+		break;
 	default:
 		break;
 	}

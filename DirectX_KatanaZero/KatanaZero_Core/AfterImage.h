@@ -16,19 +16,24 @@ public:
 	AAfterImage& operator=(AAfterImage&& _Other) noexcept = delete;
 
 	void SetBodyInfo(USpriteRenderer* _Renderer);
-	void SetTimeWeight(float _TimeWeight)
+	inline void SetTimeWeight(float _TimeWeight)
 	{
 		TimeWeight = _TimeWeight;
 	}
 
-	void SetAlphaWeight(float _AlphaWeight)
+	inline void SetPlusColor(float4 _Color)
 	{
-		AlphaWeight = _AlphaWeight;
+		PlusColor = _Color;
 	}
 
-	void SetColor(float4 _Color)
+	inline void SetMulColor(float4 _Color)
 	{
-		Color = _Color;	
+		MulColor = _Color;
+	}
+
+	inline void SetActiveDelayTime(float _DelayTime)
+	{
+		ActiveDelayTime = _DelayTime;
 	}
 
 protected:
@@ -38,8 +43,9 @@ protected:
 private:
 	USpriteRenderer* Body = nullptr;
 
-	float4 Color = { 0.0f, 0.0f, 0.0f, 1.0f };
-	float AlphaWeight = 0.0f;
+	float4 PlusColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float4 MulColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float TimeWeight = 1.0f;
+	float ActiveDelayTime = 0.0f;
 };
 

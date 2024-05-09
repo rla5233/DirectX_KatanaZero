@@ -82,7 +82,7 @@ void AHeadHunterBase::RollStart()
 	CroudTimeCount = Const::effect_roll_cloud_delay;
 
 	SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });
-	SetAfterImageAlphaWeight(0.6f);
+	SetAfterImageMulColor({ 1.0f, 1.0f, 1.0f, 0.4f });
 	SetAfterImageTimeWeight(6.0f);
 
 	BodyCol->SetActive(false);

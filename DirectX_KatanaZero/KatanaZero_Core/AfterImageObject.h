@@ -19,14 +19,24 @@ public:
 		UpdateTimeWeight = _TimeWeight;
 	}
 
-	inline void SetAfterImageAlphaWeight(float _AlphaWeight)
-	{
-		AlphaWeight = _AlphaWeight;
-	}
-
 	inline void SetAfterImagePlusColor(const float4& _Color)
 	{
-		Color = _Color;
+		PlusColor = _Color;
+	}
+
+	inline void SetAfterImageMulColor(const float4& _Color)
+	{
+		MulColor = _Color;
+	}
+
+	inline void SetAfterImageActiveDelayTime(float _DelayTime)
+	{
+		ActiveDelayTime = _DelayTime;
+	}
+
+	inline void SetAfterImageDelayTime(float _Time)
+	{
+		DelayTime = _Time;
 	}
 
 	void CreateAfterImage(float _DeltaTime);
@@ -40,10 +50,11 @@ protected:
 private:
 	USpriteRenderer* TargetRenderer = nullptr;
 
-	float4 Color = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float4 PlusColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float4 MulColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float DelayTime = 1.0f / 60.0f;
 	float TimeCount = 0.0f;
 	float UpdateTimeWeight = 1.0f;
-	float AlphaWeight = 0.0f;
+	float ActiveDelayTime = 0.0f;
 };
 

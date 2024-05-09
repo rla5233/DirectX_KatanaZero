@@ -73,6 +73,7 @@ private:
 	// Pattern_SwordDash
 	void SwordDashUpdate(float _DeltaTime);
 	void SwordDashUpdate1(float _DeltaTime);
+	void SwordDashUpdate2(float _DeltaTime);
 
 
 };

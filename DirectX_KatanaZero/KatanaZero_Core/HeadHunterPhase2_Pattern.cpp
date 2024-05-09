@@ -102,6 +102,12 @@ void AHeadHunterPhase2::SwordDashUpdate(float _DeltaTime)
 		Body->AnimationReset();
 		Body->SetSprite(ImgRes::headhunter_dash);
 
+		SetAfterImagePlusColor({ 1.0f, 0.0f, 0.0f, 0.0f});
+		SetAfterImageMulColor({ 1.0f, 0.1f, 0.1f, 0.3f});
+		SetAfterImageDelayTime(0.0f);
+		SetAfterImageTimeWeight(1.0f);
+		SetAfterImageDelayTime(1.0f / 600000.0f);
+
 		SetVelocityByDir({ 15000.0f, 0.0f, 0.0f });
 		BodyCol->SetActive(false);
 		DashLaser->SetActive(false);
@@ -138,10 +144,15 @@ void AHeadHunterPhase2::SwordDashUpdate1(float _DeltaTime)
 		Body->ChangeAnimation(Anim::headhunter_dashend);
 		BodyCol->SetActive(true);
 		DashAttack->SetActive(false);
+		PatternOrder = 2;
 	}
+
+	// Effect
+	CreateAfterImage(_DeltaTime);
 
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
+
 
 	DashAttack->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
 		{
@@ -160,4 +171,8 @@ void AHeadHunterPhase2::SwordDashUpdate1(float _DeltaTime)
 			Player->HitByEnemy(AttackDir, EEnemyType::HeadHunterDash);
 		}
 	);
+}
+
+void AHeadHunterPhase2::SwordDashUpdate2(float _DeltaTime)
+{
 }

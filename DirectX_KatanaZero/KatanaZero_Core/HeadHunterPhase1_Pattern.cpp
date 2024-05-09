@@ -271,7 +271,7 @@ void AHeadHunterPhase1::AirRifle1Update(float _DeltaTime)
 		Body->ChangeAnimation(Anim::headhunter_jump);
 
 		SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });
-		SetAfterImageAlphaWeight(0.6f);
+		SetAfterImageMulColor({ 1.0f, 1.0f, 1.0f, 0.4f });
 		SetAfterImageTimeWeight(6.0f);
 
 		PatternOrder = 1;

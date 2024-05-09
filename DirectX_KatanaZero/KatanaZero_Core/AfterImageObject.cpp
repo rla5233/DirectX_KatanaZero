@@ -13,7 +13,7 @@ UAfterImageObject::~UAfterImageObject()
 
 void UAfterImageObject::CreateAfterImage(float _DeltaTime)
 {
-	if (0.0f < TimeCount)
+	if (0.0f < TimeCount || 0.0f == _DeltaTime)
 	{
 		TimeCount -= _DeltaTime;
 		return;
@@ -22,9 +22,10 @@ void UAfterImageObject::CreateAfterImage(float _DeltaTime)
 	AAfterImage* NewAfterImage = TargetRenderer->GetWorld()->SpawnActor<AAfterImage>("AfterImage").get();
 	NewAfterImage->SetActorLocation(TargetRenderer->GetWorldPosition());
 	NewAfterImage->SetTimeWeight(UpdateTimeWeight);
-	NewAfterImage->SetAlphaWeight(AlphaWeight);
 	NewAfterImage->SetBodyInfo(TargetRenderer);
-	NewAfterImage->SetColor(Color);
+	NewAfterImage->SetActiveDelayTime(ActiveDelayTime);
+	NewAfterImage->SetPlusColor(PlusColor);
+	NewAfterImage->SetMulColor(MulColor);
 
 	TimeCount = DelayTime;
 }
