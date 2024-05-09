@@ -153,7 +153,6 @@ void AHeadHunterPhase2::SwordDashUpdate1(float _DeltaTime)
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
-
 	DashAttack->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
 		{
 			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
