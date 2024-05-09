@@ -86,6 +86,7 @@ public:
 	static UEngineSoundPlayer SoundPlay_EnemyBloodSplat();
 	static UEngineSoundPlayer SoundPlay_GunFire();
 	static UEngineSoundPlayer SoundPlay_WallKick();
+	static UEngineSoundPlayer SoundPlay_HH_LaserShot();
 
 private:
 	void FactoryBGMInit();

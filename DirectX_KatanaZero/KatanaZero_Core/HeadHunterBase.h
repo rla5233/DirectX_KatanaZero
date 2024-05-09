@@ -60,6 +60,7 @@ protected:
 
 	virtual void CollisionInit();
 	virtual void CreateAnimation();
+	void SoundInit();
 
 private:
 	void CreateRecoverEffect();

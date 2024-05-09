@@ -327,6 +327,13 @@ namespace SoundRes
 	const std::string_view player_wall_kick2		= "sound_player_wallkick_2.wav";
 	const std::string_view player_wall_kick3		= "sound_player_wallkick_3.wav";
 
+	// HeadHunter
+	const std::string_view hh_laser_lockon			= "sound_boss_huntresslaser_lockon.wav";
+	const std::string_view hh_laser_shoot1			= "sound_boss_huntresslaser_shot_01.wav";
+	const std::string_view hh_laser_shoot2			= "sound_boss_huntresslaser_shot_02.wav";
+	const std::string_view hh_laser_shoot3			= "sound_boss_huntresslaser_shot_03.wav";
+	const std::string_view hh_jump					= "sound_boss_huntress_jump.wav";
+
 	// UI
 	const std::string_view title_menu_beep			= "sound_menu_beep.wav";
 	const std::string_view title_menu_select		= "sound_menu_select.wav";

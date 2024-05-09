@@ -117,6 +117,7 @@ void AHeadHunterPhase1::Rifle1LaserUpdate(float _DeltaTime)
 		SetRifle1LaserEffect();
 		--Pattern1Count;
 		PatternOrder = 1;
+		UEngineSound::SoundPlay(SoundRes::hh_laser_lockon);
 	}
 }
 
@@ -168,6 +169,7 @@ void AHeadHunterPhase1::Rifle1LaserUpdate2(float _DeltaTime)
 				}
 
 				LaserCol->SetActive(true);
+				USoundManager::SoundPlay_HH_LaserShot();
 
 				AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
 				PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);

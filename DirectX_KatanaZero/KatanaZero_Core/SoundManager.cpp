@@ -20,7 +20,6 @@ void USoundManager::FactoryBGMInit()
 {
 	FactoryBGM = UEngineSound::SoundPlay(SoundRes::bgm_factory);
 	FactoryBGM.SetVolume(0.6f);
-	FactoryBGM.SetVolume(0.0f);
 	FactoryBGM.Loop();
 	FactoryBGM.Off();
 }
@@ -196,6 +195,27 @@ UEngineSoundPlayer USoundManager::SoundPlay_WallKick()
 	}
 
 	Result.SetVolume(0.75f);
+	return Result;
+}
+
+UEngineSoundPlayer USoundManager::SoundPlay_HH_LaserShot()
+{
+	UEngineSoundPlayer Result = UEngineSoundPlayer();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 3);
+	switch (RandomValue)
+	{
+	case 1:
+		Result = UEngineSound::SoundPlay(SoundRes::hh_laser_shoot1);
+		break;
+	case 2:
+		Result = UEngineSound::SoundPlay(SoundRes::hh_laser_shoot2);
+		break;
+	case 3:
+		Result = UEngineSound::SoundPlay(SoundRes::hh_laser_shoot3);
+		break;
+	}
+
 	return Result;
 }
 

@@ -96,6 +96,7 @@ void AHeadHunterBase::BeginPlay()
 	RendererInit();
 	CollisionInit();
 	CreateAnimation();
+	SoundInit();
 	StateInit();
 	SubStateInit();
 
@@ -146,6 +147,11 @@ void AHeadHunterBase::CreateAnimation()
 	Body->SetLastFrameCallback(Anim::headhunter_exit_door,		[=] { State.ChangeState(HeadHunterState::idle); });
 	Body->SetLastFrameCallback(Anim::headhunter_roll,			[=] { State.ChangeState(HeadHunterState::idle); });
 	Body->SetLastFrameCallback(Anim::headhunter_land,			[=] { State.ChangeState(HeadHunterState::idle); });
+}
+
+void AHeadHunterBase::SoundInit()
+{
+	Body->SetFrameCallback(Anim::headhunter_jump, 0, [=] { UEngineSound::SoundPlay(SoundRes::hh_jump); });
 }
 
 void AHeadHunterBase::Tick(float _DeltaTime)
