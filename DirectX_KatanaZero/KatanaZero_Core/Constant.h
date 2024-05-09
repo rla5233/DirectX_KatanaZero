@@ -41,6 +41,8 @@ namespace ImgRes
 	const std::string_view headhunter_wall_idle		= "headhunter_wallidle";
 	const std::string_view headhunter_wall_jump		= "headhunter_walljump";
 	const std::string_view headhunter_land			= "headhunter_land";
+	const std::string_view headhunter_takeout_gun	= "headhunter_takeoutgun";
+	const std::string_view headhunter_shoot_gun		= "headhunter_gunshoot";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -227,6 +229,8 @@ namespace Anim
 	const std::string_view headhunter_wall_idle		= "headhunter_wallidle";
 	const std::string_view headhunter_wall_jump		= "headhunter_walljump";
 	const std::string_view headhunter_land			= "headhunter_land";
+	const std::string_view headhunter_takeout_gun	= "headhunter_takeoutgun";
+	const std::string_view headhunter_shoot_gun		= "headhunter_gunshoot";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -442,14 +446,17 @@ namespace PlayerSubState
 // HeadHunter
 namespace HeadHunterState
 {
-	const std::string_view none				= "None";
-	const std::string_view idle				= "Idle";
-	const std::string_view hitfly			= "HitFly";
-	const std::string_view recover			= "Recover";
-	const std::string_view roll				= "Roll";
-	const std::string_view exitdoor			= "ExitDoor";
-	const std::string_view pattern_rifle1	= "Pattern_Rifle1";
+	const std::string_view none					= "None";
+	const std::string_view idle					= "Idle";
+	const std::string_view hitfly				= "HitFly";
+	const std::string_view recover				= "Recover";
+	const std::string_view roll					= "Roll";
+	const std::string_view exitdoor				= "ExitDoor";
+	const std::string_view pattern_rifle1		= "Pattern_Rifle1";
 	const std::string_view pattern_airrifle1	= "Pattern_AirRifle1";
+	
+	// Phase2
+	const std::string_view pattern_gunshoot1	= "Pattern_GunShoot1";
 }
 
 namespace HeadHunterSubState

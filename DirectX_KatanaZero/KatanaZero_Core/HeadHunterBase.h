@@ -59,11 +59,11 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	virtual void CollisionInit();
+	virtual void CreateAnimation();
 
 private:
 	void CreateRecoverEffect();
 	void CreateCloudEffect();
-	void CreateAnimation();
 	void RendererInit();
 	
 protected:

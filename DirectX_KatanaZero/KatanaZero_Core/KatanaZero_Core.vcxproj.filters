@@ -336,6 +336,9 @@
     <ClInclude Include="HeadHunterPhase2.h">
       <Filter>Level\003.HeadHunterLevel\Object\HeadHunter\Phase2</Filter>
     </ClInclude>
+    <ClInclude Include="Grenade.h">
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -577,6 +580,15 @@
     </ClCompile>
     <ClCompile Include="HeadHunterPhase2_State.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\HeadHunter\Phase2</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterPhase2_Pattern.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter\Phase2</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadHunterPhase2_Effect.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\HeadHunter\Phase2</Filter>
+    </ClCompile>
+    <ClCompile Include="Grenade.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
