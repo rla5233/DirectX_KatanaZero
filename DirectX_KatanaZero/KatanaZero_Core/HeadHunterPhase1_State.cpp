@@ -58,6 +58,13 @@ void AHeadHunterPhase1::Idle(float _DeltaTime)
 	PatternCheck();
 }
 
+void AHeadHunterPhase1::HitFlyStart()
+{
+	Super::HitFlyStart();
+
+	LaserEffect->SetActive(false);
+}
+
 void AHeadHunterPhase1::RecoverStart()
 {
 	Super::RecoverStart();

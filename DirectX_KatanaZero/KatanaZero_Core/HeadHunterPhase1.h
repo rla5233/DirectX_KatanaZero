@@ -20,13 +20,26 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime);
 
+	void CollisionInit() override;
 	void StateInit() override;
 
 private:
+	void CreateLaserEffect();
+	void CreateCloudEffect();
+	void LaserColCheck();
+
+private:
+	// Effect
+	USpriteRenderer* LaserEffect = nullptr;
+	float LaserAlpha = 1.0f;
+
 	std::vector<UCloudEffect> Cloud;
 	float CroudTimeCount = 0.0f;
 	const int CloudSize = 15;
 	int CloudIdx = 0;
+
+	// Collision
+	UCollision* LaserCol = nullptr;
 
 	int RollCount = 0;
 
@@ -37,6 +50,8 @@ private:
 private:
 	void IdleStart() override;
 	void Idle(float _DeltaTime) override;
+
+	void HitFlyStart() override;
 
 	void RecoverStart() override;
 
@@ -56,6 +71,8 @@ private:
 private:
 	void PlayStart() override;
 	void Play(float _DeltaTime) override;
+
+	void RestartStart() override;
 
 // Effect
 private:

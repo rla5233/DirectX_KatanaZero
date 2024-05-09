@@ -58,31 +58,26 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	virtual void CreateAnimation();
+	virtual void CollisionInit();
 
 private:
 	void CreateRecoverEffect();
 
+	void CreateAnimation();
 	void RendererInit();
-	void CollisionInit();
 	
 protected:
-	void LaserColCheck();
 	void ColCheckUpdate();
 	void SetVelocityByDir(const FVector& _Vel);
 	void AddVelocityByDir(const FVector& _Vel);
 
 protected:
 	// Renderer
-	USpriteRenderer* Body = nullptr;
-	USpriteRenderer* LaserEffect = nullptr;
-	float LaserAlpha = 1.0f;
-	
+	USpriteRenderer* Body = nullptr;	
 	std::vector<URecoverEffect> AllRecoverEffect;
 
 	// Collision
 	UCollision* BodyCol = nullptr;
-	UCollision* LaserCol = nullptr;
 
 	// Info.
 	FVector HitDir = FVector::Zero;
@@ -98,7 +93,7 @@ protected:
 	virtual void IdleStart();
 	virtual void Idle(float _DeltaTime);
 
-	void HitFlyStart();
+	virtual void HitFlyStart();
 	void HitFly(float _DeltaTime);
 
 	virtual void RecoverStart();
@@ -115,7 +110,7 @@ protected:
 	virtual void PlayStart();
 	virtual void Play(float _DeltaTime);
 
-	void RestartStart();
+	virtual void RestartStart();
 	void Restart(float _DeltaTime);
 
 // Effect

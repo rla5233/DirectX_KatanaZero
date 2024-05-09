@@ -84,7 +84,6 @@ void AHeadHunterBase::HitFlyStart()
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 
-	LaserEffect->SetActive(false);
 	Body->ChangeAnimation(Anim::headhunter_hitfly);
 	--Hp;
 }
