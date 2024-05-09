@@ -62,7 +62,7 @@ protected:
 
 private:
 	void CreateRecoverEffect();
-
+	void CreateCloudEffect();
 	void CreateAnimation();
 	void RendererInit();
 	
@@ -76,13 +76,19 @@ protected:
 	USpriteRenderer* Body = nullptr;	
 	std::vector<URecoverEffect> AllRecoverEffect;
 
+	std::vector<UCloudEffect> Cloud;
+	float CroudTimeCount = 0.0f;
+	const int CloudSize = 15;
+	int CloudIdx = 0;
+
 	// Collision
 	UCollision* BodyCol = nullptr;
 
 	// Info.
 	FVector HitDir = FVector::Zero;
-	int PatternOrder = 0;
 	bool IsDeadValue = false;
+	int PatternOrder = 0;
+	int RollCount = 0;
 	int Hp = 0;
 
 // FSM
@@ -92,6 +98,9 @@ protected:
 
 	virtual void IdleStart();
 	virtual void Idle(float _DeltaTime);
+
+	void RollStart();
+	void Roll(float _DeltaTime);
 
 	virtual void HitFlyStart();
 	void HitFly(float _DeltaTime);
@@ -108,13 +117,16 @@ protected:
 	void Wait(float _DeltaTime);
 
 	virtual void PlayStart();
-	virtual void Play(float _DeltaTime);
+	void Play(float _DeltaTime);
 
 	virtual void RestartStart();
 	void Restart(float _DeltaTime);
 
 // Effect
 private:
+	void SetRollCroudEffect(float _DeltaTime);
+	void CroudEffectUpdate(float _DeltaTime);
+	
 	void SetRecoverEffect();
 
 };

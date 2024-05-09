@@ -25,7 +25,6 @@ protected:
 
 private:
 	void CreateLaserEffect();
-	void CreateCloudEffect();
 	void LaserColCheck();
 
 private:
@@ -33,15 +32,8 @@ private:
 	USpriteRenderer* LaserEffect = nullptr;
 	float LaserAlpha = 1.0f;
 
-	std::vector<UCloudEffect> Cloud;
-	float CroudTimeCount = 0.0f;
-	const int CloudSize = 15;
-	int CloudIdx = 0;
-
 	// Collision
 	UCollision* LaserCol = nullptr;
-
-	int RollCount = 0;
 
 	float PatternDelayTimeCount = 0.0f;
 	int Pattern1Count = 0;
@@ -58,9 +50,6 @@ private:
 	void ExitDoorStart();
 	void ExitDoor(float _DletaTime);
 
-	void RollStart();
-	void Roll(float _DeltaTime);
-
 	void PatternRifle1Start();
 	void PatternRifle1(float _DeltaTime);
 
@@ -70,15 +59,11 @@ private:
 // Sub FSM
 private:
 	void PlayStart() override;
-	void Play(float _DeltaTime) override;
 
 	void RestartStart() override;
 
 // Effect
-private:
-	void CreateRollCroudEffect(float _DeltaTime);
-	void CroudEffectUpdate(float _DeltaTime);
-	
+private:	
 	void SetRifle1LaserEffect();
 
 	void SetAirRifle1LaserEffect();

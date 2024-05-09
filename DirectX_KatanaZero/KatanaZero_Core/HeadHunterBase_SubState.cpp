@@ -35,6 +35,8 @@ void AHeadHunterBase::PlayStart()
 void AHeadHunterBase::Play(float _DeltaTime)
 {
 	Recording(_DeltaTime);
+
+	CroudEffectUpdate(_DeltaTime);
 }
 
 void AHeadHunterBase::RestartStart()

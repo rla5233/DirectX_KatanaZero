@@ -9,25 +9,21 @@ void AHeadHunterPhase1::StateInit()
 	Super::StateInit();
 
 	// State Create
-	State.CreateState(HeadHunterState::roll);
 	State.CreateState(HeadHunterState::exitdoor);
 	State.CreateState(HeadHunterState::pattern_rifle1);
 	State.CreateState(HeadHunterState::pattern_airrifle1);
 
 	// State Start
-	State.SetStartFunction(HeadHunterState::roll,				std::bind(&AHeadHunterPhase1::RollStart, this));
 	State.SetStartFunction(HeadHunterState::exitdoor,			std::bind(&AHeadHunterPhase1::ExitDoorStart, this));
 	State.SetStartFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunterPhase1::PatternRifle1Start, this));
 	State.SetStartFunction(HeadHunterState::pattern_airrifle1,	std::bind(&AHeadHunterPhase1::PatternAirRifle1Start, this));
 
 	// State Update
-	State.SetUpdateFunction(HeadHunterState::roll,				std::bind(&AHeadHunterPhase1::Roll, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::exitdoor,			std::bind(&AHeadHunterPhase1::ExitDoor, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,	std::bind(&AHeadHunterPhase1::PatternRifle1, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_airrifle1,	std::bind(&AHeadHunterPhase1::PatternAirRifle1, this, std::placeholders::_1));
 	
 	// State End
-	State.SetEndFunction(HeadHunterState::roll,					[=] { BodyCol->SetActive(true); });
 	State.SetEndFunction(HeadHunterState::pattern_rifle1,		[=] { Body->SetPosition(FVector::Zero); });
 	State.SetEndFunction(HeadHunterState::pattern_airrifle1,	[=] { BodyCol->SetActive(true); });
 
@@ -113,59 +109,6 @@ void AHeadHunterPhase1::ExitDoorStart()
 
 void AHeadHunterPhase1::ExitDoor(float _DletaTime)
 {
-}
-
-void AHeadHunterPhase1::RollStart()
-{
-	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
-	float MidPosX = PlayLevel->GetRefPosX(HH_Phase1_RefPos::mid);
-	float CurPosX = GetActorLocation().X;
-
-	// 속도 설정
-	if (MidPosX < CurPosX)
-	{
-		Body->SetDir(EEngineDir::Left);
-		Velocity = { -650.0f, 0.0f, 0.0f };
-	}
-	else
-	{
-		Body->SetDir(EEngineDir::Right);
-		Velocity = { 650.0f, 0.0f, 0.0f };
-	}
-
-	Body->ChangeAnimation(Anim::headhunter_roll);
-	CroudTimeCount = Const::effect_roll_cloud_delay;
-
-	SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });
-	SetAfterImageAlphaWeight(0.6f);
-	SetAfterImageTimeWeight(6.0f);
-
-	BodyCol->SetActive(false);
-
-	++RollCount;
-	PatternOrder = 0;
-}
-
-void AHeadHunterPhase1::Roll(float _DeltaTime)
-{
-	// 속도 업데이트
-	FVector Vel = { -400.0f * _DeltaTime, 0.0f, 0.0f };
-	AddVelocityByDir(Vel);
-
-	if (true == IsColHeadToWall(Body->GetDir()))
-	{
-		Velocity.X = 0.0f;
-	}
-
-	// 위치 업데이트
-	PosUpdate(_DeltaTime);
-
-	// Effect
-	CreateRollCroudEffect(_DeltaTime);
-	if (1 <= Body->GetCurAnimationFrame())
-	{
-		CreateAfterImage(_DeltaTime);
-	}
 }
 
 void AHeadHunterPhase1::PatternRifle1Start()
