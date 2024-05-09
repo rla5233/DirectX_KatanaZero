@@ -25,8 +25,12 @@ protected:
 
 
 private:
-	float PatternDelayTimeCount = 0.0f;
+	bool IsGunShoot = false;
+	bool ReGunShoot = false;
+	int GunShootCount = 3;
 
+
+	float PatternDelayTimeCount = 0.0f;
 	
 
 // FSM

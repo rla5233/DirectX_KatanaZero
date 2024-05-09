@@ -233,6 +233,7 @@ namespace Anim
 	const std::string_view headhunter_land			= "headhunter_land";
 	const std::string_view headhunter_takeout_gun	= "headhunter_takeoutgun";
 	const std::string_view headhunter_shoot_gun		= "headhunter_gunshoot";
+	const std::string_view headhunter_putback_gun	= "headhunter_putbackgun";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";

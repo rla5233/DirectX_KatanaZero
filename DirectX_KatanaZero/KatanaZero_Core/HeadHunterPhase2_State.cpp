@@ -55,6 +55,7 @@ void AHeadHunterPhase2::PatternGunShoot1Start()
 		break;
 	}
 
+	GunShootCount = 3;
 	PatternOrder = 0;
 }
 

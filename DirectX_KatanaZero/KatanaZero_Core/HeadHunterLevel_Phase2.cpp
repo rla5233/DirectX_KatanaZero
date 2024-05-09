@@ -113,3 +113,15 @@ void AHeadHunterLevel_Phase2::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
+
+void AHeadHunterLevel_Phase2::SetShootGrenade(
+	const FVector& _ShootPos,
+	const FVector& _ShootDir,
+	float _Speed)
+{
+	AllGrenade[CurGrenadeIdx]->SetActorLocation(_ShootPos);
+	AllGrenade[CurGrenadeIdx]->SetShootDir(_ShootDir);
+	AllGrenade[CurGrenadeIdx]->SetShootSpeed(_Speed);
+	AllGrenade[CurGrenadeIdx]->StateChange(GrenadeState::shoot);
+	GrenadeIdxUpdate();
+}

@@ -18,6 +18,11 @@ public:
 	AHeadHunterLevel_Phase2& operator=(const AHeadHunterLevel_Phase2& _Other) = delete;
 	AHeadHunterLevel_Phase2& operator=(AHeadHunterLevel_Phase2&& _Other) noexcept = delete;
 
+	void SetShootGrenade(
+		const FVector& _ShootPos, 
+		const FVector& _ShootDir, 
+		float _Speed);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -29,8 +34,20 @@ protected:
 	void LevelReEnd() override;
 
 private:
+	void GrenadeIdxUpdate()
+	{
+		++CurGrenadeIdx;
+
+		if (AllGrenade.size() <= CurGrenadeIdx)
+		{
+			CurGrenadeIdx = 0;
+		}
+	}
+
+private:
 	std::vector<std::shared_ptr<AGrenade>> AllGrenade;
 	const int GrenadeNum = 3;
+	int CurGrenadeIdx = 0;
 
 };
 

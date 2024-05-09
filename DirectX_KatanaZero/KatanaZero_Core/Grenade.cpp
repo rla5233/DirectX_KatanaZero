@@ -33,6 +33,12 @@ AGrenade::AGrenade()
 			{ 
 				BodyCol->SetActive(false);
 				Explosion[i]->SetActive(false);
+				
+				if (GrenadeState::explosion == State.GetCurStateName())
+				{
+					State.ChangeState(GrenadeState::none);
+					return;
+				}
 			}
 		);		
 	}
@@ -74,7 +80,8 @@ void AGrenade::StateInit()
 	State.SetStartFunction(GrenadeState::shoot, [=] 
 		{
 			Velocity = ShootDir;
-			Velocity *= ShootSpeed;
+			Velocity.X *= ShootSpeed;
+			Velocity.Y *= ShootSpeed;
 
 			if (0.0f < Velocity.X)
 			{
@@ -112,7 +119,7 @@ void AGrenade::StateInit()
 			EEngineDir Dir = GetBody()->GetDir();
 
 			// 속도 업데이트
-			ApplyGravity(_DeltaTime);
+			Velocity.Y -= 1250.0f * _DeltaTime;
 
 			if (true == IsColWall(Dir))
 			{
@@ -126,7 +133,7 @@ void AGrenade::StateInit()
 					break;
 				}
 
-				Velocity.X *= -0.2f;
+				Velocity.X *= -0.5f;
 			}
 
 			if (true == IsOnGround(Dir))
