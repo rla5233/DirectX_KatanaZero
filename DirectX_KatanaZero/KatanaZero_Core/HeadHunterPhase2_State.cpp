@@ -23,10 +23,16 @@ void AHeadHunterPhase2::StateInit()
 	State.SetEndFunction(HeadHunterState::pattern_gunshoot1, [=] 
 		{ 
 			IsGunShoot = false;
-			GetBody()->SetPosition(FVector::Zero); 
+			Body->SetPosition(FVector::Zero); 
 		}
 	);
 	 
+	State.SetEndFunction(HeadHunterState::sword_dash, [=]
+		{
+			DashLaser->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+			DashLaser->SetActive(false);
+		}
+	);
 }
 
 void AHeadHunterPhase2::IdleStart()
@@ -99,7 +105,9 @@ void AHeadHunterPhase2::PatternSwordDashStart()
 		break;
 	}
 
-	GetBody()->ChangeAnimation(Anim::headhunter_predash);
+	DashLaserAlpha = 0.0f;
+	Body->ChangeAnimation(Anim::headhunter_predash);
+	DashLaser->SetMulColor({ 1.0f, 1.0f, 1.0f, DashLaserAlpha });
 	DashLaser->SetActive(true);
 	PatternOrder = 0;
 }
@@ -109,6 +117,10 @@ void AHeadHunterPhase2::PatternSwordDash(float _DeltaTime)
 	switch (PatternOrder)
 	{
 	case 0:
+		SwordDashUpdate(_DeltaTime);
+		break;
+	case 1:
+		SwordDashUpdate1(_DeltaTime);
 		break;
 	default:
 		break;

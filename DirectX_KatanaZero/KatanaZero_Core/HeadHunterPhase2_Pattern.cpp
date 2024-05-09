@@ -2,6 +2,7 @@
 #include "HeadHunterPhase2.h"
 
 #include "HeadHunterLevel_Phase2.h"
+#include "PlayerBase.h"
 
 void AHeadHunterPhase2::PatternCheck()
 {
@@ -37,11 +38,11 @@ void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 
 	if (2 == Body->GetCurAnimationFrame() && false == IsGunShoot)
 	{
-		FVector CurScale = GetBody()->GetWorldScale();
+		FVector CurScale = Body->GetWorldScale();
 
 		FVector ShootPos = { CurPos.X, CurPos.Y + CurScale.hY() + 30.0f, 0.0f};
 		float Deg = 0.0f;
-		switch (GetBody()->GetDir())
+		switch (Body->GetDir())
 		{
 		case EEngineDir::Left:
 			ShootPos.X -= 60.0f;
@@ -78,9 +79,85 @@ void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 		if (0 >= GunShootCount)
 		{
 			AdjustBodyPosByDir({ 12.0f, 0.0f, 0.0f });
-			GetBody()->ChangeAnimation(Anim::headhunter_putback_gun);
+			Body->ChangeAnimation(Anim::headhunter_putback_gun);
 			PatternOrder = -1;
 			return;
 		}
 	}
+}
+
+void AHeadHunterPhase2::SwordDashUpdate(float _DeltaTime)
+{
+	DashLaserAlpha += 5.0f * _DeltaTime;
+
+	if (1.0f < DashLaserAlpha)
+	{
+		DashLaserAlpha = 1.0f;
+	}
+
+	DashLaser->SetMulColor({ 1.0f, 1.0f, 1.0f, DashLaserAlpha });
+
+	if (true == Body->IsCurAnimationEnd())
+	{
+		Body->AnimationReset();
+		Body->SetSprite(ImgRes::headhunter_dash);
+
+		SetVelocityByDir({ 10000.0f, 0.0f, 0.0f });
+		BodyCol->SetActive(false);
+		DashLaser->SetActive(false);
+		DashAttack->SetActive(true);
+		PatternOrder = 1;
+	}
+}
+
+void AHeadHunterPhase2::SwordDashUpdate1(float _DeltaTime)
+{
+	EEngineDir Dir = Body->GetDir();
+
+	// 속도 업데이트
+	if (true == IsColWall(Dir))
+	{
+		Velocity = FVector::Zero;
+
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+			while (true == IsColWall(Dir))
+			{
+				AddActorLocation({ 1.0f, 0.0f, 0.0f });
+			}
+			break;
+		case EEngineDir::Right:
+			while (true == IsColWall(Dir))
+			{
+				AddActorLocation({ -1.0f, 0.0f, 0.0f });
+			}
+			break;
+		}
+	
+		Body->ChangeAnimation(Anim::headhunter_dashend);
+		BodyCol->SetActive(true);
+		DashAttack->SetActive(false);
+	}
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	DashAttack->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
+		{
+			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+			FVector AttackDir = { 0.0f, 0.0f, 0.0f };
+			switch (Body->GetDir())
+			{
+			case EEngineDir::Left:
+				AttackDir.X = -0.9f;
+				break;
+			case EEngineDir::Right:
+				AttackDir.X = 0.9f;
+				break;
+			}
+
+			Player->HitByEnemy(AttackDir);
+		}
+	);
 }

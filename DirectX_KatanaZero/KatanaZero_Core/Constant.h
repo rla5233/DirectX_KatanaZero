@@ -44,6 +44,8 @@ namespace ImgRes
 	const std::string_view headhunter_takeout_gun	= "headhunter_takeoutgun";
 	const std::string_view headhunter_shoot_gun		= "headhunter_gunshoot";
 	const std::string_view headhunter_predash		= "headhunter_predash";
+	const std::string_view headhunter_dash			= "spr_headhunter_dash.png";
+	const std::string_view headhunter_dashend		= "headhunter_dashend";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -237,6 +239,7 @@ namespace Anim
 	const std::string_view headhunter_shoot_gun		= "headhunter_gunshoot";
 	const std::string_view headhunter_putback_gun	= "headhunter_putbackgun";
 	const std::string_view headhunter_predash		= "headhunter_predash";
+	const std::string_view headhunter_dashend		= "headhunter_dashend";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";

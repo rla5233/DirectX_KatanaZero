@@ -24,9 +24,15 @@ protected:
 	void StateInit() override;
 
 private:
+	void CreateDashLaser();
+	void CreateDashAttack();
+
 	void AdjustBodyPosByDir(const FVector _Pos);
 
 private:
+	// Collision
+	UCollision* DashAttack = nullptr;
+
 	// Effect
 	USpriteRenderer* DashLaser = nullptr;
 
@@ -34,6 +40,8 @@ private:
 	bool IsGunShoot = false;
 	bool ReGunShoot = false;
 	int GunShootCount = 3;
+
+	float DashLaserAlpha = 0.0f;
 
 	float PatternDelayTimeCount = 0.0f;
 	
@@ -62,6 +70,10 @@ private:
 	void GunShoot1Update(float _DeltaTime);
 	void GunShoot1Update1(float _DeltaTime);
 	
+	// Pattern_SwordDash
+	void SwordDashUpdate(float _DeltaTime);
+	void SwordDashUpdate1(float _DeltaTime);
+
 
 };
 

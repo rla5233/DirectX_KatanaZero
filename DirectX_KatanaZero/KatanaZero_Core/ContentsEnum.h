@@ -37,6 +37,7 @@ enum class EUpdateOrder
 	Default,
 	Player,
 	Enemy,
+	HeadHunter,
 	RecComponent,
 	Fan
 };
