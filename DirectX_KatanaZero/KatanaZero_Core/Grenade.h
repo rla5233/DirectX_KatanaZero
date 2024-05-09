@@ -1,22 +1,44 @@
 #pragma once
+#include "RecMapCompoBase.h"
+#include "PhysicsObject.h"
+#include "PixelColObject.h"
 
-// 설명 :
-class Grenade
+// 설명 : GunShoot Grenade
+class AGrenade : 
+	public ARecMapCompoBase,
+	public UPhysicsObject,
+	public UPixelColObject
 {
+	GENERATED_BODY(ARecMapCompoBase)
 public:
 	// constrcuter destructer
-	Grenade();
-	~Grenade();
+	AGrenade();
+	~AGrenade();
 
 	// delete Function
-	Grenade(const Grenade& _Other) = delete;
-	Grenade(Grenade&& _Other) noexcept = delete;
-	Grenade& operator=(const Grenade& _Other) = delete;
-	Grenade& operator=(Grenade&& _Other) noexcept = delete;
+	AGrenade(const AGrenade& _Other) = delete;
+	AGrenade(AGrenade&& _Other) noexcept = delete;
+	AGrenade& operator=(const AGrenade& _Other) = delete;
+	AGrenade& operator=(AGrenade&& _Other) noexcept = delete;
+
+	inline void StateChange(std::string_view _State)
+	{
+		State.ChangeState(_State);
+	}
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+
+	void StateInit() override;
 
 private:
+	FVector ShootDir = FVector::Zero;
+	float ShootSpeed = 0.0f;
+
+private:
+	std::vector<USpriteRenderer*> Explosion;
+	const int ExplosionNum = 1;
 
 };
 

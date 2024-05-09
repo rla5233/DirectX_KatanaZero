@@ -4,6 +4,7 @@
 #include "DefaultPlayer.h"
 #include "ColMapObject.h"
 #include "MainCamera.h"
+#include "Grenade.h"
 
 #include "HeadHunterPhase2.h"
 
@@ -44,6 +45,13 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 	MainCamera->SetActorLocation({ 672.0f, 360.0f, -100.0f });
 	MainCamera->StateChange(MainCameraState::stop);
 
+	AllGrenade.reserve(GrenadeNum);
+	for (size_t i = 0; i < GrenadeNum; i++)
+	{
+		AllGrenade.push_back(GetWorld()->SpawnActor<AGrenade>("Grenade", EUpdateOrder::RecComponent));
+		PushRecMapCompo(AllGrenade[i]);
+	}
+
 	State.ChangeState(BossLevelState::transition_off);
 
 	DelayCallBack(2.5f, [=]
@@ -54,6 +62,8 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 			DelayCallBack(0.8f, [=]
 				{
 					HeadHunter->SubStateChange(HeadHunterSubState::play);
+					AllGrenade[0]->SetActorLocation({ 672.0f, 360.0f, 0.0f });
+					AllGrenade[0]->StateChange(GrenadeState::shoot);
 				}
 			);
 		}
@@ -80,6 +90,13 @@ void AHeadHunterLevel_Phase2::LevelReStart()
 	HeadHunter->SetDir(EEngineDir::Left);
 	HeadHunter->StateChange(HeadHunterState::idle);
 	HeadHunter->SubStateChange(HeadHunterSubState::play);
+
+	AllGrenade.reserve(GrenadeNum);
+	for (size_t i = 0; i < GrenadeNum; i++)
+	{
+		AllGrenade.push_back(GetWorld()->SpawnActor<AGrenade>("Grenade", EUpdateOrder::RecComponent));
+		PushRecMapCompo(AllGrenade[i]);
+	}
 }
 
 void AHeadHunterLevel_Phase2::LevelReEnd()

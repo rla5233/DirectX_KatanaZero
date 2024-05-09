@@ -1,7 +1,9 @@
 #pragma once
 #include "HeadHunterLevel.h"
 
-// 설명 :
+class AGrenade;
+
+// 설명 : HeadHunter 2페이즈
 class AHeadHunterLevel_Phase2 : public AHeadHunterLevel
 {
 	GENERATED_BODY(AHeadHunterLevel)
@@ -27,6 +29,8 @@ protected:
 	void LevelReEnd() override;
 
 private:
+	std::vector<std::shared_ptr<AGrenade>> AllGrenade;
+	const int GrenadeNum = 3;
 
 };
 

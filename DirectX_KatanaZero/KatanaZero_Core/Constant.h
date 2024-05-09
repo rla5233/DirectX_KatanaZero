@@ -159,6 +159,7 @@ namespace ImgRes
 	const std::string_view compo_sliding_door_redled	= "spr_sliding_door_redled";
 
 	const std::string_view compo_ground_mine			= "spr_mine";
+	const std::string_view compo_grenade				= "spr_grenade.png";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";
@@ -666,6 +667,13 @@ namespace UnderBlackState
 {
 	const std::string_view none				= "None";
 	const std::string_view on				= "On";
+}
+
+namespace GrenadeState
+{
+	const std::string_view none				= "None";
+	const std::string_view shoot			= "Shoot";
+	const std::string_view explosion		= "Explosion";
 }
 
 // Info.
