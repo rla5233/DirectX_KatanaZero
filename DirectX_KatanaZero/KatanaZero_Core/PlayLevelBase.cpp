@@ -450,6 +450,23 @@ void APlayLevelBase::BrightnessDown(float _DeltaTime)
 	Player->GetBody()->SetMulColor(PlayerBrightness);
 }
 
+void APlayLevelBase::ResetBrightness()
+{
+	ColMap->GetBackGround()->SetMulColor(float4::One);
+
+	for (size_t i = 0; i < AllRecComponent.size(); i++)
+	{
+		AllRecComponent[i]->SetAllMulColor(float4::One);
+	}
+
+	for (size_t i = 0; i < AllEnemy.size(); i++)
+	{
+		AllEnemy[i]->GetBody()->SetMulColor(float4::One);
+	}
+	
+	Player->GetBody()->SetMulColor(float4::One);
+}
+
 void APlayLevelBase::BatterPartUpdate(float _AbilityTime)
 {
 	HUD->BatteryPartUpdate(_AbilityTime);

@@ -98,6 +98,7 @@ public:
 
 	virtual void BrightnessUp(float _DeltaTime);
 	virtual void BrightnessDown(float _DeltaTime);
+	void ResetBrightness();
 
 	void BatterPartUpdate(float _AbilityTime);
 

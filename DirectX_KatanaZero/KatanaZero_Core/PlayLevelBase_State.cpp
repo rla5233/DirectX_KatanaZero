@@ -208,6 +208,7 @@ void APlayLevelBase::OutroStart()
 
 	OutroMsg->On();
 	OutroMsg->StateChange(OutroMsgState::fade_in);
+	ResetBrightness();
 	UContentsHelper::ResetTimeScale();
 }
 
