@@ -15,6 +15,14 @@ void AHeadHunterPhase2::StateInit()
 	// State Update
 	State.SetUpdateFunction(HeadHunterState::pattern_gunshoot1,		std::bind(&AHeadHunterPhase2::PatternGunShoot1, this, std::placeholders::_1));
 
+	// State End
+	State.SetEndFunction(HeadHunterState::pattern_gunshoot1, [=] 
+		{ 
+			IsGunShoot = false;
+			GetBody()->SetPosition(FVector::Zero); 
+		}
+	);
+	 
 }
 
 void AHeadHunterPhase2::IdleStart()

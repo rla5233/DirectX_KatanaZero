@@ -29,9 +29,9 @@ AGrenade::AGrenade()
 		Explosion[i]->SetActive(false);
 
 		Explosion[i]->CreateAnimation(Anim::effect_explosion, ImgRes::effect_explosion, 0.06f, true);
+		Explosion[i]->SetFrameCallback(Anim::effect_explosion, 6, [=] {	BodyCol->SetActive(false); });
 		Explosion[i]->SetLastFrameCallback(Anim::effect_explosion, [=] 
 			{ 
-				BodyCol->SetActive(false);
 				Explosion[i]->SetActive(false);
 				
 				if (GrenadeState::explosion == State.GetCurStateName())

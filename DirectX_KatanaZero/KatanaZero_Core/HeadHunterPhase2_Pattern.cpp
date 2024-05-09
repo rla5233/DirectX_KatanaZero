@@ -16,6 +16,8 @@ void AHeadHunterPhase2::GunShoot1Update(float _DeltaTime)
 			{
 				if (HeadHunterState::pattern_gunshoot1 != State.GetCurStateName())
 				{
+					int a = 0;
+
 					return;
 				}
 
@@ -74,7 +76,7 @@ void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 		--GunShootCount;
 	}
 
-	if (2 < Body->GetCurAnimationFrame() && 200 > Diff_X)
+	if (3 < Body->GetCurAnimationFrame() && 200 > Diff_X)
 	{
 		State.ChangeState(HeadHunterState::roll);
 		return;

@@ -53,8 +53,6 @@ private:
 	// Pattern_GunShoot1
 	void GunShoot1Update(float _DeltaTime);
 	void GunShoot1Update1(float _DeltaTime);
-	//void GunShoot1Update2(float _DeltaTime);
-	//void GunShoot1Update3(float _DeltaTime);
 	
 
 };
