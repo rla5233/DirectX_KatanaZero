@@ -41,11 +41,13 @@ void AHeadHunterPhase2::GunShoot1Update(float _DeltaTime)
 
 void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 {
+	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+	FVector CurPos = GetActorLocation();
+	float Diff_X = abs(PlayerPos.X - CurPos.X);
+
 	if (2 == Body->GetCurAnimationFrame() && false == IsGunShoot)
 	{
-		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
-		
-		FVector CurPos = GetActorLocation();
 		FVector CurScale = GetBody()->GetWorldScale();
 
 		FVector ShootPos = { CurPos.X, CurPos.Y + CurScale.hY() + 30.0f, 0.0f};
@@ -72,11 +74,17 @@ void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 		--GunShootCount;
 	}
 
+	if (2 < Body->GetCurAnimationFrame() && 200 > Diff_X)
+	{
+		State.ChangeState(HeadHunterState::roll);
+		return;
+	}
+
 	if (true == Body->IsCurAnimationEnd())
 	{
 		IsGunShoot = false;
-
 		PatternOrder = 0;
+
 
 		if (0 >= GunShootCount)
 		{

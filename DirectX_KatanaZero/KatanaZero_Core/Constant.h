@@ -687,3 +687,8 @@ namespace HH_Phase1_RefPos
 	const std::string_view rightfirst		= "RightFirst";
 	const std::string_view rightsecond		= "RightSecond";
 }
+
+namespace HH_Phase2_RefPos
+{
+	const std::string_view mid = "Mid";
+}

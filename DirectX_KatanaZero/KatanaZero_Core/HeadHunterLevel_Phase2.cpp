@@ -19,6 +19,8 @@ AHeadHunterLevel_Phase2::~AHeadHunterLevel_Phase2()
 void AHeadHunterLevel_Phase2::BeginPlay()
 {
 	Super::BeginPlay();
+
+	AddRefPosX(HH_Phase2_RefPos::mid, 670.0f);
 }
 
 void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
