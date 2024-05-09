@@ -75,7 +75,7 @@ void UFactoryClearUI::StateInit()
 			Order = EFactoryClearOrder::FactoryClearStart;
 			UEngineSound::SoundPlay(SoundRes::stage_start);
 			USoundManager::GetInst()->GetFactoryBGM().Off();
-			USoundManager::GetInst()->GetFactoryBGM().Replay();
+			USoundManager::GetInst()->ResetFactoryBGM();
 			On();
 		}
 	);

@@ -292,6 +292,7 @@ void AGangSter::BulletUpdate(float _DeltaTime)
 			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
 			Player->HitByEnemy(Bullet.Velocity);
 			Bullet.Renderer->SetActive(false);
+			Bullet.Collision->SetActive(false);
 		}
 	);
 
@@ -309,6 +310,7 @@ void AGangSter::BulletUpdate(float _DeltaTime)
 				AEnemyBase* Enemy = dynamic_cast<AEnemyBase*>(_Other->GetActor());
 				Enemy->HitByPlayer(Bullet.Velocity.Normalize2DReturn());
 				Bullet.Renderer->SetActive(false);
+				Bullet.Collision->SetActive(false);
 			}
 		}
 	);

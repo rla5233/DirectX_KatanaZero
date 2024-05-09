@@ -39,6 +39,14 @@ public:
 		return FactoryBGM;
 	}
 
+	void ResetFactoryBGM()
+	{
+		FactoryBGM = FactoryBGM.Replay();
+		FactoryBGM.SetVolume(0.6f);
+		FactoryBGM.Loop();
+		FactoryBGM.Off();
+	}
+
 	UEngineSoundPlayer GetSlomoStart()
 	{
 		return SlomoStart;
@@ -77,6 +85,14 @@ public:
 	UEngineSoundPlayer GetHeadHunterBGM1()
 	{
 		return HeadHunterBGM1;
+	}
+
+	void ResetHeadHunterBGM1()
+	{
+		HeadHunterBGM1 = HeadHunterBGM1.Replay();
+		HeadHunterBGM1.SetVolume(0.6f);
+		HeadHunterBGM1.Loop();
+		HeadHunterBGM1.Off();
 	}
 
 public:

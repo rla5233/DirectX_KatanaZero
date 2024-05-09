@@ -75,6 +75,7 @@ void APlayerBase::Play(float _DeltaTime)
 void APlayerBase::ReplayStart()
 {
 	IsPlayValue = false;
+	BodyCol->SetActive(false);
 	SetRecordingActive(false);
 	SetReplayStart();
 }
@@ -144,7 +145,9 @@ void APlayerBase::AbilityCheck()
 	{
 		IsAbilityValue = true;
 		
-		USoundManager::GetInst()->SetSlomoStart(USoundManager::GetInst()->GetSlomoStart().Replay());
+		UEngineSoundPlayer NewSlomoStart = USoundManager::GetInst()->GetSlomoStart().Replay();
+		NewSlomoStart.SetVolume(0.6f);
+		USoundManager::GetInst()->SetSlomoStart(NewSlomoStart);
 		USoundManager::GetInst()->GetSlomoEnd().Off();
 		
 		UContentsHelper::SetAbilityTimeScale();
@@ -155,7 +158,8 @@ void APlayerBase::AbilityCheck()
 	{
 		if (true == IsAbilityValue)
 		{
-			USoundManager::GetInst()->SetSlomoEnd(USoundManager::GetInst()->GetSlomoEnd().Replay());
+			UEngineSoundPlayer NewSlomoEnd = USoundManager::GetInst()->GetSlomoEnd().Replay();
+			USoundManager::GetInst()->SetSlomoEnd(NewSlomoEnd);
 		}	
 		
 		USoundManager::GetInst()->GetSlomoStart().Off();
@@ -193,7 +197,8 @@ void APlayerBase::AbilityUpdate(float _DeltaTime)
 	}
 	else if (true == IsAbilityInputPress() && false == IsAbilityValue && 0.0f == AbilityTime)
 	{
-		USoundManager::GetInst()->SetSlomoEnd(USoundManager::GetInst()->GetSlomoEnd().Replay());
+		UEngineSoundPlayer NewSlomoEnd = USoundManager::GetInst()->GetSlomoEnd().Replay();
+		USoundManager::GetInst()->SetSlomoEnd(NewSlomoEnd);
 		USoundManager::GetInst()->GetSlomoStart().Off();
 	}
 
