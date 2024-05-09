@@ -35,8 +35,10 @@ private:
 	// Collision
 	UCollision* LaserCol = nullptr;
 
+	// Pattern
 	float PatternDelayTimeCount = 0.0f;
-	int Pattern1Count = 0;
+	int Rifle1Count = 0;
+	bool AirRifle1LaserSound = false;
 
 // FSM
 private:

@@ -185,6 +185,7 @@ void AHeadHunterBase::RecoverStart()
 {
 	DelayCallBack(1.0f, [=] 
 		{
+			UEngineSound::SoundPlay(SoundRes::hh_vanish);
 			Body->ChangeAnimation(Anim::headhunter_recover);
 			SetRecoverEffect();
 		}

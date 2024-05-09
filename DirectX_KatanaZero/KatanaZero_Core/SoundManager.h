@@ -87,6 +87,8 @@ public:
 	static UEngineSoundPlayer SoundPlay_GunFire();
 	static UEngineSoundPlayer SoundPlay_WallKick();
 	static UEngineSoundPlayer SoundPlay_HH_LaserShot();
+	static UEngineSoundPlayer SoundPlay_HH_Voice_WallJump();
+	static UEngineSoundPlayer SoundPlay_HH_Voice_Hurt();
 
 private:
 	void FactoryBGMInit();

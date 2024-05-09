@@ -130,7 +130,7 @@ void AHeadHunterPhase1::PatternRifle1Start()
 
 	Body->ChangeAnimation(Anim::headhunter_takeup_rifle);
 	RollCount = 0;
-	Pattern1Count = 3;
+	Rifle1Count = 3;
 	PatternOrder = 0;
 }
 
@@ -173,6 +173,7 @@ void AHeadHunterPhase1::PatternAirRifle1Start()
 	BodyCol->SetActive(false);
 	RollCount = 0;
 	PatternOrder = 0;
+	AirRifle1LaserSound = false;
 }
 
 void AHeadHunterPhase1::PatternAirRifle1(float _DeltaTime)

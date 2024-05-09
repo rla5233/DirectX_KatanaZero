@@ -115,7 +115,7 @@ void AHeadHunterPhase1::Rifle1LaserUpdate(float _DeltaTime)
 	if (true == Body->IsCurAnimationEnd())
 	{
 		SetRifle1LaserEffect();
-		--Pattern1Count;
+		--Rifle1Count;
 		PatternOrder = 1;
 		UEngineSound::SoundPlay(SoundRes::hh_laser_lockon);
 	}
@@ -205,7 +205,7 @@ void AHeadHunterPhase1::Rifle1LaserUpdate3(float _DeltaTime)
 		LaserEffect->SetActive(false);
 
 		// 3회 발사후 돌아가기
-		if (0 == Pattern1Count)
+		if (0 == Rifle1Count)
 		{
 			Body->ChangeAnimation(Anim::headhunter_putback_rifle);
 			PatternOrder = -1;
@@ -247,11 +247,11 @@ void AHeadHunterPhase1::AirRifle1Update(float _DeltaTime)
 		// 속도 설정
 		if (MidPosX < CurPosX)
 		{
-			Velocity = { 500.0f, 1000.0f, 0.0f };
+			Velocity = { 700.0f, 1000.0f, 0.0f };
 		}
 		else
 		{
-			Velocity = { -500.0f, 1000.0f, 0.0f };
+			Velocity = { -700.0f, 1000.0f, 0.0f };
 		}
 
 		// 위치 설정
@@ -336,6 +336,12 @@ void AHeadHunterPhase1::AirRifle1Update3(float _DeltaTime)
 	if (1 == Body->GetCurAnimationFrame())
 	{
 		SetAirRifle1LaserEffect();
+
+		if (false == AirRifle1LaserSound)
+		{
+			UEngineSound::SoundPlay(SoundRes::hh_laser_swipe);
+			AirRifle1LaserSound = true;
+		}
 	}
 	else if (1 < Body->GetCurAnimationFrame() && 6 > Body->GetCurAnimationFrame())
 	{

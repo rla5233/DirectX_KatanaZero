@@ -133,7 +133,7 @@ void AHeadHunterBase::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_exit_door, ImgRes::headhunter_exit_door, 0.08f, false);
 	Body->CreateAnimation(Anim::headhunter_prejump, ImgRes::headhunter_prejump, 0.08f, false);
 	Body->CreateAnimation(Anim::headhunter_jump, ImgRes::headhunter_jump, 0.0f, false);
-	Body->CreateAnimation(Anim::headhunter_wall_idle, ImgRes::headhunter_wall_idle, 0.1f, false);
+	Body->CreateAnimation(Anim::headhunter_wall_idle, ImgRes::headhunter_wall_idle, 0.04f, false);
 	Body->CreateAnimation(Anim::headhunter_wall_jump, ImgRes::headhunter_wall_jump, 0.11f, false);
 	Body->CreateAnimation(Anim::headhunter_land , ImgRes::headhunter_land, 0.04f, false);
 	Body->CreateAnimation(
@@ -151,7 +151,10 @@ void AHeadHunterBase::CreateAnimation()
 
 void AHeadHunterBase::SoundInit()
 {
-	Body->SetFrameCallback(Anim::headhunter_jump, 0, [=] { UEngineSound::SoundPlay(SoundRes::hh_jump); });
+	Body->SetFrameCallback(Anim::headhunter_jump, 0,			[=] { UEngineSound::SoundPlay(SoundRes::hh_jump); });
+	Body->SetFrameCallback(Anim::headhunter_wall_idle, 0,		[=] { UEngineSound::SoundPlay(SoundRes::player_land); });
+	Body->SetFrameCallback(Anim::headhunter_wall_jump, 0,		[=] { USoundManager::SoundPlay_HH_Voice_WallJump(); });
+	Body->SetFrameCallback(Anim::headhunter_hitfly, 0,			[=] { USoundManager::SoundPlay_HH_Voice_Hurt(); });
 }
 
 void AHeadHunterBase::Tick(float _DeltaTime)

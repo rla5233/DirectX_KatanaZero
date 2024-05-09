@@ -62,8 +62,6 @@ void USoundManager::HeadHunterSoundInit()
 	HeadHunterBGM1.SetVolume(0.6f);
 	HeadHunterBGM1.Loop();
 	HeadHunterBGM1.Off();
-
-
 }
 
 UEngineSoundPlayer USoundManager::SoundPlay_PlayerRun()
@@ -216,6 +214,50 @@ UEngineSoundPlayer USoundManager::SoundPlay_HH_LaserShot()
 		break;
 	}
 
+	return Result;
+}
+
+UEngineSoundPlayer USoundManager::SoundPlay_HH_Voice_WallJump()
+{
+	UEngineSoundPlayer Result = UEngineSoundPlayer();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 3);
+	switch (RandomValue)
+	{
+	case 1:
+		Result = UEngineSound::SoundPlay(SoundRes::hh_voice_walljump1);
+		break;
+	case 2:
+		Result = UEngineSound::SoundPlay(SoundRes::hh_voice_walljump2);
+		break;
+	case 3:
+		Result = UEngineSound::SoundPlay(SoundRes::hh_voice_walljump3);
+		break;
+	}
+
+	Result.SetVolume(0.75f);
+	return Result;
+}
+
+UEngineSoundPlayer USoundManager::SoundPlay_HH_Voice_Hurt()
+{
+	UEngineSoundPlayer Result = UEngineSoundPlayer();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 3);
+	switch (RandomValue)
+	{
+	case 1:
+		Result = UEngineSound::SoundPlay(SoundRes::hh_voice_hurt1);
+		break;
+	case 2:
+		Result = UEngineSound::SoundPlay(SoundRes::hh_voice_hurt2);
+		break;
+	case 3:
+		Result = UEngineSound::SoundPlay(SoundRes::hh_voice_hurt3);
+		break;
+	}
+
+	Result.SetVolume(0.75f);
 	return Result;
 }
 
