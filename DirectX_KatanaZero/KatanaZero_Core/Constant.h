@@ -341,6 +341,7 @@ namespace SoundRes
 	const std::string_view hh_voice_hurt1			= "sound_voiceboss_huntress_hurt_01.wav";
 	const std::string_view hh_voice_hurt2			= "sound_voiceboss_huntress_hurt_02.wav";
 	const std::string_view hh_voice_hurt3			= "sound_voiceboss_huntress_hurt_03.wav";
+	const std::string_view hh_explosion				= "sound_boss_huntress_explosion.wav";
 
 	// UI
 	const std::string_view title_menu_beep			= "sound_menu_beep.wav";
