@@ -160,6 +160,7 @@ namespace ImgRes
 
 	const std::string_view compo_ground_mine			= "spr_mine";
 	const std::string_view compo_grenade				= "spr_grenade.png";
+	const std::string_view compo_yellow_circle			= "spr_yellow_circle.png";
 
 	// TitleLevel
 	const std::string_view title_background			= "spr_title_background.png";

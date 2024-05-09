@@ -54,7 +54,12 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 
 	State.ChangeState(BossLevelState::transition_off);
 
-	DelayCallBack(2.5f, [=]
+	float IntroTime = 2.5f;
+#ifdef _DEBUG
+	IntroTime = 4.5f;
+#endif // _DEBUG
+
+	DelayCallBack(IntroTime, [=]
 		{
 			Player->StateChange(PlayerState::idle);
 			Player->SubStateChange(PlayerSubState::none);
@@ -62,8 +67,6 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 			DelayCallBack(0.8f, [=]
 				{
 					HeadHunter->SubStateChange(HeadHunterSubState::play);
-					AllGrenade[0]->SetActorLocation({ 672.0f, 360.0f, 0.0f });
-					AllGrenade[0]->StateChange(GrenadeState::shoot);
 				}
 			);
 		}
@@ -102,6 +105,8 @@ void AHeadHunterLevel_Phase2::LevelReStart()
 void AHeadHunterLevel_Phase2::LevelReEnd()
 {
 	Super::LevelReEnd();
+
+	AllGrenade.clear();
 }
 
 void AHeadHunterLevel_Phase2::Tick(float _DeltaTime)

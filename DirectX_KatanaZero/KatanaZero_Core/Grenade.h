@@ -26,6 +26,16 @@ public:
 		State.ChangeState(_State);
 	}
 
+	inline void SetShootDir(const FVector& _Dir)
+	{
+		ShootDir = _Dir;
+	}
+
+	inline void SetShootSpeed(float _Speed)
+	{
+		ShootSpeed = _Speed;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -34,11 +44,24 @@ protected:
 
 private:
 	FVector ShootDir = FVector::Zero;
+	float ShootTimeCount = 0.0f;
 	float ShootSpeed = 0.0f;
 
 private:
+	UCollision* BodyCol = nullptr;
+	USpriteRenderer* Circle = nullptr;
 	std::vector<USpriteRenderer*> Explosion;
-	const int ExplosionNum = 1;
+	const int ExplosionNum = 30;
+
+	float CircleScale = 0.0f;
+	float CircleAlpha = 1.0f;
+
+	int ExplosionOrder = 0;
+
+private:
+	void ExplosionUpdate(float _DeltaTime);
+	void ExplosionUpdate1(float _DeltaTime);
+	void ExplosionUpdate2(float _DeltaTime);
 
 };
 

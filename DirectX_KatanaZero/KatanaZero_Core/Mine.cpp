@@ -6,7 +6,7 @@ AMine::AMine()
 	Explosion.reserve(ExplosionNum);
 	for (size_t i = 0; i < ExplosionNum; i++)
 	{
-		USpriteRenderer* NewExplosion = CreateDefaultSubObject<USpriteRenderer>("Root");
+		USpriteRenderer* NewExplosion = CreateDefaultSubObject<USpriteRenderer>("Explosion");
 		NewExplosion->SetOrder(ERenderOrder::EffectFront);
 		NewExplosion->SetupAttachment(GetRoot());
 		NewExplosion->SetAutoSize(2.0f, true);

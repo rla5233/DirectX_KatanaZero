@@ -187,7 +187,7 @@ void UCollision::Tick(float _Delta)
 	case ECollisionType::CirCle:
 	case ECollisionType::Point:
 	case ECollisionType::Sphere:
-		UEngineDebug::DrawDebugRender(EDebugRenderType::CirCle, Transform, float4::Black);
+		UEngineDebug::DrawDebugRender(EDebugRenderType::CirCle, Transform, float4::Red);
 		break;
 	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:
