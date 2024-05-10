@@ -3,6 +3,7 @@
 
 void AHeadHunterPhase2::SetRifle1LaserEffect()
 {
+	AllRifleLaserEffect[RifleLaserIdx]->AnimationReset();
 	AllRifleLaserEffect[RifleLaserIdx]->SetSprite(ImgRes::compo_bullet);
 	AllRifleLaserEffect[RifleLaserIdx]->SetScale({ 0.0f, 2.0f, 1.0f });
 	AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg(FVector::Zero);

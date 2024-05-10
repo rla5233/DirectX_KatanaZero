@@ -30,6 +30,7 @@ private:
 
 	void AdjustBodyPosByDir(const FVector _Pos);
 	void RifleLaserIdxUpdate();
+	void RifleLaserColCheck();
 
 private:
 	// Collision
@@ -41,7 +42,7 @@ private:
 	USpriteRenderer* DashLaser = nullptr;
 
 	// Info.
-	//std::vector<float>
+	std::vector<float> AllRifleLaserAlpha = { 1.0f, 1.0f, 1.0f };
 	int RifleLaserNum = 3;
 	int RifleLaserIdx = 0;
 

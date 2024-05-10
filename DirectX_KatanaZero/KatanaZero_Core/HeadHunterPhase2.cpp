@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "HeadHunterPhase2.h"
 
+#include "PlayerBase.h"
+
 AHeadHunterPhase2::AHeadHunterPhase2()
 {
 	CreateRifleLaser();
@@ -103,5 +105,20 @@ void AHeadHunterPhase2::RifleLaserIdxUpdate()
 	if (RifleLaserNum <= RifleLaserIdx)
 	{
 		RifleLaserIdx = 0;
+	}
+}
+
+void AHeadHunterPhase2::RifleLaserColCheck()
+{
+	for (size_t i = 0; i < RifleLaserNum; i++)
+	{
+		AllRifleLaserCol[i]->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
+			{
+				APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+				FVector PlayerPos = Player->GetActorLocation();
+				FVector CurPos = GetActorLocation();
+				Player->HitByEnemy(PlayerPos - CurPos, EEnemyType::HeadHunterLaser);
+			}
+		);
 	}
 }

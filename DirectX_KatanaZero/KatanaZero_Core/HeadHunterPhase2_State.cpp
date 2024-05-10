@@ -23,7 +23,8 @@ void AHeadHunterPhase2::StateInit()
 	State.SetUpdateFunction(HeadHunterState::sword_dash,			std::bind(&AHeadHunterPhase2::PatternSwordDash, this, std::placeholders::_1));
 
 	// State End
-	State.SetEndFunction(HeadHunterState::pattern_gunshoot1, [=] 
+	State.SetEndFunction(HeadHunterState::pattern_rifle1,		[=] { Body->SetPosition(FVector::Zero); });
+	State.SetEndFunction(HeadHunterState::pattern_gunshoot1,	[=] 
 		{ 
 			IsGunShoot = false;
 			Body->SetPosition(FVector::Zero); 
@@ -81,6 +82,7 @@ void AHeadHunterPhase2::PatternRifle1Start()
 	}
 
 	Body->ChangeAnimation(Anim::headhunter_takeup_rifle);
+	AllRifleLaserAlpha[RifleLaserIdx] = 1.0f;
 	RollCount = 0;
 	Rifle1Count = 3;
 	PatternOrder = 0;
@@ -97,10 +99,10 @@ void AHeadHunterPhase2::PatternRifle1(float _DeltaTime)
 		Rifle1LaserUpdate1(_DeltaTime);
 		break;
 	case 2:
-		//Rifle1LaserUpdate2(_DeltaTime);
+		Rifle1LaserUpdate2(_DeltaTime);
 		break;
 	case 3:
-		//Rifle1LaserUpdate3(_DeltaTime);
+		Rifle1LaserUpdate3(_DeltaTime);
 		break;
 	default:
 		break;

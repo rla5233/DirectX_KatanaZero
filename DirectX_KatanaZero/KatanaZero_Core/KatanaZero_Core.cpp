@@ -47,5 +47,5 @@ void UKatanaZero_Core::Initialize()
 	
 	GEngine->ChangeLevel("HeadHunter_Phase1");
  
-	//GEngine->ChangeLevel("HeadHunter_Phase2");
+	GEngine->ChangeLevel("HeadHunter_Phase2");
 }
