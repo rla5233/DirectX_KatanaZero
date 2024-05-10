@@ -243,6 +243,8 @@ void APlayLevelBase::Replay(float _DeltaTime)
 	if (true == IsDown(VK_RBUTTON))
 	{
 		InputOff();
+		USoundManager::GetInst()->GetReplayPlay().Off();
+		USoundManager::GetInst()->GetReplayFastPlay().Off();
 		State.ChangeState(PlayLevelState::transition_on);
 		return;
 	}
