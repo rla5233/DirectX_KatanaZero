@@ -64,7 +64,7 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 		//State.ChangeState(HeadHunterState::pattern_gunshoot1);
 		//State.ChangeState(HeadHunterState::pattern_sword_dash);
 		//State.ChangeState(HeadHunterState::pattern_rifle1);
-		State.ChangeState(HeadHunterState::pattern_airrifle1);
+		//State.ChangeState(HeadHunterState::pattern_airrifle1);
 		return;
 	}
 }

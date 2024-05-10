@@ -263,6 +263,9 @@ void AHeadHunterLevel_Phase1::AllMineOn()
 
 				if (0 == i)
 				{
+					APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+					PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.6f);
+					PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 					Player->SetJumpSpeedWeight(1.75f);
 					GEngine->SetGlobalTimeScale(0.1f);
 				}
