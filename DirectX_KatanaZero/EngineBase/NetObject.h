@@ -16,6 +16,11 @@ public:
 	UNetObject& operator=(const UNetObject& _Other) = delete;
 	UNetObject& operator=(UNetObject&& _Other) noexcept = delete;
 
+	static int GetNewObjectToken()
+	{
+		return ++CurObjectToken;
+	}
+
 	void InitNet(std::shared_ptr<UEngineNet> _Net)
 	{
 		Net = _Net;
@@ -30,7 +35,7 @@ public:
 	void Send(std::shared_ptr<UEngineProtocol> _Protocol);
 
 protected:
-	static std::atomic<int> CurToken;
+	static std::atomic<int> CurObjectToken;
 
 private:
 	std::shared_ptr<UEngineNet> Net = nullptr;

@@ -3,6 +3,8 @@
 
 // 설명 : 내가 뭔지는 중요하지 않다. 
 
+
+class USession;
 class UEngineProtocol;
 class UEngineNet
 {
@@ -41,7 +43,10 @@ public:
 
 	virtual void Send(std::shared_ptr<UEngineProtocol> _Protocol) {};
 
+	static void RecvThreadFunction(USession* _Session, UEngineNet* _Net);
+
 protected:
+	int SessionToken = -1;
 
 private:
 	std::atomic_bool IsActiveValue = true;

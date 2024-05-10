@@ -3,6 +3,7 @@
 
 // 설명 : 서버쪽 프레임워크에 가면 이 역할을 해주는 애들이 있다.
 // 대부분 멀티플랫폼이다.
+class UEngineSerializer;
 class USession
 {
 public:
@@ -14,6 +15,11 @@ public:
 	virtual void Create() = 0;
 	virtual void Bind(int _Port) = 0;
 	virtual void SetAdd(std::string _Ip, int _Port);
+
+	static int GetNewSessionToken()
+	{
+		return ++CurSessionToken;
+	}
 
 	SOCKET GetSocket()
 	{
@@ -30,15 +36,32 @@ public:
 		return Address;
 	}
 
-	void Connect();
+	void SetToken(int _Token)
+	{
+		Token = _Token;
+	}
 
+	bool Connect();
+
+	virtual int Send(UEngineSerializer& _Ser);
+	virtual int Send(void* _Data, int _Size) = 0;
+
+	int Recv(UEngineSerializer& _Recv);
+
+	bool IsTokenInit()
+	{
+		return TokenInit;
+	}
 
 protected:
 	SOCKET Socket = 0;
 	SOCKADDR_IN Address = {};
 	std::string IP = "127.0.0.1";
 	int Port = 0;
+	int Token = -1;
+	bool TokenInit = false;
 
 private:
+	static std::atomic<int> CurSessionToken;
 };
 

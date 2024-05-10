@@ -19,7 +19,13 @@ void UEngineClient::Connect(std::string _Ip, int _Port)
 {
 	Session.Create();
 	Session.SetAdd(_Ip, _Port);
-	Session.Connect();
+	if (false == Session.Connect())
+	{
+		MsgBoxAssert("클라이언트로 서버에 접속에 실패했습니다. 서버가 열었는지 포트는 정확한지 아이피도 정확한지 확인하세요.");
+	}
+
+
+	RecvThread.Start(std::bind(UEngineNet::RecvThreadFunction, &Session, this));
 }
 
 void UEngineClient::Send(std::shared_ptr<UEngineProtocol> _Protocol)

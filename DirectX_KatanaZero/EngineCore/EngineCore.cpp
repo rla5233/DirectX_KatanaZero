@@ -108,7 +108,10 @@ void UEngineCore::EngineFrameUpdate()
 
 	DeltaTime *= GlobalTimeScale;
 
-	UEngineInput::KeyCheckTick(DeltaTime);
+	if (true == EngineWindow.IsFocus())
+	{
+		UEngineInput::KeyCheckTick(DeltaTime);
+	}
 
 	GEngine->EngineWindow.CalculateMouseUpdate(DeltaTime);
 

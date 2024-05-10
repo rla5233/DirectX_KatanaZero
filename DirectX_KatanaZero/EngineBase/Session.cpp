@@ -1,12 +1,16 @@
 #include "PreCompile.h"
 #include "Session.h"
 #include "EngineDebug.h"
+#include "EngineSerializer.h"
+
+std::atomic<int> USession::CurSessionToken = 0;
 
 USession::USession() 
 {
 }
 
-USession::USession(SOCKET Socket)
+USession::USession(SOCKET _Socket)
+	: Socket(_Socket)
 {
 }
 
@@ -45,11 +49,19 @@ void USession::SetAdd(std::string _Ip, int _Port)
 
 }
 
-void USession::Connect()
+bool USession::Connect()
 {
 	if (SOCKET_ERROR == connect(Socket, (const sockaddr*)&Address, sizeof(SOCKADDR_IN)))
 	{
 		MsgBoxAssert("커넥트에 실패했습니다.");
-		return;
+		return false;
 	}
+
+	return true;
 }
+
+int USession::Send(UEngineSerializer& _Ser)
+{
+	return Send(_Ser.DataPtr(), _Ser.WriteSize());
+}
+

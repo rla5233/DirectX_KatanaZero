@@ -14,9 +14,8 @@ public:
 	void Create() override;
 	void Bind(int _Port) override;
 
-	void Send(UEngineSerializer& _Ser);
-
-	void Send(void* Data, int Size);
+	int Send(UEngineSerializer& _Ser) override;
+	int Send(void* Data, int Size) override;
 	// 주소 지정
 	
 

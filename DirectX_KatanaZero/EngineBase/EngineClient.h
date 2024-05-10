@@ -1,6 +1,7 @@
 #pragma once
 #include "EngineNet.h"
 #include "TCPSession.h"
+#include "EngineThread.h"
 
 // Ό³Έν :
 class UEngineClient : public UEngineNet
@@ -24,5 +25,6 @@ protected:
 
 private:
 	UTCPSession Session;
+	UEngineThread RecvThread;
 };
 

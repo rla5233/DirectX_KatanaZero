@@ -71,7 +71,12 @@ public:
 
 	void SetWindowSmallIcon();
 	
-	
+	bool IsFocus()
+	{
+		return IsFocusValue;
+	}
+
+
 	bool IsCursor()
 	{
 		return IsCursorValue;
@@ -106,8 +111,10 @@ private:
 	static HINSTANCE hInstance;
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 	static std::function<bool(HWND, UINT, WPARAM, LPARAM)> UserWndProcFunction;
+	static std::map<HWND, UEngineWindow*> AllWindow;
 
 	Color8Bit ClearColor = Color8Bit::WhiteA;
+	bool IsFocusValue = true;
 
 	HWND hWnd = nullptr;
 	FVector Scale;

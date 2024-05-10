@@ -110,6 +110,11 @@ public:
 	}
 
 
+	int BufferSize()
+	{
+		return static_cast<int>(Data.size());
+	}
+
 	void ResetWrite();
 
 	void BufferResize(int _Size);
@@ -122,6 +127,11 @@ public:
 	}
 
 	void* DataPtr()
+	{
+		return &Data[0];
+	}
+
+	char* DataCharPtr()
 	{
 		return &Data[0];
 	}
