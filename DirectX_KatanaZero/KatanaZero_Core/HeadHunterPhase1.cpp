@@ -3,6 +3,7 @@
 
 #include "HeadHunterLevel.h"
 #include "PlayerBase.h"
+#include "MainCamera.h"
 
 AHeadHunterPhase1::AHeadHunterPhase1()
 {

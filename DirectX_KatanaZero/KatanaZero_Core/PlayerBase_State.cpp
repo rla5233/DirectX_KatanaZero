@@ -2,6 +2,8 @@
 #include "PlayerBase.h"
 
 #include "PlayLevelBase.h"
+#include "HeadHunterLevel.h"
+#include "MainCamera.h"
 #include "HitLaser.h"
 
 // State √ ±‚»≠
@@ -863,14 +865,10 @@ void APlayerBase::DeadStart()
 		SetHitLaser(EHitLaserType::Default);
 		break;
 	case EEnemyType::Fan:
-	case EEnemyType::HeadHunterLaser:
 	case EEnemyType::CeilLaser:
 		UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
 		UContentsHelper::ResetTimeScale();
 		break;	
-	case EEnemyType::HeadHunterDash:
-		SetHitLaser(EHitLaserType::HeadHunterDash);
-		break;
 	case EEnemyType::CeilGun:
 		Velocity.X = 0.0f;
 		UContentsHelper::ResetTimeScale();
@@ -879,6 +877,17 @@ void APlayerBase::DeadStart()
 		Velocity.X = 0.0f;
 		Velocity.Y = 0.0f;
 		UContentsHelper::ResetTimeScale();
+		break;
+	case EEnemyType::HeadHunterLaser:
+	{
+		AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+		UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
+		UContentsHelper::ResetTimeScale();
+	}
+		break;
+	case EEnemyType::HeadHunterDash:
+		SetHitLaser(EHitLaserType::HeadHunterDash);
 		break;
 	}
 
