@@ -273,10 +273,11 @@ void AHeadHunterPhase2::SwordDashUpdate1(float _DeltaTime)
 			break;
 		}
 	
+		AdjustBodyPosByDir({ 11.0f, 0.0f, 0.0f });
 		Body->ChangeAnimation(Anim::headhunter_dashend);
 		BodyCol->SetActive(true);
 		DashAttack->SetActive(false);
-		PatternOrder = 2;
+		PatternOrder = -1;
 	}
 
 	// Effect
@@ -304,6 +305,19 @@ void AHeadHunterPhase2::SwordDashUpdate1(float _DeltaTime)
 	);
 }
 
-void AHeadHunterPhase2::SwordDashUpdate2(float _DeltaTime)
+// Pattern_AirRifle1
+void AHeadHunterPhase2::AirRifle1Update(float _DeltaTime)
+{
+}
+
+void AHeadHunterPhase2::AirRifle1Update1(float _DeltaTime)
+{
+}
+
+void AHeadHunterPhase2::AirRifle1Update2(float _DeltaTime)
+{
+}
+
+void AHeadHunterPhase2::AirRifle1Update3(float _DeltaTime)
 {
 }

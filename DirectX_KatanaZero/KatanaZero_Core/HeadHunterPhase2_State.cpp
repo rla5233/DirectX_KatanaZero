@@ -10,17 +10,20 @@ void AHeadHunterPhase2::StateInit()
 	// State Create
 	State.CreateState(HeadHunterState::pattern_rifle1);
 	State.CreateState(HeadHunterState::pattern_gunshoot1);
-	State.CreateState(HeadHunterState::sword_dash);
+	State.CreateState(HeadHunterState::pattern_sword_dash);
+	State.CreateState(HeadHunterState::pattern_airrifle1);
 
 	// State Start
 	State.SetStartFunction(HeadHunterState::pattern_rifle1,			std::bind(&AHeadHunterPhase2::PatternRifle1Start, this));
 	State.SetStartFunction(HeadHunterState::pattern_gunshoot1,		std::bind(&AHeadHunterPhase2::PatternGunShoot1Start, this));
-	State.SetStartFunction(HeadHunterState::sword_dash,				std::bind(&AHeadHunterPhase2::PatternSwordDashStart, this));
+	State.SetStartFunction(HeadHunterState::pattern_sword_dash,		std::bind(&AHeadHunterPhase2::PatternSwordDashStart, this));
+	State.SetStartFunction(HeadHunterState::pattern_airrifle1,		std::bind(&AHeadHunterPhase2::PatternAirRifle1Start, this));
 
 	// State Update
 	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunterPhase2::PatternRifle1, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_gunshoot1,		std::bind(&AHeadHunterPhase2::PatternGunShoot1, this, std::placeholders::_1));
-	State.SetUpdateFunction(HeadHunterState::sword_dash,			std::bind(&AHeadHunterPhase2::PatternSwordDash, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::pattern_sword_dash,	std::bind(&AHeadHunterPhase2::PatternSwordDash, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::pattern_airrifle1,		std::bind(&AHeadHunterPhase2::PatternAirRifle1, this, std::placeholders::_1));
 
 	// State End
 	State.SetEndFunction(HeadHunterState::pattern_rifle1,		[=] { Body->SetPosition(FVector::Zero); });
@@ -31,8 +34,9 @@ void AHeadHunterPhase2::StateInit()
 		}
 	);
 	 
-	State.SetEndFunction(HeadHunterState::sword_dash, [=]
+	State.SetEndFunction(HeadHunterState::pattern_sword_dash, [=]
 		{
+			Body->SetPosition(FVector::Zero);
 			DashLaser->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.0f });
 			DashLaser->SetActive(false);
 		}
@@ -58,8 +62,9 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
 		//State.ChangeState(HeadHunterState::pattern_gunshoot1);
-		//State.ChangeState(HeadHunterState::sword_dash);
-		State.ChangeState(HeadHunterState::pattern_rifle1);
+		State.ChangeState(HeadHunterState::pattern_sword_dash);
+		//State.ChangeState(HeadHunterState::pattern_rifle1);
+		//State.ChangeState(HeadHunterState::pattern_airrifle1);
 		return;
 	}
 }
@@ -172,13 +177,36 @@ void AHeadHunterPhase2::PatternSwordDash(float _DeltaTime)
 	case 1:
 		SwordDashUpdate1(_DeltaTime);
 		break;
+	default:
+		break;
+	}
+}
+
+void AHeadHunterPhase2::PatternAirRifle1Start()
+{
+
+	PatternOrder = 0;
+}
+
+void AHeadHunterPhase2::PatternAirRifle1(float _DeltaTime)
+{
+	switch (PatternOrder)
+	{
+	case 0:
+		AirRifle1Update(_DeltaTime);
+		break;
+	case 1:
+		AirRifle1Update1(_DeltaTime);
+		break;
 	case 2:
-		SwordDashUpdate2(_DeltaTime);
+		AirRifle1Update2(_DeltaTime);
+		break;
+	case 3:
+		AirRifle1Update3(_DeltaTime);
 		break;
 	default:
 		break;
 	}
-
 }
 
 

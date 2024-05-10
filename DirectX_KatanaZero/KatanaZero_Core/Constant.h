@@ -482,7 +482,8 @@ namespace HeadHunterState
 	
 	// Phase2
 	const std::string_view pattern_gunshoot1	= "Pattern_GunShoot1";
-	const std::string_view sword_dash			= "Sword_Dash";
+	const std::string_view pattern_sword_dash	= "Sword_Dash";
+
 }
 
 namespace HeadHunterSubState

@@ -72,6 +72,9 @@ private:
 	void PatternSwordDashStart();
 	void PatternSwordDash(float _DeltaTime);
 
+	void PatternAirRifle1Start();
+	void PatternAirRifle1(float _DeltaTime);
+
 // Effect
 private:
 	void SetRifle1LaserEffect();
@@ -93,7 +96,12 @@ private:
 	// Pattern_SwordDash
 	void SwordDashUpdate(float _DeltaTime);
 	void SwordDashUpdate1(float _DeltaTime);
-	void SwordDashUpdate2(float _DeltaTime);
+
+	// Pattern_AirRifle1
+	void AirRifle1Update(float _DeltaTime);
+	void AirRifle1Update1(float _DeltaTime);
+	void AirRifle1Update2(float _DeltaTime);
+	void AirRifle1Update3(float _DeltaTime);
 
 
 };
