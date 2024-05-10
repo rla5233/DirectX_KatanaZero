@@ -2,6 +2,8 @@
 #include "Grenade.h"
 
 #include "PlayerBase.h"
+#include "PlayLevelBase.h"
+#include "MainCamera.h"
 
 AGrenade::AGrenade()
 {
@@ -210,6 +212,9 @@ void AGrenade::ExplosionUpdate1(float _DeltaTime)
 			Explosion[i]->SetPosition({ PosScale * Pos.X, PosScale * Pos.Y, 0.0f });
 			Explosion[i]->SetActive(true);
 		}
+
+		APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 
 		BodyCol->SetActive(true);
 		GetBody()->SetActive(false);

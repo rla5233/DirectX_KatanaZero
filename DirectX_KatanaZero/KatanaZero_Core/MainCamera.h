@@ -4,6 +4,14 @@
 
 class APlayerBase;
 
+struct FRetShakeRange
+{
+	float MinX = -15.0f;
+	float MaxX = 15.0f;
+	float MinY = -15.0f;
+	float MaxY = 15.0f;
+};
+
 // 설명 : 콘텐츠 메인 카메라
 class AMainCamera : public AActor, public ULerpObject
 {
@@ -59,6 +67,16 @@ public:
 		RetShakePos = _Pos;
 	}
 
+	inline void SetRetShakeRange(const FRetShakeRange& _Range)
+	{
+		RetShakeRange = _Range;
+	}
+
+	inline void SetRetShakeTime(float _Time)
+	{
+		RetShakeTime = _Time;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -76,8 +94,12 @@ private:
 	UEngineTexture* MapTex = nullptr;
 	APlayerBase* Player = nullptr;
 
+	// RetShake
 	FVector RetShakePos = FVector::Zero;
-	
+	FRetShakeRange RetShakeRange;
+	float RetShakeTime = 0.3f;
+	float RetShakeTimeCount = 0.0f;
+
 	float TitleInTimeWeight = 2.0f;
 
 private:

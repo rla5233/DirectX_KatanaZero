@@ -98,22 +98,27 @@ void AMainCamera::RetShakingStart()
 {
 	RetShakePos = GetActorLocation();
 
-	DelayCallBack(0.3f, [=]
-		{
-			SetActorLocation(RetShakePos);
-			State.ChangeState(MainCameraState::stop);
-		}
-	);
+	RetShakeTimeCount = RetShakeTime;
 }
 
 void AMainCamera::RetShaking(float _DeltaTime)
 {
+	if (0.0f > RetShakeTimeCount)
+	{
+		RetShakeTime = 0.3f;
+		SetActorLocation(RetShakePos);
+		RetShakeRange = { -15.0f, 15.0f, -15.0f, 15.0f };
+		State.ChangeState(MainCameraState::stop);
+		return;
+	}
+
 	FVector NextPos = RetShakePos;
 	
-	NextPos.X += UEngineRandom::MainRandom.RandomFloat(-15.0f, 15.0f);
-	NextPos.Y += UEngineRandom::MainRandom.RandomFloat(-15.0f, 15.0f);
+	NextPos.X += UEngineRandom::MainRandom.RandomFloat(RetShakeRange.MinX, RetShakeRange.MaxX);
+	NextPos.Y += UEngineRandom::MainRandom.RandomFloat(RetShakeRange.MinY, RetShakeRange.MaxY);
 
 	SetActorLocation(NextPos);
+	RetShakeTimeCount -= _DeltaTime;
 }
 
 void AMainCamera::Tick(float _DeltaTime)

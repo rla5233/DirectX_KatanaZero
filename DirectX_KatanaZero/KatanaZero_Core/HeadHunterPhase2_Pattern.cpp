@@ -192,6 +192,8 @@ void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 		float ShootSpeed = UEngineRandom::MainRandom.RandomFloat(1200.0f, 1800.0f);
 
 		PlayLevel->SetShootGrenade(ShootPos, ShootDir, ShootSpeed);
+		PlayLevel->GetKZMainCamera()->SetRetShakeRange({ -5.0f, 5.0f, -5.0f, 5.0f });
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 		IsGunShoot = true;
 		--GunShootCount;
 	}
