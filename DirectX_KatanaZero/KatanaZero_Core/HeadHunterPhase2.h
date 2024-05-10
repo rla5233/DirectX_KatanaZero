@@ -24,19 +24,30 @@ protected:
 	void StateInit() override;
 
 private:
+	void CreateRifleLaser();
 	void CreateDashLaser();
 	void CreateDashAttack();
 
 	void AdjustBodyPosByDir(const FVector _Pos);
+	void RifleLaserIdxUpdate();
 
 private:
 	// Collision
 	UCollision* DashAttack = nullptr;
+	std::vector<UCollision*> AllRifleLaserCol;
 
 	// Effect
+	std::vector<USpriteRenderer*> AllRifleLaserEffect;
 	USpriteRenderer* DashLaser = nullptr;
 
 	// Info.
+	//std::vector<float>
+	int RifleLaserNum = 3;
+	int RifleLaserIdx = 0;
+
+	// Pattern Info.
+	int Rifle1Count = 3;
+
 	bool IsGunShoot = false;
 	bool ReGunShoot = false;
 	int GunShootCount = 3;
@@ -51,6 +62,9 @@ private:
 	void IdleStart() override;
 	void Idle(float _DeltaTime) override;
 
+	void PatternRifle1Start();
+	void PatternRifle1(float _DeltaTime);
+
 	void PatternGunShoot1Start();
 	void PatternGunShoot1(float _DeltaTime);
 
@@ -59,12 +73,17 @@ private:
 
 // Effect
 private:
-	void SetGunShoot1Effect();
-	void GunShoot1EffectUpdate();
+	void SetRifle1LaserEffect();
 	
 // Pattern
 private:
 	void PatternCheck();
+
+	// Pattern_Rifle1
+	void Rifle1LaserUpdate(float _DeltaTime);
+	void Rifle1LaserUpdate1(float _DeltaTime);
+	void Rifle1LaserUpdate2(float _DeltaTime);
+	void Rifle1LaserUpdate3(float _DeltaTime);
 
 	// Pattern_GunShoot1
 	void GunShoot1Update(float _DeltaTime);

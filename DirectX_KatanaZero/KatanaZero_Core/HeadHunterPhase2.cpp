@@ -3,6 +3,7 @@
 
 AHeadHunterPhase2::AHeadHunterPhase2()
 {
+	CreateRifleLaser();
 	CreateDashLaser();
 	CreateDashAttack();
 }
@@ -16,6 +17,26 @@ void AHeadHunterPhase2::BeginPlay()
 	Super::BeginPlay();
 
 	Hp = 10;
+}
+
+void AHeadHunterPhase2::CreateRifleLaser()
+{
+	AllRifleLaserEffect.reserve(RifleLaserNum);
+	AllRifleLaserCol.reserve(RifleLaserNum);
+	for (size_t i = 0; i < RifleLaserNum; i++)
+	{
+		AllRifleLaserEffect.push_back(CreateDefaultSubObject<USpriteRenderer>("RifleLaserEffect"));
+		AllRifleLaserEffect[i]->CreateAnimation(Anim::effect_laser, ImgRes::effect_laser, 0.1f, true);
+		AllRifleLaserEffect[i]->SetOrder(ERenderOrder::EffectFront);
+		AllRifleLaserEffect[i]->SetupAttachment(GetRoot());
+		AllRifleLaserEffect[i]->SetActive(false);
+
+		AllRifleLaserCol.push_back(CreateDefaultSubObject<UCollision>("RifleLaserCol"));
+		AllRifleLaserCol[i]->SetCollisionGroup(EColOrder::EnemyAttack);
+		AllRifleLaserCol[i]->SetCollisionType(ECollisionType::RotRect);
+		AllRifleLaserCol[i]->SetupAttachment(AllRifleLaserEffect[i]);
+		AllRifleLaserCol[i]->SetActive(false);
+	}
 }
 
 void AHeadHunterPhase2::CreateDashLaser()
@@ -72,5 +93,15 @@ void AHeadHunterPhase2::AdjustBodyPosByDir(const FVector _Pos)
 	case EEngineDir::Right:
 		Body->SetPosition({ _Pos.X, _Pos.Y, 0.0f });
 		break;
+	}
+}
+
+void AHeadHunterPhase2::RifleLaserIdxUpdate()
+{
+	++RifleLaserIdx;
+
+	if (RifleLaserNum <= RifleLaserIdx)
+	{
+		RifleLaserIdx = 0;
 	}
 }

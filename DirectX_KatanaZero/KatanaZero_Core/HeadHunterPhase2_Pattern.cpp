@@ -8,6 +8,137 @@ void AHeadHunterPhase2::PatternCheck()
 {
 }
 
+// Pattern_Rifle1
+void AHeadHunterPhase2::Rifle1LaserUpdate(float _DeltaTime)
+{
+	if (true == Body->IsCurAnimationEnd())
+	{
+		SetRifle1LaserEffect();
+		--Rifle1Count;
+		PatternOrder = 1;
+		UEngineSound::SoundPlay(SoundRes::hh_laser_lockon);
+	}
+}
+
+void AHeadHunterPhase2::Rifle1LaserUpdate1(float _DeltaTime)
+{
+	FVector CurScale = AllRifleLaserEffect[RifleLaserIdx]->GetLocalScale();
+	if (1280.0f < CurScale.X)
+	{
+		return;
+	}
+
+	float AddScaleX = 5000.0f * _DeltaTime;
+	AllRifleLaserEffect[RifleLaserIdx]->AddScale({ AddScaleX, 0.0f, 0.0f });
+	switch (Body->GetDir())
+	{
+	case EEngineDir::Left:
+		AllRifleLaserEffect[RifleLaserIdx]->AddPosition({ -AddScaleX * 0.5f, 0.0f ,0.0f });
+		break;
+	case EEngineDir::Right:
+		AllRifleLaserEffect[RifleLaserIdx]->AddPosition({ AddScaleX * 0.5f, 0.0f ,0.0f });
+		break;
+	}
+}
+
+//void AHeadHunterPhase2::Rifle1LaserUpdate2(float _DeltaTime)
+//{
+//	LaserAlpha -= 9.0f * _DeltaTime;
+//
+//	if (0.0f > LaserAlpha)
+//	{
+//		LaserAlpha = 0.0f;
+//		PatternOrder = -1;
+//		LaserEffect->SetActive(false);
+//		DelayCallBack(0.04f, [=]
+//			{
+//				if (HeadHunterState::pattern_rifle1 != State.GetCurStateName())
+//				{
+//					return;
+//				}
+//
+//				LaserAlpha = 1.0f;
+//				LaserEffect->SetActive(true);
+//				LaserEffect->ChangeAnimation(Anim::effect_laser);
+//				LaserEffect->AddScale({ 0.0f, 14.0f, 0.0f });
+//				LaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, LaserAlpha });
+//				switch (Body->GetDir())
+//				{
+//				case EEngineDir::Left:
+//					LaserEffect->SetRotationDeg({ 0.0f, 180.0f, 0.0f });
+//					break;
+//				case EEngineDir::Right:
+//					LaserEffect->SetRotationDeg({ 0.0f, 0.0f, 0.0f });
+//					break;
+//				}
+//
+//				LaserCol->SetActive(true);
+//				USoundManager::SoundPlay_HH_LaserShot();
+//
+//				AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+//				PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+//
+//				DelayCallBack(0.1f, [=]
+//					{
+//						PatternOrder = 3;
+//					}
+//				);
+//			}
+//		);
+//	}
+//
+//	LaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, LaserAlpha });
+//}
+//
+//void AHeadHunterPhase2::Rifle1LaserUpdate3(float _DeltaTime)
+//{
+//	if (false == LaserEffect->IsActive())
+//	{
+//		return;
+//	}
+//
+//	LaserColCheck();
+//
+//	float AddScaleY = -100.0f * _DeltaTime;
+//	LaserEffect->AddScale({ 0.0f, AddScaleY, 0.0f });
+//
+//	FVector CurScale = LaserEffect->GetLocalScale();
+//	if (0.0f > CurScale.Y)
+//	{
+//		LaserCol->SetActive(false);
+//		LaserEffect->SetActive(false);
+//
+//		// 3회 발사후 돌아가기
+//		if (0 == Rifle1Count)
+//		{
+//			Body->ChangeAnimation(Anim::headhunter_putback_rifle);
+//			PatternOrder = -1;
+//			return;
+//		}
+//
+//		AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+//		FVector PlayerPos = PlayLevel->GetPlayerLocation();
+//		FVector CurPos = GetActorLocation();
+//		float DiffX = abs(CurPos.X - PlayerPos.X);
+//		if (350.0f < DiffX)
+//		{
+//			DelayCallBack(0.06f, [=] { PatternOrder = 0; });
+//		}
+//		else
+//		{
+//			if (150.0f > DiffX)
+//			{
+//				State.ChangeState(HeadHunterState::roll);
+//				return;
+//			}
+//
+//			Body->ChangeAnimation(Anim::headhunter_putback_rifle);
+//			PatternOrder = -1;
+//			return;
+//		}
+//	}
+//}
+
 // Pattern_GunShoot1
 void AHeadHunterPhase2::GunShoot1Update(float _DeltaTime)
 {

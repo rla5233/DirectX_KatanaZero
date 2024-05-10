@@ -8,14 +8,17 @@ void AHeadHunterPhase2::StateInit()
 	Super::StateInit();
 
 	// State Create
+	State.CreateState(HeadHunterState::pattern_rifle1);
 	State.CreateState(HeadHunterState::pattern_gunshoot1);
 	State.CreateState(HeadHunterState::sword_dash);
 
 	// State Start
+	State.SetStartFunction(HeadHunterState::pattern_rifle1,			std::bind(&AHeadHunterPhase2::PatternRifle1Start, this));
 	State.SetStartFunction(HeadHunterState::pattern_gunshoot1,		std::bind(&AHeadHunterPhase2::PatternGunShoot1Start, this));
 	State.SetStartFunction(HeadHunterState::sword_dash,				std::bind(&AHeadHunterPhase2::PatternSwordDashStart, this));
 
 	// State Update
+	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunterPhase2::PatternRifle1, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_gunshoot1,		std::bind(&AHeadHunterPhase2::PatternGunShoot1, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::sword_dash,			std::bind(&AHeadHunterPhase2::PatternSwordDash, this, std::placeholders::_1));
 
@@ -54,8 +57,53 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
 		//State.ChangeState(HeadHunterState::pattern_gunshoot1);
-		State.ChangeState(HeadHunterState::sword_dash);
+		//State.ChangeState(HeadHunterState::sword_dash);
+		State.ChangeState(HeadHunterState::pattern_rifle1);
 		return;
+	}
+}
+
+void AHeadHunterPhase2::PatternRifle1Start()
+{
+	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+	FVector CurPos = GetActorLocation();
+
+	if (PlayerPos.X < CurPos.X)
+	{
+		Body->SetDir(EEngineDir::Left);
+		Body->AddPosition({ -6.0f, 0.0f, 0.0f });
+	}
+	else
+	{
+		Body->SetDir(EEngineDir::Right);
+		Body->AddPosition({ 6.0f, 0.0f, 0.0f });
+	}
+
+	Body->ChangeAnimation(Anim::headhunter_takeup_rifle);
+	RollCount = 0;
+	Rifle1Count = 3;
+	PatternOrder = 0;
+}
+
+void AHeadHunterPhase2::PatternRifle1(float _DeltaTime)
+{
+	switch (PatternOrder)
+	{
+	case 0:
+		Rifle1LaserUpdate(_DeltaTime);
+		break;
+	case 1:
+		Rifle1LaserUpdate1(_DeltaTime);
+		break;
+	case 2:
+		//Rifle1LaserUpdate2(_DeltaTime);
+		break;
+	case 3:
+		//Rifle1LaserUpdate3(_DeltaTime);
+		break;
+	default:
+		break;
 	}
 }
 

@@ -132,6 +132,7 @@ void AHeadHunterPhase1::PatternRifle1Start()
 	RollCount = 0;
 	Rifle1Count = 3;
 	PatternOrder = 0;
+	LaserAlpha = 1.0f;
 }
 
 void AHeadHunterPhase1::PatternRifle1(float _DeltaTime)
