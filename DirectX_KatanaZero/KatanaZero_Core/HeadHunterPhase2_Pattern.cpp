@@ -236,9 +236,8 @@ void AHeadHunterPhase2::SwordDashUpdate(float _DeltaTime)
 
 		SetAfterImagePlusColor({ 1.0f, 0.0f, 0.0f, 0.0f});
 		SetAfterImageMulColor({ 1.0f, 0.1f, 0.1f, 0.3f});
-		SetAfterImageDelayTime(0.0f);
-		SetAfterImageTimeWeight(1.0f);
 		SetAfterImageDelayTime(1.0f / 600000.0f);
+		SetAfterImageTimeWeight(1.0f);
 
 		SetVelocityByDir({ 15000.0f, 0.0f, 0.0f });
 		BodyCol->SetActive(false);
@@ -308,16 +307,106 @@ void AHeadHunterPhase2::SwordDashUpdate1(float _DeltaTime)
 // Pattern_AirRifle1
 void AHeadHunterPhase2::AirRifle1Update(float _DeltaTime)
 {
+	if (true == Body->IsCurAnimationEnd())
+	{
+		AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+		float MidPosX = PlayLevel->GetRefPosX("Mid");
+		float CurPosX = GetActorLocation().X;
+
+		// 속도 설정
+		if (MidPosX < CurPosX)
+		{
+			Velocity = { 700.0f, 1000.0f, 0.0f };
+		}
+		else
+		{
+			Velocity = { -700.0f, 1000.0f, 0.0f };
+		}
+
+		// 위치 설정
+		AddActorLocation({ 0.0f, 2.0f, 0.0f });
+
+		// 렌더러 설정
+		if (0.0f < Velocity.X)
+		{
+			Body->SetDir(EEngineDir::Left);
+		}
+		else
+		{
+			Body->SetDir(EEngineDir::Right);
+		}
+
+		Body->SetPosition(FVector::Zero);
+		Body->ChangeAnimation(Anim::headhunter_jump);
+
+		SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });
+		SetAfterImageMulColor({ 1.0f, 1.0f, 1.0f, 0.4f });
+		SetAfterImageDelayTime(1.0f / 60.0f);
+		SetAfterImageTimeWeight(6.0f);
+
+		PatternOrder = 1;
+	}
 }
 
 void AHeadHunterPhase2::AirRifle1Update1(float _DeltaTime)
 {
+	// 속도 업데이트
+	ApplyGravity(_DeltaTime);
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// Effect
+	CreateAfterImage(_DeltaTime);
+
+	// State Check
+	if (true == IsColBackToWall(Body->GetDir()))
+	{
+		Body->ChangeAnimation(Anim::headhunter_wall_idle);
+		Velocity = FVector::Zero;
+		PatternOrder = 2;
+		return;
+	}
+
+	if (true == IsOnGround(Body->GetDir()))
+	{
+		State.ChangeState(HeadHunterState::idle);
+		PatternOrder = -1;
+		return;
+	}
 }
 
 void AHeadHunterPhase2::AirRifle1Update2(float _DeltaTime)
 {
+	if (true == Body->IsCurAnimationEnd())
+	{
+		// 속도 공식 필요
+		SetVelocityByDir({ 700.0f, 800.0f, 0.0f });
+
+		Body->ChangeAnimation(Anim::headhunter_wall_jump);
+		PatternOrder = 3;
+	}
 }
 
 void AHeadHunterPhase2::AirRifle1Update3(float _DeltaTime)
 {
+	// 속도 업데이트
+	ApplyGravity(_DeltaTime);
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// 충돌 체크
+	ColCheckUpdate();
+
+	// Effect
+	CreateAfterImage(_DeltaTime);
+
+
+	// State Check
+	if (true == IsOnGround(Body->GetDir()))
+	{
+		Body->ChangeAnimation(Anim::headhunter_land);
+		PatternOrder = -1;
+	}
 }

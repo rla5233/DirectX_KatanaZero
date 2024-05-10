@@ -62,9 +62,9 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
 		//State.ChangeState(HeadHunterState::pattern_gunshoot1);
-		State.ChangeState(HeadHunterState::pattern_sword_dash);
+		//State.ChangeState(HeadHunterState::pattern_sword_dash);
 		//State.ChangeState(HeadHunterState::pattern_rifle1);
-		//State.ChangeState(HeadHunterState::pattern_airrifle1);
+		State.ChangeState(HeadHunterState::pattern_airrifle1);
 		return;
 	}
 }
@@ -135,7 +135,6 @@ void AHeadHunterPhase2::PatternGunShoot1(float _DeltaTime)
 	default:
 		break;
 	}
-
 }
 
 void AHeadHunterPhase2::PatternSwordDashStart()
@@ -184,7 +183,10 @@ void AHeadHunterPhase2::PatternSwordDash(float _DeltaTime)
 
 void AHeadHunterPhase2::PatternAirRifle1Start()
 {
-
+	Body->ChangeAnimation(Anim::headhunter_prejump);
+	AdjustBodyPosByDir({ 11.0f, 0.0f, 0.0f });
+	BodyCol->SetActive(false);
+	RollCount = 0;
 	PatternOrder = 0;
 }
 
