@@ -63,7 +63,7 @@ void AHeadHunterBase::Idle(float _DeltaTime)
 void AHeadHunterBase::RollStart()
 {
 	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
-	float MidPosX = PlayLevel->GetRefPosX(HH_Phase1_RefPos::mid);
+	float MidPosX = PlayLevel->GetRefPos(HH_Phase1_RefPos::mid);
 	float CurPosX = GetActorLocation().X;
 
 	// 속도 설정

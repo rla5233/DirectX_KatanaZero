@@ -2,6 +2,7 @@
 #include "HeadHunterLevel.h"
 
 class AGrenade;
+class ABullet;
 
 // 설명 : HeadHunter 2페이즈
 class AHeadHunterLevel_Phase2 : public AHeadHunterLevel
@@ -44,10 +45,24 @@ private:
 		}
 	}
 
+	void BulletIdxUpdate()
+	{
+		++CurBulletIdx;
+
+		if (AllBullet.size() <= CurBulletIdx)
+		{
+			CurBulletIdx = 0;
+		}
+	}
+
 private:
 	std::vector<std::shared_ptr<AGrenade>> AllGrenade;
 	const int GrenadeNum = 3;
 	int CurGrenadeIdx = 0;
+
+	std::vector<std::shared_ptr<ABullet>> AllBullet;
+	const int BulletNum = 18;
+	int CurBulletIdx = 0;
 
 };
 

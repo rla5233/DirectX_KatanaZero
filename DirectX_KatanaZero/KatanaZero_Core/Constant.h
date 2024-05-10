@@ -157,6 +157,7 @@ namespace ImgRes
 	const std::string_view compo_scientist_explode	= "spr_scientist_explode";
 
 	const std::string_view compo_bullet				= "spr_bullet_0.png";
+	const std::string_view compo_bullet1			= "spr_bullet_1.png";
 
 	const std::string_view compo_sliding_door_close		= "spr_sliding_door_close";
 	const std::string_view compo_sliding_door_closed	= "spr_sliding_door.png";
@@ -702,6 +703,12 @@ namespace GrenadeState
 	const std::string_view explosion		= "Explosion";
 }
 
+namespace BulletState
+{
+	const std::string_view none				= "None";
+	const std::string_view shoot			= "Shoot";
+}
+
 // Info.
 namespace HH_Phase1_RefPos
 {
@@ -717,4 +724,6 @@ namespace HH_Phase2_RefPos
 	const std::string_view leftwall			= "LeftWall";
 	const std::string_view mid				= "Mid";
 	const std::string_view rightwall		= "RightWall";
+
+	const std::string_view ground			= "Ground";
 }

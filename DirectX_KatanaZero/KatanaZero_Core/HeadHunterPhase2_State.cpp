@@ -146,13 +146,13 @@ void AHeadHunterPhase2::PatternSwordDashStart()
 	switch (Body->GetDir())
 	{
 	case EEngineDir::Left:
-		WallPosX = PlayLevel->GetRefPosX(HH_Phase2_RefPos::leftwall);
+		WallPosX = PlayLevel->GetRefPos(HH_Phase2_RefPos::leftwall);
 		DashLaser->SetScale({ CurPosX - WallPosX, 2.0f, 0.0f });
 		DashLaser->SetPosition({ -70.0f - 0.5f * (CurPosX - WallPosX), 35.0f, 0.0f});
 		Body->SetPosition({ -19.0f, 0.0f, 0.0f });
 		break;
 	case EEngineDir::Right:
-		WallPosX = PlayLevel->GetRefPosX(HH_Phase2_RefPos::rightwall);
+		WallPosX = PlayLevel->GetRefPos(HH_Phase2_RefPos::rightwall);
 		DashLaser->SetScale({ WallPosX - CurPosX, 2.0f, 0.0f });
 		DashLaser->SetPosition({ 70.0f + 0.5f * (WallPosX - CurPosX), 35.0f, 0.0f });
 		Body->SetPosition({ 19.0f, 0.0f, 0.0f });

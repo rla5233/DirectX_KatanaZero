@@ -5,6 +5,7 @@
 #include "ColMapObject.h"
 #include "MainCamera.h"
 #include "Grenade.h"
+#include "Bullet.h"
 
 #include "HeadHunterPhase2.h"
 
@@ -20,9 +21,11 @@ void AHeadHunterLevel_Phase2::BeginPlay()
 {
 	Super::BeginPlay();
 
-	AddRefPosX(HH_Phase2_RefPos::leftwall, 230.0f);
-	AddRefPosX(HH_Phase2_RefPos::mid, 670.0f);
-	AddRefPosX(HH_Phase2_RefPos::rightwall, 1114.0f);
+	AddRefPos(HH_Phase2_RefPos::leftwall, 230.0f);
+	AddRefPos(HH_Phase2_RefPos::mid, 670.0f);
+	AddRefPos(HH_Phase2_RefPos::rightwall, 1114.0f);
+
+	AddRefPos(HH_Phase2_RefPos::ground, 160.0f);
 }
 
 void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
@@ -56,6 +59,13 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 		PushRecMapCompo(AllGrenade[i]);
 	}
 
+	AllBullet.reserve(BulletNum);
+	for (size_t i = 0; i < BulletNum; i++)
+	{
+		AllBullet.push_back(GetWorld()->SpawnActor<ABullet>("Bullet", EUpdateOrder::RecComponent));
+		PushRecMapCompo(AllBullet[i]);
+	}
+
 	State.ChangeState(BossLevelState::transition_off);
 
 	float IntroTime = 2.5f;
@@ -71,6 +81,15 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 			DelayCallBack(0.8f, [=]
 				{
 					HeadHunter->SubStateChange(HeadHunterSubState::play);
+
+					float Deg = 0.0f;
+					for (size_t i = 0; i < BulletNum; i++)
+					{
+						AllBullet[i]->SetActorLocation({ 672.0f, 500.0f, 0.0f });
+						AllBullet[i]->SetShootDir({ cosf(Deg * UEngineMath::DToR), sinf(Deg * UEngineMath::DToR), 0.0f });
+						AllBullet[i]->StateChange(BulletState::shoot);
+						Deg -= 10.0f;
+					}
 				}
 			);
 		}
@@ -103,6 +122,13 @@ void AHeadHunterLevel_Phase2::LevelReStart()
 	{
 		AllGrenade.push_back(GetWorld()->SpawnActor<AGrenade>("Grenade", EUpdateOrder::RecComponent));
 		PushRecMapCompo(AllGrenade[i]);
+	}
+
+	AllBullet.reserve(BulletNum);
+	for (size_t i = 0; i < BulletNum; i++)
+	{
+		AllBullet.push_back(GetWorld()->SpawnActor<ABullet>("Bullet", EUpdateOrder::RecComponent));
+		PushRecMapCompo(AllBullet[i]);
 	}
 }
 

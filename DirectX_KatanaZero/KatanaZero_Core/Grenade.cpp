@@ -80,8 +80,7 @@ void AGrenade::StateInit()
 	State.SetStartFunction(GrenadeState::shoot, [=] 
 		{
 			Velocity = ShootDir;
-			Velocity.X *= ShootSpeed;
-			Velocity.Y *= ShootSpeed;
+			Velocity *= ShootSpeed;
 
 			if (0.0f < Velocity.X)
 			{

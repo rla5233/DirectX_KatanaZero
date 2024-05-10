@@ -313,6 +313,24 @@ bool UPixelColObject::IsColBackToWall(EEngineDir _Dir)
 	return Result;
 }
 
+bool UPixelColObject::IsColPosGround(const FVector& _TargetPos)
+{
+	bool Result = false;
+
+	FVector TargetPos = _TargetPos;
+	FVector MapTexScale = MapTex->GetScale();
+	TargetPos.Y = MapTexScale.Y - TargetPos.Y - 1.0f;
+
+	Color8Bit TargetColor = MapTex->GetColor(TargetPos, Color8Bit::Black);
+
+	if (ColMap::YELLOW == TargetColor)
+	{
+		Result = true;
+	}
+
+	return Result;
+}
+
 void UPixelColObject::OnGroundPosAdjust(EEngineDir _Dir)
 {
 	while (true == IsOnGround(_Dir))

@@ -145,7 +145,7 @@ void AHeadHunterPhase2::GunShoot1Update(float _DeltaTime)
 {
 	if (true == Body->IsCurAnimationEnd())
 	{
-		DelayCallBack(0.1f, [=]
+		DelayCallBack(0.01f, [=]
 			{
 				if (HeadHunterState::pattern_gunshoot1 != State.GetCurStateName())
 				{
@@ -206,7 +206,6 @@ void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 	{
 		IsGunShoot = false;
 		PatternOrder = 0;
-
 
 		if (0 >= GunShootCount)
 		{
@@ -310,7 +309,7 @@ void AHeadHunterPhase2::AirRifle1Update(float _DeltaTime)
 	if (true == Body->IsCurAnimationEnd())
 	{
 		AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
-		float MidPosX = PlayLevel->GetRefPosX("Mid");
+		float MidPosX = PlayLevel->GetRefPos(HH_Phase1_RefPos::mid);
 		float CurPosX = GetActorLocation().X;
 
 		// 속도 설정

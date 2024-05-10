@@ -51,6 +51,8 @@ public:
 	bool IsColBotToWall(EEngineDir _Dir);
 	bool IsColBackToWall(EEngineDir _Dir);
 
+	bool IsColPosGround(const FVector& _TargetPos);
+
 	bool IsStairsUp() const
 	{
 		return IsStairsUpValue;

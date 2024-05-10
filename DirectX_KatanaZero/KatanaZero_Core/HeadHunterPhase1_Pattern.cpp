@@ -18,10 +18,10 @@ void AHeadHunterPhase1::PatternCheck()
 	FVector CurPos = GetActorLocation();
 
 	float DiffX = CurPos.X - PlayerPos.X;
-	float LeftFirstPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::leftfirst);
-	float LeftSecondPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::leftsecond);
-	float RightSecondPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::rightsecond);
-	float RightFirstPos = PlayLevel->GetRefPosX(HH_Phase1_RefPos::rightfirst);
+	float LeftFirstPos = PlayLevel->GetRefPos(HH_Phase1_RefPos::leftfirst);
+	float LeftSecondPos = PlayLevel->GetRefPos(HH_Phase1_RefPos::leftsecond);
+	float RightSecondPos = PlayLevel->GetRefPos(HH_Phase1_RefPos::rightsecond);
+	float RightFirstPos = PlayLevel->GetRefPos(HH_Phase1_RefPos::rightfirst);
 
 	// Pattern Check
 
@@ -246,7 +246,7 @@ void AHeadHunterPhase1::AirRifle1Update(float _DeltaTime)
 	if (true == Body->IsCurAnimationEnd())
 	{
 		AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
-		float MidPosX = PlayLevel->GetRefPosX("Mid");
+		float MidPosX = PlayLevel->GetRefPos(HH_Phase1_RefPos::mid);
 		float CurPosX = GetActorLocation().X;	
 
 		// 속도 설정
