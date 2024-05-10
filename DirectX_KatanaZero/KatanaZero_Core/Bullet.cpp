@@ -45,9 +45,10 @@ void ABullet::StateInit()
 	State.SetStartFunction(GrenadeState::shoot, [=] 
 		{
 			Velocity = ShootDir;
-			Velocity *= 1100.0f;
+			Velocity *= 1200.0f;
 
 			float Deg = UContentsMath::GetAngleToX_2D(ShootDir);
+			AddActorLocation(FVector(25.0f, 25.0f, 0.0f) * ShootDir);
 			GetBody()->SetRotationDeg({ 0.0f, 0.0f, Deg });
 			GetBody()->SetActive(true);
 			BodyCol->SetActive(true);

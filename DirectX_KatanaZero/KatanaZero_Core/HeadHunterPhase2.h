@@ -27,10 +27,13 @@ private:
 	void CreateRifleLaser();
 	void CreateDashLaser();
 	void CreateDashAttack();
+	void CreateSparkEffect();
 
 	void AdjustBodyPosByDir(const FVector _Pos);
 	void RifleLaserIdxUpdate();
 	void RifleLaserColCheck();
+
+	void SparkIdxUpdate();
 
 private:
 	// Collision
@@ -39,7 +42,12 @@ private:
 
 	// Effect
 	std::vector<USpriteRenderer*> AllRifleLaserEffect;
+	std::vector<USpriteRenderer*> AllSparkEffect;
+	const int SparkEffectNum = 18;
+	int SparkIdx = 0;
+
 	USpriteRenderer* DashLaser = nullptr;
+
 
 	// Info.
 	std::vector<float> AllRifleLaserAlpha = { 1.0f, 1.0f, 1.0f };

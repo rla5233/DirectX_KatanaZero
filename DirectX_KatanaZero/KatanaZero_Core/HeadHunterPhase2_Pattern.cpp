@@ -417,12 +417,12 @@ void AHeadHunterPhase2::AirRifle1Update3(float _DeltaTime)
 	// Effect
 	CreateAfterImage(_DeltaTime);
 
-	if (2 < Body->GetCurAnimationFrame() && AHeadHunterLevel_Phase2::GetBulletNum() > AirRifle1ShootCount)
+	if (1 <= Body->GetCurAnimationFrame() && AHeadHunterLevel_Phase2::GetBulletNum() > AirRifle1ShootCount)
 	{
 		switch (Body->GetDir())
 		{
 		case EEngineDir::Left:
-			AirRifle1DegCount += 700.0f * _DeltaTime;
+			AirRifle1DegCount += 375.0f * _DeltaTime;
 			if (AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter < AirRifle1DegCount)
 			{
 				AirRifle1DegCount = AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter;
@@ -430,9 +430,10 @@ void AHeadHunterPhase2::AirRifle1Update3(float _DeltaTime)
 			}
 			break;		
 		case EEngineDir::Right:
-			AirRifle1DegCount -= 700.0f * _DeltaTime;
+			AirRifle1DegCount -= 375.0f * _DeltaTime;
 			if (AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter > AirRifle1DegCount)
 			{
+				AllSparkEffect[SparkIdx]->SetPosition(GetActorLocation());
 				AirRifle1DegCount = AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter;
 				SetAirRifleEffect();
 			}

@@ -8,6 +8,7 @@ AHeadHunterPhase2::AHeadHunterPhase2()
 	CreateRifleLaser();
 	CreateDashLaser();
 	CreateDashAttack();
+	CreateSparkEffect();
 }
 
 AHeadHunterPhase2::~AHeadHunterPhase2()
@@ -59,6 +60,25 @@ void AHeadHunterPhase2::CreateDashAttack()
 	DashAttack->SetPosition({ 0.0f, 45.0f, 0.0f });
 	DashAttack->SetupAttachment(GetRoot());
 	DashAttack->SetActive(false);
+}
+
+void AHeadHunterPhase2::CreateSparkEffect()
+{
+	AllSparkEffect.reserve(SparkEffectNum);
+	for (int i = 0; i < SparkEffectNum; i++)
+	{
+		AllSparkEffect.push_back(CreateDefaultSubObject<USpriteRenderer>("SparkEffect"));
+		AllSparkEffect[i]->SetOrder(ERenderOrder::EffectFront);
+		AllSparkEffect[i]->SetAutoSize(1.75f, true);
+		AllSparkEffect[i]->SetActive(false);
+
+		AllSparkEffect[i]->CreateAnimation(Anim::effect_gun_spark1, ImgRes::effect_gun_spark1, 0.08f, false);
+		AllSparkEffect[i]->CreateAnimation(Anim::effect_gun_spark2, ImgRes::effect_gun_spark2, 0.08f, false);
+		AllSparkEffect[i]->CreateAnimation(Anim::effect_gun_spark3, ImgRes::effect_gun_spark3, 0.08f, false);
+		AllSparkEffect[i]->SetFrameCallback(Anim::effect_gun_spark1, 8, [=] { AllSparkEffect[i]->SetActive(false); });
+		AllSparkEffect[i]->SetFrameCallback(Anim::effect_gun_spark2, 8, [=] { AllSparkEffect[i]->SetActive(false); });
+		AllSparkEffect[i]->SetFrameCallback(Anim::effect_gun_spark3, 8, [=] { AllSparkEffect[i]->SetActive(false); });
+	}
 }
 
 void AHeadHunterPhase2::CreateAnimation()
@@ -122,5 +142,15 @@ void AHeadHunterPhase2::RifleLaserColCheck()
 				Player->HitByEnemy(PlayerPos - CurPos, EEnemyType::HeadHunterLaser);
 			}
 		);
+	}
+}
+
+void AHeadHunterPhase2::SparkIdxUpdate()
+{
+	++SparkIdx;
+
+	if (SparkEffectNum <= SparkIdx)
+	{
+		SparkIdx = 0;
 	}
 }

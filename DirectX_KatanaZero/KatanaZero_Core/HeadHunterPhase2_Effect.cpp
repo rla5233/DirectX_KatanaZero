@@ -27,10 +27,33 @@ void AHeadHunterPhase2::SetRifle1LaserEffect()
 
 void AHeadHunterPhase2::SetAirRifleEffect()
 {
+	//GEngine->SetGlobalTimeScale(0.1f);
 	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
-	FVector CurPos = GetActorLocation();
 	float Rad = AirRifle1DegCount * UEngineMath::DToR;
+	FVector CurPos = GetActorLocation();
+	CurPos += {70.0f * cosf(Rad), 70.0f * sinf(Rad) + 40.0f, 0.0f};
 	FVector ShootDir = { cosf(Rad), sinf(Rad), 0.0f };
-	PlayLevel->SetShootBullet(CurPos, ShootDir);
+	PlayLevel->SetShootBullet(CurPos , ShootDir);
 	++AirRifle1ShootCount;
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 3);
+	AllSparkEffect[SparkIdx]->AnimationReset();
+	switch (RandomValue)
+	{
+	case 1:
+		AllSparkEffect[SparkIdx]->ChangeAnimation(Anim::effect_gun_spark1);
+		break;
+	case 2:
+		AllSparkEffect[SparkIdx]->ChangeAnimation(Anim::effect_gun_spark2);
+		break;
+	case 3:
+		AllSparkEffect[SparkIdx]->ChangeAnimation(Anim::effect_gun_spark3);
+		break;
+	}
+
+	AllSparkEffect[SparkIdx]->SetPosition(GetActorLocation());
+	AllSparkEffect[SparkIdx]->AddPosition({ 70.0f * cosf(Rad), 70.0f * sinf(Rad) + 40.0f ,0.0f });
+	AllSparkEffect[SparkIdx]->SetRotationDeg({ 0.0f, 0.0f, AirRifle1DegCount });
+	AllSparkEffect[SparkIdx]->SetActive(true);
+	SparkIdxUpdate();
 }
