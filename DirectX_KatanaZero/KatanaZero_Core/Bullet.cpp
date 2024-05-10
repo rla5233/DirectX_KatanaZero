@@ -3,6 +3,7 @@
 
 #include "PlayLevelBase.h"
 #include "ColMapObject.h"
+#include "PlayerBase.h"
 
 ABullet::ABullet()
 {
@@ -68,6 +69,14 @@ void ABullet::StateInit()
 			{
 				GetBody()->SetActive(false);
 			}
+
+			BodyCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+				{
+					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+					GetBody()->SetActive(false);
+					Player->HitByEnemy(ShootDir);
+				}
+			);
 		}
 	);
 

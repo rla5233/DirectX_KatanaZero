@@ -27,7 +27,6 @@ void AHeadHunterPhase2::SetRifle1LaserEffect()
 
 void AHeadHunterPhase2::SetAirRifleEffect()
 {
-	//GEngine->SetGlobalTimeScale(0.1f);
 	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
 	float Rad = AirRifle1DegCount * UEngineMath::DToR;
 	FVector CurPos = GetActorLocation();
