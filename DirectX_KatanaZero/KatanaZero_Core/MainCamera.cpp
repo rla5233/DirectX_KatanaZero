@@ -42,7 +42,7 @@ void AMainCamera::StateInit()
 	State.SetUpdateFunction(MainCameraState::title_in,		std::bind(&AMainCamera::TitleIn, this, std::placeholders::_1));
 	State.SetUpdateFunction(MainCameraState::chaseplayer,	std::bind(&AMainCamera::ChasePlayer, this, std::placeholders::_1));
 	State.SetUpdateFunction(MainCameraState::shaking,		std::bind(&AMainCamera::Shaking, this, std::placeholders::_1));
-	State.SetUpdateFunction(MainCameraState::ret_shaking,		std::bind(&AMainCamera::RetShaking, this, std::placeholders::_1));
+	State.SetUpdateFunction(MainCameraState::ret_shaking,	std::bind(&AMainCamera::RetShaking, this, std::placeholders::_1));
 
 }
 
@@ -96,8 +96,6 @@ void AMainCamera::Shaking(float _DeltaTime)
 
 void AMainCamera::RetShakingStart()
 {
-	RetShakePos = GetActorLocation();
-
 	RetShakeTimeCount = RetShakeTime;
 }
 

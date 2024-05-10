@@ -52,6 +52,7 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 	HeadHunter->SubStateChange(HeadHunterSubState::wait);
 
 	MainCamera->SetActorLocation({ 672.0f, 360.0f, -100.0f });
+	MainCamera->SetRetShakePos({ 672.0f, 360.0f, -100.0f });
 	MainCamera->StateChange(MainCameraState::stop);
 
 	AllGrenade.reserve(GrenadeNum);

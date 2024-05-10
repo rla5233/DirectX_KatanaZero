@@ -401,6 +401,7 @@ void AHeadHunterPhase2::AirRifle1Update2(float _DeltaTime)
 
 		Body->ChangeAnimation(Anim::headhunter_wall_jump);
 		AirRifle1ShootCount = 0;
+		IsAirRifleShake = false;
 		PatternOrder = 3;
 	}
 }

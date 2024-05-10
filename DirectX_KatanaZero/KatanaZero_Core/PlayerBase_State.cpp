@@ -847,6 +847,7 @@ void APlayerBase::Flip(float _DeltaTime)
 
 void APlayerBase::DeadStart()
 {
+	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
 	EEngineDir Dir = Body->GetDir();
 
 	Velocity = { 500.0f, 400.0f, 0.0f };
@@ -880,13 +881,13 @@ void APlayerBase::DeadStart()
 		break;
 	case EEnemyType::HeadHunterLaser:
 	{
-		AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
 		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 		UEngineSound::SoundPlay(SoundRes::player_punch_hit).SetVolume(0.75f);
 		UContentsHelper::ResetTimeScale();
 	}
 		break;
 	case EEnemyType::HeadHunterDash:
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 		SetHitLaser(EHitLaserType::HeadHunterDash);
 		break;
 	}
@@ -896,7 +897,6 @@ void APlayerBase::DeadStart()
 	FrontCol->SetActive(false);
 
 	SetRecordingActive(false);
-	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	PlayLevel->StateChange(PlayLevelState::player_dead);
 	SubState.ChangeState(PlayerSubState::none);
 	IsAbilityValue = false;

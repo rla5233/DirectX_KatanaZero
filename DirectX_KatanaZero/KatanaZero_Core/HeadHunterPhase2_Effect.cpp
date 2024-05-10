@@ -2,6 +2,7 @@
 #include "HeadHunterPhase2.h"
 
 #include "HeadHunterLevel_Phase2.h"
+#include "MainCamera.h"
 
 void AHeadHunterPhase2::SetRifle1LaserEffect()
 {
@@ -55,4 +56,12 @@ void AHeadHunterPhase2::SetAirRifleEffect()
 	AllSparkEffect[SparkIdx]->SetRotationDeg({ 0.0f, 0.0f, AirRifle1DegCount });
 	AllSparkEffect[SparkIdx]->SetActive(true);
 	SparkIdxUpdate();
+
+	if (false == IsAirRifleShake)
+	{
+		PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.5f);
+		PlayLevel->GetKZMainCamera()->SetRetShakeRange({ -10.0f, 10.0f, -10.0f, 10.0f });
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+		IsAirRifleShake = true;
+	}
 }

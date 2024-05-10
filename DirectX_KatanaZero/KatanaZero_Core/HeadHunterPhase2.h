@@ -48,13 +48,12 @@ private:
 
 	USpriteRenderer* DashLaser = nullptr;
 
-
 	// Info.
 	std::vector<float> AllRifleLaserAlpha = { 1.0f, 1.0f, 1.0f };
 	int RifleLaserNum = 3;
 	int RifleLaserIdx = 0;
 
-	// Pattern Info.
+	// Pattern Info. //
 	int Rifle1Count = 3;
 
 	bool IsGunShoot = false;
@@ -67,9 +66,9 @@ private:
 	float AirRifle1DegInter = 0.0f;
 	float AirRifle1DegCount = 0.0f;
 	int AirRifle1ShootCount = 0;
+	bool IsAirRifleShake = false;
 
 	float PatternDelayTimeCount = 0.0f;
-	
 
 // FSM
 private:
