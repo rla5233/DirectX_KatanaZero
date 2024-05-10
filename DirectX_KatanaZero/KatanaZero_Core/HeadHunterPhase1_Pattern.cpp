@@ -153,6 +153,11 @@ void AHeadHunterPhase1::Rifle1LaserUpdate2(float _DeltaTime)
 		LaserEffect->SetActive(false);
 		DelayCallBack(0.04f, [=]
 			{
+				if (HeadHunterState::pattern_rifle1 != State.GetCurStateName())
+				{
+					return;
+				}
+
 				LaserAlpha = 1.0f;
 				LaserEffect->SetActive(true);
 				LaserEffect->ChangeAnimation(Anim::effect_laser);

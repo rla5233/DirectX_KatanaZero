@@ -26,7 +26,7 @@ void AHeadHunterPhase1::SetRifle1LaserEffect()
 void AHeadHunterPhase1::SetAirRifle1LaserEffect()
 {
 	LaserEffect->ChangeAnimation(Anim::effect_laser);
-	LaserEffect->SetScale({ 1280.0f, 20.0f, 1.0f });
+	LaserEffect->SetScale({ 1280.0f, 18.0f, 1.0f });
 	LaserEffect->SetActive(true);
 	LaserCol->SetActive(true);
 	float Deg = 0.0f;
