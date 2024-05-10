@@ -45,7 +45,7 @@ void ABullet::StateInit()
 	State.SetStartFunction(GrenadeState::shoot, [=] 
 		{
 			Velocity = ShootDir;
-			Velocity *= 1000.0f;
+			Velocity *= 1100.0f;
 
 			float Deg = UContentsMath::GetAngleToX_2D(ShootDir);
 			GetBody()->SetRotationDeg({ 0.0f, 0.0f, Deg });
@@ -65,7 +65,7 @@ void ABullet::StateInit()
 			FVector HeadPos = GetActorLocation() + ShootDir * GetBody()->GetLocalScale().hX();
 			if (true == IsColPosGround(HeadPos))
 			{
-				Destroy();
+				GetBody()->SetActive(false);
 			}
 		}
 	);

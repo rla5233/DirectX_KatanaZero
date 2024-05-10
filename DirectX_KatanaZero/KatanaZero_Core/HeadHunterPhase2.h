@@ -55,6 +55,11 @@ private:
 
 	float DashLaserAlpha = 0.0f;
 
+	float AirRifle1FirstDeg = 0.0f;
+	float AirRifle1DegInter = 0.0f;
+	float AirRifle1DegCount = 0.0f;
+	int AirRifle1ShootCount = 0;
+
 	float PatternDelayTimeCount = 0.0f;
 	
 
@@ -78,6 +83,7 @@ private:
 // Effect
 private:
 	void SetRifle1LaserEffect();
+	void SetAirRifleEffect();
 	
 // Pattern
 private:

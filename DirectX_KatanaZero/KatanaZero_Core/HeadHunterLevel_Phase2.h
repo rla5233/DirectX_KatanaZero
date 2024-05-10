@@ -19,10 +19,13 @@ public:
 	AHeadHunterLevel_Phase2& operator=(const AHeadHunterLevel_Phase2& _Other) = delete;
 	AHeadHunterLevel_Phase2& operator=(AHeadHunterLevel_Phase2&& _Other) noexcept = delete;
 
-	void SetShootGrenade(
-		const FVector& _ShootPos, 
-		const FVector& _ShootDir, 
-		float _Speed);
+	void SetShootGrenade(const FVector& _ShootPos, const FVector& _ShootDir, float _Speed);
+	void SetShootBullet(const FVector& _ShootPos, const FVector& _ShootDir);
+
+	static int GetBulletNum()
+	{
+		return BulletNum;
+	}
 
 protected:
 	void BeginPlay() override;
@@ -61,7 +64,7 @@ private:
 	int CurGrenadeIdx = 0;
 
 	std::vector<std::shared_ptr<ABullet>> AllBullet;
-	const int BulletNum = 18;
+	static const int BulletNum;
 	int CurBulletIdx = 0;
 
 };

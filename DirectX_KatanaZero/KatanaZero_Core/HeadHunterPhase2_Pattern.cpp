@@ -380,9 +380,25 @@ void AHeadHunterPhase2::AirRifle1Update2(float _DeltaTime)
 	if (true == Body->IsCurAnimationEnd())
 	{
 		// 속도 공식 필요
-		SetVelocityByDir({ 700.0f, 800.0f, 0.0f });
+		EEngineDir Dir = Body->GetDir();
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+			AirRifle1FirstDeg = 180.0f;
+			AirRifle1DegCount = AirRifle1FirstDeg;
+			AirRifle1DegInter = 10.0f;
+			Velocity = { -700.0f, 800.0f, 0.0f };
+			break;
+		case EEngineDir::Right:
+			AirRifle1FirstDeg = 0.0f;
+			AirRifle1DegCount = AirRifle1FirstDeg;
+			AirRifle1DegInter = -10.0f;
+			Velocity = { 700.0f, 800.0f, 0.0f };
+			break;
+		}
 
 		Body->ChangeAnimation(Anim::headhunter_wall_jump);
+		AirRifle1ShootCount = 0;
 		PatternOrder = 3;
 	}
 }
@@ -401,6 +417,28 @@ void AHeadHunterPhase2::AirRifle1Update3(float _DeltaTime)
 	// Effect
 	CreateAfterImage(_DeltaTime);
 
+	if (2 < Body->GetCurAnimationFrame() && AHeadHunterLevel_Phase2::GetBulletNum() > AirRifle1ShootCount)
+	{
+		switch (Body->GetDir())
+		{
+		case EEngineDir::Left:
+			AirRifle1DegCount += 700.0f * _DeltaTime;
+			if (AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter < AirRifle1DegCount)
+			{
+				AirRifle1DegCount = AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter;
+				SetAirRifleEffect();
+			}
+			break;		
+		case EEngineDir::Right:
+			AirRifle1DegCount -= 700.0f * _DeltaTime;
+			if (AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter > AirRifle1DegCount)
+			{
+				AirRifle1DegCount = AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter;
+				SetAirRifleEffect();
+			}
+			break;
+		}
+	}
 
 	// State Check
 	if (true == IsOnGround(Body->GetDir()))
