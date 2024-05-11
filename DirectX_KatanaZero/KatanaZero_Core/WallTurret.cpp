@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "WallTurret.h"
 
-#include "PlayLevelBase.h"
+#include "HeadHunterLevel_Phase2.h"
 
 AWallTurret::AWallTurret()
 {
@@ -110,15 +110,15 @@ void AWallTurret::StateInit()
 
 	State.SetUpdateFunction(WallTurretState::active, [=](float _DeltaTime) 
 		{
-			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+			AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
 			FVector PlayerPos = PlayLevel->GetPlayerLocation();
 
 			for (size_t i = 0; i < AllHead.size(); i++)
 			{
 				FVector HeadPos = AllHead[i]->GetWorldPosition();
-				FVector HeadDir = PlayerPos - HeadPos;
+				FVector HeadDir = (PlayerPos - HeadPos).Normalize2DReturn();
 				
-				float Deg =  UContentsMath::GetAngleToX_2D(HeadDir.Normalize2DReturn());
+				float Deg =  UContentsMath::GetAngleToX_2D(HeadDir);
 				if (HeadDeg_Min > Deg)
 				{
 					if (HeadPos.Y < PlayerPos.Y)
@@ -132,11 +132,18 @@ void AWallTurret::StateInit()
 				}
 
 				AllHead[i]->SetRotationDeg({ 0.0f, 0.0f, Deg });
+
+				if (0.0f < ShootDelayTimeCount[i])
+				{
+					ShootDelayTimeCount[i] -= _DeltaTime;
+				}
+				else
+				{
+					FVector BulletPos = FVector(HeadPos.X, HeadPos.Y + 16.0f, 0.0f) + FVector(100.0f, 100.0f, 0.0f) * HeadDir;
+					PlayLevel->SetShootBullet(BulletPos, HeadDir);
+					ShootDelayTimeCount[i] = ShootDelayTime;
+				}
 			}
-
-
-
-
 		}
 	);
 }

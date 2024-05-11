@@ -80,6 +80,12 @@ void ABullet::StateInit()
 					State.ChangeState(BulletState::none);
 				}
 			);
+
+			BodyCol->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
+				{
+					Velocity *= -1.0f;
+				}
+			);
 		}
 	);
 
