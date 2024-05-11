@@ -38,7 +38,9 @@ private:
 	float HeadDeg_Min = 320.0f;
 	const int HeadNum = 2;
 
-	const float ShootDelayTime = 5.0f;
+	const float ShootDelayTime = 2.0f;
+
+	std::vector<USpriteRenderer*> Spark;
 
 };
 

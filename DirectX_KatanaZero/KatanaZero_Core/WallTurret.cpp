@@ -29,7 +29,7 @@ AWallTurret::AWallTurret()
 	AllHead.reserve(HeadNum);
 	for (int i = 0; i < HeadNum; i++)
 	{
-		AllHead.push_back(CreateDefaultSubObject<USpriteRenderer>("Holder"));
+		AllHead.push_back(CreateDefaultSubObject<USpriteRenderer>("Head"));
 		AllHead[i]->SetOrder(ERenderOrder::Enemy);
 		AllHead[i]->SetSprite(ImgRes::turret_head);
 		AllHead[i]->SetupAttachment(GetRoot());
@@ -38,6 +38,26 @@ AWallTurret::AWallTurret()
 
 		AllHead[i]->SetPosition({ 39.0f, 73.0f - InterY * i, 0.0f });
 	}
+
+	Spark.reserve(HeadNum);
+	for (int i = 0; i < HeadNum; i++)
+	{
+		Spark.push_back(CreateDefaultSubObject<USpriteRenderer>("Spark"));
+		Spark[i]->SetOrder(ERenderOrder::EffectFront);
+		
+		Spark[i]->CreateAnimation(Anim::effect_gun_spark1, ImgRes::effect_gun_spark1, 0.06f, false);
+		Spark[i]->CreateAnimation(Anim::effect_gun_spark2, ImgRes::effect_gun_spark2, 0.06f, false);
+		Spark[i]->CreateAnimation(Anim::effect_gun_spark3, ImgRes::effect_gun_spark3, 0.06f, false);
+
+		Spark[i]->SetFrameCallback(Anim::effect_gun_spark1, 8, [=] { Spark[i]->SetActive(false); });
+		Spark[i]->SetFrameCallback(Anim::effect_gun_spark2, 8, [=] { Spark[i]->SetActive(false); });
+		Spark[i]->SetFrameCallback(Anim::effect_gun_spark3, 8, [=] { Spark[i]->SetActive(false); });
+
+		Spark[i]->SetAutoSize(2.0f, true);
+		Spark[i]->SetActive(false);
+		
+		Spark[i]->SetPosition({ 39.0f, 73.0f - InterY * i, 0.0f });
+	}	
 }
 
 AWallTurret::~AWallTurret()
@@ -144,9 +164,32 @@ void AWallTurret::StateInit()
 				}
 				else
 				{
+					// Bullet
 					FVector BulletPos = FVector(HeadPos.X, HeadPos.Y + 16.0f, 0.0f) + FVector(100.0f, 100.0f, 0.0f) * HeadDir;
 					PlayLevel->SetShootBullet(BulletPos, HeadDir);
 					ShootDelayTimeCount[i] = ShootDelayTime;
+
+					// Spark
+					Spark[i]->AnimationReset();
+
+					int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 3);
+					switch (RandomValue)
+					{
+					case 1:
+						Spark[i]->ChangeAnimation(Anim::effect_gun_spark1);
+						break;
+					case 2:
+						Spark[i]->ChangeAnimation(Anim::effect_gun_spark2);
+						break;
+					case 3:
+						Spark[i]->ChangeAnimation(Anim::effect_gun_spark3);
+						break;
+					}
+
+					FVector SparkPos = FVector(50.0f, 50.0f, 0.0f) * HeadDir;
+					Spark[i]->SetRotationDeg({ 0.0f, 0.0f, Deg });
+					Spark[i]->SetPosition(BulletPos);
+					Spark[i]->SetActive(true);
 				}
 			}
 		}
