@@ -23,6 +23,9 @@ protected:
 	void StateInit() override;
 
 private:
+	void WallOpenAnimAdjust();
+
+private:
 	USpriteRenderer* Wall = nullptr;
 
 };

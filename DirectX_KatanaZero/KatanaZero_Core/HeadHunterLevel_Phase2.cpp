@@ -4,6 +4,7 @@
 #include "DefaultPlayer.h"
 #include "ColMapObject.h"
 #include "MainCamera.h"
+#include "WallTurret.h"
 #include "Grenade.h"
 #include "Bullet.h"
 
@@ -69,6 +70,10 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 		PushRecMapCompo(AllBullet[i]);
 	}
 
+	WallTurret = GetWorld()->SpawnActor<AWallTurret>("WallTurret", EUpdateOrder::RecComponent);
+	WallTurret->SetActorLocation({ 183.0f, 355.0f, 0.0f });
+	PushRecMapCompo(WallTurret);
+
 	State.ChangeState(BossLevelState::transition_off);
 
 	float IntroTime = 2.5f;
@@ -124,6 +129,10 @@ void AHeadHunterLevel_Phase2::LevelReStart()
 		AllBullet.push_back(GetWorld()->SpawnActor<ABullet>("Bullet", EUpdateOrder::RecComponent));
 		PushRecMapCompo(AllBullet[i]);
 	}
+
+	WallTurret = GetWorld()->SpawnActor<AWallTurret>("WallTurret", EUpdateOrder::RecComponent);
+	WallTurret->SetActorLocation({ 183.0f, 355.0f, 0.0f });
+	PushRecMapCompo(WallTurret);
 }
 
 void AHeadHunterLevel_Phase2::LevelReEnd()

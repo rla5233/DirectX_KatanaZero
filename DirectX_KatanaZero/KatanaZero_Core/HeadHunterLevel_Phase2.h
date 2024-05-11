@@ -1,6 +1,7 @@
 #pragma once
 #include "HeadHunterLevel.h"
 
+class AWallTurret;
 class AGrenade;
 class ABullet;
 
@@ -66,6 +67,8 @@ private:
 	std::vector<std::shared_ptr<ABullet>> AllBullet;
 	static const int BulletNum;
 	int CurBulletIdx = 0;
+
+	std::shared_ptr<AWallTurret> WallTurret = nullptr;
 
 };
 
