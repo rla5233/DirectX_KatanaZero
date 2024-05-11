@@ -3,12 +3,11 @@
 
 AWallTurret::AWallTurret()
 {
-	Wall = CreateDefaultSubObject<USpriteRenderer>("Wall");
-	Wall->SetOrder(ERenderOrder::MapComponent_Back);
-	Wall->CreateAnimation(Anim::turret_wall_open, ImgRes::turret_wall_open, 0.07f, false);
-	Wall->SetupAttachment(GetRoot());
-	Wall->SetAutoSize(2.0f, true);
-	Wall->SetActive(false);
+	GetBody()->SetOrder(ERenderOrder::MapComponent_Back);
+	GetBody()->CreateAnimation(Anim::turret_wall_open, ImgRes::turret_wall_open, 0.07f, false);
+	GetBody()->SetupAttachment(GetRoot());
+	GetBody()->SetAutoSize(2.0f, true);
+	GetBody()->SetActive(false);
 	
 	AllHolder.reserve(HolderNum);
 	float InterY = 100.0f;
@@ -23,6 +22,19 @@ AWallTurret::AWallTurret()
 		AllHolder[i]->SetPivot(EPivot::LEFTBOTTOM);
 
 		AllHolder[i]->SetPosition({ -19.0f, 5.0f - InterY * i, 0.0f });
+	}
+
+	AllHead.reserve(HeadNum);
+	for (int i = 0; i < HeadNum; i++)
+	{
+		AllHead.push_back(CreateDefaultSubObject<USpriteRenderer>("Holder"));
+		AllHead[i]->SetOrder(ERenderOrder::Enemy);
+		AllHead[i]->SetSprite(ImgRes::turret_head);
+		AllHead[i]->SetupAttachment(GetRoot());
+		AllHead[i]->SetAutoSize(2.0f, true);
+		AllHead[i]->SetActive(false);
+
+		AllHead[i]->SetPosition({ 39.0f, 73.0f - InterY * i, 0.0f });
 	}
 }
 
@@ -56,8 +68,8 @@ void AWallTurret::StateInit()
 	State.SetStartFunction(WallTurretState::none, [=] {});
 	State.SetStartFunction(WallTurretState::open, [=] 
 		{
-			Wall->ChangeAnimation(Anim::turret_wall_open);
-			Wall->SetActive(true);
+			GetBody()->ChangeAnimation(Anim::turret_wall_open);
+			GetBody()->SetActive(true);
 			Order = 0;
 		}
 	);
@@ -69,7 +81,7 @@ void AWallTurret::StateInit()
 			switch (Order)
 			{
 			case 0:
-				if (true == Wall->IsCurAnimationEnd())
+				if (true == GetBody()->IsCurAnimationEnd())
 				{
 					for (size_t i = 0; i < AllHolder.size(); i++)
 					{
@@ -81,10 +93,10 @@ void AWallTurret::StateInit()
 				}
 				break;
 			case 1:
-			{
-				std::string Msg = std::format("Holder_Idx: {}\n", AllHolder[0]->GetCurAnimationFrame());
-				UEngineDebugMsgWindow::PushMsg(Msg);
-			}
+				if (true == AllHolder[0]->IsCurAnimationEnd())
+				{
+					++Order;
+				}
 				break;
 			default:
 				break;
@@ -101,19 +113,25 @@ void AWallTurret::StateInit()
 void AWallTurret::WallOpenAnimAdjust()
 {
 	// Wall
-	Wall->SetFrameCallback(Anim::turret_wall_open, 0,	[=] { Wall->SetPosition({ 0.0f, 0.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 1,	[=] { Wall->SetPosition({ 0.0f, -2.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 2,	[=] { Wall->SetPosition({ 0.0f, -10.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 3,	[=] { Wall->SetPosition({ 0.0f, -12.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 4,	[=] { Wall->SetPosition({ 0.0f, -15.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 5,	[=] { Wall->SetPosition({ 0.0f, -18.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 6,	[=] { Wall->SetPosition({ 0.0f, -15.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 7,	[=] { Wall->SetPosition({ 0.0f, -15.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 8,	[=] { Wall->SetPosition({ 0.0f, 1.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 14,	[=] { Wall->SetPosition({ 0.0f, -2.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 15,	[=] { Wall->SetPosition({ 0.0f, -5.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 16,	[=] { Wall->SetPosition({ 0.0f, -4.0f, 0.0f }); });
-	Wall->SetFrameCallback(Anim::turret_wall_open, 19,	[=] { Wall->SetPosition({ 0.0f, 3.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 0,	[=] { GetBody()->SetPosition({ 0.0f, 0.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 1,	[=] { GetBody()->SetPosition({ 0.0f, -2.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 2,	[=] { GetBody()->SetPosition({ 0.0f, -10.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 3,	[=] { GetBody()->SetPosition({ 0.0f, -12.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 4,	[=] { GetBody()->SetPosition({ 0.0f, -15.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 5,	[=] { GetBody()->SetPosition({ 0.0f, -18.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 6,	[=] { GetBody()->SetPosition({ 0.0f, -15.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 7,	[=] { GetBody()->SetPosition({ 0.0f, -15.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 8,	[=] { GetBody()->SetPosition({ 0.0f, 1.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 14,	[=] { GetBody()->SetPosition({ 0.0f, -2.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 15,	[=] { GetBody()->SetPosition({ 0.0f, -5.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 16,	[=] { GetBody()->SetPosition({ 0.0f, -4.0f, 0.0f }); });
+	GetBody()->SetFrameCallback(Anim::turret_wall_open, 19,	[=] { GetBody()->SetPosition({ 0.0f, 3.0f, 0.0f }); });
+
+	// Holder
+	for (size_t i = 0; i < AllHolder.size(); i++)
+	{
+		AllHolder[i]->SetLastFrameCallback(Anim::turret_fromwall, [=] { AllHead[i]->SetActive(true); });
+	}
 }
 
 void AWallTurret::Tick(float _DeltaTime)

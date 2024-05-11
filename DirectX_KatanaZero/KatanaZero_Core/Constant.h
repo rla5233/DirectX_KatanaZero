@@ -201,6 +201,7 @@ namespace ImgRes
 
 	const std::string_view turret_wall_open			= "spr_bunker_turret_wall_open";
 	const std::string_view turret_fromwall			= "spr_bunker_turret_fromwall";
+	const std::string_view turret_head				= "spr_floor_turret_top.png";
 
 	// etc.
 	const std::string_view black_point				= "spr_black.png";

@@ -31,9 +31,11 @@ private:
 private:
 
 private:
-	USpriteRenderer* Wall = nullptr;
 	std::vector<USpriteRenderer*> AllHolder;
 	const int HolderNum = 2;
+
+	std::vector<USpriteRenderer*> AllHead;
+	const int HeadNum = 2;
 
 };
 
