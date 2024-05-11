@@ -234,6 +234,12 @@ void AGrenade::ExplosionUpdate2(float _DeltaTime)
 			Player->HitByEnemy(Dir, EEnemyType::HeadHunterLaser);
 		}
 	);
+
+	if (false == BodyCol->IsActive())
+	{
+		State.ChangeState(GrenadeState::none);
+		return;
+	}
 }
 
 void AGrenade::Tick(float _DeltaTime)

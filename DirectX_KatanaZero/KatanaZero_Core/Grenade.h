@@ -26,6 +26,11 @@ public:
 		State.ChangeState(_State);
 	}
 
+	std::string GetCurState()
+	{
+		return State.GetCurStateName();
+	}
+
 	inline void SetShootDir(const FVector& _Dir)
 	{
 		ShootDir = _Dir;

@@ -30,7 +30,7 @@ void ABullet::BeginPlay()
 	GetBody()->SetAutoSize(1.0f, true);
 	GetBody()->SetActive(false);
 
-	State.ChangeState(GrenadeState::none);
+	State.ChangeState(BulletState::none);
 }
 
 void ABullet::StateInit()
@@ -38,12 +38,12 @@ void ABullet::StateInit()
 	Super::StateInit();
 
 	// State Create
-	State.CreateState(GrenadeState::none);
-	State.CreateState(GrenadeState::shoot);
+	State.CreateState(BulletState::none);
+	State.CreateState(BulletState::shoot);
 
 	// State Start
-	State.SetStartFunction(GrenadeState::none, [=] {});
-	State.SetStartFunction(GrenadeState::shoot, [=] 
+	State.SetStartFunction(BulletState::none, [=] {});
+	State.SetStartFunction(BulletState::shoot, [=]
 		{
 			Velocity = ShootDir;
 			Velocity *= 1200.0f;
@@ -57,8 +57,8 @@ void ABullet::StateInit()
 	);
 
 	// State Update
-	State.SetUpdateFunction(GrenadeState::none, [=](float _DeltaTime) {});
-	State.SetUpdateFunction(GrenadeState::shoot, [=](float _DeltaTime) 
+	State.SetUpdateFunction(BulletState::none, [=](float _DeltaTime) {});
+	State.SetUpdateFunction(BulletState::shoot, [=](float _DeltaTime)
 		{
 			// 위치 업데이트
 			PosUpdate(_DeltaTime);
@@ -68,13 +68,16 @@ void ABullet::StateInit()
 			if (true == IsColPosGround(HeadPos))
 			{
 				GetBody()->SetActive(false);
+				State.ChangeState(BulletState::none);
+				return;
 			}
 
 			BodyCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 				{
 					APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-					GetBody()->SetActive(false);
 					Player->HitByEnemy(ShootDir);
+					GetBody()->SetActive(false);
+					State.ChangeState(BulletState::none);
 				}
 			);
 		}

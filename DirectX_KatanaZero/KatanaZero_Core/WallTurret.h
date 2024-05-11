@@ -33,6 +33,7 @@ private:
 	const int HolderNum = 2;
 
 	std::vector<USpriteRenderer*> AllHead;
+	std::vector<float> MinHeadRangeX;
 	const int HeadNum = 2;
 
 	float HeadDeg_Min = 320.0f;

@@ -420,7 +420,7 @@ void AHeadHunterPhase2::AirRifle1Update3(float _DeltaTime)
 	// Effect
 	CreateAfterImage(_DeltaTime);
 
-	if (1 <= Body->GetCurAnimationFrame() && AHeadHunterLevel_Phase2::GetBulletNum() > AirRifle1ShootCount)
+	if (1 <= Body->GetCurAnimationFrame() && 18 > AirRifle1ShootCount)
 	{
 		switch (Body->GetDir())
 		{

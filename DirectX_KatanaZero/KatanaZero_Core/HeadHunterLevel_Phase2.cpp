@@ -10,7 +10,7 @@
 
 #include "HeadHunterPhase2.h"
 
-const int AHeadHunterLevel_Phase2::BulletNum = 18;
+const int AHeadHunterLevel_Phase2::BulletNum = 22;
 
 AHeadHunterLevel_Phase2::AHeadHunterLevel_Phase2()
 {
@@ -150,6 +150,11 @@ void AHeadHunterLevel_Phase2::Tick(float _DeltaTime)
 
 void AHeadHunterLevel_Phase2::SetShootGrenade(const FVector& _ShootPos, const FVector& _ShootDir, float _Speed)
 {
+	if (GrenadeState::none != AllGrenade[CurGrenadeIdx]->GetCurState())
+	{
+		GrenadeIdxUpdate();
+	}
+
 	AllGrenade[CurGrenadeIdx]->SetActorLocation(_ShootPos);
 	AllGrenade[CurGrenadeIdx]->SetShootDir(_ShootDir);
 	AllGrenade[CurGrenadeIdx]->SetShootSpeed(_Speed);
@@ -159,6 +164,11 @@ void AHeadHunterLevel_Phase2::SetShootGrenade(const FVector& _ShootPos, const FV
 
 void AHeadHunterLevel_Phase2::SetShootBullet(const FVector& _ShootPos, const FVector& _ShootDir)
 {
+	if (BulletState::none != AllBullet[CurBulletIdx]->GetCurState())
+	{
+		BulletIdxUpdate();
+	}
+
 	AllBullet[CurBulletIdx]->SetActorLocation(_ShootPos);
 	AllBullet[CurBulletIdx]->SetShootDir(_ShootDir);
 	AllBullet[CurBulletIdx]->StateChange(BulletState::shoot);

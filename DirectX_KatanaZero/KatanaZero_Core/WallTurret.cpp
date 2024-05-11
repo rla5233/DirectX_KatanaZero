@@ -132,10 +132,11 @@ void AWallTurret::StateInit()
 				}
 
 				AllHead[i]->SetRotationDeg({ 0.0f, 0.0f, Deg });
-
-				std::string Msg = std::format("Deg : {}\n", Deg);
-				UEngineDebugMsgWindow::PushMsg(Msg);
 			}
+
+
+
+
 		}
 	);
 }
