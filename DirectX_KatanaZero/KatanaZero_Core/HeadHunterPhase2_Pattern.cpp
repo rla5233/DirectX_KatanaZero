@@ -429,7 +429,7 @@ void AHeadHunterPhase2::AirRifle1Update3(float _DeltaTime)
 			if (AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter < AirRifle1DegCount)
 			{
 				AirRifle1DegCount = AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter;
-				SetAirRifleEffect();
+				SetAirRifle1Effect();
 			}
 			break;		
 		case EEngineDir::Right:
@@ -438,7 +438,7 @@ void AHeadHunterPhase2::AirRifle1Update3(float _DeltaTime)
 			{
 				AllSparkEffect[SparkIdx]->SetPosition(GetActorLocation());
 				AirRifle1DegCount = AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter;
-				SetAirRifleEffect();
+				SetAirRifle1Effect();
 			}
 			break;
 		}
@@ -449,5 +449,51 @@ void AHeadHunterPhase2::AirRifle1Update3(float _DeltaTime)
 	{
 		Body->ChangeAnimation(Anim::headhunter_land);
 		PatternOrder = -1;
+	}
+}
+
+// Pattern AirRifle2
+void AHeadHunterPhase2::AirRifle2Update(float _DeltaTime)
+{
+	if (true == Body->IsCurAnimationEnd())
+	{
+		SetAirRifle2Effect();
+		DelayCallBack(0.25f, [=] { PatternOrder = 1; });
+		PatternOrder = -1;
+	}
+}
+
+void AHeadHunterPhase2::AirRifle2Update1(float _DeltaTime)
+{
+	AllRifleLaserAlpha[RifleLaserIdx] -= 8.0f * _DeltaTime;
+	
+	if (0.0f > AllRifleLaserAlpha[RifleLaserIdx])
+	{
+		AllRifleLaserAlpha[RifleLaserIdx] = 0.0f;
+		DelayCallBack(0.1f, [=] 
+			{ 
+				SetAirRifle2Effect1();
+				AllRifleLaserCol[RifleLaserIdx]->SetActive(true);
+				Body->ChangeAnimation(Anim::headhunter_sweep);
+				PatternOrder = 2; 
+			}
+		);
+		PatternOrder = -1;
+	}
+
+	AllRifleLaserEffect[RifleLaserIdx]->SetMulColor({ 1.0f, 1.0f, 1.0f, AllRifleLaserAlpha[RifleLaserIdx] });
+}
+
+void AHeadHunterPhase2::AirRifle2Update2(float _DeltaTime)
+{
+	AirRifle2TimeCount += 1.2f  * _DeltaTime;
+	float Deg = UContentsMath::LerpClampf(360.0f, 180.0f, AirRifle2TimeCount);
+	AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg({ 0.0f, 0.0f, Deg });
+	float Rad = Deg * UEngineMath::DToR;
+	AllRifleLaserEffect[RifleLaserIdx]->SetPosition({ 690.0f * cosf(Rad), 690.0f * sinf(Rad) + 56.0f, 0.0f });
+
+	if (true == Body->IsCurAnimationEnd())
+	{ 
+		PatternOrder = 3;
 	}
 }

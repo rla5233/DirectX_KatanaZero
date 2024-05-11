@@ -43,8 +43,6 @@ private:
 	// Effect
 	std::vector<USpriteRenderer*> AllRifleLaserEffect;
 	std::vector<USpriteRenderer*> AllSparkEffect;
-	const int SparkEffectNum = 18;
-	int SparkIdx = 0;
 
 	USpriteRenderer* DashLaser = nullptr;
 
@@ -52,6 +50,9 @@ private:
 	std::vector<float> AllRifleLaserAlpha = { 1.0f, 1.0f, 1.0f };
 	int RifleLaserNum = 3;
 	int RifleLaserIdx = 0;
+
+	const int SparkEffectNum = 18;
+	int SparkIdx = 0;
 
 	// Pattern Info. //
 	int Rifle1Count = 3;
@@ -67,6 +68,8 @@ private:
 	float AirRifle1DegCount = 0.0f;
 	int AirRifle1ShootCount = 0;
 	bool IsAirRifleShake = false;
+
+	float AirRifle2TimeCount = 0.0f;
 
 	float PatternDelayTimeCount = 0.0f;
 
@@ -89,10 +92,16 @@ private:
 	void PatternAirRifle1Start();
 	void PatternAirRifle1(float _DeltaTime);
 
+	void PatternAirRifle2Start();
+	void PatternAirRifle2(float _DeltaTime);
+
 // Effect
 private:
 	void SetRifle1LaserEffect();
-	void SetAirRifleEffect();
+	void SetAirRifle1Effect();
+
+	void SetAirRifle2Effect();
+	void SetAirRifle2Effect1();
 	
 // Pattern
 private:
@@ -118,6 +127,10 @@ private:
 	void AirRifle1Update2(float _DeltaTime);
 	void AirRifle1Update3(float _DeltaTime);
 
+	// Pattern_AirRifle2
+	void AirRifle2Update(float _DeltaTime);
+	void AirRifle2Update1(float _DeltaTime);
+	void AirRifle2Update2(float _DeltaTime);
 
 };
 

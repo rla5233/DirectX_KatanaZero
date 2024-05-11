@@ -46,6 +46,8 @@ namespace ImgRes
 	const std::string_view headhunter_predash		= "headhunter_predash";
 	const std::string_view headhunter_dash			= "spr_headhunter_dash.png";
 	const std::string_view headhunter_dashend		= "headhunter_dashend";
+	const std::string_view headhunter_tel_in_sweep	= "headhunter_teleport_in_sweep";
+	const std::string_view headhunter_sweep			= "headhunter_sweep";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -247,6 +249,8 @@ namespace Anim
 	const std::string_view headhunter_putback_gun	= "headhunter_putbackgun";
 	const std::string_view headhunter_predash		= "headhunter_predash";
 	const std::string_view headhunter_dashend		= "headhunter_dashend";
+	const std::string_view headhunter_tel_in_sweep	= "headhunter_teleport_in_sweep";
+	const std::string_view headhunter_sweep			= "headhunter_sweep";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -493,7 +497,7 @@ namespace HeadHunterState
 	// Phase2
 	const std::string_view pattern_gunshoot1	= "Pattern_GunShoot1";
 	const std::string_view pattern_sword_dash	= "Sword_Dash";
-
+	const std::string_view pattern_airrifle2	= "Pattern_AirRifle2";
 }
 
 namespace HeadHunterSubState

@@ -26,7 +26,7 @@ void AHeadHunterPhase2::SetRifle1LaserEffect()
 	DelayCallBack(0.5f, [=] { PatternOrder = 2; });
 }
 
-void AHeadHunterPhase2::SetAirRifleEffect()
+void AHeadHunterPhase2::SetAirRifle1Effect()
 {
 	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
 	float Rad = AirRifle1DegCount * UEngineMath::DToR;
@@ -64,4 +64,28 @@ void AHeadHunterPhase2::SetAirRifleEffect()
 		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 		IsAirRifleShake = true;
 	}
+}
+
+void AHeadHunterPhase2::SetAirRifle2Effect()
+{
+	AllRifleLaserAlpha[RifleLaserIdx] = 1.0f;
+	
+	AllRifleLaserEffect[RifleLaserIdx]->AnimationReset();
+	AllRifleLaserEffect[RifleLaserIdx]->SetSprite(ImgRes::compo_bullet);
+	AllRifleLaserEffect[RifleLaserIdx]->SetScale({ 720.0f, 2.0f, 1.0f });
+	AllRifleLaserEffect[RifleLaserIdx]->SetPosition({ 419.0f, 56.0f, 0.0f });
+	AllRifleLaserEffect[RifleLaserIdx]->SetActive(true);
+	AllRifleLaserEffect[RifleLaserIdx]->SetMulColor({ 1.0f, 1.0f, 1.0f, AllRifleLaserAlpha[RifleLaserIdx] });
+}
+
+void AHeadHunterPhase2::SetAirRifle2Effect1()
+{
+	float Deg = 0.0f;
+	AllRifleLaserEffect[RifleLaserIdx]->ChangeAnimation(Anim::effect_laser);
+	AllRifleLaserEffect[RifleLaserIdx]->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	AllRifleLaserEffect[RifleLaserIdx]->SetScale({ 1280.0f, 18.0f, 1.0f });
+	AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg({ 0.0f, 0.0f, Deg });
+	Deg *= UEngineMath::DToR;
+	AllRifleLaserEffect[RifleLaserIdx]->SetPosition({ 690.0f * cosf(Deg), 690.0f * sinf(Deg) + 56.0f, 0.0f });
+	AirRifle2TimeCount = 0.0f;
 }

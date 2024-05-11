@@ -88,6 +88,8 @@ void AHeadHunterPhase2::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_putback_gun, ImgRes::headhunter_takeout_gun, 0.08f, false, 6, 0);
 	Body->CreateAnimation(Anim::headhunter_predash, ImgRes::headhunter_predash, 0.06f, false);
 	Body->CreateAnimation(Anim::headhunter_dashend, ImgRes::headhunter_dashend, 0.06f, false);
+	Body->CreateAnimation(Anim::headhunter_tel_in_sweep, ImgRes::headhunter_tel_in_sweep, 0.06f, false);
+	Body->CreateAnimation(Anim::headhunter_sweep, ImgRes::headhunter_sweep, 0.05f, false);
 
 	Body->SetLastFrameCallback(Anim::headhunter_putback_gun, [=] 
 		{ 
