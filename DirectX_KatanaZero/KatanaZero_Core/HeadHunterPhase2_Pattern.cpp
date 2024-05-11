@@ -512,6 +512,15 @@ void AHeadHunterPhase2::AirRifle2Update2(float _DeltaTime)
 
 	if (true == Body->IsCurAnimationEnd())
 	{ 
+		AllRifleLaserEffect[RifleLaserIdx]->SetActive(false);
+		AllRifleLaserCol[RifleLaserIdx]->SetActive(false);
+		RifleLaserIdxUpdate();
+
+		Body->AnimationReset();
+		Body->SetSprite(ImgRes::headhunter_dash);
+		Body->SetDir(EEngineDir::Left);
+		Body->SetRotationDeg({ 0.0f, 0.0f, 90.0f });
+
 		PatternOrder = 3;
 	}
 }
