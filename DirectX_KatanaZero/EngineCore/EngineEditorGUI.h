@@ -46,6 +46,8 @@ public:
 		std::shared_ptr<UEngineEditorWindow> Windows = std::make_shared<EditorWindowType>();
 		WindowInit(Windows, _Name);
 		EditorWindows[UpperName] = Windows;
+		GEngine->EngineWindow.SetFocus();
+		FocusTest = true;
 		return std::dynamic_pointer_cast<EditorWindowType>(Windows);
 	}
 
@@ -63,6 +65,6 @@ private:
 	static void GUIRelease();
 
 	static std::map<std::string, std::shared_ptr<UEngineEditorWindow>> EditorWindows;
-
+	static bool FocusTest;
 };
 

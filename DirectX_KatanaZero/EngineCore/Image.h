@@ -84,6 +84,11 @@ public:
 		return Dir;
 	}
 
+	void SetVertexUVPlus(float4 _UVPlus)
+	{
+		VertexUVValue.PlusUV = _UVPlus;
+	}
+
 protected:
 	void MaterialSettingEnd() override;
 	void Tick(float _DetaTime) override;

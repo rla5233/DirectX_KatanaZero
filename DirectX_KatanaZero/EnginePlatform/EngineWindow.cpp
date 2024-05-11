@@ -17,10 +17,7 @@ LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, 
 {
 	if (nullptr != UserWndProcFunction)
 	{
-		if (true == UserWndProcFunction(hWnd, message, wParam, lParam))
-		{
-			return true;
-		}
+		UserWndProcFunction(hWnd, message, wParam, lParam);
 	}
 
 	//if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))

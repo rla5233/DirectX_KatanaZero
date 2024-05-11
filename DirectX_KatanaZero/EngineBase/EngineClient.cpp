@@ -30,7 +30,10 @@ void UEngineClient::Connect(std::string _Ip, int _Port)
 
 void UEngineClient::Send(std::shared_ptr<UEngineProtocol> _Protocol)
 {
-	_Protocol;
+	if (false == Session.IsTokenInit())
+	{
+		return;
+	}
 
-	// Session.Send();
+	Session.Send(_Protocol);
 }

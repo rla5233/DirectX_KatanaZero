@@ -67,6 +67,17 @@ void UEngineSerializer::operator>>(UEngineSerializeObject* _Data)
 	_Data->DeSerialize(*this);
 }
 
+void UEngineSerializer::Reset()
+{
+	WriteOffset = 0;
+	ReadOffset = 0;
+}
+
+void UEngineSerializer::ResetRead()
+{
+	ReadOffset = 0;
+}
+
 void UEngineSerializer::ResetWrite()
 {
 	WriteOffset = 0;

@@ -6,7 +6,7 @@
 
 
 std::map<std::string, std::shared_ptr<UEngineEditorWindow>> UEngineEditorGUI::EditorWindows;
-
+bool UEngineEditorGUI::FocusTest = true;
 
 UEngineEditorGUI::UEngineEditorGUI() 
 {
@@ -67,7 +67,15 @@ void UEngineEditorGUI::GUIRelease()
 
 void UEngineEditorGUI::GUIRender(ULevel* Level, float _DeltaTime)
 {
-
+    if (true == FocusTest)
+    {
+        HWND CurHWnd = GetFocus();
+        if (GEngine->EngineWindow.GetHWND() != CurHWnd)
+        {
+            GEngine->EngineWindow.SetFocus();
+            FocusTest = false;
+        }
+    }
 	// imgui는 자신만의 스왑체인을 더 만들어낸다.
 	// 여기서 한번다 지워 imgui에 속하는 GUI들을 다 지운다.
 	// 스타트
@@ -98,6 +106,7 @@ void UEngineEditorGUI::GUIRender(ULevel* Level, float _DeltaTime)
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
     ImGuiIO& io = ImGui::GetIO();
+
 
 	// Update and Render additional Platform Windows
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)

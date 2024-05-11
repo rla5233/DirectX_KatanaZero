@@ -23,6 +23,8 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 	UEngineSerializer Ser;
 	Ser.BufferResize(1024);
 
+	UEngineDispatcher& Dis = _Net->Dispatcher;
+
 	bool IsClient = false;
 
 	if (nullptr != dynamic_cast<UEngineClient*>(_Net))
@@ -39,21 +41,42 @@ void UEngineNet::RecvThreadFunction(USession* _Session, UEngineNet* _Net)
 			return;
 		}
 
-		if (true == IsClient && false == _Session->IsTokenInit())
+		Ser.SetWriteOffset(Size);
+
+		// 우린 16바이트를 먼저 받지 않으면 아무런 의미가 없기때문
+		// 무조건 16바이트 이상을 받을때까지 계속한다.
+		if (16 > Ser.GetWriteOffset())
 		{
-			if (16 != Size)
-			{
-				MsgBoxAssert("Token 패킷에 문제가 있습니다.");
-			}
-
-
-			USessionTokenPacket TokenPacket;
-			TokenPacket.DeSerialize(Ser);
-			_Session->SetToken(TokenPacket.GetSessionToken());
-			Ser.ResetWrite();
 			continue;
 		}
 
-		// 클라이언트도 이제부터 정상패킷
+		UEngineProtocol Protocol;
+		Protocol.DeSerialize(Ser);
+
+		if (Protocol.GetPacketType() == -2)
+		{
+			_Session->TokenInitOn();
+			_Session->SetToken(Protocol.GetSessionToken());
+			if (true == IsClient)
+			{
+				// 클라이언트 일때만 응답
+				_Session->Send(Protocol);
+			}
+			Ser.Reset();
+			continue;
+		}
+
+		if (Protocol.GetPacketType() == -2)
+		{
+			MsgBoxAssert("단한번만 교환되어야할 토큰패킷이 또 교환되었습니다.");
+		}
+
+		Ser.ResetRead();
+
+		std::shared_ptr<UEngineProtocol> Protocal = Dis.ConvertProtocol(Protocol.GetPacketType(), Ser);
+		Dis.ProcessPacket(Protocal);
+
+
+		Ser.Reset();
 	}
 }

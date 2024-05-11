@@ -2,6 +2,7 @@
 #include "Session.h"
 #include "EngineDebug.h"
 #include "EngineSerializer.h"
+#include "EngineProtocol.h"
 
 std::atomic<int> USession::CurSessionToken = 0;
 
@@ -58,6 +59,18 @@ bool USession::Connect()
 	}
 
 	return true;
+}
+
+int USession::Send(std::shared_ptr<UEngineProtocol> _Packet)
+{
+	UEngineSerializer Ser = _Packet->GetSerialize();
+	return Send(Ser);
+}
+
+int USession::Send(UEngineProtocol& _Packet)
+{
+	UEngineSerializer Ser = _Packet.GetSerialize();
+	return Send(Ser);
 }
 
 int USession::Send(UEngineSerializer& _Ser)

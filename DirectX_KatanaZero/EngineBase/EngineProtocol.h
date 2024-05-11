@@ -20,16 +20,27 @@ private:
 	}
 
 public:
-	void SetSessionToken(int _Token)
+	int GetPacketSize()
 	{
-		SessionToken = _Token;
+		return PacketSize;
 	}
-
+	int GetPacketType()
+	{
+		return PacketType;
+	}
+	int GetObjectToken()
+	{
+		return ObjectToken;
+	}
 	int GetSessionToken()
 	{
 		return SessionToken;
 	}
 
+	void SetSessionToken(int _Token)
+	{
+		SessionToken = _Token;
+	}
 
 
 	template<typename PType>
@@ -74,6 +85,9 @@ class USessionTokenPacket : public UEngineProtocol
 public:
 	USessionTokenPacket()
 	{
-		SetType(-1);
+		SetType(-2);
 	}
 };
+
+#define ProtocolHeader(EnumType, TypeName) \
+public: static const EnumType Type = EnumType##::##TypeName; public: U##TypeName##() { SetType(##EnumType##::##TypeName); }

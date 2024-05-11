@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineSerializer.h"
+#include "EngineDispatcher.h"
 
 // 설명 : 내가 뭔지는 중요하지 않다. 
 
@@ -44,6 +45,9 @@ public:
 	virtual void Send(std::shared_ptr<UEngineProtocol> _Protocol) {};
 
 	static void RecvThreadFunction(USession* _Session, UEngineNet* _Net);
+
+	// 값형으로 쓸때만 보통 public으로 둡니다..
+	UEngineDispatcher Dispatcher;
 
 protected:
 	int SessionToken = -1;

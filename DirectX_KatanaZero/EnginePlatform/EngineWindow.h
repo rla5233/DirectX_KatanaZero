@@ -61,6 +61,12 @@ public:
 		return hWnd;
 	}
 
+	void SetFocus()
+	{
+		::SetFocus(hWnd);
+	}
+
+
 	void Open(std::string_view _Title = "Title", std::string_view _IconPath = "");
 
 	void SetWindowPosition(const FVector& _Pos);

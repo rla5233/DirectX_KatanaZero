@@ -34,10 +34,17 @@ void UEngineServer::AcceptThreadFunction(UEngineServer* Server, SOCKET _AcceptSo
 		USessionTokenPacket NewPacket;
 		NewPacket.SetSessionToken(Token);
 
-
 		UEngineSerializer Ser = NewPacket.GetSerialize();
 		NewSession->Send(Ser);
 
+		// 클라이언트 1명의 리시브쓰레드를 만들었으니 상대가 응답했다면
+		// 그녀석은 이제 준비가 된거다.
+		// 티키타가를 잘이해해야 한다.
+		std::shared_ptr<UEngineThread> ClientRecvThread = std::make_shared<UEngineThread>();
+		ClientRecvThread->SetName("Server Recv Thread " + std::to_string(Token));
+		ClientRecvThread->Start(std::bind(UEngineNet::RecvThreadFunction, NewSession.get(), Server));
+
+		Server->SessionRecvs.push_back(ClientRecvThread);
 		Server->Sessions.push_back(NewSession);
 
 	}

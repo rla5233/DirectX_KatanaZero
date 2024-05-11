@@ -30,6 +30,7 @@ private:
 	// 뮤택스 만들어야할 가능성이 있다.
 	// std::shared_ptr 쓰레드에 안전합니다.
 	std::list<std::shared_ptr<USession>> Sessions;
+	std::list<std::shared_ptr<UEngineThread>> SessionRecvs;
 
 	static void AcceptThreadFunction(UEngineServer* _Server, SOCKET _AcceptSocket);
 };
