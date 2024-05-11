@@ -200,6 +200,7 @@ namespace ImgRes
 	const std::string_view headhunter_colmap2		= "spr_colmap_headhunter2.png";
 
 	const std::string_view turret_wall_open			= "spr_bunker_turret_wall_open";
+	const std::string_view turret_fromwall			= "spr_bunker_turret_fromwall";
 
 	// etc.
 	const std::string_view black_point				= "spr_black.png";
@@ -308,6 +309,7 @@ namespace Anim
 
 	const std::string_view compo_ground_mine		= "spr_mine";
 	const std::string_view turret_wall_open			= "spr_bunker_turret_wall_open";
+	const std::string_view turret_fromwall			= "spr_bunker_turret_fromwall";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";

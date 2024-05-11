@@ -26,7 +26,14 @@ private:
 	void WallOpenAnimAdjust();
 
 private:
+	int Order = 0;
+
+private:
+
+private:
 	USpriteRenderer* Wall = nullptr;
+	std::vector<USpriteRenderer*> AllHolder;
+	const int HolderNum = 2;
 
 };
 
