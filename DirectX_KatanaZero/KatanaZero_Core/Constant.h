@@ -202,6 +202,8 @@ namespace ImgRes
 	const std::string_view turret_wall_open			= "spr_bunker_turret_wall_open";
 	const std::string_view turret_fromwall			= "spr_bunker_turret_fromwall";
 	const std::string_view turret_head				= "spr_floor_turret_top.png";
+	const std::string_view turret_head_die			= "spr_floor_turret_die";
+	const std::string_view turret_holder			= "spr_bunker_turret_holder.png";
 
 	// etc.
 	const std::string_view black_point				= "spr_black.png";
@@ -311,6 +313,7 @@ namespace Anim
 	const std::string_view compo_ground_mine		= "spr_mine";
 	const std::string_view turret_wall_open			= "spr_bunker_turret_wall_open";
 	const std::string_view turret_fromwall			= "spr_bunker_turret_fromwall";
+	const std::string_view turret_head_die			= "spr_floor_turret_die";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";

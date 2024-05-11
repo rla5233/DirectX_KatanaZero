@@ -32,6 +32,7 @@ AWallTurret::AWallTurret()
 		AllHead.push_back(CreateDefaultSubObject<USpriteRenderer>("Head"));
 		AllHead[i]->SetOrder(ERenderOrder::Enemy);
 		AllHead[i]->SetSprite(ImgRes::turret_head);
+		AllHead[i]->CreateAnimation(Anim::turret_head_die, ImgRes::turret_head_die, 0.06f, false);
 		AllHead[i]->SetupAttachment(GetRoot());
 		AllHead[i]->SetAutoSize(2.0f, true);
 		AllHead[i]->SetActive(false);
@@ -58,6 +59,19 @@ AWallTurret::AWallTurret()
 		
 		Spark[i]->SetPosition({ 39.0f, 73.0f - InterY * i, 0.0f });
 	}	
+
+	HeadCol.reserve(HeadNum);
+	for (int i = 0; i < HeadNum; i++)
+	{
+		HeadCol.push_back(CreateDefaultSubObject<UCollision>("HeadCol"));
+		HeadCol[i]->SetCollisionGroup(EColOrder::InteractionComponent);
+		HeadCol[i]->SetCollisionType(ECollisionType::Rect);
+		HeadCol[i]->SetupAttachment(GetRoot());
+		HeadCol[i]->SetActive(false);
+
+		HeadCol[i]->SetScale({ 90.0f, 60.0f, 1.0f });
+		HeadCol[i]->SetPosition({ 40.0f, 70.0f - InterY * i, 0.0f });
+	}
 }
 
 AWallTurret::~AWallTurret()
@@ -71,7 +85,7 @@ void AWallTurret::BeginPlay()
 	WallOpenAnimAdjust();
 
 	State.ChangeState(WallTurretState::none);
-	DelayCallBack(4.0f, [=]
+	DelayCallBack(1.0f, [=]
 		{
 			State.ChangeState(WallTurretState::open);
 		}
@@ -97,7 +111,14 @@ void AWallTurret::StateInit()
 		}
 	);
 
-	State.SetStartFunction(WallTurretState::active, [=] {});
+	State.SetStartFunction(WallTurretState::active, [=]
+		{
+			for (size_t i = 0; i < HeadCol.size(); i++)
+			{
+				HeadCol[i]->SetActive(true);
+			}
+		}
+	);
 	
 	// State Update
 	State.SetUpdateFunction(WallTurretState::none, [=](float _DeltaTime) {});
@@ -135,14 +156,27 @@ void AWallTurret::StateInit()
 
 			for (size_t i = 0; i < AllHead.size(); i++)
 			{
+				// Collision Update
+				HeadCol[i]->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
+					{
+						AllHolder[i]->AnimationReset();
+						AllHolder[i]->SetSprite(ImgRes::turret_holder);
+						AllHead[i]->ChangeAnimation(Anim::turret_head_die);
+						AllHead[i]->AddPosition({ -23.0f, 4.0f, 0.0f });
+						AllHead[i]->SetRotationDeg(FVector::Zero);
+						HeadCol[i]->SetActive(false);
+					}
+				);
+
 				FVector HeadPos = AllHead[i]->GetWorldPosition();
 				FVector HeadDir = (PlayerPos - HeadPos).Normalize2DReturn();
 
-				if (MinHeadRangeX[i] > PlayerPos.X)
+				if (false == HeadCol[i]->IsActive() || MinHeadRangeX[i] > PlayerPos.X)
 				{
 					continue;
 				}
 				
+				// Deg Update
 				float Deg =  UContentsMath::GetAngleToX_2D(HeadDir);
 				if (HeadDeg_Min > Deg)
 				{
@@ -158,6 +192,7 @@ void AWallTurret::StateInit()
 
 				AllHead[i]->SetRotationDeg({ 0.0f, 0.0f, Deg });
 
+				// Shoot Update
 				if (0.0f < ShootDelayTimeCount[i])
 				{
 					ShootDelayTimeCount[i] -= _DeltaTime;
@@ -194,6 +229,7 @@ void AWallTurret::StateInit()
 			}
 		}
 	);
+
 }
 
 void AWallTurret::WallOpenAnimAdjust()
