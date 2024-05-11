@@ -69,9 +69,22 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 	}
 }
 
+void AHeadHunterPhase2::HitFlyStart()
+{
+	Super::HitFlyStart();
+
+	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+	switch (HitCount)
+	{
+	case 1:
+		PlayLevel->SetWallTurret();
+		break;
+	}
+}
+
 void AHeadHunterPhase2::PatternRifle1Start()
 {
-	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
 	FVector PlayerPos = PlayLevel->GetPlayerLocation();
 	FVector CurPos = GetActorLocation();
 

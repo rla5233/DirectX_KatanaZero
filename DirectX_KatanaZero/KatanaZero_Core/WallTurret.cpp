@@ -85,11 +85,6 @@ void AWallTurret::BeginPlay()
 	WallOpenAnimAdjust();
 
 	State.ChangeState(WallTurretState::none);
-	DelayCallBack(1.0f, [=]
-		{
-			State.ChangeState(WallTurretState::open);
-		}
-	);	
 }
 
 void AWallTurret::StateInit()

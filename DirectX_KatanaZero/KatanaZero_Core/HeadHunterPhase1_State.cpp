@@ -70,18 +70,19 @@ void AHeadHunterPhase1::RecoverStart()
 
 	DelayCallBack(1.5f, [=]
 		{
-			if (0 < Hp)
+			switch (HitCount)
 			{
+			case 3:
+				IsDeadValue = true;
+				break;
+			default:
 				DelayCallBack(1.5f, [=]
 					{
 						State.ChangeState(HeadHunterState::exitdoor);
 						return;
 					}
 				);
-			}
-			else
-			{
-				IsDeadValue = true;
+				break;
 			}
 		}
 	);

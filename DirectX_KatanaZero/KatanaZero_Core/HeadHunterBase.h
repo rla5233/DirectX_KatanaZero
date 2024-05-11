@@ -90,7 +90,7 @@ protected:
 	bool IsDeadValue = false;
 	int PatternOrder = 0;
 	int RollCount = 0;
-	int Hp = 0;
+	int HitCount = 0;
 
 // FSM
 protected:

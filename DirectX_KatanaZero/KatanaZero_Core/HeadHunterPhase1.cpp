@@ -23,8 +23,6 @@ AHeadHunterPhase1::~AHeadHunterPhase1()
 void AHeadHunterPhase1::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Hp = 3;
 }
 
 

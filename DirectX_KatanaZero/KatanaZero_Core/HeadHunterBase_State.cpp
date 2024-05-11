@@ -142,7 +142,7 @@ void AHeadHunterBase::HitFlyStart()
 	PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
 
 	Body->ChangeAnimation(Anim::headhunter_hitfly);
-	--Hp;
+	++HitCount;
 }
 
 void AHeadHunterBase::HitFly(float _DeltaTime)

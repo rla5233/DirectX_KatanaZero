@@ -175,7 +175,7 @@ void AHeadHunterBase::Tick(float _DeltaTime)
 	}
 
 	{
-		std::string Msg = std::format("Head_Hp : {}\n", Hp);
+		std::string Msg = std::format("Head_HitCount : {}\n", HitCount);
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }

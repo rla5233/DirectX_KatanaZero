@@ -174,3 +174,8 @@ void AHeadHunterLevel_Phase2::SetShootBullet(const FVector& _ShootPos, const FVe
 	AllBullet[CurBulletIdx]->StateChange(BulletState::shoot);
 	BulletIdxUpdate();
 }
+
+void AHeadHunterLevel_Phase2::SetWallTurret()
+{
+	WallTurret->StateChange(WallTurretState::open);
+}

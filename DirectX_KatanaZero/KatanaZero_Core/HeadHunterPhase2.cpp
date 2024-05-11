@@ -18,8 +18,6 @@ AHeadHunterPhase2::~AHeadHunterPhase2()
 void AHeadHunterPhase2::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Hp = 10;
 }
 
 void AHeadHunterPhase2::CreateRifleLaser()

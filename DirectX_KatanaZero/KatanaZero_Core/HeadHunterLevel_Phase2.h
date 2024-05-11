@@ -22,6 +22,7 @@ public:
 
 	void SetShootGrenade(const FVector& _ShootPos, const FVector& _ShootDir, float _Speed);
 	void SetShootBullet(const FVector& _ShootPos, const FVector& _ShootDir);
+	void SetWallTurret();
 
 	static int GetBulletNum()
 	{
