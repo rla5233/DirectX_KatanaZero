@@ -64,7 +64,7 @@ void ABullet::StateInit()
 			PosUpdate(_DeltaTime);
 
 			// Col Check
-			FVector HeadPos = GetActorLocation() + ShootDir * GetBody()->GetLocalScale().hX();
+			FVector HeadPos = GetActorLocation() + Velocity.Normalize2DReturn() * GetBody()->GetLocalScale().hX();
 			if (true == IsColPosGround(HeadPos))
 			{
 				GetBody()->SetActive(false);
@@ -83,6 +83,7 @@ void ABullet::StateInit()
 
 			BodyCol->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
 				{
+					GetBody()->AddRotationDeg({ 0.0f, 0.0f, 180.0f });
 					Velocity *= -1.0f;
 				}
 			);

@@ -33,12 +33,12 @@ private:
 	const int HolderNum = 2;
 
 	std::vector<USpriteRenderer*> AllHead;
-	std::vector<float> MinHeadRangeX;
-	std::vector<float> ShootDelayTimeCount = { 0.0f, 0.0f, };
+	std::vector<float> MinHeadRangeX = { 430.0f, 350.0f };
+	std::vector<float> ShootDelayTimeCount = { 0.5f, 0.5f, };
 	float HeadDeg_Min = 320.0f;
 	const int HeadNum = 2;
 
-	const float ShootDelayTime = 1.0f;
+	const float ShootDelayTime = 5.0f;
 
 };
 

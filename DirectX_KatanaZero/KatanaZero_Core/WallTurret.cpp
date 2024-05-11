@@ -117,6 +117,11 @@ void AWallTurret::StateInit()
 			{
 				FVector HeadPos = AllHead[i]->GetWorldPosition();
 				FVector HeadDir = (PlayerPos - HeadPos).Normalize2DReturn();
+
+				if (MinHeadRangeX[i] > PlayerPos.X)
+				{
+					continue;
+				}
 				
 				float Deg =  UContentsMath::GetAngleToX_2D(HeadDir);
 				if (HeadDeg_Min > Deg)
