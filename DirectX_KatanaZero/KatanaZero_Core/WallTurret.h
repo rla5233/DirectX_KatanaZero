@@ -29,13 +29,13 @@ private:
 	int Order = 0;
 
 private:
-
-private:
 	std::vector<USpriteRenderer*> AllHolder;
 	const int HolderNum = 2;
 
 	std::vector<USpriteRenderer*> AllHead;
 	const int HeadNum = 2;
+
+	float HeadDeg_Min = 320.0f;
 
 };
 

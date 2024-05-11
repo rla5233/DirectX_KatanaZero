@@ -719,6 +719,7 @@ namespace WallTurretState
 {
 	const std::string_view none				= "None";
 	const std::string_view open				= "Open";
+	const std::string_view active			= "Active";
 }
 
 // Info.

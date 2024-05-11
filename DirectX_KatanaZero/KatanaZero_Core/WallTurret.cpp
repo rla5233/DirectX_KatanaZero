@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "WallTurret.h"
 
+#include "PlayLevelBase.h"
+
 AWallTurret::AWallTurret()
 {
 	GetBody()->SetOrder(ERenderOrder::MapComponent_Back);
@@ -63,6 +65,7 @@ void AWallTurret::StateInit()
 	// State Create
 	State.CreateState(WallTurretState::none);
 	State.CreateState(WallTurretState::open);
+	State.CreateState(WallTurretState::active);
 
 	// State Start
 	State.SetStartFunction(WallTurretState::none, [=] {});
@@ -74,6 +77,8 @@ void AWallTurret::StateInit()
 		}
 	);
 
+	State.SetStartFunction(WallTurretState::active, [=] {});
+	
 	// State Update
 	State.SetUpdateFunction(WallTurretState::none, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(WallTurretState::open, [=](float _DeltaTime) 
@@ -95,19 +100,44 @@ void AWallTurret::StateInit()
 			case 1:
 				if (true == AllHolder[0]->IsCurAnimationEnd())
 				{
-					++Order;
+					State.ChangeState(WallTurretState::active);
+					return;
 				}
 				break;
-			default:
-				break;
 			}
-
-
-
 		}
 	);
 
+	State.SetUpdateFunction(WallTurretState::active, [=](float _DeltaTime) 
+		{
+			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+			FVector PlayerPos = PlayLevel->GetPlayerLocation();
 
+			for (size_t i = 0; i < AllHead.size(); i++)
+			{
+				FVector HeadPos = AllHead[i]->GetWorldPosition();
+				FVector HeadDir = PlayerPos - HeadPos;
+				
+				float Deg =  UContentsMath::GetAngleToX_2D(HeadDir.Normalize2DReturn());
+				if (HeadDeg_Min > Deg)
+				{
+					if (HeadPos.Y < PlayerPos.Y)
+					{
+						Deg = 0.0f;
+					}
+					else
+					{
+						Deg = HeadDeg_Min;
+					}
+				}
+
+				AllHead[i]->SetRotationDeg({ 0.0f, 0.0f, Deg });
+
+				std::string Msg = std::format("Deg : {}\n", Deg);
+				UEngineDebugMsgWindow::PushMsg(Msg);
+			}
+		}
+	);
 }
 
 void AWallTurret::WallOpenAnimAdjust()
