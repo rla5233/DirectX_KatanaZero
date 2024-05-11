@@ -199,6 +199,8 @@ namespace ImgRes
 	const std::string_view headhunter_colmap1		= "spr_colmap_headhunter1.png";
 	const std::string_view headhunter_colmap2		= "spr_colmap_headhunter2.png";
 
+	const std::string_view turret_wall_open			= "spr_bunker_turret_wall_open";
+
 	// etc.
 	const std::string_view black_point				= "spr_black.png";
 }
@@ -305,6 +307,7 @@ namespace Anim
 	const std::string_view compo_sliding_door_redled	= "spr_sliding_door_redled";
 
 	const std::string_view compo_ground_mine		= "spr_mine";
+	const std::string_view turret_wall_open			= "spr_bunker_turret_wall_open";
 
 	// TitleLevel
 	const std::string_view plants					= "plants";
@@ -707,6 +710,12 @@ namespace BulletState
 {
 	const std::string_view none				= "None";
 	const std::string_view shoot			= "Shoot";
+}
+
+namespace WallTurretState
+{
+	const std::string_view none				= "None";
+	const std::string_view open				= "Open";
 }
 
 // Info.
