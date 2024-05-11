@@ -2,7 +2,6 @@
 #include "PlayerBase.h"
 
 #include "PlayLevelBase.h"
-#include "HeadHunterLevel.h"
 #include "MainCamera.h"
 #include "HitLaser.h"
 
@@ -847,7 +846,7 @@ void APlayerBase::Flip(float _DeltaTime)
 
 void APlayerBase::DeadStart()
 {
-	AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
+	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
 	EEngineDir Dir = Body->GetDir();
 
 	Velocity = { 500.0f, 400.0f, 0.0f };
