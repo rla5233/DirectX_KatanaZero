@@ -81,7 +81,8 @@ void AHeadHunterPhase2::HitFlyStart()
 	switch (HitCount)
 	{
 	case 1:
-		PlayLevel->SetWallTurret();
+		DelayCallBack(0.5f, [=] { PlayLevel->SetWallTurret(); });
+		DelayCallBack(3.5f, [=] { State.ChangeState(HeadHunterState::pattern_airrifle2); });
 		break;
 	}
 }

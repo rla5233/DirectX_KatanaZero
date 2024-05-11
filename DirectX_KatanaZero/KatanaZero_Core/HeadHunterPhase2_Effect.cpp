@@ -86,6 +86,5 @@ void AHeadHunterPhase2::SetAirRifle2Effect1()
 	AllRifleLaserEffect[RifleLaserIdx]->SetScale({ 1280.0f, 18.0f, 1.0f });
 	AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg({ 0.0f, 0.0f, Deg });
 	Deg *= UEngineMath::DToR;
-	AllRifleLaserEffect[RifleLaserIdx]->SetPosition({ 690.0f * cosf(Deg), 690.0f * sinf(Deg) + 56.0f, 0.0f });
 	AirRifle2TimeCount = 0.0f;
 }

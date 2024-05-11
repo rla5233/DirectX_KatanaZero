@@ -470,7 +470,7 @@ void AHeadHunterPhase2::AirRifle2Update1(float _DeltaTime)
 	if (0.0f > AllRifleLaserAlpha[RifleLaserIdx])
 	{
 		AllRifleLaserAlpha[RifleLaserIdx] = 0.0f;
-		DelayCallBack(0.1f, [=] 
+		DelayCallBack(0.05f, [=] 
 			{ 
 				SetAirRifle2Effect1();
 				AllRifleLaserCol[RifleLaserIdx]->SetActive(true);
@@ -486,11 +486,29 @@ void AHeadHunterPhase2::AirRifle2Update1(float _DeltaTime)
 
 void AHeadHunterPhase2::AirRifle2Update2(float _DeltaTime)
 {
-	AirRifle2TimeCount += 1.2f  * _DeltaTime;
+	AirRifle2TimeCount += 1.22f  * _DeltaTime;
 	float Deg = UContentsMath::LerpClampf(360.0f, 180.0f, AirRifle2TimeCount);
 	AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg({ 0.0f, 0.0f, Deg });
 	float Rad = Deg * UEngineMath::DToR;
 	AllRifleLaserEffect[RifleLaserIdx]->SetPosition({ 690.0f * cosf(Rad), 690.0f * sinf(Rad) + 56.0f, 0.0f });
+
+	AllRifleLaserCol[RifleLaserIdx]->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+		{
+			APlayerBase* Player =dynamic_cast<APlayerBase*>(_Other->GetActor());
+			Player->HitByEnemy({ cosf(Rad), sinf(Rad), 0.0f }, EEnemyType::HeadHunterLaser);
+		}
+	);
+
+	if (15 < Body->GetCurAnimationFrame())
+	{
+		AllRifleLaserEffect[RifleLaserIdx]->AddScale({ 0.0f, -180.0f *_DeltaTime, 0.0f });
+
+		float ScaleY = AllRifleLaserEffect[RifleLaserIdx]->GetLocalScale().Y;
+		if (0.0f > ScaleY)
+		{
+			AllRifleLaserEffect[RifleLaserIdx]->SetScale(FVector::Zero);
+		}
+	}
 
 	if (true == Body->IsCurAnimationEnd())
 	{ 
