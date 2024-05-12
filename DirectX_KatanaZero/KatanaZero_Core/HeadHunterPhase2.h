@@ -77,6 +77,8 @@ private:
 	float AirPosY = 520.0f;
 	std::vector<float> AirPosX = { 235.0f, 1120.0f, 350.0f, 1000.0f };
 	int AirLaserCount = 0;
+	float SweepLaserDeg1 = 235.0f;
+	float SweepLaserDeg2 = 305.0f;
 	float ComplexSweepLaserTimeCount = 0.0f;
 
 	float PatternDelayTimeCount = 0.0f;
@@ -115,6 +117,7 @@ private:
 	void SetAirRifle2Effect1();
 	
 	void SetComplexLaser1Effect();
+	void SetComplexLaser2Effect();
 
 // Pattern
 private:
@@ -153,6 +156,10 @@ private:
 	void ComplexUpdate3(float _DeltaTime);
 	void ComplexUpdate4(float _DeltaTime);
 	void ComplexUpdate5(float _DeltaTime);
+	void ComplexUpdate6(float _DeltaTime);
+	void ComplexUpdate7(float _DeltaTime);
+	void ComplexUpdate8(float _DeltaTime);
+	void ComplexUpdate9(float _DeltaTime);
 
 };
 

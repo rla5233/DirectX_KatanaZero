@@ -593,7 +593,7 @@ void AHeadHunterPhase2::ComplexUpdate(float _DeltaTime)
 		{
 			DelayCallBack(0.5f, [=]
 				{
-					SetActorLocation({ AirPosX[0], AirPosY - 10.0f, 0.0f });
+					SetActorLocation({ AirPosX[0] + 35.0f, AirPosY - 45.0f, 0.0f });
 					Body->ChangeAnimation(Anim::headhunter_tel_in_sweep);
 					Body->SetDir(EEngineDir::Left);
 					PatternOrder = 2;
@@ -634,9 +634,17 @@ void AHeadHunterPhase2::ComplexUpdate3(float _DeltaTime)
 		RifleLaserAlpha = 1.0f;
 		RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
 		RifleLaserEffect->SetScale({ 1280.0f, 18.0f, 1.0f });
+		float Rad = SweepLaserDeg1 * UEngineMath::DToR;
+		RifleLaserEffect->SetPosition({ 690.0f * cosf(Rad), 690.0f * sinf(Rad) + 56.0f, 0.0f });
 		RifleLaserEffect->ChangeAnimation(Anim::effect_laser);
 		RifleLaserCol->SetActive(true);
 		ComplexSweepLaserTimeCount = 0.0f;
+
+		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+		PlayLevel->GetKZMainCamera()->SetRetShakeRange({ -5.0f, 5.0f, -5.0f, 5.0f });
+		PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.1f);
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+
 		PatternOrder = 4;
 	}
 	RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
@@ -645,7 +653,7 @@ void AHeadHunterPhase2::ComplexUpdate3(float _DeltaTime)
 void AHeadHunterPhase2::ComplexUpdate4(float _DeltaTime)
 {
 	ComplexSweepLaserTimeCount += 1.7f * _DeltaTime;
-	float Deg = UContentsMath::LerpClampf(235.0f, 360.0f, ComplexSweepLaserTimeCount);
+	float Deg = UContentsMath::LerpClampf(SweepLaserDeg1, 360.0f, ComplexSweepLaserTimeCount);
 	RifleLaserEffect->SetRotationDeg({ 0.0f, 0.0f, Deg });
 	float Rad = Deg * UEngineMath::DToR;
 	RifleLaserEffect->SetPosition({ 690.0f * cosf(Rad), 690.0f * sinf(Rad) + 56.0f, 0.0f });
@@ -670,12 +678,105 @@ void AHeadHunterPhase2::ComplexUpdate4(float _DeltaTime)
 
 	if (true == Body->IsCurAnimationEnd())
 	{
+		Body->ChangeAnimation(Anim::headhunter_tel_out_sweep);
 		RifleLaserEffect->SetActive(false);
 		RifleLaserCol->SetActive(false);
-		PatternOrder = 5;
+
+		DelayCallBack(0.5f, [=]
+			{
+				SetActorLocation({ AirPosX[1] - 35.0f, AirPosY - 45.0f, 0.0f});
+				Body->ChangeAnimation(Anim::headhunter_tel_in_sweep);
+				Body->SetDir(EEngineDir::Right);
+				PatternOrder = 5;
+			}
+		);
+		PatternOrder = -1;
 	}
 }
 
 void AHeadHunterPhase2::ComplexUpdate5(float _DeltaTime)
+{
+	if (true == Body->IsCurAnimationEnd())
+	{
+		SetComplexLaser2Effect();
+		Body->ChangeAnimation(Anim::headhunter_sweep);
+
+		DelayCallBack(0.1f, [=] { PatternOrder = 6; });
+		PatternOrder = -1;
+	}
+}
+
+void AHeadHunterPhase2::ComplexUpdate6(float _DeltaTime)
+{
+	RifleLaserAlpha -= 8.0f * _DeltaTime;
+	if (0.0f > RifleLaserAlpha)
+	{
+		RifleLaserAlpha = 1.0f;
+		RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
+		RifleLaserEffect->SetScale({ 1280.0f, 18.0f, 1.0f });
+		float Rad = SweepLaserDeg2 * UEngineMath::DToR;
+		RifleLaserEffect->SetPosition({ 690.0f * cosf(Rad), 690.0f * sinf(Rad) + 56.0f, 0.0f });
+		RifleLaserEffect->ChangeAnimation(Anim::effect_laser);
+		RifleLaserCol->SetActive(true);
+		ComplexSweepLaserTimeCount = 0.0f;
+
+		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+		PlayLevel->GetKZMainCamera()->SetRetShakeRange({ -5.0f, 5.0f, -5.0f, 5.0f });
+		PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.1f);
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+
+		PatternOrder = 7;
+	}
+	RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
+}
+
+void AHeadHunterPhase2::ComplexUpdate7(float _DeltaTime)
+{
+	ComplexSweepLaserTimeCount += 1.7f * _DeltaTime;
+	float Deg = UContentsMath::LerpClampf(SweepLaserDeg2, 180.0f, ComplexSweepLaserTimeCount);
+	RifleLaserEffect->SetRotationDeg({ 0.0f, 0.0f, Deg });
+	float Rad = Deg * UEngineMath::DToR;
+	RifleLaserEffect->SetPosition({ 690.0f * cosf(Rad), 690.0f * sinf(Rad) + 56.0f, 0.0f });
+
+	RifleLaserCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+		{
+			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+			Player->HitByEnemy({ cosf(Rad), sinf(Rad), 0.0f }, EEnemyType::HeadHunterLaser);
+		}
+	);
+
+
+	if (15 < Body->GetCurAnimationFrame())
+	{
+		RifleLaserEffect->AddScale({ 0.0f, -180.0f * _DeltaTime, 0.0f });
+
+		float ScaleY = RifleLaserEffect->GetLocalScale().Y;
+		if (0.0f > ScaleY)
+		{
+			RifleLaserEffect->SetScale(FVector::Zero);
+		}
+	}
+
+	if (true == Body->IsCurAnimationEnd())
+	{
+		Body->ChangeAnimation(Anim::headhunter_tel_out_sweep);
+		RifleLaserEffect->SetActive(false);
+		RifleLaserCol->SetActive(false);
+		PatternOrder = 8;
+	}
+}
+
+void AHeadHunterPhase2::ComplexUpdate8(float _DeltaTime)
+{
+	if (true == Body->IsCurAnimationEnd())
+	{
+		SetActorLocation({ 1090.0f, 160.0f, 0.0f });
+		Body->ChangeAnimation(Anim::headhunter_tel_ground);
+		Body->SetDir(EEngineDir::Left);
+		PatternOrder = 9;
+	}
+}
+
+void AHeadHunterPhase2::ComplexUpdate9(float _DeltaTime)
 {
 }

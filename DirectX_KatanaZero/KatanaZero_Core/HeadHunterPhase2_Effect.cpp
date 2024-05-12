@@ -94,15 +94,34 @@ void AHeadHunterPhase2::SetComplexLaser1Effect()
 	RifleLaserAlpha = 1.0f;
 	RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
 
-	float Deg = 235.0f;
+	float Deg = SweepLaserDeg1;
 	RifleLaserEffect->SetScale({ 720.0f, 2.0f, 1.0f });
-	RifleLaserEffect->SetRotationDeg({ 0.0f, 0.0f, Deg });
+	RifleLaserEffect->SetRotationDeg({ 0.0f, 0.0f, SweepLaserDeg1 });
 
 	float Rad = Deg * UEngineMath::DToR;
 	FVector Dir = { cosf(Rad), sinf(Rad), 0.0f };
 	Dir *= 360.0f;
 	RifleLaserEffect->SetPosition({ Dir.X - 20.0f, Dir.Y - 10.0f, 0.0f });
 	
+	RifleLaserEffect->AnimationReset();
+	RifleLaserEffect->SetSprite(ImgRes::compo_bullet);
+	RifleLaserEffect->SetActive(true);
+}
+
+void AHeadHunterPhase2::SetComplexLaser2Effect()
+{
+	RifleLaserAlpha = 1.0f;
+	RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
+
+	float Deg = SweepLaserDeg2;
+	RifleLaserEffect->SetScale({ 720.0f, 2.0f, 1.0f });
+	RifleLaserEffect->SetRotationDeg({ 0.0f, 0.0f, SweepLaserDeg2 });
+
+	float Rad = Deg * UEngineMath::DToR;
+	FVector Dir = { cosf(Rad), sinf(Rad), 0.0f };
+	Dir *= 360.0f;
+	RifleLaserEffect->SetPosition({ Dir.X + 20.0f, Dir.Y - 10.0f, 0.0f });
+
 	RifleLaserEffect->AnimationReset();
 	RifleLaserEffect->SetSprite(ImgRes::compo_bullet);
 	RifleLaserEffect->SetActive(true);

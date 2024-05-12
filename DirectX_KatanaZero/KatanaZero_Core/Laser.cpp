@@ -76,6 +76,12 @@ void ALaser::StateInit()
 			FVector CurScale = Body->GetLocalScale();
 			if (1280.0f < CurScale.X)
 			{
+				if (0.0f < AlphaDownTimeCount)
+				{
+					AlphaDownTimeCount -= _DeltaTime;
+					return;
+				}
+
 				LaserAlpha -= 9.0f * _DeltaTime;
 				if (0.0f > LaserAlpha)
 				{
@@ -87,11 +93,13 @@ void ALaser::StateInit()
 				Body->SetMulColor({ 1.0f, 1.0f, 1.0f, LaserAlpha });
 				return;
 			}
-
-			float Rad = Deg * UEngineMath::DToR;
-			float AddScaleX = 5000.0f * _DeltaTime;
-			Body->AddScale({ AddScaleX, 0.0f, 0.0f });
-			Body->AddPosition({ AddScaleX * 0.5f * cosf(Rad), AddScaleX * 0.5f * sinf(Rad) ,0.0f});
+			else
+			{
+				float Rad = Deg * UEngineMath::DToR;
+				float AddScaleX = 5000.0f * _DeltaTime;
+				Body->AddScale({ AddScaleX, 0.0f, 0.0f });
+				Body->AddPosition({ AddScaleX * 0.5f * cosf(Rad), AddScaleX * 0.5f * sinf(Rad) ,0.0f });
+			}
 		}
 	);
 

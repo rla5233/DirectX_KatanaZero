@@ -295,6 +295,18 @@ void AHeadHunterPhase2::PatternComplex(float _DeltaTime)
 	case 5:
 		ComplexUpdate5(_DeltaTime);
 		break;
+	case 6:
+		ComplexUpdate6(_DeltaTime);
+		break;
+	case 7:
+		ComplexUpdate7(_DeltaTime);
+		break;
+	case 8:
+		ComplexUpdate8(_DeltaTime);
+		break;
+	case 9:
+		ComplexUpdate9(_DeltaTime);
+		break;
 	default:
 		break;
 	}

@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "HeadHunterPhase2.h"
 
+#include "HeadHunterLevel_Phase2.h"
 #include "PlayerBase.h"
 
 AHeadHunterPhase2::AHeadHunterPhase2()
@@ -84,9 +85,11 @@ void AHeadHunterPhase2::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_predash, ImgRes::headhunter_predash, 0.06f, false);
 	Body->CreateAnimation(Anim::headhunter_dashend, ImgRes::headhunter_dashend, 0.06f, false);
 	Body->CreateAnimation(Anim::headhunter_tel_in_sweep, ImgRes::headhunter_tel_in_sweep, 0.06f, false);
+	Body->CreateAnimation(Anim::headhunter_tel_out_sweep, ImgRes::headhunter_tel_out_sweep, 0.06f, false);
 	Body->CreateAnimation(Anim::headhunter_sweep, ImgRes::headhunter_sweep, 0.05f, false);
 	Body->CreateAnimation(Anim::headhunter_tel_in, ImgRes::headhunter_tel_in, 0.06f, false);
 	Body->CreateAnimation(Anim::headhunter_tel_out, ImgRes::headhunter_tel_in, 0.06f, false, 3, 0);
+	Body->CreateAnimation(Anim::headhunter_tel_ground, ImgRes::headhunter_tel_ground, 0.06f, false);
 
 	Body->SetLastFrameCallback(Anim::headhunter_putback_gun, [=] 
 		{ 
@@ -99,6 +102,16 @@ void AHeadHunterPhase2::CreateAnimation()
 		{ 
 			Body->SetPosition(FVector::Zero);
 			State.ChangeState(HeadHunterState::idle); 
+		}
+	);
+
+	Body->SetFrameCallback(Anim::headhunter_tel_ground, 3, [=]
+		{
+			AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+			FVector CurPos = GetActorLocation();
+			CurPos.X -= 40.0f;
+			CurPos.Y += 40.0f;
+			PlayLevel->CreateLaser(CurPos, 180.0f, 0.2f);
 		}
 	);
 }

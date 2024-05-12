@@ -181,9 +181,10 @@ void AHeadHunterLevel_Phase2::SetWallTurret()
 	WallTurret->StateChange(WallTurretState::open);
 }
 
-void AHeadHunterLevel_Phase2::CreateLaser(const FVector& _Pos, float _Deg)
+void AHeadHunterLevel_Phase2::CreateLaser(const FVector& _Pos, float _Deg, float _AlphaDownDelayTime)
 {
 	ALaser* NewLaser = GetWorld()->SpawnActor<ALaser>("Laser", EUpdateOrder::RecComponent).get();
+	NewLaser->SetAlphaDownTimeCount(_AlphaDownDelayTime);
 	NewLaser->SetActorLocation(_Pos);
 	NewLaser->SetDeg(_Deg);
 	NewLaser->StateChange(LaserState::aim);

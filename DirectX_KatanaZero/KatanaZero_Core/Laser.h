@@ -26,6 +26,11 @@ public:
 		Deg = _Deg;
 	}
 
+	inline void SetAlphaDownTimeCount(float _Time)
+	{
+		AlphaDownTimeCount = _Time;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -35,6 +40,7 @@ private:
 	UCollision* BodyCol = nullptr;
 
 	bool ShortShootUpdate = false;
+	float AlphaDownTimeCount = 0.0f;
 	float LaserAlpha = 1.0f;
 	float Deg = 0.0f;
 

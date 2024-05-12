@@ -24,7 +24,7 @@ public:
 	void SetShootBullet(const FVector& _ShootPos, const FVector& _ShootDir);
 	void SetWallTurret();
 
-	void CreateLaser(const FVector& _Pos, float _Deg);
+	void CreateLaser(const FVector& _Pos, float _Deg, float _AlphaDownDelayTime = 0.0f);
 
 	static int GetBulletNum()
 	{
