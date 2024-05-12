@@ -91,6 +91,8 @@ void AHeadHunterPhase2::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_tel_out, ImgRes::headhunter_tel_in, 0.06f, false, 3, 0);
 	Body->CreateAnimation(Anim::headhunter_tel_ground, ImgRes::headhunter_tel_ground, 0.06f, false);
 	Body->CreateAnimation(Anim::headhunter_tel_in_wall, ImgRes::headhunter_tel_in_wall, 0.06f, false);
+	Body->CreateAnimation(Anim::headhunter_reveal_bomb, ImgRes::headhunter_reveal_bomb, 0.08f, false);
+	Body->CreateAnimation(Anim::headhunter_bomb_run, ImgRes::headhunter_bomb_run, 0.06f, true);
 
 	Body->SetLastFrameCallback(Anim::headhunter_putback_gun, [=] 
 		{ 

@@ -108,6 +108,9 @@ private:
 	void PatternComplexStart();
 	void PatternComplex(float _DeltaTime);
 
+	void PatternBombingStart();
+	void PatternBombing(float _DeltaTime);
+
 // Effect
 private:
 	void SetRifle1LaserEffect();
@@ -162,6 +165,11 @@ private:
 	void ComplexUpdate9(float _DeltaTime);
 	void ComplexUpdate10(float _DeltaTime);
 	void ComplexUpdate11(float _DeltaTime);
+
+	// Pattern_Bombing
+	void BombingUpdate(float _DeltaTime);
+	void BombingUpdate1(float _DeltaTime);
+
 
 };
 

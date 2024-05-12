@@ -868,3 +868,55 @@ void AHeadHunterPhase2::ComplexUpdate11(float _DeltaTime)
 		PatternOrder = -1;
 	}
 }
+
+// Pattern Bombing
+void AHeadHunterPhase2::BombingUpdate(float _DeltaTime)
+{
+	if (true == Body->IsCurAnimationEnd())
+	{
+		Body->ChangeAnimation(Anim::headhunter_bomb_run);
+		SetVelocityByDir({ 1000.0f, 0.0f, 0.0f });
+
+		SetAfterImagePlusColor({ 1.0f, 0.0f, 0.0f, 0.0f });
+		SetAfterImageMulColor({ 1.0f, 0.1f, 0.1f, 0.3f });
+		SetAfterImageDelayTime(1.0f / 60.0f);
+		SetAfterImageTimeWeight(1.0f);
+
+		PatternOrder = 1;
+	}
+}
+
+void AHeadHunterPhase2::BombingUpdate1(float _DeltaTime)
+{
+	EEngineDir Dir = Body->GetDir();
+	if (true == IsColWall(Dir))
+	{
+		Velocity = FVector::Zero;
+
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+			while (true == IsColWall(Dir))
+			{
+				AddActorLocation({ 1.0f, 0.0f, 0.0f });
+			}
+			break;
+		case EEngineDir::Right:
+			while (true == IsColWall(Dir))
+			{
+				AddActorLocation({ -1.0f, 0.0f, 0.0f });
+			}
+			break;
+		}
+
+		PatternOrder = -1;
+	}
+	
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// Effect
+	CreateAfterImage(_DeltaTime);
+
+
+}

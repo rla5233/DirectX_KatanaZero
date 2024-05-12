@@ -14,6 +14,7 @@ void AHeadHunterPhase2::StateInit()
 	State.CreateState(HeadHunterState::pattern_airrifle1);
 	State.CreateState(HeadHunterState::pattern_airrifle2);
 	State.CreateState(HeadHunterState::pattern_complex);
+	State.CreateState(HeadHunterState::pattern_bombing);
 
 	// State Start
 	State.SetStartFunction(HeadHunterState::pattern_rifle1,			std::bind(&AHeadHunterPhase2::PatternRifle1Start, this));
@@ -22,6 +23,7 @@ void AHeadHunterPhase2::StateInit()
 	State.SetStartFunction(HeadHunterState::pattern_airrifle1,		std::bind(&AHeadHunterPhase2::PatternAirRifle1Start, this));
 	State.SetStartFunction(HeadHunterState::pattern_airrifle2,		std::bind(&AHeadHunterPhase2::PatternAirRifle2Start, this));
 	State.SetStartFunction(HeadHunterState::pattern_complex,		std::bind(&AHeadHunterPhase2::PatternComplexStart, this));
+	State.SetStartFunction(HeadHunterState::pattern_bombing,		std::bind(&AHeadHunterPhase2::PatternBombingStart, this));
 
 	// State Update
 	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunterPhase2::PatternRifle1, this, std::placeholders::_1));
@@ -30,6 +32,7 @@ void AHeadHunterPhase2::StateInit()
 	State.SetUpdateFunction(HeadHunterState::pattern_airrifle1,		std::bind(&AHeadHunterPhase2::PatternAirRifle1, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_airrifle2,		std::bind(&AHeadHunterPhase2::PatternAirRifle2, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_complex,		std::bind(&AHeadHunterPhase2::PatternComplex, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::pattern_bombing,		std::bind(&AHeadHunterPhase2::PatternBombing, this, std::placeholders::_1));
 
 	// State End
 	State.SetEndFunction(HeadHunterState::pattern_rifle1,		[=] { Body->SetPosition(FVector::Zero); });
@@ -75,6 +78,7 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 		//State.ChangeState(HeadHunterState::pattern_airrifle1);
 		//State.ChangeState(HeadHunterState::pattern_airrifle2);
 		//State.ChangeState(HeadHunterState::pattern_complex);
+		State.ChangeState(HeadHunterState::pattern_bombing);
 		return;
 	}
 }
@@ -92,6 +96,9 @@ void AHeadHunterPhase2::HitFlyStart()
 		break;
 	case 2:
 		DelayCallBack(1.6f, [=] { State.ChangeState(HeadHunterState::pattern_complex); });
+		break;
+	case 3:
+		DelayCallBack(1.7f, [=] { State.ChangeState(HeadHunterState::pattern_bombing); });
 		break;
 	}
 }
@@ -323,4 +330,35 @@ void AHeadHunterPhase2::PatternComplex(float _DeltaTime)
 	}
 }
 
+void AHeadHunterPhase2::PatternBombingStart()
+{
+	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+	FVector CurPos = GetActorLocation();
+	if (CurPos.X < PlayerPos.X)
+	{
+		Body->SetDir(EEngineDir::Right);
+	}
+	else
+	{
+		Body->SetDir(EEngineDir::Left);
+	}
 
+	Body->ChangeAnimation(Anim::headhunter_reveal_bomb);
+	PatternOrder = 0;
+}
+
+void AHeadHunterPhase2::PatternBombing(float _DeltaTime)
+{
+	switch (PatternOrder)
+	{
+	case 0:
+		BombingUpdate(_DeltaTime);
+		break;
+	case 1:
+		BombingUpdate1(_DeltaTime);
+		break;
+	default:
+		break;
+	}
+}
