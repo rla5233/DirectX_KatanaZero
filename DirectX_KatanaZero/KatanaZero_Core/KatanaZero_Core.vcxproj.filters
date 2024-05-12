@@ -345,6 +345,9 @@
     <ClInclude Include="WallTurret.h">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -600,6 +603,9 @@
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="WallTurret.cpp">
+      <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClCompile>
   </ItemGroup>

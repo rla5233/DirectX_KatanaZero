@@ -580,6 +580,11 @@ void AHeadHunterPhase2::ComplexUpdate(float _DeltaTime)
 {
 	if (true == Body->IsCurAnimationEnd())
 	{
+		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+		FVector CurPos = GetActorLocation();
+		CurPos += { -9.0f, -1.0f, 0.0f };
+		PlayLevel->CreateLaser(CurPos, -90.0f);
+
 		Body->ChangeAnimation(Anim::headhunter_tel_out);
 		PatternOrder = 1;
 		++AirLaserCount;

@@ -729,8 +729,15 @@ namespace BulletState
 namespace WallTurretState
 {
 	const std::string_view none				= "None";
-	const std::string_view open				= "Open";
+	const std::string_view open				= "Open";	
 	const std::string_view active			= "Active";
+	
+}
+
+namespace LaserState
+{
+	const std::string_view aim				= "Aim";
+	const std::string_view short_shoot		= "Short_Shoot";
 }
 
 // Info.

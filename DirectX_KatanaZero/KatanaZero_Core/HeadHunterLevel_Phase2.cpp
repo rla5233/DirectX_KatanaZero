@@ -7,6 +7,7 @@
 #include "WallTurret.h"
 #include "Grenade.h"
 #include "Bullet.h"
+#include "Laser.h"
 
 #include "HeadHunterPhase2.h"
 
@@ -178,4 +179,12 @@ void AHeadHunterLevel_Phase2::SetShootBullet(const FVector& _ShootPos, const FVe
 void AHeadHunterLevel_Phase2::SetWallTurret()
 {
 	WallTurret->StateChange(WallTurretState::open);
+}
+
+void AHeadHunterLevel_Phase2::CreateLaser(const FVector& _Pos, float _Deg)
+{
+	ALaser* NewLaser = GetWorld()->SpawnActor<ALaser>("Laser", EUpdateOrder::RecComponent).get();
+	NewLaser->SetActorLocation(_Pos);
+	NewLaser->SetDeg(_Deg);
+	NewLaser->StateChange(LaserState::aim);
 }
