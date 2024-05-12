@@ -922,14 +922,104 @@ void AHeadHunterPhase2::BombingUpdate1(float _DeltaTime)
 			break;
 		}
 
-		PatternOrder = -1;
+		SetBombingEffect();
+		return;
 	}
+
+	BodyCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+		{
+			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+			Player->HitByEnemy(Velocity.Normalize2DReturn(), EEnemyType::HeadHunterLaser);
+
+			SetBombingEffect();
+		}
+	);
 	
 	// 위치 업데이트
 	PosUpdate(_DeltaTime);
 
 	// Effect
 	CreateAfterImage(_DeltaTime);
+}
 
+void AHeadHunterPhase2::BombingUpdate2(float _DeltaTime)
+{
+	EEngineDir Dir = Body->GetDir();
+	if (true == IsColWall(Dir))
+	{
+		Velocity = FVector::Zero;
 
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+			while (true == IsColWall(Dir))
+			{
+				AddActorLocation({ 1.0f, 0.0f, 0.0f });
+			}
+			break;
+		case EEngineDir::Right:
+			while (true == IsColWall(Dir))
+			{
+				AddActorLocation({ -1.0f, 0.0f, 0.0f });
+			}
+			break;
+		}
+
+		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+		if (false == PlayLevel->IsPlayerDead())
+		{
+			State.ChangeState(HeadHunterState::dead);
+			return;
+		}
+		else
+		{
+			EEngineDir Dir = Body->GetDir();
+			switch (Dir)
+			{
+			case EEngineDir::Left:
+				Body->SetDir(EEngineDir::Right);
+				SetVelocityByDir({ 1000.0f, 200.0f, 0.0f });
+				break;
+			case EEngineDir::Right:
+				Body->SetDir(EEngineDir::Left);
+				SetVelocityByDir({ 1000.0f, 200.0f, 0.0f });
+				break;
+			}
+			
+			PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.01f);
+			PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+
+			GEngine->SetGlobalTimeScale(0.1f);
+			DelayCallBack(0.015f, [=] { GEngine->SetGlobalTimeScale(1.0f); });
+
+			Body->ChangeAnimation(Anim::headhunter_diefly);
+			PatternOrder = 3;
+		}
+	}
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+}
+
+void AHeadHunterPhase2::BombingUpdate3(float _DeltaTime)
+{
+	// 속도 업데이트
+	ApplyGravity(_DeltaTime);
+	
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// Col Check
+	if (true == IsOnGround(Body->GetDir()))
+	{
+		OnGroundPosAdjust(Body->GetDir());
+		Body->ChangeAnimation(Anim::headhunter_dieland);
+
+		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+		PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.1f);
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+
+		PatternOrder = -1;
+		return;
+	}
 }

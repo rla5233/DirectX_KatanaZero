@@ -15,6 +15,7 @@ void AHeadHunterPhase2::StateInit()
 	State.CreateState(HeadHunterState::pattern_airrifle2);
 	State.CreateState(HeadHunterState::pattern_complex);
 	State.CreateState(HeadHunterState::pattern_bombing);
+	State.CreateState(HeadHunterState::dead);
 
 	// State Start
 	State.SetStartFunction(HeadHunterState::pattern_rifle1,			std::bind(&AHeadHunterPhase2::PatternRifle1Start, this));
@@ -24,6 +25,7 @@ void AHeadHunterPhase2::StateInit()
 	State.SetStartFunction(HeadHunterState::pattern_airrifle2,		std::bind(&AHeadHunterPhase2::PatternAirRifle2Start, this));
 	State.SetStartFunction(HeadHunterState::pattern_complex,		std::bind(&AHeadHunterPhase2::PatternComplexStart, this));
 	State.SetStartFunction(HeadHunterState::pattern_bombing,		std::bind(&AHeadHunterPhase2::PatternBombingStart, this));
+	State.SetStartFunction(HeadHunterState::dead,					std::bind(&AHeadHunterPhase2::DeadStart, this));
 
 	// State Update
 	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunterPhase2::PatternRifle1, this, std::placeholders::_1));
@@ -33,6 +35,7 @@ void AHeadHunterPhase2::StateInit()
 	State.SetUpdateFunction(HeadHunterState::pattern_airrifle2,		std::bind(&AHeadHunterPhase2::PatternAirRifle2, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_complex,		std::bind(&AHeadHunterPhase2::PatternComplex, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_bombing,		std::bind(&AHeadHunterPhase2::PatternBombing, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::dead,					std::bind(&AHeadHunterPhase2::Dead, this, std::placeholders::_1));
 
 	// State End
 	State.SetEndFunction(HeadHunterState::pattern_rifle1,		[=] { Body->SetPosition(FVector::Zero); });
@@ -67,8 +70,6 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 	{
 		return;
 	}
-
-
 
 	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
@@ -358,7 +359,22 @@ void AHeadHunterPhase2::PatternBombing(float _DeltaTime)
 	case 1:
 		BombingUpdate1(_DeltaTime);
 		break;
+	case 2:
+		BombingUpdate2(_DeltaTime);
+		break;
+	case 3:
+		BombingUpdate3(_DeltaTime);
+		break;
 	default:
 		break;
 	}
+}
+
+void AHeadHunterPhase2::DeadStart()
+{
+
+}
+
+void AHeadHunterPhase2::Dead(float _DeltaTime)
+{
 }

@@ -311,6 +311,7 @@ void APlayLevelBase::RestartStart()
 	WaveEffect->Active(true);
 
 	UEngineSound::SoundPlay(SoundRes::stage_restart).SetVolume(0.75f);
+	GEngine->SetGlobalTimeScale(1.0f);
 }
 
 void APlayLevelBase::Restart(float _DeltaTime)

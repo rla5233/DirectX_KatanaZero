@@ -54,6 +54,8 @@ namespace ImgRes
 	const std::string_view headhunter_tel_in_wall	= "headhunter_teleport_in_wall";
 	const std::string_view headhunter_reveal_bomb	= "headhunter_reveal_bomb";
 	const std::string_view headhunter_bomb_run		= "headhunter_bomb_run";
+	const std::string_view headhunter_diefly		= "headhunter_diefly";
+	const std::string_view headhunter_dieland		= "headhunter_dieland";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -264,7 +266,10 @@ namespace Anim
 	const std::string_view headhunter_tel_in_wall	= "headhunter_teleport_in_wall";
 	const std::string_view headhunter_reveal_bomb	= "headhunter_reveal_bomb";
 	const std::string_view headhunter_bomb_run		= "headhunter_bomb_run";
-
+	const std::string_view headhunter_diefly_stop	= "headhunter_diefly_stop";
+	const std::string_view headhunter_diefly		= "headhunter_diefly";
+	const std::string_view headhunter_dieland		= "headhunter_dieland";
+	
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
 	const std::string_view enemy_grunt_attack		= "grunt_attack";
@@ -513,6 +518,7 @@ namespace HeadHunterState
 	const std::string_view pattern_airrifle2	= "Pattern_AirRifle2";
 	const std::string_view pattern_complex		= "Pattern_Complex";
 	const std::string_view pattern_bombing		= "Pattern_Bombing";
+	const std::string_view dead					= "Dead";
 }
 
 namespace HeadHunterSubState

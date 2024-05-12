@@ -126,3 +126,22 @@ void AHeadHunterPhase2::SetComplexLaser2Effect()
 	RifleLaserEffect->SetSprite(ImgRes::compo_bullet);
 	RifleLaserEffect->SetActive(true);
 }
+
+void AHeadHunterPhase2::SetBombingEffect()
+{
+	EEngineDir Dir = Body->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Body->SetDir(EEngineDir::Right);
+		SetVelocityByDir({ 1000.0f, 80.0f, 0.0f });
+		break;
+	case EEngineDir::Right:
+		Body->SetDir(EEngineDir::Left);
+		SetVelocityByDir({ 1000.0f, 80.0f, 0.0f });
+		break;
+	}
+
+	Body->ChangeAnimation(Anim::headhunter_diefly_stop);
+	PatternOrder = 2;
+}

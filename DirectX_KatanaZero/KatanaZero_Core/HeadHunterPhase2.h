@@ -111,6 +111,8 @@ private:
 	void PatternBombingStart();
 	void PatternBombing(float _DeltaTime);
 
+	void DeadStart();
+	void Dead(float _DeltaTime);
 
 // Effect
 private:
@@ -122,6 +124,8 @@ private:
 	
 	void SetComplexLaser1Effect();
 	void SetComplexLaser2Effect();
+
+	void SetBombingEffect();
 
 // Pattern
 private:
@@ -170,6 +174,8 @@ private:
 	// Pattern_Bombing
 	void BombingUpdate(float _DeltaTime);
 	void BombingUpdate1(float _DeltaTime);
+	void BombingUpdate2(float _DeltaTime);
+	void BombingUpdate3(float _DeltaTime);
 
 
 };
