@@ -111,6 +111,7 @@ private:
 	void PatternBombingStart();
 	void PatternBombing(float _DeltaTime);
 
+
 // Effect
 private:
 	void SetRifle1LaserEffect();

@@ -875,6 +875,19 @@ void AHeadHunterPhase2::BombingUpdate(float _DeltaTime)
 	if (true == Body->IsCurAnimationEnd())
 	{
 		Body->ChangeAnimation(Anim::headhunter_bomb_run);
+
+		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+		FVector PlayerPos = PlayLevel->GetPlayerLocation();
+		FVector CurPos = GetActorLocation();
+		if (CurPos.X < PlayerPos.X)
+		{
+			Body->SetDir(EEngineDir::Right);
+		}
+		else
+		{
+			Body->SetDir(EEngineDir::Left);
+		}
+
 		SetVelocityByDir({ 1000.0f, 0.0f, 0.0f });
 
 		SetAfterImagePlusColor({ 1.0f, 0.0f, 0.0f, 0.0f });
