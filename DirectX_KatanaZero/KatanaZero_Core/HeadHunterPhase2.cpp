@@ -98,7 +98,12 @@ void AHeadHunterPhase2::CreateAnimation()
 		}
 	);
 
-	Body->SetLastFrameCallback(Anim::headhunter_dashend, [=] { State.ChangeState(HeadHunterState::idle); });
+	Body->SetLastFrameCallback(Anim::headhunter_dashend, [=] 
+		{ 
+			Body->SetPosition(FVector::Zero);
+			State.ChangeState(HeadHunterState::idle); 
+		}
+	);
 }
 
 void AHeadHunterPhase2::Tick(float _DeltaTime)

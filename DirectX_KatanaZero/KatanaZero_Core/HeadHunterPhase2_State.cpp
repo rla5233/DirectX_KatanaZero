@@ -231,9 +231,10 @@ void AHeadHunterPhase2::PatternAirRifle1(float _DeltaTime)
 
 void AHeadHunterPhase2::PatternAirRifle2Start()
 {
+	SetActorLocation({ 620.0f, 450.0f, 0.0f });
 	Body->ChangeAnimation(Anim::headhunter_tel_in_sweep);
 	Body->SetDir(EEngineDir::Right);
-	SetActorLocation({ 620.0f, 450.0f, 0.0f });
+	BodyCol->SetActive(false);
 	PatternOrder = 0;
 }
 
@@ -249,6 +250,9 @@ void AHeadHunterPhase2::PatternAirRifle2(float _DeltaTime)
 		break;
 	case 2:
 		AirRifle2Update2(_DeltaTime);
+		break;
+	case 3:
+		AirRifle2Update3(_DeltaTime);
 		break;
 	default:
 		break;

@@ -219,6 +219,7 @@ void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 	}
 }
 
+// Pattern SwordDash
 void AHeadHunterPhase2::SwordDashUpdate(float _DeltaTime)
 {
 	DashLaserAlpha += 5.0f * _DeltaTime;
@@ -520,7 +521,57 @@ void AHeadHunterPhase2::AirRifle2Update2(float _DeltaTime)
 		Body->SetSprite(ImgRes::headhunter_dash);
 		Body->SetDir(EEngineDir::Left);
 		Body->SetRotationDeg({ 0.0f, 0.0f, 90.0f });
+		
 
+		SetAfterImagePlusColor({ 1.0f, 0.0f, 0.0f, 0.0f });
+		SetAfterImageMulColor({ 1.0f, 0.1f, 0.1f, 0.3f });
+		SetAfterImageDelayTime(1.0f / 600000.0f);
+		SetAfterImageTimeWeight(1.0f);
+		Velocity = { 0.0f, -15000.0f, 0.0f };
+		DashAttack->SetActive(true);
 		PatternOrder = 3;
 	}
+}
+
+void AHeadHunterPhase2::AirRifle2Update3(float _DeltaTime)
+{
+	// ColCheck
+	EEngineDir Dir = Body->GetDir();
+	if (true == IsOnGround(Dir))
+	{
+		OnGroundPosAdjust(Dir);
+		Velocity = FVector::Zero;
+		BodyCol->SetActive(true);
+		DashAttack->SetActive(false);
+		Body->ChangeAnimation(Anim::headhunter_dashend);
+		Body->SetRotationDeg(FVector::Zero);
+		Body->SetPosition({ -18.0f, 0.0f, 0.0f });
+		PatternOrder = -1;
+	}
+	
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// Effect
+	CreateAfterImage(_DeltaTime);
+
+	DashAttack->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
+		{
+			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+			FVector PlayerPos = Player->GetActorLocation();
+			FVector CurPos = GetActorLocation();
+
+			FVector AttackDir = { 0.0f, 0.0f, 0.0f };
+			if (CurPos.X < PlayerPos.X)
+			{
+				AttackDir.X = 0.9f;
+			}
+			else
+			{
+				AttackDir.X = -0.9f;
+			}
+
+			Player->HitByEnemy(AttackDir, EEnemyType::HeadHunterDash);
+		}
+	);
 }

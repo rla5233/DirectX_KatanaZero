@@ -131,6 +131,7 @@ private:
 	void AirRifle2Update(float _DeltaTime);
 	void AirRifle2Update1(float _DeltaTime);
 	void AirRifle2Update2(float _DeltaTime);
+	void AirRifle2Update3(float _DeltaTime);
 
 };
 
