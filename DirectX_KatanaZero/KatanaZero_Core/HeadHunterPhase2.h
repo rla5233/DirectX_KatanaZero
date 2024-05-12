@@ -30,7 +30,6 @@ private:
 	void CreateSparkEffect();
 
 	void AdjustBodyPosByDir(const FVector _Pos);
-	void RifleLaserIdxUpdate();
 	void RifleLaserColCheck();
 
 	void SparkIdxUpdate();
@@ -38,18 +37,16 @@ private:
 private:
 	// Collision
 	UCollision* DashAttack = nullptr;
-	std::vector<UCollision*> AllRifleLaserCol;
+	UCollision* RifleLaserCol;
 
 	// Effect
-	std::vector<USpriteRenderer*> AllRifleLaserEffect;
+	USpriteRenderer* RifleLaserEffect;
 	std::vector<USpriteRenderer*> AllSparkEffect;
 
 	USpriteRenderer* DashLaser = nullptr;
 
 	// Info.
-	std::vector<float> AllRifleLaserAlpha = { 1.0f, 1.0f, 1.0f };
-	int RifleLaserNum = 3;
-	int RifleLaserIdx = 0;
+	float RifleLaserAlpha = 1.0f;
 
 	const int SparkEffectNum = 18;
 	int SparkIdx = 0;
@@ -77,8 +74,9 @@ private:
 	float AirRifle2TimeCount = 0.0f;
 
 	// Complex 
-	float AirPosY = 600.0f;
-	std::vector<float> AirPosX = { 235.0f, 350.0f, 1000.0f, 1120.0f };
+	float AirPosY = 520.0f;
+	std::vector<float> AirPosX = { 235.0f, 1120.0f, 350.0f, 1000.0f };
+	int AirLaserCount = 0;
 
 	float PatternDelayTimeCount = 0.0f;
 
@@ -115,6 +113,8 @@ private:
 	void SetAirRifle2Effect();
 	void SetAirRifle2Effect1();
 	
+	void SetComplexLaser1Effect();
+
 // Pattern
 private:
 	void PatternCheck();
@@ -147,6 +147,10 @@ private:
 
 	// Pattern_Complex
 	void ComplexUpdate(float _DeltaTime);
+	void ComplexUpdate1(float _DeltaTime);
+	void ComplexUpdate2(float _DeltaTime);
+	void ComplexUpdate3(float _DeltaTime);
+	void ComplexUpdate4(float _DeltaTime);
 
 };
 

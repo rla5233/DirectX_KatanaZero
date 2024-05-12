@@ -23,34 +23,34 @@ void AHeadHunterPhase2::Rifle1LaserUpdate(float _DeltaTime)
 
 void AHeadHunterPhase2::Rifle1LaserUpdate1(float _DeltaTime)
 {
-	FVector CurScale = AllRifleLaserEffect[RifleLaserIdx]->GetLocalScale();
+	FVector CurScale = RifleLaserEffect->GetLocalScale();
 	if (1280.0f < CurScale.X)
 	{
 		return;
 	}
 
 	float AddScaleX = 5000.0f * _DeltaTime;
-	AllRifleLaserEffect[RifleLaserIdx]->AddScale({ AddScaleX, 0.0f, 0.0f });
+	RifleLaserEffect->AddScale({ AddScaleX, 0.0f, 0.0f });
 	switch (Body->GetDir())
 	{
 	case EEngineDir::Left:
-		AllRifleLaserEffect[RifleLaserIdx]->AddPosition({ -AddScaleX * 0.5f, 0.0f ,0.0f });
+		RifleLaserEffect->AddPosition({ -AddScaleX * 0.5f, 0.0f ,0.0f });
 		break;
 	case EEngineDir::Right:
-		AllRifleLaserEffect[RifleLaserIdx]->AddPosition({ AddScaleX * 0.5f, 0.0f ,0.0f });
+		RifleLaserEffect->AddPosition({ AddScaleX * 0.5f, 0.0f ,0.0f });
 		break;
 	}
 }
 
 void AHeadHunterPhase2::Rifle1LaserUpdate2(float _DeltaTime)
 {
-	AllRifleLaserAlpha[RifleLaserIdx] -= 9.0f * _DeltaTime;
+	RifleLaserAlpha -= 9.0f * _DeltaTime;
 
-	if (0.0f > AllRifleLaserAlpha[RifleLaserIdx])
+	if (0.0f > RifleLaserAlpha)
 	{
-		AllRifleLaserAlpha[RifleLaserIdx] = 0.0f;
+		RifleLaserAlpha = 0.0f;
 		PatternOrder = -1;
-		AllRifleLaserEffect[RifleLaserIdx]->SetActive(false);
+		RifleLaserEffect->SetActive(false);
 		DelayCallBack(0.04f, [=]
 			{
 				if (HeadHunterState::pattern_rifle1 != State.GetCurStateName())
@@ -58,22 +58,22 @@ void AHeadHunterPhase2::Rifle1LaserUpdate2(float _DeltaTime)
 					return;
 				}
 
-				AllRifleLaserAlpha[RifleLaserIdx] = 1.0f;
-				AllRifleLaserEffect[RifleLaserIdx]->SetActive(true);
-				AllRifleLaserEffect[RifleLaserIdx]->ChangeAnimation(Anim::effect_laser);
-				AllRifleLaserEffect[RifleLaserIdx]->AddScale({ 0.0f, 14.0f, 0.0f });
-				AllRifleLaserEffect[RifleLaserIdx]->SetMulColor({ 1.0f, 1.0f, 1.0f, AllRifleLaserAlpha[RifleLaserIdx] });
+				RifleLaserAlpha = 1.0f;
+				RifleLaserEffect->SetActive(true);
+				RifleLaserEffect->ChangeAnimation(Anim::effect_laser);
+				RifleLaserEffect->AddScale({ 0.0f, 14.0f, 0.0f });
+				RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
 				switch (Body->GetDir())
 				{
 				case EEngineDir::Left:
-					AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg({ 0.0f, 180.0f, 0.0f });
+					RifleLaserEffect->SetRotationDeg({ 0.0f, 180.0f, 0.0f });
 					break;
 				case EEngineDir::Right:
-					AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg({ 0.0f, 0.0f, 0.0f });
+					RifleLaserEffect->SetRotationDeg({ 0.0f, 0.0f, 0.0f });
 					break;
 				}
 
-				AllRifleLaserCol[RifleLaserIdx]->SetActive(true);
+				RifleLaserCol->SetActive(true);
 				USoundManager::SoundPlay_HH_LaserShot();
 
 				AHeadHunterLevel* PlayLevel = dynamic_cast<AHeadHunterLevel*>(GetWorld()->GetGameMode().get());
@@ -88,12 +88,12 @@ void AHeadHunterPhase2::Rifle1LaserUpdate2(float _DeltaTime)
 		);
 	}
 
-	AllRifleLaserEffect[RifleLaserIdx]->SetMulColor({ 1.0f, 1.0f, 1.0f, AllRifleLaserAlpha[RifleLaserIdx] });
+	RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
 }
 
 void AHeadHunterPhase2::Rifle1LaserUpdate3(float _DeltaTime)
 {
-	if (false == AllRifleLaserEffect[RifleLaserIdx]->IsActive())
+	if (false == RifleLaserEffect->IsActive())
 	{
 		return;
 	}
@@ -101,13 +101,13 @@ void AHeadHunterPhase2::Rifle1LaserUpdate3(float _DeltaTime)
 	RifleLaserColCheck();
 
 	float AddScaleY = -100.0f * _DeltaTime;
-	AllRifleLaserEffect[RifleLaserIdx]->AddScale({ 0.0f, AddScaleY, 0.0f });
+	RifleLaserEffect->AddScale({ 0.0f, AddScaleY, 0.0f });
 
-	FVector CurScale = AllRifleLaserEffect[RifleLaserIdx]->GetLocalScale();
+	FVector CurScale = RifleLaserEffect->GetLocalScale();
 	if (0.0f > CurScale.Y)
 	{
-		AllRifleLaserCol[RifleLaserIdx]->SetActive(false);
-		AllRifleLaserEffect[RifleLaserIdx]->SetActive(false);
+		RifleLaserCol->SetActive(false);
+		RifleLaserEffect->SetActive(false);
 
 		// 3회 발사후 돌아가기
 		if (0 == Rifle1Count)
@@ -466,15 +466,15 @@ void AHeadHunterPhase2::AirRifle2Update(float _DeltaTime)
 
 void AHeadHunterPhase2::AirRifle2Update1(float _DeltaTime)
 {
-	AllRifleLaserAlpha[RifleLaserIdx] -= 8.0f * _DeltaTime;
+	RifleLaserAlpha -= 8.0f * _DeltaTime;
 	
-	if (0.0f > AllRifleLaserAlpha[RifleLaserIdx])
+	if (0.0f > RifleLaserAlpha)
 	{
-		AllRifleLaserAlpha[RifleLaserIdx] = 0.0f;
+		RifleLaserAlpha = 0.0f;
 		DelayCallBack(0.05f, [=] 
 			{ 
 				SetAirRifle2Effect1();
-				AllRifleLaserCol[RifleLaserIdx]->SetActive(true);
+				RifleLaserCol->SetActive(true);
 				Body->ChangeAnimation(Anim::headhunter_sweep);
 				PatternOrder = 2; 
 			}
@@ -482,18 +482,18 @@ void AHeadHunterPhase2::AirRifle2Update1(float _DeltaTime)
 		PatternOrder = -1;
 	}
 
-	AllRifleLaserEffect[RifleLaserIdx]->SetMulColor({ 1.0f, 1.0f, 1.0f, AllRifleLaserAlpha[RifleLaserIdx] });
+	RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
 }
 
 void AHeadHunterPhase2::AirRifle2Update2(float _DeltaTime)
 {
 	AirRifle2TimeCount += 1.22f  * _DeltaTime;
 	float Deg = UContentsMath::LerpClampf(360.0f, 180.0f, AirRifle2TimeCount);
-	AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg({ 0.0f, 0.0f, Deg });
+	RifleLaserEffect->SetRotationDeg({ 0.0f, 0.0f, Deg });
 	float Rad = Deg * UEngineMath::DToR;
-	AllRifleLaserEffect[RifleLaserIdx]->SetPosition({ 690.0f * cosf(Rad), 690.0f * sinf(Rad) + 56.0f, 0.0f });
+	RifleLaserEffect->SetPosition({ 690.0f * cosf(Rad), 690.0f * sinf(Rad) + 56.0f, 0.0f });
 
-	AllRifleLaserCol[RifleLaserIdx]->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+	RifleLaserCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 		{
 			APlayerBase* Player =dynamic_cast<APlayerBase*>(_Other->GetActor());
 			Player->HitByEnemy({ cosf(Rad), sinf(Rad), 0.0f }, EEnemyType::HeadHunterLaser);
@@ -502,20 +502,19 @@ void AHeadHunterPhase2::AirRifle2Update2(float _DeltaTime)
 
 	if (15 < Body->GetCurAnimationFrame())
 	{
-		AllRifleLaserEffect[RifleLaserIdx]->AddScale({ 0.0f, -180.0f *_DeltaTime, 0.0f });
+		RifleLaserEffect->AddScale({ 0.0f, -180.0f *_DeltaTime, 0.0f });
 
-		float ScaleY = AllRifleLaserEffect[RifleLaserIdx]->GetLocalScale().Y;
+		float ScaleY = RifleLaserEffect->GetLocalScale().Y;
 		if (0.0f > ScaleY)
 		{
-			AllRifleLaserEffect[RifleLaserIdx]->SetScale(FVector::Zero);
+			RifleLaserEffect->SetScale(FVector::Zero);
 		}
 	}
 
 	if (true == Body->IsCurAnimationEnd())
 	{ 
-		AllRifleLaserEffect[RifleLaserIdx]->SetActive(false);
-		AllRifleLaserCol[RifleLaserIdx]->SetActive(false);
-		RifleLaserIdxUpdate();
+		RifleLaserEffect->SetActive(false);
+		RifleLaserCol->SetActive(false);
 
 		Body->AnimationReset();
 		Body->SetSprite(ImgRes::headhunter_dash);
@@ -576,6 +575,42 @@ void AHeadHunterPhase2::AirRifle2Update3(float _DeltaTime)
 	);
 }
 
+// Pattern Complex
 void AHeadHunterPhase2::ComplexUpdate(float _DeltaTime)
+{
+	if (true == Body->IsCurAnimationEnd())
+	{
+		Body->ChangeAnimation(Anim::headhunter_tel_out);
+		PatternOrder = 1;
+		++AirLaserCount;
+
+		if (AirPosX.size() <= AirLaserCount)
+		{
+			PatternOrder = 2;
+		}
+	}
+}
+
+void AHeadHunterPhase2::ComplexUpdate1(float _DeltaTime)
+{
+	if (true == Body->IsCurAnimationEnd())
+	{
+		SetActorLocation({ AirPosX[AirLaserCount], AirPosY, 0.0f });
+		Body->ChangeAnimation(Anim::headhunter_tel_in);
+		PatternOrder = 0;
+	}
+}
+
+void AHeadHunterPhase2::ComplexUpdate2(float _DeltaTime)
+{
+	
+}
+
+void AHeadHunterPhase2::ComplexUpdate3(float _DeltaTime)
+{
+
+}
+
+void AHeadHunterPhase2::ComplexUpdate4(float _DeltaTime)
 {
 }

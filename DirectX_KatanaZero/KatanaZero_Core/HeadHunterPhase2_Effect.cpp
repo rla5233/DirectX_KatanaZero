@@ -6,22 +6,22 @@
 
 void AHeadHunterPhase2::SetRifle1LaserEffect()
 {
-	AllRifleLaserEffect[RifleLaserIdx]->AnimationReset();
-	AllRifleLaserEffect[RifleLaserIdx]->SetSprite(ImgRes::compo_bullet);
-	AllRifleLaserEffect[RifleLaserIdx]->SetScale({ 0.0f, 2.0f, 1.0f });
-	AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg(FVector::Zero);
+	RifleLaserEffect->AnimationReset();
+	RifleLaserEffect->SetSprite(ImgRes::compo_bullet);
+	RifleLaserEffect->SetScale({ 0.0f, 2.0f, 1.0f });
+	RifleLaserEffect->SetRotationDeg(FVector::Zero);
 
 	switch (Body->GetDir())
 	{
 	case EEngineDir::Left:
-		AllRifleLaserEffect[RifleLaserIdx]->SetPosition({ -41.0f, 56.0f ,0.0f });
+		RifleLaserEffect->SetPosition({ -41.0f, 56.0f ,0.0f });
 		break;
 	case EEngineDir::Right:
-		AllRifleLaserEffect[RifleLaserIdx]->SetPosition({ 41.0f, 56.0f ,0.0f });
+		RifleLaserEffect->SetPosition({ 41.0f, 56.0f ,0.0f });
 		break;
 	}
 
-	AllRifleLaserEffect[RifleLaserIdx]->SetActive(true);
+	RifleLaserEffect->SetActive(true);
 	PatternOrder = 1;
 	DelayCallBack(0.5f, [=] { PatternOrder = 2; });
 }
@@ -68,23 +68,23 @@ void AHeadHunterPhase2::SetAirRifle1Effect()
 
 void AHeadHunterPhase2::SetAirRifle2Effect()
 {
-	AllRifleLaserAlpha[RifleLaserIdx] = 1.0f;
+	RifleLaserAlpha = 1.0f;
 	
-	AllRifleLaserEffect[RifleLaserIdx]->AnimationReset();
-	AllRifleLaserEffect[RifleLaserIdx]->SetSprite(ImgRes::compo_bullet);
-	AllRifleLaserEffect[RifleLaserIdx]->SetScale({ 720.0f, 2.0f, 1.0f });
-	AllRifleLaserEffect[RifleLaserIdx]->SetPosition({ 419.0f, 56.0f, 0.0f });
-	AllRifleLaserEffect[RifleLaserIdx]->SetActive(true);
-	AllRifleLaserEffect[RifleLaserIdx]->SetMulColor({ 1.0f, 1.0f, 1.0f, AllRifleLaserAlpha[RifleLaserIdx] });
+	RifleLaserEffect->AnimationReset();
+	RifleLaserEffect->SetSprite(ImgRes::compo_bullet);
+	RifleLaserEffect->SetScale({ 720.0f, 2.0f, 1.0f });
+	RifleLaserEffect->SetPosition({ 419.0f, 56.0f, 0.0f });
+	RifleLaserEffect->SetActive(true);
+	RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, RifleLaserAlpha });
 }
 
 void AHeadHunterPhase2::SetAirRifle2Effect1()
 {
 	float Deg = 0.0f;
-	AllRifleLaserEffect[RifleLaserIdx]->ChangeAnimation(Anim::effect_laser);
-	AllRifleLaserEffect[RifleLaserIdx]->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
-	AllRifleLaserEffect[RifleLaserIdx]->SetScale({ 1280.0f, 18.0f, 1.0f });
-	AllRifleLaserEffect[RifleLaserIdx]->SetRotationDeg({ 0.0f, 0.0f, Deg });
+	RifleLaserEffect->ChangeAnimation(Anim::effect_laser);
+	RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	RifleLaserEffect->SetScale({ 1280.0f, 18.0f, 1.0f });
+	RifleLaserEffect->SetRotationDeg({ 0.0f, 0.0f, Deg });
 	Deg *= UEngineMath::DToR;
 	AirRifle2TimeCount = 0.0f;
 }

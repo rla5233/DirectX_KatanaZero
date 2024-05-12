@@ -109,7 +109,7 @@ void AHeadHunterPhase2::PatternRifle1Start()
 	}
 
 	Body->ChangeAnimation(Anim::headhunter_takeup_rifle);
-	AllRifleLaserAlpha[RifleLaserIdx] = 1.0f;
+	RifleLaserAlpha = 1.0f;
 	RollCount = 0;
 	Rifle1Count = 3;
 	PatternOrder = 0;
@@ -265,6 +265,12 @@ void AHeadHunterPhase2::PatternAirRifle2(float _DeltaTime)
 
 void AHeadHunterPhase2::PatternComplexStart()
 {
+	AirLaserCount = 0;
+	SetActorLocation({ AirPosX[AirLaserCount], AirPosY, 0.0f });
+	Body->ChangeAnimation(Anim::headhunter_tel_in);
+	Body->SetDir(EEngineDir::Right);
+	BodyCol->SetActive(false);
+	PatternOrder = 0;
 }
 
 void AHeadHunterPhase2::PatternComplex(float _DeltaTime)
@@ -275,10 +281,13 @@ void AHeadHunterPhase2::PatternComplex(float _DeltaTime)
 		ComplexUpdate(_DeltaTime);
 		break;
 	case 1:
+		ComplexUpdate1(_DeltaTime);
 		break;
 	case 2:
+		ComplexUpdate2(_DeltaTime);
 		break;
 	case 3:
+		ComplexUpdate3(_DeltaTime);
 		break;
 	default:
 		break;

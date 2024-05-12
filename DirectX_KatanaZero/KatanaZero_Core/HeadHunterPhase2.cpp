@@ -22,22 +22,17 @@ void AHeadHunterPhase2::BeginPlay()
 
 void AHeadHunterPhase2::CreateRifleLaser()
 {
-	AllRifleLaserEffect.reserve(RifleLaserNum);
-	AllRifleLaserCol.reserve(RifleLaserNum);
-	for (size_t i = 0; i < RifleLaserNum; i++)
-	{
-		AllRifleLaserEffect.push_back(CreateDefaultSubObject<USpriteRenderer>("RifleLaserEffect"));
-		AllRifleLaserEffect[i]->CreateAnimation(Anim::effect_laser, ImgRes::effect_laser, 0.1f, true);
-		AllRifleLaserEffect[i]->SetOrder(ERenderOrder::EffectFront);
-		AllRifleLaserEffect[i]->SetupAttachment(GetRoot());
-		AllRifleLaserEffect[i]->SetActive(false);
+	RifleLaserEffect = CreateDefaultSubObject<USpriteRenderer>("RifleLaserEffect");
+	RifleLaserEffect->CreateAnimation(Anim::effect_laser, ImgRes::effect_laser, 0.1f, true);
+	RifleLaserEffect->SetOrder(ERenderOrder::EffectFront);
+	RifleLaserEffect->SetupAttachment(GetRoot());
+	RifleLaserEffect->SetActive(false);
 
-		AllRifleLaserCol.push_back(CreateDefaultSubObject<UCollision>("RifleLaserCol"));
-		AllRifleLaserCol[i]->SetCollisionGroup(EColOrder::EnemyAttack);
-		AllRifleLaserCol[i]->SetCollisionType(ECollisionType::RotRect);
-		AllRifleLaserCol[i]->SetupAttachment(AllRifleLaserEffect[i]);
-		AllRifleLaserCol[i]->SetActive(false);
-	}
+	RifleLaserCol = CreateDefaultSubObject<UCollision>("RifleLaserCol");
+	RifleLaserCol->SetCollisionGroup(EColOrder::EnemyAttack);
+	RifleLaserCol->SetCollisionType(ECollisionType::RotRect);
+	RifleLaserCol->SetupAttachment(RifleLaserEffect);
+	RifleLaserCol->SetActive(false);
 }
 
 void AHeadHunterPhase2::CreateDashLaser()
@@ -90,6 +85,8 @@ void AHeadHunterPhase2::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_dashend, ImgRes::headhunter_dashend, 0.06f, false);
 	Body->CreateAnimation(Anim::headhunter_tel_in_sweep, ImgRes::headhunter_tel_in_sweep, 0.06f, false);
 	Body->CreateAnimation(Anim::headhunter_sweep, ImgRes::headhunter_sweep, 0.05f, false);
+	Body->CreateAnimation(Anim::headhunter_tel_in, ImgRes::headhunter_tel_in, 0.06f, false);
+	Body->CreateAnimation(Anim::headhunter_tel_out, ImgRes::headhunter_tel_in, 0.06f, false, 3, 0);
 
 	Body->SetLastFrameCallback(Anim::headhunter_putback_gun, [=] 
 		{ 
@@ -125,29 +122,16 @@ void AHeadHunterPhase2::AdjustBodyPosByDir(const FVector _Pos)
 	}
 }
 
-void AHeadHunterPhase2::RifleLaserIdxUpdate()
-{
-	++RifleLaserIdx;
-
-	if (RifleLaserNum <= RifleLaserIdx)
-	{
-		RifleLaserIdx = 0;
-	}
-}
-
 void AHeadHunterPhase2::RifleLaserColCheck()
 {
-	for (size_t i = 0; i < RifleLaserNum; i++)
-	{
-		AllRifleLaserCol[i]->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
-			{
-				APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
-				FVector PlayerPos = Player->GetActorLocation();
-				FVector CurPos = GetActorLocation();
-				Player->HitByEnemy(PlayerPos - CurPos, EEnemyType::HeadHunterLaser);
-			}
-		);
-	}
+	RifleLaserCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision>(_Other))
+		{
+			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+			FVector PlayerPos = Player->GetActorLocation();
+			FVector CurPos = GetActorLocation();
+			Player->HitByEnemy(PlayerPos - CurPos, EEnemyType::HeadHunterLaser);
+		}
+	);
 }
 
 void AHeadHunterPhase2::SparkIdxUpdate()
