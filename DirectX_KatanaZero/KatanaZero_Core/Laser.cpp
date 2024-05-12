@@ -1,7 +1,9 @@
 #include "PreCompile.h"
 #include "Laser.h"
 
+#include "PlayLevelBase.h"
 #include "PlayerBase.h"
+#include "MainCamera.h"
 
 ALaser::ALaser()
 {
@@ -59,10 +61,15 @@ void ALaser::StateInit()
 			Body->ChangeAnimation(Anim::effect_laser);
 			Body->SetScale({ 1280.0f, 18.0f, 1.0f });
 			BodyCol->SetActive(true);
+
+			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+			PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.1f);
+			PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+
 			DelayCallBack(0.1f, [=] { ShortShootUpdate = true; });
 		}
 	);
-
+	
 	// State Update
 	State.SetUpdateFunction(LaserState::aim, [=](float _DeltaTime) 
 		{
@@ -125,7 +132,6 @@ void ALaser::StateInit()
 			}
 		}
 	);
-
 }
 
 void ALaser::Tick(float _DeltaTime)

@@ -77,6 +77,7 @@ private:
 	float AirPosY = 520.0f;
 	std::vector<float> AirPosX = { 235.0f, 1120.0f, 350.0f, 1000.0f };
 	int AirLaserCount = 0;
+	float ComplexSweepLaserTimeCount = 0.0f;
 
 	float PatternDelayTimeCount = 0.0f;
 
@@ -151,6 +152,7 @@ private:
 	void ComplexUpdate2(float _DeltaTime);
 	void ComplexUpdate3(float _DeltaTime);
 	void ComplexUpdate4(float _DeltaTime);
+	void ComplexUpdate5(float _DeltaTime);
 
 };
 
