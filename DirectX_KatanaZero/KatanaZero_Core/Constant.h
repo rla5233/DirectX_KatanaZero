@@ -51,6 +51,7 @@ namespace ImgRes
 	const std::string_view headhunter_sweep			= "headhunter_sweep";
 	const std::string_view headhunter_tel_in		= "headhunter_teleport_in";
 	const std::string_view headhunter_tel_ground	= "headhunter_teleport_ground";
+	const std::string_view headhunter_tel_in_wall	= "headhunter_teleport_in_wall";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -258,6 +259,7 @@ namespace Anim
 	const std::string_view headhunter_tel_in		= "headhunter_teleport_in";
 	const std::string_view headhunter_tel_out		= "headhunter_teleport_out";
 	const std::string_view headhunter_tel_ground	= "headhunter_teleport_ground";
+	const std::string_view headhunter_tel_in_wall	= "headhunter_teleport_in_wall";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";

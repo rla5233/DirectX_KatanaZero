@@ -779,4 +779,92 @@ void AHeadHunterPhase2::ComplexUpdate8(float _DeltaTime)
 
 void AHeadHunterPhase2::ComplexUpdate9(float _DeltaTime)
 {
+	if (true == Body->IsCurAnimationEnd())
+	{
+		SetActorLocation({ 190.0f, 360.0f, 0.0f });
+		Body->ChangeAnimation(Anim::headhunter_tel_in_wall);
+		Body->SetDir(EEngineDir::Right);
+		PatternOrder = 10;
+	}
+}
+
+void AHeadHunterPhase2::ComplexUpdate10(float _DeltaTime)
+{
+	if (true == Body->IsCurAnimationEnd())
+	{
+		// 속도 공식 필요
+		EEngineDir Dir = Body->GetDir();
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+			AirRifle1FirstDeg = 180.0f;
+			AirRifle1DegCount = AirRifle1FirstDeg;
+			AirRifle1DegInter = 10.0f;
+			Velocity = { -700.0f, 800.0f, 0.0f };
+			break;
+		case EEngineDir::Right:
+			AirRifle1FirstDeg = 0.0f;
+			AirRifle1DegCount = AirRifle1FirstDeg;
+			AirRifle1DegInter = -10.0f;
+			Velocity = { 700.0f, 800.0f, 0.0f };
+			break;
+		}
+
+		Body->ChangeAnimation(Anim::headhunter_wall_jump);
+		AirRifle1ShootCount = 0;
+		IsAirRifleShake = false;
+
+		SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });
+		SetAfterImageMulColor({ 1.0f, 1.0f, 1.0f, 0.4f });
+		SetAfterImageDelayTime(1.0f / 60.0f);
+		SetAfterImageTimeWeight(6.0f);
+
+		PatternOrder = 11;
+	}
+}
+
+void AHeadHunterPhase2::ComplexUpdate11(float _DeltaTime)
+{
+	// 속도 업데이트
+	ApplyGravity(_DeltaTime);
+
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// 충돌 체크
+	ColCheckUpdate();
+
+	// Effect
+	CreateAfterImage(_DeltaTime);
+
+	if (1 <= Body->GetCurAnimationFrame() && 18 > AirRifle1ShootCount)
+	{
+		switch (Body->GetDir())
+		{
+		case EEngineDir::Left:
+			AirRifle1DegCount += 375.0f * _DeltaTime;
+			if (AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter < AirRifle1DegCount)
+			{
+				AirRifle1DegCount = AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter;
+				SetAirRifle1Effect();
+			}
+			break;
+		case EEngineDir::Right:
+			AirRifle1DegCount -= 375.0f * _DeltaTime;
+			if (AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter > AirRifle1DegCount)
+			{
+				AllSparkEffect[SparkIdx]->SetPosition(GetActorLocation());
+				AirRifle1DegCount = AirRifle1FirstDeg + AirRifle1ShootCount * AirRifle1DegInter;
+				SetAirRifle1Effect();
+			}
+			break;
+		}
+	}
+
+	// State Check
+	if (true == IsOnGround(Body->GetDir()))
+	{
+		Body->ChangeAnimation(Anim::headhunter_land);
+		PatternOrder = -1;
+	}
 }

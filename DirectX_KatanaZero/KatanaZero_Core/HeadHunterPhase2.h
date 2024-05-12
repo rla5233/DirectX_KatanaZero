@@ -160,6 +160,8 @@ private:
 	void ComplexUpdate7(float _DeltaTime);
 	void ComplexUpdate8(float _DeltaTime);
 	void ComplexUpdate9(float _DeltaTime);
+	void ComplexUpdate10(float _DeltaTime);
+	void ComplexUpdate11(float _DeltaTime);
 
 };
 

@@ -65,6 +65,8 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 		return;
 	}
 
+
+
 	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
 		//State.ChangeState(HeadHunterState::pattern_gunshoot1);
@@ -72,7 +74,7 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 		//State.ChangeState(HeadHunterState::pattern_rifle1);
 		//State.ChangeState(HeadHunterState::pattern_airrifle1);
 		//State.ChangeState(HeadHunterState::pattern_airrifle2);
-		State.ChangeState(HeadHunterState::pattern_complex);
+		//State.ChangeState(HeadHunterState::pattern_complex);
 		return;
 	}
 }
@@ -87,6 +89,9 @@ void AHeadHunterPhase2::HitFlyStart()
 	case 1:
 		DelayCallBack(0.5f, [=] { PlayLevel->SetWallTurret(); });
 		DelayCallBack(3.5f, [=] { State.ChangeState(HeadHunterState::pattern_airrifle2); });
+		break;
+	case 2:
+		DelayCallBack(1.6f, [=] { State.ChangeState(HeadHunterState::pattern_complex); });
 		break;
 	}
 }
@@ -306,6 +311,12 @@ void AHeadHunterPhase2::PatternComplex(float _DeltaTime)
 		break;
 	case 9:
 		ComplexUpdate9(_DeltaTime);
+		break;
+	case 10:
+		ComplexUpdate10(_DeltaTime);
+		break;
+	case 11:
+		ComplexUpdate11(_DeltaTime);
 		break;
 	default:
 		break;
