@@ -480,4 +480,13 @@ void AHeadHunterPhase2::DeadUpdate2(float _DeltaTime)
 	{
 		Velocity = FVector::Zero;
 	}
+
+	BodyCol->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
+		{
+			GEngine->SetGlobalTimeScale(0.01f);
+			DelayCallBack(0.005f, [=] { GEngine->SetGlobalTimeScale(1.0f); });
+			Body->ChangeAnimation(Anim::headhunter_dead_nohead);
+			PatternOrder = -1;
+		}
+	);
 }

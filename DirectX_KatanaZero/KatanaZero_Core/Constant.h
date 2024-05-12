@@ -57,6 +57,7 @@ namespace ImgRes
 	const std::string_view headhunter_diefly		= "headhunter_diefly";
 	const std::string_view headhunter_dieland		= "headhunter_dieland";
 	const std::string_view headhunter_dead			= "headhunter_dead";
+	const std::string_view headhunter_dead_nohead	= "headhunter_nohead";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -271,6 +272,7 @@ namespace Anim
 	const std::string_view headhunter_diefly		= "headhunter_diefly";
 	const std::string_view headhunter_dieland		= "headhunter_dieland";
 	const std::string_view headhunter_dead			= "headhunter_dead";
+	const std::string_view headhunter_dead_nohead	= "headhunter_nohead";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
