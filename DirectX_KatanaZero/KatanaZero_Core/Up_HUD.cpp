@@ -187,6 +187,11 @@ void AUp_HUD::StateInit()
 	State.SetUpdateFunction(HudState::play, [=](float _DeltaTime)
 		{
 			APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+			if (false == PlayLevel->GetIsTimeCount())
+			{
+				return;
+			}
+
 			float AddScaleX = (188.0f * _DeltaTime) / PlayLevel->GetTotalPlayTime();
 			if (188.0f < Timer_Bar_Black->GetLocalScale().X)
 			{

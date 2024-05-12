@@ -142,11 +142,12 @@ void APlayLevelBase::PlayStart()
 	Aim->StateChange(MouseAimState::play);
 
 	PlayTimeCount = TotalPlayTime;
+	IsTimeCountValue = true;
 }
 
 void APlayLevelBase::Play(float _DeltaTime)
 {
-	if (0.0f > PlayTimeCount)
+	if (0.0f > PlayTimeCount && true == IsTimeCountValue)
 	{
 		Player->HitByEnemy(FVector::Zero, EEnemyType::TimeOut);
 		return;
@@ -179,7 +180,7 @@ void APlayLevelBase::ClearStart()
 
 void APlayLevelBase::Clear(float _DeltaTime)
 {
-	if (0.0f > PlayTimeCount)
+	if (0.0f > PlayTimeCount && true == IsTimeCountValue)
 	{
 		Player->HitByEnemy(FVector::Zero, EEnemyType::TimeOut);
 		return;

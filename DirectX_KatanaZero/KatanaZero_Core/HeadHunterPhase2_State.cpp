@@ -393,11 +393,13 @@ void AHeadHunterPhase2::DeadStart()
 
 	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
 	PlayLevel->GetDefaultPlayer()->InputOff();
+	PlayLevel->SetIsTimeCount(false);
 
 	GEngine->SetOrderTimeScale(EUpdateOrder::Player, 0.1f);
 	GEngine->SetOrderTimeScale(EUpdateOrder::HeadHunter, 0.1f);
 	Body->ChangeAnimation(Anim::headhunter_diefly);
 	DashAttack->SetActive(false);
+	SetRecordingActive(false);
 	IsDeadValue = true;
 	PatternOrder = 0;
 }

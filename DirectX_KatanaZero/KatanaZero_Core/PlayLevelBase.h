@@ -65,6 +65,12 @@ public:
 		return TotalPlayTime;
 	}
 
+	void SetIsTimeCount(bool _Value);
+	inline bool GetIsTimeCount() const
+	{
+		return IsTimeCountValue;
+	}
+
 	inline void EnemyDeadUpdate()
 	{
 		--TotalEnemy;
@@ -153,6 +159,7 @@ protected:
 	bool BrightnessUpEnd = false;
 	float TotalPlayTime = 0.0f;
 	float PlayTimeCount = 0.0f;
+	bool IsTimeCountValue = true;
 	int TotalEnemy = 0;
 
 	std::vector<float> FloorY;

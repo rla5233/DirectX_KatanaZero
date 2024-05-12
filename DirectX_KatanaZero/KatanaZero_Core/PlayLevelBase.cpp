@@ -585,3 +585,23 @@ void APlayLevelBase::PushRecMapCompo(std::shared_ptr<ARecMapCompoBase> _RecCompo
 {
 	AllRecComponent.push_back(_RecCompo);
 }
+
+void APlayLevelBase::SetIsTimeCount(bool _Value)
+{
+	IsTimeCountValue = _Value;
+
+	if (false == IsTimeCountValue)
+	{
+		Player->SetRecordingActive(false);
+
+		for (size_t i = 0; i < AllEnemy.size(); i++)
+		{
+			AllEnemy[i]->SetRecordingActive(false);
+		}
+
+		for (size_t i = 0; i < AllRecComponent.size(); i++)
+		{
+			AllRecComponent[i]->SetRecordingActive(false);
+		}
+	}
+}
