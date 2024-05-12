@@ -55,21 +55,30 @@ private:
 	int SparkIdx = 0;
 
 	// Pattern Info. //
+	// Rifle1
 	int Rifle1Count = 3;
 
+	// GunShoot1
 	bool IsGunShoot = false;
 	bool ReGunShoot = false;
 	int GunShootCount = 3;
 
+	// Sword Dash
 	float DashLaserAlpha = 0.0f;
 
+	// AirRifle1
 	float AirRifle1FirstDeg = 0.0f;
 	float AirRifle1DegInter = 0.0f;
 	float AirRifle1DegCount = 0.0f;
 	int AirRifle1ShootCount = 0;
 	bool IsAirRifleShake = false;
 
+	// AirRifle2
 	float AirRifle2TimeCount = 0.0f;
+
+	// Complex 
+	float AirPosY = 600.0f;
+	std::vector<float> AirPosX = { 235.0f, 350.0f, 1000.0f, 1120.0f };
 
 	float PatternDelayTimeCount = 0.0f;
 
@@ -94,6 +103,9 @@ private:
 
 	void PatternAirRifle2Start();
 	void PatternAirRifle2(float _DeltaTime);
+
+	void PatternComplexStart();
+	void PatternComplex(float _DeltaTime);
 
 // Effect
 private:
@@ -132,6 +144,9 @@ private:
 	void AirRifle2Update1(float _DeltaTime);
 	void AirRifle2Update2(float _DeltaTime);
 	void AirRifle2Update3(float _DeltaTime);
+
+	// Pattern_Complex
+	void ComplexUpdate(float _DeltaTime);
 
 };
 

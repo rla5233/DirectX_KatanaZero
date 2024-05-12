@@ -13,6 +13,7 @@ void AHeadHunterPhase2::StateInit()
 	State.CreateState(HeadHunterState::pattern_sword_dash);
 	State.CreateState(HeadHunterState::pattern_airrifle1);
 	State.CreateState(HeadHunterState::pattern_airrifle2);
+	State.CreateState(HeadHunterState::pattern_complex);
 
 	// State Start
 	State.SetStartFunction(HeadHunterState::pattern_rifle1,			std::bind(&AHeadHunterPhase2::PatternRifle1Start, this));
@@ -20,6 +21,7 @@ void AHeadHunterPhase2::StateInit()
 	State.SetStartFunction(HeadHunterState::pattern_sword_dash,		std::bind(&AHeadHunterPhase2::PatternSwordDashStart, this));
 	State.SetStartFunction(HeadHunterState::pattern_airrifle1,		std::bind(&AHeadHunterPhase2::PatternAirRifle1Start, this));
 	State.SetStartFunction(HeadHunterState::pattern_airrifle2,		std::bind(&AHeadHunterPhase2::PatternAirRifle2Start, this));
+	State.SetStartFunction(HeadHunterState::pattern_complex,		std::bind(&AHeadHunterPhase2::PatternComplexStart, this));
 
 	// State Update
 	State.SetUpdateFunction(HeadHunterState::pattern_rifle1,		std::bind(&AHeadHunterPhase2::PatternRifle1, this, std::placeholders::_1));
@@ -27,6 +29,7 @@ void AHeadHunterPhase2::StateInit()
 	State.SetUpdateFunction(HeadHunterState::pattern_sword_dash,	std::bind(&AHeadHunterPhase2::PatternSwordDash, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_airrifle1,		std::bind(&AHeadHunterPhase2::PatternAirRifle1, this, std::placeholders::_1));
 	State.SetUpdateFunction(HeadHunterState::pattern_airrifle2,		std::bind(&AHeadHunterPhase2::PatternAirRifle2, this, std::placeholders::_1));
+	State.SetUpdateFunction(HeadHunterState::pattern_complex,		std::bind(&AHeadHunterPhase2::PatternComplex, this, std::placeholders::_1));
 
 	// State End
 	State.SetEndFunction(HeadHunterState::pattern_rifle1,		[=] { Body->SetPosition(FVector::Zero); });
@@ -68,7 +71,8 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 		//State.ChangeState(HeadHunterState::pattern_sword_dash);
 		//State.ChangeState(HeadHunterState::pattern_rifle1);
 		//State.ChangeState(HeadHunterState::pattern_airrifle1);
-		State.ChangeState(HeadHunterState::pattern_airrifle2);
+		//State.ChangeState(HeadHunterState::pattern_airrifle2);
+		State.ChangeState(HeadHunterState::pattern_complex);
 		return;
 	}
 }
@@ -253,6 +257,28 @@ void AHeadHunterPhase2::PatternAirRifle2(float _DeltaTime)
 		break;
 	case 3:
 		AirRifle2Update3(_DeltaTime);
+		break;
+	default:
+		break;
+	}
+}
+
+void AHeadHunterPhase2::PatternComplexStart()
+{
+}
+
+void AHeadHunterPhase2::PatternComplex(float _DeltaTime)
+{
+	switch (PatternOrder)
+	{
+	case 0:
+		ComplexUpdate(_DeltaTime);
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
 		break;
 	default:
 		break;

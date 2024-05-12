@@ -575,3 +575,7 @@ void AHeadHunterPhase2::AirRifle2Update3(float _DeltaTime)
 		}
 	);
 }
+
+void AHeadHunterPhase2::ComplexUpdate(float _DeltaTime)
+{
+}

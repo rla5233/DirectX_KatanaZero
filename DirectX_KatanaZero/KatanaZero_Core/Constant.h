@@ -498,6 +498,7 @@ namespace HeadHunterState
 	const std::string_view pattern_gunshoot1	= "Pattern_GunShoot1";
 	const std::string_view pattern_sword_dash	= "Sword_Dash";
 	const std::string_view pattern_airrifle2	= "Pattern_AirRifle2";
+	const std::string_view pattern_complex		= "Pattern_Complex";
 }
 
 namespace HeadHunterSubState
