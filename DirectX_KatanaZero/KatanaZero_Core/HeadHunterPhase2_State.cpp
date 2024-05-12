@@ -98,7 +98,7 @@ void AHeadHunterPhase2::HitFlyStart()
 		DelayCallBack(3.5f, [=] { State.ChangeState(HeadHunterState::pattern_airrifle2); });
 		break;
 	case 2:
-		DelayCallBack(1.6f, [=] { State.ChangeState(HeadHunterState::pattern_complex); });
+		DelayCallBack(1.8f, [=] { State.ChangeState(HeadHunterState::pattern_complex); });
 		break;
 	case 3:
 		DelayCallBack(1.7f, [=] { State.ChangeState(HeadHunterState::pattern_bombing); });

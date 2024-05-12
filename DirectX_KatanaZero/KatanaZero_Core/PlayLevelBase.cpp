@@ -10,6 +10,7 @@
 #include "MouseAim.h"
 #include "ReplayUI.h"
 #include "Up_HUD.h"
+#include "Bullet.h"
 #include "Stair.h"
 #include "Door.h"
 #include "Go.h"
@@ -374,6 +375,12 @@ void APlayLevelBase::BrightnessUp(float _DeltaTime)
 
 	for (size_t i = 0; i < AllRecComponent.size(); i++)
 	{
+		ABullet* Bullet = dynamic_cast<ABullet*>(AllRecComponent[i].get());
+		if (nullptr != Bullet)
+		{
+			continue;
+		}
+
 		AllRecComponent[i]->SetAllMulColor(Brightness);
 	}
 
@@ -419,6 +426,12 @@ void APlayLevelBase::BrightnessDown(float _DeltaTime)
 
 	for (size_t i = 0; i < AllRecComponent.size(); i++)
 	{
+		ABullet* Bullet = dynamic_cast<ABullet*>(AllRecComponent[i].get());
+		if (nullptr != Bullet)
+		{
+			continue;
+		}
+
 		AllRecComponent[i]->SetAllMulColor(Brightness);
 	}
 
