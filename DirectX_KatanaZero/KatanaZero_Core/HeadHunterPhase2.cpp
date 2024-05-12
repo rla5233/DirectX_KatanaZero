@@ -96,6 +96,7 @@ void AHeadHunterPhase2::CreateAnimation()
 	Body->CreateAnimation(Anim::headhunter_diefly_stop, ImgRes::headhunter_diefly, 0.06f, false, 0, 0);
 	Body->CreateAnimation(Anim::headhunter_diefly, ImgRes::headhunter_diefly, 0.1f, true);
 	Body->CreateAnimation(Anim::headhunter_dieland, ImgRes::headhunter_dieland, 0.1f, false);
+	Body->CreateAnimation(Anim::headhunter_dead, ImgRes::headhunter_dead, 0.25f, true);
 
 	Body->SetLastFrameCallback(Anim::headhunter_putback_gun, [=] 
 		{ 

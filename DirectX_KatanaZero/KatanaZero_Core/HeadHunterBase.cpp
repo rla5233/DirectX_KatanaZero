@@ -227,6 +227,11 @@ void AHeadHunterBase::AddVelocityByDir(const FVector& _Vel)
 
 void AHeadHunterBase::HitByPlayer(FVector _AttDir)
 {
+	if (true == IsDeadValue)
+	{
+		return;
+	}
+
 	HitDir = _AttDir;
 	State.ChangeState(HeadHunterState::hitfly);
 }

@@ -57,12 +57,12 @@ void AHeadHunterPhase2::SetAirRifle1Effect()
 	AllSparkEffect[SparkIdx]->SetActive(true);
 	SparkIdxUpdate();
 
-	if (false == IsAirRifleShake)
+	if (false == IsCameraShake)
 	{
 		PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.5f);
 		PlayLevel->GetKZMainCamera()->SetRetShakeRange({ -10.0f, 10.0f, -10.0f, 10.0f });
 		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
-		IsAirRifleShake = true;
+		IsCameraShake = true;
 	}
 }
 

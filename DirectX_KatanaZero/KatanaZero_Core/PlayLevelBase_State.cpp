@@ -312,6 +312,7 @@ void APlayLevelBase::RestartStart()
 
 	UEngineSound::SoundPlay(SoundRes::stage_restart).SetVolume(0.75f);
 	GEngine->SetGlobalTimeScale(1.0f);
+	UContentsHelper::ResetTimeScale();
 }
 
 void APlayLevelBase::Restart(float _DeltaTime)

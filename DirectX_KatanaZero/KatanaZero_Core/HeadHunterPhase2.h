@@ -68,7 +68,7 @@ private:
 	float AirRifle1DegInter = 0.0f;
 	float AirRifle1DegCount = 0.0f;
 	int AirRifle1ShootCount = 0;
-	bool IsAirRifleShake = false;
+	bool IsCameraShake = false;
 
 	// AirRifle2
 	float AirRifle2TimeCount = 0.0f;
@@ -113,6 +113,9 @@ private:
 
 	void DeadStart();
 	void Dead(float _DeltaTime);
+	void DeadUpdate(float _DeltaTime);
+	void DeadUpdate1(float _DeltaTime);
+	void DeadUpdate2(float _DeltaTime);
 
 // Effect
 private:
@@ -176,7 +179,6 @@ private:
 	void BombingUpdate1(float _DeltaTime);
 	void BombingUpdate2(float _DeltaTime);
 	void BombingUpdate3(float _DeltaTime);
-
 
 };
 

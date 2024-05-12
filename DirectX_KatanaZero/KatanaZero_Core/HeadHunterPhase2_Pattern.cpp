@@ -402,7 +402,7 @@ void AHeadHunterPhase2::AirRifle1Update2(float _DeltaTime)
 
 		Body->ChangeAnimation(Anim::headhunter_wall_jump);
 		AirRifle1ShootCount = 0;
-		IsAirRifleShake = false;
+		IsCameraShake = false;
 		PatternOrder = 3;
 	}
 }
@@ -812,7 +812,7 @@ void AHeadHunterPhase2::ComplexUpdate10(float _DeltaTime)
 
 		Body->ChangeAnimation(Anim::headhunter_wall_jump);
 		AirRifle1ShootCount = 0;
-		IsAirRifleShake = false;
+		IsCameraShake = false;
 
 		SetAfterImagePlusColor({ 1.0f, 0.0f, 1.0f });
 		SetAfterImageMulColor({ 1.0f, 1.0f, 1.0f, 0.4f });
@@ -922,15 +922,16 @@ void AHeadHunterPhase2::BombingUpdate1(float _DeltaTime)
 			break;
 		}
 
+		DashAttack->SetActive(false);
 		SetBombingEffect();
 		return;
 	}
 
-	BodyCol->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
+	DashAttack->CollisionEnter(EColOrder::PlayerBody, [=](std::shared_ptr<UCollision> _Other)
 		{
 			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
 			Player->HitByEnemy(Velocity.Normalize2DReturn(), EEnemyType::HeadHunterLaser);
-
+			DashAttack->SetActive(false);
 			SetBombingEffect();
 		}
 	);

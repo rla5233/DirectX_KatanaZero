@@ -2,6 +2,8 @@
 #include "HeadHunterPhase2.h"
 
 #include "HeadHunterLevel_Phase2.h"
+#include "DefaultPlayer.h"
+#include "MainCamera.h"
 
 void AHeadHunterPhase2::StateInit()
 {
@@ -345,6 +347,8 @@ void AHeadHunterPhase2::PatternBombingStart()
 		Body->SetDir(EEngineDir::Left);
 	}
 
+	BodyCol->SetActive(false);
+	DashAttack->SetActive(true);
 	Body->ChangeAnimation(Anim::headhunter_reveal_bomb);
 	PatternOrder = 0;
 }
@@ -372,9 +376,108 @@ void AHeadHunterPhase2::PatternBombing(float _DeltaTime)
 
 void AHeadHunterPhase2::DeadStart()
 {
+	EEngineDir Dir = Body->GetDir();
+	switch (Dir)
+	{
+	case EEngineDir::Left:
+		Body->SetDir(EEngineDir::Right);
+		AddActorLocation({ 60.0f, 0.0f, 0.0f });
+		SetVelocityByDir({ 1000.0f, 200.0f, 0.0f });
+		break;
+	case EEngineDir::Right:
+		Body->SetDir(EEngineDir::Left);
+		AddActorLocation({ -60.0f, 0.0f, 0.0f });
+		SetVelocityByDir({ 1000.0f, 200.0f, 0.0f });
+		break;
+	}
 
+	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+	PlayLevel->GetDefaultPlayer()->InputOff();
+
+	GEngine->SetOrderTimeScale(EUpdateOrder::Player, 0.1f);
+	GEngine->SetOrderTimeScale(EUpdateOrder::HeadHunter, 0.1f);
+	Body->ChangeAnimation(Anim::headhunter_diefly);
+	DashAttack->SetActive(false);
+	IsDeadValue = true;
+	PatternOrder = 0;
 }
 
 void AHeadHunterPhase2::Dead(float _DeltaTime)
 {
+	switch (PatternOrder)
+	{
+	case 0:
+		DeadUpdate(_DeltaTime);
+		break;
+	case 1:
+		DeadUpdate1(_DeltaTime);
+		break;
+	case 2:
+		DeadUpdate2(_DeltaTime);
+		break;
+	default:
+		break;
+	}
+}
+
+void AHeadHunterPhase2::DeadUpdate(float _DeltaTime)
+{	
+	// 속도 업데이트
+	ApplyGravity(_DeltaTime);
+	
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	if (true == IsOnGround(Body->GetDir()))
+	{
+		OnGroundPosAdjust(Body->GetDir());
+		Body->ChangeAnimation(Anim::headhunter_dieland);
+
+		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+		PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.1f);
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+
+		GEngine->SetOrderTimeScale(EUpdateOrder::Player, 0.5f);
+		GEngine->SetOrderTimeScale(EUpdateOrder::HeadHunter, 0.5f);
+
+		IsCameraShake = false;
+		PatternOrder = 1;
+	}
+}
+
+void AHeadHunterPhase2::DeadUpdate1(float _DeltaTime)
+{
+	if (4 == Body->GetCurAnimationFrame() && false == IsCameraShake)
+	{
+		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+		PlayLevel->GetKZMainCamera()->SetRetShakeTime(0.1f);
+		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+		IsCameraShake = true;
+	}
+
+	if (true == Body->IsCurAnimationEnd())
+	{
+		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+		PlayLevel->GetDefaultPlayer()->InputOn();
+		GEngine->SetOrderTimeScale(EUpdateOrder::Player, 1.0f);
+		GEngine->SetOrderTimeScale(EUpdateOrder::HeadHunter, 1.0f);
+		
+		SetVelocityByDir({ 15.0f, 0.0f, 0.0f });
+		Body->ChangeAnimation(Anim::headhunter_dead);
+		BodyCol->SetActive(true);
+		PatternOrder = 2;
+	}
+}
+
+void AHeadHunterPhase2::DeadUpdate2(float _DeltaTime)
+{
+	// 위치 업데이트
+	PosUpdate(_DeltaTime);
+
+	// Col Check
+	FVector CurPos = GetActorLocation();
+	if (220.0f > CurPos.X || 1125.0f < CurPos.X)
+	{
+		Velocity = FVector::Zero;
+	}
 }
