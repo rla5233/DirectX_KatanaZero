@@ -117,6 +117,10 @@ private:
 	void DeadUpdate1(float _DeltaTime);
 	void DeadUpdate2(float _DeltaTime);
 
+// Sub FSM
+private:
+	void RestartStart() override;
+
 // Effect
 private:
 	void SetRifle1LaserEffect();

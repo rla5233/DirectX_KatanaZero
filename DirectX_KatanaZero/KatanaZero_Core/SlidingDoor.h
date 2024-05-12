@@ -20,13 +20,12 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void StateInit() override;
 	void SetAllMulColor(const float4& _MulColor) override;
 
 private:
 	void RendererInit();
 	void CreateAnimation();
-
-	void StateInit() override;
 	
 private:
 	USpriteRenderer* DoorLED = nullptr;

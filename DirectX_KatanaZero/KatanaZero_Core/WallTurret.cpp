@@ -256,3 +256,13 @@ void AWallTurret::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
+void AWallTurret::SetAllMulColor(const float4& _MulColor)
+{
+	Super::SetAllMulColor(_MulColor);
+
+	for (size_t i = 0; i < HeadNum; i++)
+	{
+		AllHolder[i]->SetMulColor(_MulColor);
+		AllHead[i]->SetMulColor(_MulColor);
+	}
+}

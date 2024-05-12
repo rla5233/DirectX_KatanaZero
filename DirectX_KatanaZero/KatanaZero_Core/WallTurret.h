@@ -21,6 +21,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	void StateInit() override;
+	void SetAllMulColor(const float4& _MulColor) override;
 
 private:
 	void WallOpenAnimAdjust();
@@ -41,7 +42,5 @@ private:
 	const int HeadNum = 2;
 
 	const float ShootDelayTime = 2.0f;
-
-
 };
 

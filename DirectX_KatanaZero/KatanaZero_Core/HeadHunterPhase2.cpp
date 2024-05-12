@@ -129,6 +129,21 @@ void AHeadHunterPhase2::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
+
+// Sub State
+void AHeadHunterPhase2::RestartStart()
+{
+	Super::RestartStart();
+
+	for (size_t i = 0; i < AllSparkEffect.size(); i++)
+	{
+		AllSparkEffect[i]->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+	}
+
+	DashLaser->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+	RifleLaserEffect->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+}
+
 void AHeadHunterPhase2::AdjustBodyPosByDir(const FVector _Pos)
 {
 	EEngineDir Dir = Body->GetDir();
