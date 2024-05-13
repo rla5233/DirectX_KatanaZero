@@ -8,6 +8,7 @@
 #include "Grenade.h"
 #include "Bullet.h"
 #include "Laser.h"
+#include "Head.h"
 
 #include "HeadHunterPhase2.h"
 
@@ -94,6 +95,12 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 			);
 		}
 	);
+
+
+	AHead* NewHead = GetWorld()->SpawnActor<AHead>("Head").get();
+	NewHead->SetActorLocation({ 672.0f, 360.0f, 0.0f });
+	NewHead->StateChange(HeadState::hurtfly);
+
 }
 
 void AHeadHunterLevel_Phase2::LevelEnd(ULevel* _NextLevel)

@@ -1,8 +1,13 @@
 #pragma once
 #include <EngineCore/StateManager.h>
+#include "PixelColObject.h"
+#include "PhysicsObject.h"
 
 // Ό³Έν : HeadHunter Head 
-class AHead : public AActor
+class AHead :
+	public AActor,
+	public UPhysicsObject,
+	public UPixelColObject
 {
 	GENERATED_BODY(AActor)
 public:
@@ -25,6 +30,12 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+private:
+	USpriteRenderer* Body = nullptr;
+	
+	UCollision* Test = nullptr;
+
+// FSM
 private:
 	UStateManager State;
 	void StateInit();

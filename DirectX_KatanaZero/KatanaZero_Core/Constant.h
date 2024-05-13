@@ -59,6 +59,8 @@ namespace ImgRes
 	const std::string_view headhunter_dead			= "headhunter_dead";
 	const std::string_view headhunter_dead_nohead	= "headhunter_nohead";
 
+	const std::string_view headhunter_head_hurtfly	= "headhunter_head_hurtfly";
+
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
 	const std::string_view enemy_grunt_attack		= "grunt_attack";
@@ -273,6 +275,8 @@ namespace Anim
 	const std::string_view headhunter_dieland		= "headhunter_dieland";
 	const std::string_view headhunter_dead			= "headhunter_dead";
 	const std::string_view headhunter_dead_nohead	= "headhunter_nohead";
+
+	const std::string_view headhunter_head_hurtfly	= "headhunter_head_hurtfly";
 
 	// Enemy
 	const std::string_view enemy_grunt_idle			= "grunt_idle";
@@ -759,6 +763,12 @@ namespace LaserState
 {
 	const std::string_view aim				= "Aim";
 	const std::string_view short_shoot		= "Short_Shoot";
+}
+
+namespace HeadState
+{
+	const std::string_view hurtfly				= "HurtFly";
+	const std::string_view hurtground			= "HurtGround";
 }
 
 // Info.
