@@ -176,6 +176,7 @@ void AHeadHunterLevel_Phase1::ChangeStage()
 void AHeadHunterLevel_Phase1::ClearStart()
 {
 	AllMineOn();
+	UEngineSound::SoundPlay(SoundRes::mine_activate).SetVolume(0.5f);
 
 	float inter = 0.1f;
 	for (int i = 0; i < 8; i++)

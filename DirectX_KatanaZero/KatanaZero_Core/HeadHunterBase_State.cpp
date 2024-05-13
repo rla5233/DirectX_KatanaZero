@@ -87,6 +87,7 @@ void AHeadHunterBase::RollStart()
 
 	BodyCol->SetActive(false);
 
+	UEngineSound::SoundPlay(SoundRes::hh_roll);
 	++RollCount;
 	PatternOrder = 0;
 }

@@ -73,7 +73,7 @@ void AHeadHunterPhase1::PatternCheck()
 		{
 			int Prob = UEngineRandom::MainRandom.RandomInt(1, 100);
 
-			if (2 <= RollCount || Prob <= 50)
+			if (1 <= RollCount || Prob <= 50)
 			{
 				State.ChangeState(HeadHunterState::pattern_airrifle1);
 				return;
@@ -92,7 +92,7 @@ void AHeadHunterPhase1::PatternCheck()
 		{
 			int Prob = UEngineRandom::MainRandom.RandomInt(1, 100);
 
-			if (2 <= RollCount || Prob <= 50)
+			if (1 <= RollCount || Prob <= 50)
 			{
 				State.ChangeState(HeadHunterState::pattern_airrifle1);
 				return;

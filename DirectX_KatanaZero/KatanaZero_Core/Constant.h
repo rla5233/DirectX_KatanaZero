@@ -388,6 +388,7 @@ namespace SoundRes
 	const std::string_view hh_voice_hurt2			= "sound_voiceboss_huntress_hurt_02.wav";
 	const std::string_view hh_voice_hurt3			= "sound_voiceboss_huntress_hurt_03.wav";
 	const std::string_view hh_explosion				= "sound_boss_huntress_explosion.wav";
+	const std::string_view hh_roll					= "sound_boss_huntress_roll.wav";
 
 	// UI
 	const std::string_view title_menu_beep			= "sound_menu_beep.wav";
@@ -421,6 +422,7 @@ namespace SoundRes
 	const std::string_view ceil_laser_off			= "sound_lasers_off.wav";
 	const std::string_view pull_switch				= "sound_pull_switch.wav";
 	const std::string_view blastdoor_close			= "sound_blastdoor_close.wav";
+	const std::string_view mine_activate			= "sound_ground_mine_activate.wav";
 		
 	// BGM
 	const std::string_view bgm_title				= "song_title_bgm.ogg";
