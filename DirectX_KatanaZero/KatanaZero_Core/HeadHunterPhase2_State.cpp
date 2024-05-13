@@ -61,7 +61,7 @@ void AHeadHunterPhase2::IdleStart()
 {
 	Super::IdleStart();
 
-	PatternDelayTimeCount = 0.015f;
+	PatternDelayTimeCount = 0.03f;
 }
 
 void AHeadHunterPhase2::Idle(float _DeltaTime)
@@ -73,6 +73,14 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 		return;
 	}
 
+	if (0.0f < PatternDelayTimeCount)
+	{
+		PatternDelayTimeCount -= _DeltaTime;
+		return;
+	}
+
+	PatternCheck();
+
 	if (true == UEngineInput::IsDown(VK_SPACE))
 	{
 		//State.ChangeState(HeadHunterState::pattern_gunshoot1);
@@ -81,7 +89,7 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 		//State.ChangeState(HeadHunterState::pattern_airrifle1);
 		//State.ChangeState(HeadHunterState::pattern_airrifle2);
 		//State.ChangeState(HeadHunterState::pattern_complex);
-		State.ChangeState(HeadHunterState::pattern_bombing);
+		//State.ChangeState(HeadHunterState::pattern_bombing);
 		return;
 	}
 }
@@ -104,6 +112,8 @@ void AHeadHunterPhase2::HitFlyStart()
 		DelayCallBack(1.7f, [=] { State.ChangeState(HeadHunterState::pattern_bombing); });
 		break;
 	}
+
+	RollCount = 0;
 }
 
 void AHeadHunterPhase2::PatternRifle1Start()
@@ -156,6 +166,7 @@ void AHeadHunterPhase2::PatternGunShoot1Start()
 	Body->ChangeAnimation(Anim::headhunter_takeout_gun);
 	AdjustBodyPosByDir({ 13.0f, 0.0f, 0.0f });
 	GunShootCount = 3;
+	RollCount = 0;
 	PatternOrder = 0;
 }
 
@@ -200,6 +211,7 @@ void AHeadHunterPhase2::PatternSwordDashStart()
 	Body->ChangeAnimation(Anim::headhunter_predash);
 	DashLaser->SetMulColor({ 1.0f, 1.0f, 1.0f, DashLaserAlpha });
 	DashLaser->SetActive(true);
+	RollCount = 0;
 	PatternOrder = 0;
 }
 
@@ -254,6 +266,7 @@ void AHeadHunterPhase2::PatternAirRifle2Start()
 	Body->ChangeAnimation(Anim::headhunter_tel_in_sweep);
 	Body->SetDir(EEngineDir::Right);
 	BodyCol->SetActive(false);
+	RollCount = 0;
 	PatternOrder = 0;
 }
 
@@ -285,6 +298,7 @@ void AHeadHunterPhase2::PatternComplexStart()
 	Body->ChangeAnimation(Anim::headhunter_tel_in);
 	Body->SetDir(EEngineDir::Right);
 	BodyCol->SetActive(false);
+	RollCount = 0;
 	PatternOrder = 0;
 }
 

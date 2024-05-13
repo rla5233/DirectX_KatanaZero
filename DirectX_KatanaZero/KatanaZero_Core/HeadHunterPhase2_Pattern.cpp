@@ -7,6 +7,72 @@
 
 void AHeadHunterPhase2::PatternCheck()
 {
+	AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+
+	if (true == PlayLevel->IsPlayerDead())
+	{
+		return;
+	}
+
+	FVector PlayerPos = PlayLevel->GetPlayerLocation();
+	FVector CurPos = GetActorLocation();
+	float DiffX = abs(PlayerPos.X - CurPos.X);
+
+	if (450.0f < DiffX)
+	{
+		int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 4);
+		switch (RandomValue)
+		{
+		case 1:
+			State.ChangeState(HeadHunterState::pattern_gunshoot1);
+			break;
+		case 2:
+			State.ChangeState(HeadHunterState::pattern_sword_dash);
+			break;
+		case 3:
+			State.ChangeState(HeadHunterState::pattern_rifle1);
+			break;
+		case 4:
+			State.ChangeState(HeadHunterState::pattern_airrifle1);
+			break;
+		}
+	}
+	else if (200.0f > DiffX)
+	{
+		if (1 > RollCount)
+		{
+			float RandomValueF = UEngineRandom::MainRandom.RandomFloat(0, 75);
+			if (75.0f > RandomValueF)
+			{
+				State.ChangeState(HeadHunterState::roll);
+				return;
+			}
+		}
+
+		int RandomValueI = UEngineRandom::MainRandom.RandomInt(1, 2);
+		switch (RandomValueI)
+		{
+		case 1:
+			State.ChangeState(HeadHunterState::pattern_sword_dash);
+			break;
+		case 2:
+			State.ChangeState(HeadHunterState::pattern_airrifle1);
+			break;
+		}
+	}
+	else
+	{
+		int RandomValueI = UEngineRandom::MainRandom.RandomInt(1, 2);
+		switch (RandomValueI)
+		{
+		case 1:
+			State.ChangeState(HeadHunterState::pattern_sword_dash);
+			break;
+		case 2:
+			State.ChangeState(HeadHunterState::pattern_airrifle1);
+			break;
+		}
+	}
 }
 
 // Pattern_Rifle1

@@ -87,7 +87,7 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 			Player->StateChange(PlayerState::idle);
 			Player->SubStateChange(PlayerSubState::none);
 
-			DelayCallBack(0.8f, [=]
+			DelayCallBack(1.0f, [=]
 				{
 					HeadHunter->SubStateChange(HeadHunterSubState::play);
 				}
@@ -115,7 +115,13 @@ void AHeadHunterLevel_Phase2::LevelReStart()
 	HeadHunter->SetActorLocation({ 978.0f, 160.0f, 0.0f });
 	HeadHunter->SetDir(EEngineDir::Left);
 	HeadHunter->StateChange(HeadHunterState::idle);
-	HeadHunter->SubStateChange(HeadHunterSubState::play);
+	HeadHunter->SubStateChange(HeadHunterSubState::wait);
+
+	DelayCallBack(0.5f, [=]
+		{
+			HeadHunter->SubStateChange(HeadHunterSubState::play);
+		}
+	);
 
 	AllGrenade.reserve(GrenadeNum);
 	for (size_t i = 0; i < GrenadeNum; i++)
