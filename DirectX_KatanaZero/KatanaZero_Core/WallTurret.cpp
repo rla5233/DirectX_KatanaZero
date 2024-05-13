@@ -100,6 +100,7 @@ void AWallTurret::StateInit()
 	State.SetStartFunction(WallTurretState::none, [=] {});
 	State.SetStartFunction(WallTurretState::open, [=] 
 		{
+			DelayCallBack(0.5f, [=] { UEngineSound::SoundPlay(SoundRes::hh_wallopen); });
 			GetBody()->ChangeAnimation(Anim::turret_wall_open);
 			GetBody()->SetActive(true);
 			Order = 0;
@@ -130,6 +131,7 @@ void AWallTurret::StateInit()
 						AllHolder[i]->SetActive(true);
 					}
 
+					UEngineSound::SoundPlay(SoundRes::hh_wallturret_deploy);
 					++Order;
 				}
 				break;
@@ -188,7 +190,7 @@ void AWallTurret::StateInit()
 				AllHead[i]->SetRotationDeg({ 0.0f, 0.0f, Deg });
 
 				// Shoot Update
-				if (0.0f < ShootDelayTimeCount[i])
+				if (0.0f < ShootDelayTimeCount[i] || true == PlayLevel->IsPlayerDead())
 				{
 					ShootDelayTimeCount[i] -= _DeltaTime;
 				}
@@ -196,6 +198,8 @@ void AWallTurret::StateInit()
 				{
 					// Bullet
 					FVector BulletPos = FVector(HeadPos.X, HeadPos.Y + 16.0f, 0.0f) + FVector(100.0f, 100.0f, 0.0f) * HeadDir;
+					USoundManager::SoundPlay_GunFire();
+					UEngineSound::SoundPlay(SoundRes::hh_wallturret_overheat);
 					PlayLevel->SetShootBullet(BulletPos, HeadDir);
 					ShootDelayTimeCount[i] = ShootDelayTime;
 

@@ -389,6 +389,17 @@ namespace SoundRes
 	const std::string_view hh_voice_hurt3			= "sound_voiceboss_huntress_hurt_03.wav";
 	const std::string_view hh_explosion				= "sound_boss_huntress_explosion.wav";
 	const std::string_view hh_roll					= "sound_boss_huntress_roll.wav";
+	const std::string_view hh_gun_shot				= "sound_boss_huntressbomb_shot_01.wav";
+	const std::string_view hh_gun_beep				= "sound_boss_bombbeep_01.wav";
+	const std::string_view hh_gun_blast				= "sound_boss_bombblast_01.wav";
+	const std::string_view hh_gun_circle			= "sound_boss_bombarmed_01.wav";
+	const std::string_view hh_pre_knife				= "sound_boss_huntressknife_prep_01.wav";
+	const std::string_view hh_dash					= "sound_boss_huntress_dash_01.wav";
+	const std::string_view hh_gatling				= "sound_boss_huntress_gatling.wav";
+
+	const std::string_view hh_wallopen				= "sound_object_wall_open.wav";
+	const std::string_view hh_wallturret_deploy		= "sound_object_turrets_deploy.wav";
+	const std::string_view hh_wallturret_overheat	= "sound_turret_overheat.wav";
 
 	// UI
 	const std::string_view title_menu_beep			= "sound_menu_beep.wav";
@@ -428,6 +439,7 @@ namespace SoundRes
 	const std::string_view bgm_title				= "song_title_bgm.ogg";
 	const std::string_view bgm_factory				= "song_youwillneverknow.ogg";
 	const std::string_view bgm_headhunter1			= "song_bossbattle.ogg";
+	const std::string_view bgm_headhunter2			= "song_fullconfession.ogg";
 }
 
 namespace Const

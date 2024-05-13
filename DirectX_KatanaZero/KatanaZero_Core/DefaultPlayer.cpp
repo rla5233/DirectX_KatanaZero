@@ -293,6 +293,7 @@ void ADefaultPlayer::Intro(float _DeltaTime)
 		PosUpdate(_DeltaTime);
 		if (true == IsOnGround(GetBody()->GetDir()))
 		{
+			UEngineSound::SoundPlay(SoundRes::player_land).SetVolume(0.5f);
 			GetBody()->ChangeAnimation(Anim::player_postcrouch);
 			OnGroundPosAdjust(GetBody()->GetDir());
 			SetIntroOrder(EIntroOrder::None);

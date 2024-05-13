@@ -87,12 +87,25 @@ public:
 		return HeadHunterBGM1;
 	}
 
+	UEngineSoundPlayer GetHeadHunterBGM2()
+	{
+		return HeadHunterBGM2;
+	}
+
 	void ResetHeadHunterBGM1()
 	{
 		HeadHunterBGM1 = HeadHunterBGM1.Replay();
 		HeadHunterBGM1.SetVolume(0.6f);
 		HeadHunterBGM1.Loop();
 		HeadHunterBGM1.Off();
+	}
+
+	void ResetHeadHunterBGM2()
+	{
+		HeadHunterBGM2 = HeadHunterBGM2.Replay();
+		HeadHunterBGM2.SetVolume(0.6f);
+		HeadHunterBGM2.Loop();
+		HeadHunterBGM2.Off();
 	}
 
 public:
@@ -123,5 +136,6 @@ private:
 	UEngineSoundPlayer Replay_FastPlay;
 	UEngineSoundPlayer Player_WallSlide;
 	UEngineSoundPlayer HeadHunterBGM1;
+	UEngineSoundPlayer HeadHunterBGM2;
 };
 

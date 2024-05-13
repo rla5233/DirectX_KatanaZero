@@ -257,6 +257,7 @@ void AHeadHunterPhase2::GunShoot1Update1(float _DeltaTime)
 
 		float ShootSpeed = UEngineRandom::MainRandom.RandomFloat(1200.0f, 1800.0f);
 
+		UEngineSound::SoundPlay(SoundRes::hh_gun_shot).SetVolume(0.5f);
 		PlayLevel->SetShootGrenade(ShootPos, ShootDir, ShootSpeed);
 		PlayLevel->GetKZMainCamera()->SetRetShakeRange({ -5.0f, 5.0f, -5.0f, 5.0f });
 		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
@@ -300,6 +301,7 @@ void AHeadHunterPhase2::SwordDashUpdate(float _DeltaTime)
 	if (true == Body->IsCurAnimationEnd())
 	{
 		Body->AnimationReset();
+		UEngineSound::SoundPlay(SoundRes::hh_dash);
 		Body->SetSprite(ImgRes::headhunter_dash);
 
 		SetAfterImagePlusColor({ 1.0f, 0.0f, 0.0f, 0.0f});
@@ -466,6 +468,7 @@ void AHeadHunterPhase2::AirRifle1Update2(float _DeltaTime)
 			break;
 		}
 
+		DelayCallBack(0.12f, [=] { UEngineSound::SoundPlay(SoundRes::hh_gatling); });
 		Body->ChangeAnimation(Anim::headhunter_wall_jump);
 		AirRifle1ShootCount = 0;
 		IsCameraShake = false;

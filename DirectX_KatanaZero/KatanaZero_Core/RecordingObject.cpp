@@ -94,7 +94,7 @@ void URecordingObject::SetRewindStart()
 
 void URecordingObject::Replaying(float _DeltaTime)
 {
-	if (0.0f < TimeCount)
+	if (0.0f < TimeCount || -1 == CurIndex)
 	{
 		TimeCount -= _DeltaTime;
 		return;

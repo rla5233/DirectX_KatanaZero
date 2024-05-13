@@ -100,6 +100,7 @@ void AGrenade::StateInit()
 
 	State.SetStartFunction(GrenadeState::explosion, [=] 
 		{
+			UEngineSound::SoundPlay(SoundRes::hh_gun_circle);
 			Velocity = FVector::Zero;
 			CircleScale = 0.0f;
 			Circle->SetActive(true);
@@ -189,37 +190,50 @@ void AGrenade::ExplosionUpdate1(float _DeltaTime)
 
 	if (0.0f > CircleAlpha)
 	{
+		UEngineSound::SoundPlay(SoundRes::hh_gun_beep).SetVolume(0.75f);
 		CircleAlpha = 1.0f;
 
-		for (size_t i = 0; i < Explosion.size(); i++)
-		{
-			Explosion[i]->ChangeAnimation(Anim::effect_explosion);
-
-			float Deg = UEngineRandom::MainRandom.RandomFloat(0.0f, 360.0f);
-			Deg *= UEngineMath::DToR;
-			FVector Pos = { cosf(Deg), sinf(Deg), 0.0f };
-
-			float PosScale = 0.0f;
-			if (i < 10)
+		DelayCallBack(0.5f, [=]
 			{
-				PosScale = UEngineRandom::MainRandom.RandomFloat(20.0f, 60.0f);
+				if (RecCompoState::restart == State.GetCurStateName())
+				{
+					return;
+				}
+
+				for (size_t i = 0; i < Explosion.size(); i++)
+				{
+					Explosion[i]->ChangeAnimation(Anim::effect_explosion);
+
+					float Deg = UEngineRandom::MainRandom.RandomFloat(0.0f, 360.0f);
+					Deg *= UEngineMath::DToR;
+					FVector Pos = { cosf(Deg), sinf(Deg), 0.0f };
+
+					float PosScale = 0.0f;
+					if (i < 10)
+					{
+						PosScale = UEngineRandom::MainRandom.RandomFloat(20.0f, 60.0f);
+					}
+					else
+					{
+						PosScale = UEngineRandom::MainRandom.RandomFloat(60.0f, 140.0f);
+					}
+
+					Explosion[i]->SetPosition({ PosScale * Pos.X, PosScale * Pos.Y, 0.0f });
+					Explosion[i]->SetActive(true);
+				}
+
+				APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
+				PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
+				UEngineSound::SoundPlay(SoundRes::hh_gun_blast);
+
+				BodyCol->SetActive(true);
+				GetBody()->SetActive(false);
+				ExplosionOrder = 2;
 			}
-			else
-			{
-				PosScale = UEngineRandom::MainRandom.RandomFloat(60.0f, 140.0f);
-			}
+		);
 
-			Explosion[i]->SetPosition({ PosScale * Pos.X, PosScale * Pos.Y, 0.0f });
-			Explosion[i]->SetActive(true);
-		}
-
-		APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(GetWorld()->GetGameMode().get());
-		PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::ret_shaking);
-
-		BodyCol->SetActive(true);
-		GetBody()->SetActive(false);
+		ExplosionOrder = -1;
 		Circle->SetActive(false);
-		ExplosionOrder = 2;
 	}
 
 	Circle->SetMulColor({ 1.0f, 1.0f, 1.0f, CircleAlpha });

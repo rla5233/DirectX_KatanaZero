@@ -62,6 +62,11 @@ void USoundManager::HeadHunterSoundInit()
 	HeadHunterBGM1.SetVolume(0.6f);
 	HeadHunterBGM1.Loop();
 	HeadHunterBGM1.Off();
+
+	HeadHunterBGM2 = UEngineSound::SoundPlay(SoundRes::bgm_headhunter2);
+	HeadHunterBGM2.SetVolume(0.6f);
+	HeadHunterBGM2.Loop();
+	HeadHunterBGM2.Off();
 }
 
 UEngineSoundPlayer USoundManager::SoundPlay_PlayerRun()

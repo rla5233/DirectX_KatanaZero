@@ -88,6 +88,9 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 			Player->StateChange(PlayerState::idle);
 			Player->SubStateChange(PlayerSubState::none);
 
+			USoundManager::GetInst()->ResetHeadHunterBGM2();
+			USoundManager::GetInst()->GetHeadHunterBGM2().On();
+
 			DelayCallBack(1.0f, [=]
 				{
 					HeadHunter->SubStateChange(HeadHunterSubState::play);
@@ -97,15 +100,17 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 	);
 
 
-	AHead* NewHead = GetWorld()->SpawnActor<AHead>("Head").get();
-	NewHead->SetActorLocation({ 672.0f, 360.0f, 0.0f });
-	NewHead->StateChange(HeadState::hurtfly);
+	//AHead* NewHead = GetWorld()->SpawnActor<AHead>("Head").get();
+	//NewHead->SetActorLocation({ 672.0f, 360.0f, 0.0f });
+	//NewHead->StateChange(HeadState::hurtfly);
 
 }
 
 void AHeadHunterLevel_Phase2::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	USoundManager::GetInst()->GetHeadHunterBGM2().Off();
 }
 
 void AHeadHunterLevel_Phase2::LevelReStart()

@@ -103,16 +103,44 @@ void AHeadHunterPhase2::HitFlyStart()
 	{
 	case 1:
 		DelayCallBack(0.5f, [=] { PlayLevel->SetWallTurret(); });
-		DelayCallBack(3.5f, [=] { State.ChangeState(HeadHunterState::pattern_airrifle2); });
+		DelayCallBack(3.5f, [=] 
+			{ 
+				if (HeadHunterSubState::restart == SubState.GetCurStateName())
+				{
+					return;
+				}
+
+				State.ChangeState(HeadHunterState::pattern_airrifle2); 
+			}
+		);
 		break;
 	case 2:
-		DelayCallBack(1.8f, [=] { State.ChangeState(HeadHunterState::pattern_complex); });
+		DelayCallBack(1.8f, [=] 
+			{ 
+				if (HeadHunterSubState::restart == SubState.GetCurStateName())
+				{
+					return;
+				}
+
+				State.ChangeState(HeadHunterState::pattern_complex); 
+			}
+		);
 		break;
 	case 3:
-		DelayCallBack(1.7f, [=] { State.ChangeState(HeadHunterState::pattern_bombing); });
+		DelayCallBack(1.7f, [=] 
+			{ 
+				if (HeadHunterSubState::restart == SubState.GetCurStateName())
+				{
+					return;
+				}
+
+				State.ChangeState(HeadHunterState::pattern_bombing); 
+			}
+		);
 		break;
 	}
 
+	RifleLaserEffect->SetActive(false);
 	RollCount = 0;
 }
 
@@ -208,6 +236,7 @@ void AHeadHunterPhase2::PatternSwordDashStart()
 	}
 
 	DashLaserAlpha = 0.0f;
+	UEngineSound::SoundPlay(SoundRes::hh_pre_knife).SetVolume(0.75f);
 	Body->ChangeAnimation(Anim::headhunter_predash);
 	DashLaser->SetMulColor({ 1.0f, 1.0f, 1.0f, DashLaserAlpha });
 	DashLaser->SetActive(true);
