@@ -51,6 +51,9 @@ void ALaser::StateInit()
 			Body->SetRotationDeg({ 0.0f, 0.0f, Deg });
 			Body->SetMulColor({ 1.0f, 1.0f, 1.0f, LaserAlpha });
 			Body->SetActive(true);
+
+			UEngineSound::SoundPlay(SoundRes::hh_laser_lockon);
+			USoundManager::SoundPlay_HH_Laser_Vertical();
 		}
 	);
 
@@ -58,6 +61,7 @@ void ALaser::StateInit()
 		{
 			LaserAlpha = 1.0f;
 			Body->SetMulColor({ 1.0f, 1.0f, 1.0f, LaserAlpha });
+			USoundManager::SoundPlay_HH_LaserShot();
 			Body->ChangeAnimation(Anim::effect_laser);
 			Body->SetScale({ 1280.0f, 18.0f, 1.0f });
 			BodyCol->SetActive(true);

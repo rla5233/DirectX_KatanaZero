@@ -527,6 +527,7 @@ void AHeadHunterPhase2::AirRifle2Update(float _DeltaTime)
 {
 	if (true == Body->IsCurAnimationEnd())
 	{
+		UEngineSound::SoundPlay(SoundRes::hh_laser_circle);
 		SetAirRifle2Effect();
 		DelayCallBack(0.25f, [=] { PatternOrder = 1; });
 		PatternOrder = -1;
@@ -586,6 +587,7 @@ void AHeadHunterPhase2::AirRifle2Update2(float _DeltaTime)
 		RifleLaserCol->SetActive(false);
 
 		Body->AnimationReset();
+		UEngineSound::SoundPlay(SoundRes::hh_dash);
 		Body->SetSprite(ImgRes::headhunter_dash);
 		Body->SetDir(EEngineDir::Left);
 		Body->SetRotationDeg({ 0.0f, 0.0f, 90.0f });
@@ -688,6 +690,7 @@ void AHeadHunterPhase2::ComplexUpdate2(float _DeltaTime)
 	if (true == Body->IsCurAnimationEnd())
 	{
 		SetComplexLaser1Effect();
+		UEngineSound::SoundPlay(SoundRes::hh_laser_circle);
 		Body->ChangeAnimation(Anim::headhunter_sweep);
 		
 		DelayCallBack(0.1f, [=] { PatternOrder = 3; });
@@ -767,6 +770,7 @@ void AHeadHunterPhase2::ComplexUpdate5(float _DeltaTime)
 {
 	if (true == Body->IsCurAnimationEnd())
 	{
+		UEngineSound::SoundPlay(SoundRes::hh_laser_circle);
 		SetComplexLaser2Effect();
 		Body->ChangeAnimation(Anim::headhunter_sweep);
 
@@ -878,7 +882,8 @@ void AHeadHunterPhase2::ComplexUpdate10(float _DeltaTime)
 			Velocity = { 700.0f, 800.0f, 0.0f };
 			break;
 		}
-
+		
+		DelayCallBack(0.12f, [=] { UEngineSound::SoundPlay(SoundRes::hh_gatling); });
 		Body->ChangeAnimation(Anim::headhunter_wall_jump);
 		AirRifle1ShootCount = 0;
 		IsCameraShake = false;
@@ -1035,6 +1040,7 @@ void AHeadHunterPhase2::BombingUpdate2(float _DeltaTime)
 			break;
 		}
 
+		UEngineSound::SoundPlay(SoundRes::hh_wall_slam);
 		AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
 		if (false == PlayLevel->IsPlayerDead())
 		{

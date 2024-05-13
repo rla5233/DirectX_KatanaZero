@@ -396,10 +396,18 @@ namespace SoundRes
 	const std::string_view hh_pre_knife				= "sound_boss_huntressknife_prep_01.wav";
 	const std::string_view hh_dash					= "sound_boss_huntress_dash_01.wav";
 	const std::string_view hh_gatling				= "sound_boss_huntress_gatling.wav";
+	const std::string_view hh_laser_circle			= "sound_boss_huntressbeam_circle.wav";
+	const std::string_view hh_laser_vertical1		= "sound_boss_huntresslaser_vertical_01.wav";
+	const std::string_view hh_laser_vertical2		= "sound_boss_huntresslaser_vertical_02.wav";
+	const std::string_view hh_laser_vertical3		= "sound_boss_huntresslaser_vertical_03.wav";
+	const std::string_view hh_bombed_arm			= "sound_boss_huntressbomb_armed_01.wav";
+	const std::string_view hh_wall_slam				= "sound_boss_huntress_wallslam_01.wav";
+	const std::string_view hh_floor_hit				= "sound_boss_huntress_floorhit_01.wav";
 
 	const std::string_view hh_wallopen				= "sound_object_wall_open.wav";
 	const std::string_view hh_wallturret_deploy		= "sound_object_turrets_deploy.wav";
 	const std::string_view hh_wallturret_overheat	= "sound_turret_overheat.wav";
+	const std::string_view hh_wallturret_dead		= "sound_turret_death.wav";
 
 	// UI
 	const std::string_view title_menu_beep			= "sound_menu_beep.wav";

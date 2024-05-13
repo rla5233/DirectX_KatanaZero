@@ -156,6 +156,7 @@ void AWallTurret::StateInit()
 				// Collision Update
 				HeadCol[i]->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
 					{
+						UEngineSound::SoundPlay(SoundRes::hh_wallturret_dead);
 						AllHolder[i]->AnimationReset();
 						AllHolder[i]->SetSprite(ImgRes::turret_holder);
 						AllHead[i]->ChangeAnimation(Anim::turret_head_die);

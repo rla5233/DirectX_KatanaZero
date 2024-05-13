@@ -142,6 +142,7 @@ void AHeadHunterPhase2::SetBombingEffect()
 		break;
 	}
 
+	UEngineSound::SoundPlay(SoundRes::hh_explosion);
 	Body->ChangeAnimation(Anim::headhunter_diefly_stop);
 	PatternOrder = 2;
 }

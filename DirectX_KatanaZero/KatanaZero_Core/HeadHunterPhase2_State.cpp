@@ -80,18 +80,6 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 	}
 
 	PatternCheck();
-
-	if (true == UEngineInput::IsDown(VK_SPACE))
-	{
-		//State.ChangeState(HeadHunterState::pattern_gunshoot1);
-		//State.ChangeState(HeadHunterState::pattern_sword_dash);
-		//State.ChangeState(HeadHunterState::pattern_rifle1);
-		//State.ChangeState(HeadHunterState::pattern_airrifle1);
-		//State.ChangeState(HeadHunterState::pattern_airrifle2);
-		//State.ChangeState(HeadHunterState::pattern_complex);
-		//State.ChangeState(HeadHunterState::pattern_bombing);
-		return;
-	}
 }
 
 void AHeadHunterPhase2::HitFlyStart()
@@ -127,7 +115,7 @@ void AHeadHunterPhase2::HitFlyStart()
 		);
 		break;
 	case 3:
-		DelayCallBack(1.7f, [=] 
+		DelayCallBack(1.4f, [=] 
 			{ 
 				if (HeadHunterSubState::restart == SubState.GetCurStateName())
 				{
@@ -438,6 +426,7 @@ void AHeadHunterPhase2::DeadStart()
 	PlayLevel->GetDefaultPlayer()->InputOff();
 	PlayLevel->SetIsTimeCount(false);
 
+	USoundManager::GetInst()->GetHeadHunterBGM2().SetVolume(0.0f);
 	GEngine->SetOrderTimeScale(EUpdateOrder::Player, 0.1f);
 	GEngine->SetOrderTimeScale(EUpdateOrder::HeadHunter, 0.1f);
 	Body->ChangeAnimation(Anim::headhunter_diefly);
@@ -528,6 +517,7 @@ void AHeadHunterPhase2::DeadUpdate2(float _DeltaTime)
 
 	BodyCol->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
 		{
+			USoundManager::SoundPlay_EnemyDeadSword();
 			GEngine->SetGlobalTimeScale(0.01f);
 			DelayCallBack(0.005f, [=] { GEngine->SetGlobalTimeScale(1.0f); });
 			Body->ChangeAnimation(Anim::headhunter_dead_nohead);

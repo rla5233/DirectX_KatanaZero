@@ -152,6 +152,8 @@ void AHeadHunterLevel_Phase2::LevelReStart()
 	WallTurret = GetWorld()->SpawnActor<AWallTurret>("WallTurret", EUpdateOrder::RecComponent);
 	WallTurret->SetActorLocation({ 183.0f, 355.0f, 0.0f });
 	PushRecMapCompo(WallTurret);
+
+	USoundManager::GetInst()->GetHeadHunterBGM2().SetVolume(0.6f);
 }
 
 void AHeadHunterLevel_Phase2::LevelReEnd()

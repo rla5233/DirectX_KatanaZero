@@ -112,7 +112,7 @@ void AHeadHunterPhase2::CreateAnimation()
 			State.ChangeState(HeadHunterState::idle); 
 		}
 	);
-
+	
 	Body->SetFrameCallback(Anim::headhunter_tel_ground, 3, [=]
 		{
 			AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
@@ -120,6 +120,18 @@ void AHeadHunterPhase2::CreateAnimation()
 			CurPos.X -= 40.0f;
 			CurPos.Y += 40.0f;
 			PlayLevel->CreateLaser(CurPos, 180.0f, 0.2f);
+		}
+	);
+
+	Body->SetFrameCallback(Anim::headhunter_reveal_bomb, 5, [=]
+		{
+			UEngineSound::SoundPlay(SoundRes::hh_bombed_arm);
+		}
+	);
+
+	Body->SetFrameCallback(Anim::headhunter_dieland, 0, [=]
+		{
+			UEngineSound::SoundPlay(SoundRes::hh_floor_hit);
 		}
 	);
 }
