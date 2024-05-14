@@ -23,7 +23,7 @@ void AScientistHead::BeginPlay()
 	GetBody()->CreateAnimation(Anim::compo_sci_headfly1, ImgRes::compo_sci_headfly1, 0.1f, true);
 	GetBody()->CreateAnimation(Anim::compo_sci_headfly2, ImgRes::compo_sci_headfly2, 0.1f, true);
 	GetBody()->CreateAnimation(Anim::compo_sci_headground, ImgRes::compo_sci_headground, 0.1f, false);
-	GetBody()->SetOrder(ERenderOrder::MapComponent_Back);
+	GetBody()->SetOrder(ERenderOrder::MapComponent_Mid);
 	GetBody()->SetDir(EEngineDir::Right);
 	GetBody()->SetAutoSize(2.0f, true);
 	GetBody()->SetActive(false);

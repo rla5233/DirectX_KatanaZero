@@ -21,6 +21,7 @@ enum class ERenderOrder
 	ColMap,
 	BackGround,
 	MapComponent_Back,
+	MapComponent_Mid,
 	EffectBack,
 	AfterImage,
 	Enemy,
