@@ -68,6 +68,7 @@ void AScientistHead::StateInit()
 		{
 			Velocity = FVector::Zero;
 			GetBody()->ChangeAnimation(Anim::compo_sci_headground);
+			DelayCallBack(1.0f, [=] { UEngineSound::SoundPlay(SoundRes::head_bloodspurt); });
 		}
 	);
 
@@ -106,11 +107,13 @@ void AScientistHead::StateInit()
 
 			if (true == IsOnGround(GetBody()->GetDir()))
 			{
+				USoundManager::SoundPlay_EnemyBloodSplat();
 				State.ChangeState(HeadState::ground);
 				return;
 			}
 		}
 	);
+	
 	State.SetUpdateFunction(HeadState::ground, [=](float _DeltaTime) {});
 
 }

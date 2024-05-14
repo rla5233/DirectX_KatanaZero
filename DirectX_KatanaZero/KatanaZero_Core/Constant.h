@@ -451,6 +451,7 @@ namespace SoundRes
 	const std::string_view scientist_groan			= "sound_scientistgroan.wav";
 	const std::string_view scientist_beep			= "sound_explosivecollar_beep.wav";
 	const std::string_view scientist_explosion		= "sound_explosivecollar_explosion.wav";
+	const std::string_view head_bloodspurt			= "sound_head_bloodspurt.wav";
 		
 	// BGM
 	const std::string_view bgm_title				= "song_title_bgm.ogg";
