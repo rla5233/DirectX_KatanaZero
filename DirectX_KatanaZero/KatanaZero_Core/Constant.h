@@ -167,8 +167,11 @@ namespace ImgRes
 	const std::string_view compo_fan_front			= "spr_fan_fg.png";
 	const std::string_view compo_fan_blade			= "spr_fanblade";
 
-	const std::string_view compo_scientist_chair	= "spr_scientist_chair";
-	const std::string_view compo_scientist_explode	= "spr_scientist_explode";
+	const std::string_view compo_sci_chair			= "spr_scientist_chair";
+	const std::string_view compo_sci_explode		= "spr_scientist_explode";
+	const std::string_view compo_sci_headfly1		= "spr_scientist_headfly";
+	const std::string_view compo_sci_headfly2		= "spr_scientist_headfly_loop";
+	const std::string_view compo_sci_headground		= "spr_scientist_headground";
 
 	const std::string_view compo_bullet				= "spr_bullet_0.png";
 	const std::string_view compo_bullet1			= "spr_bullet_1.png";
@@ -334,8 +337,11 @@ namespace Anim
 	const std::string_view compo_ceilgun_col_idle	= "spr_ceilgun_col_idle";
 	const std::string_view compo_fan_blade			= "spr_fanblade";
 
-	const std::string_view compo_scientist_chair	= "spr_scientist_chair";
-	const std::string_view compo_scientist_explode	= "spr_scientist_explode";
+	const std::string_view compo_sci_chair			= "spr_scientist_chair";
+	const std::string_view compo_sci_explode		= "spr_scientist_explode";
+	const std::string_view compo_sci_headfly1		= "spr_scientist_headfly";
+	const std::string_view compo_sci_headfly2		= "spr_scientist_headfly_loop";
+	const std::string_view compo_sci_headground		= "spr_scientist_headground";
 
 	const std::string_view compo_sliding_door_close		= "spr_sliding_door_close";
 	const std::string_view compo_sliding_door_redled	= "spr_sliding_door_redled";
@@ -442,6 +448,9 @@ namespace SoundRes
 	const std::string_view pull_switch				= "sound_pull_switch.wav";
 	const std::string_view blastdoor_close			= "sound_blastdoor_close.wav";
 	const std::string_view mine_activate			= "sound_ground_mine_activate.wav";
+	const std::string_view scientist_groan			= "sound_scientistgroan.wav";
+	const std::string_view scientist_beep			= "sound_explosivecollar_beep.wav";
+	const std::string_view scientist_explosion		= "sound_explosivecollar_explosion.wav";
 		
 	// BGM
 	const std::string_view bgm_title				= "song_title_bgm.ogg";
@@ -789,9 +798,12 @@ namespace LaserState
 
 namespace HeadState
 {
-	const std::string_view hurtfly				= "HurtFly";
-	const std::string_view hurtground			= "HurtGround";
+	const std::string_view none				= "None";
+	const std::string_view hurtfly			= "HurtFly";
+	const std::string_view hurtground		= "HurtGround";
+	const std::string_view ground			= "Ground";
 }
+
 
 // Info.
 namespace HH_Phase1_RefPos

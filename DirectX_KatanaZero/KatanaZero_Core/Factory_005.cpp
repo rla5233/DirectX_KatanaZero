@@ -9,6 +9,7 @@
 #include "GangSter.h"
 #include "CeilLaser.h"
 #include "PanicSwitch.h"
+#include "ScientistHead.h"
 #include "Scientist.h"
 #include "Stair.h"
 #include "Door.h"
@@ -104,6 +105,9 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 		DownStair->SetPartnerStair(UpStair);
 	}
 
+	ScientistHead = GetWorld()->SpawnActor<AScientistHead>("ScientistHead");
+	PushRecMapCompo(ScientistHead);
+
 	ClearUI = GetWorld()->SpawnActor<UFactoryClearUI>("ClearUI");
 	USoundManager::GetInst()->GetFactoryBGM().On();
 	State.ChangeState(PlayLevelState::transition_off);
@@ -169,6 +173,9 @@ void AFactory_005::LevelReStart()
 		std::shared_ptr<ADoor> NewDoor = SpawnRecComponent<ADoor>("Door", { 1070.0f, 768.0f, 0.0f }, EEngineDir::Right, DoorState::close);
 		AllDoor[2].push_back(NewDoor);
 	}
+
+	ScientistHead = GetWorld()->SpawnActor<AScientistHead>("ScientistHead");
+	PushRecMapCompo(ScientistHead);
 }
 
 void AFactory_005::LevelReEnd()
@@ -201,6 +208,12 @@ void AFactory_005::ExtraGangsterOn()
 	{
 		ExtraGangster[i]->StateChange(EnemyState::chase_run);
 	}
+}
+
+void AFactory_005::SetScientistHead(const FVector& _Pos)
+{
+	ScientistHead->SetActorLocation(_Pos);
+	ScientistHead->StateChange(HeadState::hurtfly);
 }
 
 void AFactory_005::Tick(float _DeltaTime)

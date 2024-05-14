@@ -2,6 +2,7 @@
 #include "PlayLevelBase.h"
 
 class AGangSter;
+class AScientistHead;
 class UFactoryClearUI;
 
 // 설명 : Factory 5번째 스테이지
@@ -20,6 +21,7 @@ public:
 	AFactory_005& operator=(AFactory_005&& _Other) noexcept = delete;
 
 	void ExtraGangsterOn();
+	void SetScientistHead(const FVector& _Pos);
 
 protected:
 	void BeginPlay() override;
@@ -37,6 +39,7 @@ protected:
 private:
 	std::vector<AGangSter*> ExtraGangster;
 	std::shared_ptr<UFactoryClearUI> ClearUI = nullptr;
+	std::shared_ptr<AScientistHead> ScientistHead = nullptr;
 
 // FSM	
 protected:

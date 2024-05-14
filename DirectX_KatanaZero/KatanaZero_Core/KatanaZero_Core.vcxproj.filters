@@ -351,6 +351,9 @@
     <ClInclude Include="Head.h">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="ScientistHead.h">
+      <Filter>Level\002.FactoryLevel\Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -613,6 +616,9 @@
     </ClCompile>
     <ClCompile Include="Head.cpp">
       <Filter>Level\003.HeadHunterLevel\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ScientistHead.cpp">
+      <Filter>Level\002.FactoryLevel\Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "Scientist.h"
 
 #include "Factory_005.h"
+#include "MainCamera.h"
 
 AScientist::AScientist()
 {
@@ -42,18 +43,27 @@ void AScientist::StateInit()
 	// State Start
 	State.SetStartFunction(ScientistState::idle, [=] 
 		{
-			GetBody()->ChangeAnimation(Anim::compo_scientist_chair);
+			GetBody()->ChangeAnimation(Anim::compo_sci_chair);
 		}
 	);
 
 	State.SetStartFunction(ScientistState::explode, [=] 
 		{
-			BodyCol->SetActive(false);
-			GetBody()->ChangeAnimation(Anim::compo_scientist_explode);
-
 			// 갱스터 활성화
 			AFactory_005* PlayLevel = dynamic_cast<AFactory_005*>(GetWorld()->GetGameMode().get());
 			PlayLevel->ExtraGangsterOn();
+
+			UEngineSound::SoundPlay(SoundRes::scientist_beep);
+			UEngineSound::SoundPlay(SoundRes::scientist_groan);
+			DelayCallBack(1.0f, [=] 
+				{ 
+					PlayLevel->GetKZMainCamera()->StateChange(MainCameraState::shaking);
+					UEngineSound::SoundPlay(SoundRes::scientist_explosion); 
+				}
+			);
+
+			BodyCol->SetActive(false);
+			GetBody()->ChangeAnimation(Anim::compo_sci_explode);
 		}
 	);
 
@@ -98,10 +108,19 @@ void AScientist::CollisionInit()
 
 void AScientist::CreateAnimation()
 {
-	GetBody()->CreateAnimation(Anim::compo_scientist_chair, ImgRes::compo_scientist_chair, 0.1f, true);
-	GetBody()->CreateAnimation(Anim::compo_scientist_explode, ImgRes::compo_scientist_explode, 0.12f, false);
+	GetBody()->CreateAnimation(Anim::compo_sci_chair, ImgRes::compo_sci_chair, 0.1f, true);
+	GetBody()->CreateAnimation(Anim::compo_sci_explode, ImgRes::compo_sci_explode, 0.1f, false);
 
-	GetBody()->SetFrameCallback(Anim::compo_scientist_explode, 11, [=]
+	GetBody()->SetFrameCallback(Anim::compo_sci_explode, 10, [=]
+		{
+			AFactory_005* PlayLevel = dynamic_cast<AFactory_005*>(GetWorld()->GetGameMode().get());
+			FVector CurPos = GetActorLocation();
+			CurPos.Y += 60.0f;
+			PlayLevel->SetScientistHead(CurPos);
+		}
+	);
+
+	GetBody()->SetFrameCallback(Anim::compo_sci_explode, 11, [=]
 		{
 			ExplodeEffect->ChangeAnimation(Anim::effect_collar_explode);
 			ExplodeEffect->SetActive(true);
