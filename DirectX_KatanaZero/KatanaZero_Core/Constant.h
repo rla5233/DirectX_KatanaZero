@@ -820,7 +820,9 @@ namespace HeadState
 
 namespace EndingScrenState
 {
+	const std::string_view none				= "None";
 	const std::string_view fade_in			= "Fade_In";
+	const std::string_view fade_out			= "Fade_Out";
 	const std::string_view ending_credit	= "Ending_Credit";
 }
 

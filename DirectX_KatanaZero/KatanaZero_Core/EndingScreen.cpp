@@ -64,10 +64,13 @@ void AEndingScreen::Tick(float _DeltaTime)
 void AEndingScreen::StateInit()
 {
 	// State Create
+	State.CreateState(EndingScrenState::none);
 	State.CreateState(EndingScrenState::fade_in);
 	State.CreateState(EndingScrenState::ending_credit);
+	State.CreateState(EndingScrenState::fade_out);
 
 	// State Start
+	State.SetStartFunction(EndingScrenState::none, [=] {});
 	State.SetStartFunction(EndingScrenState::fade_in, [=]
 		{
 			AllMulColor = 0.0f;
@@ -94,7 +97,13 @@ void AEndingScreen::StateInit()
 		}
 	);
 
+	State.SetStartFunction(EndingScrenState::fade_out, [=] 
+		{
+		}
+	);
+
 	// State Update
+	State.SetUpdateFunction(EndingScrenState::none, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(EndingScrenState::fade_in, [=](float _DeltaTime)
 		{
 			if (true == IsFade)
@@ -132,6 +141,36 @@ void AEndingScreen::StateInit()
 				break;
 			}
 	
+		}
+	);
+
+	State.SetUpdateFunction(EndingScrenState::fade_out, [=](float _DeltaTime) 
+		{
+			if (true == IsFade)
+			{
+				float4 MulColor = float4::One;
+				AllMulColor -= 0.1f * _DeltaTime;
+				if (0.0f > AllMulColor)
+				{
+					IsFade = false;
+					AllMulColor = 1.0f;
+					SetScreenMulColor(MulColor);
+
+					DelayCallBack(3.0f, [=]
+						{
+							GEngine->ChangeLevel("TitleLevel");
+						}
+					);
+
+					State.ChangeState(EndingScrenState::none);
+					return;
+				}
+
+				MulColor.R = AllMulColor;
+				MulColor.G = AllMulColor;
+				MulColor.B = AllMulColor;
+				SetScreenMulColor(MulColor);
+			}
 		}
 	);
 
