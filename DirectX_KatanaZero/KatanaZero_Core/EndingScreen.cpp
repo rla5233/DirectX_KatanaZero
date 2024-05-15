@@ -82,23 +82,21 @@ void AEndingScreen::StateInit()
 
 	State.SetStartFunction(EndingScrenState::ending_credit, [=] 
 		{
-			DelayCallBack(9.0f, [=]
-				{
-					AllMulColor = 0.0f;
-					float4 StartMulColor = { 1.0f, 1.0f, 1.0f, AllMulColor };
-					Title->SetMulColor(StartMulColor);
-					Title->SetActive(true);
-					IsFade = true;
-					EndingOrder = 0;
-				}
-			);
-
-			EndingOrder = -1;
+			AllMulColor = 0.0f;
+			float4 StartMulColor = { 1.0f, 1.0f, 1.0f, AllMulColor };
+			Title->SetMulColor(StartMulColor);
+			Title->SetActive(true);
+			IsFade = true;
+			EndingOrder = 0;
 		}
 	);
 
 	State.SetStartFunction(EndingScrenState::fade_out, [=] 
 		{
+			AllMulColor = 1.0f;
+			float4 StartMulColor = { AllMulColor, AllMulColor, AllMulColor, 1.0f };
+			SetScreenMulColor(StartMulColor);
+			IsFade = true;
 		}
 	);
 
@@ -109,7 +107,7 @@ void AEndingScreen::StateInit()
 			if (true == IsFade)
 			{
 				float4 MulColor = float4::One;
-				AllMulColor += 0.1f * _DeltaTime;
+				AllMulColor += 0.2f * _DeltaTime;
 				if (1.0f < AllMulColor)
 				{
 					IsFade = false;
@@ -140,7 +138,6 @@ void AEndingScreen::StateInit()
 			default:
 				break;
 			}
-	
 		}
 	);
 
@@ -149,14 +146,17 @@ void AEndingScreen::StateInit()
 			if (true == IsFade)
 			{
 				float4 MulColor = float4::One;
-				AllMulColor -= 0.1f * _DeltaTime;
+				AllMulColor -= 0.2f * _DeltaTime;
 				if (0.0f > AllMulColor)
 				{
 					IsFade = false;
-					AllMulColor = 1.0f;
+					AllMulColor = 0.0f;
+					MulColor.R = AllMulColor;
+					MulColor.G = AllMulColor;
+					MulColor.B = AllMulColor;
 					SetScreenMulColor(MulColor);
 
-					DelayCallBack(3.0f, [=]
+					DelayCallBack(4.5f, [=]
 						{
 							GEngine->ChangeLevel("TitleLevel");
 						}
@@ -209,7 +209,9 @@ void AEndingScreen::EndingUpdate1(float _DeltaTime)
 		{
 			IsFade = false;
 			AllMulColor = 0.0f;
-			EndingOrder = -1;
+			Title->SetMulColor({ 1.0f, 1.0f, 1.0f, AllMulColor });
+			State.ChangeState(EndingScrenState::fade_out);
+			return;
 		}
 
 		Title->SetMulColor({ 1.0f, 1.0f, 1.0f, AllMulColor });

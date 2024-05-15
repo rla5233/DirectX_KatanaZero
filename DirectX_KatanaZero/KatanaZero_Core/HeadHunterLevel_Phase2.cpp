@@ -177,7 +177,7 @@ void AHeadHunterLevel_Phase2::ClearStart()
 {
 	DelayCallBack(4.0f, [=] 
 		{ 
-			UEngineSound::SoundPlay(SoundRes::bgm_ending).SetVolume(0.25f); 
+			UEngineSound::SoundPlay(SoundRes::bgm_ending1).SetVolume(0.25f); 
 			EndingFadeOutMulColor = 1.0f;
 			IsEndingFadeOut = true;
 			ColMap->ColMapOff();

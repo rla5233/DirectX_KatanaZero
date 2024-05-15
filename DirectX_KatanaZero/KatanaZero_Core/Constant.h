@@ -470,7 +470,8 @@ namespace SoundRes
 	const std::string_view bgm_factory				= "song_youwillneverknow.ogg";
 	const std::string_view bgm_headhunter1			= "song_bossbattle.ogg";
 	const std::string_view bgm_headhunter2			= "song_fullconfession.ogg";
-	const std::string_view bgm_ending				= "song_ending_2.ogg";
+	const std::string_view bgm_ending1				= "song_ending.ogg";
+	const std::string_view bgm_ending2				= "song_ending_2.ogg";
 }
 
 namespace Const
