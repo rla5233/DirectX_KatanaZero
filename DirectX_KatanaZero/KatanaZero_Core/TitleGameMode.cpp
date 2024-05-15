@@ -17,16 +17,16 @@ void ATitleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TitleBGM = UEngineSound::SoundPlay(SoundRes::bgm_title);
-	TitleBGM.Loop();
-	TitleBGM.Off();
-
 	StateInit();
 }
 
 void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+	TitleBGM = UEngineSound::SoundPlay(SoundRes::bgm_title);
+	TitleBGM.Loop();
+	TitleBGM.Off();
 
 	State.ChangeState(TitleLevelState::title);
 }
@@ -66,6 +66,9 @@ void ATitleGameMode::StateInit()
 			Screen = GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
 			MainCamera = GetWorld()->SpawnActor<AMainCamera>("MainCamera");
 			MainCamera->StateChange(MainCameraState::title_in);
+
+			TitleBGM = TitleBGM.Replay();
+			TitleBGM.Loop();
 			TitleBGM.On();
 		}
 	);

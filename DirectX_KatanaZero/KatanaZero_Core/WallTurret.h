@@ -16,6 +16,8 @@ public:
 	AWallTurret& operator=(const AWallTurret& _Other) = delete;
 	AWallTurret& operator=(AWallTurret&& _Other) noexcept = delete;
 
+	void SetEndingMulColor(const float4& _MulColor);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

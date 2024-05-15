@@ -271,3 +271,13 @@ void AWallTurret::SetAllMulColor(const float4& _MulColor)
 		AllHead[i]->SetMulColor(_MulColor);
 	}
 }
+
+void AWallTurret::SetEndingMulColor(const float4& _MulColor)
+{
+	for (size_t i = 0; i < HeadNum; i++)
+	{
+		AllHolder[i]->SetMulColor(_MulColor);
+		AllHead[i]->SetMulColor(_MulColor);
+		GetBody()->SetMulColor(_MulColor);
+	}
+}

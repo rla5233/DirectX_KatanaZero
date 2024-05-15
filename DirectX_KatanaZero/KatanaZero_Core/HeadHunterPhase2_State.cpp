@@ -73,9 +73,6 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 		return;
 	}
 
-	State.ChangeState(HeadHunterState::pattern_bombing);
-	return;
-
 	if (0.0f < PatternDelayTimeCount)
 	{
 		PatternDelayTimeCount -= _DeltaTime;

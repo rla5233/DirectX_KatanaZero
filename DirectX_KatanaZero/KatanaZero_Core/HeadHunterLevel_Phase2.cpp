@@ -214,6 +214,7 @@ void AHeadHunterLevel_Phase2::EndingFadeOut(float _DeltaTime)
 		Player->GetBody()->SetMulColor(MulColor);
 		Aim->GetBody()->SetMulColor(MulColor);
 		HUD->SetAllMulColor(MulColor);
+		WallTurret->SetEndingMulColor(MulColor);
 	}
 }
 
