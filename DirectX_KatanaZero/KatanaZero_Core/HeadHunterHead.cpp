@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "HeadHunterHead.h"
 
+#include "HeadHunterLevel_Phase2.h"
+
 AHeadHunterHead::AHeadHunterHead()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -38,10 +40,12 @@ void AHeadHunterHead::BeginPlay()
 void AHeadHunterHead::StateInit()
 {
 	// State Create
+	State.CreateState(HeadState::none);
 	State.CreateState(HeadState::hurtfly);
 	State.CreateState(HeadState::hurtground);
 
 	// State Start
+	State.SetStartFunction(HeadState::none, [=] {});
 	State.SetStartFunction(HeadState::hurtfly, [=] 
 		{
 			EEngineDir Dir = Body->GetDir();
@@ -72,11 +76,13 @@ void AHeadHunterHead::StateInit()
 				break;
 			}
 
+			USoundManager::SoundPlay_EnemyBloodSplat().SetVolume(0.5f);
 			Body->ChangeAnimation(Anim::HH_head_hurtground);
 		}
 	);
 
 	// State Update
+	State.SetUpdateFunction(HeadState::none, [=](float _DeltaTime) {});
 	State.SetUpdateFunction(HeadState::hurtfly, [=](float _DeltaTime) 
 		{
 			Velocity.Y -= 800.0f * _DeltaTime;
@@ -120,16 +126,21 @@ void AHeadHunterHead::StateInit()
 	
 	State.SetUpdateFunction(HeadState::hurtground, [=](float _DeltaTime) 
 		{
-			if (true == IsOnGround(Body->GetDir()))
-			{
-				Velocity = FVector::Zero;
-				return;
-			}
-
 			Velocity.Y -= 800.0f * _DeltaTime;
 			 
 			// 위치 업데이트
 			PosUpdate(_DeltaTime);
+
+			if (true == IsOnGround(Body->GetDir()))
+			{
+				AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+				PlayLevel->StateChange(PlayLevelState::clear);
+
+				USoundManager::SoundPlay_EnemyBloodSplat().SetVolume(0.5f);
+				Velocity = FVector::Zero;
+				State.ChangeState(HeadState::none);
+				return;
+			}
 		}
 	);
 

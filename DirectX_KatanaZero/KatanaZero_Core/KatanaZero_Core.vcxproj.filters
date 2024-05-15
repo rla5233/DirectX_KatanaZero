@@ -136,6 +136,15 @@
     <Filter Include="Level\003.HeadHunterLevel\Object\HeadHunter\Phase2">
       <UniqueIdentifier>{53612757-1cf5-4fff-afe0-5a01557cc00c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\004.EndingLevel">
+      <UniqueIdentifier>{d0b244e4-183e-4a80-ac8e-25f72dadaf9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\004.EndingLevel\GameMode">
+      <UniqueIdentifier>{49e89772-d83d-4de0-9a33-5a50a3b0b6b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\004.EndingLevel\Object">
+      <UniqueIdentifier>{1126fe91-d264-463e-86ac-4ee5ed0ec2e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">

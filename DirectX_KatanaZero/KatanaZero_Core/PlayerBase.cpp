@@ -15,10 +15,6 @@ APlayerBase::APlayerBase()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
 	Body = CreateDefaultSubObject<USpriteRenderer>("Player_Renderer");
-	Front_Top	= CreateDefaultSubObject<USpriteRenderer>("Front_Top");
-	Front_Bot	= CreateDefaultSubObject<USpriteRenderer>("Front_Bot");
-	Back_Top	= CreateDefaultSubObject<USpriteRenderer>("Back_Top");
-	Back_Bot	= CreateDefaultSubObject<USpriteRenderer>("Back_Bot");
 
 	AttackCol	= CreateDefaultSubObject<UCollision>("Player_Attack");
 	BodyCol		= CreateDefaultSubObject<UCollision>("Player_Body");
@@ -36,10 +32,6 @@ APlayerBase::APlayerBase()
 	}
 
 	Body->SetupAttachment(Root);
-	Back_Top->SetupAttachment(Root);
-	Back_Bot->SetupAttachment(Root);
-	Front_Top->SetupAttachment(Root);
-	Front_Bot->SetupAttachment(Root);
 	AttackCol->SetupAttachment(Root);
 	BodyCol->SetupAttachment(Root);
 	FrontCol->SetupAttachment(Root);
@@ -76,27 +68,6 @@ void APlayerBase::RendererInit()
 	Body->SetAutoSize(2.0f, true);
 	Body->SetDir(EEngineDir::Right);
 	Body->SetPivot(EPivot::BOT);
-
-	Front_Top->SetSprite("RedPoint.png");
-	Front_Top->SetOrder(ERenderOrder::Player2);
-	Front_Top->SetAutoSize(4.0f, true);
-	
-	Front_Bot->SetSprite("RedPoint.png");
-	Front_Bot->SetOrder(ERenderOrder::Player2);
-	Front_Bot->SetAutoSize(4.0f, true);
-
-	Back_Top->SetSprite("RedPoint.png");
-	Back_Top->SetOrder(ERenderOrder::Player2);
-	Back_Top->SetAutoSize(4.0f, true);
-
-	Back_Bot->SetSprite("RedPoint.png");
-	Back_Bot->SetOrder(ERenderOrder::Player2);
-	Back_Bot->SetAutoSize(4.0f, true);
-	
-	//Front_Top->SetActive(false);
-	//Front_Bot->SetActive(false);
-	//Back_Top->SetActive(false);
-	//Back_Bot->SetActive(false);
 }
 
 void APlayerBase::CollisionInit()
@@ -405,23 +376,9 @@ void APlayerBase::ColCheckUpdate()
 {
 	EEngineDir Dir = Body->GetDir();
 
-	Front_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
-	Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
-	Back_Top->SetPlusColor({ 0.0f, 0.0f, 0.0f });
-	Back_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
-
-	// ColWall
-	if (true == IsColWall(Dir))
-	{
-		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-	}
-
 	// OnGround
 	if (true == IsOnGround(Dir))
 	{
-		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		OnGroundPosAdjust(Dir);
 	}
 
@@ -430,14 +387,7 @@ void APlayerBase::ColCheckUpdate()
 	{
 		if (true == IsStairsUp())
 		{
-			Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-			Back_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
 			UpStairPosAdjust(Dir);
-		}
-		else
-		{
-			Front_Bot->SetPlusColor({ 0.0f, 0.0f, 0.0f });
-			Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		}
 	}
 	
@@ -445,33 +395,6 @@ void APlayerBase::ColCheckUpdate()
 	if (true == IsOnCliff(Dir))
 	{
 		OnCliffPosAdjust(Dir);
-	}
-
-	// Platform
-	if (true == IsOnPlatForm(Dir))
-	{
-		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-	}
-
-	// GP_Boundary
-	if (true == IsOnGP_Boundary(Dir))
-	{
-		Front_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		Back_Bot->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-	}
-
-	// ColHeadToWall
-	if (true == IsColHeadToWall(Dir))
-	{
-		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-	}
-
-	// ColHeadToCeil
-	if (true == IsColHeadToCeil(Dir))
-	{
-		Front_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		Back_Top->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 	}
 }
 // FSM Update End
@@ -490,12 +413,6 @@ void APlayerBase::Tick(float _DeltaTime)
 
 void APlayerBase::DebugUpdate()
 {
-	CalFourPoint(Body->GetDir());
-
-	Front_Top->SetPosition(GetFTFromActor());
-	Front_Bot->SetPosition(GetFBFromActor());
-	Back_Top->SetPosition(GetBTFromActor());
-	Back_Bot->SetPosition(GetBBFromActor());
 
 	{
 		std::string Msg = std::format("Player_Pos : {}\n", GetActorLocation().ToString());

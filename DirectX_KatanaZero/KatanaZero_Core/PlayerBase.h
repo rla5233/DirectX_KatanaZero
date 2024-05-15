@@ -140,11 +140,6 @@ private:
 	static const int CloudSize;
 	int CloudIdx = 0;
 
-	USpriteRenderer* Back_Top = nullptr;
-	USpriteRenderer* Back_Bot = nullptr;
-	USpriteRenderer* Front_Top = nullptr;
-	USpriteRenderer* Front_Bot = nullptr;
-
 	// Attack
 	UCollision* AttackCol = nullptr;
 	FVector AttackDir = FVector::Zero;
@@ -297,7 +292,6 @@ protected:
 	void IdleToRunVelUpdate(float _DeltaTime);
 	void RunToIdleVelUpdate(float _DeltaTime);
 
-	// 수정 (간소화)
 	void ColCheckUpdate();	
 
 // Collision

@@ -171,6 +171,42 @@ void AHeadHunterLevel_Phase2::RestartStart()
 	}
 }
 
+void AHeadHunterLevel_Phase2::ClearStart()
+{
+	DelayCallBack(4.0f, [=] 
+		{ 
+			UEngineSound::SoundPlay(SoundRes::bgm_ending).SetVolume(0.25f); 
+			EndingFadeOutAlpha = 1.0f;
+			IsEndingFadeOut = true;
+			ColMap->ColMapOff();
+		}
+	);
+
+	Player->InputOff();
+}
+
+void AHeadHunterLevel_Phase2::Clear(float _DeltaTime)
+{
+	EndingFadeOut(_DeltaTime);
+}
+
+void AHeadHunterLevel_Phase2::EndingFadeOut(float _DeltaTime)
+{
+	if (true == IsEndingFadeOut)
+	{
+		float4 MulColor = float4::One;
+		MulColor.A = EndingFadeOutAlpha;
+		EndingFadeOutAlpha -= 0.1f * _DeltaTime;
+
+		if (0.0f > EndingFadeOutAlpha)
+		{
+			EndingFadeOutAlpha = 0.0f;
+		}
+
+		ColMap->SetMulColor(MulColor);
+	}
+}
+
 void AHeadHunterLevel_Phase2::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);

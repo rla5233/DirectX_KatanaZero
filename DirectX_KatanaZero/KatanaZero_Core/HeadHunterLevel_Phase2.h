@@ -66,6 +66,8 @@ private:
 		}
 	}
 
+	void EndingFadeOut(float _DeltaTime);
+
 private:
 	std::vector<std::shared_ptr<AGrenade>> AllGrenade;
 	const int GrenadeNum = 3;
@@ -77,6 +79,14 @@ private:
 
 	std::shared_ptr<AWallTurret> WallTurret = nullptr;
 	std::shared_ptr<AHeadHunterHead> HeadHunterHead = nullptr;
+
+	float EndingFadeOutAlpha = 1.0f;
+	bool IsEndingFadeOut = false;
+
+// FSM
+private:
+	void ClearStart() override;
+	void Clear(float _DeltaTime) override;
 
 };
 

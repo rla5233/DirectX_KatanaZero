@@ -80,6 +80,17 @@ public:
 		return BackGround;
 	}
 
+	inline void SetMulColor(const float4 _MulColor)
+	{
+		BackGround->SetMulColor(_MulColor);
+		ColMap->SetMulColor(_MulColor);
+	}
+
+	inline void ColMapOff()
+	{
+		ColMap->SetActive(false);
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
