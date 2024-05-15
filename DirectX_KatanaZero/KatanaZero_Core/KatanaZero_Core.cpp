@@ -3,7 +3,6 @@
 
 #include "TitleGameMode.h"
 
-// ¼öÁ¤
 #include "Factory_002.h"
 #include "Factory_003.h"
 #include "Factory_004.h"
@@ -11,8 +10,8 @@
 
 #include "HeadHunterLevel_Phase1.h"
 #include "HeadHunterLevel_Phase2.h"
+#include "EndingLevel.h"
 
-//#define DEBUG
 
 UKatanaZero_Core::UKatanaZero_Core()
 {
@@ -34,6 +33,7 @@ void UKatanaZero_Core::Initialize()
 	GEngine->CreateLevel<AFactory_005>("Factory_005");
 	GEngine->CreateLevel<AHeadHunterLevel_Phase1>("HeadHunter_Phase1");
 	GEngine->CreateLevel<AHeadHunterLevel_Phase2>("HeadHunter_Phase2");
+	GEngine->CreateLevel<AEndingLevel>("Ending");
 	
 	GEngine->ChangeLevel("TitleLevel");
 	
@@ -47,5 +47,7 @@ void UKatanaZero_Core::Initialize()
 	
 	//GEngine->ChangeLevel("HeadHunter_Phase1");
  
-	//GEngine->ChangeLevel("HeadHunter_Phase2");
+	GEngine->ChangeLevel("HeadHunter_Phase2");
+
+	//GEngine->ChangeLevel("Ending");
 }

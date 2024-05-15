@@ -606,6 +606,11 @@ namespace BossLevelState
 	const std::string_view restart			= "Restart";
 }
 
+namespace EndingLevelState
+{
+	const std::string_view fade_in			= "Fade_In";
+}
+
 // Object
 namespace TitleScreenState
 {

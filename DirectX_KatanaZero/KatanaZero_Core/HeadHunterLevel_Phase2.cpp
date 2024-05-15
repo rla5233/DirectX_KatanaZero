@@ -205,6 +205,7 @@ void AHeadHunterLevel_Phase2::EndingFadeOut(float _DeltaTime)
 		if (0.0f > EndingFadeOutAlpha)
 		{
 			EndingFadeOutAlpha = 0.0f;
+			GEngine->ChangeLevel("Ending");
 		}
 
 		ColMap->SetMulColor(MulColor);

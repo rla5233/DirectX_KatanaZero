@@ -224,6 +224,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EndingLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EndingScreen.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EnemyBase.h">
       <SubType>
       </SubType>
@@ -507,6 +515,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Door.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EndingLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EndingScreen.cpp">
       <SubType>
       </SubType>
     </ClCompile>
