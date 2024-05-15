@@ -80,6 +80,7 @@ private:
 	std::shared_ptr<AWallTurret> WallTurret = nullptr;
 	std::shared_ptr<AHeadHunterHead> HeadHunterHead = nullptr;
 
+
 	float EndingFadeOutAlpha = 1.0f;
 	bool IsEndingFadeOut = false;
 

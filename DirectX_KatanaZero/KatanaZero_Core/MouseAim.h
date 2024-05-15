@@ -26,6 +26,11 @@ public:
 		return Location;
 	}
 
+	inline USpriteRenderer* GetBody() const
+	{
+		return Aim;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

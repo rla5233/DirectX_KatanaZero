@@ -279,3 +279,25 @@ void AUp_HUD::Reset()
 	Timer_Bar_Black->SetPosition({ 100.0f, WinScale.hY() + 5.0f, 1.0f });
 	Timer_Bar_Black->SetScale({ 0.0f, 22.0f, 1.0f });
 }
+
+void AUp_HUD::SetAllMulColor(const float4& _MulColor)
+{
+	Bar->SetMulColor(_MulColor);
+
+	Timer->SetMulColor(_MulColor);
+	Timer_Bar->SetMulColor(_MulColor);
+	Timer_Bar_Black->SetMulColor(_MulColor);
+	
+	Battery->SetMulColor(_MulColor);
+	for (size_t i = 0; i < Battery_Part.size(); i++)
+	{
+		Battery_Part[i]->SetMulColor(_MulColor);
+	}
+	Shift->SetMulColor(_MulColor);
+	
+	Weapon->SetMulColor(_MulColor);
+	KatanaIcon->SetMulColor(_MulColor);
+	ItemIcon->SetMulColor(_MulColor);
+	L_ClickIcon->SetMulColor(_MulColor);
+	R_ClickIcon->SetMulColor(_MulColor);
+}

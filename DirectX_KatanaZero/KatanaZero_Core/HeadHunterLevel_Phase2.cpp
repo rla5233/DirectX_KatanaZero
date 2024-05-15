@@ -5,9 +5,11 @@
 #include "ColMapObject.h"
 #include "MainCamera.h"
 #include "WallTurret.h"
+#include "MouseAim.h"
 #include "Grenade.h"
 #include "Bullet.h"
 #include "Laser.h"
+#include "Up_HUD.h"
 #include "HeadHunterHead.h"
 
 #include "HeadHunterPhase2.h"
@@ -195,7 +197,9 @@ void AHeadHunterLevel_Phase2::EndingFadeOut(float _DeltaTime)
 	if (true == IsEndingFadeOut)
 	{
 		float4 MulColor = float4::One;
-		MulColor.A = EndingFadeOutAlpha;
+		MulColor.R = EndingFadeOutAlpha;
+		MulColor.G = EndingFadeOutAlpha;
+		MulColor.B = EndingFadeOutAlpha;
 		EndingFadeOutAlpha -= 0.1f * _DeltaTime;
 
 		if (0.0f > EndingFadeOutAlpha)
@@ -204,6 +208,11 @@ void AHeadHunterLevel_Phase2::EndingFadeOut(float _DeltaTime)
 		}
 
 		ColMap->SetMulColor(MulColor);
+		HeadHunterHead->GetBody()->SetMulColor(MulColor);
+		HeadHunter->GetBody()->SetMulColor(MulColor);
+		Player->GetBody()->SetMulColor(MulColor);
+		Aim->GetBody()->SetMulColor(MulColor);
+		HUD->SetAllMulColor(MulColor);
 	}
 }
 

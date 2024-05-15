@@ -27,6 +27,8 @@ public:
 	void Off();
 	void Reset();
 
+	void SetAllMulColor(const float4& _MulColor);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
