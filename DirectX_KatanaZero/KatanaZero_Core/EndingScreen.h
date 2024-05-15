@@ -21,7 +21,7 @@ public:
 		State.ChangeState(_State);
 	}
 
-	void SetAllMulColor(const float4& _MulColor);
+	void SetScreenMulColor(const float4& _MulColor);
 
 protected:
 	void BeginPlay() override;
@@ -30,17 +30,22 @@ protected:
 private:
 	USpriteRenderer* BackGround = nullptr;
 	USpriteRenderer* Smoke = nullptr;
-
+	USpriteRenderer* Title = nullptr;
 	std::vector<USpriteRenderer*> AllTide;
 	const int TideNum = 8;
 
-	bool IsFadeIn = false;
+	bool IsFade = false;
 	float AllMulColor = 1.0f;
+
+	int EndingOrder = 0;
 
 // FSM
 private:
 	UStateManager State;
 	void StateInit();
+
+	void EndingUpdate(float _DeltaTime);
+	void EndingUpdate1(float _DeltaTime);
 
 };
 

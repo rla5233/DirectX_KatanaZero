@@ -32,6 +32,14 @@ AEndingScreen::AEndingScreen()
 		AllTide[i]->SetPosition({ -600.0f + TideScaleX * i, -275.0f, 0.0f });
 	}
 
+	Title = CreateDefaultSubObject<USpriteRenderer>("Title");
+	Title->SetSprite(ImgRes::ending_title);
+	Title->SetOrder(ERenderOrder::EffectBack);
+	Title->SetAutoSize(2.0f, true);
+	Title->SetupAttachment(Root);
+	Title->SetPosition({ 0.0f, 180.0f, 0.0f });
+	Title->SetActive(false);
+
 	SetRoot(Root);
 }
 
@@ -64,24 +72,40 @@ void AEndingScreen::StateInit()
 		{
 			AllMulColor = 0.0f;
 			float4 StartMulColor = { 0.0f, 0.0f, 0.0f, 1.0f };
-			SetAllMulColor(StartMulColor);
-			IsFadeIn = true;
+			SetScreenMulColor(StartMulColor);
+			IsFade = true;
 		}
 	);
 
-	State.SetStartFunction(EndingScrenState::ending_credit, [=] {});
+	State.SetStartFunction(EndingScrenState::ending_credit, [=] 
+		{
+			DelayCallBack(9.0f, [=]
+				{
+					AllMulColor = 0.0f;
+					float4 StartMulColor = { 1.0f, 1.0f, 1.0f, AllMulColor };
+					Title->SetMulColor(StartMulColor);
+					Title->SetActive(true);
+					IsFade = true;
+					EndingOrder = 0;
+				}
+			);
+
+			EndingOrder = -1;
+		}
+	);
 
 	// State Update
 	State.SetUpdateFunction(EndingScrenState::fade_in, [=](float _DeltaTime)
 		{
-			if (true == IsFadeIn)
+			if (true == IsFade)
 			{
 				float4 MulColor = float4::One;
 				AllMulColor += 0.1f * _DeltaTime;
 				if (1.0f < AllMulColor)
 				{
+					IsFade = false;
 					AllMulColor = 1.0f;
-					SetAllMulColor(MulColor);
+					SetScreenMulColor(MulColor);
 					State.ChangeState(EndingScrenState::ending_credit);
 					return;
 				}
@@ -89,21 +113,72 @@ void AEndingScreen::StateInit()
 				MulColor.R = AllMulColor;
 				MulColor.G = AllMulColor;
 				MulColor.B = AllMulColor;
-				SetAllMulColor(MulColor);
+				SetScreenMulColor(MulColor);
 			}
 		}
 	);
 
 	State.SetUpdateFunction(EndingScrenState::ending_credit, [=](float _DeltaTime)
 		{
-
+			switch (EndingOrder)
+			{
+			case 0:
+				EndingUpdate(_DeltaTime);
+				break;
+			case 1:
+				EndingUpdate1(_DeltaTime);
+				break;
+			default:
+				break;
+			}
+	
 		}
 	);
 
 }
 
+void AEndingScreen::EndingUpdate(float _DeltaTime)
+{
+	if (true == IsFade)
+	{
+		AllMulColor += 0.75f * _DeltaTime;
+		if (1.0f < AllMulColor)
+		{
+			IsFade = false;
+			AllMulColor = 1.0f;
 
-void AEndingScreen::SetAllMulColor(const float4& _MulColor)
+			DelayCallBack(5.0f, [=]
+				{
+					IsFade = true;
+					EndingOrder = 1;
+				}
+			);
+
+			EndingOrder = -1;
+		}
+
+		Title->SetMulColor({ 1.0f, 1.0f, 1.0f, AllMulColor });
+	}
+}
+
+void AEndingScreen::EndingUpdate1(float _DeltaTime)
+{
+	if (true == IsFade)
+	{
+		AllMulColor -= 0.75f * _DeltaTime;
+		if (0.0f > AllMulColor)
+		{
+			IsFade = false;
+			AllMulColor = 0.0f;
+			EndingOrder = -1;
+		}
+
+		Title->SetMulColor({ 1.0f, 1.0f, 1.0f, AllMulColor });
+	}
+}
+
+
+void AEndingScreen::SetScreenMulColor(const float4& _MulColor)
 {
 	BackGround->SetMulColor(_MulColor);
 	Smoke->SetMulColor(_MulColor);
