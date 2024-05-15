@@ -102,6 +102,11 @@ public:
 		return HitEnemy;
 	}
 
+	inline FVector GetAttackDir() const
+	{
+		return AttackDir;
+	}
+
 	void DirChange(EEngineDir _Dir);
 
 	void HitByEnemy(FVector _HitDir, EEnemyType _EnemyType = EEnemyType::Default);

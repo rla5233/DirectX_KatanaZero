@@ -8,7 +8,7 @@
 #include "Grenade.h"
 #include "Bullet.h"
 #include "Laser.h"
-#include "Head.h"
+#include "HeadHunterHead.h"
 
 #include "HeadHunterPhase2.h"
 
@@ -98,18 +98,14 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 			);
 		}
 	);
-
-
-	//AHead* NewHead = GetWorld()->SpawnActor<AHead>("Head").get();
-	//NewHead->SetActorLocation({ 672.0f, 360.0f, 0.0f });
-	//NewHead->StateChange(HeadState::hurtfly);
-
 }
 
 void AHeadHunterLevel_Phase2::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
+	HeadHunterHead->Destroy();
+	HeadHunterHead = nullptr;
 	USoundManager::GetInst()->GetHeadHunterBGM2().Off();
 }
 
@@ -164,6 +160,17 @@ void AHeadHunterLevel_Phase2::LevelReEnd()
 	AllBullet.clear();
 }
 
+void AHeadHunterLevel_Phase2::RestartStart()
+{
+	Super::RestartStart();
+
+	if (nullptr != HeadHunterHead)
+	{
+		HeadHunterHead->Destroy();
+		HeadHunterHead = nullptr;
+	}
+}
+
 void AHeadHunterLevel_Phase2::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -199,6 +206,14 @@ void AHeadHunterLevel_Phase2::SetShootBullet(const FVector& _ShootPos, const FVe
 void AHeadHunterLevel_Phase2::SetWallTurret()
 {
 	WallTurret->StateChange(WallTurretState::open);
+}
+
+void AHeadHunterLevel_Phase2::SetHeadHunterHead(const FVector& _Pos, EEngineDir _Dir)
+{
+	HeadHunterHead = GetWorld()->SpawnActor<AHeadHunterHead>("HeadHunterHead");
+	HeadHunterHead->SetActorLocation(_Pos);
+	HeadHunterHead->GetBody()->SetDir(_Dir);
+	HeadHunterHead->StateChange(HeadState::hurtfly);
 }
 
 void AHeadHunterLevel_Phase2::CreateLaser(const FVector& _Pos, float _Deg, float _AlphaDownDelayTime)

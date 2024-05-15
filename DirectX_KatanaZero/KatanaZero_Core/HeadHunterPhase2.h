@@ -89,6 +89,8 @@ private:
 	void Idle(float _DeltaTime) override;
 
 	void HitFlyStart() override;
+	
+	void RecoverStart() override;
 
 	void PatternRifle1Start();
 	void PatternRifle1(float _DeltaTime);

@@ -73,6 +73,9 @@ void AHeadHunterPhase2::Idle(float _DeltaTime)
 		return;
 	}
 
+	State.ChangeState(HeadHunterState::pattern_bombing);
+	return;
+
 	if (0.0f < PatternDelayTimeCount)
 	{
 		PatternDelayTimeCount -= _DeltaTime;
@@ -102,34 +105,43 @@ void AHeadHunterPhase2::HitFlyStart()
 			}
 		);
 		break;
-	case 2:
-		DelayCallBack(1.8f, [=] 
-			{ 
-				if (HeadHunterSubState::restart == SubState.GetCurStateName())
-				{
-					return;
-				}
-
-				State.ChangeState(HeadHunterState::pattern_complex); 
-			}
-		);
-		break;
-	case 3:
-		DelayCallBack(1.4f, [=] 
-			{ 
-				if (HeadHunterSubState::restart == SubState.GetCurStateName())
-				{
-					return;
-				}
-
-				State.ChangeState(HeadHunterState::pattern_bombing); 
-			}
-		);
-		break;
 	}
 
 	RifleLaserEffect->SetActive(false);
 	RollCount = 0;
+}
+
+void AHeadHunterPhase2::RecoverStart()
+{
+	Super::RecoverStart();
+
+	switch (HitCount)
+	{
+	case 2:
+		DelayCallBack(1.4f, [=]
+			{
+				if (HeadHunterSubState::restart == SubState.GetCurStateName())
+				{
+					return;
+				}
+
+				State.ChangeState(HeadHunterState::pattern_complex);
+			}
+		);
+		break;
+	case 3:
+		DelayCallBack(1.2f, [=]
+			{
+				if (HeadHunterSubState::restart == SubState.GetCurStateName())
+				{
+					return;
+				}
+
+				State.ChangeState(HeadHunterState::pattern_bombing);
+			}
+		);
+		break;
+	}
 }
 
 void AHeadHunterPhase2::PatternRifle1Start()
@@ -517,6 +529,25 @@ void AHeadHunterPhase2::DeadUpdate2(float _DeltaTime)
 
 	BodyCol->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
 		{
+			AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
+			APlayerBase* Player = dynamic_cast<APlayerBase*>(_Other->GetActor());
+			FVector HitDir = Player->GetAttackDir();
+			FVector CurPos = GetActorLocation();
+			EEngineDir Dir = EEngineDir::MAX;
+
+			if (0.0f < HitDir.X)
+			{
+				CurPos += { 50.0f, 50.0f, 0.0f };
+				Dir = EEngineDir::Right;
+			}
+			else
+			{
+				CurPos += { -50.0f, 50.0f, 0.0f };
+				Dir = EEngineDir::Left;
+			}
+
+			PlayLevel->SetHeadHunterHead(CurPos, Dir);
+
 			USoundManager::SoundPlay_EnemyDeadSword();
 			GEngine->SetGlobalTimeScale(0.01f);
 			DelayCallBack(0.005f, [=] { GEngine->SetGlobalTimeScale(1.0f); });

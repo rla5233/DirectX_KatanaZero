@@ -4,7 +4,7 @@
 #include "PhysicsObject.h"
 
 // Ό³Έν : HeadHunter Head 
-class AHead :
+class AHeadHunterHead :
 	public AActor,
 	public UPhysicsObject,
 	public UPixelColObject
@@ -12,18 +12,23 @@ class AHead :
 	GENERATED_BODY(AActor)
 public:
 	// constrcuter destructer
-	AHead();
-	~AHead();
+	AHeadHunterHead();
+	~AHeadHunterHead();
 
 	// delete Function
-	AHead(const AHead& _Other) = delete;
-	AHead(AHead&& _Other) noexcept = delete;
-	AHead& operator=(const AHead& _Other) = delete;
-	AHead& operator=(AHead&& _Other) noexcept = delete;
+	AHeadHunterHead(const AHeadHunterHead& _Other) = delete;
+	AHeadHunterHead(AHeadHunterHead&& _Other) noexcept = delete;
+	AHeadHunterHead& operator=(const AHeadHunterHead& _Other) = delete;
+	AHeadHunterHead& operator=(AHeadHunterHead&& _Other) noexcept = delete;
 
 	inline void StateChange(std::string_view _State)
 	{
 		State.ChangeState(_State);
+	}
+
+	USpriteRenderer* GetBody() const
+	{
+		return Body;
 	}
 
 protected:
@@ -32,8 +37,6 @@ protected:
 
 private:
 	USpriteRenderer* Body = nullptr;
-	
-	UCollision* Test = nullptr;
 
 // FSM
 private:

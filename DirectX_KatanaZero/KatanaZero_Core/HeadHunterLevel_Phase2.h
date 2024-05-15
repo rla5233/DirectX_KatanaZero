@@ -4,6 +4,7 @@
 class AWallTurret;
 class AGrenade;
 class ABullet;
+class AHeadHunterHead;
 
 // 설명 : HeadHunter 2페이즈
 class AHeadHunterLevel_Phase2 : public AHeadHunterLevel
@@ -23,6 +24,7 @@ public:
 	void SetShootGrenade(const FVector& _ShootPos, const FVector& _ShootDir, float _Speed);
 	void SetShootBullet(const FVector& _ShootPos, const FVector& _ShootDir);
 	void SetWallTurret();
+	void SetHeadHunterHead(const FVector& _Pos, EEngineDir _Dir);
 
 	void CreateLaser(const FVector& _Pos, float _Deg, float _AlphaDownDelayTime = 0.0f);
 
@@ -40,6 +42,8 @@ protected:
 
 	void LevelReStart() override;
 	void LevelReEnd() override;
+
+	void RestartStart() override;
 
 private:
 	void GrenadeIdxUpdate()
@@ -72,6 +76,7 @@ private:
 	int CurBulletIdx = 0;
 
 	std::shared_ptr<AWallTurret> WallTurret = nullptr;
+	std::shared_ptr<AHeadHunterHead> HeadHunterHead = nullptr;
 
 };
 

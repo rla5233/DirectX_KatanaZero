@@ -240,7 +240,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Head.h">
+    <ClInclude Include="HeadHunterHead.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -528,7 +528,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Head.cpp">
+    <ClCompile Include="HeadHunterHead.cpp">
       <SubType>
       </SubType>
     </ClCompile>
