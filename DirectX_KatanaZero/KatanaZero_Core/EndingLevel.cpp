@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "EndingLevel.h"
 
+#include "EndingScreen.h"
+
 AEndingLevel::AEndingLevel()
 {
 }
@@ -12,34 +14,25 @@ AEndingLevel::~AEndingLevel()
 void AEndingLevel::BeginPlay()
 {
 	Super::BeginPlay();
-
-	StateInit();
 }
 
 void AEndingLevel::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	State.Update(_DeltaTime);
 }
 
-void AEndingLevel::StateInit()
+void AEndingLevel::LevelStart(ULevel* _PrevLevel)
 {
-	// State Create
-	State.CreateState(EndingLevelState::fade_in);
+	Super::LevelStart(_PrevLevel);
 
-	// State Start
-	State.SetStartFunction(EndingLevelState::fade_in, [=] 
-		{
+	GetWorld()->GetMainCamera()->SetActorLocation({ 0.0f, 0.0f, -100.0f });
 
-		}
-	);
+	EndingScreen = GetWorld()->SpawnActor<AEndingScreen>("EndingScreen");
+	EndingScreen->StateChange(EndingScrenState::fade_in);
+}
 
-	// State Update
-	State.SetUpdateFunction(EndingLevelState::fade_in, [=](float _DeltaTime) 
-		{
-
-		}
-	);
+void AEndingLevel::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
 
 }

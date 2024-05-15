@@ -26,8 +26,8 @@ enum class ERenderOrder
 	AfterImage,
 	Enemy,
 	HeadHunter,
+	HeadHunterHead,
 	Player,
-	Player2,
 	EffectFront,
 	MapComponent_Front,
 	UI

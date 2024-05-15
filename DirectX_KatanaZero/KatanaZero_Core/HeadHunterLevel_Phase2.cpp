@@ -178,7 +178,7 @@ void AHeadHunterLevel_Phase2::ClearStart()
 	DelayCallBack(4.0f, [=] 
 		{ 
 			UEngineSound::SoundPlay(SoundRes::bgm_ending).SetVolume(0.25f); 
-			EndingFadeOutAlpha = 1.0f;
+			EndingFadeOutMulColor = 1.0f;
 			IsEndingFadeOut = true;
 			ColMap->ColMapOff();
 		}
@@ -197,14 +197,14 @@ void AHeadHunterLevel_Phase2::EndingFadeOut(float _DeltaTime)
 	if (true == IsEndingFadeOut)
 	{
 		float4 MulColor = float4::One;
-		MulColor.R = EndingFadeOutAlpha;
-		MulColor.G = EndingFadeOutAlpha;
-		MulColor.B = EndingFadeOutAlpha;
-		EndingFadeOutAlpha -= 0.1f * _DeltaTime;
+		MulColor.R = EndingFadeOutMulColor;
+		MulColor.G = EndingFadeOutMulColor;
+		MulColor.B = EndingFadeOutMulColor;
+		EndingFadeOutMulColor -= 0.1f * _DeltaTime;
 
-		if (0.0f > EndingFadeOutAlpha)
+		if (0.0f > EndingFadeOutMulColor)
 		{
-			EndingFadeOutAlpha = 0.0f;
+			EndingFadeOutMulColor = 0.0f;
 			GEngine->ChangeLevel("Ending");
 		}
 

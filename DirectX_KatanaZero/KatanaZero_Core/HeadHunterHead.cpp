@@ -8,7 +8,7 @@ AHeadHunterHead::AHeadHunterHead()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 
 	Body = CreateDefaultSubObject<USpriteRenderer>("Head");
-	Body->SetOrder(ERenderOrder::HeadHunter);
+	Body->SetOrder(ERenderOrder::HeadHunterHead);
 	Body->SetDir(EEngineDir::Right);
 	Body->SetAutoSize(2.0f, true);
 	Body->SetupAttachment(Root);
@@ -133,9 +133,6 @@ void AHeadHunterHead::StateInit()
 
 			if (true == IsOnGround(Body->GetDir()))
 			{
-				AHeadHunterLevel_Phase2* PlayLevel = dynamic_cast<AHeadHunterLevel_Phase2*>(GetWorld()->GetGameMode().get());
-				PlayLevel->StateChange(PlayLevelState::clear);
-
 				USoundManager::SoundPlay_EnemyBloodSplat().SetVolume(0.5f);
 				Velocity = FVector::Zero;
 				State.ChangeState(HeadState::none);

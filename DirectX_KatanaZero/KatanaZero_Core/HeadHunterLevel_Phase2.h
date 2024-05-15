@@ -81,7 +81,7 @@ private:
 	std::shared_ptr<AHeadHunterHead> HeadHunterHead = nullptr;
 
 
-	float EndingFadeOutAlpha = 1.0f;
+	float EndingFadeOutMulColor = 1.0f;
 	bool IsEndingFadeOut = false;
 
 // FSM

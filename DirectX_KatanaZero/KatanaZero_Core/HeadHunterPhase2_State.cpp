@@ -547,6 +547,7 @@ void AHeadHunterPhase2::DeadUpdate2(float _DeltaTime)
 			}
 
 			PlayLevel->SetHeadHunterHead(CurPos, Dir);
+			PlayLevel->StateChange(PlayLevelState::clear);
 
 			USoundManager::SoundPlay_EnemyDeadSword();
 			GEngine->SetGlobalTimeScale(0.01f);

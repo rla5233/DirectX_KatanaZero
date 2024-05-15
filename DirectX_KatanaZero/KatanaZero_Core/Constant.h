@@ -223,6 +223,12 @@ namespace ImgRes
 	const std::string_view turret_head_die			= "spr_floor_turret_die";
 	const std::string_view turret_holder			= "spr_bunker_turret_holder.png";
 
+	// EndingLevel
+	const std::string_view ending_background		= "spr_ending_background.png";
+	const std::string_view ending_smoke				= "spr_ending_smoke";
+	const std::string_view ending_tide				= "spr_ending_tide";
+	const std::string_view ending_title				= "spr_ending_title.png";
+
 	// etc.
 	const std::string_view black_point				= "spr_black.png";
 }
@@ -355,6 +361,10 @@ namespace Anim
 
 	// TitleLevel
 	const std::string_view plants					= "plants";
+
+	// EndingLevel
+	const std::string_view ending_smoke				= "spr_ending_smoke";
+	const std::string_view ending_tide				= "spr_ending_tide";
 }
 
 namespace SoundRes
@@ -606,11 +616,6 @@ namespace BossLevelState
 	const std::string_view restart			= "Restart";
 }
 
-namespace EndingLevelState
-{
-	const std::string_view fade_in			= "Fade_In";
-}
-
 // Object
 namespace TitleScreenState
 {
@@ -811,6 +816,12 @@ namespace HeadState
 	const std::string_view hurtfly			= "HurtFly";
 	const std::string_view hurtground		= "HurtGround";
 	const std::string_view ground			= "Ground";
+}
+
+namespace EndingScrenState
+{
+	const std::string_view fade_in			= "Fade_In";
+	const std::string_view ending_credit	= "Ending_Credit";
 }
 
 

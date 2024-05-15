@@ -1,5 +1,6 @@
 #pragma once
-#include <EngineCore/StateManager.h>
+
+class AEndingScreen;
 
 // Ό³Έν : EndingLevel 
 class AEndingLevel : public AGameMode
@@ -20,10 +21,12 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-// FSM
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
+
 private:
-	UStateManager State;
-	void StateInit();
+	std::shared_ptr<AEndingScreen> EndingScreen = nullptr;
+
 
 };
 
