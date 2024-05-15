@@ -140,11 +140,13 @@ public:
 
 	static void KeyCheckTick(float _DeltaTime);
 
+	static void AllKeyReset();
+
 protected:
 	// 키 체크하는 정도의 수준
 	// 선택적으로 누가 잇풋을 받느냐 안받느냐는 이녀석이 체크하지는 못한다.
 
-	
+
 	//              'A'  상태가 어때?
 	static std::map<int, EngineKey> AllKeys;
 

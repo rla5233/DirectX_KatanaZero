@@ -26,7 +26,7 @@ void UEngineInput::EngineKey::KeyCheck(float _DeltaTime)
 			Up = false;
 			Free = false;
 		}
-		else if(true == Down)
+		else if (true == Down)
 		{
 			UpTime = 0.0f;
 			// 이전까지 이 키는 눌리고 있었다.
@@ -48,7 +48,7 @@ void UEngineInput::EngineKey::KeyCheck(float _DeltaTime)
 			Up = true;
 			Free = false;
 		}
-		else if(true == Up)
+		else if (true == Up)
 		{
 			PressTime = 0.0f;
 			// 이전까지 이 키는 안눌리고 있었고 앞으로도 안눌릴거다.
@@ -230,6 +230,25 @@ void UEngineInput::KeyCheckTick(float _DeltaTime)
 			AnykeyFree = true;
 		}
 
+	}
+}
+
+void UEngineInput::AllKeyReset()
+{
+	bool KeyCheck = false;
+
+	AnykeyDown = false;
+	AnykeyPress = false;
+	AnykeyUp = false;
+	AnykeyFree = true;
+
+	for (std::pair<const int, EngineKey>& Key : AllKeys)
+	{
+		EngineKey& CurKey = Key.second;
+		CurKey.Down = false;
+		CurKey.Press = false;
+		CurKey.Up = false;
+		CurKey.Free = true;
 	}
 }
 

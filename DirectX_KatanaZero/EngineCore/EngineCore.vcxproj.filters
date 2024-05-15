@@ -294,9 +294,6 @@
     <ClInclude Include="EngineFont.h">
       <Filter>Resources\Font</Filter>
     </ClInclude>
-    <ClInclude Include="EngineNetWindow.h">
-      <Filter>Editor\Contents</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -475,9 +472,6 @@
     </ClCompile>
     <ClCompile Include="EngineFont.cpp">
       <Filter>Resources\Font</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineNetWindow.cpp">
-      <Filter>Editor\Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
