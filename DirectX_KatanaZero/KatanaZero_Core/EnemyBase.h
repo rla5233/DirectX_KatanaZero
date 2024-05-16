@@ -99,15 +99,6 @@ protected:
 	std::shared_ptr<AUpMark> ChaseMark = nullptr;
 	bool CanAttack = false;
 	float AttackDelayTimeCount = 0.0f;
-	
-
-	// 수정 (삭제 필요)
-	USpriteRenderer* RendererFT = nullptr;
-	USpriteRenderer* RendererFB = nullptr;
-	USpriteRenderer* RendererBT = nullptr;
-	USpriteRenderer* RendererBB = nullptr;
-	void DebugingRendererInit();
-	void DebugingUpdate();
 
 // FSM
 private:

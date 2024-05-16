@@ -413,14 +413,8 @@ void APlayerBase::Tick(float _DeltaTime)
 
 void APlayerBase::DebugUpdate()
 {
-
 	{
 		std::string Msg = std::format("Player_Pos : {}\n", GetActorLocation().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("PlayerBodyCol : {}\n", BodyCol->GetWorldScale().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 

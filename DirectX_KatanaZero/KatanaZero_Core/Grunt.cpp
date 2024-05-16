@@ -28,16 +28,6 @@ void AGrunt::BeginPlay()
 void AGrunt::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	{
-		std::string Msg = std::format("Grunt_State : {}\n", GetCurState());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Grunt_Floor : {}\n", FloorNum);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
 }
 
 void AGrunt::CollisionInit()

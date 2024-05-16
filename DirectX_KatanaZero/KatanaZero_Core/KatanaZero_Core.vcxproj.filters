@@ -145,6 +145,9 @@
     <Filter Include="Level\004.EndingLevel\Object">
       <UniqueIdentifier>{1126fe91-d264-463e-86ac-4ee5ed0ec2e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{0e62cf9a-a46a-40d7-80bc-c68bc44c697a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KatanaZero_Core.h">

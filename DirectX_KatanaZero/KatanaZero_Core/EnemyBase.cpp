@@ -29,17 +29,6 @@ AEnemyBase::AEnemyBase()
 	}
 
 	SetRoot(Root);
-
-	// 수정(삭제 필요)
-	RendererFT = CreateDefaultSubObject<USpriteRenderer>("RendererFT");
-	RendererFB = CreateDefaultSubObject<USpriteRenderer>("RendererFB");
-	RendererBT = CreateDefaultSubObject<USpriteRenderer>("RendererBT");
-	RendererBB = CreateDefaultSubObject<USpriteRenderer>("RendererBB");
-
-	RendererFT->SetupAttachment(Root);
-	RendererFB->SetupAttachment(Root);
-	RendererBT->SetupAttachment(Root);
-	RendererBB->SetupAttachment(Root);
 }
 
 AEnemyBase::~AEnemyBase()
@@ -67,7 +56,6 @@ void AEnemyBase::BeginPlay()
 	RendererInit();
 	EffectInit();
 	CollisionInit();
-	DebugingRendererInit();
 	StateInit();
 
 	SetRecordingSize();
@@ -89,34 +77,6 @@ void AEnemyBase::CollisionInit()
 	DeadCol->SetCollisionType(ECollisionType::Rect);
 	DeadCol->SetCollisionGroup(EColOrder::DeadEnemy);
 	DeadCol->SetActive(false);
-}
-
-void AEnemyBase::DebugingRendererInit()
-{
-	RendererFT->SetSprite("RedPoint.png");
-	RendererFB->SetSprite("RedPoint.png");
-	RendererBT->SetSprite("RedPoint.png");
-	RendererBB->SetSprite("RedPoint.png");
-
-	RendererFT->SetOrder(ERenderOrder::UI);
-	RendererFB->SetOrder(ERenderOrder::UI);
-	RendererBT->SetOrder(ERenderOrder::UI);
-	RendererBB->SetOrder(ERenderOrder::UI);
-
-	RendererFT->SetAutoSize(4.0f, true);
-	RendererFB->SetAutoSize(4.0f, true);
-	RendererBT->SetAutoSize(4.0f, true);
-	RendererBB->SetAutoSize(4.0f, true);
-}
-
-void AEnemyBase::DebugingUpdate()
-{
-	CalFourPoint(Body->GetDir());
-
-	RendererFT->SetPosition(GetFTFromActor());
-	RendererFB->SetPosition(GetFBFromActor());
-	RendererBT->SetPosition(GetBTFromActor());
-	RendererBB->SetPosition(GetBBFromActor());
 }
 
 void AEnemyBase::SetBodyDir(EEngineDir _Dir)
@@ -200,8 +160,6 @@ void AEnemyBase::ColCheckUpdate()
 	// OnGround
 	if (true == IsOnGround(Dir))
 	{
-		RendererFB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		OnGroundPosAdjust(Dir);
 	}
 
@@ -212,26 +170,17 @@ void AEnemyBase::ColCheckUpdate()
 		{
 			UpStairPosAdjust(Dir);
 		}
-		else
-		{
-			RendererFB->SetPlusColor({ 0.0f, 0.0f, 0.0f });
-			RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		}
 	}
 
 	// Platform
 	if (true == IsOnPlatForm(Dir))
 	{
-		RendererFB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		OnPlatFormPosAdjust(Dir);
 	}
 
 	// GP_Boundary
 	if (true == IsOnGP_Boundary(Dir))
 	{
-		RendererFB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
-		RendererBB->SetPlusColor({ 1.0f, 1.0f, 1.0f });
 		OnGP_BoundaryPosAdjust(Dir);
 	}
 }
@@ -377,6 +326,4 @@ void AEnemyBase::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 	AttackDelayUpdate(_DeltaTime);
-
-	DebugingUpdate();
 }
