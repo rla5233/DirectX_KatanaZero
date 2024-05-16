@@ -106,6 +106,16 @@ public:
 	{
 		return AttackDir;
 	}
+	
+	inline void SwitchCheatMode()
+	{
+		IsCheatModeValue = !IsCheatModeValue;
+	}
+
+	inline bool IsCheatMode()
+	{
+		return IsCheatModeValue;
+	}
 
 	void DirChange(EEngineDir _Dir);
 
@@ -156,6 +166,7 @@ private:
 	bool IsPlayValue = false;
 	bool IsColDoorValue = false;
 	bool IsInvincibleValue = false;
+	bool IsCheatModeValue = false;
 	EEnemyType HitEnemy = EEnemyType::Default;
 	FVector HitDir = FVector::Zero;
 

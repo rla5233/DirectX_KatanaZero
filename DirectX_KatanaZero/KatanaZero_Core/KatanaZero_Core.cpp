@@ -12,6 +12,7 @@
 #include "HeadHunterLevel_Phase2.h"
 #include "EndingLevel.h"
 
+#include "KatanaZeroDebugWindow.h"
 
 UKatanaZero_Core::UKatanaZero_Core()
 {
@@ -25,6 +26,8 @@ void UKatanaZero_Core::Initialize()
 {
 	ResLoad();
 	CreateRes();
+
+	UEngineEditorGUI::CreateEditorWindow<UKatanaZeroDebugWindow>("KatanaZeroDebugWindow");
 
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<AFactory_002>("Factory_002");

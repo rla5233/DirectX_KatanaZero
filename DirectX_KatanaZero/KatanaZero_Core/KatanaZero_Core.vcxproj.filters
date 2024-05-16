@@ -372,6 +372,9 @@
     <ClInclude Include="EndingScreen.h">
       <Filter>Level\004.EndingLevel\Object</Filter>
     </ClInclude>
+    <ClInclude Include="KatanaZeroDebugWindow.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KatanaZero_Core.cpp">
@@ -643,6 +646,9 @@
     </ClCompile>
     <ClCompile Include="EndingScreen.cpp">
       <Filter>Level\004.EndingLevel\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="KatanaZeroDebugWindow.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

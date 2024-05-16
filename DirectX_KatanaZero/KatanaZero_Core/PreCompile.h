@@ -21,6 +21,8 @@
 #include <EngineCore/EngineSprite.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineRenderTarget.h>
+#include <EngineCore/EngineEditorWindow.h>
+#include <EngineCore/EngineEditorGUI.h>
 
 #include "ContentsHelper.h"
 #include "ContentsMath.h"

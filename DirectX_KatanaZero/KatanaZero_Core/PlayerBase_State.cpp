@@ -989,9 +989,28 @@ void APlayerBase::SetHitLaser(EHitLaserType _Type)
 
 void APlayerBase::HitByEnemy(FVector _HitDir, EEnemyType _EnemyType)
 {
-	if ((true == IsInvincibleValue && EEnemyType::Fan != _EnemyType)
-	||	PlayerState::dead == State.GetCurStateName())
+	if ((true == IsInvincibleValue && EEnemyType::Fan != _EnemyType) ||	 PlayerState::dead == State.GetCurStateName()
+	||   true == IsCheatModeValue)
 	{
+		if (EEnemyType::TimeOut == _EnemyType)
+		{
+			HitEnemy = _EnemyType;
+			HitDir = _HitDir;
+			if (false == HitDir.IsZeroVector2D())
+			{
+				if (0.0f < HitDir.X)
+				{
+					Body->SetDir(EEngineDir::Left);
+				}
+				else
+				{
+					Body->SetDir(EEngineDir::Right);
+				}
+			}
+
+			State.ChangeState(PlayerState::dead);
+		}
+
 		return;
 	}
 

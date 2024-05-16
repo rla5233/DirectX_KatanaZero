@@ -268,6 +268,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="KatanaZeroDebugWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="KZImage.h">
       <SubType>
       </SubType>
@@ -573,6 +577,10 @@
     <ClCompile Include="HeadHunterPhase2_Effect.cpp" />
     <ClCompile Include="HeadHunterPhase2_Pattern.cpp" />
     <ClCompile Include="HeadHunterPhase2_State.cpp" />
+    <ClCompile Include="KatanaZeroDebugWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="KZImage.cpp">
       <SubType>
       </SubType>

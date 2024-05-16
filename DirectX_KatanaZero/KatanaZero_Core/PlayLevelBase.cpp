@@ -112,7 +112,10 @@ void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
 	AllRecComponent.clear();
 
 	// UI
-	HUD->Off();
+	if (nullptr != HUD)
+	{
+		HUD->Off();
+	}
 
 	if (nullptr != Go)
 	{

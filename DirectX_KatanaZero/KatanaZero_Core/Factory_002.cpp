@@ -76,6 +76,8 @@ void AFactory_002::LevelStart(ULevel* _PrevLevel)
 void AFactory_002::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	IntroUI->Off();
 }
 
 void AFactory_002::LevelReStart()
