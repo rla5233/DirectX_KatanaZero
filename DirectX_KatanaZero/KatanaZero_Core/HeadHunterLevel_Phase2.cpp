@@ -106,8 +106,11 @@ void AHeadHunterLevel_Phase2::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
-	HeadHunterHead->Destroy();
-	HeadHunterHead = nullptr;
+	if (nullptr != HeadHunterHead)
+	{
+		HeadHunterHead->Destroy();
+		HeadHunterHead = nullptr;
+	}
 	USoundManager::GetInst()->GetHeadHunterBGM2().Off();
 }
 

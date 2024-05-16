@@ -19,6 +19,35 @@ void UKatanaZeroDebugWindow::OnGui(ULevel* Level, float _Delta)
 		GEngine->ChangeLevel("TitleLevel");
 	}
 
+	if (true == ImGui::Button("Factory_001"))
+	{
+		GEngine->ChangeLevel("Factory_002");
+	}
+
+	if (true == ImGui::Button("Factory_002"))
+	{
+		GEngine->ChangeLevel("Factory_003");
+	}
+
+	if (true == ImGui::Button("Factory_003"))
+	{
+		GEngine->ChangeLevel("Factory_004");
+	}
+
+	if (true == ImGui::Button("Factory_004"))
+	{
+		GEngine->ChangeLevel("Factory_005");
+	}
+
+	if (true == ImGui::Button("Boss_Phase1"))
+	{
+		GEngine->ChangeLevel("HeadHunter_Phase1");
+	}
+
+	if (true == ImGui::Button("Boss_Phase2"))
+	{
+		GEngine->ChangeLevel("HeadHunter_Phase2");
+	}
 
 	APlayLevelBase* PlayLevel = dynamic_cast<APlayLevelBase*>(Level->GetGameMode().get());
 	if (nullptr != PlayLevel)
@@ -33,5 +62,4 @@ void UKatanaZeroDebugWindow::OnGui(ULevel* Level, float _Delta)
 			UEngineDebugMsgWindow::PushMsg(Msg);
 		}
 	}
-
 }

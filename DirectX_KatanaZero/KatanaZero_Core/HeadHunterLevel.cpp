@@ -19,6 +19,8 @@ void AHeadHunterLevel::BeginPlay()
 void AHeadHunterLevel::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+	USoundManager::GetInst()->GetFactoryBGM().Off();
 }
 
 void AHeadHunterLevel::LevelEnd(ULevel* _NextLevel)
