@@ -27,7 +27,9 @@ void UKatanaZero_Core::Initialize()
 	ResLoad();
 	CreateRes();
 
+#ifdef DEBUG
 	UEngineEditorGUI::CreateEditorWindow<UKatanaZeroDebugWindow>("KatanaZeroDebugWindow");
+#endif // DEBUG
 
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<AFactory_002>("Factory_002");
