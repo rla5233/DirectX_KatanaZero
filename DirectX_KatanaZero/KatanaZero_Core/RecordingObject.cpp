@@ -60,11 +60,11 @@ void URecordingObject::Recording(float _DeltaTime)
 	std::vector<std::shared_ptr<USpriteRenderer>> AllRenderer = Actor->GetComponentToClass<USpriteRenderer>();
 	for (size_t i = 0; i < AllRenderer.size(); i++)
 	{
-		NewRecInfo.SpriteRendererData[AllRenderer[i]].SpriteInfo = AllRenderer[i]->GetCurInfo();
-		NewRecInfo.SpriteRendererData[AllRenderer[i]].Position = AllRenderer[i]->GetLocalPosition();
-		NewRecInfo.SpriteRendererData[AllRenderer[i]].Rotation = AllRenderer[i]->GetLocalRotation();
-		NewRecInfo.SpriteRendererData[AllRenderer[i]].Dir = AllRenderer[i]->GetDir();
-		NewRecInfo.SpriteRendererData[AllRenderer[i]].IsActive = AllRenderer[i]->IsActive();
+		NewRecInfo.SpriteRendererData[AllRenderer[i].get()].SpriteInfo = AllRenderer[i]->GetCurInfo();
+		NewRecInfo.SpriteRendererData[AllRenderer[i].get()].Position = AllRenderer[i]->GetLocalPosition();
+		NewRecInfo.SpriteRendererData[AllRenderer[i].get()].Rotation = AllRenderer[i]->GetLocalRotation();
+		NewRecInfo.SpriteRendererData[AllRenderer[i].get()].Dir = AllRenderer[i]->GetDir();
+		NewRecInfo.SpriteRendererData[AllRenderer[i].get()].IsActive = AllRenderer[i]->IsActive();
 	}
 	
 	AllRecordInfo.push_back(NewRecInfo);
@@ -106,7 +106,7 @@ void URecordingObject::Replaying(float _DeltaTime)
 
 	for (size_t i = 0; i < AllRenderer.size(); i++)
 	{
-		FSpriteRendererInfo CurSpriteInfo = AllRecordInfo[CurIndex].SpriteRendererData[AllRenderer[i]];
+		FSpriteRendererInfo CurSpriteInfo = AllRecordInfo[CurIndex].SpriteRendererData[AllRenderer[i].get()];
 
 		if (false == CurSpriteInfo.IsActive || nullptr == CurSpriteInfo.SpriteInfo.Texture)
 		{
