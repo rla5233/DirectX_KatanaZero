@@ -27,12 +27,12 @@ public:
 		std::string_view _State,
 		EUpdateOrder _Order = EUpdateOrder::Enemy)
 	{
-		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name, _Order);
+		std::shared_ptr<EnemyType> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name, _Order);
 		NewEnemy->SetActorLocation(_Pos);
 		NewEnemy->SetBodyDir(_Dir);
 		NewEnemy->StateChange(_State);
 		PushEnemy(NewEnemy);
-		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
+		return NewEnemy;
 	}
 
 	// Patrol 상태 Enemy 스폰 함수
@@ -45,13 +45,13 @@ public:
 		std::string_view _PatrolState,
 		EUpdateOrder _Order = EUpdateOrder::Enemy)
 	{
-		std::shared_ptr<AEnemyBase> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name, _Order);
+		std::shared_ptr<EnemyType> NewEnemy = GameMode->GetWorld()->SpawnActor<EnemyType>(_Name, _Order);
 		NewEnemy->SetActorLocation(_Pos);
 		NewEnemy->SetBodyDir(_Dir);
 		NewEnemy->SetPatrolTime(_WalkTime, _StopTime);
 		NewEnemy->StateChange(_PatrolState);
 		PushEnemy(NewEnemy);
-		return std::dynamic_pointer_cast<EnemyType>(NewEnemy);
+		return NewEnemy;
 	}
 
 	// RecComponent 스폰 함수
@@ -63,12 +63,12 @@ public:
 		std::string_view _State,
 		EUpdateOrder _Order = EUpdateOrder::RecComponent)
 	{
-		std::shared_ptr<ARecMapCompoBase> NewCompo = GameMode->GetWorld()->SpawnActor<RecCompoType>(_Name, _Order);
+		std::shared_ptr<RecCompoType> NewCompo = GameMode->GetWorld()->SpawnActor<RecCompoType>(_Name, _Order);
 		NewCompo->SetActorLocation(_Pos);
 		NewCompo->SetBodyDir(_Dir);
 		NewCompo->StateChange(_State);
 		PushRecComponent(NewCompo);
-		return std::dynamic_pointer_cast<RecCompoType>(NewCompo);
+		return NewCompo;
 	}
 
 	// Stair 생성 함수
