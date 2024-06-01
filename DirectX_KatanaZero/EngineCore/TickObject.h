@@ -38,7 +38,6 @@ public:
 		SetOrder(static_cast<int>(_Order));
 	}
 
-
 	virtual void SetOrder(int _Order)
 	{
 		Order = _Order;
@@ -61,6 +60,11 @@ public:
 		}
 
 		CallBacks.push_back(std::make_shared<UEngineTickCallBack>(_Time, _CallBack));
+	}
+
+	void DelayCallBackReset()
+	{
+		CallBacks.clear();
 	}
 
 	virtual bool IsActive()

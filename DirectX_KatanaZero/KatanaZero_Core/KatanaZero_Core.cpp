@@ -27,7 +27,7 @@ void UKatanaZero_Core::Initialize()
 	ResLoad();
 	CreateRes();
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	UEngineEditorGUI::CreateEditorWindow<UKatanaZeroDebugWindow>("KatanaZeroDebugWindow");
 #endif // DEBUG
 
@@ -41,18 +41,4 @@ void UKatanaZero_Core::Initialize()
 	GEngine->CreateLevel<AEndingLevel>("Ending");
 
 	GEngine->ChangeLevel("TitleLevel");
-
-	//GEngine->ChangeLevel("Factory_002");
-
-	//GEngine->ChangeLevel("Factory_003");
-
-	//GEngine->ChangeLevel("Factory_004");
-
-	//GEngine->ChangeLevel("Factory_005");
-
-	//GEngine->ChangeLevel("HeadHunter_Phase1");
-
-	//GEngine->ChangeLevel("HeadHunter_Phase2");
-
-	//GEngine->ChangeLevel("Ending");
 }

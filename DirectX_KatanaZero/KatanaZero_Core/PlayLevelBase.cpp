@@ -57,6 +57,10 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 
 	GrayScaleEffect->Active(false);
 	WaveEffect->Active(false);
+	
+#ifdef _DEBUG
+	DelayCallBackReset();
+#endif // _DEBUG
 }
 
 void APlayLevelBase::LevelEnd(ULevel* _NextLevel)
