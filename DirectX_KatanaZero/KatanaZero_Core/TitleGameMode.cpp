@@ -37,9 +37,20 @@ void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
-	Screen->Destroy();
-	Menu->Destroy();
-	MainCamera->Destroy();
+	if (nullptr != Screen)
+	{
+		Screen->Destroy();
+	}
+
+	if (nullptr != Menu)
+	{
+		Menu->Destroy();
+	}
+
+	if (nullptr != MainCamera)
+	{
+		MainCamera->Destroy();
+	}
 
 	Screen = nullptr;
 	Menu = nullptr;

@@ -59,7 +59,7 @@ void APlayLevelBase::LevelStart(ULevel* _PrevLevel)
 	WaveEffect->Active(false);
 	
 #ifdef _DEBUG
-	DelayCallBackReset();
+	//DelayCallBackReset();
 #endif // _DEBUG
 }
 
