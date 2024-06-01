@@ -15,7 +15,7 @@ public:
 	UContentsMath& operator=(UContentsMath&& _Other) noexcept = delete;
 
 public:
-	static float GetAngleToX_2D(const FVector& _Dir);
+	static float GetAngleToAxisX2D(const FVector& _Dir);
 	static float GetVectorNorm(const FVector& _Vec);
 
 	static float LerpClampf(float p1, float p2, float d1)

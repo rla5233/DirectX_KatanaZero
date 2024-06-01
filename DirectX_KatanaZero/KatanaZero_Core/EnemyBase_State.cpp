@@ -162,7 +162,7 @@ void AEnemyBase::HitFallStart()
 		ChaseMark = nullptr;
 	}
 
-	float Deg = UContentsMath::GetAngleToX_2D(HitDir);
+	float Deg = UContentsMath::GetAngleToAxisX2D(HitDir);
 	std::shared_ptr<AHitLaser> NewHitLaser = GetWorld()->SpawnActor<AHitLaser>("HitLaser");
 	NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
 	NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });

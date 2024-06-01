@@ -53,7 +53,7 @@ void AEnemyBase::CreateBloodEffect(float _DeltaTime)
 	}
 
 	FVector VelDir = -UPhysicsObject::Velocity.Normalize2DReturn();
-	float Deg = UContentsMath::GetAngleToX_2D(VelDir);
+	float Deg = UContentsMath::GetAngleToAxisX2D(VelDir);
 	Deg += UEngineRandom::MainRandom.RandomFloat(-35.0f, 35.0f);
 	Blood[BloodIdx].Renderer->SetRotationDeg({ 0.0f, 0.0f, Deg });
 

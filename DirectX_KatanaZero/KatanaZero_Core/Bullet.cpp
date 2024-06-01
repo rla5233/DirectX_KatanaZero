@@ -48,7 +48,7 @@ void ABullet::StateInit()
 			Velocity = ShootDir;
 			Velocity *= 1200.0f;
 
-			float Deg = UContentsMath::GetAngleToX_2D(ShootDir);
+			float Deg = UContentsMath::GetAngleToAxisX2D(ShootDir);
 			AddActorLocation(FVector(25.0f, 25.0f, 0.0f) * ShootDir);
 			GetBody()->SetRotationDeg({ 0.0f, 0.0f, Deg });
 			GetBody()->SetActive(true);

@@ -628,7 +628,7 @@ void APlayerBase::AttackStart()
 	// 이펙트 설정
 	SetAfterImageTimeWeight(6.0f);
 	SetAfterImageMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
-	float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
+	float Deg = UContentsMath::GetAngleToAxisX2D(AttackDir);
 	SetAttackEffect(Deg);
 
 	// 콜리전 설정
@@ -978,7 +978,7 @@ void APlayerBase::SetHitLaser(EHitLaserType _Type)
 	);
 
 	HitDir.Normalize2D();
-	float Deg = UContentsMath::GetAngleToX_2D(HitDir);
+	float Deg = UContentsMath::GetAngleToAxisX2D(HitDir);
 	std::shared_ptr<AHitLaser> NewHitLaser = GetWorld()->SpawnActor<AHitLaser>("HitLaser");
 	NewHitLaser->SetActorLocation(GetActorLocation() - (HitDir * 1000.0f) + FVector(0.0f, 40.0f, 0.0f));
 	NewHitLaser->SetActorRotation({ 0.0f, 0.0f, Deg });

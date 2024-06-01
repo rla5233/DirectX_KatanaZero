@@ -10,7 +10,7 @@ UContentsMath::~UContentsMath()
 }
 
 /// <summary> X축 과의 각도 구하는 함수 (0 ~ 360) </summary>
-float UContentsMath::GetAngleToX_2D(const FVector& _Dir)
+float UContentsMath::GetAngleToAxisX2D(const FVector& _Dir)
 {
 	float Result = 0.0f;
 	

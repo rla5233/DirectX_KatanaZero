@@ -174,7 +174,7 @@ void AGrunt::ChaseAttackStart()
 	FVector PlayerPos = PlayLevel->GetPlayerLocation();
 	AttackDir = PlayerPos - GetActorLocation();
 	AttackDir.Normalize2D();
-	AttackDeg = UContentsMath::GetAngleToX_2D(AttackDir);
+	AttackDeg = UContentsMath::GetAngleToAxisX2D(AttackDir);
 
 	GetBody()->AnimationReset();
 	GetBody()->ChangeAnimation(Anim::enemy_grunt_attack);

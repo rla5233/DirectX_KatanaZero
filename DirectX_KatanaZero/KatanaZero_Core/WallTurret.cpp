@@ -175,7 +175,7 @@ void AWallTurret::StateInit()
 				}
 				
 				// Deg Update
-				float Deg =  UContentsMath::GetAngleToX_2D(HeadDir);
+				float Deg =  UContentsMath::GetAngleToAxisX2D(HeadDir);
 				if (HeadDeg_Min > Deg)
 				{
 					if (HeadPos.Y < PlayerPos.Y)

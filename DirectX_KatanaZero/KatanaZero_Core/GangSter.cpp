@@ -274,7 +274,7 @@ void AGangSter::SetBullet()
 		break;
 	}
 
-	float Deg = UContentsMath::GetAngleToX_2D(AttackDir);
+	float Deg = UContentsMath::GetAngleToAxisX2D(AttackDir);
 	Bullet.Renderer->SetRotationDeg({ 0.0f, 0.0f, Deg });
 }
 
