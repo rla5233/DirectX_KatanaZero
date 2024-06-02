@@ -85,8 +85,6 @@ public:
 	//FTransform& operator=(const FTransform& _Other) = delete;
 	//FTransform& operator=(FTransform&& _Other) noexcept = delete;
 
-	// bool CircleToPoint(const FTransform& _Left, const FTransform& _Right);
-
 	static bool CircleToCircle(const FTransform& _Left, const FTransform& _Right);
 	static bool CircleToRect(const FTransform& _Left, const FTransform& _Right);
 	static bool CircleToRotRect(const FTransform& _Left, const FTransform& _Right);
@@ -105,7 +103,6 @@ public:
 	static bool PointToRect(const FTransform& _Left, const FTransform& _Right);
 	static bool PointToCircle(const FTransform& _Left, const FTransform& _Right);
 	static bool PointToRotRect(const FTransform& _Left, const FTransform& _Right);
-
 
 public:
 	CollisionData GetCollisionData() const

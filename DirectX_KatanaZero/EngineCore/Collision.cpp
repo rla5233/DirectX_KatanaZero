@@ -13,10 +13,6 @@ UCollision::~UCollision()
 
 void UCollision::BeginPlay()
 {
-	// 한번 shared_ptr로 사용한 애들은 계속 shared_ptr로 사용하려고 ㅎ나다.
-	// UCollision* Ptr = this;
-	// std::shared_ptr<UCollision> Sptr = this;
-
 	Super::BeginPlay();
 
 	if (nullptr != GetWorld())
@@ -57,9 +53,6 @@ bool UCollision::Collision(int _TargetGroup,
 	std::function<void(std::shared_ptr<UCollision>)> _Exit /*= nullptr*/)
 {
 	// Group 상대 그룹
-
-	auto Test = GetWorld()->Collisions;
-
 	std::list<std::shared_ptr<UCollision>>& Group = GetWorld()->Collisions[_TargetGroup];
 
 	if (false == IsActive())
@@ -129,8 +122,6 @@ bool UCollision::Collision(int _TargetGroup,
 
 void UCollision::SetOrder(int _Order)
 {
-	// UTickObject::SetOrder(_Order);
-
 	int PrevOrder = GetOrder();
 
 	Super::SetOrder(_Order);
@@ -145,7 +136,6 @@ void UCollision::SetOrder(int _Order)
 void UCollision::Tick(float _Delta)
 {
 	Super::Tick(_Delta);
-
 
 	for (UCollision* Col : FirstCheck)
 	{

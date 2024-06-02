@@ -6,7 +6,6 @@
 int DebugIndex;
 std::vector<UDebugRenderInfo> DebugRenderUnits;
 
-// 랜더링은 무조건 renderStart와 RenderEnd
 void UDebugRenderClass::DebugRender(ULevel* _Level)
 {
 	if (false == GEngine->IsDebug)
@@ -21,7 +20,7 @@ void UDebugRenderClass::DebugRender(ULevel* _Level)
 	for (size_t i = 0; i < DebugIndex; i++)
 	{
 		DebugRenderUnits[i].Trans.CalculateViewAndProjection(Camera->GetView(), Camera->GetProjection());
-		// 하나가 그려지는 거죠.
+
 		DebugRenderUnits[i].Unit.Resources->SettingAllShaderResources();
 		DebugRenderUnits[i].Unit.RenderingSetting();
 		DebugRenderUnits[i].Unit.GetMesh()->IndexedDraw();
@@ -42,7 +41,7 @@ namespace UEngineDebug
 		
 		if (DebugIndex >= DebugRenderUnits.size())
 		{
-			// 메모리아끼려고 지연생성
+			// 지연생성 (메모리 절약)
 			DebugRenderUnits.resize(DebugIndex + 10);
 		}
 
@@ -69,6 +68,5 @@ namespace UEngineDebug
 		CurInfo.Unit.Resources->SettingConstantBuffer("FTransform", CurInfo.Trans);
 
 		++DebugIndex;
-		
 	}
 }
