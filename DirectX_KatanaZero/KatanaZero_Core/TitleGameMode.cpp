@@ -28,7 +28,7 @@ void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 	TitleBGM.Loop();
 	TitleBGM.Off();
 
-	USoundManager::GetInst()->GetFactoryBGM().Off();
+	USoundManager::GetInst().GetFactoryBGM().Off();
 
 	State.ChangeState(TitleLevelState::title);
 }

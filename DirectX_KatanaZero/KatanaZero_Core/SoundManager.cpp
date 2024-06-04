@@ -1,8 +1,6 @@
 #include "PreCompile.h"
 #include "SoundManager.h"
 
-USoundManager* USoundManager::Inst = nullptr;
-
 USoundManager::USoundManager()
 {
 	FactoryBGMInit();

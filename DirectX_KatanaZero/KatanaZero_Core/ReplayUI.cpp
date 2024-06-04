@@ -89,8 +89,8 @@ void AReplayUI::StateInit()
 			LeftTopText->SetPosition({ -400.0f, 270.0f, 0.0f });
 			PlayLevel->SetReplay();
 			Speed->SetActive(false);
-			USoundManager::GetInst()->GetReplayPlay().On();
-			USoundManager::GetInst()->GetReplayFastPlay().Off();
+			USoundManager::GetInst().GetReplayPlay().On();
+			USoundManager::GetInst().GetReplayFastPlay().Off();
 		}
 	);
 
@@ -100,8 +100,8 @@ void AReplayUI::StateInit()
 			LeftTopText->SetPosition({ -354.0f, 271.0f, 0.0f });
 			PlayLevel->SetReplayStop();
 			Speed->SetActive(false);
-			USoundManager::GetInst()->GetReplayPlay().Off();
-			USoundManager::GetInst()->GetReplayFastPlay().Off();
+			USoundManager::GetInst().GetReplayPlay().Off();
+			USoundManager::GetInst().GetReplayFastPlay().Off();
 		}
 	);
 
@@ -112,7 +112,7 @@ void AReplayUI::StateInit()
 			PlayLevel->SetRewind();
 
 			SpeedIdx = 0;
-			USoundManager::GetInst()->GetReplayFastPlay().On();
+			USoundManager::GetInst().GetReplayFastPlay().On();
 		}
 	);
 
@@ -128,7 +128,7 @@ void AReplayUI::StateInit()
 			Speed->SetSprite(ImgRes::ui_replay_x2);
 			Speed->SetPosition({ -220.0f, 271.0f, 0.0f });
 
-			USoundManager::GetInst()->GetReplayFastPlay().On();
+			USoundManager::GetInst().GetReplayFastPlay().On();
 		}
 	);
 

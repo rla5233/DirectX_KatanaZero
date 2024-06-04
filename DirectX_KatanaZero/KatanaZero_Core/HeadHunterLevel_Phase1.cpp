@@ -90,8 +90,8 @@ void AHeadHunterLevel_Phase1::LevelStart(ULevel* _PrevLevel)
 			Player->StateChange(PlayerState::idle);
 			Player->SubStateChange(PlayerSubState::none);
 			
-			USoundManager::GetInst()->ResetHeadHunterBGM1();
-			USoundManager::GetInst()->GetHeadHunterBGM1().On();
+			USoundManager::GetInst().ResetHeadHunterBGM1();
+			USoundManager::GetInst().GetHeadHunterBGM1().On();
 
 			DelayCallBack(0.8f, [=]
 				{
@@ -107,7 +107,7 @@ void AHeadHunterLevel_Phase1::LevelEnd(ULevel* _NextLevel)
 	Super::LevelEnd(_NextLevel);
 
 	AllSlidingDoor.clear();
-	USoundManager::GetInst()->GetHeadHunterBGM1().Off();
+	USoundManager::GetInst().GetHeadHunterBGM1().Off();
 }
 
 void AHeadHunterLevel_Phase1::LevelReStart()

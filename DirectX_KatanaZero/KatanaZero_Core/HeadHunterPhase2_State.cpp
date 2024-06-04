@@ -435,7 +435,7 @@ void AHeadHunterPhase2::DeadStart()
 	PlayLevel->GetDefaultPlayer()->InputOff();
 	PlayLevel->SetIsTimeCount(false);
 
-	USoundManager::GetInst()->GetHeadHunterBGM2().SetVolume(0.0f);
+	USoundManager::GetInst().GetHeadHunterBGM2().SetVolume(0.0f);
 	GEngine->SetOrderTimeScale(EUpdateOrder::Player, 0.1f);
 	GEngine->SetOrderTimeScale(EUpdateOrder::HeadHunter, 0.1f);
 	Body->ChangeAnimation(Anim::headhunter_diefly);

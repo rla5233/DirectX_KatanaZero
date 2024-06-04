@@ -70,7 +70,7 @@ void APlayerBase::StateInit()
 	State.SetEndFunction(PlayerState::wallslide, [=]
 		{
 			Body->SetPosition({ 0.0f, 0.0f ,0.0f });
-			USoundManager::GetInst()->GetPlayerWallSlide().Off();
+			USoundManager::GetInst().GetPlayerWallSlide().Off();
 		}
 	);
 }
@@ -733,11 +733,11 @@ void APlayerBase::WallSlide(float _DeltaTime)
 	if (100.0f < abs(Velocity.Y))
 	{
 		CreateWallSlideCroudEffect(_DeltaTime);
-		USoundManager::GetInst()->GetPlayerWallSlide().On();
+		USoundManager::GetInst().GetPlayerWallSlide().On();
 	}
 	else
 	{
-		USoundManager::GetInst()->GetPlayerWallSlide().Off();
+		USoundManager::GetInst().GetPlayerWallSlide().Off();
 	}
 
 	// StateChange Check

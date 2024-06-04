@@ -109,7 +109,7 @@ void AFactory_005::LevelStart(ULevel* _PrevLevel)
 	PushRecMapCompo(ScientistHead);
 
 	ClearUI = GetWorld()->SpawnActor<UFactoryClearUI>("ClearUI");
-	USoundManager::GetInst()->GetFactoryBGM().On();
+	USoundManager::GetInst().GetFactoryBGM().On();
 	State.ChangeState(PlayLevelState::transition_off);
 }
 

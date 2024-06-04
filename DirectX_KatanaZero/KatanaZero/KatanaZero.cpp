@@ -6,6 +6,4 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	UEngineCore::Start<UKatanaZero_Core>(hInstance);
-
-	atexit(USoundManager::DestoryInstance);
 }

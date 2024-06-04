@@ -15,23 +15,10 @@ private:
 	USoundManager& operator=(USoundManager&& _Other) noexcept = delete;
 
 public:
-	static USoundManager* GetInst()
+	static USoundManager& GetInst()
 	{
-		if (nullptr == Inst)
-		{
-			Inst = new USoundManager();
-		}
-
+		static USoundManager Inst;
 		return Inst;
-	}
-
-	static void DestoryInstance()
-	{
-		if (nullptr != Inst)
-		{
-			delete Inst;
-			Inst = nullptr;
-		}
 	}
 
 	UEngineSoundPlayer GetFactoryBGM()
@@ -128,8 +115,6 @@ private:
 	void HeadHunterSoundInit();
 
 private:
-	static USoundManager* Inst;
-
 	UEngineSoundPlayer FactoryBGM;
 	UEngineSoundPlayer SlomoStart;
 	UEngineSoundPlayer SlomoEnd;

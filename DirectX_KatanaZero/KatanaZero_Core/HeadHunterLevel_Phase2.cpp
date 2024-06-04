@@ -90,8 +90,8 @@ void AHeadHunterLevel_Phase2::LevelStart(ULevel* _PrevLevel)
 			Player->StateChange(PlayerState::idle);
 			Player->SubStateChange(PlayerSubState::none);
 
-			USoundManager::GetInst()->ResetHeadHunterBGM2();
-			USoundManager::GetInst()->GetHeadHunterBGM2().On();
+			USoundManager::GetInst().ResetHeadHunterBGM2();
+			USoundManager::GetInst().GetHeadHunterBGM2().On();
 
 			DelayCallBack(1.0f, [=]
 				{
@@ -111,7 +111,7 @@ void AHeadHunterLevel_Phase2::LevelEnd(ULevel* _NextLevel)
 		HeadHunterHead->Destroy();
 		HeadHunterHead = nullptr;
 	}
-	USoundManager::GetInst()->GetHeadHunterBGM2().Off();
+	USoundManager::GetInst().GetHeadHunterBGM2().Off();
 }
 
 void AHeadHunterLevel_Phase2::LevelReStart()
@@ -154,7 +154,7 @@ void AHeadHunterLevel_Phase2::LevelReStart()
 	WallTurret->SetActorLocation({ 183.0f, 355.0f, 0.0f });
 	PushRecMapCompo(WallTurret);
 
-	USoundManager::GetInst()->GetHeadHunterBGM2().SetVolume(0.6f);
+	USoundManager::GetInst().GetHeadHunterBGM2().SetVolume(0.6f);
 }
 
 void AHeadHunterLevel_Phase2::LevelReEnd()
