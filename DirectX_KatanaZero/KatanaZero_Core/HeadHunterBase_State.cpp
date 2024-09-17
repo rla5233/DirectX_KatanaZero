@@ -144,6 +144,8 @@ void AHeadHunterBase::HitFlyStart()
 
 	Body->ChangeAnimation(Anim::headhunter_hitfly);
 	++HitCount;
+
+	USoundManager::SoundPlay_EnemyDeadSword();
 }
 
 void AHeadHunterBase::HitFly(float _DeltaTime)
@@ -177,6 +179,7 @@ void AHeadHunterBase::HitFly(float _DeltaTime)
 	// State Change Check
 	if (true == IsOnGround(Dir))
 	{
+		USoundManager::SoundPlay_HH_Randing();
 		State.ChangeState(HeadHunterState::recover);
 		return;
 	}

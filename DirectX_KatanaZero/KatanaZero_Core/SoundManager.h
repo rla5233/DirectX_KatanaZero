@@ -106,6 +106,7 @@ public:
 	static UEngineSoundPlayer SoundPlay_HH_Voice_WallJump();
 	static UEngineSoundPlayer SoundPlay_HH_Voice_Hurt();
 	static UEngineSoundPlayer SoundPlay_HH_Laser_Vertical();
+	static UEngineSoundPlayer SoundPlay_HH_Randing();
 
 private:
 	void FactoryBGMInit();

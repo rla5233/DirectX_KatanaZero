@@ -285,4 +285,25 @@ UEngineSoundPlayer USoundManager::SoundPlay_HH_Laser_Vertical()
 	return Result;
 }
 
+UEngineSoundPlayer USoundManager::SoundPlay_HH_Randing()
+{
+	UEngineSoundPlayer Result = UEngineSoundPlayer();
+
+	int RandomValue = UEngineRandom::MainRandom.RandomInt(1, 3);
+	switch (RandomValue)
+	{
+	case 1:
+		Result = UEngineSound::SoundPlay(SoundRes::cone_hit1);
+		break;
+	case 2:
+		Result = UEngineSound::SoundPlay(SoundRes::cone_hit2);
+		break;
+	case 3:
+		Result = UEngineSound::SoundPlay(SoundRes::cone_hit3);
+		break;
+	}
+
+	return Result;
+}
+
 
