@@ -83,19 +83,11 @@ void ABullet::StateInit()
 
 			BodyCol->CollisionEnter(EColOrder::PlayerAttack, [=](std::shared_ptr<UCollision> _Other)
 				{
-					GetBody()->AddRotationDeg({ 0.0f, 0.0f, 180.0f });
 					Velocity *= -1.0f;
+					GetBody()->AddRotationDeg({ 0.0f, 0.0f, 180.0f });
+					UEngineSound::SoundPlay(SoundRes::player_parrying).SetVolume(0.5f);
 				}
 			);
 		}
 	);
-
 }
-
-void ABullet::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-
-}
-
-

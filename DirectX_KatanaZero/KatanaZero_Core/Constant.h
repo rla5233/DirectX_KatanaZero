@@ -390,6 +390,7 @@ namespace SoundRes
 	const std::string_view player_wall_kick1		= "sound_player_wallkick_1.wav";
 	const std::string_view player_wall_kick2		= "sound_player_wallkick_2.wav";
 	const std::string_view player_wall_kick3		= "sound_player_wallkick_3.wav";
+	const std::string_view player_parrying			= "sound_slash_bullet.wav";
 
 	// HeadHunter
 	const std::string_view hh_laser_lockon			= "sound_boss_huntresslaser_lockon.wav";

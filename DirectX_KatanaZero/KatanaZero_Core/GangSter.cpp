@@ -259,6 +259,7 @@ void AGangSter::SetBullet()
 {
 	Bullet.IsReflect = false;
 	Bullet.Renderer->SetActive(true);
+	Bullet.Collision->SetActive(true);
 	Bullet.Velocity = AttackDir * 1750.0f;
 
 	FVector GangSterPos = GetActorLocation();
@@ -300,6 +301,7 @@ void AGangSter::BulletUpdate(float _DeltaTime)
 		{
 			Bullet.Velocity *= -1.0f;
 			Bullet.IsReflect = true;
+			UEngineSound::SoundPlay(SoundRes::player_parrying).SetVolume(1.0f);
 		}
 	);
 
