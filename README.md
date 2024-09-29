@@ -28,7 +28,7 @@ Level4 의 Helltaker 프로젝트를 시작 프로젝트로 설정해 주세요.
 구르기 : (S 또는 아래 방향키) + 이동   
 특수능력 : Shift   
 상호작용 : Spacebar   
-재시작 : R      
+재시작 : R   
 <br/><br/>
 
 ## YouTube
